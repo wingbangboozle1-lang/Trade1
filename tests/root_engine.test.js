@@ -68,6 +68,36 @@ ok('fee is rounded UP (never below the published table)', M.fee(0.03, 7) >= 0.07
 ok('fee guard: qty 0 → 0', M.fee(0.5, 0) === 0);
 
 /* ============================================================
+ * 1b. Per-series taker multiplier — demo GET /series/{ticker}
+ *     `fee_multiplier` (official Get Series schema:
+ *     docs.kalshi.com/api-reference/market/get-series). Default M=1
+ *     (fee schedule: "default is 1 unless otherwise indicated");
+ *     the production-PDF vs demo-API conflict for KXBTCY/KXETHY is
+ *     published on flagged.html — the demo value is modelled here.
+ * ============================================================ */
+console.log('1b. Per-series fee multiplier (demo fee_multiplier):');
+ok('unknown series defaults to M=1', M.takerMultiplier('KXNEVERSEEN') === 1);
+ok('empty series defaults to M=1', M.takerMultiplier('') === 1 && M.takerMultiplier(undefined) === 1);
+ok('noteSeriesFee ingests a published fee_multiplier', M.noteSeriesFee(
+  { ticker: 'KXBTCY', fee_multiplier: 0, fee_type: 'quadratic' },
+  'https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCY') === true);
+ok('KXBTCY with demo fee_multiplier=0 books no taker fee', M.takerMultiplier('KXBTCY') === 0 &&
+  M.fee(0.5, 100, 'KXBTCY') === 0);
+ok('case-insensitive series lookup (full ticker or prefix)', M.takerMultiplier('kxbtcy-26dec31-100000') === 0);
+ok('noteSeriesFee ignores a record without a numeric fee_multiplier (never infer)',
+  M.noteSeriesFee({ ticker: 'KXBLANK', fee_type: 'quadratic' }) === false &&
+  M.takerMultiplier('KXBLANK') === 1);
+ok('non-unit published multiplier scales the fee (M=0.5, 100c @ $0.50 → ceil to $0.88)',
+  M.noteSeriesFee({ ticker: 'KXHALF', fee_multiplier: 0.5 }) === true &&
+  near(M.fee(0.5, 100, 'KXHALF'), 0.88));
+ok('the official M=1 table is unchanged by the multiplier cache',
+  near(M.fee(0.5, 100), 1.75) && near(M.fee(0.5, 100, 'KXNEVERSEEN'), 1.75));
+ok('fee toggle still overrides every multiplier', (() => {
+  const was = M.state.bot.fees; M.state.bot.fees = false;
+  const v = M.fee(0.5, 100, 'KXNEVERSEEN'); M.state.bot.fees = was; return v === 0;
+})());
+
+/* ============================================================
  * 2. Alert threshold: >= $0.10 in either direction
  * ============================================================ */
 console.log('2. Alert threshold ($0.10, either direction):');
@@ -133,6 +163,7 @@ const trades = M.state.trades;
 if (trades.length) {
   const t = trades[trades.length - 1];
   ok('entry records the taker fee', t.feeEntry > 0 && near(t.feeEntry, M.fee(t.entry, t.qty), 1e-9));
+  ok('entry records the series and the multiplier used', t.series === 'KXTEST' && t.feeMul === 1);
   ok('position status open', t.status === 'open');
 } else {
   ok('no trade opened (strategy gates) — broker idle', true);
