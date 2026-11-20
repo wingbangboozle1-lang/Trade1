@@ -48,8 +48,8 @@ const ROOT_PAGES = [
   "methods.html", "flagged.html", "sources.html", "strategies.html",
   "resolved.html", "executive-summary.html", "review.html", "suggestions.html",
 ];
-const HTML_GLOB = ROOT_PAGES.concat(["topics"]);
-const JS_GLOB = ["assets", "js"];
+const HTML_GLOB = ROOT_PAGES.concat(["topics", "demo-account"]);
+const JS_GLOB = ["assets", "js", "demo-account/assets"];
 
 async function checkJsSyntax(file) {
   return new Promise((res) => {
