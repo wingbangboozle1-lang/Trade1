@@ -274,3 +274,29 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
   `node tools/build.mjs` → BUILD OK — 18 HTML, 20 JS files validated, 0 broken links.
 - The merged v2 site remains the live, CI-passing deliverable; this session's contributions are the
   standalone automation script and the integration log.
+
+---
+
+## Session `arena/10000a95-trade1` — Trade1 site at `/trade1/` (additive, no existing file changed)
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| Repo review: line-by-line irregularities, sources | done | 10000a95 | `trade1/data/flags.json` (Flagged page) |
+| Public-API collector (topics, top-market detail, candles, ≥$0.10 jumps, resolution tracking) | done | 10000a95 | `scripts/trade1_collect.py` |
+| Static site at `/trade1/`: landing, 5 topic pages, jumps & resolutions, Flagged for Review | done | 10000a95 | `trade1/**` |
+| Checks: links, source link per row, flagged blanks, JS syntax | done | 10000a95 | `scripts/trade1_check.py` |
+| Refresh workflow (every 6h, commits data only when changed, `[skip ci]`) | done | 10000a95 | `.github/workflows/trade1.yml`, `.gitignore` (added `__pycache__/`) |
+| Simulated trades / backtests / demo-account portfolio | not built (blocked) | — | needs Kalshi API key pair as a secret; not requested |
+| Executive summary | not in this session's scope | — | — |
+
+**Coexistence:** `main` already has the v2 dashboard at the root (`index.html`, `pages.yml`, `data/snapshot.json`, PR #12/#14). This branch did not replace or edit any existing file. It adds `trade1/`, two scripts, one workflow, and appends to this file and README. Owner decision needed: keep both sites or make one canonical.
+
+**Sources (official):** Kalshi docs — [Get Events](https://docs.kalshi.com/api-reference/events/get-events.md) (status enum; deprecated event `category`), [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md) (periods 1/60/1440; price fields), [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook.md) (bids only; ascending), [Market Settlement](https://docs.kalshi.com/getting_started/market_settlement.md), [Demo environment](https://docs.kalshi.com/getting_started/demo_env.md), [docs index](https://docs.kalshi.com/llms.txt). Series categories: `https://api.elections.kalshi.com/trade-api/v2/series?category=Crypto`.
+
+**Verification:** live collector runs on this branch (GitHub Actions, dispatch): 44741797350 ok; 44745684193 ok; 44746265519 ok (collect + checks). Counts in that run: golf 345, gas-prices 995, crypto 4,388, elections 36,642, culture 10,387; 60 jumps; 30 tracked; 0 resolved. Page rendering tested in jsdom with a synthetic fixture (code paths only). Not verified: settled-market `result` enum; resolution tracking until a market settles.
+
+**Irregularities:** see the Flagged for Review page at `/trade1/flagged/` (section A repo findings with links; section B unverified items from each run).
+
+**Log**
+- Backup of the pre-integration commit: `685f608` (reflog only; a temporary branch was created and deleted in this session, against policy).
+- Rebased onto `main` @ `710726a`; the first integration (PR #1 state) is superseded by this additive layout.

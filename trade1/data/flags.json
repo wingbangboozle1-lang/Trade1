@@ -1,0 +1,118 @@
+{
+  "repo": [
+    {
+      "finding": "This site is an additional, separate build at /trade1/. It does not replace the main v2 dashboard at the repository root (built by another session, PR #12/#14), which overlaps in scope (topic pages, charts, order-book depth, flagged page). Owner decision needed: keep both, or make one the canonical site.",
+      "links": [
+        [
+          "Main dashboard README",
+          "https://github.com/wingbangboozle1-lang/Trade1/blob/main/README.md"
+        ],
+        [
+          "Main pages workflow",
+          "https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/pages.yml"
+        ]
+      ]
+    },
+    {
+      "finding": "README.md contains only the title '# Trade1' (8 bytes). No description, setup, or usage instructions.",
+      "links": [
+        [
+          "README.md on main",
+          "https://github.com/wingbangboozle1-lang/Trade1/blob/main/README.md"
+        ]
+      ]
+    },
+    {
+      "finding": "Repository history has a single commit ('Initial commit'); no source code, tests, CI, or license existed before this work.",
+      "links": [
+        [
+          "Commit history",
+          "https://github.com/wingbangboozle1-lang/Trade1/commits/main"
+        ]
+      ]
+    },
+    {
+      "finding": "No LICENSE file. Reuse terms for this code are not stated.",
+      "links": [
+        [
+          "Repository root",
+          "https://github.com/wingbangboozle1-lang/Trade1"
+        ]
+      ]
+    },
+    {
+      "finding": "GitHub Pages was configured as a legacy build from branch main, path '/'. This site is now built from site/ by a workflow, so the Pages build type must be switched to 'workflow' for the site to deploy.",
+      "links": [
+        [
+          "Pages API (read)",
+          "https://api.github.com/repos/wingbangboozle1-lang/Trade1/pages"
+        ]
+      ]
+    },
+    {
+      "finding": "Kalshi documentation lists several base URLs for the same API (external-api.kalshi.com, api.elections.kalshi.com, demo-api.kalshi.co, external-api.demo.kalshi.co). This site uses the recommended external-api.kalshi.com production host for public reads. The sandbox could not reach Kalshi directly, so the first live values come from the scheduled GitHub Actions run.",
+      "links": [
+        [
+          "OpenAPI server list (candlesticks page)",
+          "https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md"
+        ],
+        [
+          "Demo environment",
+          "https://docs.kalshi.com/getting_started/demo_env.md"
+        ]
+      ]
+    },
+    {
+      "finding": "Kalshi marks the event-level 'category' field as deprecated (use series-level category). The collector reads the series category and falls back to keyword matching; keyword-matched rows are labelled as such.",
+      "links": [
+        [
+          "Get Events reference",
+          "https://docs.kalshi.com/api-reference/events/get-events.md"
+        ]
+      ]
+    },
+    {
+      "finding": "Automated trading and demo-account portfolio tracking are NOT implemented. They need a Kalshi API key pair (private key) that must be created in the Kalshi account and stored as a secret. Credentials were not requested or stored, per policy.",
+      "links": [
+        [
+          "API Keys",
+          "https://docs.kalshi.com/getting_started/api_keys.md"
+        ]
+      ]
+    },
+    {
+      "finding": "COORDINATION.md task spec asks for per-session branches (session-<id>/<task>). The session policy for this branch allows only the current branch, so all work was committed to arena/10000a95-trade1 only. Other branches on origin (e.g. arena/ee533bdf-trade1) were not reviewed or modified.",
+      "links": [
+        [
+          "Other branch on origin",
+          "https://github.com/wingbangboozle1-lang/Trade1/tree/arena/ee533bdf-trade1"
+        ]
+      ]
+    },
+    {
+      "finding": "Pages source is 'legacy' (main, root). The token cannot change it (HTTP 403). This site is published by the same legacy build because it sits under /trade1/ in the repository, and it is refreshed by committing trade1/data/*.json every 6 hours. Committed JSON grows git history; an Actions-based Pages deploy would avoid it, but needs the Pages source set to 'GitHub Actions' by the owner.",
+      "links": [
+        [
+          "Pages API (read)",
+          "https://api.github.com/repos/wingbangboozle1-lang/Trade1/pages"
+        ]
+      ]
+    },
+    {
+      "finding": "Earlier in this session the branch was rebased onto main and a backup branch was created then deleted; the pre-integration commit 685f608 is referenced only in the reflog of this session.",
+      "links": []
+    }
+  ],
+  "method": [
+    "Topic assignment: series category first (crypto, elections, culture), then keyword matches on market text (golf, gas prices, crypto, elections, culture). Keyword rules are simple and can mis-assign markets; each row shows its match rule. The first live run matched a false positive for 'gas' (energy consumption question), so the gas rule was narrowed to gas price / gasoline / diesel.",
+    "'Est. $ 24h' = volume_24h × last price, calculated by this site. Kalshi does not report this figure. It is used only for ranking.",
+    "Price chart granularity: REST candlesticks support 1-minute, 1-hour and 1-day periods (Kalshi docs). Seconds are not available from this source; a WebSocket feed would be needed.",
+    "Sharp-jump threshold: $0.10 between consecutive hourly closes (top markets only). Jump causes are NOT collected; no cause link is shown unless a verified official source is added.",
+    "Resolution: a tracked market is marked resolved only when Kalshi returns result = 'yes' or 'no'. The exact enum of the market 'result' field was taken from the settlement docs and was not observed on a settled market in this session, so verify on first resolution.",
+    "Limits: only the top 6 markets per topic get order books and candles, to stay within public rate limits.",
+    "Crypto returned 0 open markets in the first live run. This may be real (no open crypto markets) or a category-name mismatch; not verified. Flagged for review.",
+    "Tables show the top 300 rows per topic by estimated 24h dollar volume (Elections alone has over 11,000 open markets in the first run). Totals are shown on each topic page.",
+    "Gas prices: keyword rules match gas price / gasoline / diesel, excluding 'natural gas'. First matches are Kalshi AAA average-gas-price markets (series KXAAAGASM / KXAAAGASW). Verify the settlement source for these series on Kalshi before relying on them.",
+    "Crypto/Elections/Culture use the series category returned by Kalshi's /series?category= list (paged). Golf and gas use keyword rules because no series category matched them."
+  ]
+}

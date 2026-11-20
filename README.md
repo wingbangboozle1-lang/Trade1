@@ -86,3 +86,14 @@ Full list with what was verified on each: `sources.html`. Coordination log: [COO
 
 PR #6 (session `0db174ef`, merged) added a separate dashboard in `pages/`, `js/`, `css/`, `docs/`, `tools/`, `package.json`. It is not linked from this site's pages. Its owner decides whether to keep or remove it. This site (v2) is published from the repository root `index.html`.
 PR #7 (session `9a0ad587`, merged) added a second site under `site/` (plus `tools/build.mjs`, `js/`, `pages/`). It is not linked from this site and is not checked by `scripts/check_site.mjs`. Its owner decides whether to keep or remove it (see Flagged R11).
+
+---
+
+## `/trade1/` — Kalshi event dashboard (session `arena/10000a95-trade1`)
+
+A separate, additive build: landing page, topic subpages (gas prices, elections, culture, crypto, golf), jumps and resolutions, and a Flagged for Review page. Live at https://wingbangboozle1-lang.github.io/Trade1/trade1/ once the branch is merged.
+
+- Data: `scripts/trade1_collect.py` (public, read-only Kalshi API; stdlib Python). Refreshed by `.github/workflows/trade1.yml` every 6 hours. Output: `trade1/data/markets.json`, `trade1/data/tracked.json`.
+- Checks: `scripts/trade1_check.py` (links, source link per row, flagged blanks).
+- Run locally: `python3 scripts/trade1_collect.py && python3 scripts/trade1_check.py && python3 -m http.server -d trade1 8000`.
+- Details, sources and irregularities: `trade1/flagged/` and COORDINATION.md.
