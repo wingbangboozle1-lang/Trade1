@@ -22,6 +22,7 @@ concurrency:
 
 jobs:
   checks:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,7 +35,6 @@ jobs:
         run: node scripts/check_site.mjs
 
   snapshot:
-    needs: checks
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
