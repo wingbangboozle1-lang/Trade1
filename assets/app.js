@@ -125,6 +125,7 @@ window.KalshiApp = (function () {
     history: {},             // ticker -> [{t,last,bid,ask}] session samples (memory only)
     selected: null,
     book: null,              // last orderbook for selected
+    quoteConflicts: [],      // batch vs order-book quote disagreements (selected market)
     trades: [],              // official trade tape for selected (seconds windows)
     tradesTruncated: false,
     lastTradeFetch: 0,
@@ -432,9 +433,33 @@ window.KalshiApp = (function () {
     api('/markets/' + encodeURIComponent(S.selected) + '/orderbook', { depth: String(CFG.bookDepth) }, function (err, j) {
       if (err) return;
       S.book = (j && (j.orderbook_fp || j.orderbook)) || { yes_dollars: [], no_dollars: [] };
+      reconcileSelectedQuotes();
       renderBook();
     });
   }
+  /* Reconcile the selected market's quotes with its official order book.
+   * The watchlist poll (GET /markets?tickers=...) can report a different best
+   * ask/size than the same market's own order book for some markets; the
+   * order book is the official resting-interest view, so the paper broker
+   * fills and the displayed quote follow the book. Any disagreement is shown
+   * in the order-book panel and flagged on the Flagged page.
+   * See assets/model.js -> reconcileQuotes() for the verified example. */
+  function reconcileSelectedQuotes() {
+    var t = S.selected;
+    var w = S.watch[t];
+    if (!w) return;
+    var rec = M.reconcileQuotes(w, S.book);
+    if (!rec) return;
+    S.quoteConflicts = rec.conflicts || [];
+    if (rec.yes_bid !== null) w.yes_bid_dollars = fixed4(rec.yes_bid);
+    if (rec.yes_ask !== null) w.yes_ask_dollars = fixed4(rec.yes_ask);
+    if (rec.no_bid !== null) w.no_bid_dollars = fixed4(rec.no_bid);
+    if (rec.no_ask !== null) w.no_ask_dollars = fixed4(rec.no_ask);
+    w._quote_source = 'orderbook';
+    // Re-mark any open paper position against the reconciled quotes.
+    M.manage(t, w, Date.now());
+  }
+  function fixed4(v) { return (Math.round(v * 10000) / 10000).toFixed(4); }
   /* Derived asks via the official reciprocal rule (YES ask = $1 - NO bid,
    * NO ask = $1 - YES bid). Bids are exchange-published; asks are derived. */
   function bookViews() {
@@ -800,6 +825,7 @@ window.KalshiApp = (function () {
   function select(ticker) {
     S.selected = ticker;
     S.book = null; S.candles = null; S.lastCandleFetch = 0;
+    S.quoteConflicts = [];
     S.trades = []; S.lastTradeFetch = 0;
     $('#kx-chart-name') && ($('#kx-chart-name').textContent = ticker);
     pollBook(); fetchCandles(); renderTable(); renderBook(); renderJumps();
@@ -824,10 +850,30 @@ window.KalshiApp = (function () {
       '<table class="ladder"><thead><tr><th>NO bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.nb, 'no') + '</tbody></table>' +
       '<p class="muted small">*Asks are derived (YES ask = $1.00 − NO bid; NO ask = $1.00 − YES bid; official reciprocal rule). ' +
       'Computed bid-side liquidity (Σ price × contracts): YES <b>' + money(v.liqY) + '</b> · NO <b>' + money(v.liqN) + '</b> · total <b>' + money(v.liqY + v.liqN) + '</b>. ' +
-      'Empty book = no resting orders (official behavior). Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets/' + encodeURIComponent(S.selected) + '/orderbook" target="_blank" rel="noopener">orderbook API</a>.</p>';
+      'Empty book = no resting orders (official behavior). Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets/' + encodeURIComponent(S.selected) + '/orderbook" target="_blank" rel="noopener">orderbook API</a>.</p>' +
+      conflictNote();
   }
 
   /* ---------- resolved strip ---------- */
+  /* The batch endpoint (GET /markets?tickers=) and the per-market order book
+   * can report different best quotes for the same market. When that happens
+   * the order-book value is used (it is the official resting-interest view)
+   * and the disagreement is shown here with both official links. */
+  function conflictNote() {
+    var cf = S.quoteConflicts || [];
+    if (!cf.length) return '';
+    var t = S.selected;
+    var rows = cf.map(function (c) {
+      return '<tr><td>' + esc(c.field) + '</td><td>' + money(c.batch) + '</td><td>' + money(c.book) + '</td></tr>';
+    }).join('');
+    return '<p class="notice" style="margin:8px 0 0"><b>Quote sources disagree for this market.</b> ' +
+      'The batch response <code>GET /markets?tickers=</code> and the official order book report different quotes; ' +
+      'the order book wins (paper fills and the table use it). Check both: ' +
+      '<a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=' + encodeURIComponent(t) + '" target="_blank" rel="noopener">batch response</a> · ' +
+      '<a href="https://external-api.demo.kalshi.co/trade-api/v2/markets/' + encodeURIComponent(t) + '/orderbook" target="_blank" rel="noopener">order book</a>.</p>' +
+      '<div class="tablewrap" style="margin-top:6px"><table><tr><th>Field</th><th>Batch (GET /markets?tickers=)</th><th>Order book (authoritative)</th></tr>' +
+      rows + '</table></div>';
+  }
   function renderResolved() {
     var box = $('#kx-resolved'); if (!box) return;
     var keys = Object.keys(M.state.resolved).slice(-10).reverse();

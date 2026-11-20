@@ -149,5 +149,60 @@ if (closed.length) {
 ok('summary returns numbers', typeof M.summary().equity === 'number' && typeof M.summary().n === 'number');
 ok('bank untouched by idle run', M.state.bot.bank === before);
 
+/* ============================================================
+ * 6. Quote reconciliation: batch quotes vs the official order book
+ *    (verified live against the demo API on 2026-11-20)
+ * ============================================================ */
+console.log('6. Quote reconciliation (GET /markets?tickers= vs GET /markets/{t}/orderbook):');
+// KXPRESNOMD-28-HBID — the batch endpoint and the order book disagree.
+/* batch:   GET /markets?tickers=KXPRESNOMD-28-HBID */
+const hbidBatch = {
+  ticker: 'KXPRESNOMD-28-HBID',
+  yes_bid_dollars: '0.0020', yes_ask_dollars: '0.8110',
+  no_bid_dollars: '0.1890', no_ask_dollars: '0.9980'
+};
+/* book:    GET /markets/KXPRESNOMD-28-HBID/orderbook?depth=20
+   yes_dollars ascending, best last; no_dollars ascending, best last. */
+const hbidBook = {
+  orderbook_fp: {
+    yes_dollars: [['0.0010', '333333.32'], ['0.0020', '166666.66']],
+    no_dollars: [['0.1890', '143.33'], ['0.9950', '33333.33'], ['0.9960', '41666.66'], ['0.9970', '55555.55']]
+  }
+};
+const hbidRec = M.reconcileQuotes(hbidBatch, hbidBook);
+ok('bookQuote returns a quote for a non-empty book', !!M.bookQuote(hbidBook));
+ok('best YES bid comes from the highest yes_dollars level', hbidRec.yes_bid === 0.002);
+ok('best NO bid comes from the highest no_dollars level', hbidRec.no_bid === 0.997);
+ok('YES ask is derived as 1 - best NO bid (official reciprocal rule)', hbidRec.yes_ask === 0.003);
+ok('NO ask is derived as 1 - best YES bid', hbidRec.no_ask === 0.998);
+ok('the 0.8110 batch ask is reported as a conflict', hbidRec.conflicts.some(c => c.field === 'yes_ask_dollars' && c.batch === 0.811 && c.book === 0.003));
+ok('the matching YES bid is not reported as a conflict', !hbidRec.conflicts.some(c => c.field === 'yes_bid_dollars'));
+ok('conflict count is exactly the disagreeing fields (ask + reciprocal NO bid)',
+  hbidRec.conflicts.length === 2
+  && hbidRec.conflicts.some(c => c.field === 'yes_ask_dollars')
+  && hbidRec.conflicts.some(c => c.field === 'no_bid_dollars'));
+
+// KXPRESNOMD-28-GN — all three official endpoints agree, so nothing conflicts.
+const gnBatch = {
+  ticker: 'KXPRESNOMD-28-GN',
+  yes_bid_dollars: '0.1000', yes_ask_dollars: '0.1100',
+  no_bid_dollars: '0.8900', no_ask_dollars: '0.9000'
+};
+const gnBook = {
+  orderbook_fp: {
+    yes_dollars: [['0.0300', '24.60'], ['0.0500', '100.00'], ['0.0980', '3401.36'], ['0.0990', '3367.00'], ['0.1000', '3333.32']],
+    no_dollars: [['0.6700', '85.54'], ['0.8880', '2976.18'], ['0.8890', '3003.00'], ['0.8900', '1251.62']]
+  }
+};
+const gnRec = M.reconcileQuotes(gnBatch, gnBook);
+ok('agreeing endpoints produce no conflicts', gnRec.conflicts.length === 0);
+ok('agreeing endpoints keep the same quotes', gnRec.yes_bid === 0.1 && gnRec.yes_ask === 0.11 && gnRec.no_bid === 0.89 && gnRec.no_ask === 0.9);
+
+// Empty book: nothing is invented; the batch quote stands.
+const emptyRec = M.reconcileQuotes(hbidBatch, { orderbook_fp: { yes_dollars: [], no_dollars: [] } });
+ok('an empty book yields no reconciliation', emptyRec === null);
+const oneSided = M.reconcileQuotes(hbidBatch, { orderbook_fp: { yes_dollars: [['0.0020', '166666.66']], no_dollars: [] } });
+ok('a side with no resting orders keeps the batch quote', oneSided.no_bid === null && oneSided.no_ask === 0.998);
+
 console.log('\nRESULT: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

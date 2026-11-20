@@ -361,12 +361,75 @@ window.KalshiModel = (function () {
     persistAll();
   }
 
+  /* ---------- quote reconciliation: batch quotes vs the official order book ----------
+   * The watchlist poll uses GET /markets?tickers=..., and for some markets the
+   * book fields in that response disagree with the same market's own order
+   * book (GET /markets/{ticker}/orderbook). Verified live on 2026-11-20:
+   *
+   *   KXPRESNOMD-28-HBID
+   *     GET /markets?tickers=KXPRESNOMD-28-HBID -> yes_ask_dollars "0.8110",
+   *                                                  yes_bid_size_fp "83333.33"
+   *     GET /markets/KXPRESNOMD-28-HBID         -> yes_ask_dollars "0.0030",
+   *                                                  yes_bid_size_fp "166666.66"
+   *     GET /markets/KXPRESNOMD-28-HBID/orderbook -> best YES bid 0.0020 @
+   *                                                  166666.66, best NO bid 0.9970
+   *                                                  @ 55555.55  =>  implied YES
+   *                                                  ask = 1 - 0.9970 = 0.0030
+   *
+   * The order book is the official resting-interest view and agrees with the
+   * single-market endpoint, so it is what the paper broker fills against.
+   * Asks are DERIVED with the official reciprocal rule (YES ask = $1 - NO bid,
+   * NO ask = $1 - YES bid; https://docs.kalshi.com/getting_started/
+   * orderbook_responses). A side with no resting orders keeps the quote the
+   * batch endpoint reported (an empty book means "no resting orders", which
+   * the exchange also reports as bid 0 / ask 1).
+   *
+   * bookQuote(book) -> { yes_bid, yes_ask, no_bid, no_ask, sizes } | null
+   * reconcileQuotes(quote, book) ->
+   *     { yes_bid, yes_ask, no_bid, no_ask, conflicts: [{field,batch,book}] } | null
+   */
+  function bookQuote(book) {
+    var ob = (book && (book.orderbook_fp || book.orderbook)) || book || {};
+    function best(arr) {
+      var lv = (arr || []).map(function (x) { return { p: Number(x[0]), q: Number(x[1]) }; })
+        .filter(function (x) { return isFinite(x.p); });
+      if (!lv.length) return null;
+      lv.sort(function (a, b) { return b.p - a.p; });   // official arrays ascend, best last
+      return lv[0];
+    }
+    var y = best(ob.yes_dollars), n = best(ob.no_dollars);
+    if (!y && !n) return null;
+    var r = { yes_bid: null, yes_ask: null, no_bid: null, no_ask: null, yes_bid_size: null, no_bid_size: null };
+    if (y) { r.yes_bid = y.p; r.no_ask = Math.round((1 - y.p) * 10000) / 10000; r.yes_bid_size = y.q; }
+    if (n) { r.no_bid = n.p; r.yes_ask = Math.round((1 - n.p) * 10000) / 10000; r.no_bid_size = n.q; }
+    return r;
+  }
+  function reconcileQuotes(quote, book) {
+    var bq = bookQuote(book);
+    if (!bq) return null;
+    var out = { yes_bid: null, yes_ask: null, no_bid: null, no_ask: null, conflicts: [] };
+    var pairs = [['yes_bid_dollars', 'yes_bid'], ['yes_ask_dollars', 'yes_ask'],
+                 ['no_bid_dollars', 'no_bid'], ['no_ask_dollars', 'no_ask']];
+    pairs.forEach(function (pair) {
+      var field = pair[0], key = pair[1];
+      var bookVal = bq[key];
+      if (bookVal === null || bookVal === undefined) return;   // no resting orders on this side
+      var batchVal = quote ? Number(quote[field]) : NaN;
+      out[key] = bookVal;
+      if (isFinite(batchVal) && Math.abs(batchVal - bookVal) > 1e-9) {
+        out.conflicts.push({ field: field, batch: batchVal, book: bookVal });
+      }
+    });
+    return out;
+  }
+
   return {
     state: state, TOPICS: TOPICS, classify: classify, score: score,
     runStrategies: runStrategies, manage: manage, applyResolutions: applyResolutions,
     recordEquity: recordEquity, equity: equity, summary: summary,
     byStrategy: byStrategy, byTopic: byTopic, pushAlert: pushAlert,
     persistAll: persistAll, reset: reset, fee: fee, alertMove: alertMove,
+    bookQuote: bookQuote, reconcileQuotes: reconcileQuotes,
     topicById: function (id) { return TOPICS.filter(function (t) { return t.id === id; })[0] || null; }
   };
 })();

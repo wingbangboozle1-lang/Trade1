@@ -56,6 +56,7 @@
 
   <section class="box" style="margin-top:14px">
     <h2>Recently resolved in-scope markets (YES / NO)</h2>
+    <p class="muted small" id="t-resolved-note">&nbsp;</p>
     <div class="tablewrap" style="max-height:420px"><table id="t-resolved"></table></div>
     <p class="muted small">Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude" target="_blank" rel="noopener">GET /markets?status=settled&amp;min_settled_ts=now-72h</a> (window noted per snapshot). Result and settlement fields are verbatim from the response.</p>
   </section>
@@ -100,7 +101,15 @@ fetch('data/categories.json',{cache:'no-store'}).then(function(r){return r.ok?r.
 
 fetch('data/resolved.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(d){
   var t=document.getElementById('t-resolved');
+  var note=document.getElementById('t-resolved-note');
   var src=(d&&d.source_urls&&d.source_urls[0])||'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled';
+  if(note){
+    var shown=(d&&d.markets)?Math.min(80,d.markets.length):0, published=(d&&d.markets)?d.markets.length:0;
+    var inscope=(d&&d.in_scope_count!=null)?d.in_scope_count:null, fetched=(d&&d.settled_total!=null)?d.settled_total:null;
+    note.innerHTML='Showing <b>'+shown+'</b> of the <b>'+published+'</b> rows published in <code>data/resolved.json</code>'+
+      (inscope!=null?(' — <b>'+inscope+'</b> in-scope settled markets were found among <b>'+fetched+'</b> markets fetched'):'')+
+      '. Counts are read from the snapshot header; the table below is the published subset.';
+  }
   t.innerHTML='<tr><th>Market</th><th>Topic</th><th>Result</th><th>Settlement (UTC)</th><th>Settlement value</th><th>Volume</th><th>Source</th></tr>'+
     (d&&d.markets?d.markets.slice(0,80).map(function(m){return '<tr><td><a target="_blank" rel="noopener" href="'+marketApiUrl(m.ticker)+'">'+esc(m.title||m.ticker)+'</a><br><small class="muted">'+esc(m.ticker)+'</small></td><td>'+esc(m._topic||'')+'</td>'+
     '<td><span class="badge '+(m.result==='yes'?'yes':'no')+'">'+esc(String(m.result||'').toUpperCase())+'</span></td><td>'+esc((m.settlement_ts||'').replace('T',' ').slice(0,19))+'</td><td>'+money(m.settlement_value_dollars)+'</td><td>'+fmt(m.volume_fp)+'</td>'+
@@ -116,6 +125,8 @@ TOPICS.forEach(function(id){
     var src=(d&&d.source_urls&&d.source_urls.events&&d.source_urls.events[0])||'https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200';
     var rows='';
     if(d&&d.events&&d.events.length){
+      var shownN=Math.min(15,(d&&d.events)?d.events.length:0), publishedN=(d&&d.events)?d.events.length:0, totalN=(d&&d.event_count!=null)?d.event_count:null;
+      var cap=(totalN!=null&&totalN>publishedN)?('Showing <b>'+shownN+'</b> of the <b>'+publishedN+'</b> events published for this topic (<b>'+totalN+'</b> in scope in the snapshot).'):('Showing <b>'+shownN+'</b> of <b>'+publishedN+'</b> published events for this topic.');
       d.events.slice(0,15).forEach(function(ev,i){
         var m=(ev._markets&&ev._markets[0])||{};
         var dv=(ev._est_dollar_volume!=null)?('$'+Number(ev._est_dollar_volume).toLocaleString(undefined,{maximumFractionDigits:0})):'';
@@ -130,7 +141,7 @@ TOPICS.forEach(function(id){
     } else {
       rows='<tr><td colspan="8" class="muted">No open in-scope events in this snapshot'+(d?(' (collected '+d.generated_at.slice(0,10)+')'):' — snapshot unavailable')+'. Topic rules are in Methods; an empty topic is not an error.</td></tr>';
     }
-    sec.innerHTML='<h2>'+esc(label)+' — top events</h2><div class="tablewrap"><table><tr><th>#</th><th>Event</th><th>Best YES bid</th><th>Best YES ask</th><th>Volume (contracts)</th><th>Est. traded $</th><th>Closes</th><th>Source</th></tr>'+rows+'</table></div>';
+    sec.innerHTML='<h2>'+esc(label)+' — top events</h2><p class="muted small">'+cap+'</p><div class="tablewrap"><table><tr><th>#</th><th>Event</th><th>Best YES bid</th><th>Best YES ask</th><th>Volume (contracts)</th><th>Est. traded $</th><th>Closes</th><th>Source</th></tr>'+rows+'</table></div>';
     box.appendChild(sec);
   });
 });
