@@ -46,7 +46,7 @@ async function walk(dir) {
 const ROOT_PAGES = [
   "index.html", "dashboard.html", "live.html", "trades.html", "data.html",
   "methods.html", "flagged.html", "sources.html", "strategies.html",
-  "resolved.html", "executive-summary.html", "review.html",
+  "resolved.html", "executive-summary.html", "review.html", "suggestions.html",
 ];
 const HTML_GLOB = ROOT_PAGES.concat(["topics"]);
 const JS_GLOB = ["assets", "js"];
@@ -115,7 +115,7 @@ async function main() {
   // 3. Nav/topic target pages exist
   const navTargets = [
     "index.html", "dashboard.html", "trades.html", "data.html", "methods.html",
-    "flagged.html", "sources.html", "executive-summary.html",
+    "flagged.html", "sources.html", "executive-summary.html", "suggestions.html",
     "topics/gas-prices.html", "topics/elections.html", "topics/culture.html",
     "topics/crypto.html", "topics/golf.html",
   ];

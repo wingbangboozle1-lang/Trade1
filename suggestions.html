@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Suggestions</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Suggestions</h1>
+    <p>How to make the dashboard more live and interactive</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Summary</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+    <a href="suggestions.html" class="active">Suggestions</a>
+  </nav>
+</header>
+<main class="wrap">
+
+  <div class="notice"><b>These are product suggestions, not verified data.</b> Where a suggestion relies on an official Kalshi capability, the official doc is linked. Nothing here changes how the dashboard works today, and nothing is financial advice.</div>
+
+  <section class="box" style="margin-top:14px">
+    <h2>1. What the build already does (baseline)</h2>
+    <ul class="small">
+      <li>Live REST polling of the public demo Trade API (~12 s watchlist, ~8 s selected order book, ~6 min topic discovery).</li>
+      <li>Two scrolling alert chats: all ≥ $0.10 moves, plus a model-picks feed filtered by a documented ROI score.</li>
+      <li>Interactive price chart with 60 s / 5 m / 15 m / 1 h / 6 h / 24 h windows (X = time, Y = contract price).</li>
+      <li>Order-book depth panel with computed bid-side liquidity (contracts at each price).</li>
+      <li>Resolution tracking until each watched market settles YES or NO.</li>
+      <li>Automated paper strategies (momentum, fade, harvest, breakout) with portfolio P&L by strategy and topic.</li>
+      <li>Per-row source links on the Data page; every unverified item left blank and listed on Flagged.</li>
+    </ul>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>2. High-impact suggestions</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Suggestion</th><th>Why it helps a trader</th><th>What it needs</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><b>WebSocket streaming</b> (ticker, orderbook_delta, trade channels)</td>
+          <td>Removes REST polling lag entirely; sub-second price and depth updates.</td>
+          <td>Demo API keys — the official WS handshake requires signed auth headers a browser cannot attach (<a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_websockets">Quick Start: WebSockets</a>). Demo WS endpoint already pinned in config.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><b>Browser notifications + sound on ≥ $0.10 jumps</b></td>
+          <td>Traders can watch other tabs while the site listens; jump alerts become actionable instantly.</td>
+          <td>Notifications API (no backend needed) — the jump detector already exists in <code>assets/app.js → checkAlert</code>.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><b>Sparklines in every table row</b></td>
+          <td>A 60-second price shape per market makes the ranking table scannable without clicking through.</td>
+          <td>Mini-canvases fed from the same local price history (<code>S.history</code> in <code>assets/app.js</code>).</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><b>Strategy backtesting on candlestick history</b></td>
+          <td>Test parameter tweaks against weeks of official 1-minute / 1-hour candles before running live-in-paper.</td>
+          <td>GET candlesticks already integrated (≤ 5,000 periods per request — <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a>).</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><b>Real demo-account execution</b> (paper → live demo fills)</td>
+          <td>Closes the loop: strategies place genuine demo orders; the portfolio page shows the true demo balance and P&L.</td>
+          <td>A human-owned demo account + API key, then signed order placement per <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests">Authenticated Requests</a>. Deliberately not implemented here (no credentials requested — flagged).</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>3. Medium-impact suggestions</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Suggestion</th><th>Why it helps a trader</th><th>What it needs</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>6</td>
+          <td><b>Jump → news matching feed</b></td>
+          <td>Replace labeled news *searches* with auto-fetched headlines per jump so a trader sees a plausible cause.</td>
+          <td>A small serverless proxy (e.g., a GitHub Action committing JSON) since browsers cannot fetch arbitrary RSS cross-origin; each headline labeled unverified.</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><b>Cross-market arbitrage scanner</b></td>
+          <td>Within an event, YES + NO asks below $1.00 implies a risk-free pair; flags mispriced multi-candidate events.</td>
+          <td>Already-fetched orderbooks; add a math pass per event group.</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><b>Trade velocity + large-trade highlights</b></td>
+          <td>Trades-per-minute and whale-trade flags explain jumps better than price alone.</td>
+          <td>GET /markets/trades already integrated; aggregate client-side per market.</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><b>PWA + offline cache</b></td>
+          <td>Installable mobile dashboard; last snapshot viewable offline (clearly timestamped as stale).</td>
+          <td>Service worker + manifest; a static site makes this trivial.</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td><b>Keyboard command palette</b></td>
+          <td>Press "/" to jump to any market; number keys to switch topics — power-trader ergonomics.</td>
+          <td>Pure front-end; no API dependency.</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>4. Continuous organization &amp; simplification</h2>
+    <ul class="small">
+      <li><b>Keep topics separate.</b> One subpage per topic (gas / elections / culture / crypto / golf); never mix events across topics.</li>
+      <li><b>One-click triage.</b> The landing page ranks the highest estimated-dollar markets so a trader decides in seconds where to look; topic pages hold the depth.</li>
+      <li><b>Simplified charts.</b> Single price line by default, depth collapsed to best levels; detailed views on demand.</li>
+      <li><b>Everything sourced.</b> Every table row links the exact API call plus the official Kalshi market page, so review never blocks the trading flow.</li>
+      <li><b>Flagged items stay visible.</b> A persistent "Flagged" nav entry keeps unverified values one click away.</li>
+    </ul>
+  </section>
+
+  <p class="footer"><a href="dashboard.html">← Back to live dashboard</a> · <a href="flagged.html">Flagged for Review</a> · <a href="methods.html">Methods</a></p>
+</main>
+</body>
+</html>

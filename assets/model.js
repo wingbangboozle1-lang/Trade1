@@ -70,7 +70,8 @@ window.KalshiModel = (function () {
     { id: 'crypto', label: 'Crypto', categories: ['Crypto'],
       titleRe: '', exclRe: '', seriesRe: '^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT)' },
     { id: 'golf', label: 'Golf', categories: ['Sports'],
-      titleRe: 'golf', exclRe: '', seriesRe: '^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)' }
+      titleRe: 'golf', exclRe: '', seriesRe: '^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)',
+      exclCats: ['Politics', 'Elections'] }
   ];
 
   function classify(category, title, series) {

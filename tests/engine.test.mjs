@@ -200,7 +200,7 @@ test('no host-specific or placeholder URLs in the shipped engine', () => {
 /* ---------- every published page must boot without a single thrown error ---------- */
 const PAGES = ['index.html','executive-summary.html','dashboard.html','trades.html','data.html','methods.html',
   'flagged.html','sources.html','topics/gas-prices.html','topics/elections.html','topics/culture.html',
-  'topics/crypto.html','topics/golf.html','live.html','resolved.html','strategies.html'];
+  'topics/crypto.html','topics/golf.html','live.html','resolved.html','strategies.html','suggestions.html'];
 
 function bootPage(page, handler) {
   const html = readFileSync(new URL('../' + page, import.meta.url), 'utf8');
