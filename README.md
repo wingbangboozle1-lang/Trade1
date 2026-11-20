@@ -48,4 +48,4 @@ snapshot in `data/` and says so in the banner.
 
 ## Other builds in this repo (from parallel sessions)
 
-- `js/` + `docs/` (session ed8bbdf4, PR #12) and `categories/` + `assets/app.mjs` + `scripts/build_snapshot.mjs`/`check_site.mjs`/`test_lib.mjs` (session cedad5c4, PR #18) remain in-tree as historical builds. The published root pages (this README, `index.html`, `dashboard.html`, `topics/`, `data.html`, `flagged.html`, `sources.html`) are the bb8bd1ff integration build; see `flagged.html` for how their findings were carried forward.
+- `js/` + `docs/` (session ed8bbdf4, PR #12) and `categories/` + `assets/app.mjs`/`lib.mjs` + `live.html`/`resolved.html`/`strategies.html` + `scripts/build_snapshot.mjs`/`check_site.mjs`/`test_lib.mjs` (PR #18) and `pages/*`/`css/*` (PR #7) remain in-tree as historical builds. The published root pages (this README, `index.html`, `dashboard.html`, `topics/`, `data.html`, `flagged.html`, `sources.html`) are the bb8bd1ff integration build; see `flagged.html` for how their findings were carried forward.

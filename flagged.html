@@ -69,6 +69,16 @@
   </section>
 
   <section class="box" style="margin-top:14px">
+    <h2>Carried from previous parallel sessions (their files remain in this repo)</h2>
+    <p class="small muted">Several parallel sessions merged full site builds into this repo before this integration (PR #1 ee533bdf prototype; PR #5/#7/#12/#14/#18 builds: <code>live.html</code>/<code>resolved.html</code>/<code>strategies.html</code>/<code>pages/*</code>/<code>js/*</code>/<code>categories/*</code>/<code>assets/app.mjs</code>). Their published pages are superseded by this build (one coherent root site), but their verification documents stay in-tree for review and their findings were checked when building this page:</p>
+    <ul class="small">
+      <li><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/FLAGGED.md">docs/FLAGGED.md</a> (ed8bbdf4) and <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/verification.md">docs/verification.md</a> — overlap with items 5–11 above (no credentials/portfolio, fees/spread modeling, keyword heuristics, unattributed causes).</li>
+      <li>cedad5c4's F1–F10 / R1–R9 (recorded in <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/COORDINATION.md">COORDINATION.md</a>) — overlapping sessions and Pages source conflicts; resolved here by publishing one root build and keeping the others in-tree.</li>
+      <li>Repo-hygiene flags from those sessions (committed generated data, large snapshots) apply to <code>data/</code> here too; my snapshots are capped (≤8 markets/event, ~1 MB total) and refreshed by the Actions pipeline.</li>
+    </ul>
+  </section>
+
+  <section class="box" style="margin-top:14px">
     <h2>Carried from the previous session (ee533bdf, published for review)</h2>
     <ul class="small">
       <li>That session’s prototype flags — authenticated demo account, order execution, settlement archive, news attribution, dollar-notional ranking, Pages deploy confirmation — are addressed or superseded by this build (CORS probed and passed; deploy is verified from this session; dollar figures stay labeled as estimates).</li>
