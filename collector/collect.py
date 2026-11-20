@@ -38,6 +38,7 @@ CATEGORIES = [
 
 JUMP_THRESHOLD = 0.10          # the user-specified alert level, in dollars
 MAX_DEPTH_TICKERS = 45         # orderbook calls per run, liquidity-first (rate-limit friendly)
+EVENT_MARKET_CALLS = 120       # targeted /markets?event_ticker= calls per run
 
 
 def build_universe(client: KalshiClient) -> dict:
@@ -108,11 +109,40 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
     # open market, and a market whose event is missing would be silently dropped from the ranking.
     events = client.events(status="open", max_pages=200)
     print(f"  open events: {len(events)}")
-    markets = client.markets(status="open", max_pages=25)
-    print(f"  open markets (mve excluded): {len(markets)}")
+    markets = client.markets(status="open", max_pages=60)
+    print(f"  open markets (mve excluded, global paging): {len(markets)}")
 
     series_index = universe["series"]
     event_by_ticker = {e["event_ticker"]: e for e in events}
+
+    # --- targeted coverage -------------------------------------------------------------------
+    # Global paging is sorted newest-first, and Kalshi creates thousands of markets a day, so a
+    # plain listing can miss whole topics (in the first live run it returned gas only). Open events
+    # tell us which series are actually live, so we fetch those events' markets directly: with
+    # `event_ticker` as the only filter the API returns every market for that event in one call.
+    topic_events = []
+    for e in events:
+        s_ = series_index.get(e.get("series_ticker") or "") or {}
+        if s_.get("topics"):
+            topic_events.append(e)
+    # soonest-closing first: those are the events a trader can still act on
+    topic_events.sort(key=lambda e: e.get("strike_date") or e.get("close_time") or "9999")
+    covered = {m.get("event_ticker") for m in markets}
+    fetched = 0
+    for e in topic_events:
+        if fetched >= EVENT_MARKET_CALLS:
+            break
+        if e["event_ticker"] in covered:
+            continue
+        try:
+            extra = client.markets(event_ticker=e["event_ticker"])
+        except Exception as err:  # noqa: BLE001
+            print(f"  event {e['event_ticker']}: {err}", file=sys.stderr)
+            continue
+        fetched += 1
+        markets.extend(extra)
+    print(f"  targeted event fetches: {fetched} ({len(topic_events)} topic events live)")
+    print(f"  markets after targeted pass: {len(markets)}")
 
     rows = []
     for m in markets:
