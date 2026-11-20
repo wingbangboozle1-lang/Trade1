@@ -1,0 +1,65 @@
+{
+ "generated_at": "2026-11-20 14:38 UTC",
+ "generated_epoch": 1795185532,
+ "api_base": "https://external-api.demo.kalshi.co/trade-api/v2",
+ "api_docs": "https://docs.kalshi.com/getting_started/api_environments",
+ "refresh_minutes": 30,
+ "series_total": 16643,
+ "topic_series_count": {
+  "gas": 130,
+  "golf": 134,
+  "crypto": 320,
+  "culture": 2627,
+  "elections": 2709
+ },
+ "open_markets_fetched": 290352,
+ "open_by_topic_total": {
+  "gas": 713,
+  "golf": 1986,
+  "crypto": 74604,
+  "culture": 9861,
+  "elections": 35341
+ },
+ "rows_written": {
+  "gas": 300,
+  "golf": 300,
+  "crypto": 300,
+  "culture": 300,
+  "elections": 300
+ },
+ "resolved_window_days": 30,
+ "resolved_rows": 300,
+ "resolved_yes": 0,
+ "resolved_no": 300,
+ "detail_markets": 40,
+ "moves_threshold_usd": 0.1,
+ "moves_count": 158,
+ "flags_count": 8,
+ "topics": [
+  {
+   "id": "gas",
+   "label": "Gas prices",
+   "description": "AAA-based US gasoline price series (state and national). Excludes natural gas, EIA inventories, and ethanol."
+  },
+  {
+   "id": "golf",
+   "label": "Golf",
+   "description": "Series whose official tags include 'Golf' (PGA Tour, LIV, DP World Tour, LPGA, Ryder Cup, and related)."
+  },
+  {
+   "id": "crypto",
+   "label": "Crypto",
+   "description": "Series in the official 'Crypto' category (Bitcoin, Ethereum, Solana and others)."
+  },
+  {
+   "id": "culture",
+   "label": "Culture",
+   "description": "Series in the official 'Entertainment' or 'Culture' category (music, film, TV, awards, media rankings)."
+  },
+  {
+   "id": "elections",
+   "label": "Elections",
+   "description": "Series in the official 'Elections' category (national, state and local races, party nominations)."
+  }
+ ]
+}

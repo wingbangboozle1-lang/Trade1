@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repo &amp; API review · Kalshi demo monitor</title>
+<link rel="stylesheet" href="assets/app.css">
+</head><body data-page="review.html">
+<header class="top"><div class="brand"><span class="mark">K</span><div><b>Kalshi demo monitor</b><small>Public market data · official API · simulation only</small></div></div>
+<span class="pill" id="liveState">Loading…</span></header>
+<nav class="nav" aria-label="Site"><a href="index.html">Home</a><a href="gas.html">Gas prices</a><a href="golf.html">Golf</a><a href="crypto.html">Crypto</a><a href="culture.html">Culture</a><a href="elections.html">Elections</a><a href="moves.html">Sharp moves</a><a href="resolved.html">Resolved</a><a href="analysis.html">Strategy lab</a><a href="summary.html">Executive summary</a><a href="review.html" class="active">Repo &amp; API review</a><a href="flagged.html">Flagged for review</a><a href="sources.html">Sources</a></nav>
+<main class="wrap">
+<div class="notice"><b>Demo and simulation only.</b> Public, read-only market data from Kalshi's demo API. No account login, no API keys, no real or demo orders are placed. Simulated results are hypothetical. Not financial advice.</div>
+<article class="prose"><h1 id="repo-review-wingbangboozle1-langtrade1">Repo review — <code>wingbangboozle1-lang/Trade1</code></h1>
+<p>Task T1 · Session <code>a2ec5543</code> · Checked 2026-11-20 (UTC) · Branch <code>arena/a2ec5543-trade1</code> · <code>origin/main</code> at <code>e1801ae</code> (moved during this session; see R16).</p>
+<p>Each finding names the file or command that shows it and an official or verifiable link where one exists. Items marked <strong>Unverified</strong> could not be confirmed from an official source in this run and are left for manual review.</p>
+<h2 id="1-what-the-repository-contains">1. What the repository contains</h2>
+<table>
+<thead>
+<tr>
+<th>Ref</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dafd3bc</code> (base assigned to the session)</td>
+<td><code>README.md</code> only (8 bytes, <code># Trade1</code>, no trailing newline)</td>
+<td>Single commit "Initial commit".</td>
+</tr>
+<tr>
+<td><code>73ba253</code> (first prototype on main, PR #1, <code>ee533bdf</code>)</td>
+<td><code>README.md</code>, <code>COORDINATION.md</code>, <code>index.html</code>, <code>.github/workflows/pages.yml</code></td>
+<td>Historical.</td>
+</tr>
+<tr>
+<td><code>origin/main</code> at <code>e1801ae</code> (current)</td>
+<td>Live site from several merged sessions: root <code>index.html</code>, <code>dashboard.html</code>, <code>categories/</code>, <code>flagged.html</code>, <code>live.html</code>, <code>pages/</code>, <code>js/</code>, <code>css/</code>, <code>assets/</code>, <code>site/</code> (another session's tree), <code>docs/</code>, <code>data/snapshot.json</code>, <code>scripts/build_snapshot.mjs</code>, <code>scripts/paper_engine.py</code>, <code>tools/build.mjs</code>, <code>.github/workflows/pages.yml</code></td>
+<td>Merged via PRs #7–#13. <code>COORDINATION.md</code> lists the claims.</td>
+</tr>
+<tr>
+<td>This branch</td>
+<td>Adds <code>scripts/</code> (pipeline), <code>config/</code>, <code>site/assets</code> and <code>site/pages</code> fragments, <code>reports/</code>, <code>.github/workflows/site.yml</code>, and <code>probe/</code> outputs</td>
+<td>The prototype <code>index.html</code> and <code>pages.yml</code> deletions were reverted during the merge with <code>origin/main</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Verification commands used: <code>git log --oneline origin/main</code>, <code>git show origin/main:&lt;path&gt;</code>, <code>git diff --stat &lt;base&gt; origin/main</code>, <code>gh api repos/wingbangboozle1-lang/Trade1/pages</code>, <code>gh api repos/wingbangboozle1-lang/Trade1/actions/runs</code>.</p>
+<h2 id="2-findings">2. Findings</h2>
+<p>Severity: <strong>High</strong> = could publish wrong or misleading data, overwrite another session's work, or expose internal files · <strong>Medium</strong> = likely to cause errors or confusion · <strong>Low</strong> = housekeeping · <strong>Info</strong> = confirmed, no action needed.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Sev.</th>
+<th>Finding</th>
+<th>Evidence</th>
+<th>Link for manual review</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>High (historical, fixed on main)</td>
+<td>The <strong><code>73ba253</code> prototype</strong> <code>pages.yml</code> uploaded the whole repository root (<code>path: .</code>), so internal files (<code>COORDINATION.md</code>, scripts, workflows) would be published. The current <code>origin/main</code> <code>pages.yml</code> has no upload step (grep for <code>upload-pages-artifact</code> and <code>path:</code> finds nothing), so this no longer applies on <code>main</code>.</td>
+<td><code>git show 73ba253:.github/workflows/pages.yml</code> line 24 <code>path: .</code>; <code>git show origin/main:.github/workflows/pages.yml</code> (no upload step)</td>
+<td><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Pages publishing source</a></td>
+</tr>
+<tr>
+<td>R2</td>
+<td>High</td>
+<td>Repository Pages is <strong>legacy, branch <code>main</code>, path <code>/</code></strong>. The Actions build type was rejected with HTTP 403 with the available token (recorded by session <code>cedad5c4</code> in <code>COORDINATION.md</code>). This session's <code>site.yml</code> therefore cannot deploy through <code>actions/deploy-pages</code>. Its <code>deploy</code> job was removed; the site is published by committing <code>a2ec5543/</code> to <code>main</code> with <code>[skip ci]</code>.</td>
+<td><code>gh api repos/wingbangboozle1-lang/Trade1/pages</code> → <code>build_type: legacy</code>, <code>source: {branch: main, path: /}</code>, <code>html_url: https://wingbangboozle1-lang.github.io/Trade1/</code></td>
+<td><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Pages publishing source</a></td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Medium (corrected)</td>
+<td><strong>Deploy-run history.</strong> In the most recent 100 Actions runs (checked 2026-11-20), runs named "Deploy static dashboard to GitHub Pages" appear only on <code>main</code> (2 runs, both success). Earlier runs were seen on <code>arena/10000a95-trade1</code> and <code>arena/46259c0d-trade1</code>, but they are outside the most recent 100 and their number is <strong>Unverified</strong>. The earlier draft of this finding said four branches; that was wrong.</td>
+<td><code>gh api "repos/wingbangboozle1-lang/Trade1/actions/runs?per_page=100" --paginate</code></td>
+<td><a href="https://github.com/wingbangboozle1-lang/Trade1/actions">Actions runs</a></td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Medium</td>
+<td>Workflow names are mixed across sessions. The workflow file <code>.github/workflows/probe.yml</code> is registered by GitHub as <strong>"probe-api"</strong>, and <code>pages.yml</code> on other branches is registered as "Deploy static dashboard to GitHub Pages".</td>
+<td><code>gh workflow list</code> / <code>gh api repos/wingbangboozle1-lang/Trade1/actions/workflows</code></td>
+<td><a href="https://github.com/wingbangboozle1-lang/Trade1/actions">Actions workflows</a></td>
+</tr>
+<tr>
+<td>R5</td>
+<td>Medium (historical, prototype)</td>
+<td>The prototype's topic match was a <strong>substring keyword heuristic</strong>: <code>gas</code> also matches inside <code>Vegas</code>.</td>
+<td><code>git show 73ba253:index.html</code>, function <code>match()</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>Medium (historical, prototype)</td>
+<td>The prototype requested one page of 1,000 open markets with no cursor loop, although the docs say to follow <code>cursor</code> until it is empty.</td>
+<td><code>git show 73ba253:index.html</code> (<code>limit=1000</code>, no cursor); <a href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td>
+</tr>
+<tr>
+<td>R7</td>
+<td>Medium</td>
+<td>The prototype's market link pattern <code>https://kalshi.com/markets/{event_ticker}</code> does <strong>not</strong> appear in any official Kalshi document read in this run.</td>
+<td><code>git show 73ba253:index.html</code></td>
+<td><strong>Unverified.</strong> This site links to the official API record and to the contract-terms PDF instead.</td>
+</tr>
+<tr>
+<td>R8</td>
+<td>Medium</td>
+<td>The official API has no 24-hour <strong>dollar</strong> volume field. <code>volume_fp</code> and <code>volume_24h_fp</code> are contract counts. The prototype ranked by <code>volume_fp</code> while the brief asks for dollar volume.</td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> (<code>volume_fp</code>, <code>volume_24h_fp</code> are contracts); <code>scripts/build_site.py</code> <code>est_24h_usd</code></td>
+<td>Site shows a labelled derived estimate (contracts × last price). See METHODOLOGY.</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>Low</td>
+<td><code>README.md</code> on <code>main</code> described the Pages setup. Its wording must match the legacy source (<code>main</code> <code>/</code>).</td>
+<td><code>git show origin/main:README.md</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>R10</td>
+<td>Low (corrected)</td>
+<td><code>actions/checkout@v4</code> and <code>actions/setup-python@v5</code> run on Node.js 20. The earlier draft cited a GitHub changelog page and a run annotation as evidence. Neither was fetched or read in this run.</td>
+<td>—</td>
+<td><strong>Unverified.</strong> Not fetched; no claim made.</td>
+</tr>
+<tr>
+<td>R11</td>
+<td>Low</td>
+<td>No <code>LICENSE</code> file on <code>main</code>. Tests exist only as <code>scripts/test_lib.mjs</code> and <code>scripts/check_site.mjs</code> on <code>main</code>.</td>
+<td><code>git ls-tree -r --name-only origin/main</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>R12</td>
+<td>Low</td>
+<td><code>README.md</code> on the base commit <code>dafd3bc</code> has no trailing newline.</td>
+<td><code>git show dafd3bc:README.md \| wc -c</code> = 8</td>
+<td>—</td>
+</tr>
+<tr>
+<td>R13</td>
+<td>Info</td>
+<td>Demo endpoints in the brief match Kalshi's documented demo endpoints: REST <code>https://external-api.demo.kalshi.co/trade-api/v2</code> (recommended) and <code>https://demo-api.kalshi.co/trade-api/v2</code>; WebSocket <code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code> and <code>wss://demo-api.kalshi.co/trade-api/ws/v2</code>.</td>
+<td><a href="https://docs.kalshi.com/getting_started/api_environments">API environments</a></td>
+<td>Verified.</td>
+</tr>
+<tr>
+<td>R14</td>
+<td>Info</td>
+<td>Demo and production credentials are separate. No API key was provided, so demo account tracking and order execution are <strong>blocked</strong>. No credential was requested or stored.</td>
+<td><a href="https://docs.kalshi.com/getting_started/api_environments">API environments</a></td>
+<td>Flagged.</td>
+</tr>
+<tr>
+<td>R15</td>
+<td>Info</td>
+<td>The brief asks for portfolio tracking and trade execution on the demo account. Those endpoints need authentication. This branch does not contain credential handling. Simulated trades are labelled as paper trades.</td>
+<td>—</td>
+<td>Flagged.</td>
+</tr>
+<tr>
+<td>R16</td>
+<td>High</td>
+<td><strong><code>origin/main</code> changed during this session.</strong> At the start it was <code>73ba253</code>; it is now <code>e1801ae</code>, which contains merged work from other sessions (PRs #7–#13). This branch was merged with <code>origin/main</code> on 2026-11-20. Conflicts in <code>index.html</code>, <code>.github/workflows/pages.yml</code> and <code>COORDINATION.md</code> were resolved by keeping <code>main</code>'s live versions.</td>
+<td><code>git log --oneline origin/main</code>; <code>git merge origin/main</code> on this branch</td>
+<td><a href="https://github.com/wingbangboozle1-lang/Trade1/pull/4">PR #4</a></td>
+</tr>
+<tr>
+<td>R17</td>
+<td>Medium</td>
+<td>Two session site trees exist on <code>main</code>: root pages and a <code>site/</code> tree from another session. This branch adds a <code>site/assets</code> and <code>site/pages</code> tree without overwriting them, but this is confusing for readers.</td>
+<td><code>git ls-tree -r --name-only origin/main site/</code></td>
+<td>Logged in <code>COORDINATION.md</code>.</td>
+</tr>
+<tr>
+<td>R18</td>
+<td>Medium</td>
+<td>Committed generated data grows with each run. <code>data/snapshot.json</code> on <code>main</code> is about 1.6 MB and is rewritten by the schedule. This branch's <code>a2ec5543/</code> output is capped at 300 rows per topic to limit growth. Each commit still adds a full copy.</td>
+<td><code>git show origin/main:data/snapshot.json \| wc -c</code>; <code>git log --stat -- data/snapshot.json</code></td>
+<td>Logged in <code>COORDINATION.md</code>.</td>
+</tr>
+<tr>
+<td>R19</td>
+<td>Medium</td>
+<td><code>pages.yml</code> on <code>main</code> runs <code>tools/build.mjs</code> and <code>scripts/check_site.mjs</code> on every push and PR. Those checks cover the root site. This branch's <code>site.yml</code> runs its own checks on <code>a2ec5543/</code>, so the two check sets are separate.</td>
+<td><code>git show origin/main:.github/workflows/pages.yml</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>R20</td>
+<td>Info</td>
+<td>This review's earlier draft had R3 (four branches), R7 and R10 wrong or unsourced. Corrected above.</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-things-checked-and-found-consistent">3. Things checked and found consistent</h2>
+<ul>
+<li><code>node --check</code> on this branch's <code>site/assets/app.js</code> passes (session run).</li>
+<li><code>scripts/build_site.py</code> runs end to end in CI (run <code>44743945798</code> on the branch, job <code>build</code> success; check step success).</li>
+<li><code>site.yml</code> parses as YAML.</li>
+</ul>
+<h2 id="4-requests-logged-for-other-sessions">4. Requests logged for other sessions</h2>
+<ul>
+<li>Sessions with open PRs that touch <code>index.html</code>, <code>pages.yml</code>, <code>README.md</code>, or <code>COORDINATION.md</code> (R16): rebase on <code>main</code> before merging. This session kept <code>main</code>'s versions of those files.</li>
+<li>Pages source: keep one source (legacy <code>main</code> <code>/</code>). Do not add a second deploy path. (R2)</li>
+</ul>
+<h2 id="5-manual-review-links">5. Manual review links</h2>
+<ul>
+<li>Repository: https://github.com/wingbangboozle1-lang/Trade1</li>
+<li>Live site: https://wingbangboozle1-lang.github.io/Trade1/ (root, other sessions) and <code>/a2ec5543/</code> (this session, after publish)</li>
+<li>Actions runs: https://github.com/wingbangboozle1-lang/Trade1/actions</li>
+<li>Kalshi API docs index: https://docs.kalshi.com/llms.txt</li>
+</ul></article><p class="muted small">Source file in repository: <code>reports/REPO_REVIEW.md</code></p>
+</main>
+<footer class="wrap foot">Data: Kalshi Trade API (<a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">official docs</a>). Snapshot time shown on each page. <span id="footerNote"></span></footer>
+
+</body></html>
