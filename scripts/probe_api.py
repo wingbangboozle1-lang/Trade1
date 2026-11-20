@@ -51,14 +51,17 @@ def main() -> int:
     calls = {
         "exchange_status": ("/exchange/status", None),
         "exchange_schedule": ("/exchange/schedule", None),
+        "tags_by_categories": ("/search/tags_by_categories", None),
         "series_crypto": ("/series", {"category": "Crypto"}),
         "series_financials": ("/series", {"category": "Financials"}),
         "series_culture": ("/series", {"category": "Culture"}),
         "series_economics": ("/series", {"category": "Economics"}),
+        "series_sports": ("/series", {"category": "Sports"}),
         "events_open": ("/events", {"status": "open", "limit": 200}),
         "markets_open": ("/markets", {"status": "open", "limit": 200}),
         "markets_settled": ("/markets", {"status": "settled", "limit": 50}),
-        "trades": ("/trades", {"limit": 50}),
+        # Correct path per docs: Get Trades is /markets/trades (the bare /trades path 404s).
+        "trades": ("/markets/trades", {"limit": 50}),
     }
 
     summary = {}
@@ -96,6 +99,15 @@ def main() -> int:
             info["error"] = res.get("error") or body[:300]
         summary[name] = info
         print(f"{name:20s} status={res['status']} {res['ms']:>5}ms {info.get('error', '')}")
+
+    # Derive the official category -> tags map and the topic-relevant series index.
+    tags_path = os.path.join(args.out, "tags_by_categories.sample.json")
+    if os.path.exists(tags_path):
+        raw = json.load(open(tags_path)).get("tags_by_categories") or {}
+        info = {cat: tags for cat, tags in raw.items()}
+        with open(os.path.join(args.out, "category_tags.json"), "w") as f:
+            json.dump(info, f, indent=2, sort_keys=True)
+        print(f"categories: {sorted(info)}")
 
     with open(os.path.join(args.out, "summary.json"), "w") as f:
         json.dump(summary, f, indent=2, sort_keys=True)
