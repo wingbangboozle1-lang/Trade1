@@ -1,0 +1,21 @@
+{
+"ticker": "KXDOGE-26NOV2017-B0.057",
+"title": "Dogecoin price range on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.73,
+"ask": 0.81,
+"mid": 0.77,
+"last": 0.51,
+"vol": 88.04,
+"oi": 71.13
+}
+],
+"event_ticker": "KXDOGE-26NOV2017",
+"series_ticker": "KXDOGE",
+"updated_at": "2026-11-20T13:22:55Z"
+}

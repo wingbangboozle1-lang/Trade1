@@ -1,0 +1,21 @@
+{
+"ticker": "KXHYPED-26NOV2009-T63.2499",
+"title": "HYPE price on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.22,
+"ask": 0.24,
+"mid": 0.23,
+"last": 0.37,
+"vol": 127.14,
+"oi": 127.14
+}
+],
+"event_ticker": "KXHYPED-26NOV2009",
+"series_ticker": "KXHYPED",
+"updated_at": "2026-11-20T13:22:55Z"
+}

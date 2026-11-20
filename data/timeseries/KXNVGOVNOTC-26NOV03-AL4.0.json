@@ -1,0 +1,21 @@
+{
+"ticker": "KXNVGOVNOTC-26NOV03-AL4.0",
+"title": "Will \u201cNone of These Candidates\u201d receive at least 4.0% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.0,
+"ask": 0.05,
+"mid": 0.025,
+"last": 0.02,
+"vol": 2179.03,
+"oi": 1177.0
+}
+],
+"event_ticker": "KXNVGOVNOTC-26NOV03",
+"series_ticker": "KXNVGOVNOTC",
+"updated_at": "2026-11-20T13:22:55Z"
+}

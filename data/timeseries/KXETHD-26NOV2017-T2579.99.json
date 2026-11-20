@@ -1,0 +1,21 @@
+{
+"ticker": "KXETHD-26NOV2017-T2579.99",
+"title": "Ethereum price at Nov 20, 2026 at 5pm EST?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 88.46,
+"oi": 88.46
+}
+],
+"event_ticker": "KXETHD-26NOV2017",
+"series_ticker": "KXETHD",
+"updated_at": "2026-11-20T13:22:55Z"
+}

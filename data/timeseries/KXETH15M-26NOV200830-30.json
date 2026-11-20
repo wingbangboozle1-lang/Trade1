@@ -1,0 +1,23 @@
+{
+"ticker": "KXETH15M-26NOV200830-30",
+"points": [
+{
+"t": 1795180970,
+"bid": 0.7,
+"ask": 0.71,
+"mid": 0.705,
+"last": 0.72,
+"vol": 49510.24,
+"oi": 19519.22
+}
+],
+"history_backfilled_at": "2026-11-20T13:22:54Z",
+"history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+"title": "ETH price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"event_ticker": "KXETH15M-26NOV200830",
+"series_ticker": "KXETH15M",
+"updated_at": "2026-11-20T13:22:55Z"
+}

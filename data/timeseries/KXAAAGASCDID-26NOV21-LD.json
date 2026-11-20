@@ -1,0 +1,21 @@
+{
+"ticker": "KXAAAGASCDID-26NOV21-LD",
+"title": "Will gas prices show a large decrease?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.98,
+"ask": 0.99,
+"mid": 0.985,
+"last": 0.86,
+"vol": 65.0,
+"oi": 45.0
+}
+],
+"event_ticker": "KXAAAGASCDID-26NOV21",
+"series_ticker": "KXAAAGASCDID",
+"updated_at": "2026-11-20T13:22:55Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXAAAGASCDMT-26NOV21-MC",
+"title": "Will gas prices show a minimal change?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.02,
+"ask": 0.04,
+"mid": 0.03,
+"last": 0.02,
+"vol": 68.68,
+"oi": 60.68
+}
+],
+"event_ticker": "KXAAAGASCDMT-26NOV21",
+"series_ticker": "KXAAAGASCDMT",
+"updated_at": "2026-11-20T13:22:55Z"
+}

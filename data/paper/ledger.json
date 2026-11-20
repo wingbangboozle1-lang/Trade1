@@ -1,0 +1,3241 @@
+{
+ "created_at": "2026-11-20T13:23:07Z",
+ "starting_balance": 10000.0,
+ "cash": 8641.62,
+ "positions": [
+  {
+   "ticker": "KXAAAGASCDCA-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.88,
+   "cost": 22.0,
+   "fees": 0.19,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDCA-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.120 (edge -0.129)",
+   "mark": 0.84,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXAAAGASCDCT-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.79,
+   "cost": 19.75,
+   "fees": 0.3,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDCT-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.210 (edge -0.214)",
+   "mark": 0.76,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXAAAGASCDDE-26NOV21-LD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.57,
+   "cost": 14.25,
+   "fees": 0.43,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a large decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDDE-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.430 (edge -0.434)",
+   "mark": 0.54,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXAAAGASCDDE-26NOV21-MC",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.87,
+   "cost": 21.75,
+   "fees": 0.2,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a minimal change?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDDE-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.130 (edge -0.139)",
+   "mark": 0.83,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXAAAGASCDDE-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.65,
+   "cost": 16.25,
+   "fees": 0.4,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDDE-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.350 (edge -0.359)",
+   "mark": 0.61,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXAAAGASCDHI-26NOV21-LD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.63,
+   "cost": 15.75,
+   "fees": 0.41,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a large decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDHI-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.370 (edge -0.364)",
+   "mark": 0.62,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXAAAGASCDHI-26NOV21-MC",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.85,
+   "cost": 21.25,
+   "fees": 0.23,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a minimal change?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDHI-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.150 (edge -0.159)",
+   "mark": 0.81,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXAAAGASCDHI-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.65,
+   "cost": 16.25,
+   "fees": 0.4,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDHI-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.350 (edge -0.354)",
+   "mark": 0.62,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXAAAGASCDMD-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.63,
+   "cost": 15.75,
+   "fees": 0.41,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDMD-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.370 (edge -0.379)",
+   "mark": 0.59,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXAAAGASCDME-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.9,
+   "cost": 22.5,
+   "fees": 0.16,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDME-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.100 (edge -0.104)",
+   "mark": 0.87,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXAAAGASCDMO-26NOV21-SD",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.04,
+   "cost": 1.0,
+   "fees": 0.07,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDMO-26NOV21",
+   "reason": "YES ask 0.040 with 184/466 contracts resting",
+   "mark": 0.03,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXAAAGASCDMT-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.88,
+   "cost": 22.0,
+   "fees": 0.19,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDMT-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.120 (edge -0.119)",
+   "mark": 0.86,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXAAAGASCDNH-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.86,
+   "cost": 21.5,
+   "fees": 0.22,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDNH-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.140 (edge -0.144)",
+   "mark": 0.83,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXAAAGASCDNH-26NOV21-SD",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.17,
+   "cost": 4.25,
+   "fees": 0.25,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDNH-26NOV21",
+   "reason": "YES ask 0.170 with 241/343 contracts resting",
+   "mark": 0.14,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXAAAGASCDNJ-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.93,
+   "cost": 23.25,
+   "fees": 0.12,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDNJ-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.070 (edge -0.064)",
+   "mark": 0.92,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXAAAGASCDNV-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.9,
+   "cost": 22.5,
+   "fees": 0.16,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDNV-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.100 (edge -0.109)",
+   "mark": 0.86,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXAAAGASCDVT-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.89,
+   "cost": 22.25,
+   "fees": 0.18,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDVT-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.110 (edge -0.119)",
+   "mark": 0.85,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXAAAGASCDWY-26NOV21-MC",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.93,
+   "cost": 23.25,
+   "fees": 0.12,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a minimal change?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDWY-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.070 (edge -0.064)",
+   "mark": 0.92,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXAAAGASCDWY-26NOV21-SD",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.77,
+   "cost": 19.25,
+   "fees": 0.31,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will gas prices show a small decrease?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASCDWY-26NOV21",
+   "reason": "Reference 0.011 vs bid 0.230 (edge -0.229)",
+   "mark": 0.75,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXAAAGASD-26NOV21-3.6650",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.04,
+   "cost": 1.0,
+   "fees": 0.07,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will average **gas prices** be above $3.6650?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXAAAGASD-26NOV21",
+   "reason": "YES ask 0.040 with 17608/4604 contracts resting",
+   "mark": 0.03,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T59499.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.12,
+   "cost": 3.0,
+   "fees": 0.19,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.915 -> 0.885 over 6 snapshots",
+   "mark": 0.11,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T59999.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.17,
+   "cost": 4.25,
+   "fees": 0.25,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.875 -> 0.835 over 6 snapshots",
+   "mark": 0.16,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T60499.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.24,
+   "cost": 6.0,
+   "fees": 0.32,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.815 -> 0.765 over 6 snapshots",
+   "mark": 0.23,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T60999.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.36,
+   "cost": 9.0,
+   "fees": 0.41,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.725 -> 0.645 over 6 snapshots",
+   "mark": 0.35,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T60999.99",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.65,
+   "cost": 16.25,
+   "fees": 0.4,
+   "opened_ts": 1795180970,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.645 is -0.058 below the 10-snapshot mean 0.703",
+   "mark": 0.64,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T61499.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.49,
+   "cost": 12.25,
+   "fees": 0.44,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.605 -> 0.515 over 6 snapshots",
+   "mark": 0.48,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T61499.99",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.52,
+   "cost": 13.0,
+   "fees": 0.44,
+   "opened_ts": 1795180970,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.515 is -0.075 below the 10-snapshot mean 0.590",
+   "mark": 0.51,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T61999.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.61,
+   "cost": 15.25,
+   "fees": 0.42,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.485 -> 0.395 over 6 snapshots",
+   "mark": 0.6,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T61999.99",
+   "side": "yes",
+   "contracts": 50,
+   "avg_price": 0.4,
+   "cost": 20.0,
+   "fees": 0.84,
+   "opened_ts": 1795180970,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.395 is -0.063 below the 10-snapshot mean 0.458",
+   "mark": 0.39,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T62499.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.74,
+   "cost": 18.5,
+   "fees": 0.34,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.345 -> 0.265 over 6 snapshots",
+   "mark": 0.73,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T62499.99",
+   "side": "yes",
+   "contracts": 50,
+   "avg_price": 0.27,
+   "cost": 13.5,
+   "fees": 0.7,
+   "opened_ts": 1795180970,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.265 is -0.063 below the 10-snapshot mean 0.328",
+   "mark": 0.26,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T62999.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.85,
+   "cost": 21.25,
+   "fees": 0.23,
+   "opened_ts": 1795180970,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.235 -> 0.160 over 6 snapshots",
+   "mark": 0.83,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T62999.99",
+   "side": "yes",
+   "contracts": 50,
+   "avg_price": 0.17,
+   "cost": 8.5,
+   "fees": 0.5,
+   "opened_ts": 1795180970,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.160 is -0.052 below the 10-snapshot mean 0.213",
+   "mark": 0.15,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.09,
+   "cost": 2.25,
+   "fees": 0.15,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES ask 0.090 with 59799/52965 contracts resting",
+   "mark": 0.08,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T63999.99",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.06,
+   "cost": 1.5,
+   "fees": 0.1,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES ask 0.060 with 49624/54534 contracts resting",
+   "mark": 0.05,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T64499.99",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.04,
+   "cost": 1.0,
+   "fees": 0.07,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES ask 0.040 with 47297/54114 contracts resting",
+   "mark": 0.03,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T64999.99",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.03,
+   "cost": 0.75,
+   "fees": 0.06,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES ask 0.030 with 39289/51794 contracts resting",
+   "mark": 0.01,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.8,
+   "cost": 20.0,
+   "fees": 0.28,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "Reference 0.103 vs bid 0.200 (edge -0.142)",
+   "mark": 0.71,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.29,
+   "cost": 7.25,
+   "fees": 0.37,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "YES ask 0.290 with 1200/2710 contracts resting",
+   "mark": 0.2,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.11,
+   "cost": 2.75,
+   "fees": 0.18,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.4 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "YES ask 0.110 with 1007/2628 contracts resting",
+   "mark": 0.03,
+   "unrealized": -2.0
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.5",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.09,
+   "cost": 2.25,
+   "fees": 0.15,
+   "opened_ts": 1795180970,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.5 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "YES ask 0.090 with 1005/5200 contracts resting",
+   "mark": 0.02,
+   "unrealized": -1.75
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL15",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.06,
+   "cost": 1.5,
+   "fees": 0.1,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 15 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "Reference 0.103 vs ask 0.060 (edge +0.073)",
+   "mark": 0.0,
+   "unrealized": -1.5
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL15.5",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.06,
+   "cost": 1.5,
+   "fees": 0.1,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 15.5 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "Reference 0.103 vs ask 0.060 (edge +0.073)",
+   "mark": 0.0,
+   "unrealized": -1.5
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL16",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.05,
+   "cost": 1.25,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 16 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "Reference 0.103 vs ask 0.050 (edge +0.078)",
+   "mark": 0.0,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.850",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.85,
+   "cost": 21.25,
+   "fees": 0.23,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.850 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
+   "mark": 0.81,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.855",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.85,
+   "cost": 21.25,
+   "fees": 0.23,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.855 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
+   "mark": 0.81,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.860",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.85,
+   "cost": 21.25,
+   "fees": 0.23,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.860 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
+   "mark": 0.81,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.865",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.86,
+   "cost": 21.5,
+   "fees": 0.22,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.865 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
+   "mark": 0.82,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.870",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.86,
+   "cost": 21.5,
+   "fees": 0.22,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.870 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
+   "mark": 0.82,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.875",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.87,
+   "cost": 21.75,
+   "fees": 0.2,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.875 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
+   "mark": 0.83,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.880",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.87,
+   "cost": 21.75,
+   "fees": 0.2,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.880 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
+   "mark": 0.83,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.885",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.87,
+   "cost": 21.75,
+   "fees": 0.2,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.885 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
+   "mark": 0.83,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.890",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.88,
+   "cost": 22.0,
+   "fees": 0.19,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.890 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
+   "mark": 0.84,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.895",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.88,
+   "cost": 22.0,
+   "fees": 0.19,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.895 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
+   "mark": 0.84,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.900",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.89,
+   "cost": 22.25,
+   "fees": 0.18,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.900 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "mark": 0.85,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.905",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.89,
+   "cost": 22.25,
+   "fees": 0.18,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.905 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "mark": 0.85,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.910",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.89,
+   "cost": 22.25,
+   "fees": 0.18,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.910 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "mark": 0.85,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.915",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.89,
+   "cost": 22.25,
+   "fees": 0.18,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.915 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "mark": 0.85,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.920",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.9,
+   "cost": 22.5,
+   "fees": 0.16,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.920 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "mark": 0.86,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.925",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.9,
+   "cost": 22.5,
+   "fees": 0.16,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.925 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "mark": 0.86,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.930",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.9,
+   "cost": 22.5,
+   "fees": 0.16,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.930 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "mark": 0.86,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.935",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.9,
+   "cost": 22.5,
+   "fees": 0.16,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.935 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "mark": 0.86,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.940",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.91,
+   "cost": 22.75,
+   "fees": 0.15,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.940 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
+   "mark": 0.87,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.945",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.91,
+   "cost": 22.75,
+   "fees": 0.15,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.945 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
+   "mark": 0.87,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.950",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.91,
+   "cost": 22.75,
+   "fees": 0.15,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.950 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
+   "mark": 0.87,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.955",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.92,
+   "cost": 23.0,
+   "fees": 0.13,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.955 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
+   "mark": 0.88,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.960",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.92,
+   "cost": 23.0,
+   "fees": 0.13,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.960 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
+   "mark": 0.88,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.965",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.92,
+   "cost": 23.0,
+   "fees": 0.13,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.965 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
+   "mark": 0.88,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.970",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.93,
+   "cost": 23.25,
+   "fees": 0.12,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will the natural gas close price be above 3.970 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "Reference 0.005 vs bid 0.070 (edge -0.085)",
+   "mark": 0.89,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL1.5",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.05,
+   "cost": 1.25,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 1.5% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.102)",
+   "mark": 0.01,
+   "unrealized": -1.0
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL2.0",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.05,
+   "cost": 1.25,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 2.0% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "mark": 0.0,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL2.5",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.05,
+   "cost": 1.25,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 2.5% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "mark": 0.0,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL3.0",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.05,
+   "cost": 1.25,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 3.0% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "mark": 0.0,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL3.5",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.05,
+   "cost": 1.25,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 3.5% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "mark": 0.0,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL4.0",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.05,
+   "cost": 1.25,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 4.0% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "mark": 0.0,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL4.5",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.02,
+   "cost": 0.5,
+   "fees": 0.04,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 4.5% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.020 (edge +0.122)",
+   "mark": 0.0,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXNVGOVNOTC-26NOV03-AL5.0",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.02,
+   "cost": 0.5,
+   "fees": 0.04,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Will \u201cNone of These Candidates\u201d receive at least 5.0% of votes in Nevada\u2019s November 3, 2026 Governor election?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXNVGOVNOTC-26NOV03",
+   "reason": "Reference 0.132 vs ask 0.020 (edge +0.122)",
+   "mark": 0.0,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T100P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.76,
+   "cost": 19.0,
+   "fees": 0.32,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $100.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.240 (edge -0.275)",
+   "mark": 0.68,
+   "unrealized": -2.0
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T101P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.8,
+   "cost": 20.0,
+   "fees": 0.28,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $101.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.200 (edge -0.235)",
+   "mark": 0.72,
+   "unrealized": -2.0
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T102P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.84,
+   "cost": 21.0,
+   "fees": 0.24,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $102.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.160 (edge -0.200)",
+   "mark": 0.75,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T103P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.87,
+   "cost": 21.75,
+   "fees": 0.2,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $103.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.165)",
+   "mark": 0.79,
+   "unrealized": -2.0
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T104P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.9,
+   "cost": 22.5,
+   "fees": 0.16,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $104.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.140)",
+   "mark": 0.81,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T105P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.93,
+   "cost": 23.25,
+   "fees": 0.12,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $105.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.070 (edge -0.110)",
+   "mark": 0.84,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T106P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.95,
+   "cost": 23.75,
+   "fees": 0.09,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $106.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.050 (edge -0.090)",
+   "mark": 0.86,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T107P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.97,
+   "cost": 24.25,
+   "fees": 0.06,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $107.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.030 (edge -0.070)",
+   "mark": 0.88,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T97P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.63,
+   "cost": 15.75,
+   "fees": 0.41,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $97.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.370 (edge -0.405)",
+   "mark": 0.55,
+   "unrealized": -2.0
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T98P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.68,
+   "cost": 17.0,
+   "fees": 0.39,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $98.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.320 (edge -0.360)",
+   "mark": 0.59,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXTTFD-23NOV261659-T99P000",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.72,
+   "cost": 18.0,
+   "fees": 0.36,
+   "opened_ts": 1795180970,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "title": "Dutch TTF gas above $99.000 on Nov 23 at 4:59:59 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXTTFD-23NOV261659",
+   "reason": "Reference 0.005 vs bid 0.280 (edge -0.315)",
+   "mark": 0.64,
+   "unrealized": -2.0
+  }
+ ],
+ "fills": [
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDCA-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.88,
+   "fee": 0.19,
+   "cost": 22.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.120 (edge -0.129)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDCT-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.79,
+   "fee": 0.3,
+   "cost": 19.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.210 (edge -0.214)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDDE-26NOV21-LD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.57,
+   "fee": 0.43,
+   "cost": 14.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.430 (edge -0.434)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDDE-26NOV21-MC",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.87,
+   "fee": 0.2,
+   "cost": 21.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.130 (edge -0.139)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDDE-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.65,
+   "fee": 0.4,
+   "cost": 16.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.350 (edge -0.359)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDHI-26NOV21-LD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.63,
+   "fee": 0.41,
+   "cost": 15.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.370 (edge -0.364)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDHI-26NOV21-MC",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.85,
+   "fee": 0.23,
+   "cost": 21.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.150 (edge -0.159)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDHI-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.65,
+   "fee": 0.4,
+   "cost": 16.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.350 (edge -0.354)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDMD-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.63,
+   "fee": 0.41,
+   "cost": 15.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.370 (edge -0.379)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDME-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.9,
+   "fee": 0.16,
+   "cost": 22.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.100 (edge -0.104)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDMO-26NOV21-SD",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.04,
+   "fee": 0.07,
+   "cost": 1.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.040 with 184/466 contracts resting",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDMT-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.88,
+   "fee": 0.19,
+   "cost": 22.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.120 (edge -0.119)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDNH-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.86,
+   "fee": 0.22,
+   "cost": 21.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.140 (edge -0.144)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDNH-26NOV21-SD",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.17,
+   "fee": 0.25,
+   "cost": 4.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.170 with 241/343 contracts resting",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDNJ-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.93,
+   "fee": 0.12,
+   "cost": 23.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.070 (edge -0.064)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDNV-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.9,
+   "fee": 0.16,
+   "cost": 22.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.100 (edge -0.109)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDVT-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.89,
+   "fee": 0.18,
+   "cost": 22.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.110 (edge -0.119)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDWY-26NOV21-MC",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.93,
+   "fee": 0.12,
+   "cost": 23.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.070 (edge -0.064)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASCDWY-26NOV21-SD",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.77,
+   "fee": 0.31,
+   "cost": 19.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.011 vs bid 0.230 (edge -0.229)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXAAAGASD-26NOV21-3.6650",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.04,
+   "fee": 0.07,
+   "cost": 1.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.040 with 17608/4604 contracts resting",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T59499.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.12,
+   "fee": 0.19,
+   "cost": 3.0,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.915 -> 0.885 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T59999.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.17,
+   "fee": 0.25,
+   "cost": 4.25,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.875 -> 0.835 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T60499.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.24,
+   "fee": 0.32,
+   "cost": 6.0,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.815 -> 0.765 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T60999.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.36,
+   "fee": 0.41,
+   "cost": 9.0,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.725 -> 0.645 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T60999.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.65,
+   "fee": 0.4,
+   "cost": 16.25,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "reason": "YES mid 0.645 is -0.058 below the 10-snapshot mean 0.703",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T61499.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.49,
+   "fee": 0.44,
+   "cost": 12.25,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.605 -> 0.515 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T61499.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.52,
+   "fee": 0.44,
+   "cost": 13.0,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "reason": "YES mid 0.515 is -0.075 below the 10-snapshot mean 0.590",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T61999.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.61,
+   "fee": 0.42,
+   "cost": 15.25,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.485 -> 0.395 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T61999.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.4,
+   "fee": 0.42,
+   "cost": 10.0,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "reason": "YES mid 0.395 is -0.063 below the 10-snapshot mean 0.458",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T61999.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.4,
+   "fee": 0.42,
+   "cost": 10.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.400 with 51353/49911 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T62499.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.74,
+   "fee": 0.34,
+   "cost": 18.5,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.345 -> 0.265 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T62499.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.27,
+   "fee": 0.35,
+   "cost": 6.75,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "reason": "YES mid 0.265 is -0.063 below the 10-snapshot mean 0.328",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T62499.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.27,
+   "fee": 0.35,
+   "cost": 6.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.270 with 51483/50757 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T62999.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.85,
+   "fee": 0.23,
+   "cost": 21.25,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.235 -> 0.160 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T62999.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.17,
+   "fee": 0.25,
+   "cost": 4.25,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "reason": "YES mid 0.160 is -0.052 below the 10-snapshot mean 0.213",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T62999.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.17,
+   "fee": 0.25,
+   "cost": 4.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.170 with 53769/52515 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.09,
+   "fee": 0.15,
+   "cost": 2.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.090 with 59799/52965 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T63999.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.06,
+   "fee": 0.1,
+   "cost": 1.5,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.060 with 49624/54534 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T64499.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.04,
+   "fee": 0.07,
+   "cost": 1.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.040 with 47297/54114 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXBTCD-26NOV2017-T64999.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.03,
+   "fee": 0.06,
+   "cost": 0.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.030 with 39289/51794 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.8,
+   "fee": 0.28,
+   "cost": 20.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.103 vs bid 0.200 (edge -0.142)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.29,
+   "fee": 0.37,
+   "cost": 7.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.290 with 1200/2710 contracts resting",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.11,
+   "fee": 0.18,
+   "cost": 2.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.110 with 1007/2628 contracts resting",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.5",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.09,
+   "fee": 0.15,
+   "cost": 2.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.090 with 1005/5200 contracts resting",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL15",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.06,
+   "fee": 0.1,
+   "cost": 1.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.103 vs ask 0.060 (edge +0.073)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL15.5",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.06,
+   "fee": 0.1,
+   "cost": 1.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.103 vs ask 0.060 (edge +0.073)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL16",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.05,
+   "fee": 0.09,
+   "cost": 1.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.103 vs ask 0.050 (edge +0.078)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.850",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.85,
+   "fee": 0.23,
+   "cost": 21.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.855",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.85,
+   "fee": 0.23,
+   "cost": 21.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.860",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.85,
+   "fee": 0.23,
+   "cost": 21.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.865",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.86,
+   "fee": 0.22,
+   "cost": 21.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.870",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.86,
+   "fee": 0.22,
+   "cost": 21.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.875",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.87,
+   "fee": 0.2,
+   "cost": 21.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.880",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.87,
+   "fee": 0.2,
+   "cost": 21.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.885",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.87,
+   "fee": 0.2,
+   "cost": 21.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.890",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.88,
+   "fee": 0.19,
+   "cost": 22.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.895",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.88,
+   "fee": 0.19,
+   "cost": 22.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.900",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.89,
+   "fee": 0.18,
+   "cost": 22.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.905",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.89,
+   "fee": 0.18,
+   "cost": 22.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.910",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.89,
+   "fee": 0.18,
+   "cost": 22.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.915",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.89,
+   "fee": 0.18,
+   "cost": 22.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.920",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.9,
+   "fee": 0.16,
+   "cost": 22.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.925",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.9,
+   "fee": 0.16,
+   "cost": 22.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.930",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.9,
+   "fee": 0.16,
+   "cost": 22.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.935",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.9,
+   "fee": 0.16,
+   "cost": 22.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.940",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.91,
+   "fee": 0.15,
+   "cost": 22.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.945",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.91,
+   "fee": 0.15,
+   "cost": 22.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.950",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.91,
+   "fee": 0.15,
+   "cost": 22.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.955",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.92,
+   "fee": 0.13,
+   "cost": 23.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.960",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.92,
+   "fee": 0.13,
+   "cost": 23.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.965",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.92,
+   "fee": 0.13,
+   "cost": 23.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.970",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.93,
+   "fee": 0.12,
+   "cost": 23.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.070 (edge -0.085)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL1.5",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.05,
+   "fee": 0.09,
+   "cost": 1.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.102)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL2.0",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.05,
+   "fee": 0.09,
+   "cost": 1.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL2.5",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.05,
+   "fee": 0.09,
+   "cost": 1.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL3.0",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.05,
+   "fee": 0.09,
+   "cost": 1.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL3.5",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.05,
+   "fee": 0.09,
+   "cost": 1.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL4.0",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.05,
+   "fee": 0.09,
+   "cost": 1.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.050 (edge +0.107)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL4.5",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.02,
+   "fee": 0.04,
+   "cost": 0.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.020 (edge +0.122)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXNVGOVNOTC-26NOV03-AL5.0",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.02,
+   "fee": 0.04,
+   "cost": 0.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.132 vs ask 0.020 (edge +0.122)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T100P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.76,
+   "fee": 0.32,
+   "cost": 19.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.240 (edge -0.275)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T101P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.8,
+   "fee": 0.28,
+   "cost": 20.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.200 (edge -0.235)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T102P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.84,
+   "fee": 0.24,
+   "cost": 21.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.160 (edge -0.200)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T103P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.87,
+   "fee": 0.2,
+   "cost": 21.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.130 (edge -0.165)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T104P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.9,
+   "fee": 0.16,
+   "cost": 22.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.100 (edge -0.140)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T105P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.93,
+   "fee": 0.12,
+   "cost": 23.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.070 (edge -0.110)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T106P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.95,
+   "fee": 0.09,
+   "cost": 23.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.050 (edge -0.090)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T107P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.97,
+   "fee": 0.06,
+   "cost": 24.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.030 (edge -0.070)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T97P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.63,
+   "fee": 0.41,
+   "cost": 15.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.370 (edge -0.405)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T98P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.68,
+   "fee": 0.39,
+   "cost": 17.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.320 (edge -0.360)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "ticker": "KXTTFD-23NOV261659-T99P000",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.72,
+   "fee": 0.36,
+   "cost": 18.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.005 vs bid 0.280 (edge -0.315)",
+   "topics": [
+    "gas"
+   ]
+  }
+ ],
+ "equity_curve": [
+  {
+   "t": 1795180970,
+   "at": "2026-11-20T13:23:07Z",
+   "cash": 8641.62,
+   "positions": 1249.75,
+   "equity": 9891.37
+  }
+ ],
+ "closed": [],
+ "note": "Simulated portfolio only. No Kalshi account is connected; no order was placed.",
+ "updated_at": "2026-11-20T13:23:07Z",
+ "last_snapshot_ts": 1795180970
+}

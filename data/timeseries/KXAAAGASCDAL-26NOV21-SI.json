@@ -1,0 +1,21 @@
+{
+"ticker": "KXAAAGASCDAL-26NOV21-SI",
+"title": "Will gas prices show a small increase?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.02,
+"vol": 40.0,
+"oi": 20.0
+}
+],
+"event_ticker": "KXAAAGASCDAL-26NOV21",
+"series_ticker": "KXAAAGASCDAL",
+"updated_at": "2026-11-20T13:22:55Z"
+}

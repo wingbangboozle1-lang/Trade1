@@ -1,0 +1,21 @@
+{
+"ticker": "KXXRPD-26NOV2009-T0.9599",
+"title": "Ripple price at Nov 20, 2026 at 9am EST?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.01,
+"vol": 1601.2,
+"oi": 1600.2
+}
+],
+"event_ticker": "KXXRPD-26NOV2009",
+"series_ticker": "KXXRPD",
+"updated_at": "2026-11-20T13:22:55Z"
+}

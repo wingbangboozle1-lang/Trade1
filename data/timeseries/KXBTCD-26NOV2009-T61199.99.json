@@ -1,0 +1,23 @@
+{
+"ticker": "KXBTCD-26NOV2009-T61199.99",
+"points": [
+{
+"t": 1795180970,
+"bid": 0.86,
+"ask": 0.87,
+"mid": 0.865,
+"last": 0.89,
+"vol": 40734.37,
+"oi": 25285.82
+}
+],
+"history_backfilled_at": "2026-11-20T13:22:55Z",
+"history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+"title": "Bitcoin price on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"event_ticker": "KXBTCD-26NOV2009",
+"series_ticker": "KXBTCD",
+"updated_at": "2026-11-20T13:22:55Z"
+}

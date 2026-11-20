@@ -35,10 +35,10 @@ Portfolio page reproducible.</div>
 <dl class="meta"><dt>min_edge</dt><dd class='money'>0.06</dd><dt>max_price</dt><dd class='money'>0.45</dd><dt>min_days_to_close</dt><dd class='money'>3</dd></dl>
 <hr class="sep">
 <div class="grid cols-4" style="gap:8px">
-  <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">14</span></span></div>
-  <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="money">0.0%</span></span></div>
-  <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money down">$-82.73</span></span></div>
-  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">29</span></span></div>
+  <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">0</span></span></div>
+  <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="faint">—</span></span></div>
+  <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money mut">$0.00</span></span></div>
+  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">65</span></span></div>
 </div></div><div class="card">
 <h2>momentum_ignition <span class="chip topic">Momentum</span></h2>
 <p style="margin:0 0 10px">Look at the last 6 snapshots. If YES mid rose by &gt;= 0.03 and the last three snapshots are not lower, buy YES at the ask while it is below 0.9. Symmetric for NO on a fall. Exit is handled by the portfolio&#39;s take-profit.</p>
@@ -48,7 +48,7 @@ Portfolio page reproducible.</div>
   <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">0</span></span></div>
   <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="faint">—</span></span></div>
   <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money mut">$0.00</span></span></div>
-  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">0</span></span></div>
+  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">8</span></span></div>
 </div></div><div class="card">
 <h2>fade_stretched_move <span class="chip topic">Market making</span></h2>
 <p style="margin:0 0 10px">Needs &gt;= 10 snapshots and &gt;= 50 contracts resting on each side. If YES mid is at least 0.05 above its window mean, buy NO; if it is at least 0.05 below, buy YES. Intended as a resting-order (maker) style entry.</p>
@@ -58,7 +58,7 @@ Portfolio page reproducible.</div>
   <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">0</span></span></div>
   <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="faint">—</span></span></div>
   <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money mut">$0.00</span></span></div>
-  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">0</span></span></div>
+  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">5</span></span></div>
 </div></div><div class="card">
 <h2>post_jump_drift <span class="chip topic">Event driven</span></h2>
 <p style="margin:0 0 10px">When the |change| in YES mid between consecutive snapshots is &gt;= 0.1, buy in the direction of the jump at the touch, provided the price has not already retraced more than 0.05 from the post-jump level.</p>
@@ -78,16 +78,16 @@ Portfolio page reproducible.</div>
   <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">0</span></span></div>
   <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="faint">—</span></span></div>
   <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money mut">$0.00</span></span></div>
-  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">13</span></span></div>
+  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">10</span></span></div>
 </div></div><div class="card">
 <h2>complement_arbitrage <span class="chip topic">Arbitrage</span></h2>
 <p style="margin:0 0 10px">Buying YES and NO together costs (1 - NO bid) + (1 - YES bid) = 2 - (YES bid + NO bid) and pays exactly $1 at settlement, so a locked edge exists only when YES bid + NO bid exceeds 1 by at least 0.03. Enter when both sides rest &gt;= 25 contracts.</p>
 <dl class="meta"><dt>min_edge</dt><dd class='money'>0.03</dd><dt>min_depth</dt><dd class='money'>25</dd></dl>
 <hr class="sep">
 <div class="grid cols-4" style="gap:8px">
-  <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">26</span></span></div>
-  <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="money">0.0%</span></span></div>
-  <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money down">$-449.84</span></span></div>
+  <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">0</span></span></div>
+  <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="faint">—</span></span></div>
+  <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money mut">$0.00</span></span></div>
   <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">0</span></span></div>
 </div></div></div>
 <div class="card">
@@ -96,9 +96,9 @@ Portfolio page reproducible.</div>
   <th class="num">closed</th><th class="num">win rate</th><th class="num">realized</th></tr></thead>
   <tbody><tr><td><b>fair_value_vs_clock</b></td><td>Statistical</td>
 <td style="max-width:420px;font-size:12.5px" class="mut">With &gt;= 3 days to close and the YES ask or bid at or below 0.45, compare price with a reference probability that rises linearly to 0.5 as close time approaches. Buy YES if reference - price &gt;= 0.06; buy NO if price - reference &gt;= 0.06.</td>
-<td class="num"><span class="money">14</span></td>
-<td class="num"><span class="money">0.0%</span></td>
-<td class="num"><span class="money down">$-82.73</span></td></tr><tr><td><b>momentum_ignition</b></td><td>Momentum</td>
+<td class="num"><span class="money">0</span></td>
+<td class="num"><span class="faint">—</span></td>
+<td class="num"><span class="money mut">$0.00</span></td></tr><tr><td><b>momentum_ignition</b></td><td>Momentum</td>
 <td style="max-width:420px;font-size:12.5px" class="mut">Look at the last 6 snapshots. If YES mid rose by &gt;= 0.03 and the last three snapshots are not lower, buy YES at the ask while it is below 0.9. Symmetric for NO on a fall. Exit is handled by the portfolio&#39;s take-profit.</td>
 <td class="num"><span class="money">0</span></td>
 <td class="num"><span class="faint">—</span></td>
@@ -116,9 +116,9 @@ Portfolio page reproducible.</div>
 <td class="num"><span class="faint">—</span></td>
 <td class="num"><span class="money mut">$0.00</span></td></tr><tr><td><b>complement_arbitrage</b></td><td>Arbitrage</td>
 <td style="max-width:420px;font-size:12.5px" class="mut">Buying YES and NO together costs (1 - NO bid) + (1 - YES bid) = 2 - (YES bid + NO bid) and pays exactly $1 at settlement, so a locked edge exists only when YES bid + NO bid exceeds 1 by at least 0.03. Enter when both sides rest &gt;= 25 contracts.</td>
-<td class="num"><span class="money">26</span></td>
-<td class="num"><span class="money">0.0%</span></td>
-<td class="num"><span class="money down">$-449.84</span></td></tr></tbody></table></div>
+<td class="num"><span class="money">0</span></td>
+<td class="num"><span class="faint">—</span></td>
+<td class="num"><span class="money mut">$0.00</span></td></tr></tbody></table></div>
 </div>
 <div class="card" style="margin-top:14px">
   <h2>Why these categories</h2>

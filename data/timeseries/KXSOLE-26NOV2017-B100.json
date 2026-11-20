@@ -1,0 +1,21 @@
+{
+"ticker": "KXSOLE-26NOV2017-B100",
+"title": "SOL price on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.02,
+"vol": 25.82,
+"oi": 25.82
+}
+],
+"event_ticker": "KXSOLE-26NOV2017",
+"series_ticker": "KXSOLE",
+"updated_at": "2026-11-20T13:22:55Z"
+}

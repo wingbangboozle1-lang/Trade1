@@ -1,0 +1,21 @@
+{
+"ticker": "KXXRP-26NOV2017-B0.9499500",
+"title": "Ripple price at Nov 20, 2026 at 5pm EST?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.25,
+"ask": 0.39,
+"mid": 0.32,
+"last": 0.15,
+"vol": 740.29,
+"oi": 734.89
+}
+],
+"event_ticker": "KXXRP-26NOV2017",
+"series_ticker": "KXXRP",
+"updated_at": "2026-11-20T13:22:55Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXHYPE15M-26NOV200830-30",
+"title": "HYPE price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.3,
+"ask": 0.32,
+"mid": 0.31,
+"last": 0.33,
+"vol": 12924.17,
+"oi": 5985.09
+}
+],
+"event_ticker": "KXHYPE15M-26NOV200830",
+"series_ticker": "KXHYPE15M",
+"updated_at": "2026-11-20T13:22:55Z"
+}

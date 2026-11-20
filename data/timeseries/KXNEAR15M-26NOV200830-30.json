@@ -1,0 +1,21 @@
+{
+"ticker": "KXNEAR15M-26NOV200830-30",
+"title": "NEAR price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.79,
+"ask": 0.82,
+"mid": 0.805,
+"last": 0.78,
+"vol": 8854.95,
+"oi": 5271.66
+}
+],
+"event_ticker": "KXNEAR15M-26NOV200830",
+"series_ticker": "KXNEAR15M",
+"updated_at": "2026-11-20T13:22:55Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXAAAGASCDNY-26NOV21-LI",
+"title": "Will gas prices show a large increase?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.02,
+"vol": 42.13,
+"oi": 42.13
+}
+],
+"event_ticker": "KXAAAGASCDNY-26NOV21",
+"series_ticker": "KXAAAGASCDNY",
+"updated_at": "2026-11-20T13:22:55Z"
+}
