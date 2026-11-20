@@ -5,6 +5,8 @@ on:
     - cron: "*/30 * * * *"
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -36,7 +38,7 @@ jobs:
         with:
           path: _site
       - name: Save build report to this branch (non-main test builds only)
-        if: github.ref != 'refs/heads/main'
+        if: github.event_name != 'pull_request' && github.ref != 'refs/heads/main'
         run: |
           mkdir -p probe/build
           cp _site/data/meta.json _site/data/flags.json probe/build/
