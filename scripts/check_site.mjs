@@ -23,7 +23,8 @@ async function walk(dir) {
 
 // Scope: only the v2 site pages. Other sessions' HTML on the same branch is listed, not checked.
 const V2_PAGES = new Set(['index.html','live.html','resolved.html','strategies.html','sources.html','flagged.html',
-  'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html']);
+  'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html',
+  'demo-account/index.html','demo-account/flagged.html']);
 const allFiles = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
 const files = allFiles.filter(f => V2_PAGES.has(f) || !f.endsWith('.html'));
 const notChecked = allFiles.filter(f => f.endsWith('.html') && !V2_PAGES.has(f));
