@@ -37,16 +37,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
-      - name: Install jsdom for the page-boot checks (optional)
-        run: npm install --no-save --silent jsdom
-        continue-on-error: true
+          node-version: '24'      # matches pages.yml; jsdom >= 31 needs Node >= 22 at runtime
+      - name: Install test dependency (jsdom)
+        run: npm install --no-audit --no-fund jsdom@26.1.0
+        continue-on-error: true   # the page-boot checks self-skip when jsdom is absent
       - name: Published-page link and nav check
         run: node scripts/check_links.mjs
+      - name: Root engine unit checks (fees, alert threshold, classifier)
+        run: node tests/root_engine.test.js
       - name: Ledger + page checks (offline; skips the DOM part without jsdom)
         run: node tests/portfolio.test.mjs
+      - name: Ledger engine must not regress the shared site checks
+        run: node scripts/check_site.mjs
 
   ledger:
     runs-on: ubuntu-latest

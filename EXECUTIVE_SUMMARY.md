@@ -1,110 +1,113 @@
-# Executive Summary — Kalshi Demo Monitor
+# Executive Summary — Kalshi Demo Dashboard (root site)
 
-**Date:** 2026-11-20 · **Repo:** `wingbangboozle1-lang/Trade1` · **Site:** GitHub Pages (`site/`) · **Data source:** official Kalshi demo REST API `https://external-api.demo.kalshi.co/trade-api/v2` (public endpoints only)
-
-## 1. What was built
-
-A live, interactive monitoring and strategy-testing dashboard for the Kalshi **demo** exchange (mock-funds environment, per [official demo documentation](https://docs.kalshi.com/getting_started/demo_env)), restricted to five topics: **gas prices, elections, culture, crypto, golf**.
-
-| Requirement | Delivered |
-|---|---|
-| Track highest-dollar live events in the five topics | Live ranking by estimated traded dollars (Σ volume × last price) and estimated OI dollars, computed client-side from official `/markets` data; per-topic pages keep categories separate |
-| Live alerting on swings ≥ $0.10 either direction | Watcher rotates top events every ~2.5 s; alerts fire on (a) moves between consecutive observations and (b) exchange-reported `previous_price → last_price` moves; integer-cent comparison avoids float misses; 45 s per-market cooldown damps oscillation |
-| Two scrolling chats | "All events" feed + "Model likes" feed (heuristic score ≥ 0.62 and fee-adjusted est. ROI ≥ 5%); both auto-scroll with timestamps, direction, topic pills, and links |
-| Track events until resolution, yes/no | Tracked events re-checked against `status=settled` listings; the official `result` field is copied verbatim into an archive (per-topic and global pages); never inferred |
-| Automate simulated trades / strategies | Four paper strategies (Momentum Rider, Fade the Spike, Extreme Value, Liquidity Scalper) run automatically against observed top-of-book; official fee math; per-strategy and per-topic P&L analytics |
-| Portfolio performance | Paper equity, cash, mark value, realized P&L, fees, win rates, open positions, closed-trade log, equity curve — local only |
-| Interactive price graphs | Canvas chart, X = time with **60 s / 5 m / 15 m / 1 h / 6 h / 24 h** windows, Y = contract price; short windows use live samples, long windows add official 1-minute candlesticks; alert markers plotted |
-| Liquidity / contracts at price | Official orderbook ladder (`/markets/{ticker}/orderbook`): YES bids and NO bids with contracts at each price, implied opposite-side asks, depth totals, spread, OI |
-| Events + links that may have caused jumps | Every alert links the official API response, the event data, demo.kalshi.co, and a news-search link **labeled unverified** — causation is never asserted |
-| Suggestions for more liveness | Findings page includes a trader's playbook; the site itself is fully auto-running (no manual input) |
-| GitHub Pages site, category subpages, tables with sources | Landing page + 5 topic subpages + strategies/findings/resolved/flagged pages; every committed table row carries the official request URL or doc link that produced it |
-| Verification policy | Values confirmed from official sources only; unconfirmed values left **blank and flagged**; full log in `docs/VERIFICATION.md` and on the site's Flagged page |
-| Parallel-session coordination | `COORDINATION.md` task board updated (claim, scope, verification, sources, irregularities); single-branch constraint documented |
-| PR → merge → Pages deploy | Executed at the end of this session without waiting for review |
-
-## 2. Verification highlights (all from official sources, 2026-11-20)
-
-- **Endpoints & schemas** verified live: `/events`, `/markets` (+ filters), `/series/{ticker}`, `/series?category=`/`?tags=`, `/markets/{ticker}/orderbook?depth=`, `/markets/trades?ticker=`, `/series/{s}/markets/{t}/candlesticks` — request URLs recorded per value.
-- **Docs** verified: demo environment; market status filter (`unopened/open/closed/settled`); orderbook shape ([price, qty] ascending, bids only, YES↔NO duality); candlesticks (1/60/1440-min periods, ≤5,000 periods); trades shape; series-list filters; **WebSocket requires authenticated handshake** (hence REST polling); unauthenticated rate limits unpublished → conservative throttling.
-- **Fees** verified from the official schedule PDF (effective 2026-07-07): taker `round_up(0.07 × C × P × (1−P))`, maker 0.0175×(M=0 default on quadratic series), no settlement fee — reproduced by unit tests against the official table's worked examples.
-- **Topic coverage on demo**: crypto (`KXBTCD`, `KXETHD` — CF Benchmarks settlement), golf (`/series?tags=Golf` → PGA/LIV series vs PGA Tour/ESPN/Fox/Golf Channel), gas (`KXGAS` EIA, `KXAAAGASM` AAA), elections (category + `KXVPRESNOMR` 1.27M contracts, liquid `KXVPRESNOMR-28-EKIR` market with real bid/ask/volume/OI verified live), culture (category exists; exactly 2 demo series, both zero-volume).
-
-## 3. Key findings & flagged irregularities (full list on the Flagged page)
-
-1. Demo returns market `status:"active"` although the documented status set is `unopened/open/closed/settled` — treated as open, flagged.
-2. Some demo `settlement_sources` contain template placeholder URLs (e.g. `google.com/search?q=…`) — shown as-is, never treated as authoritative.
-3. `KXGAS` ("Gas weekly") exists but has **zero events** in demo; demo crypto markets on the first page showed zero volume — demo data is sparser than production; empty tables are genuine exchange states.
-4. Browser↔Kalshi CORS could not be tested from the build sandbox (egress allowlist); the site degrades to the verified snapshot with a clear banner and prints a manual `curl` check.
-5. WebSocket unusable from a static page without credentials → REST polling; documented.
-6. No official per-event dollar-volume field exists → dollar ranking is an estimate, labeled everywhere; true traded dollars only from trade-print samples.
-7. `previous_price_dollars` semantics (price before the latest trade) inferred from the official schema field name — flagged as an assumption.
-8. Real demo-account portfolio/order tracking requires user-created demo API keys — implemented as local simulation instead; the limitation is disclosed, not hidden.
-
-## 4. Data quality observations for traders
-
-- Demo liquidity concentrates in long-dated political markets (e.g. 2028 VP nomination); most hourly/daily markets are thin — check the orderbook ladder before trusting any alert.
-- $0.10 swings occur most plausibly around settlement windows and thin-book prints; the tape panel provides the evidence trail.
-- The two-feed design separates **facts** (observed/exchange-reported moves, with API links) from **opinion** (model picks, labeled heuristic).
-
-## 5. Risks & limitations
-
-- Observation only while a page is open (no server-side capture); localStorage persistence is per-browser.
-- Simulated fills assume execution at observed quotes; real resting orders may not fill the same way.
-- Demo behavior need not match production (per Kalshi's official documentation).
-- Everything here is educational; nothing is financial advice.
+**Date:** 2026-11-20 · **Repo:** `wingbangboozle1-lang/Trade1` · **Site:** GitHub Pages root (`main /`, legacy source) — <https://wingbangboozle1-lang.github.io/Trade1/>
+**Data source:** official Kalshi **demo** REST API — `https://external-api.demo.kalshi.co/trade-api/v2` (recommended host) and `https://demo-api.kalshi.co/trade-api/v2` (also supported), per [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments). Public, unauthenticated, read-only; the demo environment is mock funds per [Test In The Demo Environment](https://docs.kalshi.com/getting_started/demo_env).
 
 ---
 
-# Addendum — session `e82d36a3`, 2026-11-20 (deployed root site)
+## 1. What was built
 
-**Scope of this addendum.** The section above was written by session `f6094c46` about its `monitor/` build. This addendum
-describes the **published root site** (`https://wingbangboozle1-lang.github.io/Trade1/`, Pages source = `main` `/`) as of
-2026-11-20 and what this session changed. Nothing above was deleted or rewritten.
+A live, interactive monitoring and paper-trading dashboard for the Kalshi **demo** exchange, restricted to five topics: **gas prices, elections, culture, crypto, golf** only.
 
-## What is live now
-
-| Brief requirement | State on the published site |
+| Requirement | Delivered (root site) |
 |---|---|
-| Highest-dollar live events, five topics | Landing + `dashboard.html` + five `topics/*.html` pages, ranked by estimated 24 h traded dollars; the estimate is labelled as such (no per-market dollar field is published) |
-| Alerting on ≥ $0.10 swings, both directions | Two auto-scrolling chats (all events / ROI-screen picks) sampled every ~12 s while a tab is open; the ≥ $0.10 test is done on integer 1e-4 USD units, so an exact $0.66→$0.56 move cannot be lost to binary float |
-| Chart shows the jumps and the links | **New this session:** each ≥ $0.10 jump for the selected market is drawn on the price chart inside the chosen window, with a jump/link strip underneath (official market page, the event's published settlement sources, a news-search lead — labelled leads, never causes) |
-| Track events until resolution (YES/NO) | Watched markets are re-quoted each cycle; `status`/`result`/`settlement_ts` are copied verbatim into the resolution tables; open paper positions settle at $1.00 per winner |
-| Automated simulated trades | **New this session:** `scripts/portfolio_engine.py` runs the four documented strategies in GitHub Actions every ~30 min and commits its ledger (`data/portfolio.json`), so the track record accumulates without a browser open and every visitor sees the same numbers (`portfolio.html`) |
-| Portfolio performance / categorised analysis | `portfolio.html`: equity curve, open positions marked at the official bid, P&L by strategy, by topic and by exit reason, ROI and win-rate tables, per-row source links. The browser Strategy Lab (`trades.html`) keeps its own per-browser book for fast sampling |
-| Live interactive charts, liquidity, depth per price | `dashboard.html`: time-window picker (seconds → hours), order-book ladder with contract counts at each price level |
-| Suggestions for more liveness | **New this session:** `suggestions.html` — 10 static-site quick wins, 3 items that need a small server, 2 that need the owner's demo key, each tied to the published endpoint or doc page that makes it possible |
-| No manual input | Everything above runs from schedules and public endpoints; no credentials, no forms, no key entry |
+| Track highest-dollar live events in the five topics | `dashboard.html` + per-topic pages (`topics/*.html`) rank events by highest **estimated traded dollars** (total contracts × last price, computed from official `/markets` fields; labeled an estimate — no official per-market dollar-notional field exists), ties broken by estimated 24h dollars. Categories are kept separate per topic; the table also shows est. 24h $, and every row links the exact official `GET /markets?tickers=…` response it came from. |
+| Live alerting on swings ≥ $0.10 either direction | Sampled price moves are compared in whole 1/10000-dollar units, so an exact $0.10 move can never be lost to binary-float error (0.66 − 0.56 = 0.09999999999999998). A 45-second per-market cooldown stops oscillation flooding the feed. Two scrolling chats: **“All events”** and **“Model picks”** (heuristic ROI score ≥ 0.45), both auto-scrolling with timestamps, direction, topic pills, price path, volume, and links. |
+| Track events until resolution, yes/no | Watched markets are re-checked on every poll; when the exchange settles one, the official `result` (`yes`/`no`) and settlement timestamp are recorded and shown. Paper positions settle at $1 per winning contract. Never inferred. |
+| Automate simulated trades / strategies | Four paper strategies (momentum, fade, harvest, breakout) run automatically against live demo quotes with the official taker fee applied; per-strategy and per-topic P&L. `trades.html` (Strategy Lab). |
+| Portfolio performance | Paper equity, cash, mark value, realized P&L, fees, win rate, open positions, closed-trade log, equity curve — **local only (localStorage)**. |
+| Interactive price graphs | Canvas chart, X = time with **60 s / 5 m / 15 m / 1 h / 6 h / 24 h** windows, Y = contract price ($0.00–$1.00). Seconds/minutes use live samples; hour+ merges official 1-minute / 60-minute candlesticks. ≥ $0.10 alert markers are plotted on the line and the latest jump in the window is linked below the chart. |
+| Liquidity / contracts at price | Official order-book ladders (`GET /markets/{ticker}/orderbook?depth=10`): YES bid/ask and NO bid/ask with **contracts available at each price**, depth bars and computed bid-side liquidity. Bids are exchange-published; asks are derived by the official reciprocal rule and marked with an asterisk. |
+| Events + links that may have caused jumps | Every alert links the official Kalshi market page, the event's official `settlement_sources`, and a news search labeled “lead”. **Causality is never asserted.** |
+| Suggestions for more liveness | `suggestions.html` — what is already live, a prioritized backlog where every row names the official endpoint it would use (trade tape, batch order books, `with_nested_markets`, server-side capture, WebSocket…), continuous-organization rules, and a one-page trader's playbook. |
+| GitHub Pages site, category subpages, tables with sources | Landing page + 5 topic subpages + dashboard / Strategy Lab / Data / Methods / Ideas / Flagged / Sources; every committed table row carries the official request URL that produced it, and values that could not be confirmed are left **blank and flagged**. |
+| Verification policy | Values confirmed from official sources only; unconfirmed values left **blank and flagged**; never inferred. Full log in [`REVIEW.md`](REVIEW.md) and on the site's Flagged page. |
+| Parallel-session coordination | `COORDINATION.md` task board (claim, scope, verification, sources, irregularities); each session on its own branch; small frequent commits; `git pull --rebase` before push. |
+| PR → merge → Pages deploy | Executed without waiting for review; the PR link, merge commit and deploy confirmation are recorded in `COORDINATION.md`. |
 
-## Important details a trader should know
+---
 
-1. **The demo environment is explicitly not representative.** Kalshi's own wording: "The price and behavior of markets in the
-   demo environment may not be reflective of those in real markets"
-   ([docs.kalshi.com/getting_started/demo_env](https://docs.kalshi.com/getting_started/demo_env)). All analysis here is methodology, not edge.
-2. **REST polling lags by design.** Responses are cached by the exchange for a short time, so prices, sizes and `status` can lag by
-   seconds and filtered listings can lag longer ([Get Markets](https://docs.kalshi.com/api-reference/market/get-markets)). Sub-second
-   swings are not observable; that is a platform limit, not a bug in the dashboard.
-3. **WebSocket is not available to a static page.** The handshake must carry `KALSHI-ACCESS-KEY`, `KALSHI-ACCESS-SIGNATURE` and
-   `KALSHI-ACCESS-TIMESTAMP` (signature over `timestamp + "GET" + "/trade-api/ws/v2"`) even for the public market-data channels
-   ([Quick Start: WebSockets](https://docs.kalshi.com/getting_started/quick_start_websockets)); browsers cannot set WebSocket headers,
-   so the site polls REST and `suggestions.html` #11 describes the bridge.
-4. **Fees are modelled from the published schedule**, and one previously-flagged item is now resolved: demo `status:"active"` is
-   *not* a contradiction — `active` is the documented market status that the `open` filter matches
-   ([Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle)). See [flagged.html](flagged.html) E1.
-5. **Two fee models coexist on purpose** (6-dp + cent alignment in the CI ledger, cent-rounding in the browser lab) and maker fees
-   are not modelled anywhere — material for the gas series, which lists a maker multiplier of 1. See E2/E3.
-6. **Dollar figures for traded notional stay estimates.** A measured alternative (the trade tape: `count_fp × yes_price_dollars` per
-   execution) is specced in Suggestions #2 but is not implemented, and it cannot be naively back-filled because the endpoint
-   documents no ordering guarantee (E7).
-7. **Real demo-account tracking is still blocked on the owner.** It needs a demo API key + private key as repository secrets
-   ([API Keys](https://docs.kalshi.com/getting_started/api_keys)); session `20e3ad14`'s guarded executor sits unmerged in draft
-   [PR #2](https://github.com/wingbangboozle1-lang/Trade1/pull/2). E9.
+## 2. Verification highlights (all from official sources, 2026-11-20)
 
-## Quality gates added this session
+- **Endpoints & schemas verified live:** `/exchange/status` (exchange/trading active), `/events?status=open` (`limit` max **200** — `limit=1000` → 400), `/markets` (+ `tickers` / `event_ticker` / `series_ticker` filters; with `tickers` as the only filter every match returns in one response with an empty cursor), `/series/{ticker}`, `/series?category=`/`?tags=`/`?include_volume=`, `/markets/{ticker}/orderbook?depth=`, `/markets/trades?ticker=`, `/markets/orderbooks?tickers=`, `/series/{s}/markets/{t}/candlesticks` (periods 1/60/1440, `start_ts`/`end_ts` in seconds, ≤ 5,000 periods). Request URLs are recorded per value in `data/log.md` and per row in `data/topics/*.json`.
+- **Docs verified:** demo environment hosts; market status filter (`unopened/open/closed/settled`); order-book shape (bids only, `[price, qty]` ascending with the best bid **last**, YES ↔ NO reciprocity, `depth` = best 1–100 levels); fixed-point strings (`_dollars` ≤ 4 dp, `_fp` ≤ 2 dp, `price_ranges` as the price grid); series filters (`category`, `tags`, `include_volume` — and **no** `limit` parameter, so the `limit` we send is ignored); **WebSocket requires an authenticated handshake** → REST polling from static pages; unauthenticated rate limits unpublished → conservative throttling and back-off on 429.
+- **Fees verified** from the official schedule PDF (`kalshi.com/docs/kalshi-fee-schedule.pdf`, effective 2026-07-07): taker `fees = round up(M × 0.07 × C × P × (1−P))`, maker `round up(M × 0.0175 × C × P × (1−P))`, **no settlement fee**. The paper broker reproduces **every published row** of the schedule's General Trading Fees Table (21 price points × 1 and × 100 contracts) — and the check found a real bug: the naive float expression returned **$1.76** for 100 contracts @ $0.50 where the official table says **$1.75**. The fee function now computes in integer arithmetic and is locked by an automated test.
+- **Per-series fee structure read from the API:** every in-scope series checked reports `fee_type: "quadratic"`, `fee_multiplier: 1` (`KXAAAGASM`, `KXBTCY`, `KXETHY`, `KXPGATOUR`, `KXOSCARPIC`, `KXPRESNOMD`) — exactly the general taker rule the model applies. The PDF's per-series override table differs for some of these series (production values), which is flagged.
+- **Topic coverage on demo:** crypto (`KXBTCD`, `KXETHD` — CF Benchmarks), golf (`/series?tags=Golf` → PGA/LPGA series; Trump golf-club markets excluded via `exclude_categories: Politics/Elections`), gas (`KXGAS` EIA; `KXAAAGASM` AAA), elections (category + ticker prefixes), culture (category exists; only a handful of demo series, many zero-volume).
+- **CORS** (`data/cors.json`, probed from a GitHub-hosted runner): both demo hosts echo any request `Origin` and the preflight returns 204 — this is what makes the browser-side live mode possible.
 
-- `python3 scripts/portfolio_engine.py selftest` — 50 numeric checks (official fee-table rows, the exact $0.10 boundary,
-  balance-alignment arithmetic, settlement payouts, whole-contract sizing, determinism).
-- `node tests/portfolio.test.mjs` — 60 checks: artifact contract (every row has a source, alert threshold respected, bounded size)
-  plus `portfolio.html` booted in jsdom against both the real artifact and a synthetic populated ledger.
-- `node scripts/check_links.mjs` — link and navigation check over all published root pages (17 pages, 0 failures on 2026-11-20);
-  added because the pre-existing `scripts/check_site.mjs` allow-list does not include the deployed root pages (E10).
+---
+
+## 3. Key findings & flagged irregularities (full list with links on the [Flagged for Review](flagged.html) page)
+
+1. Demo returns market `status: "active"` (open) / `"finalized"` (settled) although the documented set is `unopened/open/closed/settled` — both spellings are handled, and the difference is flagged.
+2. `GET /events?limit=1000` is rejected with 400; the engine pages at 200.
+3. The legacy candlestick path `/markets/{t}/candlesticks` is not served; the documented path is the series-scoped one. Verified live both ways.
+4. Some demo `settlement_sources` contain template placeholder URLs — shown as-is, never treated as authoritative.
+5. `KXGAS` ("Gas weekly") exists but has **zero events** on demo; many hourly/daily demo series are thin — empty tables are genuine exchange states, not missing data.
+6. No official per-event dollar-volume field → dollar ranking is an **estimate**, labeled everywhere; contract counts at price come from the official order-book sizes.
+7. Maker fees are not modeled (paper fills assume immediately-matched orders).
+8. The ROI screen's weights are documented engineering choices, **not** verified alpha — the model chat is a shortlist, not a signal.
+9. News attribution: each alert links the official market page, the event's settlement sources and a labeled news-search lead. Causality is never claimed.
+10. WebSocket is unusable from a static page → REST polling with the documented multi-second cache lag; sub-second swings are invisible.
+11. A real demo-account portfolio requires user API keys, which the site deliberately never requests — the paper portfolio is local-only.
+12. Topic matching is heuristic; `scripts/topics.json` (authoritative for the snapshots) and `assets/model.js → TOPICS` (live matching) are mirrored by hand — a sync hazard, now covered by an automated mirror test.
+
+---
+
+## 4. Data quality observations for traders
+
+- Demo liquidity concentrates in long-dated political markets; most hourly/daily markets are thin — check the order-book ladder before trusting any alert.
+- $0.10 swings occur most plausibly around settlement windows and thin-book prints.
+- The two-feed design separates **facts** (observed/exchange-reported moves, each with an API link) from **opinion** (model picks, labeled heuristic screen).
+
+---
+
+## 5. Risks & limitations
+
+- Observation happens only while a page is open (no server-side capture yet — backlog item #8 on the Ideas page); localStorage persistence is per-browser.
+- Simulated fills assume execution at observed quotes with no slippage; real resting orders may not fill the same way.
+- Demo behavior need not match production (per Kalshi's official documentation).
+- Everything here is educational; **nothing is financial advice**. Demo environment only (play money).
+
+---
+
+## Addendum — session `e82d36a3` (2026-11-20): what changed after this summary was written
+
+The sections above are session `f6094c46`'s text, left intact. This addendum records what the repo looks like now for the
+requirements it called "not built", plus the verification this session performed line by line against the official sources.
+
+| Requirement in the brief | Status after this session | Where it is published |
+|---|---|---|
+| Executive summary | already present, refreshed by later sessions | [`executive-summary.html`](executive-summary.html), this file |
+| Dashboard ranked by dollar volume, five topics only | present; ranking stays an explicitly labelled estimate (`volume_24h_fp × last_price_dollars`) — no official per-market dollar-notional field exists | [`dashboard.html`](dashboard.html), [`topics/*.html`](topics/golf.html) |
+| Two alert chats ≥ $0.10, one "model likes" | present; the ≥ $0.10 test is done in integer 1e-4-dollar units so a $0.66→$0.56 print cannot be lost to float error, plus a `previous_price_dollars` swing case for round-trips inside one poll | [`dashboard.html`](dashboard.html) · [Methods §3](methods.html) |
+| Resolution tracking with YES/NO | present, live-detected from the same poll response | [`dashboard.html`](dashboard.html), [`resolved.html`](resolved.html) |
+| **Automated simulated trades + portfolio performance + trade categorisation + strategy derivation** | **now also persistent**: a CI ledger runs the same rules twice an hour and commits its trade ledger, so the record survives a reload and every visitor sees identical numbers — with P&L and counts broken out by strategy and by topic, which is how the "what strategy does this data imply" question gets answered from data rather than assertion | [`portfolio.html`](portfolio.html), [`data/portfolio.json`](data/portfolio.json), [`scripts/portfolio_engine.py`](scripts/portfolio_engine.py) |
+| Interactive price chart (x = selectable s/min/h, y = contract price) + liquidity per price | present; Y is scaled to the printed range and a hover crosshair reports the exact official value; depth shows contracts at each price | [`dashboard.html`](dashboard.html) · [Methods §6](methods.html) |
+| Suggestions for more live/interactive | present and extended — the backlog's server-side-capture item (#8) and the jump-annotation item (#14) are now shipped, and six new sourced items were added | [`suggestions.html`](suggestions.html) §2b |
+| Jumps ≥ $0.10 annotated with the websites that may have caused them | present: markers on the chart plus a link strip (official market page, published settlement sources, labelled news *search* lead); causality is never asserted, and the 45 s per-market cooldown that can suppress a second in-window move is disclosed | [`dashboard.html`](dashboard.html) · [Flagged #7, #17](flagged.html) |
+| No manual user input, autonomous to completion | held throughout: no credentials, no forms, nothing requested from a visitor | [Flagged #12, #14, E9](flagged.html) |
+| Line-by-line verification against official sources, with links | this session re-checked 18 claims (V1–V18) and 9 code/repo items (R1–R9); where the merged build had already corrected something, its version was kept and the correction was re-verified rather than re-flagged | [`reports/VERIFICATION_e82d36a3.md`](reports/VERIFICATION_e82d36a3.md), [Sources](sources.html) |
+| Irregularities flagged, values never inferred | 10 items published as E1–E10 on [Flagged](flagged.html); duplicates of existing items were dropped rather than restated | [`flagged.html`](flagged.html) |
+
+**Corrections to the text above**
+
+- §5 says "no server-side capture yet — backlog item #8 on the Ideas page". That is now out of date: `portfolio.yml` samples the
+  market list from a GitHub Actions runner twice an hour and commits the result, so alert history, trade history and portfolio
+  performance accumulate with no browser open. What remains true: sampling is ~30-minute spaced, so it is a slower clock than the
+  browser lab and cannot see intrabar moves ([Methods §8](methods.html), [Flagged E4](flagged.html)).
+- §5's "real resting orders may not fill the same way" is now quantified rather than hand-waved: maker fees are not modelled in
+  either engine, and for the in-scope gas series `KXAAAGASM` the published maker multiplier is **1**, i.e. non-zero
+  ([Flagged E3](flagged.html)).
+- No demo-account numbers appear anywhere, deliberately: tracking a real demo balance needs the owner's API key and a private key
+  held as repository secrets, which no agent can create. Two guarded implementations sit unmerged as PRs #2 and #39
+  ([Flagged E9](flagged.html)).
+
+**Quality gates added by this session** (all runnable offline, all green on 2026-11-20):
+`python3 scripts/portfolio_engine.py selftest` → 50/50 · `node tests/portfolio.test.mjs` → 60/60 (34/34 without jsdom) ·
+`node scripts/check_links.mjs` → 16 published pages, 329 local links, 168 external links, 0 failures · and the pre-existing
+suites re-run after the merge: `check_site.mjs` 16 pages / 0 failures, `tests/engine.test.mjs` 23/23,
+`tests/root_engine.test.js` 40 passed / 0 failed, `scripts/test_lib.mjs` passed, `tools/build.mjs` BUILD OK.
+One live cycle of the ledger ran on a GitHub runner ([workflow run `44801621609`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44801621609),
+both jobs success) — this sandbox has no route to `*.demo.kalshi.co`, which is itself verified and recorded rather than assumed.

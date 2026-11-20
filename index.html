@@ -15,6 +15,7 @@
   </div>
   <nav class="mainnav">
     <a href="index.html" class="active">Home</a>
+    <a href="executive-summary.html">Summary</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="trades.html">Strategy Lab</a>
     <a href="portfolio.html">Portfolio</a>
@@ -25,7 +26,7 @@
     <a href="topics/golf.html">Golf</a>
     <a href="data.html">Data</a>
     <a href="methods.html">Methods</a>
-    <a href="suggestions.html">Suggestions</a>
+    <a href="suggestions.html">Ideas</a>
     <a href="flagged.html">Flagged</a>
     <a href="sources.html">Sources</a>
   </nav>
@@ -49,7 +50,7 @@
       <li><b>Two scrolling alert chats.</b> Left: every ≥ $0.10 move across in-scope events. Right: the same feed filtered by a documented ROI screen (momentum magnitude, 24h volume, spread) — formula in <a href="methods.html">Methods</a>. Each alert links the official Kalshi market page, the event's official settlement sources, and a news-search lead. Causality is never claimed.</li>
       <li><b>Resolution tracking.</b> Watched markets are re-checked on every poll; when the exchange settles them, the outcome (YES/NO, settlement time, settlement value) is recorded, and paper positions settle at $1 per winning contract.</li>
       <li><b>Strategy lab.</b> Four automated paper strategies (momentum, fade, favorite-harvest, 50¢ breakout) run on live quotes; performance is categorized by strategy and topic with equity, win rate, and ROI tables. Trades persist in the browser (export/import available).</li>
-      <li><b>An always-on ledger, so the track record survives.</b> The same four strategies also run inside GitHub Actions every ~30 minutes (<code>scripts/portfolio_engine.py</code>) and commit their trade ledger to the repository, so portfolio performance accumulates across days and every visitor sees the same numbers: <a href="portfolio.html">Portfolio</a>. It is a simulation — no credentials, no orders — because real demo-account tracking needs <i>your</i> demo API key (see <a href="flagged.html">Flagged</a> and <a href="suggestions.html">Suggestions</a> item #14).</li>
+      <li><b>An always-on ledger, so the track record survives.</b> The same four strategies also run inside GitHub Actions every ~30 minutes (<code>scripts/portfolio_engine.py</code>) and commit their trade ledger to the repository, so portfolio performance accumulates across days and every visitor sees the same numbers: <a href="portfolio.html">Portfolio</a>. It is a simulation — no credentials, no orders — because real demo-account tracking needs <i>your</i> demo API key (see <a href="flagged.html">Flagged</a> and <a href="suggestions.html">Ideas</a> §2 item 18).</li>
       <li><b>Verified snapshots.</b> A GitHub Actions pipeline (<code>scripts/collect.py</code>) re-verifies the API and refreshes <code>data/</code> snapshots twice hourly after deploy, with a per-request log (<code>data/log.md</code>) — every table row on the <a href="data.html">Data page</a> links the exact official URL it came from.</li>
       <li><b>Fees modeled from the official schedule.</b> Paper P&amp;L applies the official taker fee <code>roundup(0.07 × C × P × (1−P))</code> from <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">kalshi.com/docs/kalshi-fee-schedule.pdf</a> (verified this session; maker fees not modeled — flagged).</li>
       <li><b>Not implemented on purpose.</b> No account login, no order placement, no WebSocket (browsers cannot attach Kalshi's required signed handshake headers), no dollar figures presented as exchange-published (traded-notional values are labeled estimates). Full list on <a href="flagged.html">Flagged for Review</a>.</li>
@@ -84,6 +85,11 @@
       <a href="data.html">Data tables →</a> · <a href="flagged.html">Flagged →</a>
     </div>
   </div>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Make it more live — ideas &amp; trader's playbook</h2>
+    <p class="small muted">What is already live, the prioritized backlog of next upgrades (trade tape, spread sparkline, server-side capture, WebSocket), and a one-page playbook for deciding on contract events — on the <a href="suggestions.html">Ideas page</a>.</p>
+  </section>
 
   <section class="box" style="margin-top:14px">
     <h2>How the live pipeline works</h2>

@@ -5,7 +5,14 @@
   "description": "Live interactive Kalshi demo dashboard: gas, elections, culture, crypto, golf; price/liquidity charts, sharp-move flags, simulated strategy engine, portfolio tracking.",
   "scripts": {
     "build": "node tools/build.mjs",
-    "check": "node tools/build.mjs"
+    "check": "node tools/build.mjs && node scripts/check_site.mjs",
+    "test": "node tests/engine.test.mjs && node scripts/test_lib.mjs"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }

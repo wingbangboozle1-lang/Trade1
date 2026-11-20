@@ -15,6 +15,7 @@
   </div>
   <nav class="mainnav">
     <a href="index.html">Home</a>
+    <a href="executive-summary.html">Summary</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="trades.html">Strategy Lab</a>
     <a href="portfolio.html">Portfolio</a>
@@ -25,7 +26,7 @@
     <a href="topics/golf.html">Golf</a>
     <a href="data.html">Data</a>
     <a href="methods.html">Methods</a>
-  <a href="suggestions.html">Suggestions</a>
+    <a href="suggestions.html">Ideas</a>
     <a href="flagged.html" class="active">Flagged</a>
     <a href="sources.html">Sources</a>
   </nav>
@@ -37,10 +38,10 @@
     <h2>Live API behavior that differs from the docs</h2>
     <div class="tablewrap"><table>
       <tr><th>#</th><th>Finding</th><th>Evidence (official endpoints)</th><th>Docs that say otherwise</th></tr>
-      <tr><td>1</td><td>Demo returns market <code>status: "active"</code> for open markets and <code>"finalized"</code> for settled ones; the docs enumerate <code>unopened / open / closed / settled</code>. The engine treats both spellings as equivalent.</td><td class="src"><a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=3">live response (status "active")</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
-      <tr><td>2</td><td><code>GET /events?limit=1000</code> is rejected with 400 <code>bad_request</code>; <code>limit=200</code> works. The engine pages at 200.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md (400 recorded)</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-events">Get Events</a></td></tr>
-      <tr><td>3</td><td><code>GET /markets/{ticker}/candlesticks</code> (documented path) is not what the API serves — it is <code>GET /series/{series}/markets/{ticker}/candlesticks</code>. First probe of the series path on demo failed for the sampled market; probe results per run are in meta findings (<code>candlesticks_ok</code>). If a run reports failed, chart windows ≥ 1h fall back to session samples.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/meta.json">data/meta.json</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a></td></tr>
-      <tr><td>4</td><td>Event <code>settlement_sources</code> sometimes contain template gaps (e.g., <code>"official government sources of "</code> with a missing name) — demo data quality issue, shown verbatim when used.</td><td class="src"><a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=3">live response example</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-events">Get Events</a></td></tr>
+      <tr><td>1</td><td><b>RESOLVED — not an irregularity.</b> An earlier revision of this page said demo returns <code>status:"active"</code>/<code>"finalized"</code> "contrary to the docs". That was wrong: the official Market Lifecycle page documents exactly these values, and documents the filter mapping (<code>open</code> → <code>active</code>, <code>settled</code> → <code>finalized</code>). The dashboard's status handling agrees with the docs. Corrected 2026-11-20.</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_lifecycle">Market Lifecycle (statuses + filter mapping)</a> · <a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&amp;limit=3">live response (status "active")</a></td><td class="src">Corrected claim: previously cited <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a>, whose filter list alone was misread as the full status set</td></tr>
+      <tr><td>2</td><td><code>GET /events?limit=1000</code> is rejected with 400 <code>bad_request</code>; <code>limit=200</code> works. This is <b>not</b> a contradiction: the official Get Events schema caps <code>limit</code> at a maximum of 200 (default 200). The engine pages at 200 accordingly. Corrected 2026-11-20.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md (400 recorded)</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events (limit maximum 200)</a></td></tr>
+      <tr><td>3</td><td><b>RESOLVED — corrected.</b> An earlier revision claimed the documented candlestick path was <code>/markets/{ticker}/candlesticks</code>. The documented path is <code>GET /series/{series_ticker}/markets/{ticker}/candlesticks</code>, which is what the dashboard calls. <b>A real defect was found and fixed here:</b> the seconds/minutes chart windows used to request <code>period_interval=0</code>, which the API rejects (only 1, 60, 1440 are valid), so those windows silently fell back to session-only samples. They now plot the official trade tape (<code>GET /markets/trades</code>) instead, and the chart caption names its source.</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks (valid period_interval 1/60/1440)</a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades</a></td><td class="src">Corrected claim; defect fixed in <code>assets/app.js</code> and covered by <code>tests/engine.test.mjs</code></td></tr>
+      <tr><td>4</td><td>Event <code>settlement_sources</code> sometimes contain template gaps (e.g., <code>"official government sources of "</code> with a missing name) — demo data quality issue, shown verbatim when used.</td><td class="src"><a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=3">live response example</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events</a></td></tr>
     </table></div>
   </section>
 
@@ -50,7 +51,10 @@
       <tr><th>#</th><th>Item</th><th>Why it is blank / flagged</th><th>Check it yourself</th></tr>
       <tr><td>5</td><td><b>Dollar volume.</b> “Est. traded $” is computed (contracts × last price). No official per-market dollar-notional field was present in demo responses this session, so no cell claims an exchange-published dollar figure.</td><td>Value not returned by the API</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets schema</a></td></tr>
       <tr><td>6</td><td><b>Trading fees.</b> <span class="up">RESOLVED during this session:</span> the official fee schedule (kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026) defines taker fees as roundup(M × 0.07 × C × P × (1−P)); the paper broker now applies exactly that (toggleable). <b>Still unmodeled:</b> maker fees (0.0175× with per-series multipliers) because paper fills assume immediately-matched orders, and the per-series maker/taker multiplier table is not applied.</td><td>Maker path not modeled (documented simplification)</td><td class="src"><a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">official fee schedule PDF</a></td></tr>
-      <tr><td>7</td><td><b>News attribution.</b> Alerts link the official market page, the event’s official settlement sources, and a Google News search labeled “lead”. Nothing claims a specific news item caused a move.</td><td>Causality cannot be verified automatically</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-events">settlement_sources field</a></td></tr>
+      <tr><td>6</td><td><b>Trading fees.</b> <span class="up">RESOLVED during this session:</span> the official fee schedule (kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026) defines taker fees as roundup(M × 0.07 × C × P × (1−P)); the paper broker applies exactly that (toggleable). <b>Verified line by line, and one bug found and fixed:</b> the naive float form <code>ceil(0.07·C·P·(1−P)·100)</code> returned $1.76 for 100 contracts @ $0.50 because binary float renders 1.75 as 175.00000000000003 — the official table says $1.75. The fee function now computes in integer arithmetic (price in 1/10000 $, count in 1/100) and <b>reproduces all 21 published price rows of the General Trading Fees Table for both 1 and 100 contracts</b> (automated in <code>tests/root_engine.test.js</code>, run on every push and PR). <b>Still unmodeled:</b> maker fees (roundup(M × 0.0175 × C × P × (1−P))) because paper fills assume immediately-matched orders.</td><td>Maker path not modeled (documented simplification)</td><td class="src"><a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">official fee schedule PDF</a></td></tr>
+      <tr><td>6b</td><td><b>Per-series fee structure — verified from the API, not the PDF.</b> The demo API publishes each series’ fee structure: <code>GET /series/{ticker}</code> returns <code>fee_type</code> and <code>fee_multiplier</code>. Every in-scope series checked live reports <code>fee_type: "quadratic"</code> and <code>fee_multiplier: 1</code> — exactly the general taker rule our model applies (<code>KXBTCY</code>, <code>KXETHY</code>, <code>KXAAAGASM</code>, <code>KXPGATOUR</code>, <code>KXOSCARPIC</code>, <code>KXPRESNOMD</code>; links in Methods §4). Note the published PDF’s “Non-Standard Fees” table lists different multipliers for some of these series (e.g. KXBTCY as 0/0) — those are <b>production</b> values and are <b>not</b> what the demo feed reports, so we follow the demo API. Because the demo reports <code>quadratic</code> (not <code>quadratic_with_maker_fees</code>), resting orders on these series would carry no maker fee, consistent with our model.</td><td>Series fee structure verified per series from the demo API; production PDF differs for some series</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series-list">Get Series List</a> · <a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCY">demo series example</a></td></tr>
+      <tr><td>6c</td><td><b>Fee rounding granularity.</b> The PDF rounds fees so “fee + positionCost is rounded to a centicent”, while the newer <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a> doc describes fees at $0.000001 granularity with a separate rounding fee and rebate accumulator. We round the trade fee up to the nearest cent, which matches the published table exactly but is coarser than the 6-decimal rule — our paper fees are therefore never lower than the exchange’s.</td><td>Two official descriptions; we use the published table</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a></td></tr>
+      <tr><td>7</td><td><b>News attribution.</b> Alerts link the official market page, the event’s official settlement sources, and a Google News search labeled “lead”. Nothing claims a specific news item caused a move.</td><td>Causality cannot be verified automatically</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">settlement_sources field</a></td></tr>
       <tr><td>8</td><td><b>ROI model.</b> The score weights (0.30/0.25/0.20/0.25) are documented engineering choices, not backtested alpha. No performance claim is made for the model chat.</td><td>Heuristic screen</td><td class="src"><a href="methods.html">Methods §3</a></td></tr>
       <tr><td>9</td><td><b>Topic matching.</b> Category + keyword rules can over- or under-include (e.g., synthetic demo series <code>KXDEMOFUT*</code> are included in Crypto because they are BTC-price markets on demo; “gas price” phrasing in titles is guarded against natural-gas false positives but coverage is not guaranteed complete).</td><td>Heuristic classification</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/topics.json">scripts/topics.json</a></td></tr>
       <tr><td>10</td><td><b>Slippage.</b> Paper fills assume the official quote, no slippage, infinite size at the best level. Real fills would differ.</td><td>Simulation simplification</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/orderbook_responses">Orderbook Responses</a></td></tr>
@@ -67,95 +71,119 @@
       <tr><td>14</td><td><b>No order placement.</b> The strategy lab is paper-only by design; no portfolio/order endpoints are called.</td><td>Safety / demo scope</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">Demo environment</a></td></tr>
       <tr><td>15</td><td><b>Alerts are sampled.</b> Moves ≥ $0.10 are detected between polls (~12 s); faster intrabar swings are invisible over REST (cached responses lag “several seconds”).</td><td>REST polling constraint</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_market_data">Market Data Quick Start</a></td></tr>
       <tr><td>16</td><td><b>Session chart samples reset on reload.</b> Sub-hour windows use session samples (memory only); longer windows use exchange candlesticks, which survive reload.</td><td>localStorage quota prudence</td><td class="src"><a href="methods.html">Methods §6</a></td></tr>
+      <tr><td>17</td><td><b>Alert cooldown.</b> A ≥ $0.10 move fires at most once per market per 45 s so an oscillating quote cannot flood the chats. A genuine second move inside that window is suppressed (and is not shown in the chat history).</td><td>Deliberate noise control; documented</td><td class="src"><a href="methods.html">Methods §3</a></td></tr>
+      <tr><td>18</td><td><b>Asks in the order book are derived, not published.</b> The exchange returns bids only; we show YES ask ≡ 1 − NO bid and NO ask ≡ 1 − YES bid per the official reciprocal rule, and label every such column with an asterisk.</td><td>Derived from published bids</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/orderbook_responses">Orderbook Responses</a></td></tr>
+      <tr><td>19</td><td><b>WebSocket hosts confirmed but unused.</b> The official environment page lists the demo WS hosts (<code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code> and <code>wss://demo-api-ws.demo.kalshi.co/trade-api/ws/v2</code>). They are not used because the handshake requires signed auth headers that a browser cannot attach to a WebSocket.</td><td>Browser platform constraint</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">API Environments and Endpoints</a></td></tr>
     </table></div>
   </section>
 
 
-  <section class="box" style="margin-top:14px">
-    <h2>Added by session <code>e82d36a3</code> — 2026-11-20 (this session's verification work)</h2>
-    <p class="small muted">Items E1–E12 below. None of them blocks the site. Each names the official source it was checked
-      against; where a value could not be confirmed it is left blank in the tables rather than estimated.</p>
+    <section class="box" style="margin-top:14px">
+    <h2>Added by session <code>e82d36a3</code> — 2026-11-20 (portfolio ledger + re-verification)</h2>
+    <p class="small muted">Items E1–E10. Duplicate findings that the consolidated tables above already cover (the
+      <code>status:"active"</code> question, the <code>limit=200</code> question, settlement-source template gaps, the
+      per-series fee structure, unauthenticated rate limits, the demo-account key requirement, no-WebSocket, sampled alerts)
+      are <b>not</b> repeated here. What remains is specific to the CI ledger this session added and to what the merged
+      build now claims. Where a value could not be confirmed it is left blank in the tables rather than estimated.</p>
     <div class="tablewrap"><table>
-      <thead><tr><th>#</th><th>Item</th><th>What was checked / what is still open</th><th>Official source</th></tr></thead>
+      <thead><tr><th>#</th><th>Item</th><th>What was checked / what is still open</th><th>Source</th></tr></thead>
       <tbody>
-        <tr><td>E1</td><td><b>Correction to Flag #1 above — not a contradiction.</b> The demo API returning
-          <code>status: "active"</code> matches the documented <i>market status</i> enum. The four values cited in Flag #1
-          (<code>unopened / open / closed / settled</code>) are the <code>status=</code> <i>query filter</i> values, and
-          <code>open</code> is documented as matching <code>active</code>.</td>
+        <tr><td>E1</td><td><b>Confirmed resolved: Flag #1 and Flag #3 above were corrected by the merged build, and I re-checked
+          both.</b> The demo API's <code>status: "active"</code> / <code>"finalized"</code> values are the documented <i>market
+          status</i> enum; <code>unopened/open/closed/settled</code> are the <code>status=</code> <i>filter</i> values and
+          <code>open</code> is documented as matching <code>active</code>. The candlestick path is
+          <code>GET /series/{series_ticker}/markets/{ticker}/candlesticks</code>, not a <code>/markets/{ticker}/…</code> path.
+          Both of my earlier claims against these were therefore withdrawn rather than re-flagged.</td>
           <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_lifecycle">Market Lifecycle</a>
-            (status table + filter mapping) · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets schema</a></td></tr>
-        <tr><td>E2</td><td><b>Two fee models now exist, deliberately.</b> The published schedule says
-          <code>fees = roundup(M × 0.07 × C × P × (1−P))</code> with "round up … to a centicent"; the Fee Rounding page defines the
-          trade fee as <code>ceil_6dp(model fee)</code> plus a balance-alignment rounding fee. The <b>CI ledger</b>
-          (<code>scripts/portfolio_engine.py</code>) implements that 6-decimal + $0.01-alignment rule. The <b>browser lab</b>
-          (<code>assets/model.js</code>) still rounds each fee up to a whole cent, which can overcharge by up to $0.0099 per leg —
-          conservative, but the two engines will not produce identical P&amp;L on purpose.</td>
+            · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a></td></tr>
+        <tr><td>E2</td><td><b>Two fee-rounding models coexist on purpose, and they are not digit-identical.</b> The browser lab
+          (<code>assets/model.js → fee()</code>) computes the official model fee in integer arithmetic and rounds it
+          <b>up to a whole cent</b>; the CI ledger (<code>scripts/portfolio_engine.py</code>) implements the newer
+          <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a> rule —
+          <code>ceil_6dp</code> on the model fee, then the balance change floored to the $0.01 alignment with the remainder booked
+          as a rounding fee. Both reproduce every printed row of the fee schedule at cent precision; a single leg can differ by
+          &lt; $0.01, always in the conservative direction for the lab. P&amp;L from <a href="portfolio.html">Portfolio</a> and
+          <a href="trades.html">Strategy Lab</a> must not be compared cent-for-cent. Documented in
+          <a href="methods.html">Methods §8–§9</a>.</td>
           <td class="src"><a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">Fee schedule PDF</a>
             · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a></td></tr>
-        <tr><td>E3</td><td><b>Maker fees are not modeled anywhere</b>, and for the in-scope gas series they are <i>not</i> zero: the
-          Non-Standard Fees table lists <code>KXAAAGASM</code> (US gas price) with maker multiplier 1 and taker multiplier 1. Any
-          strategy that would rest a limit order in gas markets is therefore mis-priced in both simulators.</td>
-          <td class="src"><a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">Fee schedule PDF — Non-Standard Fees</a></td></tr>
-        <tr><td>E4</td><td><b>The CI ledger samples every ~30 minutes</b>, so its time-based exits are re-tuned (max-hold counted in
-          samples, not minutes) and a fast round-trip that the browser lab catches is invisible to it. Ledger results are a
-          slower-clock test of the same rules, not a copy of the lab's numbers.</td>
-          <td class="src"><a href="portfolio.html">Portfolio page — "Rules the engine trades by"</a> ·
-            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/portfolio.yml">workflow</a></td></tr>
-        <tr><td>E5</td><td><b>Wide-gap alerts.</b> The first live cycle compares against a price seeded from the committed snapshot,
-          which can be hours old; every alert now records the sample gap it was measured over and is labelled
-          <span class="flag">wide gap</span> above 90 minutes, so a stale-quote delta is never read as a fast market move.</td>
-          <td class="src"><a href="data/portfolio.json" target="_blank">data/portfolio.json → alerts[].gap_minutes</a></td></tr>
-        <tr><td>E6</td><td><b>Dollar ranking is still an estimate.</b> No per-market dollar-notional field is published, so the
-          highest-dollar ordering uses <code>volume_24h_fp × last_price_dollars</code> and stays labelled "est.". A measured
-          alternative exists (the trade tape, <code>count_fp × yes_price_dollars</code>) but is not yet implemented — see
-          <a href="suggestions.html">Suggestions #2</a>.</td>
+        <tr><td>E3</td><td><b>Maker fees are unmodeled in both engines, and for the in-scope gas series they are not zero.</b>
+          The schedule's Non-Standard Fees table lists <code>KXAAAGASM</code> with maker multiplier 1 <i>and</i> taker multiplier 1
+          (general taker rule M × 0.07; maker 0.0175), and the demo API reports <code>fee_type: "quadratic", fee_multiplier: 1</code>
+          for that series. So a strategy that would rest a limit order — including the lab's <i>fade</i> entry, which is modelled as a
+          crossing buy at the ask — is priced as if it paid a taker fee while a genuine resting bid pays the maker formula. Neither
+          engine claims otherwise; any future maker-side work must model it.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">Fee schedule PDF — Non-Standard Fees</a>
+            · <a href="methods.html">Methods §4, per-series table</a></td></tr>
+        <tr><td>E4</td><td><b>The CI ledger runs on a slower clock, so its trade counts are not a copy of the lab's.</b>
+          It samples once per cycle (~every 30 min from Actions), while the lab polls ~every 12 s. A fast round-trip that returns to
+          its start inside one ledger interval is invisible to it, and its time-based exits are counted in cycles rather than minutes.
+          Its ≥ $0.10 test is the same integer-unit test, applied to a wider sampling gap.</td>
+          <td class="src"><a href="methods.html">Methods §8</a> ·
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/portfolio.yml"><code>portfolio.yml</code></a></td></tr>
+        <tr><td>E5</td><td><b>Wide-gap alert labels.</b> A fresh ledger state seeds prices from the committed snapshot, so the first
+          comparison can span hours. Every ledger alert now records the sample interval it was measured over
+          (<code>gap_minutes</code>) and the page labels anything above 90 minutes as a
+          <span class="flag">wide gap</span>, so a stale-quote delta is never read as a fast market move.</td>
+          <td class="src"><a href="data/portfolio.json" target="_blank"><code>data/portfolio.json → alerts[].gap_minutes</code></a>
+            · <a href="portfolio.html">Portfolio alerts</a></td></tr>
+        <tr><td>E6</td><td><b>Dollar ranking is still an estimate, and the measured alternative is now specified but not implemented.</b>
+          No official per-market dollar-notional field exists (item 5 above), so ranking uses
+          <code>volume_24h_fp × last_price_dollars</code> and stays labelled “est.” in the table, the topic pages and the ledger's
+          watchlist selection. The tape-based replacement is <a href="suggestions.html">Ideas §2b item B1</a>.</td>
           <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets fields</a>
             · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades</a></td></tr>
-        <tr><td>E7</td><td><b>A tape-based ranking cannot be back-filled naively:</b> <code>GET /markets/trades</code> is paginated
-          (limit ≤ 1000, cursor) and its documentation states no ordering guarantee, so "last 24 h of trades for the whole
-          exchange" cannot be claimed from one page. Any implementation must page until <code>min_ts</code> is passed and label the
-          result partial if it stops early.</td>
-          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades — pagination notes</a></td></tr>
-        <tr><td>E8</td><td><b>Unauthenticated rate limits have no published numbers.</b> The docs say public requests are subject to
-          "separate limits" and to back off on 429. The ledger's pacing (≤ ~1 batched request per ~0.35 s, twice an hour) is a
-          safety choice, not a documented bound.</td>
-          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a></td></tr>
-        <tr><td>E9</td><td><b>Real demo-account tracking is still not possible here</b> — it needs the owner's demo API key ID plus a
-            private key (Ed25519 or RSA-PSS) held as repository secrets. No agent can create or hold them and the site never asks for
-            them. Session <code>20e3ad14</code>'s guarded implementation exists on <code>arena/20e3ad14-trade1</code>
-            (<a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/2">draft PR #2</a>:
-            <code>scripts/demo_account/**</code>) and remains unmerged.</td>
+        <tr><td>E7</td><td><b>A tape-based ranking cannot be back-filled naively.</b> <code>GET /markets/trades</code> paginates
+          (limit ≤ 1000, cursor) and its documentation states no ordering guarantee; <code>min_ts</code>/<code>max_ts</code> are in
+          <b>seconds</b> (milliseconds are rejected with <code>400 bad_request</code>), and an unknown ticker returns
+          <code>200</code> with an empty list — an empty page therefore cannot be told apart from “no trades” without a second check.
+          Any implementation must page until <code>min_ts</code> is passed and label the result partial if it stops early.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades — pagination &amp; filters</a></td></tr>
+        <tr><td>E8</td><td><b>Coverage gap in CI that this session closes only partly.</b> <code>scripts/check_site.mjs</code> now walks
+          every published page (it was previously allow-listed per session), but <code>pages.yml</code> only runs it on the
+          <code>snapshot</code> and <code>deploy</code> paths' push/PR checks — and a new page must be added to its
+          <code>PUBLISHED</code> set or the check fails. This session added <code>portfolio.html</code> to that set and shipped
+          <code>scripts/check_links.mjs</code> (walks <code>PUBLISHED</code> dynamically, additionally verifies every
+          <code>https</code> external href and that the nav bar is identical across pages), but that checker runs only in
+          <code>portfolio.yml</code>. Recommendation for an owner: add one <code>node scripts/check_links.mjs</code> step to
+          <code>pages.yml</code> so nav/external-link drift fails the site workflow, not just the ledger workflow.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/check_site.mjs"><code>check_site.mjs</code></a>
+            · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/pages.yml"><code>pages.yml</code></a>
+            · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/check_links.mjs"><code>check_links.mjs</code></a></td></tr>
+        <tr><td>E9</td><td><b>The real-demo-account step is still an owner action, and it now has two candidate implementations.</b>
+          No key exists in this repository, so nothing on the site is labelled “account”. Session <code>20e3ad14</code>'s guarded
+          executor (draft <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/2">PR #2</a>)
+          and session <code>935f2113</code>'s takeover (<a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/39">PR #39</a>)
+          both sit unmerged. I re-read PR #2's controls rather than trusting its description: it sends only when
+          <code>ALLOW_DEMO_ORDERS=true</code> <i>and</i> both secrets exist, refuses any non-demo host, caps a run at 3 orders /
+          $3.00 notional / 1 contract, buy-YES with <code>post_only</code>, and validates prices against each market's
+          <code>price_ranges</code>. Its endpoint claims match <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/orders/create-order-v2">Create Order (V2)</a>
+          (the legacy <code>/portfolio/orders</code> write paths return <code>410 Gone</code>). Enabling it means adding
+          <code>KALSHI_DEMO_KEY_ID</code> + <code>KALSHI_DEMO_PRIVATE_KEY</code> secrets and marking the PR ready — deliberately not done here.</td>
           <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_keys">API Keys</a>
-            · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">Demo environment</a></td></tr>
-        <tr><td>E10</td><td><b>The other CI checker does not cover the deployed root pages.</b>
-          <code>scripts/check_site.mjs</code> link-checks a fixed allow-list that omits <code>dashboard.html</code>,
-          <code>trades.html</code>, <code>data.html</code>, <code>methods.html</code> and <code>topics/*</code>. This session added
-          <code>scripts/check_links.mjs</code> (walks all 17 published pages; 265 local links, 92 external links, 0 failures on
-          2026-11-20) rather than editing theirs. Recommendation: run both in <code>pages.yml</code>.</td>
-          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/check_site.mjs">check_site.mjs</a>
-            · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/check_links.mjs">check_links.mjs</a></td></tr>
-        <tr><td>E11</td><td><b>Root clutter left untouched on purpose.</b> <code>live.html</code>, <code>resolved.html</code>,
-          <code>strategies.html</code> and the <code>js/</code>, <code>css/</code>, <code>pages/</code>, <code>categories/</code>,
-          <code>docs/</code>, <code>site/</code>, <code>monitor/</code>, <code>trade1/</code>, <code>a2ec5543/</code>,
-          <code>probe/</code> trees are other sessions' builds. They are still reachable on the deployed site but are not in the
-          navigation, so a visitor can land on an older look-alike page. Deleting them is an owner decision; nothing was removed.</td>
-          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/tree/main">repository root</a></td></tr>
-        <tr><td>E12</td><td><b>Four pull requests from earlier sessions are still open</b>
+            · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">Demo environment</a>
+            · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/2">PR #2</a></td></tr>
+        <tr><td>E10</td><td><b>Repo history the site does not mention.</b> Seven pull requests are open
           (<a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/16">#16</a>,
           <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/15">#15</a>,
-          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/3">#3</a>,
-          draft <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/2">#2</a>). Their branches
-          were cut before the merged integration builds and overlap the published root pages; merging them now would re-introduce
-          duplicate sites and stale data pipelines. Left open with the reason recorded in
-          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/COORDINATION.md">COORDINATION.md</a>.</td>
-          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pulls">open pull requests</a></td></tr>
+          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/3">#3</a>, draft
+          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/2">#2</a>, plus #32, #35, #39)
+          and several <code>arena/*</code> branches contain whole alternative site builds. Four of the older ones were cut before the
+          consolidated root site and overlap <code>index.html</code> / <code>assets/app.js</code> / the Pages workflow, so merging
+          them now would replace the deployed build; they are left open with that reason recorded in
+          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/COORDINATION.md">COORDINATION.md</a>.
+          <code>resolved.html</code> is still published but is not in the navigation, and the other sessions' trees
+          (<code>docs/</code>, <code>probe/</code>, <code>tools/</code>) remain in the repository untouched — nothing was deleted by
+          this session.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pulls">open pull requests</a>
+            · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/tree/main">repository root</a></td></tr>
       </tbody>
     </table></div>
   </section>
 
   <section class="box" style="margin-top:14px">
     <h2>Carried from previous parallel sessions (their files remain in this repo)</h2>
-    <p class="small muted">Several parallel sessions merged full site builds into this repo before this integration (PR #1 ee533bdf prototype; PR #5/#7/#12/#14/#18 builds: <code>live.html</code>/<code>resolved.html</code>/<code>strategies.html</code>/<code>pages/*</code>/<code>js/*</code>/<code>categories/*</code>/<code>assets/app.mjs</code>). Their published pages are superseded by this build (one coherent root site), but their verification documents stay in-tree for review and their findings were checked when building this page:</p>
+    <p class="small muted">Several parallel sessions merged full site builds into this repo before this integration (PR #1 ee533bdf prototype; PR #5/#7/#12/#14/#18 builds: <code>live.html</code>/<code>resolved.html</code>/<code>strategies.html</code>/<code>pages/*</code>/<code>js/*</code>/<code>categories/*</code>/<code>assets/app.mjs</code>). Their published pages are superseded by this build (one coherent root site), but their verification documents stay in-tree for review and their findings were checked when building this page. <b>Removal record (2026-11-20):</b> the two remaining superseded pages (<code>live.html</code>, <code>strategies.html</code>) were deleted — everything they showed is on <a href="dashboard.html">Dashboard</a> and <a href="trades.html">Strategy Lab</a>, they had no navigation entry, and one of them still pulled a second engine; the now-unreferenced second engine (<code>assets/app.mjs</code> + <code>assets/js/app.js</code> + <code>assets/css/style.css</code>), the stale <code>tests/engine.test.js</code>/<code>tests/smoke.test.js</code> (they read the already-deleted <code>monitor/assets/app.js</code> and could not pass), and the one-off probes/builders (<code>scripts/build_site.py</code>, <code>kalshi_api.py</code>, <code>backtest.py</code>, <code>render_site.py</code>, <code>check_site.py</code>, <code>trade1_collect.py</code>, <code>trade1_check.py</code>, <code>probe_discovery*.py</code>, <code>config/topics.json</code>, <code>config/sources.json</code>) were deleted so exactly one engine and one check suite remain. The findings they produced are kept here and in <code>reports/</code>.</p>
     <ul class="small">
       <li><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/FLAGGED.md">docs/FLAGGED.md</a> (ed8bbdf4) and <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/verification.md">docs/verification.md</a> — overlap with items 5–11 above (no credentials/portfolio, fees/spread modeling, keyword heuristics, unattributed causes).</li>
       <li>cedad5c4's F1–F10 / R1–R9 (recorded in <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/COORDINATION.md">COORDINATION.md</a>) — overlapping sessions and Pages source conflicts; resolved here by publishing one root build and keeping the others in-tree.</li>

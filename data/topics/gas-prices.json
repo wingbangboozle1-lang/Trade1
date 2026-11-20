@@ -1,7 +1,7 @@
 {
  "topic": "gas-prices",
  "label": "Gas prices",
- "generated_at": "2026-11-20T18:58:14.753809+00:00",
+ "generated_at": "2026-11-20T19:12:41.608488+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -11,8 +11,8 @@
   ],
   "markets": [
    "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIwJiC2AYQuLTK6QISLEtYTkZMUlNIWURTUFJPVC0yNk5PVjIyTUlBQlVGLU1JQUpXUklHSFQ1LTI1",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIu5iC2AYQkM6-jAMSIEtYMzBZUlJBVEVFVkVOVC0wNERFQzI2MTAxNS1UNTI5"
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIvpiC2AYQ2JGQ1wMSF0tYV1RJSC0yNk5PVjIzMjMtVDgyLjk5",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIu5iC2AYQyMXZzwISH0tYNVlSUkFURUVWRU5ULTA0REVDMjYxMDE1LVQ0NTM"
   ],
   "event_markets_example": [
    "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASM-26NOV30",
@@ -315,8 +315,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 27347.95,
-   "_volume_contracts": 142945.12,
+   "_est_dollar_volume": 27356.93,
+   "_volume_contracts": 143057.36,
    "_market_count": 21,
    "_markets": [
     {
@@ -338,7 +338,7 @@
      "yes_bid_size_fp": "193.79",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "14824.91",
-     "volume_24h_fp": "3630.95",
+     "volume_24h_fp": "3560.18",
      "open_interest_fp": "11680.07",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
@@ -348,7 +348,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 13787.17,
-     "_est_dollar_volume_24h": 3376.78
+     "_est_dollar_volume_24h": 3310.97
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.6000",
@@ -393,15 +393,15 @@
      "last_price_dollars": "0.0800",
      "previous_price_dollars": "0.1800",
      "previous_yes_bid_dollars": "0.1600",
-     "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.0800",
-     "no_bid_dollars": "0.9200",
-     "no_ask_dollars": "1.0000",
-     "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "1255.01",
-     "volume_fp": "43054.34",
-     "volume_24h_fp": "25099.20",
-     "open_interest_fp": "32743.43",
+     "yes_bid_dollars": "0.0100",
+     "yes_ask_dollars": "0.0200",
+     "no_bid_dollars": "0.9800",
+     "no_ask_dollars": "0.9900",
+     "yes_bid_size_fp": "16666.66",
+     "yes_ask_size_fp": "8333.33",
+     "volume_fp": "43166.58",
+     "volume_24h_fp": "25139.34",
+     "open_interest_fp": "32808.48",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
      "expected_expiration_time": "2026-11-23T15:00:00Z",
@@ -409,8 +409,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 3444.35,
-     "_est_dollar_volume_24h": 2007.94
+     "_est_dollar_volume": 3453.33,
+     "_est_dollar_volume_24h": 2011.15
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.6600",
@@ -431,7 +431,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "37250.81",
-     "volume_24h_fp": "3085.41",
+     "volume_24h_fp": "3017.25",
      "open_interest_fp": "26934.78",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
@@ -441,7 +441,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 745.02,
-     "_est_dollar_volume_24h": 61.71
+     "_est_dollar_volume_24h": 60.34
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.5800",
@@ -1435,10 +1435,10 @@
      "last_price_dollars": "0.2700",
      "previous_price_dollars": "0.0000",
      "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.2100",
+     "yes_bid_dollars": "0.2000",
      "yes_ask_dollars": "0.6500",
      "no_bid_dollars": "0.3500",
-     "no_ask_dollars": "0.7900",
+     "no_ask_dollars": "0.8000",
      "yes_bid_size_fp": "10.00",
      "yes_ask_size_fp": "5.00",
      "volume_fp": "48.00",
@@ -1467,11 +1467,11 @@
      "previous_price_dollars": "0.0000",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.9600",
-     "no_bid_dollars": "0.0400",
+     "yes_ask_dollars": "0.9500",
+     "no_bid_dollars": "0.0500",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "1.00",
+     "yes_ask_size_fp": "25.00",
      "volume_fp": "0.48",
      "volume_24h_fp": "0.48",
      "open_interest_fp": "0.48",
