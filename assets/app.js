@@ -66,6 +66,13 @@
     // rather than pretending an empty 5-minute window is a flat price.
     var state = { topic: "all", range: 86400, ticker: null, zoomY: true };
 
+    // markets.json holds chart series for rendered rows; market_index.json lists the whole universe so
+    // search reaches markets that are not rendered as table rows.
+    var INDEX = [];
+    fetch("data/market_index.json", { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { INDEX = (d && d.markets) || []; })
+      .catch(function () { INDEX = []; });
     fetch("data/markets.json", { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (d) { DATA = d; pick(); })
@@ -126,7 +133,28 @@
         });
       });
     }
-    if (filter) filter.addEventListener("input", apply);
+    if (filter) filter.addEventListener("input", function () {
+      apply();
+      var q = (filter.value || "").trim().toLowerCase();
+      if (!q || q.length < 3 || INDEX.length === 0) return;
+      var hit = INDEX.filter(function (r) {
+        return (r.t || "").toLowerCase().indexOf(q) >= 0 || (r.n || "").toLowerCase().indexOf(q) >= 0;
+      })[0];
+      if (hit && !rows().some(function (r) { return r.getAttribute("data-ticker") === hit.t; })) {
+        // not in the rendered slice: chart it from the index values instead of pretending it is absent
+        state.ticker = hit.t;
+        DATA = DATA || {};
+        if (!DATA[hit.t]) {
+          DATA[hit.t] = {
+            ticker: hit.t, title: hit.n, topics: hit.tp || [], points: [],
+            book: {}, liquidity: {}, close_time: hit.ct, rules_primary: "",
+            sources: { site: hit.u, market: "", event: "", series: "" }
+          };
+        }
+        draw();
+        if ($("chartTicker")) $("chartTicker").textContent = hit.t + " (not in rendered table)";
+      }
+    });
     if (sortSel) sortSel.addEventListener("change", function () { sortRows(); apply(); pick(); });
 
     var rangeSeg = $("rangeSeg");

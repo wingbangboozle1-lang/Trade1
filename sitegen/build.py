@@ -28,6 +28,7 @@ from collector import fees
 from collector.util import DATA, ROOT, SOURCES, iso, read_json, write_json
 
 OUT = os.path.join(ROOT, "dashboard")
+ROW_LIMIT = 300                 # rows rendered per page; full universe stays available client-side
 SITE = ROOT
 BUILT = []          # list of (path, title) for nav/link checks
 
@@ -339,8 +340,27 @@ def build_markets(snap, universe, jumps):
         }
     write_json(os.path.join(OUT, "data", "markets.json"), payload, indent=0)
 
+    # A compact index of every market so the page can filter the whole universe client-side while
+    # only rendering a bounded number of rows (the rendered table was 3.5 MB at ~5,000 markets).
+    index_rows = [{
+        "t": m["ticker"], "n": m["title"], "tp": m["topics"], "c": m.get("kalshi_category"),
+        "b": m["yes_bid"], "a": m["yes_ask"], "dv": m["dollar_volume"],
+        "d24": m["dollar_volume_24h"], "l": (m.get("book") or {}).get("total_liquidity_usd"),
+        "q": (m.get("book") or {}).get("yes_bid_qty_total"),
+        "ct": m.get("close_time"), "u": (m.get("sources") or {}).get("site"),
+    } for m in markets]
+    write_json(os.path.join(OUT, "data", "market_index.json"),
+               {"generated_at": (snap or {}).get("generated_at"), "markets": index_rows}, indent=0)
+
+    # Server-rendered rows are a starting view only. Ranking is by resting liquidity first (where an
+    # order could actually fill) then traded dollars, because a page of illiquid markets is useless.
+    def rank_key(m):
+        liq = (m.get("book") or {}).get("total_liquidity_usd") or 0
+        return (-liq, -(m.get("dollar_volume") or 0))
+
+    shown = sorted(markets, key=rank_key)[:ROW_LIMIT]
     rows = []
-    for m in markets:
+    for m in shown:
         rows.append(
             f'''<tr data-topics="{esc(" ".join(m["topics"]))}" data-ticker="{esc(m["ticker"])}">
 <td class="title"><a href="{esc((m.get("sources") or {}).get("site") or "#")}" target="_blank" rel="noopener">{esc(m["title"])}</a>
@@ -363,8 +383,9 @@ def build_markets(snap, universe, jumps):
 <h1>Live markets</h1>
 <p class="lede">Every open market in the five topics, with price, dollar volume and live liquidity.
 Click a row to chart it; the chart window switches between seconds, minutes, hours and days.</p>
-<div class="notice info"><strong>Sorting matters.</strong> The default order is dollar volume, which is the
-size of the market. Switch to liquidity to see where an order would actually fill.</div>
+<div class="notice info"><strong>{len(shown)} of {len(markets)} markets are rendered</strong>, ranked by
+resting liquidity and then traded dollars — the markets where an order could actually fill. Use the filter
+and sort controls to reach the rest; the chart works for any market you select.</div>
 <div class="controls">
   <div class="seg" id="topicSeg">{topic_buttons}</div>
   <label class="inline">Sort
@@ -377,7 +398,7 @@ size of the market. Switch to liquidity to see where an order would actually fil
     </select>
   </label>
   <input type="search" id="marketFilter" placeholder="Filter ticker or title…" style="min-width:220px">
-  <span class="faint" id="marketCount">{len(rows)} markets</span>
+  <span class="faint" id="marketCount">{len(shown)} of {len(markets)} markets shown</span>
 </div>
 <div class="grid cols-2">
   <div class="card">
