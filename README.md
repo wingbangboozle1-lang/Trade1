@@ -6,13 +6,17 @@ It collects, organizes, and analyzes Kalshi prediction-market data focused on **
 elections, culture, crypto, and golf**, tracks events until they resolve (yes/no), runs automated
 **simulated trades** to test strategies, and tracks portfolio performance.
 
-> Two agent sessions contributed to this repo; both are preserved below (session `81cacf69` built
-> the `dashboard.html` + `categories/*` + `assets/*` monitor; session `0db174ef` built the
-> `pages/*` + `css/` + `js/` dashboard with the strategy engine, portfolio, docs, and build tooling).
+> Three agent sessions contributed to this repo; all are preserved:
+> - session `0db174ef` built the **primary root dashboard** (`pages/*` + `css/` + `js/` + docs + build tooling),
+> - session `81cacf69` built the **monitor views** (`dashboard.html` + `categories/*` + `assets/*`),
+> - session `sess-a1-9a0ad587` (Arena branch `arena/9a0ad587-trade1`) built the **`site/` dashboard** —
+>   self-contained build with seconds/minutes/hours price charts, orderbook depth, ≥ $0.10 jump feed,
+>   YES/NO resolution tracker, paper strategy engine with the official fee formula, and its own
+>   verification docs (`site/*`, `docs/API_NOTES.md`, `docs/EXECUTIVE_SUMMARY.md`, `docs/SOURCES.md`, `docs/FLAGGED.md`).
 
 ## Site structure
 
-**Session 0db174ef — primary dashboard**
+**Session 0db174ef — primary dashboard (root, what GitHub Pages serves at `/`)**
 | Page | Purpose |
 |---|---|
 | `index.html` | Landing page: status, topic navigation, executive summary, credentials, official references |
@@ -34,39 +38,41 @@ elections, culture, crypto, and golf**, tracks events until they resolve (yes/no
 | `flagged.html` | Alternate flagged-for-review page |
 | `assets/css/style.css`, `assets/js/app.js` | Shared styles/logic for the monitor views |
 
-## Features
-- **Live tracking** — highest dollar-volume events per topic, polled from the Kalshi demo API.
+**Session sess-a1-9a0ad587 — `site/` dashboard (served at `/site/`)**
+| Page | Purpose |
+|---|---|
+| `site/index.html` | Landing: cross-topic highest-dollar ranking, executive summary, live ≥ $0.10 jump feed |
+| `site/topics/{gas-prices,elections,culture,crypto,golf}.html` | Per-topic dashboards: events ranked by $ open interest, price chart with **seconds / minutes / hours** granularity (live polled points + official 1-min/1-h candlesticks), orderbook depth (contracts at each price), computed liquidity, trade tape, jump feed with source links, YES/NO resolution tracker |
+| `site/strategies.html` | Paper strategy engine (Momentum / Mean-Reversion / Book-Imbalance) on live demo quotes with the **official fee formula**; equity curve, P&L by strategy & topic, categorized trade log, CSV/JSON export; optional read-only demo-account connector |
+| `site/flagged.html` | Flagged for Review (F1–F12) |
+| `site/suggestions.html` | Ranked suggestions to make the site more live/interactive |
+| `site/verification.html` | Verification methodology + every official source used |
+| `site/vendor/chart.umd.js` | Chart.js v4.6.1 (MIT) vendored from the npm registry |
+| `docs/API_NOTES.md`, `docs/EXECUTIVE_SUMMARY.md`, `docs/SOURCES.md`, `docs/FLAGGED.md` | Verified API reference, executive summary, master source list, flagged items |
+
+## Features (all three builds)
+- **Live tracking** — highest dollar-value events per topic, polled from the Kalshi demo API (public,
+  unauthenticated market-data endpoints).
 - **Resolution tracking** — each event is tracked until it resolves with a clear **yes/no** outcome.
 - **Interactive charts** — X axis = time (seconds / minutes / hours selectable), Y axis = contract
-  price; plus a liquidity chart showing contracts available at each price (orderbook depth).
-- **Sharp-move alerts** — any price change **≥ $0.10** is flagged with a timestamp and a link to the
-  official market.
-- **Strategy engine** — four simulated strategies (momentum, mean-reversion, value, liquidity-first);
-  trades are categorized by type and topic with win-rate and P&L analysis.
-- **Portfolio** — live demo balance/positions via signed requests; optional real demo order
-  execution (opt-in; credentials stay in your browser).
-
-## Build / validate
-```bash
-npm run build    # node tools/build.mjs — syntax-checks JS, checks every link
-```
-
-## Run locally
-```bash
-npx --yes serve .
-```
-Public market data needs no credentials. For the demo portfolio / real orders, provide a Kalshi demo
-API key ID + private key on the home page (stored only in your browser session).
+  price; plus liquidity depth showing contracts available at each price (orderbook).
+- **Sharp-move alerts** — any price change **≥ $0.10** is flagged with timestamp and source links.
+- **Strategy engines** — simulated strategies on live demo prices; trades categorized by type/topic
+  with win-rate, P&L, and drawdown analysis.
+- **Portfolio** — live demo balance/positions via signed requests (opt-in; credentials stay in your
+  browser); paper engines run automatically without credentials.
 
 ## Deployment
-GitHub Pages is configured to serve the repo from the **`main` branch at path `/`**, so the static
-site is published automatically when the site files are merged to `main`. `.github/workflows/pages.yml`
-runs the build validation on every push/PR so a broken site cannot land on `main`.
+GitHub Pages is configured to serve the repo from the **`main` branch at path `/`** (legacy mode), so
+the static site is published automatically when site files are merged to `main` — the primary
+dashboard at `/`, the monitor views at `/dashboard.html`, and the `site/` dashboard at **`/site/`**.
+`.github/workflows/pages.yml` runs the build validation (`node tools/build.mjs`) on every push/PR so
+a broken site cannot land on `main`.
 
 ## Verification
-Every technical claim is traceable to an official Kalshi source (see `docs/sources.md` and
-`docs/verification.md`). The build sandbox cannot reach Kalshi hosts, so live values are fetched
-**live in the browser** from the official API; anything unconfirmed is left blank and flagged on the
-**Flagged for Review** pages. No values are invented.
+Every technical claim is traceable to an official Kalshi source (see `docs/sources.md`,
+`docs/verification.md`, and `site/verification.html`). The build sandbox cannot reach Kalshi hosts,
+so live values are fetched **live in the browser** from the official API; anything unconfirmed is
+left blank and flagged on the **Flagged for Review** pages. No values are invented.
 
 See [COORDINATION.md](./COORDINATION.md) for the task board and session logs.
