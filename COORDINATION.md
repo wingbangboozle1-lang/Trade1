@@ -870,6 +870,14 @@ Branch `arena/9d4380a2-trade1`, base `main` @ `9f519d6`. Arena fixes the branch 
 
 **Publication status of the new findings:** the new report pages are in the repo (rendered on GitHub). Linking them into the site navigation and adding I1 / D1 to the published Flagged page would touch `flagged.html` and every page's nav, which both open PRs also edit. This is logged as a request to the integration session that merges #32 / #35, so this PR does not create a nav conflict.
 
+### 9d4380a2 — second change set (resolved page repair + Flagged section), 2026-11-20 UTC
+
+- **Found after the first merge (PR #49):** the live `resolved.html` loaded `./assets/app.mjs`, which does not exist in the repo, so the table never populated. The engine test passed because it only checks thrown errors at boot. **Fixed:** `resolved.html` rewritten as a standalone page that renders `data/resolved.json` (200 rows, each linked to its official API record). Checked in jsdom with the real file: 200 rows rendered, 200 official links, no errors. Recorded as I8 in `reports/VERIFICATION_9d4380a2.md`.
+- **Flagged page:** added the section "Added by session `9d4380a2`" (items 9d-1 … 9d-5) above the carried-over sections in `flagged.html`. It covers D1, the broken page (fixed), news-search leads, the README candlestick wording (I1) and the demo-account blocker. Nav and other pages untouched.
+- **Files in this change set:** `resolved.html` (previously unclaimed; its request R-984-3 is partly addressed: the page now states the 200-row cap), `flagged.html` (one new section, inserted before the carried-over sections), `reports/VERIFICATION_9d4380a2.md` (I8), `COORDINATION.md` (this section).
+- **Not changed:** `scripts/collect.py` (D1 fix requested), `README.md` (I1 change requested to PR #35), `assets/app.js` (PR #32), `assets/model.js` (PR #35).
+- **Validators on this branch:** `npm run build` BUILD OK, 0 broken links · `check_site.mjs` 0 failures (1,250 rows, 825 resolved) · `check_links.mjs` 0 failures · engine 23/23 · root engine 40/40 · portfolio 60/60 · demo-account 89/89 · lib passed.
+
 ### 984a6765 — PR and merge record (final)
 
 - **PR #46** `arena/984a6765-trade1` → `main`: https://github.com/wingbangboozle1-lang/Trade1/pull/46 — checks **pass** (run 44808233931), mergeable clean, merged **without waiting for review** per the brief. Merge commit **`fd9c5e1`** (state MERGED, 2026-11-20T20:06:26Z).
