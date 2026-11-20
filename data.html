@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Verified Data</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Verified data tables</h1>
+    <p>Actions-collected snapshots · every row linked to the official URL it came from</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html" class="active">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="notice"><b>Verification rule.</b> Each row shows only values present verbatim in the official response whose exact URL is linked in the last column. Computed values are labeled “est.” (estimated, not exchange-published). Values the API did not return are left blank, never inferred. Unverified or irregular findings are listed on <a href="flagged.html">Flagged for Review</a>.</div>
+  <div id="meta-line" class="muted small">loading data/meta.json…</div>
+
+  <section class="box" style="margin-top:14px">
+    <h2>CORS probes (browser-origin access)</h2>
+    <div class="tablewrap"><table id="t-cors"></table></div>
+    <p class="muted small">Probed from a GitHub-hosted runner on <span id="cors-time">—</span>. The demo API reflects the request Origin in <code>access-control-allow-origin</code>, so the Pages site and any preview origin can read it directly. Full verbatim headers: <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/cors.json" target="_blank" rel="noopener">data/cors.json</a>.</p>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Observed event categories on open demo events</h2>
+    <div class="tablewrap"><table id="t-cats"></table></div>
+    <p class="muted small">Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200" target="_blank" rel="noopener">GET /events?status=open&amp;limit=200</a> (paged). Category counts decide the topic mapping shown in <a href="methods.html">Methods</a>.</p>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Top in-scope live events by estimated traded notional</h2>
+    <div id="topic-tables"></div>
+    <p class="muted small">“Est. $” = contracts × last price (computed here; the API does not publish a per-market dollar-notional field — flagged). Blank cells = value not present in the response.</p>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Recently resolved in-scope markets (YES / NO)</h2>
+    <div class="tablewrap" style="max-height:420px"><table id="t-resolved"></table></div>
+    <p class="muted small">Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude" target="_blank" rel="noopener">GET /markets?status=settled&amp;min_settled_ts=now-72h</a> (window noted per snapshot). Result and settlement fields are verbatim from the response.</p>
+  </section>
+
+  <p class="footer">Snapshots refresh twice hourly via GitHub Actions after deploy (<code>.github/workflows/verify-and-collect.yml</code>), committed with the exact fetch log in <code>data/log.md</code>.</p>
+</main>
+<script>
+(function(){
+'use strict';
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function money(v){return (v===''||v==null||!isFinite(Number(v)))?'':'$'+Number(v).toFixed(2);}
+function fmt(v){var n=Number(v);return isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:2}):'';}
+function eventUrl(et){return 'https://kalshi.com/markets/'+encodeURIComponent(String(et||'').toLowerCase());}
+
+fetch('data/meta.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(meta){
+  var line=document.getElementById('meta-line');
+  if(meta){ line.textContent='Snapshot generated '+meta.generated_at.replace('T',' ').slice(0,19)+'Z · base '+meta.base+
+    ' · events '+meta.findings.events_open_count+' · markets '+meta.findings.markets_open_count+' · settled(72h) '+meta.findings.settled_count_recent+
+    ' · candlesticks probed: '+(meta.findings.candlesticks_ok?'OK':'FAILED (flagged)'); }
+  else { line.textContent='data/meta.json not found — snapshots may not have been collected yet.'; }
+});
+
+fetch('data/cors.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(c){
+  document.getElementById('cors-time').textContent=c?c.probed_at.replace('T',' ').slice(0,19)+'Z':'—';
+  var t=document.getElementById('t-cors');
+  t.innerHTML='<tr><th>Probe</th><th>Origin sent</th><th>HTTP</th><th>access-control-allow-origin (verbatim)</th><th>Source</th></tr>'+
+    (c?c.probes.map(function(p){return '<tr><td>'+esc(p.label)+'</td><td>'+esc(p.request_origin)+'</td><td>'+p.http_status+'</td><td>'+esc(p.response_headers['access-control-allow-origin']||'(not present)')+'</td><td class="src"><a target="_blank" rel="noopener" href="'+esc(p.url)+'">endpoint</a></td></tr>';}).join(''):'<tr><td colspan="5" class="muted">unavailable</td></tr>');
+});
+
+fetch('data/categories.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(c){
+  var t=document.getElementById('t-cats');
+  var url=(c&&c.source_urls&&c.source_urls[0])||'https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200';
+  t.innerHTML='<tr><th>Category (verbatim)</th><th>Open events</th><th>Source</th></tr>'+
+    (c?Object.keys(c.categories||{}).map(function(k){return '<tr><td>'+esc(k)+'</td><td>'+c.categories[k]+'</td><td class="src"><a target="_blank" rel="noopener" href="'+esc(url)+'">'+esc(url.split('?')[0].replace('https://external-api.demo.kalshi.co/trade-api/v2','GET ')||'endpoint')+'</a></td></tr>';}).join('')||'<tr><td colspan="3" class="muted">none returned</td></tr>':'<tr><td colspan="3" class="muted">unavailable</td></tr>');
+});
+
+fetch('data/resolved.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(d){
+  var t=document.getElementById('t-resolved');
+  var src=(d&&d.source_urls&&d.source_urls[0])||'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled';
+  t.innerHTML='<tr><th>Market</th><th>Topic</th><th>Result</th><th>Settlement (UTC)</th><th>Settlement value</th><th>Volume</th><th>Source</th></tr>'+
+    (d&&d.markets?d.markets.slice(0,80).map(function(m){return '<tr><td><a target="_blank" rel="noopener" href="'+eventUrl(m.event_ticker)+'">'+esc(m.title||m.ticker)+'</a><br><small class="muted">'+esc(m.ticker)+'</small></td><td>'+esc(m._topic||'')+'</td>'+
+    '<td><span class="badge '+(m.result==='yes'?'yes':'no')+'">'+esc(String(m.result||'').toUpperCase())+'</span></td><td>'+esc((m.settlement_ts||'').replace('T',' ').slice(0,19))+'</td><td>'+money(m.settlement_value_dollars)+'</td><td>'+fmt(m.volume_fp)+'</td>'+
+    '<td class="src"><a target="_blank" rel="noopener" href="'+esc(src)+'">settled endpoint</a></td></tr>';}).join('')||'<tr><td colspan="7" class="muted">none in scope</td></tr>':'<tr><td colspan="7" class="muted">unavailable</td></tr>');
+});
+
+var TOPICS=['gas-prices','elections','culture','crypto','golf'];
+var box=document.getElementById('topic-tables');
+TOPICS.forEach(function(id){
+  fetch('data/topics/'+id+'.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(d){
+    var sec=document.createElement('section'); sec.className='box'; sec.style.marginTop='14px';
+    var label=(d&&d.label)||id;
+    var src=(d&&d.source_urls&&d.source_urls.events&&d.source_urls.events[0])||'https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200';
+    var rows='';
+    if(d&&d.events&&d.events.length){
+      d.events.slice(0,15).forEach(function(ev,i){
+        var m=(ev._markets&&ev._markets[0])||{};
+        var dv=(ev._est_dollar_volume!=null)?('$'+Number(ev._est_dollar_volume).toLocaleString(undefined,{maximumFractionDigits:0})):'';
+        rows+='<tr><td>'+(i+1)+'</td>'+
+          '<td><a target="_blank" rel="noopener" href="'+eventUrl(ev.event_ticker)+'">'+esc(ev.title)+'</a><br><small class="muted">'+esc(ev.event_ticker)+' · '+esc(ev.category||'')+' · '+esc(ev._match_reason||'')+'</small></td>'+
+          '<td>'+esc(m.yes_bid_dollars!=null?money(m.yes_bid_dollars):'')+'</td>'+
+          '<td>'+esc(m.yes_ask_dollars!=null?money(m.yes_ask_dollars):'')+'</td>'+
+          '<td>'+fmt(ev._volume_contracts)+'</td><td>'+esc(dv)+'</td>'+
+          '<td>'+esc(m.close_time?(String(m.close_time).replace('T',' ').slice(0,16)+'Z'):'')+'</td>'+
+          '<td class="src"><a target="_blank" rel="noopener" href="'+esc(src)+'">events API</a> · <a target="_blank" rel="noopener" href="'+esc('https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker='+ev.event_ticker)+'">markets API</a></td></tr>';
+      });
+    } else {
+      rows='<tr><td colspan="8" class="muted">No open in-scope events in this snapshot'+(d?(' (collected '+d.generated_at.slice(0,10)+')'):' — snapshot unavailable')+'. Topic rules are in Methods; an empty topic is not an error.</td></tr>';
+    }
+    sec.innerHTML='<h2>'+esc(label)+' — top events</h2><div class="tablewrap"><table><tr><th>#</th><th>Event</th><th>Best YES bid</th><th>Best YES ask</th><th>Volume (contracts)</th><th>Est. traded $</th><th>Closes</th><th>Source</th></tr>'+rows+'</table></div>';
+    box.appendChild(sec);
+  });
+});
+})();
+</script>
+</body>
+</html>

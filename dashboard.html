@@ -1,162 +1,38 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1216">
-<title>Dashboard | Kalshi Demo Monitor</title>
-<link rel="stylesheet" href="assets/css/style.css">
-</head><body>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Live Dashboard</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
 <header>
-  <div class="brand"><div class="mark">K</div><div>
-    <h1>Kalshi Demo Dashboard</h1>
-    <p>Live alerts · contract-price chart · liquidity · simulated paper lab · resolved outcomes</p>
-  </div></div>
-  <a href="index.html" style="color:var(--muted);text-decoration:underline">← Landing page</a>
-  <span class="pill" id="liveState">Checking API…</span>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Kalshi Demo · Live Dashboard</h1>
+    <p>Gas prices · Elections · Culture · Crypto · Golf — live alerts, charts, order books, paper trading</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
 </header>
-
 <main class="wrap">
-  <div class="notice" id="apiNotice">
-    <b>Read-only public demo data.</b> No authentication, no API keys, no order submission. Values are requested from the demo REST API while this page is open; check the connection badge above. This sandbox could not verify live API/CORS behavior, so published-browser access remains flagged for review.
-  </div>
-
-  <div class="toolbar">
-    <nav class="tabs" id="tabs" aria-label="Categories"></nav>
-    <div class="controls">
-      <select id="period" aria-label="Chart time window">
-        <option value="60">Last 60 seconds</option>
-        <option value="300">Last 5 minutes</option>
-        <option value="900">Last 15 minutes</option>
-        <option value="3600">Last 1 hour</option>
-        <option value="14400">Last 4 hours</option>
-        <option value="86400">Last 24 hours</option>
-      </select>
-      <button id="refresh">Refresh now</button>
-    </div>
-  </div>
-
-  <div class="cards">
-    <div class="card"><small>Open matching markets</small><strong id="marketCount">—</strong></div>
-    <div class="card"><small>Top displayed YES bid</small><strong id="topPrice">—</strong></div>
-    <div class="card"><small>Highest listed volume (contracts, loaded page)</small><strong id="topVolume">—</strong></div>
-    <div class="card"><small>Last updated</small><strong id="updated" style="font-size:16px">—</strong></div>
-  </div>
-
-  <div class="layout">
-    <section>
-      <div class="box">
-        <div class="row" style="justify-content:space-between"><h2 id="tableTitle">Markets</h2><span id="status">Fetching open markets…</span></div>
-        <p class="muted" style="font-size:12.5px">Sorted by API-reported contract volume, not dollar turnover. Only the first API page (up to 1,000 markets) is fetched. When connected, runtime values come from official Kalshi API records; check the connection badge. Market titles link directly to those records.</p>
-        <div class="tablewrap">
-          <table>
-            <thead>
-              <tr><th>Market / event</th><th>YES bid</th><th>YES ask</th><th>Volume (contracts)</th><th>Best YES bid/ask sizes (contracts)</th><th>Status</th><th>Outcome</th></tr>
-            </thead>
-            <tbody id="markets"></tbody>
-          </table>
-        </div>
-        <p class="muted">The table shows the best YES bid and ask size fields. For the selected market, the panel below lists the best 8 YES/NO bid price levels and contract quantities. Blank means unavailable, not zero; bids are not dollar liquidity.</p>
-      </div>
-
-      <div class="box sidebox">
-        <div class="row" style="justify-content:space-between"><h2>YES bid movement</h2><span class="muted" id="graphName">Select a market</span></div>
-        <div class="chart"><canvas id="chart" aria-label="YES bid price against timestamp"></canvas></div>
-        <p class="muted" style="font-size:12.5px">X axis: timestamp · Y axis: YES bid price ($). Points are sampled while this page is open — not historical exchange data. Use the period picker to change the window.</p>
-      </div>
-
-      <div class="box sidebox">
-        <h2>Current liquidity — contracts available at bid prices</h2>
-        <div id="liquidity" class="muted">Select a market to load its order book.</div>
-        <p class="muted" style="font-size:12.5px">Levels come from the public order book (best bid quantities). "How many contracts at a given price" = published bid quantity at that price level. Unverified until the API is reachable.</p>
-      </div>
-    </section>
-
-    <aside>
-      <div class="box">
-        <h2>Sharp moves &bull; all events</h2>
-        <p class="muted" style="font-size:12.5px">Scrolling chat of sampled YES-bid moves ≥ $0.10 in either direction. Links go to the official Kalshi API record; no external news cause is attributed by this prototype.</p>
-        <div id="alertsAll" class="chat" aria-label="All live alerts"></div>
-        <p class="muted" id="alertCount" style="font-size:12px;margin-top:6px">0 alerts</p>
-      </div>
-
-      <div class="box sidebox">
-        <h2>Model likes &bull; high-ROI filter</h2>
-        <p class="muted" style="font-size:12.5px">Selective scrolling chat: includes an alert only when its market is in the top quartile of reported contract volume among the currently loaded topic markets and the published YES spread is no wider than $0.10. <b>This is a transparent experimental screen, not a validated model or ROI estimate.</b></p>
-        <div id="alertsLike" class="chat" aria-label="Model-liked alerts"></div>
-        <p class="muted" id="likeCount" style="font-size:12px;margin-top:6px">0 liked alerts</p>
-      </div>
-
-      <div class="box sidebox">
-        <h2>Simulated trade</h2>
-        <p class="muted">Paper-only; no account connection or real orders. Each qualifying price alert automatically records one-contract Momentum and Mean-reversion signal marks at the observed YES bid or complementary NO mark. These are quote marks, not fills; fees, settlements, and P&amp;L are not simulated.</p>
-        <div class="formgrid">
-          <label>Market ticker<input id="tradeTicker" placeholder="e.g. TICKER" maxlength="100"></label>
-          <label>Side<select id="tradeSide"><option>YES</option><option>NO</option></select></label>
-          <label>Limit price ($)<input id="tradePrice" type="number" min="0.01" max="0.99" step="0.01" placeholder="0.50"></label>
-          <label>Contracts<input id="tradeQty" type="number" min="1" max="10000" value="1"></label>
-          <label>Strategy category<select id="strategy"><option>Momentum</option><option>Mean reversion</option><option>Event thesis</option><option>Hedge</option><option>Other</option></select></label>
-        </div>
-        <button id="paperTrade" style="margin-top:10px">Record paper trade</button>
-        <div id="tradeMsg" class="muted" style="margin-top:8px"></div>
-      </div>
-
-      <div class="box sidebox">
-        <h2>Paper portfolio</h2>
-        <div id="portfolio" class="muted">No paper trades yet.</div>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th>Time / ticker</th><th>Side</th><th>Qty × price</th><th>Strategy</th></tr></thead>
-            <tbody id="trades"></tbody>
-          </table>
-        </div>
-        <button id="clearTrades" style="margin-top:10px">Clear local paper trades</button>
-        <p class="muted">No mark-to-market or realized P&amp;L is claimed: fills, fees, and settlements are not simulated. Categorize trades by strategy to compare performance later.</p>
-      </div>
-
-      <div class="box sidebox">
-        <h2>Recently resolved markets</h2>
-        <div class="tablewrap"><table><thead><tr><th>Market / event</th><th>Status</th><th>YES/NO result</th><th>Source</th></tr></thead><tbody id="resolved"><tr><td colspan="4" class="muted">Loading settled markets…</td></tr></tbody></table></div>
-        <p class="muted">Only explicit API yes/no results are displayed; blank means unreported or another result type and is flagged for review. This is not a complete historical archive or account settlement ledger.</p>
-        <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets reference ↗</a>
-      </div>
-    </aside>
-  </div>
-
-  <div class="box sidebox">
-    <h2>Suggestions — making the site more live and interactive</h2>
-    <ul class="list">
-      <li><b>Replace polling with the demo WebSocket</b> (<code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code> or <code>wss://demo-api.kalshi.co/trade-api/ws/v2</code>) for push price ticks instead of 5-second polling.</li>
-      <li><b>Browser notifications</b> on ≥ $0.10 swings so alerts surface without the tab in focus.</li>
-      <li><b>Persistent alert history</b> server-side or indexed by event ticker, not only in this session.</li>
-      <li><b>Overlay cause links</b>: when a sharp move coincides with a published news event, show the source link next to the alert (cause attribution must be verified per event).</li>
-      <li><b>Multi-market mini-sparklines</b> on each row so movement is visible without opening the chart.</li>
-      <li><b>Authenticate the demo account</b> (Kalshi requires private-key signed requests) to track real positions, settlement history, and P&amp;L — never store credentials in the browser.</li>
-    </ul>
-  </div>
-
-  <div class="box sidebox">
-    <h2>Official demo endpoints</h2>
-    <div class="tablewrap"><table><thead><tr><th>Surface</th><th>Recommended</th><th>Also supported</th><th>Source</th></tr></thead><tbody>
-      <tr><td>REST Trade API</td><td><code>https://external-api.demo.kalshi.co/trade-api/v2</code></td><td><code>https://demo-api.kalshi.co/trade-api/v2</code></td><td><a href="https://docs.kalshi.com/getting_started/api_environments.md" target="_blank" rel="noopener">Official Kalshi endpoints ↗</a></td></tr>
-      <tr><td>WebSocket API</td><td><code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code></td><td><code>wss://demo-api.kalshi.co/trade-api/ws/v2</code></td><td><a href="https://docs.kalshi.com/getting_started/api_environments.md" target="_blank" rel="noopener">Official Kalshi endpoints ↗</a></td></tr>
-    </tbody></table></div>
-    <p class="muted">This dashboard uses the recommended REST API. WebSocket is documented for review only; this page does not connect to it.</p>
-  </div>
-
-  <div class="box sidebox">
-    <h2>Sources &amp; verification</h2>
-    <ul class="list">
-      <li><a href="https://docs.kalshi.com/getting_started/api_environments.md" target="_blank" rel="noopener">Official API Environments</a> — recommended and supported demo REST/WebSocket URLs.</li>
-      <li><a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener">Official Quick Start: Market Data</a></li>
-      <li><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">Official Quick Start: WebSockets</a></li>
-      <li><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets reference</a></li>
-      <li><a href="https://docs.kalshi.com/api-reference/market/get-market-orderbook.md" target="_blank" rel="noopener">Official Get Market Orderbook reference</a></li>
-    </ul>
-    <p class="muted" style="font-size:12.5px">Full list of flagged / unverified items: <a href="flagged.html">Flagged for review →</a>. No market rows are pre-filled; all rows come from the live endpoint at runtime.</p>
-  </div>
-
-  <div class="footer">
-    Data supplied by the Kalshi demo API when reachable. Educational prototype, not financial advice. <a href="index.html">Landing →</a> · <a href="flagged.html">Flagged for review →</a>
-  </div>
+  <div class="notice"><b>Demo &amp; simulation only.</b> Public read-only demo market data. The strategy bot records paper trades in this browser only — it never connects to, funds, or places orders in any Kalshi account. Never enter credentials here.</div>
+  <div id="kalshi-app" data-page="dashboard"></div>
 </main>
-
-<script src="assets/js/app.js"></script>
-</body></html>
+<script src="assets/model.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
