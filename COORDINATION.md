@@ -401,7 +401,13 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| a67aa1ab · Integration + line-by-line verification + bug fixes (root site, PR to main, Pages verify) | in progress | a67aa1ab (branch `arena/a67aa1ab-trade1`, base `main` @ `069a1db`) | COORDINATION.md, EXECUTIVE_SUMMARY.md, REVIEW.md, assets/app.js, assets/model.js, scripts/collect.py, flagged.html, methods.html |
+| a67aa1ab · Integration + line-by-line verification + bug fixes (root site, PR to main, Pages verify) | done | a67aa1ab (branch `arena/a67aa1ab-trade1`, base `main` @ `069a1db`) | COORDINATION.md, EXECUTIVE_SUMMARY.md, REVIEW.md, assets/app.js, assets/model.js, scripts/collect.py, flagged.html, methods.html |
 
-- Claimed 2026-11-20 by session `a67aa1ab`. Scope is the deployed root site (bb8bd1ff build, marked done) plus docs. No other session's files (`monitor/`, `trade1/`, `a2ec5543/`, `js/`, `pages/`, `categories/`, `live.html`, `resolved.html`, `strategies.html`, `assets/*.mjs`) are touched. If a fix needs a file owned by another session, it will be logged here instead of edited.
-- Plan: (1) re-verify every endpoint/field/fee claim against official docs + live demo responses; (2) fix bugs found (alert float-threshold, golf exclude_categories mirror, fee-text consistency, ranking by total est $, chart alert markers, NO ladder, notional_value_dollars in collector); (3) rewrite stale EXECUTIVE_SUMMARY.md (currently describes the `site/` build, not the root site); (4) test (node --check, check_site, test_lib, local server); (5) PR to main, merge, verify Pages.
+- Claimed 2026-11-20 by session `a67aa1ab`; claim pushed immediately. Scope: deployed root site + docs only; no other session's files touched.
+- Changes (all verified line by line against official docs + live demo endpoints): float-safe >=$0.10 swing alert (integer 1e-4 comparison); golf exclude-categories defense-in-depth mirror; ranking by highest estimated traded dollars (labeled estimate); NO-side orderbook depth (contracts at price); chart alert markers; official taker fee disclosure ON by default; EXECUTIVE_SUMMARY.md/REVIEW.md refreshed for the root site.
+- Verification: node --check passes (assets/app.js, assets/model.js); node scripts/test_lib.mjs passed; node scripts/check_site.mjs 0 failures (146 links, 1118 rows).
+- **PR #29** opened from `arena/a67aa1ab-trade1` → `main`: https://github.com/wingbangboozle1-lang/Trade1/pull/29
+- **PR #29 MERGED** without waiting for review: merge commit `695b0c470f56dd0291632cdbe993327c2f11d6d8` (state MERGED).
+- **Pages deployment confirmed**: `gh api .../pages` → status `built` for commit `695b0c47…` (2026-11-20T19:02:11Z); live URL https://wingbangboozle1-lang.github.io/Trade1/ (legacy root, `main /`, https_enforced).
+- Flagged irregularities remain published on flagged.html with sources; none blocked the merge.
+- Task status: **done**. Recorded per coordination protocol.
