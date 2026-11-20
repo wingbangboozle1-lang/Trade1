@@ -606,3 +606,5 @@ tests, `0` check failures. Their findings remain in `flagged.html`, `reports/` a
 | Final verification of integrated site, Pages, workflows, and remaining limitations | done | `1db0a677` (`arena/1db0a677-trade1`) | `reports/FINAL_AUDIT.md`, this section of `COORDINATION.md` |
 
 This is a verification/documentation pass only; it does not take over another session's implementation scope or alter the canonical site/data. Branch started at `069a1db6026f573f7b1227115c04e5cf481a9ed3`; mainline additions were preserved during rebases. See [`reports/FINAL_AUDIT.md`](reports/FINAL_AUDIT.md) for exact commands, live Pages/workflow evidence, official Kalshi references, limitations, and conflict notes. The audited scope explicitly excludes historical/other-session files that the canonical checker does not test.
+
+Audit PR #28: https://github.com/wingbangboozle1-lang/Trade1/pull/28 (open from `arena/1db0a677-trade1` to `main`). Checks passed on the preceding head; this rebase incorporates the newest mainline integration and the final head is being re-validated before merge.
