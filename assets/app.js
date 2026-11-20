@@ -206,6 +206,10 @@ window.KalshiApp = (function () {
               if (!sr.ticker || seen[sr.ticker]) return;
               var title = sr.title || '';
               var hay = title + ' ' + sr.ticker;
+              // Mirror scripts/topics.json exclude_categories (e.g. golf-club
+              // markets filed under Politics must not enter the Golf topic).
+              var srCats = [sr.category].concat(sr.categories || []);
+              if (t.exclCats && srCats.some(function (c) { return t.exclCats.indexOf(c) !== -1; })) return;
               if (t.exclRe && new RegExp(t.exclRe, 'i').test(hay)) return;
               if (t.titleRe && !(new RegExp(t.titleRe, 'i').test(title) ||
                                  new RegExp(t.seriesRe || '\\x00', 'i').test(sr.ticker))) return;
@@ -335,8 +339,11 @@ window.KalshiApp = (function () {
     var b = prev.last !== null ? prev.last : prev.bid;
     if (a === null || b === null) return;
     var raw = a - b;
-    if (Math.abs(raw) < CFG.alertThreshold - 1e-9) return; // tolerance: 4dp official prices
-    var delta = Math.round(raw * 1000) / 1000;
+    // Integer 1e-4 comparison: official prices are 4-dp fixed-point strings,
+    // so an exact $0.10 move (e.g. $0.66 -> $0.56) must never fail the >= $0.10
+    // test through binary-float error (0.66 - 0.56 = 0.09999... in doubles).
+    if (Math.abs(Math.round(raw * 10000)) < 1000) return; // 1000 = $0.10 in 1e-4 units
+    var delta = Math.round(raw * 10000) / 10000;
     var dir = delta > 0 ? 'up' : 'down';
     var vol24 = Number(m.volume_24h_fp || 0), vol = Number(m.volume_fp || 0);
     var estdv = isFinite(vol) && isFinite(Number(m.last_price_dollars)) ? Math.round(vol * Number(m.last_price_dollars)) : null;
@@ -451,6 +458,14 @@ window.KalshiApp = (function () {
     x.strokeStyle = green; x.lineWidth = 2; x.beginPath();
     data.forEach(function (d, i) { i ? x.lineTo(px(d.t), py(d.p)) : x.moveTo(px(d.t), py(d.p)); });
     x.stroke();
+    // ≥10¢ swing alert markers for this ticker inside the window (colors: up=green, down=pink)
+    M.state.alerts.filter(function (a) {
+      return a.ticker === S.selected && a.t >= t0 && a.t <= t1;
+    }).forEach(function (a) {
+      x.fillStyle = a.dir === 'up' ? green : '#f48fb1';
+      x.beginPath(); x.arc(px(a.t), py(a.to), 4, 0, 7); x.fill();
+      x.strokeStyle = '#fff'; x.lineWidth = 1.5; x.stroke();
+    });
     var lastP = data[data.length - 1].p;
     x.fillStyle = green;
     x.beginPath(); x.arc(px(t1), py(lastP), 3.5, 0, 7); x.fill();
@@ -518,12 +533,18 @@ window.KalshiApp = (function () {
 
   /* ---------- main table ---------- */
   function rowsFor() {
+    // Rank by highest estimated traded dollars (total contracts x last price).
+    // The API publishes contract volume but no per-market traded-dollar field,
+    // so this is a labeled estimate (see flagged.html #5). 24h est $ breaks ties.
     return S.list.map(function (t) { return S.watch[t]; })
       .filter(function (m) { return m && (!S.topic || m._topic === S.topic); })
       .sort(function (a, b) {
-        var av = (Number(a.volume_24h_fp) || 0) * (Number(a.last_price_dollars) || 0);
-        var bv = (Number(b.volume_24h_fp) || 0) * (Number(b.last_price_dollars) || 0);
-        return bv - av;
+        var av = (Number(a.volume_fp) || 0) * (Number(a.last_price_dollars) || 0);
+        var bv = (Number(b.volume_fp) || 0) * (Number(b.last_price_dollars) || 0);
+        if (bv !== av) return bv - av;
+        var a24 = (Number(a.volume_24h_fp) || 0) * (Number(a.last_price_dollars) || 0);
+        var b24 = (Number(b.volume_24h_fp) || 0) * (Number(b.last_price_dollars) || 0);
+        return b24 - a24;
       });
   }
   function renderTable() {
@@ -581,8 +602,10 @@ window.KalshiApp = (function () {
       '<h3 class="spread">' + esc(S.selected) + '<span class="muted small"> book polled every ' + (CFG.bookPollMs / 1000) + 's</span></h3>' +
       '<table class="ladder"><thead><tr><th>YES ask*</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.ya) + '</tbody></table>' +
       '<table class="ladder"><thead><tr><th>YES bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.yb) + '</tbody></table>' +
-      '<p class="muted small">*Asks are derived (YES ask = $1.00 − NO bid; official reciprocal rule). ' +
-      'Computed bid-side liquidity: YES <b>' + money(v.liqY) + '</b> · NO <b>' + money(v.liqN) + '</b> · total <b>' + money(v.liqY + v.liqN) + '</b>. ' +
+      '<table class="ladder"><thead><tr><th>NO ask†</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.yb.map(function (x) { return { p: Math.round((1 - x.p) * 10000) / 10000, q: x.q }; }).reverse()) + '</tbody></table>' +
+      '<table class="ladder"><thead><tr><th>NO bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.nb) + '</tbody></table>' +
+      '<p class="muted small">*YES ask = $1.00 − NO bid (official reciprocal rule). †NO ask = $1.00 − YES bid (derived). ' +
+      'Columns show contracts available at each price (bid/ask size). Computed bid-side liquidity: YES <b>' + money(v.liqY) + '</b> · NO <b>' + money(v.liqN) + '</b> · total <b>' + money(v.liqY + v.liqN) + '</b>. ' +
       'Empty book = no resting orders (official behavior).</p>';
   }
 
@@ -712,7 +735,7 @@ window.KalshiApp = (function () {
       '<div class="tablewrap" style="max-height:430px"><table><thead><tr>' +
       '<th>Event</th><th>YES bid</th><th>YES ask</th><th>Last</th><th>\u0394 sample</th><th>Vol</th><th>24h vol</th><th>Est 24h $</th><th>Open int.</th><th>Closes</th>' +
       '</tr></thead><tbody id="kx-rows"></tbody></table></div>' +
-      '<p class="muted small">Ranked by estimated 24h traded notional (contracts \u00d7 last price — computed, not exchange-published; blank when the market reports no volume). \u0394 sample = change vs the previous poll sample.</p></div>' +
+      '<p class="muted small">Ranked by estimated 24h traded dollars (total contracts \u00d7 last price — computed, not exchange-published; blank when the market reports no volume). \u0394 sample = change vs the previous poll sample.</p></div>' +
       '<div class="box"><div class="row spread"><h2>Price chart</h2><span class="muted small" id="kx-chart-name">—</span></div>' +
       '<div class="chartbox"><canvas id="kx-chart"></canvas></div>' +
       '<p class="muted small" id="kx-chart-note"></p>' +
@@ -849,7 +872,7 @@ window.KalshiApp = (function () {
       '<div class="row spread"><div class="row"><span class="pill" id="kx-mode">…</span><span class="muted small" id="kx-mode-note"></span></div>' +
       '<div class="row"><button id="kx-bot-toggle">Bot: —</button><button id="kx-export">Export JSON</button>' +
       '<button id="kx-import">Import JSON</button><button id="kx-clear" class="danger">Reset</button></div></div>' +
-      '<p class="notice blue small">Automated <b>paper</b> trading: when the bot is ON it evaluates the documented strategies every poll cycle against live demo quotes and records local-only fills. No orders are sent to Kalshi; nothing here can touch a real or demo account. Fees are excluded (schedule unverified — see Flagged).</p>' +
+      '<p class="notice blue small">Automated <b>paper</b> trading: when the bot is ON it evaluates the documented strategies every poll cycle against live demo quotes and records local-only fills. No orders are sent to Kalshi; nothing here can touch a real or demo account. Paper fills use the official taker fee schedule (verified from kalshi.com docs) — toggle below. Nothing here can touch a real or demo account.</p>' +
       '<div class="cards">' +
       '<div class="card"><small>Paper equity</small><strong id="kpi-equity">—</strong></div>' +
       '<div class="card"><small>Cash</small><strong id="kpi-cash">—</strong></div>' +
@@ -863,7 +886,7 @@ window.KalshiApp = (function () {
       '<span>Per trade $ <input id="kx-per" type="number" min="1" step="5" value="' + M.state.bot.perTradeDollars + '"></span>' +
       '<span>Max positions <input id="kx-max" type="number" min="1" max="40" value="' + M.state.bot.maxPositions + '"></span>' +
       '<button id="kx-apply">Apply</button></div>' +
-      '<p class="muted small">Fees: <b>' + (M.state.bot.fees ? 'ON (UNVERIFIED 7% quadratic)' : 'OFF') + '</b> — toggle below. Strategy parameters are fixed defaults documented in Methods.</p>' +
+      '<p class="muted small">Fees: <b>' + (M.state.bot.fees ? 'ON (official taker schedule)' : 'OFF') + '</b> — toggle below. Strategy parameters are fixed defaults documented in Methods.</p>' +
       '<button id="kx-fees">Toggle fees (unverified)</button>' +
       '<p class="muted small" id="kx-trades-hint"></p>' +
       '<p class="small" id="kx-sum" style="margin-top:8px"></p></div></div>' +

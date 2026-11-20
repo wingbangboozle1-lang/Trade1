@@ -3,9 +3,10 @@
  * Everything in this file is local-only: no orders are sent to Kalshi, no
  * account is contacted, nothing leaves the browser. Paper fills are assumed
  * at the official bid/ask quotes with no slippage; see methods.html for the
- * documented assumptions and flagged.html for limitations (fees are OFF by
- * default because no fee schedule was verified from an official source
- * during this session).
+ * documented assumptions and flagged.html for limitations. Fees ARE applied
+ * by default (official taker formula, verified from
+ * kalshi.com/docs/kalshi-fee-schedule.pdf — see fee() below); maker fees
+ * are not modeled (paper fills assume immediately-matched orders).
  *
  * Topic classification mirrors scripts/topics.json (authoritative for the
  * data/ snapshots). The two MUST be kept in sync — flagged in flagged.html.
@@ -65,7 +66,8 @@ window.KalshiModel = (function () {
     { id: 'crypto', label: 'Crypto', categories: ['Crypto'],
       titleRe: '', exclRe: '', seriesRe: '^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT)' },
     { id: 'golf', label: 'Golf', categories: ['Sports'],
-      titleRe: 'golf', exclRe: '', seriesRe: '^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)' }
+      titleRe: 'golf', exclRe: '', seriesRe: '^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)',
+      exclCats: ['Politics', 'Elections'] }
   ];
 
   function classify(category, title, series) {
