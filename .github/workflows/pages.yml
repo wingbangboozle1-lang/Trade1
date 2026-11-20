@@ -39,9 +39,11 @@ jobs:
         run: node tests/engine.test.mjs
       - name: Library tests (offline fixtures)
         run: node scripts/test_lib.mjs
+      - name: Unit checks — engine math (fees, alert threshold, classifier)
+        run: node tests/root_engine.test.js
       - name: JS syntax, internal links, nav targets
         run: node tools/build.mjs
-      - name: Every snapshot row has an official source URL
+      - name: Every page link resolves and every snapshot row has an official source URL
         run: node scripts/check_site.mjs
 
   snapshot:

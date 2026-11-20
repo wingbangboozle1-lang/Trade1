@@ -40,6 +40,9 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
   const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map(m => m[1]);
   for (const ref of refs) {
     if (/^(https?:|mailto:|#|javascript:)/.test(ref)) continue;
+    /* Skip hrefs built by inline JS (e.g. href="'+esc(url)+'") — those are
+       runtime-built and validated by the page's own render path, not here. */
+    if (/['"$`{}]|\+/.test(ref)) continue;
     const clean = ref.split('#')[0].split('?')[0];
     if (!clean) continue;
     checked.links++;

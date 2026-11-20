@@ -185,8 +185,11 @@ test('threshold constants are exact (no float drift at exactly $0.10)', () => {
 });
 
 test('engine source uses integer 4dp comparison for the alert threshold', () => {
-  assert.ok(/THRESH_4DP = 1000/.test(APP), 'threshold not expressed in 1/10000 dollars');
-  assert.ok(/Math\.round\(v \* 10000\)/.test(APP), 'no 4dp quantiser');
+  // The comparison itself lives in assets/model.js (alertMove) so it can be
+  // unit-tested offline; the app calls it and adds the round-trip fallback.
+  assert.ok(/ALERT_UNITS = 1000/.test(MODEL), 'threshold not expressed in 1/10000 dollars (model.js)');
+  assert.ok(/Math\.round\(cur \* 10000\)/.test(MODEL), 'no 4dp quantiser (model.js)');
+  assert.ok(/M\.alertMove\(/.test(APP), 'app.js does not use the tested alertMove()');
   assert.ok(/previous_price_dollars/.test(APP), 'no round-trip swing detection via previous_price_dollars');
 });
 
