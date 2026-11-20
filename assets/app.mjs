@@ -77,10 +77,10 @@ async function loadSnapshot() {
 
 async function loadMarkets() {
   try {
-    const { items, pages, truncated } = await fetchPaged(`${API()}/events?status=open&with_nested_markets=true&limit=200`, 'events', { maxPages: 40, pageDelayMs: 120 });
+    const { items, pages, truncated } = await fetchPaged(`${API()}/events?status=open&with_nested_markets=true&limit=200`, 'events', { maxPages: 10, pageDelayMs: 120 });
     state.markets = rowsFromEvents(items, API());
     state.source = 'live';
-    state.statusMsg = `${items.length} open events, ${pages} page(s)${truncated ? ' — TRUNCATED at page cap' : ''}`;
+    state.statusMsg = `${items.length} open events read from ${pages} page(s)${truncated ? ' — capped: newest events only; markets beyond the cap are not shown' : ''}.`;
   } catch (e) {
     state.statusMsg = `Live API unavailable from this browser (${e.message}). Showing build-time snapshot.`;
     try {

@@ -19,7 +19,11 @@ const base = API_BASES[baseKey];
 if (!base) throw new Error(`unknown --base ${baseKey}`);
 const outFile = args.out || 'data/snapshot.json';
 
-const LIMITS = { open: 40, closed: 10, settled: 10 }; // pages of 200 events each
+const LIMITS = { open: 20, closed: 5, settled: 5 }; // pages of 200 events each (page caps are recorded in the snapshot)
+const TOP_OPEN = 150;      // per topic: most open-interest markets kept in the snapshot
+const TOP_RESOLVED = 200;  // per topic: most recently settled markets with an official result kept
+const OPEN_STATUSES = new Set(['initialized', 'active', 'inactive', 'closed', 'determined', 'disputed', 'amended']);
+const RESOLVED_STATUSES = new Set(['determined', 'amended', 'finalized']);
 const log = (...m) => console.log(new Date().toISOString(), ...m);
 
 const generatedAt = new Date().toISOString();
@@ -53,7 +57,22 @@ for (const r of rows) {
 }
 
 // Resolved outcomes: markets with an official result set (yes/no/scalar).
-const resolved = rows.filter(r => r.result && (r.status === 'finalized' || r.status === 'determined' || r.status === 'amended'));
+const resolvedAll = rows.filter(r => (r.result === 'yes' || r.result === 'no') && RESOLVED_STATUSES.has(r.status));
+const openAll = rows.filter(r => OPEN_STATUSES.has(r.status));
+
+// Size control: keep the top rows per topic so the committed file stays small.
+// Selection is per topic; the union of selected tickers is written. Counts above are before caps.
+const keep = new Set();
+for (const t of TOPICS) {
+  openAll.filter(r => r.topics.includes(t.id))
+    .sort((a, b) => (b.open_interest_notional_derived ?? -1) - (a.open_interest_notional_derived ?? -1))
+    .slice(0, TOP_OPEN).forEach(r => keep.add(r.ticker));
+  resolvedAll.filter(r => r.topics.includes(t.id))
+    .sort((a, b) => String(b.settlement_ts || '').localeCompare(String(a.settlement_ts || '')))
+    .slice(0, TOP_RESOLVED).forEach(r => keep.add(r.ticker));
+}
+const keptRows = rows.filter(r => keep.has(r.ticker)).map(r => ({ ...r, event_settlement_sources: r.event_settlement_sources.slice(0, 6) }));
+const resolved = resolvedAll.filter(r => keep.has(r.ticker));
 
 const snapshot = {
   generated_at: generatedAt,
@@ -75,12 +94,12 @@ const snapshot = {
   topic_rules: TOPICS.map(t => ({ id: t.id, label: t.label, official_categories: t.categories, keyword_patterns: t.keywords.map(k => k.source) })),
   categories_seen: [...new Set(events.map(e => e.category).filter(Boolean))].sort(),
   unmatched_categories_sample: [...new Set(events.filter(e => classifyEvent(e).length === 0).map(e => e.category || '(none)'))].sort().slice(0, 60),
-  counts: { rows: rows.length, resolved_rows: resolved.length },
-  rows,
-  resolved: resolved.map(r => ({ ticker: r.ticker, title: r.title, topics: r.topics, result: r.result, settlement_value: r.settlement_value, settlement_ts: r.settlement_ts, status: r.status, source_url: r.source_url, kalshi_url: r.kalshi_url, event_settlement_sources: r.event_settlement_sources })),
+  counts: { matched_rows_before_caps: rows.length, open_rows_before_caps: openAll.length, resolved_rows_before_caps: resolvedAll.length, rows_kept: keptRows.length, resolved_kept: resolved.length, caps: { top_open_per_topic: TOP_OPEN, top_resolved_per_topic: TOP_RESOLVED, page_limits: LIMITS } },
+  rows: keptRows,
+  resolved: resolved.map(r => ({ ticker: r.ticker, title: r.title, topics: r.topics, result: r.result, settlement_value: r.settlement_value, settlement_ts: r.settlement_ts, status: r.status, source_url: r.source_url, kalshi_url: r.kalshi_url, event_settlement_sources: r.event_settlement_sources.slice(0, 6) })),
 };
 
 await mkdir(path.dirname(outFile), { recursive: true });
-await writeFile(outFile, JSON.stringify(snapshot, null, 1) + '\n');
-log(`wrote ${outFile}: ${rows.length} topic rows, ${resolved.length} resolved, ${events.length} events scanned`);
+await writeFile(outFile, JSON.stringify(snapshot) + '\n');
+log(`wrote ${outFile}: ${keptRows.length} rows kept (of ${rows.length} matched), ${resolved.length} resolved kept, ${events.length} events scanned`);
 for (const [k, v] of Object.entries(perTopic)) log(`  topic ${k}: ${JSON.stringify(v)}`);
