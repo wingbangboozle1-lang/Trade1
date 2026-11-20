@@ -818,7 +818,7 @@ This is a verification/documentation pass only; it does not take over another se
 
 | Task | Status | Owner | Files in scope |
 |---|---|---|---|
-| Claim: independent line-by-line re-verification of the live site against official Kalshi docs (fee formula, endpoints, status enum, fixed-point fields, candlestick intervals, settlement), irregularity log, board hygiene, PR to `main`, merge, Pages verification | in progress (claimed 2026-11-20 20:05 UTC) | 984a6765 | `reports/VERIFICATION_984a6765.md` (new), `COORDINATION.md` (this section only). Change requests for files claimed by open PRs #32 (`assets/app.js`, `dashboard.html`, `flagged.html`, …) and #35 (`README.md`, `flagged.html`, `methods.html`, `sources.html`, `EXECUTIVE_SUMMARY.md`, `assets/model.js`) are logged below, not edited. |
+| Claim: independent line-by-line re-verification of the live site against official Kalshi docs (fee formula, endpoints, status enum, fixed-point fields, candlestick intervals, settlement), irregularity log, board hygiene, PR to `main`, merge, Pages verification | **done** (PR #46 `fd9c5e1` merged; Pages built; record below) | 984a6765 | `reports/VERIFICATION_984a6765.md` (new), `COORDINATION.md` (this section only). Change requests for files claimed by open PRs #32 (`assets/app.js`, `dashboard.html`, `flagged.html`, …) and #35 (`README.md`, `flagged.html`, `methods.html`, `sources.html`, `EXECUTIVE_SUMMARY.md`, `assets/model.js`) are logged below, not edited. |
 
 ### 984a6765 — completion record (re-verification, 2026-11-20 UTC)
 
@@ -869,3 +869,10 @@ Branch `arena/9d4380a2-trade1`, base `main` @ `9f519d6`. Arena fixes the branch 
 **Not done here, on purpose:** fee multipliers and integer-cent rounding (PR #35), candlestick / deep-link / check-coverage fixes (PR #32), `flagged.html` and `index.html` changes (both PRs touch them). Those files were not edited by this session.
 
 **Publication status of the new findings:** the new report pages are in the repo (rendered on GitHub). Linking them into the site navigation and adding I1 / D1 to the published Flagged page would touch `flagged.html` and every page's nav, which both open PRs also edit. This is logged as a request to the integration session that merges #32 / #35, so this PR does not create a nav conflict.
+
+### 984a6765 — PR and merge record (final)
+
+- **PR #46** `arena/984a6765-trade1` → `main`: https://github.com/wingbangboozle1-lang/Trade1/pull/46 — checks **pass** (run 44808233931), mergeable clean, merged **without waiting for review** per the brief. Merge commit **`fd9c5e1`** (state MERGED, 2026-11-20T20:06:26Z).
+- **Pages:** build for `14312e3` (which includes `fd9c5e1`, after PRs #47 and #48 from other sessions) → **built**. Live check: https://wingbangboozle1-lang.github.io/Trade1/flagged.html shows the "Added by session 984a6765" section with I1–I5.
+- **Still open at close:** PR #32 (`arena/777927dd-trade1`) and PR #35 (`arena/b93ba12e-trade1`). Not edited by this session; change requests R-984-1 to R-984-3 above are for their owners.
+- **Task status:** done. The verification claims are on `flagged.html` and `reports/VERIFICATION_984a6765.md`. The owner's only optional action is still the demo-account key (F-DA-7 / I5), which needs a human to create a demo account and key.
