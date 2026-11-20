@@ -13,6 +13,7 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 | a2ec5543 · T5 | Simulated strategies + trade categorisation | needs review (6 trades; sample too small to judge, F7) | a2ec5543 | `scripts/backtest.py`, `reports/METHODOLOGY.md` |
 | a2ec5543 · T6 | Executive summary + Flagged for Review | done (published; F1–F19) | a2ec5543 | `reports/EXECUTIVE_SUMMARY.md`, `reports/FLAGGED_FOR_REVIEW.md` |
 | a2ec5543 · T7 | Integration: PR to `main`, build check, publish, Pages verification | done (PR #4 `bbb3def`, PR #25 `ac067df`, PR #26 `5d0280a` merged; publish verified) | a2ec5543 | `COORDINATION.md` (this section) |
+| **Final integration & verification (`b93ba12e`)** | Live API line-by-line re-verification of the deployed root site, fee-schedule accuracy fix (non-standard per-series taker multipliers + integer-cent rounding), unit tests, docs, PR → merge → Pages | **in progress** | `b93ba12e` (branch `arena/b93ba12e-trade1`) | `assets/model.js`, `tests/model.test.js`, `methods.html`, `flagged.html`, `sources.html`, `README.md`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md` |
 
 | Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Full live dashboard v2: alerts, charts, orderbook, sim trading, resolutions, data pipeline, CORS verification, topic subpages, integration + PR + Pages | in progress | bb8bd1ff (branch `arena/bb8bd1ff-trade1`) | COORDINATION.md, README.md, index.html (takeover, see log), dashboard.html, trades.html, data.html, methods.html, flagged.html, sources.html, topics/*.html, assets/**, data/**, scripts/**, .github/workflows/verify-and-collect.yml |
@@ -419,3 +420,38 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - **Irregularities (published on `flagged.html`, do not block merge):** demo `status` values differ from docs (`active`/`finalized` vs `unopened/open/closed/settled`); `/events limit=1000` rejected (400); candlesticks served at `/series/{s}/markets/{t}/candlesticks`; `settlement_sources` may contain template gaps; no official per-market dollar-notional (“Est. traded $” is a labeled compute); maker fees not modeled; news causality never claimed; topic matching heuristic; no slippage; unauthenticated rate limits undocumented; demo-account portfolio/order execution needs demo keys (never requested — local paper portfolio only); no WebSocket from a static page (REST polling); session chart samples reset on reload.
 - **PR / merge / deploy record:** PR #30 opened from `arena/cadbd003-trade1` → `main`; merged without waiting for approval (merge commit `3282656`, PR state MERGED). PR check job (test_lib.mjs + check_site.mjs) passes on the head commit.
 - **Pages deployment confirmed:** `gh api repos/wingbangboozle1-lang/Trade1/pages` → `status: built`, build_type `legacy`, source `main` `/`. Live URL: https://wingbangboozle1-lang.github.io/Trade1/. The sandbox cannot reach `github.io` directly (egress allowlist: github/npm/PyPI only), so the live HTML render was not re-fetched from this host; the Pages API `built` status confirms the deploy.
+
+## Final integration & verification — session `b93ba12e` (branch `arena/b93ba12e-trade1`, 2026-11-20)
+
+**Role.** Final integration session. All prior sessions' PRs were already merged to `main`; this session branched from `main` @ `069a1db`, re-verified the combined deployed root site line by line against the official Kalshi sources, fixed a real accuracy bug in the paper-trading fee model, added tests, updated the docs, and opened the PR → merge → Pages cycle. No other session's files were modified; scope is the root site's fee model + its docs + this board.
+
+**Live line-by-line verification (performed 2026-11-20, against the official demo REST API `https://external-api.demo.kalshi.co/trade-api/v2`).** The sandbox's direct egress allowlist does not include Kalshi, so verification used the page fetcher against the live endpoints. Each snapshot value was re-fetched and matched:
+
+| Check | Endpoint / value | Result |
+|---|---|---|
+| Gas market | `GET /markets/KXAAAGASM-26NOV30-3.90` | `volume_fp` 31027.52 ✅ matches snapshot |
+| Elections market | `GET /markets/KXPRESNOMD-28-GPLA` | `volume_fp` 465856531.27 ✅ matches |
+| Culture market | `GET /markets/KXOSCARPIC-27-ODY` | `volume_fp` 1577862.98 ✅ matches |
+| Crypto market | `GET /markets/KXBTCY-27JAN0100-B47500` | `volume_fp` 80178705.51 ✅ matches |
+| Golf market | `GET /markets/KXPGATOUR-THRC26-SSTR` | live (volume ticked up since snapshot — expected) |
+| Resolved market | `GET /markets/KXGOLFMAJOR-30-RFOX` | `result:"yes"`, `settlement_ts` 2026-07-19T18:49:28.40545Z, `settlement_value_dollars` 1.0, `status:"finalized"` ✅ matches `data/resolved.json` exactly |
+| Orderbook | `GET /markets/KXPRESNOMD-28-GPLA/orderbook?depth=20` | 200, `orderbook_fp.{yes_dollars,no_dollars}` shape ✅ (empty for this market — bid/ask sizes are 0) |
+| Candlesticks | `GET /series/KXECCOMPACT/markets/KXECCOMPACT-30/candlesticks?...period_interval=60` | 200, `candlesticks[]` ✅ |
+| Events page size | `GET /events?status=open&limit=200` | 200, 200 events returned ✅ (confirms `limit=1000` rejection / `limit=200` working) |
+| Fee schedule | `https://kalshi.com/docs/kalshi-fee-schedule.pdf` (fetched directly) | taker `round_up(M×0.07×C×P×(1−P))`, maker `0.0175×`, Non-Standard per-series multiplier table, "no settlement fee", effective 2026-07-07 ✅ |
+
+All 1118 snapshot rows and 601 resolved rows carry a `source_url` on the configured API base; `node scripts/check_site.mjs` → 146 links, 0 failures. `node tests/engine.test.js` 36/36, `node tests/smoke.test.js` pass, `node scripts/test_lib.mjs` pass.
+
+**Bug found and fixed (fee rounding).** The deployed `assets/model.js` fee used naive `Math.ceil(0.07×qty×p×(1−p)×100)/100`. Binary float renders `0.07×100×0.5×0.5` as `1.7500000000000002`, so the exact official value **$1.75** was ceiled to **$1.76** — overcharging every paper trade by a cent. This is the same float-precision class the monitor build guarded against. Fixed with integer-cent rounding plus a float-epsilon guard (`Math.ceil(rawCents − 1e-9)/100`), mirroring the already-tested `monitor/assets/app.js` approach. Caught by the new `tests/model.test.js` (failed before the fix, 21/21 after).
+
+**Enhancement (non-standard per-series taker multipliers).** The official schedule's Non-Standard Fees table gives per-series taker multipliers. For the five tracked topics the material case is **`KXBTCY` and `KXETHY` (crypto) with taker multiplier M=0 → no taker fee**; `KXAAAGASM`, `KXPGATOUR`, `KXPGARYDER`, `KXPGASOLHEIM`, `KXEMMY*`, `KXFED*`, `KXCPI*` are standard (M=1). `assets/model.js` now carries the multiplier map, derives the series prefix from the market ticker (`seriesOf`), and applies M in `fee()`; the taker path is exact and the maker path remains unmodeled (paper fills assume immediate match — flagged). `KXELECTIRAN`/`KXPAHLAVIHEAD` (M=0) also included. Series not listed default to M=1.
+
+**Files changed.** `assets/model.js` (fee map + helpers + epsilon-guarded rounding + call-site series pass-through + `series_ticker` on trades + stale header comment fixed); `tests/model.test.js` (new, 21 assertions pinned to the official table incl. non-standard multipliers); `methods.html`, `flagged.html` (#6), `sources.html`, `README.md`, `EXECUTIVE_SUMMARY.md` (fee documentation updated).
+
+**Irregularities / open items (all published on `flagged.html`, none blocking).**
+- Maker fees still not modeled (documented simplification).
+- Demo-account portfolio tracking/execution requires user demo API keys; the site never requests credentials, so the portfolio shown is the local paper portfolio (Flag #12).
+- Demo `status:"active"` vs documented status set (Flag #1); placeholder `settlement_sources` in some demo events (Flag #4, re-observed live this session).
+- `previous_price_dollars` semantics remain an assumption (Flag #7).
+- Dollar-notional ranking is a computed estimate, not exchange-published (Flag #5).
+- The non-standard multiplier table is transcribed from the official PDF; the garbled OCR rows in the middle of the PDF's Non-Standard table were deliberately **not** transcribed (avoid hallucination) — only clearly-read series are mapped; unlisted series safely default to M=1.
