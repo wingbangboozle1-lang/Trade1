@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-20T13:17:02Z",
- "generated_ts": 1795180622,
+ "generated_at": "2026-11-20T13:19:09Z",
+ "generated_ts": 1795180749,
  "base_url": "https://api.elections.kalshi.com/trade-api/v2",
  "exchange_status": {
   "exchange_active": true,
@@ -48,7 +48,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.7300?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.7300",
    "topics": [
     "gas"
@@ -129,7 +129,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.7250?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.7250",
    "topics": [
     "gas"
@@ -210,7 +210,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.7200?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.7200",
    "topics": [
     "gas"
@@ -291,7 +291,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.7150?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.7150",
    "topics": [
     "gas"
@@ -372,7 +372,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.7100?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.7100",
    "topics": [
     "gas"
@@ -453,7 +453,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.7050?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.7050",
    "topics": [
     "gas"
@@ -538,7 +538,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.7000?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.7000",
    "topics": [
     "gas"
@@ -619,7 +619,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6950?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6950",
    "topics": [
     "gas"
@@ -700,7 +700,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6900?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6900",
    "topics": [
     "gas"
@@ -789,7 +789,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6850?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6850",
    "topics": [
     "gas"
@@ -882,7 +882,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6800?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6800",
    "topics": [
     "gas"
@@ -975,7 +975,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6750?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6750",
    "topics": [
     "gas"
@@ -1068,7 +1068,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6700?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6700",
    "topics": [
     "gas"
@@ -1178,7 +1178,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6650?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6650",
    "topics": [
     "gas"
@@ -1220,15 +1220,15 @@
     "site": "https://kalshi.com/markets/kxaaagasd"
    },
    "book": {
-    "yes_bid_qty": 2000.0,
-    "no_bid_qty": 1550.0,
+    "yes_bid_qty": 3016.0,
+    "no_bid_qty": 508.0,
     "yes_bid_levels": 3,
     "no_bid_levels": 10,
-    "yes_bid_qty_total": 17628.54,
-    "no_bid_qty_total": 3680.0,
-    "buy_yes_liquidity_usd": 177.61,
-    "buy_no_liquidity_usd": 17365.97,
-    "total_liquidity_usd": 17543.58,
+    "yes_bid_qty_total": 17602.54,
+    "no_bid_qty_total": 3564.0,
+    "buy_yes_liquidity_usd": 178.53,
+    "buy_no_liquidity_usd": 17330.33,
+    "total_liquidity_usd": 17508.86,
     "best_yes_bid": 0.03,
     "best_no_bid": 0.96,
     "levels": {
@@ -1239,14 +1239,18 @@
       ],
       [
        0.02,
-       4628.54
+       3586.54
       ],
       [
        0.03,
-       2000.0
+       3016.0
       ]
      ],
      "no": [
+      [
+       0.72,
+       10.0
+      ],
       [
        0.77,
        5.0
@@ -1258,10 +1262,6 @@
       [
        0.82,
        10.0
-      ],
-      [
-       0.89,
-       100.0
       ],
       [
        0.9,
@@ -1281,11 +1281,11 @@
       ],
       [
        0.95,
-       2005.0
+       3021.0
       ],
       [
        0.96,
-       1550.0
+       508.0
       ]
      ]
     }
@@ -1296,7 +1296,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6600?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6600",
    "topics": [
     "gas"
@@ -1304,20 +1304,20 @@
    "kalshi_category": "Economics",
    "status": "active",
    "result": "",
-   "yes_bid": 0.38,
-   "yes_ask": 0.39,
-   "no_bid": 0.61,
-   "no_ask": 0.62,
-   "mid": 0.385,
+   "yes_bid": 0.39,
+   "yes_ask": 0.54,
+   "no_bid": 0.46,
+   "no_ask": 0.61,
+   "mid": 0.465,
    "price_label": "mid",
-   "last_price": 0.45,
-   "volume": 1065.79,
+   "last_price": 0.5,
+   "volume": 1170.08,
    "volume_24h": 985.79,
-   "open_interest": 823.79,
+   "open_interest": 928.08,
    "notional_value": 1.0,
-   "dollar_volume": 1065.79,
+   "dollar_volume": 1170.08,
    "dollar_volume_24h": 985.79,
-   "open_interest_dollars": 823.79,
+   "open_interest_dollars": 928.08,
    "close_time": "2026-11-21T04:59:00Z",
    "close_ts": 1795237140,
    "open_time": "2026-11-20T13:00:00Z",
@@ -1338,34 +1338,30 @@
     "site": "https://kalshi.com/markets/kxaaagasd"
    },
    "book": {
-    "yes_bid_qty": 2.0,
-    "no_bid_qty": 1.0,
+    "yes_bid_qty": 21.0,
+    "no_bid_qty": 50.0,
     "yes_bid_levels": 10,
     "no_bid_levels": 10,
-    "yes_bid_qty_total": 4223.7,
-    "no_bid_qty_total": 648.0,
-    "buy_yes_liquidity_usd": 346.75,
-    "buy_no_liquidity_usd": 4036.6,
-    "total_liquidity_usd": 4383.35,
-    "best_yes_bid": 0.38,
-    "best_no_bid": 0.61,
+    "yes_bid_qty_total": 219.0,
+    "no_bid_qty_total": 291.0,
+    "buy_yes_liquidity_usd": 220.38,
+    "buy_no_liquidity_usd": 155.07,
+    "total_liquidity_usd": 375.45,
+    "best_yes_bid": 0.39,
+    "best_no_bid": 0.46,
     "levels": {
      "yes": [
       [
-       0.02,
-       3040.0
-      ],
-      [
-       0.08,
-       1044.7
-      ],
-      [
-       0.09,
-       1.0
+       0.15,
+       10.0
       ],
       [
        0.2,
-       25.0
+       33.0
+      ],
+      [
+       0.23,
+       43.0
       ],
       [
        0.25,
@@ -1384,15 +1380,27 @@
        25.0
       ],
       [
-       0.36,
+       0.37,
        50.0
       ],
       [
        0.38,
-       2.0
+       1.0
+      ],
+      [
+       0.39,
+       21.0
       ]
      ],
      "no": [
+      [
+       0.05,
+       10.0
+      ],
+      [
+       0.12,
+       91.0
+      ],
       [
        0.15,
        25.0
@@ -1400,6 +1408,10 @@
       [
        0.19,
        25.0
+      ],
+      [
+       0.27,
+       47.0
       ],
       [
        0.3,
@@ -1418,20 +1430,8 @@
        12.0
       ],
       [
-       0.5,
-       551.0
-      ],
-      [
-       0.51,
-       1.0
-      ],
-      [
-       0.56,
-       2.0
-      ],
-      [
-       0.61,
-       1.0
+       0.46,
+       50.0
       ]
      ]
     }
@@ -1442,7 +1442,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6550?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6550",
    "topics": [
     "gas"
@@ -1450,11 +1450,11 @@
    "kalshi_category": "Economics",
    "status": "active",
    "result": "",
-   "yes_bid": 0.91,
-   "yes_ask": 0.92,
-   "no_bid": 0.08,
-   "no_ask": 0.09,
-   "mid": 0.915,
+   "yes_bid": 0.9,
+   "yes_ask": 0.95,
+   "no_bid": 0.05,
+   "no_ask": 0.1,
+   "mid": 0.925,
    "price_label": "mid",
    "last_price": 0.92,
    "volume": 3652.56,
@@ -1484,23 +1484,19 @@
     "site": "https://kalshi.com/markets/kxaaagasd"
    },
    "book": {
-    "yes_bid_qty": 6.0,
-    "no_bid_qty": 1043.0,
+    "yes_bid_qty": 1.0,
+    "no_bid_qty": 48.0,
     "yes_bid_levels": 10,
-    "no_bid_levels": 6,
-    "yes_bid_qty_total": 1475.43,
-    "no_bid_qty_total": 4149.02,
-    "buy_yes_liquidity_usd": 4012.07,
-    "buy_no_liquidity_usd": 221.29,
-    "total_liquidity_usd": 4233.36,
-    "best_yes_bid": 0.91,
-    "best_no_bid": 0.08,
+    "no_bid_levels": 5,
+    "yes_bid_qty_total": 1352.43,
+    "no_bid_qty_total": 2104.2,
+    "buy_yes_liquidity_usd": 2080.64,
+    "buy_no_liquidity_usd": 209.89,
+    "total_liquidity_usd": 2290.54,
+    "best_yes_bid": 0.9,
+    "best_no_bid": 0.05,
     "levels": {
      "yes": [
-      [
-       0.5,
-       100.0
-      ],
       [
        0.68,
        10.0
@@ -1526,30 +1522,34 @@
        167.43
       ],
       [
+       0.86,
+       1009.0
+      ],
+      [
+       0.87,
+       16.0
+      ],
+      [
        0.89,
        1.0
       ],
       [
        0.9,
-       1043.0
-      ],
-      [
-       0.91,
-       6.0
+       1.0
       ]
      ],
      "no": [
       [
        0.01,
-       2007.02
+       2001.01
       ],
       [
        0.02,
-       50.0
+       52.0
       ],
       [
        0.03,
-       1000.0
+       2.19
       ],
       [
        0.04,
@@ -1558,10 +1558,6 @@
       [
        0.05,
        48.0
-      ],
-      [
-       0.08,
-       1043.0
       ]
      ]
     }
@@ -1572,7 +1568,7 @@
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
    "title": "Will average **gas prices** be above $3.6500?",
-   "event_title": "",
+   "event_title": "US gas prices tomorrow",
    "yes_sub_title": "Above 3.6500",
    "topics": [
     "gas"
@@ -1682,7 +1678,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.145 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.145",
    "topics": [
     "gas"
@@ -1771,7 +1767,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.140 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.140",
    "topics": [
     "gas"
@@ -1860,7 +1856,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.135 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.135",
    "topics": [
     "gas"
@@ -1949,7 +1945,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.130 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.130",
    "topics": [
     "gas"
@@ -2038,7 +2034,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.125 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.125",
    "topics": [
     "gas"
@@ -2127,7 +2123,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.120 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.120",
    "topics": [
     "gas"
@@ -2216,7 +2212,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.115 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.115",
    "topics": [
     "gas"
@@ -2305,7 +2301,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.110 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.110",
    "topics": [
     "gas"
@@ -2394,7 +2390,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.105 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.105",
    "topics": [
     "gas"
@@ -2483,7 +2479,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.100 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.100",
    "topics": [
     "gas"
@@ -2572,7 +2568,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.095 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.095",
    "topics": [
     "gas"
@@ -2661,7 +2657,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.090 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.090",
    "topics": [
     "gas"
@@ -2750,7 +2746,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.085 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.085",
    "topics": [
     "gas"
@@ -2839,7 +2835,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.080 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.080",
    "topics": [
     "gas"
@@ -2928,7 +2924,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.075 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.075",
    "topics": [
     "gas"
@@ -3017,7 +3013,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.070 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.070",
    "topics": [
     "gas"
@@ -3026,10 +3022,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.24,
-   "no_bid": 0.76,
+   "yes_ask": 0.22,
+   "no_bid": 0.78,
    "no_ask": 0.99,
-   "mid": 0.125,
+   "mid": 0.115,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -3060,16 +3056,16 @@
    },
    "book": {
     "yes_bid_qty": 280.5,
-    "no_bid_qty": 120.0,
+    "no_bid_qty": 113.0,
     "yes_bid_levels": 1,
     "no_bid_levels": 8,
     "yes_bid_qty_total": 280.5,
-    "no_bid_qty_total": 3240.0,
-    "buy_yes_liquidity_usd": 2786.61,
+    "no_bid_qty_total": 3233.0,
+    "buy_yes_liquidity_usd": 2782.4,
     "buy_no_liquidity_usd": 277.69,
-    "total_liquidity_usd": 3064.31,
+    "total_liquidity_usd": 3060.1,
     "best_yes_bid": 0.01,
-    "best_no_bid": 0.76,
+    "best_no_bid": 0.78,
     "levels": {
      "yes": [
       [
@@ -3103,12 +3099,12 @@
        13.5
       ],
       [
-       0.75,
+       0.77,
        13.5
       ],
       [
-       0.76,
-       120.0
+       0.78,
+       113.0
       ]
      ]
     }
@@ -3119,7 +3115,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.065 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.065",
    "topics": [
     "gas"
@@ -3167,9 +3163,9 @@
     "no_bid_levels": 7,
     "yes_bid_qty_total": 280.5,
     "no_bid_qty_total": 3254.64,
-    "buy_yes_liquidity_usd": 2784.75,
+    "buy_yes_liquidity_usd": 2786.23,
     "buy_no_liquidity_usd": 277.69,
-    "total_liquidity_usd": 3062.45,
+    "total_liquidity_usd": 3063.93,
     "best_yes_bid": 0.01,
     "best_no_bid": 0.83,
     "levels": {
@@ -3201,7 +3197,7 @@
        19.0
       ],
       [
-       0.82,
+       0.81,
        148.14
       ],
       [
@@ -3217,7 +3213,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.060 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.060",
    "topics": [
     "gas"
@@ -3315,7 +3311,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.055 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.055",
    "topics": [
     "gas"
@@ -3324,10 +3320,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.21,
-   "no_bid": 0.79,
+   "yes_ask": 0.2,
+   "no_bid": 0.8,
    "no_ask": 0.99,
-   "mid": 0.11,
+   "mid": 0.105,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -3358,16 +3354,16 @@
    },
    "book": {
     "yes_bid_qty": 316.0,
-    "no_bid_qty": 163.64,
+    "no_bid_qty": 222.22,
     "yes_bid_levels": 1,
-    "no_bid_levels": 6,
+    "no_bid_levels": 7,
     "yes_bid_qty_total": 316.0,
-    "no_bid_qty_total": 3258.64,
-    "buy_yes_liquidity_usd": 2753.93,
+    "no_bid_qty_total": 3332.72,
+    "buy_yes_liquidity_usd": 2767.27,
     "buy_no_liquidity_usd": 312.84,
-    "total_liquidity_usd": 3066.77,
+    "total_liquidity_usd": 3080.11,
     "best_yes_bid": 0.01,
-    "best_no_bid": 0.79,
+    "best_no_bid": 0.8,
     "levels": {
      "yes": [
       [
@@ -3398,7 +3394,11 @@
       ],
       [
        0.79,
-       163.64
+       15.5
+      ],
+      [
+       0.8,
+       222.22
       ]
      ]
     }
@@ -3409,7 +3409,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.050 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.050",
    "topics": [
     "gas"
@@ -3418,10 +3418,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.19,
-   "no_bid": 0.81,
+   "yes_ask": 0.2,
+   "no_bid": 0.8,
    "no_ask": 0.99,
-   "mid": 0.1,
+   "mid": 0.105,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -3452,16 +3452,16 @@
    },
    "book": {
     "yes_bid_qty": 318.5,
-    "no_bid_qty": 222.22,
+    "no_bid_qty": 15.5,
     "yes_bid_levels": 1,
     "no_bid_levels": 7,
     "yes_bid_qty_total": 318.5,
-    "no_bid_qty_total": 3332.72,
-    "buy_yes_liquidity_usd": 2769.89,
+    "no_bid_qty_total": 3258.64,
+    "buy_yes_liquidity_usd": 2758.78,
     "buy_no_liquidity_usd": 315.31,
-    "total_liquidity_usd": 3085.21,
+    "total_liquidity_usd": 3074.09,
     "best_yes_bid": 0.01,
-    "best_no_bid": 0.81,
+    "best_no_bid": 0.8,
     "levels": {
      "yes": [
       [
@@ -3491,12 +3491,12 @@
        75.5
       ],
       [
-       0.8,
-       15.5
+       0.79,
+       148.14
       ],
       [
-       0.81,
-       222.22
+       0.8,
+       15.5
       ]
      ]
     }
@@ -3507,7 +3507,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.045 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.045",
    "topics": [
     "gas"
@@ -3550,14 +3550,14 @@
    },
    "book": {
     "yes_bid_qty": 321.0,
-    "no_bid_qty": 159.64,
+    "no_bid_qty": 11.5,
     "yes_bid_levels": 1,
-    "no_bid_levels": 6,
+    "no_bid_levels": 7,
     "yes_bid_qty_total": 321.0,
-    "no_bid_qty_total": 3254.64,
-    "buy_yes_liquidity_usd": 2749.9,
+    "no_bid_qty_total": 3328.72,
+    "buy_yes_liquidity_usd": 2772.87,
     "buy_no_liquidity_usd": 317.79,
-    "total_liquidity_usd": 3067.69,
+    "total_liquidity_usd": 3090.66,
     "best_yes_bid": 0.01,
     "best_no_bid": 0.81,
     "levels": {
@@ -3589,8 +3589,12 @@
        75.5
       ],
       [
+       0.77,
+       222.22
+      ],
+      [
        0.81,
-       159.64
+       11.5
       ]
      ]
     }
@@ -3601,7 +3605,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.040 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.040",
    "topics": [
     "gas"
@@ -3644,14 +3648,14 @@
    },
    "book": {
     "yes_bid_qty": 316.0,
-    "no_bid_qty": 161.64,
+    "no_bid_qty": 13.5,
     "yes_bid_levels": 1,
     "no_bid_levels": 6,
     "yes_bid_qty_total": 316.0,
-    "no_bid_qty_total": 3256.64,
-    "buy_yes_liquidity_usd": 2752.05,
+    "no_bid_qty_total": 3108.5,
+    "buy_yes_liquidity_usd": 2726.87,
     "buy_no_liquidity_usd": 312.84,
-    "total_liquidity_usd": 3064.89,
+    "total_liquidity_usd": 3039.71,
     "best_yes_bid": 0.01,
     "best_no_bid": 0.83,
     "levels": {
@@ -3684,7 +3688,7 @@
       ],
       [
        0.83,
-       161.64
+       13.5
       ]
      ]
     }
@@ -3695,7 +3699,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.035 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.035",
    "topics": [
     "gas"
@@ -3704,10 +3708,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.19,
-   "no_bid": 0.81,
+   "yes_ask": 0.21,
+   "no_bid": 0.79,
    "no_ask": 0.99,
-   "mid": 0.1,
+   "mid": 0.11,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -3738,16 +3742,16 @@
    },
    "book": {
     "yes_bid_qty": 318.5,
-    "no_bid_qty": 148.14,
+    "no_bid_qty": 12.5,
     "yes_bid_levels": 1,
-    "no_bid_levels": 7,
+    "no_bid_levels": 6,
     "yes_bid_qty_total": 318.5,
-    "no_bid_qty_total": 3255.64,
-    "buy_yes_liquidity_usd": 2755.34,
+    "no_bid_qty_total": 3107.5,
+    "buy_yes_liquidity_usd": 2727.2,
     "buy_no_liquidity_usd": 315.31,
-    "total_liquidity_usd": 3070.66,
+    "total_liquidity_usd": 3042.51,
     "best_yes_bid": 0.01,
-    "best_no_bid": 0.81,
+    "best_no_bid": 0.79,
     "levels": {
      "yes": [
       [
@@ -3779,10 +3783,6 @@
       [
        0.79,
        12.5
-      ],
-      [
-       0.81,
-       148.14
       ]
      ]
     }
@@ -3793,7 +3793,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.030 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.030",
    "topics": [
     "gas"
@@ -3802,10 +3802,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.2,
-   "no_bid": 0.8,
+   "yes_ask": 0.44,
+   "no_bid": 0.56,
    "no_ask": 0.99,
-   "mid": 0.105,
+   "mid": 0.225,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -3836,16 +3836,16 @@
    },
    "book": {
     "yes_bid_qty": 318.5,
-    "no_bid_qty": 148.14,
+    "no_bid_qty": 38.0,
     "yes_bid_levels": 1,
     "no_bid_levels": 7,
     "yes_bid_qty_total": 318.5,
-    "no_bid_qty_total": 3281.14,
-    "buy_yes_liquidity_usd": 2804.14,
+    "no_bid_qty_total": 3173.5,
+    "buy_yes_liquidity_usd": 2793.95,
     "buy_no_liquidity_usd": 315.31,
-    "total_liquidity_usd": 3119.45,
+    "total_liquidity_usd": 3109.27,
     "best_yes_bid": 0.01,
-    "best_no_bid": 0.8,
+    "best_no_bid": 0.56,
     "levels": {
      "yes": [
       [
@@ -3875,12 +3875,12 @@
        75.5
       ],
       [
-       0.56,
-       38.0
+       0.52,
+       40.5
       ],
       [
-       0.8,
-       148.14
+       0.56,
+       38.0
       ]
      ]
     }
@@ -3891,7 +3891,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.025 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.025",
    "topics": [
     "gas"
@@ -3900,10 +3900,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.17,
-   "no_bid": 0.83,
+   "yes_ask": 0.18,
+   "no_bid": 0.82,
    "no_ask": 0.99,
-   "mid": 0.09,
+   "mid": 0.095,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -3934,16 +3934,16 @@
    },
    "book": {
     "yes_bid_qty": 318.5,
-    "no_bid_qty": 148.14,
+    "no_bid_qty": 121.0,
     "yes_bid_levels": 1,
     "no_bid_levels": 7,
     "yes_bid_qty_total": 318.5,
-    "no_bid_qty_total": 3283.64,
-    "buy_yes_liquidity_usd": 2767.52,
+    "no_bid_qty_total": 3256.5,
+    "buy_yes_liquidity_usd": 2785.9,
     "buy_no_liquidity_usd": 315.31,
-    "total_liquidity_usd": 3082.83,
+    "total_liquidity_usd": 3101.21,
     "best_yes_bid": 0.01,
-    "best_no_bid": 0.83,
+    "best_no_bid": 0.64,
     "levels": {
      "yes": [
       [
@@ -3977,8 +3977,8 @@
        75.5
       ],
       [
-       0.83,
-       148.14
+       0.64,
+       121.0
       ]
      ]
     }
@@ -3989,7 +3989,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.020 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.020",
    "topics": [
     "gas"
@@ -4034,12 +4034,12 @@
     "yes_bid_qty": 318.5,
     "no_bid_qty": 13.5,
     "yes_bid_levels": 1,
-    "no_bid_levels": 6,
+    "no_bid_levels": 7,
     "yes_bid_qty_total": 318.5,
-    "no_bid_qty_total": 3106.5,
-    "buy_yes_liquidity_usd": 2758.22,
+    "no_bid_qty_total": 3254.64,
+    "buy_yes_liquidity_usd": 2786.37,
     "buy_no_liquidity_usd": 315.31,
-    "total_liquidity_usd": 3073.54,
+    "total_liquidity_usd": 3101.68,
     "best_yes_bid": 0.01,
     "best_no_bid": 0.82,
     "levels": {
@@ -4071,6 +4071,10 @@
        19.0
       ],
       [
+       0.81,
+       148.14
+      ],
+      [
        0.82,
        13.5
       ]
@@ -4083,7 +4087,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.015 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.015",
    "topics": [
     "gas"
@@ -4130,10 +4134,10 @@
     "yes_bid_levels": 1,
     "no_bid_levels": 6,
     "yes_bid_qty_total": 321.0,
-    "no_bid_qty_total": 3133.5,
-    "buy_yes_liquidity_usd": 2769.42,
+    "no_bid_qty_total": 3135.5,
+    "buy_yes_liquidity_usd": 2771.42,
     "buy_no_liquidity_usd": 317.79,
-    "total_liquidity_usd": 3087.21,
+    "total_liquidity_usd": 3089.21,
     "best_yes_bid": 0.01,
     "best_no_bid": 0.54,
     "levels": {
@@ -4157,12 +4161,12 @@
        1665.5
       ],
       [
-       0.2,
-       75.5
+       0.19,
+       21.0
       ],
       [
-       0.21,
-       19.0
+       0.2,
+       75.5
       ],
       [
        0.54,
@@ -4177,7 +4181,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.010 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.010",
    "topics": [
     "gas"
@@ -4186,10 +4190,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.47,
-   "no_bid": 0.53,
+   "yes_ask": 0.53,
+   "no_bid": 0.47,
    "no_ask": 0.99,
-   "mid": 0.24,
+   "mid": 0.27,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4220,16 +4224,16 @@
    },
    "book": {
     "yes_bid_qty": 318.5,
-    "no_bid_qty": 128.0,
+    "no_bid_qty": 38.0,
     "yes_bid_levels": 1,
-    "no_bid_levels": 8,
+    "no_bid_levels": 6,
     "yes_bid_qty_total": 318.5,
-    "no_bid_qty_total": 3301.5,
-    "buy_yes_liquidity_usd": 2852.53,
+    "no_bid_qty_total": 3133.0,
+    "buy_yes_liquidity_usd": 2772.93,
     "buy_no_liquidity_usd": 315.31,
-    "total_liquidity_usd": 3167.85,
+    "total_liquidity_usd": 3088.25,
     "best_yes_bid": 0.01,
-    "best_no_bid": 0.53,
+    "best_no_bid": 0.47,
     "levels": {
      "yes": [
       [
@@ -4261,14 +4265,6 @@
       [
        0.47,
        38.0
-      ],
-      [
-       0.52,
-       40.5
-      ],
-      [
-       0.53,
-       128.0
       ]
      ]
     }
@@ -4279,7 +4275,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4.005 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4.005",
    "topics": [
     "gas"
@@ -4288,10 +4284,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.25,
-   "no_bid": 0.75,
+   "yes_ask": 0.18,
+   "no_bid": 0.82,
    "no_ask": 0.99,
-   "mid": 0.13,
+   "mid": 0.095,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4326,7 +4322,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 4 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $4",
    "topics": [
     "gas"
@@ -4335,10 +4331,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.26,
-   "no_bid": 0.74,
+   "yes_ask": 0.49,
+   "no_bid": 0.51,
    "no_ask": 0.99,
-   "mid": 0.135,
+   "mid": 0.25,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4373,7 +4369,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.995 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.995",
    "topics": [
     "gas"
@@ -4420,7 +4416,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.990 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.990",
    "topics": [
     "gas"
@@ -4467,7 +4463,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.985 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.985",
    "topics": [
     "gas"
@@ -4476,10 +4472,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.44,
-   "no_bid": 0.56,
+   "yes_ask": 0.26,
+   "no_bid": 0.74,
    "no_ask": 0.99,
-   "mid": 0.225,
+   "mid": 0.135,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4514,7 +4510,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.980 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.980",
    "topics": [
     "gas"
@@ -4561,7 +4557,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.975 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.975",
    "topics": [
     "gas"
@@ -4570,10 +4566,10 @@
    "status": "active",
    "result": "",
    "yes_bid": 0.01,
-   "yes_ask": 0.41,
-   "no_bid": 0.59,
+   "yes_ask": 0.26,
+   "no_bid": 0.74,
    "no_ask": 0.99,
-   "mid": 0.21,
+   "mid": 0.135,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4608,7 +4604,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.970 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.970",
    "topics": [
     "gas"
@@ -4616,11 +4612,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.07,
-   "yes_ask": 0.11,
-   "no_bid": 0.89,
-   "no_ask": 0.93,
-   "mid": 0.09,
+   "yes_bid": 0.08,
+   "yes_ask": 0.12,
+   "no_bid": 0.88,
+   "no_ask": 0.92,
+   "mid": 0.1,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4655,7 +4651,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.965 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.965",
    "topics": [
     "gas"
@@ -4663,11 +4659,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.07,
-   "yes_ask": 0.11,
-   "no_bid": 0.89,
-   "no_ask": 0.93,
-   "mid": 0.09,
+   "yes_bid": 0.08,
+   "yes_ask": 0.12,
+   "no_bid": 0.88,
+   "no_ask": 0.92,
+   "mid": 0.1,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4702,7 +4698,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.960 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.960",
    "topics": [
     "gas"
@@ -4749,7 +4745,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.955 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.955",
    "topics": [
     "gas"
@@ -4757,11 +4753,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.08,
-   "yes_ask": 0.12,
-   "no_bid": 0.88,
-   "no_ask": 0.92,
-   "mid": 0.1,
+   "yes_bid": 0.09,
+   "yes_ask": 0.13,
+   "no_bid": 0.87,
+   "no_ask": 0.91,
+   "mid": 0.11,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4796,7 +4792,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.950 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.950",
    "topics": [
     "gas"
@@ -4843,7 +4839,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.945 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.945",
    "topics": [
     "gas"
@@ -4890,7 +4886,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.940 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.940",
    "topics": [
     "gas"
@@ -4937,7 +4933,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.935 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.935",
    "topics": [
     "gas"
@@ -4945,11 +4941,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.1,
-   "yes_ask": 0.14,
-   "no_bid": 0.86,
-   "no_ask": 0.9,
-   "mid": 0.12,
+   "yes_bid": 0.09,
+   "yes_ask": 0.13,
+   "no_bid": 0.87,
+   "no_ask": 0.91,
+   "mid": 0.11,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -4984,7 +4980,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.930 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.930",
    "topics": [
     "gas"
@@ -5031,7 +5027,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.925 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.925",
    "topics": [
     "gas"
@@ -5078,7 +5074,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.920 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.920",
    "topics": [
     "gas"
@@ -5086,11 +5082,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.1,
-   "yes_ask": 0.14,
-   "no_bid": 0.86,
-   "no_ask": 0.9,
-   "mid": 0.12,
+   "yes_bid": 0.11,
+   "yes_ask": 0.15,
+   "no_bid": 0.85,
+   "no_ask": 0.89,
+   "mid": 0.13,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -5125,7 +5121,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.915 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.915",
    "topics": [
     "gas"
@@ -5172,7 +5168,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.910 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.910",
    "topics": [
     "gas"
@@ -5219,7 +5215,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.905 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.905",
    "topics": [
     "gas"
@@ -5227,11 +5223,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.11,
-   "yes_ask": 0.15,
-   "no_bid": 0.85,
-   "no_ask": 0.89,
-   "mid": 0.13,
+   "yes_bid": 0.12,
+   "yes_ask": 0.16,
+   "no_bid": 0.84,
+   "no_ask": 0.88,
+   "mid": 0.14,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -5266,7 +5262,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.900 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.900",
    "topics": [
     "gas"
@@ -5274,11 +5270,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.11,
-   "yes_ask": 0.15,
-   "no_bid": 0.85,
-   "no_ask": 0.89,
-   "mid": 0.13,
+   "yes_bid": 0.12,
+   "yes_ask": 0.16,
+   "no_bid": 0.84,
+   "no_ask": 0.88,
+   "mid": 0.14,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -5313,7 +5309,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.895 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.895",
    "topics": [
     "gas"
@@ -5360,7 +5356,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.890 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.890",
    "topics": [
     "gas"
@@ -5368,11 +5364,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.12,
-   "yes_ask": 0.16,
-   "no_bid": 0.84,
-   "no_ask": 0.88,
-   "mid": 0.14,
+   "yes_bid": 0.13,
+   "yes_ask": 0.17,
+   "no_bid": 0.83,
+   "no_ask": 0.87,
+   "mid": 0.15,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -5407,7 +5403,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.885 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.885",
    "topics": [
     "gas"
@@ -5454,7 +5450,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.880 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.880",
    "topics": [
     "gas"
@@ -5501,7 +5497,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.875 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.875",
    "topics": [
     "gas"
@@ -5509,11 +5505,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.13,
-   "yes_ask": 0.17,
-   "no_bid": 0.83,
-   "no_ask": 0.87,
-   "mid": 0.15,
+   "yes_bid": 0.14,
+   "yes_ask": 0.18,
+   "no_bid": 0.82,
+   "no_ask": 0.86,
+   "mid": 0.16,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -5548,7 +5544,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.870 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.870",
    "topics": [
     "gas"
@@ -5595,7 +5591,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.865 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.865",
    "topics": [
     "gas"
@@ -5603,11 +5599,11 @@
    "kalshi_category": "Commodities",
    "status": "active",
    "result": "",
-   "yes_bid": 0.14,
-   "yes_ask": 0.18,
-   "no_bid": 0.82,
-   "no_ask": 0.86,
-   "mid": 0.16,
+   "yes_bid": 0.15,
+   "yes_ask": 0.19,
+   "no_bid": 0.81,
+   "no_ask": 0.85,
+   "mid": 0.17,
    "price_label": "mid",
    "last_price": 0.0,
    "volume": 0.0,
@@ -5642,7 +5638,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.860 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.860",
    "topics": [
     "gas"
@@ -5689,7 +5685,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.855 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.855",
    "topics": [
     "gas"
@@ -5736,7 +5732,7 @@
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
    "title": "Will the natural gas close price be above 3.850 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "event_title": "",
+   "event_title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "yes_sub_title": "Above $3.850",
    "topics": [
     "gas"
@@ -5783,7 +5779,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $99.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $99.000",
    "topics": [
     "gas"
@@ -5830,7 +5826,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $98.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $98.000",
    "topics": [
     "gas"
@@ -5877,7 +5873,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $97.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $97.000",
    "topics": [
     "gas"
@@ -5924,7 +5920,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $96.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $96.000",
    "topics": [
     "gas"
@@ -5971,7 +5967,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $95.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $95.000",
    "topics": [
     "gas"
@@ -6018,7 +6014,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $94.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $94.000",
    "topics": [
     "gas"
@@ -6065,7 +6061,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $93.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $93.000",
    "topics": [
     "gas"
@@ -6112,7 +6108,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $92.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $92.000",
    "topics": [
     "gas"
@@ -6159,7 +6155,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $91.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $91.000",
    "topics": [
     "gas"
@@ -6206,7 +6202,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $90.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $90.000",
    "topics": [
     "gas"
@@ -6253,7 +6249,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $89.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $89.000",
    "topics": [
     "gas"
@@ -6300,7 +6296,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $88.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $88.000",
    "topics": [
     "gas"
@@ -6347,7 +6343,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $87.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $87.000",
    "topics": [
     "gas"
@@ -6394,7 +6390,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $86.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $86.000",
    "topics": [
     "gas"
@@ -6441,7 +6437,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $85.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $85.000",
    "topics": [
     "gas"
@@ -6488,7 +6484,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $84.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $84.000",
    "topics": [
     "gas"
@@ -6535,7 +6531,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $83.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $83.000",
    "topics": [
     "gas"
@@ -6582,7 +6578,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $82.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $82.000",
    "topics": [
     "gas"
@@ -6629,7 +6625,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $81.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $81.000",
    "topics": [
     "gas"
@@ -6676,7 +6672,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $80.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $80.000",
    "topics": [
     "gas"
@@ -6723,7 +6719,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $79.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $79.000",
    "topics": [
     "gas"
@@ -6770,7 +6766,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $78.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $78.000",
    "topics": [
     "gas"
@@ -6817,7 +6813,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $77.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $77.000",
    "topics": [
     "gas"
@@ -6864,7 +6860,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $76.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $76.000",
    "topics": [
     "gas"
@@ -6911,7 +6907,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $75.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $75.000",
    "topics": [
     "gas"
@@ -6958,7 +6954,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $74.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $74.000",
    "topics": [
     "gas"
@@ -7005,7 +7001,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $73.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $73.000",
    "topics": [
     "gas"
@@ -7052,7 +7048,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $112.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $112.000",
    "topics": [
     "gas"
@@ -7099,7 +7095,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $111.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $111.000",
    "topics": [
     "gas"
@@ -7146,7 +7142,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $110.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $110.000",
    "topics": [
     "gas"
@@ -7193,7 +7189,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $109.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $109.000",
    "topics": [
     "gas"
@@ -7240,7 +7236,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $108.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $108.000",
    "topics": [
     "gas"
@@ -7287,7 +7283,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $107.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $107.000",
    "topics": [
     "gas"
@@ -7334,7 +7330,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $106.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $106.000",
    "topics": [
     "gas"
@@ -7381,7 +7377,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $105.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $105.000",
    "topics": [
     "gas"
@@ -7428,7 +7424,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $104.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $104.000",
    "topics": [
     "gas"
@@ -7475,7 +7471,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $103.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $103.000",
    "topics": [
     "gas"
@@ -7522,7 +7518,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $102.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $102.000",
    "topics": [
     "gas"
@@ -7569,7 +7565,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $101.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $101.000",
    "topics": [
     "gas"
@@ -7616,7 +7612,7 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
    "title": "Dutch TTF gas above $100.000 on Nov 23 at 4:59:59 PM EST?",
-   "event_title": "",
+   "event_title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "yes_sub_title": "Above $100.000",
    "topics": [
     "gas"
@@ -7663,16 +7659,16 @@
   {
    "event_ticker": "KXAAAGASD-26NOV21",
    "series_ticker": "KXAAAGASD",
-   "title": "Will average **gas prices** be above $3.7300?",
+   "title": "US gas prices tomorrow",
    "topics": [
     "gas"
    ],
    "kalshi_category": "Economics",
    "markets": 17,
-   "dollar_volume": 11907.97,
+   "dollar_volume": 12012.26,
    "dollar_volume_24h": 10822.97,
-   "open_interest_dollars": 8418.37,
-   "liquidity_usd": 37403.33,
+   "open_interest_dollars": 8522.66,
+   "liquidity_usd": 31417.89,
    "close_ts": 1795237140,
    "close_time": "2026-11-21T04:59:00Z",
    "top_yes_price": 0.985,
@@ -7690,7 +7686,7 @@
   {
    "event_ticker": "KXNATGASD-26NOV2317",
    "series_ticker": "KXNATGASD",
-   "title": "Will the natural gas close price be above 4.145 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "title": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
    "topics": [
     "gas"
    ],
@@ -7699,12 +7695,12 @@
    "dollar_volume": 0.0,
    "dollar_volume_24h": 0.0,
    "open_interest_dollars": 0.0,
-   "liquidity_usd": 81512.01,
+   "liquidity_usd": 81439.88,
    "close_ts": 1795471200,
    "close_time": "2026-11-23T22:00:00Z",
    "top_yes_price": 0.27,
    "top_yes_bid": 0.15,
-   "top_yes_ask": 0.11,
+   "top_yes_ask": 0.12,
    "site": "https://kalshi.com/markets/kxnatgasd",
    "rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.145 USD/MMBtu, then the market resolves to Yes.",
    "settlement_sources": [
@@ -7717,7 +7713,7 @@
   {
    "event_ticker": "KXTTFD-23NOV261659",
    "series_ticker": "KXTTFD",
-   "title": "Dutch TTF gas above $99.000 on Nov 23 at 4:59:59 PM EST?",
+   "title": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
    "topics": [
     "gas"
    ],

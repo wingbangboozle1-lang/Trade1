@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-11-20T13:17:17Z",
+ "generated_at": "2026-11-20T13:19:24Z",
  "starting_balance": 10000.0,
- "cash": 7844.8,
- "positions_value": 1606.5,
- "equity": 9451.3,
- "total_return": -0.0549,
- "realized_total": 0,
- "fees_total": 0,
- "open_positions": 71,
- "closed_trades": 0,
- "fills": 95,
+ "cash": 8755.95,
+ "positions_value": 608.5,
+ "equity": 9364.45,
+ "total_return": -0.0636,
+ "realized_total": -532.57,
+ "fees_total": 30.57,
+ "open_positions": 42,
+ "closed_trades": 40,
+ "fills": 146,
  "strategies": [
   {
    "strategy": "fair_value_vs_clock",
@@ -20,15 +20,15 @@
     "max_price": 0.45,
     "min_days_to_close": 3
    },
-   "closed_trades": 0,
-   "win_rate": null,
-   "realized": 0.0,
-   "fees": 0.0,
-   "roi": null,
-   "avg_hold_hours": null,
-   "open_positions": 43,
-   "unrealized": -115.25,
-   "open_cost": 955.25
+   "closed_trades": 14,
+   "win_rate": 0.0,
+   "realized": -82.73,
+   "fees": 6.21,
+   "roi": -0.2546,
+   "avg_hold_hours": 0.04,
+   "open_positions": 29,
+   "unrealized": -35.0,
+   "open_cost": 630.25
   },
   {
    "strategy": "momentum_ignition",
@@ -101,30 +101,37 @@
    "fees": 0.0,
    "roi": null,
    "avg_hold_hours": null,
-   "open_positions": 2,
-   "unrealized": -0.5,
-   "open_cost": 10.75
+   "open_positions": 13,
+   "unrealized": -46.0,
+   "open_cost": 59.25
   },
   {
    "strategy": "complement_arbitrage",
    "family": "Arbitrage",
-   "rule": "If best YES bid + best NO bid <= 1 - 0.02 and both sides hold >= 5 contracts, buy YES and NO together sized to the smaller side.",
+   "rule": "Buying YES and NO together costs (1 - NO bid) + (1 - YES bid) = 2 - (YES bid + NO bid) and pays exactly $1 at settlement, so a locked edge exists only when YES bid + NO bid exceeds 1 by at least 0.03. Enter when both sides rest >= 25 contracts.",
    "params": {
-    "min_edge": 0.02,
-    "min_depth": 5
+    "min_edge": 0.03,
+    "min_depth": 25
    },
-   "closed_trades": 0,
-   "win_rate": null,
-   "realized": 0.0,
-   "fees": 0.0,
-   "roi": null,
-   "avg_hold_hours": null,
-   "open_positions": 26,
-   "unrealized": -413.75,
-   "open_cost": 1170.0
+   "closed_trades": 26,
+   "win_rate": 0.0,
+   "realized": -449.84,
+   "fees": 24.36,
+   "roi": -0.3845,
+   "avg_hold_hours": 0.04,
+   "open_positions": 0,
+   "unrealized": 0.0,
+   "open_cost": 0.0
   }
  ],
- "by_topic": [],
+ "by_topic": [
+  {
+   "topic": "gas",
+   "trades": 40,
+   "realized": -532.57,
+   "win_rate": 0.0
+  }
+ ],
  "equity_curve": [
   {
    "t": 1795180622,
@@ -132,6 +139,13 @@
    "cash": 7844.8,
    "positions": 1606.5,
    "equity": 9451.3
+  },
+  {
+   "t": 1795180749,
+   "at": "2026-11-20T13:19:24Z",
+   "cash": 8755.95,
+   "positions": 608.5,
+   "equity": 9364.45
   }
  ],
  "disclaimer": "Simulated fills on observed quotes. Not exchange trades, no Kalshi account involved, and no slippage beyond the quoted touch is modelled."

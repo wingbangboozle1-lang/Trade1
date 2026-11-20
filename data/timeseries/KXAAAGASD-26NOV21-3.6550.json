@@ -12,9 +12,21 @@
 "liq": 4233.36,
 "yes_qty": 1475.43,
 "no_qty": 4149.02
+},
+{
+"t": 1795180749,
+"bid": 0.9,
+"ask": 0.95,
+"mid": 0.925,
+"last": 0.92,
+"vol": 3652.56,
+"oi": 3488.96,
+"liq": 2290.54,
+"yes_qty": 1352.43,
+"no_qty": 2104.2
 }
 ],
-"history_backfilled_at": "2026-11-20T13:17:02Z",
+"history_backfilled_at": "2026-11-20T13:19:10Z",
 "history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
 "title": "Will average **gas prices** be above $3.6550?",
 "topics": [
@@ -22,5 +34,5 @@
 ],
 "event_ticker": "KXAAAGASD-26NOV21",
 "series_ticker": "KXAAAGASD",
-"updated_at": "2026-11-20T13:17:06Z"
+"updated_at": "2026-11-20T13:19:13Z"
 }
