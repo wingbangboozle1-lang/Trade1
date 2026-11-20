@@ -323,7 +323,7 @@ def build_markets(snap, universe, jumps):
     payload = {}
     for m in markets:
         hist = load(os.path.join("timeseries", f'{m["ticker"].replace("/", "_")}.json'), {}) or {}
-        points = hist.get("points") or []
+        points = hist.get("points") or m.get("spark") or []
         payload[m["ticker"]] = {
             "ticker": m["ticker"], "title": m["title"], "event": m["event_title"],
             "topics": m["topics"], "points": points,
@@ -338,6 +338,11 @@ def build_markets(snap, universe, jumps):
             "jumps": [{"to_ts": j["to_ts"], "direction": j["direction"], "delta": j["delta"]}
                       for j in jump_by_ticker.get(m["ticker"], [])],
         }
+    for tk in payload:
+        payload[tk]["points"] = [
+            {k: p[k] for k in ("t", "bid", "ask", "mid", "src") if p.get(k) is not None}
+            for p in payload[tk]["points"]
+        ]
     write_json(os.path.join(OUT, "data", "markets.json"), payload, indent=0)
 
     # A compact index of every market so the page can filter the whole universe client-side while

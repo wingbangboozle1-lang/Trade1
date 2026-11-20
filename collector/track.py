@@ -26,7 +26,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from collector.util import DATA, iso, now_ts, read_json, write_json
 
-MAX_POINTS = 5000          # per market, ring buffer
+MAX_POINTS = 120           # per market, ring buffer (~30 hours at 15-minute cadence)
+SERIES_LIMIT = 400         # markets that get a persisted series; the rest keep a sparkline only
 JUMP_THRESHOLD = 0.10
 
 
@@ -35,16 +36,37 @@ def ts_path(ticker: str) -> str:
     return os.path.join(DATA, "timeseries", f"{safe}.json")
 
 
+def _rank_key(m):
+    liq = (m.get("book") or {}).get("total_liquidity_usd") or 0
+    return (-liq, -(m.get("dollar_volume") or 0))
+
+
 def append_series(snapshot: dict) -> dict:
-    """Append the observation; return per-ticker previous points for jump detection."""
+    """Append observations; return per-ticker previous points for jump detection.
+
+    Server-side series files are written only for the highest-liquidity markets. Storing a file per
+    market meant ~5,500 files and 22 MB per run, which is unshippable; jump detection only needs the
+    previous observation, which the in-snapshot sparkline carries for every market.
+    """
     ts = snapshot["generated_ts"]
+    ranked = sorted(snapshot["markets"], key=_rank_key)
+    keep = {m["ticker"] for m in ranked[:SERIES_LIMIT]}
     observations = {}
     for m in snapshot["markets"]:
         ticker = m["ticker"]
+        spark = m.get("spark") or []
+        if ticker not in keep:
+            previous = spark[-1] if spark else None
+            cur = {"t": ts, "bid": m.get("yes_bid"), "ask": m.get("yes_ask"), "mid": m.get("mid"),
+                   "last": m.get("last_price"), "vol": m.get("volume"), "oi": m.get("open_interest")}
+            observations[ticker] = {"previous": previous, "current": cur, "market": m}
+            continue
         path = ts_path(ticker)
         doc = read_json(path) or {"ticker": ticker, "title": m["title"],
                                   "topics": m["topics"], "points": []}
         points = doc.get("points") or []
+        if not points and spark:
+            points = list(spark)
         if points and points[-1].get("t") == ts:
             points.pop()  # idempotent re-run within the same second
         previous = points[-1] if points else None

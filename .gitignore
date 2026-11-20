@@ -5,3 +5,8 @@ __pycache__/
 *.pem
 *.key
 .env
+
+# Generated per-market time series. The pipeline commits the ~400 highest-liquidity series it needs
+# for charts; everything else carries a 40-point sparkline inside data/markets/latest.json.
+data/timeseries/*
+!data/timeseries/.gitkeep

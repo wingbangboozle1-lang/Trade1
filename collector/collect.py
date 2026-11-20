@@ -54,10 +54,15 @@ def build_universe(client: KalshiClient) -> dict:
         except Exception as e:  # noqa: BLE001 - one bad category must not kill the run
             print(f"  series[{cat}] failed: {e}", file=sys.stderr)
     index = topicmod.index_series(series_all, config)
+    # Only topic-relevant series are persisted. The full 14k-series map is reproducible from
+    # /series?category=... in a few seconds, and a reference copy of the raw probe is in
+    # research/probe/, so keeping it in every commit would bloat the repo for no benefit.
+    relevant = {k: v for k, v in index.items() if v.get("topics")}
     return {
         "generated_at": iso(),
-        "series_count": len(index),
-        "series": index,
+        "series_count_total": len(index),
+        "series_count_relevant": len(relevant),
+        "series": relevant,
         "topics": topicmod.topic_catalogue(config),
     }
 
@@ -161,6 +166,19 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
         markets.extend(extra)
     print(f"  targeted event fetches by topic: {dict(fetched)} ({len(topic_events)} topic events live)")
     print(f"  markets after targeted pass: {len(markets)}")
+
+    # Sparklines: every market carries its own recent observations inside the snapshot, so the chart
+    # works for any market while only ~400 get a dedicated series file.
+    ts_dir = os.path.join(DATA, "timeseries")
+    if os.path.isdir(ts_dir):
+        for name in os.listdir(ts_dir):
+            if not name.endswith(".json"):
+                continue
+            doc = read_json(os.path.join(ts_dir, name)) or {}
+            for m in markets:
+                if m.get("ticker") == doc.get("ticker"):
+                    m["spark"] = (doc.get("points") or [])[-40:]
+                    break
 
     rows = []
     for m in markets:
