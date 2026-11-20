@@ -745,7 +745,7 @@ This is a verification/documentation pass only; it does not take over another se
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| 935f2113 · T-DEMO-TAKEOVER: demo account track (authenticated snapshot, guarded executor, paper portfolio performance lab, trade categorisation), verification vs official sources, PR + merge + Pages record | in progress | 935f2113 (branch `arena/935f2113-trade1`, base `main` @ `069a1db`, ff to `3282656`) | `scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**`, `demo-account/**` (new), `tests/demo-account.test.mjs` (new), `COORDINATION.md` (append/reconcile), `index.html` (single nav link, integration role) |
+| 935f2113 · T-DEMO-TAKEOVER: demo account track (authenticated snapshot, guarded executor, paper portfolio performance lab, trade categorisation), verification vs official sources, PR + merge + Pages record | done | 935f2113 (branch `arena/935f2113-trade1`) | `scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**`, `demo-account/**` (new), `tests/demo-account.test.mjs` (new), `COORDINATION.md` (append/reconcile), `index.html` (single nav link, integration role) |
 
 - **Takeover of stale claim T-DEMO (session `20e3ad14`, PR #2 draft).** Per the brief's takeover rule: claim more than 60 minutes old with no commits (last commit 2026-11-20T13:07:57Z, >6h stale at claim time). PR #2's unmerged work (`scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**`) is adopted by cherry-pick/review into this branch; nothing is discarded. PR #2 will be closed with a takeover note once this work lands.
 - Why this task: it is the brief's largest remaining gap on `main` — "Track the portfolio performance using the kalshi demo account", "Execute trades on events and track the performance", "categorize trades and create strategies based on the type of trade" are not yet delivered anywhere on `main` (all sessions flagged demo credentials as absent).
@@ -762,3 +762,28 @@ This is a verification/documentation pass only; it does not take over another se
 - **Integration:** landing-page nav + one new bullet (root `index.html`, integration role), CI link-check coverage for `demo-account/*.html` (`scripts/check_site.mjs` V2_PAGES). Files owned by active session `1db0a677` (`EXECUTIVE_SUMMARY.md`, `reports/FINAL_AUDIT.md`) untouched; `cadbd003` files untouched.
 - **Blocked, not faked:** real demo-account execution still needs the owner's demo API key (repo secrets `KALSHI_DEMO_KEY_ID`/`KALSHI_DEMO_PRIVATE_KEY` or the browser key panel). The CI workflow records `configured: false` and sends nothing until then.
 - PR to `main` + merge + Pages verification recorded in the integration record below.
+
+### 935f2113 — PR, merge, and deployment record (final, 2026-11-20T19:40Z)
+
+- **PR #39** (`arena/935f2113-trade1` → `main`): https://github.com/wingbangboozle1-lang/Trade1/pull/39 —
+  **merged without waiting for approval** per the brief; merge commit **`24a72bf`** (state MERGED,
+  2026-11-20T19:37Z). Branch CI `checks` passed on the head (run 44803762674: engine tests, lib tests,
+  root engine unit checks, demo-account 89-test suite, `tools/build.mjs`, `scripts/check_site.mjs`).
+  Conflicts against concurrently-merged main (PRs #28/#34/#37/#40 consolidation + audit) were resolved
+  twice by union (coordination board, check lists, build globs) — nothing from any session discarded;
+  post-merge full suite re-run locally and green before each push.
+- **Pages deployment confirmed**: `gh api …/pages/builds/latest` → **built** at `c00ecaa` (the demo-account
+  workflow's own first status commit superseded the merge build; one transient `errored` build followed
+  by the successful one, same pattern earlier sessions logged). Live fetches verified:
+  - https://wingbangboozle1-lang.github.io/Trade1/demo-account/ renders the full lab (portfolio tiles,
+    two alert chats, chart panels, per-topic tables, positions/trades/analysis/resolutions, live panel, sources).
+  - https://wingbangboozle1-lang.github.io/Trade1/demo-account/flagged.html publishes F-DA-1…F-DA-11 with source links.
+- **T-DEMO workflow live on `main`**: first run committed `data/demo_account/status.json` (`c00ecaa`,
+  "Demo account not configured … No request was sent." with official doc sources) — the guarded
+  no-credentials behaviour verified in production CI.
+- **PR #2** (stale claim `20e3ad14`) **closed with a takeover note**; its content is preserved in `main`
+  via PR #39 (see the close comment for the mapping).
+- Task status: **done**. Unverified items remain published on `demo-account/flagged.html` and do not block.
+  The one remaining owner action (optional): add demo API credentials (`KALSHI_DEMO_KEY_ID`,
+  `KALSHI_DEMO_PRIVATE_KEY`) to enable real demo-account tracking/execution, or paste a key into the
+  browser panel. Until then live-account values stay blank by design (F-DA-7).
