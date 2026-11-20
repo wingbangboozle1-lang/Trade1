@@ -244,3 +244,109 @@ labeled estimates); maker fees not modeled; KXAAAGASM empty candles (cause unkno
 heuristic, not verified alpha; session chart samples reset on reload. The previously published
 “status vocabulary” and “undocumented events page-size” flags were **withdrawn** above after
 re-reading the official docs — `flagged.html` already carries the corrected text.
+
+---
+
+## Final integration — line-by-line re-verification (session `37c20ac5`, 2026-11-20 UTC)
+
+Branch `arena/37c20ac5-trade1`, based on `main` @ `9f519d6`. Role: re-verify the deployed site against
+official sources, gap-fill the brief, fold in / dispose of the still-open PRs, validate, then PR → merge →
+Pages. Every value below was re-fetched from an official endpoint during this session; nothing is inferred.
+
+### 1. Live demo-endpoint probes (this session)
+
+| Check | Official endpoint | Observed | Result |
+|---|---|---|---|
+| Exchange status | `GET /exchange/status` | `exchange_active: true`, `trading_active: true`, 4 demo shards | ✅ |
+| Gas market | `GET /markets/KXAAAGASM-26NOV30-3.50` | `last_price_dollars "0.5000"`, `yes_bid "0.4900"`, `yes_ask "0.5000"`, `volume_fp "6932.33"` | ✅ matches the order book exactly |
+| Gas order book | `GET /markets/KXAAAGASM-26NOV30-3.50/orderbook?depth=5` | best YES bid `0.4900 @ 685.26`, best NO bid `0.5000 @ 231.04` → implied YES ask `0.5000` | ✅ |
+| Elections market | `GET /markets/KXPRESNOMD-28-GN` | `last "0.1100"`, bid `0.1000`, ask `0.1100` | ✅ |
+| Culture market | `GET /markets?tickers=KXOSCARPIC-27-ODY` | `last "0.9900"`, bid `0.5300`, ask `0.5400`, `volume_fp "1577862.98"` (identical to the snapshot) | ✅ |
+| Crypto market | `GET /markets?tickers=KXBTCY-27JAN0100-B47500` | bid `0.0500`, ask `0.0600`, `volume_fp "80178937.18"` (snapshot `80178705.51`, live tick-up) | ✅ |
+| Golf market | `GET /markets/KXGOLFMAJOR-30-WMOU` | `last "0.9000"`, bid `0.0000`, ask `1.0000`, `volume_fp "3.17"` | ✅ identical to the snapshot |
+| Resolved market | `GET /markets/KXGOLFMAJOR-30-RFOX` | `result: "yes"`, `settlement_ts "2026-07-19T18:49:28.40545Z"`, `settlement_value_dollars "1.0000"`, `status "finalized"` | ✅ identical to `data/resolved.json` |
+| Trade tape (chart, seconds windows) | `GET /markets/trades?ticker=KXAAAGASM-26NOV30-3.50&limit=5` | 5 prints with `yes_price_dollars` + `created_time`, `cursor` present | ✅ |
+| Candlesticks (chart, hour windows) | `GET /series/KXAAAGASM/markets/KXAAAGASM-26NOV30-3.50/candlesticks?start_ts=…&end_ts=…&period_interval=60` | 200, `candlesticks: []` for that window | ✅ path confirmed |
+| Series fee structure | `GET /series/KXBTCY`, `GET /series/KXAAAGASM` | `fee_type "quadratic"`, `fee_multiplier 1` | ✅ (see finding 3) |
+| Fee schedule | `https://kalshi.com/docs/kalshi-fee-schedule.pdf` | taker `round up(M×0.07×C×P×(1−P))`, maker `round up(M×0.0175×C×P×(1−P))`, “There is no settlement fee.”, General Trading Fees Table (21 rows) reproduced, Non-Standard Fees table | ✅ |
+
+### 2. Defect found and fixed — the batch endpoint and the order book can disagree
+
+`GET /markets?tickers=KXPRESNOMD-28-HBID` returned `yes_ask_dollars "0.8110"` and
+`yes_bid_size_fp "83333.33"`; `GET /markets/KXPRESNOMD-28-HBID` returned `yes_ask_dollars "0.0030"` and
+`yes_bid_size_fp "166666.66"`; `GET /markets/KXPRESNOMD-28-HBID/orderbook?depth=20` showed best YES bid
+`0.0020 @ 166666.66` and best NO bid `0.9970 @ 55555.55` → implied YES ask `0.0030`. The batch endpoint's
+implied ask maps to the NO bid level `0.1890` that *is* in the book, i.e. it does not select the best NO bid.
+**Measured twice, ~50 minutes apart:** the order book was byte-identical between the two readings (same
+levels, same sizes), the single-market endpoint kept reporting `0.0030`, and the batch endpoint kept
+reporting `0.8110`. `KXPRESNOMD-28-GN` and `KXAAAGASM-26NOV30-3.50` were checked the same way and all three
+endpoints agree — so this is market-specific, not systematic.
+
+*Effect:* the watchlist poll uses the batch endpoint, so the paper broker could have filled a market at an
+ask the exchange was not quoting (0.8110 instead of 0.0030).
+
+*Fix:* `assets/model.js` gained `bookQuote()` + `reconcileQuotes()` (pure, unit-tested); `assets/app.js`
+reconciles the selected market's quotes with its official order book before any paper fill and shows the
+disagreement in the order-book panel with links to both official responses. The exact live numbers are
+pinned in `tests/root_engine.test.js` (52 assertions). Published as **Flagged item 5** and documented in
+Methods §6.
+
+### 3. Defect found and fixed — the demo feed and the published fee PDF disagree
+
+The fee PDF's “Non-Standard Fees” table lists `KXBTCY` and `KXETHY` as maker 0 / taker 0, but the demo API
+publishes `fee_type: "quadratic"`, `fee_multiplier: 1` for both series
+(`GET /series/KXBTCY`, `GET /series/KXETHY`, read live 2026-11-20). The PDF carries the **production**
+schedule; the API reports the fee structure of the environment actually being traded. The root site already
+followed the API (Flagged 6b); the demo-account lab did not — it charged **no taker fee** on `KXBTCY`/
+`KXETHY` trades, which the demo API contradicts.
+
+*Fix:* `demo-account/assets/engine.js` now takes the taker multiplier `M` from the environment's own series
+metadata (`GET /series` → `fee_multiplier`, read during series discovery) and falls back to the documented
+default of 1 when a series’ metadata was not read; the PDF table is kept only as a labelled production
+reference (`SERIES_FEE_MULTIPLIERS_PDF`). Published as **F-DA-12**; verification rows V22/V23 added to
+`demo-account/VERIFICATION.md`; `tests/demo-account.test.mjs` → 93/93.
+
+### 4. Defect found and fixed — a published page was loading a deleted module
+
+`resolved.html` loaded `./assets/app.mjs`, a module removed in the site consolidation, so the live page
+(https://wingbangboozle1-lang.github.io/Trade1/resolved.html) rendered an empty table. Both link checkers
+stripped `<script>` bodies before scanning, so the `src` attribute was never verified and the broken page
+passed CI.
+
+*Fix:* `resolved.html` rewritten as a working, source-linked resolution tracker (official `result`,
+`settlement_ts`, `settlement_value_dollars`, per-row official API links, published-vs-shown counts) and added
+to the site navigation; `scripts/check_site.mjs` and `scripts/check_links.mjs` now verify `<script src>`
+targets **before** the script bodies are stripped; `tests/engine.test.mjs` evaluates every inline script and
+fails on a missing script target (verified by re-introducing the bug: 22/23, then 23/23 after the fix).
+
+### 5. Gap-fill — the data page now states what it shows
+
+`data/resolved.json` publishes 200 of the 3,213 in-scope settled markets it found (the archive is size-capped)
+and the topic tables show 15 of the published events. Neither table said so. Both now print
+“Showing N of M …” from the snapshot header, so a partial table can never read as a complete one.
+
+### 6. Open PRs reviewed and disposed of
+
+| PR | Branch | Decision |
+|---|---|---|
+| #32 (`777927dd`) | `arena/777927dd-trade1` | **Closed.** The branch has no merge base with `main` (unrelated history) and carries an entire superseded site tree (`a2ec5543/`, `site/`, `monitor/`, `trade1/`, `pages/`, `categories/`, `js/`, `css/`) plus deletions of the demo-account and CI-ledger tracks that are live on `main`. Merging it would clobber the deployed site. Its two fixes were re-implemented on the current tree: the topic-page boot regression is covered by `tests/engine.test.mjs` (“topic subpage is scoped to its own topic”), and the fee/float fixes are covered by `tests/root_engine.test.js`. |
+| #35 (`b93ba12e`) | `arena/b93ba12e-trade1` | **Closed.** Its proposal — transcribe the PDF’s per-series taker multipliers into the model — is **wrong for the demo environment**: the demo API reports `fee_multiplier 1` for `KXBTCY`/`KXETHY`, which the PDF lists as 0/0. Applying it would have removed a taker fee the demo feed says is charged. This session went the other way and made the demo-account lab follow the API (finding 3). |
+
+### 7. Validation runs on this branch
+
+`node tools/build.mjs` → BUILD OK (18 HTML, 6 JS, 0 broken links) ·
+`node scripts/check_site.mjs` → 18 HTML, 423 links, 1,250 rows, 825 resolved, **0 failures** ·
+`node scripts/check_links.mjs` → 16 pages, 408 local links, 175 external links, **0 failures** ·
+`node tests/engine.test.mjs` → **23/23** (jsdom, incl. the new inline-script and script-src checks) ·
+`node tests/root_engine.test.js` → **52/52** ·
+`node tests/demo-account.test.mjs` → **93/93** ·
+`node tests/portfolio.test.mjs` → **60/60** ·
+`node scripts/test_lib.mjs` → passed.
+
+### 8. Irregularities carried forward (all published, none blocking)
+
+Batch-vs-order-book quote disagreement (Flagged 5) · PDF-vs-demo-API fee multipliers (Flagged 6b, F-DA-12) ·
+no official per-market dollar-notional (ranking is a labeled estimate) · maker fees not modeled · REST cache
+lag makes sub-second swings invisible · no WebSocket from a static page (signed handshake headers) ·
+unauthenticated rate limits unpublished · demo-account values stay blank without the owner's API key ·
+ROI screen is a documented heuristic, not verified alpha · session chart samples reset on reload.

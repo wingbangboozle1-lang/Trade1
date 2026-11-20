@@ -24,7 +24,7 @@ tracking, and every table row linked to the official API record it came from.
 | [`sources.html`](sources.html) | The official documentation pages used for verification |
 | [`demo-account/`](demo-account/index.html) | Opt-in demo-account console (merged from PR #39): real demo balance/positions and guarded demo orders once the owner's key exists, plus its own paper lab. Inert without credentials — see `scripts/demo_account/README.md` |
 | [`suggestions.html`](suggestions.html) | Ideas for making the site more live and interactive — what is already live, the prioritised backlog (each item naming the official endpoint it would use), and what shipped since |
-| [`resolved.html`](resolved.html) | Resolved markets with their official YES/NO result and settlement timestamp |
+| [`resolved.html`](resolved.html) | Resolved events tracker: every settled in-scope market with its official YES/NO `result`, `settlement_ts`, `settlement_value_dollars` and per-row API links |
 
 ## Architecture
 
@@ -56,14 +56,21 @@ tracking, and every table row linked to the official API record it came from.
 ```bash
 npm install --no-audit --no-fund jsdom   # test dependency only
 npm run build    # JS syntax + internal links + nav targets
-npm run test     # 25 assertions: real engine in jsdom over every page, alert math, sources
-node scripts/check_site.mjs   # every snapshot row carries an official source URL
+npm run test     # real engine in jsdom over every page, alert math, sources
+node scripts/check_site.mjs   # every snapshot row carries an official source URL + every <script src> resolves
+node tests/root_engine.test.js # engine math offline: official fee table, $0.10 threshold, quote reconciliation
 
 # the CI ledger's own checks (all offline, no credentials, no network needed)
 python3 scripts/portfolio_engine.py selftest   # 50 checks: fee math, alert boundary, sizing, settlement, determinism
 node tests/portfolio.test.mjs                  # ledger invariants + portfolio.html boot in jsdom (skips the DOM part without it)
 node scripts/check_links.mjs                   # every published page: nav parity, local links, external links are https+official
+node tests/root_engine.test.js                 # fee table, alert threshold, order-book quote reconciliation (52 assertions)
+node tests/demo-account.test.mjs               # demo-account lab: fee table, signing, paper P&L (93 assertions)
 ```
+
+The two link checkers verify `<script src="…">` targets as well as `href`/`src` attributes, and
+`tests/engine.test.mjs` evaluates every inline script and fails on a missing script target — a published
+page cannot silently point at a deleted module again (that is how `resolved.html` shipped broken once).
 
 CI (`.github/workflows/pages.yml`) runs all three on every push and pull request.
 

@@ -77,7 +77,7 @@
         <td class="src"><a href="methods.html">Methods §3</a> (score weights); <a href="flagged.html">Flagged #8</a> (the score is a heuristic, not backtested alpha)</td></tr>
 
       <tr><td>Track events until they resolve YES or NO</td>
-        <td>Every polled market is checked for the official terminal state; when it settles, the outcome and settlement timestamp are recorded and open paper positions settle at $1 per winning contract. Resolved rows link the exact API record.</td>
+        <td>Every polled market is checked for the official terminal state; when it settles, the outcome and settlement timestamp are recorded and open paper positions settle at $1 per winning contract. Resolved rows link the exact API record. A dedicated <a href="resolved.html">Resolved events page</a> lists every settled in-scope market with its official <code>result</code>, <code>settlement_ts</code> and <code>settlement_value_dollars</code>, each row linked to its official API record.</td>
         <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_lifecycle">Market Lifecycle</a> (<code>finalized</code> = paid out), <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_settlement">Market Settlement</a> ($1/contract, no settlement fee)</td></tr>
 
       <tr><td>Automate simulated trades to test strategies</td>
@@ -137,7 +137,8 @@
     <ol class="small">
       <li><b>Documentation first.</b> Every endpoint, field name, unit and limit was read on <a target="_blank" rel="noopener" href="https://docs.kalshi.com/">docs.kalshi.com</a>; the exact pages are listed on <a href="sources.html">Sources</a>.</li>
       <li><b>Live responses second.</b> Field shapes were confirmed against live demo responses (for example <code>orderbook_fp.yes_dollars</code> as <code>[price_dollars, count_fp]</code> strings, and <code>volume_fp</code> as a contract count, not dollars).</li>
-      <li><b>Automated checks third.</b> CI runs the real dashboard engine in a headless DOM against captured response shapes (<code>tests/engine.test.mjs</code>), the offline library tests (<code>scripts/test_lib.mjs</code>), a syntax/link/nav check (<code>tools/build.mjs</code>), and a check that every snapshot row carries an official source URL (<code>scripts/check_site.mjs</code>).</li>
+      <li><b>Automated checks third.</b> CI runs the real dashboard engine in a headless DOM against captured response shapes (<code>tests/engine.test.mjs</code>), the offline library tests (<code>scripts/test_lib.mjs</code>), the engine math offline (<code>tests/root_engine.test.js</code> — official fee table, the $0.10 threshold, order-book quote reconciliation), a syntax/link/nav check (<code>tools/build.mjs</code>), and a check that every snapshot row carries an official source URL and every <code>&lt;script src&gt;</code> resolves (<code>scripts/check_site.mjs</code>, <code>scripts/check_links.mjs</code>).</li>
+      <li><b>Cross-checks between official endpoints.</b> Where two official endpoints describe the same thing, both are fetched and compared rather than one being trusted: the per-market record, the batch <code>GET /markets?tickers=</code> response and the official order book (they can disagree — <a href="flagged.html">Flagged item 5</a>), and the series metadata <code>GET /series/{ticker}</code> against the published fee PDF (<a href="flagged.html">Flagged 6b</a>).</li>
       <li><b>Blank beats wrong.</b> Anything the API did not return is left blank and listed on <a href="flagged.html">Flagged for Review</a>, with the source that was checked.</li>
     </ol>
   </section>
