@@ -27,7 +27,8 @@ from collector import topics as topicmod
 from collector import fees
 from collector.util import DATA, ROOT, SOURCES, iso, read_json, write_json
 
-OUT = ROOT
+OUT = os.path.join(ROOT, "dashboard")
+SITE = ROOT
 BUILT = []          # list of (path, title) for nav/link checks
 
 
@@ -119,7 +120,7 @@ def page(path, title, body, active=None, description=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} · Trade1 Kalshi dashboard</title>
 <meta name="description" content="{esc(description or title)}">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 <header class="topbar">
@@ -134,6 +135,7 @@ def page(path, title, body, active=None, description=""):
     <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
     <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
     <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="../index.html">Main site</a>
     <a href="methodology.html">Methodology</a>
     <a href="flagged.html">Flagged for review</a>
   </div>
@@ -141,8 +143,8 @@ def page(path, title, body, active=None, description=""):
   exchange trades and this is not investment advice. Values shown are copied from API responses;
   anything unconfirmed is left blank and flagged.
 </footer>
-<script src="assets/chart.js"></script>
-<script src="assets/app.js"></script>
+<script src="../assets/chart.js"></script>
+<script src="../assets/app.js"></script>
 </body>
 </html>
 """
@@ -330,7 +332,7 @@ def build_markets(snap, universe, jumps):
             "jumps": [{"to_ts": j["to_ts"], "direction": j["direction"], "delta": j["delta"]}
                       for j in jump_by_ticker.get(m["ticker"], [])],
         }
-    write_json(os.path.join(OUT, "assets", "data", "markets.json"), payload, indent=0)
+    write_json(os.path.join(OUT, "data", "markets.json"), payload, indent=0)
 
     rows = []
     for m in markets:
@@ -707,7 +709,7 @@ account.</p>
   </ul>
 </div>
 """
-    write_json(os.path.join(OUT, "assets", "data", "equity.json"), pts, indent=0)
+    write_json(os.path.join(OUT, "data", "equity.json"), pts, indent=0)
     return page("portfolio.html", "Portfolio", body, active="portfolio.html",
                 description="Simulated portfolio performance and demo-account status.")
 
@@ -1125,7 +1127,7 @@ def main() -> int:
     live_status = load(os.path.join("live", "status.json"), {}) or {}
     flagged = load("flagged.json", {}) or {}
 
-    os.makedirs(os.path.join(OUT, "assets", "data"), exist_ok=True)
+    os.makedirs(os.path.join(OUT, "data"), exist_ok=True)
 
     build_flagged_data(snap, res_summary, live_status, jumps)
     flagged = load("flagged.json", {}) or {}

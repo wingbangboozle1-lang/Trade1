@@ -1,0 +1,8436 @@
+{
+"KXAAAGASD-26NOV21-3.7300": {
+"ticker": "KXAAAGASD-26NOV21-3.7300",
+"title": "Will average **gas prices** be above $3.7300?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 165.48,
+"yes_qty": 0,
+"no_qty": 12106.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 165.48,
+"yes_qty": 0,
+"no_qty": 12106.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4044.0
+],
+[
+0.99,
+8011.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8011.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 4,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 12106.0,
+"buy_yes_liquidity_usd": 165.48,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 165.48,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4044.0
+],
+[
+0.99,
+8011.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.7300 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.7300",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.7250": {
+"ticker": "KXAAAGASD-26NOV21-3.7250",
+"title": "Will average **gas prices** be above $3.7250?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.24,
+"yes_qty": 0,
+"no_qty": 12139.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.24,
+"yes_qty": 0,
+"no_qty": 12139.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4087.0
+],
+[
+0.99,
+8001.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8001.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 4,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 12139.0,
+"buy_yes_liquidity_usd": 166.24,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 166.24,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4087.0
+],
+[
+0.99,
+8001.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.7250 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.7250",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.7200": {
+"ticker": "KXAAAGASD-26NOV21-3.7200",
+"title": "Will average **gas prices** be above $3.7200?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.42,
+"yes_qty": 0,
+"no_qty": 12148.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.42,
+"yes_qty": 0,
+"no_qty": 12148.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4096.0
+],
+[
+0.99,
+8001.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8001.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 4,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 12148.0,
+"buy_yes_liquidity_usd": 166.42,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 166.42,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4096.0
+],
+[
+0.99,
+8001.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.7200 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.7200",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.7150": {
+"ticker": "KXAAAGASD-26NOV21-3.7150",
+"title": "Will average **gas prices** be above $3.7150?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 165.76,
+"yes_qty": 0,
+"no_qty": 12115.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 165.76,
+"yes_qty": 0,
+"no_qty": 12115.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4063.0
+],
+[
+0.99,
+8001.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8001.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 4,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 12115.0,
+"buy_yes_liquidity_usd": 165.76,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 165.76,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4063.0
+],
+[
+0.99,
+8001.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.7150 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.7150",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.7100": {
+"ticker": "KXAAAGASD-26NOV21-3.7100",
+"title": "Will average **gas prices** be above $3.7100?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.24,
+"yes_qty": 0,
+"no_qty": 12164.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.24,
+"yes_qty": 0,
+"no_qty": 12164.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4062.0
+],
+[
+0.99,
+8051.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8051.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 4,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 12164.0,
+"buy_yes_liquidity_usd": 166.24,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 166.24,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4062.0
+],
+[
+0.99,
+8051.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.7100 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.7100",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.7050": {
+"ticker": "KXAAAGASD-26NOV21-3.7050",
+"title": "Will average **gas prices** be above $3.7050?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 23.37,
+"oi": 23.37,
+"liq": 219.74,
+"yes_qty": 0,
+"no_qty": 12185.64
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 23.37,
+"oi": 23.37,
+"liq": 219.74,
+"yes_qty": 0,
+"no_qty": 12185.64
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+7.01
+],
+[
+0.04,
+50.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4051.0
+],
+[
+0.99,
+8027.63
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8027.63,
+"yes_bid_levels": 0,
+"no_bid_levels": 5,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 12185.64,
+"buy_yes_liquidity_usd": 219.74,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 219.74,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+7.01
+],
+[
+0.04,
+50.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4051.0
+],
+[
+0.99,
+8027.63
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.7050 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.7050",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.7000": {
+"ticker": "KXAAAGASD-26NOV21-3.7000",
+"title": "Will average **gas prices** be above $3.7000?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.0,
+"yes_qty": 0,
+"no_qty": 12152.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 166.0,
+"yes_qty": 0,
+"no_qty": 12152.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4050.0
+],
+[
+0.99,
+8051.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8051.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 4,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 12152.0,
+"buy_yes_liquidity_usd": 166.0,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 166.0,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+4050.0
+],
+[
+0.99,
+8051.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.7000 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.7000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6950": {
+"ticker": "KXAAAGASD-26NOV21-3.6950",
+"title": "Will average **gas prices** be above $3.6950?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 286.56,
+"yes_qty": 0,
+"no_qty": 18155.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 286.56,
+"yes_qty": 0,
+"no_qty": 18155.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+10103.0
+],
+[
+0.99,
+8001.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 8001.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 4,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 18155.0,
+"buy_yes_liquidity_usd": 286.56,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 286.56,
+"best_yes_bid": null,
+"best_no_bid": 0.99,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+1.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+10103.0
+],
+[
+0.99,
+8001.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6950 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6950",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6900": {
+"ticker": "KXAAAGASD-26NOV21-3.6900",
+"title": "Will average **gas prices** be above $3.6900?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 1035.47,
+"yes_qty": 0,
+"no_qty": 11042.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 1035.47,
+"yes_qty": 0,
+"no_qty": 11042.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+701.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+10135.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 10135.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 11042.0,
+"buy_yes_liquidity_usd": 1035.47,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 1035.47,
+"best_yes_bid": null,
+"best_no_bid": 0.98,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+701.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.93,
+50.0
+],
+[
+0.98,
+10135.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6900 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6900",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6850": {
+"ticker": "KXAAAGASD-26NOV21-3.6850",
+"title": "Will average **gas prices** be above $3.6850?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 1036.02,
+"yes_qty": 0,
+"no_qty": 11067.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 1036.02,
+"yes_qty": 0,
+"no_qty": 11067.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+701.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.93,
+50.0
+],
+[
+0.97,
+5.0
+],
+[
+0.98,
+10155.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 10155.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 11067.0,
+"buy_yes_liquidity_usd": 1036.02,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 1036.02,
+"best_yes_bid": null,
+"best_no_bid": 0.98,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+701.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.93,
+50.0
+],
+[
+0.97,
+5.0
+],
+[
+0.98,
+10155.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6850 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6850",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6800": {
+"ticker": "KXAAAGASD-26NOV21-3.6800",
+"title": "Will average **gas prices** be above $3.6800?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 1041.0,
+"yes_qty": 0,
+"no_qty": 11291.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 1041.0,
+"yes_qty": 0,
+"no_qty": 11291.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+701.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.92,
+50.0
+],
+[
+0.97,
+5.0
+],
+[
+0.98,
+10379.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 10379.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 11291.0,
+"buy_yes_liquidity_usd": 1041.0,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 1041.0,
+"best_yes_bid": null,
+"best_no_bid": 0.98,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+701.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.92,
+50.0
+],
+[
+0.97,
+5.0
+],
+[
+0.98,
+10379.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6800 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6800",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6750": {
+"ticker": "KXAAAGASD-26NOV21-3.6750",
+"title": "Will average **gas prices** be above $3.6750?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.02,
+"vol": 11.69,
+"oi": 11.69,
+"liq": 976.15,
+"yes_qty": 0,
+"no_qty": 5309.32
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.02,
+"vol": 11.69,
+"oi": 11.69,
+"liq": 976.15,
+"yes_qty": 0,
+"no_qty": 5309.32
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+707.01
+],
+[
+0.04,
+50.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.88,
+50.0
+],
+[
+0.98,
+4346.31
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 4346.31,
+"yes_bid_levels": 0,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 5309.32,
+"buy_yes_liquidity_usd": 976.15,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 976.15,
+"best_yes_bid": null,
+"best_no_bid": 0.98,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+707.01
+],
+[
+0.04,
+50.0
+],
+[
+0.07,
+100.0
+],
+[
+0.2,
+35.0
+],
+[
+0.32,
+21.0
+],
+[
+0.88,
+50.0
+],
+[
+0.98,
+4346.31
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6750 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6750",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6700": {
+"ticker": "KXAAAGASD-26NOV21-3.6700",
+"title": "Will average **gas prices** be above $3.6700?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3115.54,
+"yes_qty": 3019.0,
+"no_qty": 4371.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3115.54,
+"yes_qty": 3019.0,
+"no_qty": 4371.0
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+3019.0
+]
+],
+"no": [
+[
+0.78,
+5.0
+],
+[
+0.81,
+5.0
+],
+[
+0.83,
+10.0
+],
+[
+0.87,
+50.0
+],
+[
+0.91,
+1.0
+],
+[
+0.92,
+1.0
+],
+[
+0.93,
+1.0
+],
+[
+0.94,
+1.0
+],
+[
+0.97,
+3024.0
+],
+[
+0.98,
+1273.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 3019.0,
+"no_bid_qty": 1273.0,
+"yes_bid_levels": 1,
+"no_bid_levels": 10,
+"yes_bid_qty_total": 3019.0,
+"no_bid_qty_total": 4371.0,
+"buy_yes_liquidity_usd": 126.73,
+"buy_no_liquidity_usd": 2988.81,
+"total_liquidity_usd": 3115.54,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.98,
+"levels": {
+"yes": [
+[
+0.01,
+3019.0
+]
+],
+"no": [
+[
+0.78,
+5.0
+],
+[
+0.81,
+5.0
+],
+[
+0.83,
+10.0
+],
+[
+0.87,
+50.0
+],
+[
+0.91,
+1.0
+],
+[
+0.92,
+1.0
+],
+[
+0.93,
+1.0
+],
+[
+0.94,
+1.0
+],
+[
+0.97,
+3024.0
+],
+[
+0.98,
+1273.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6700 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6700",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6650": {
+"ticker": "KXAAAGASD-26NOV21-3.6650",
+"title": "Will average **gas prices** be above $3.6650?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.03,
+"ask": 0.04,
+"mid": 0.035,
+"last": 0.03,
+"vol": 7104.56,
+"oi": 4020.56,
+"liq": 17543.58,
+"yes_qty": 17628.54,
+"no_qty": 3680.0
+},
+{
+"t": 1795180749,
+"bid": 0.03,
+"ask": 0.04,
+"mid": 0.035,
+"last": 0.03,
+"vol": 7104.56,
+"oi": 4020.56,
+"liq": 17508.86,
+"yes_qty": 17602.54,
+"no_qty": 3564.0
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+11000.0
+],
+[
+0.02,
+3586.54
+],
+[
+0.03,
+3016.0
+]
+],
+"no": [
+[
+0.72,
+10.0
+],
+[
+0.77,
+5.0
+],
+[
+0.8,
+5.0
+],
+[
+0.82,
+10.0
+],
+[
+0.9,
+1.0
+],
+[
+0.91,
+1.0
+],
+[
+0.92,
+1.0
+],
+[
+0.93,
+2.0
+],
+[
+0.95,
+3021.0
+],
+[
+0.96,
+508.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 3016.0,
+"no_bid_qty": 508.0,
+"yes_bid_levels": 3,
+"no_bid_levels": 10,
+"yes_bid_qty_total": 17602.54,
+"no_bid_qty_total": 3564.0,
+"buy_yes_liquidity_usd": 178.53,
+"buy_no_liquidity_usd": 17330.33,
+"total_liquidity_usd": 17508.86,
+"best_yes_bid": 0.03,
+"best_no_bid": 0.96,
+"levels": {
+"yes": [
+[
+0.01,
+11000.0
+],
+[
+0.02,
+3586.54
+],
+[
+0.03,
+3016.0
+]
+],
+"no": [
+[
+0.72,
+10.0
+],
+[
+0.77,
+5.0
+],
+[
+0.8,
+5.0
+],
+[
+0.82,
+10.0
+],
+[
+0.9,
+1.0
+],
+[
+0.91,
+1.0
+],
+[
+0.92,
+1.0
+],
+[
+0.93,
+2.0
+],
+[
+0.95,
+3021.0
+],
+[
+0.96,
+508.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6650 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6650",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6600": {
+"ticker": "KXAAAGASD-26NOV21-3.6600",
+"title": "Will average **gas prices** be above $3.6600?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.38,
+"ask": 0.39,
+"mid": 0.385,
+"last": 0.45,
+"vol": 1065.79,
+"oi": 823.79,
+"liq": 4383.35,
+"yes_qty": 4223.7,
+"no_qty": 648.0
+},
+{
+"t": 1795180749,
+"bid": 0.39,
+"ask": 0.54,
+"mid": 0.465,
+"last": 0.5,
+"vol": 1170.08,
+"oi": 928.08,
+"liq": 375.45,
+"yes_qty": 219.0,
+"no_qty": 291.0
+}
+],
+"book": {
+"yes": [
+[
+0.15,
+10.0
+],
+[
+0.2,
+33.0
+],
+[
+0.23,
+43.0
+],
+[
+0.25,
+10.0
+],
+[
+0.28,
+9.0
+],
+[
+0.3,
+17.0
+],
+[
+0.35,
+25.0
+],
+[
+0.37,
+50.0
+],
+[
+0.38,
+1.0
+],
+[
+0.39,
+21.0
+]
+],
+"no": [
+[
+0.05,
+10.0
+],
+[
+0.12,
+91.0
+],
+[
+0.15,
+25.0
+],
+[
+0.19,
+25.0
+],
+[
+0.27,
+47.0
+],
+[
+0.3,
+17.0
+],
+[
+0.35,
+7.0
+],
+[
+0.38,
+7.0
+],
+[
+0.4,
+12.0
+],
+[
+0.46,
+50.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 21.0,
+"no_bid_qty": 50.0,
+"yes_bid_levels": 10,
+"no_bid_levels": 10,
+"yes_bid_qty_total": 219.0,
+"no_bid_qty_total": 291.0,
+"buy_yes_liquidity_usd": 220.38,
+"buy_no_liquidity_usd": 155.07,
+"total_liquidity_usd": 375.45,
+"best_yes_bid": 0.39,
+"best_no_bid": 0.46,
+"levels": {
+"yes": [
+[
+0.15,
+10.0
+],
+[
+0.2,
+33.0
+],
+[
+0.23,
+43.0
+],
+[
+0.25,
+10.0
+],
+[
+0.28,
+9.0
+],
+[
+0.3,
+17.0
+],
+[
+0.35,
+25.0
+],
+[
+0.37,
+50.0
+],
+[
+0.38,
+1.0
+],
+[
+0.39,
+21.0
+]
+],
+"no": [
+[
+0.05,
+10.0
+],
+[
+0.12,
+91.0
+],
+[
+0.15,
+25.0
+],
+[
+0.19,
+25.0
+],
+[
+0.27,
+47.0
+],
+[
+0.3,
+17.0
+],
+[
+0.35,
+7.0
+],
+[
+0.38,
+7.0
+],
+[
+0.4,
+12.0
+],
+[
+0.46,
+50.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6600 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6600",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6550": {
+"ticker": "KXAAAGASD-26NOV21-3.6550",
+"title": "Will average **gas prices** be above $3.6550?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.91,
+"ask": 0.92,
+"mid": 0.915,
+"last": 0.92,
+"vol": 3652.56,
+"oi": 3488.96,
+"liq": 4233.36,
+"yes_qty": 1475.43,
+"no_qty": 4149.02
+},
+{
+"t": 1795180749,
+"bid": 0.9,
+"ask": 0.95,
+"mid": 0.925,
+"last": 0.92,
+"vol": 3652.56,
+"oi": 3488.96,
+"liq": 2290.54,
+"yes_qty": 1352.43,
+"no_qty": 2104.2
+}
+],
+"book": {
+"yes": [
+[
+0.68,
+10.0
+],
+[
+0.7,
+64.0
+],
+[
+0.73,
+5.0
+],
+[
+0.76,
+5.0
+],
+[
+0.78,
+74.0
+],
+[
+0.85,
+167.43
+],
+[
+0.86,
+1009.0
+],
+[
+0.87,
+16.0
+],
+[
+0.89,
+1.0
+],
+[
+0.9,
+1.0
+]
+],
+"no": [
+[
+0.01,
+2001.01
+],
+[
+0.02,
+52.0
+],
+[
+0.03,
+2.19
+],
+[
+0.04,
+1.0
+],
+[
+0.05,
+48.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 1.0,
+"no_bid_qty": 48.0,
+"yes_bid_levels": 10,
+"no_bid_levels": 5,
+"yes_bid_qty_total": 1352.43,
+"no_bid_qty_total": 2104.2,
+"buy_yes_liquidity_usd": 2080.64,
+"buy_no_liquidity_usd": 209.89,
+"total_liquidity_usd": 2290.54,
+"best_yes_bid": 0.9,
+"best_no_bid": 0.05,
+"levels": {
+"yes": [
+[
+0.68,
+10.0
+],
+[
+0.7,
+64.0
+],
+[
+0.73,
+5.0
+],
+[
+0.76,
+5.0
+],
+[
+0.78,
+74.0
+],
+[
+0.85,
+167.43
+],
+[
+0.86,
+1009.0
+],
+[
+0.87,
+16.0
+],
+[
+0.89,
+1.0
+],
+[
+0.9,
+1.0
+]
+],
+"no": [
+[
+0.01,
+2001.01
+],
+[
+0.02,
+52.0
+],
+[
+0.03,
+2.19
+],
+[
+0.04,
+1.0
+],
+[
+0.05,
+48.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6550 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6550",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXAAAGASD-26NOV21-3.6500": {
+"ticker": "KXAAAGASD-26NOV21-3.6500",
+"title": "Will average **gas prices** be above $3.6500?",
+"event": "US gas prices tomorrow",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.98,
+"ask": 0.99,
+"mid": 0.985,
+"last": 0.99,
+"vol": 50.0,
+"oi": 50.0,
+"liq": 2536.42,
+"yes_qty": 15377.0,
+"no_qty": 2001.0
+},
+{
+"t": 1795180749,
+"bid": 0.98,
+"ask": 0.99,
+"mid": 0.985,
+"last": 0.99,
+"vol": 50.0,
+"oi": 50.0,
+"liq": 2536.42,
+"yes_qty": 15377.0,
+"no_qty": 2001.0
+}
+],
+"book": {
+"yes": [
+[
+0.79,
+5.0
+],
+[
+0.82,
+5.0
+],
+[
+0.84,
+10.0
+],
+[
+0.85,
+64.0
+],
+[
+0.92,
+51.0
+],
+[
+0.93,
+1648.0
+],
+[
+0.94,
+1.0
+],
+[
+0.95,
+4364.0
+],
+[
+0.97,
+2000.0
+],
+[
+0.98,
+7229.0
+]
+],
+"no": [
+[
+0.01,
+2001.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 7229.0,
+"no_bid_qty": 2001.0,
+"yes_bid_levels": 10,
+"no_bid_levels": 1,
+"yes_bid_qty_total": 15377.0,
+"no_bid_qty_total": 2001.0,
+"buy_yes_liquidity_usd": 1980.99,
+"buy_no_liquidity_usd": 555.43,
+"total_liquidity_usd": 2536.42,
+"best_yes_bid": 0.98,
+"best_no_bid": 0.01,
+"levels": {
+"yes": [
+[
+0.79,
+5.0
+],
+[
+0.82,
+5.0
+],
+[
+0.84,
+10.0
+],
+[
+0.85,
+64.0
+],
+[
+0.92,
+51.0
+],
+[
+0.93,
+1648.0
+],
+[
+0.94,
+1.0
+],
+[
+0.95,
+4364.0
+],
+[
+0.97,
+2000.0
+],
+[
+0.98,
+7229.0
+]
+],
+"no": [
+[
+0.01,
+2001.0
+]
+]
+}
+},
+"close_time": "2026-11-21T04:59:00Z",
+"rules_primary": "If average regular gas prices for United States are strictly greater than $3.6500 on Nov 21, 2026 according to AAA, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6500",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXAAAGASD-26NOV21",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXAAAGASD",
+"site": "https://kalshi.com/markets/kxaaagasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.145": {
+"ticker": "KXNATGASD-26NOV2317-T4.145",
+"title": "Will the natural gas close price be above 4.145 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795172400,
+"bid": 0.0,
+"ask": 0.46,
+"mid": 0.23,
+"last": null,
+"vol": 0.0,
+"oi": 0.0,
+"src": "candle"
+},
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.54,
+"mid": 0.27,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2756.24,
+"yes_qty": 0,
+"no_qty": 3134.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.54,
+"mid": 0.27,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2756.24,
+"yes_qty": 0,
+"no_qty": 3134.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.46,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3134.5,
+"buy_yes_liquidity_usd": 2756.24,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2756.24,
+"best_yes_bid": null,
+"best_no_bid": 0.46,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.46,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.145 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.145",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.140": {
+"ticker": "KXNATGASD-26NOV2317-T4.140",
+"title": "Will the natural gas close price be above 4.140 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795172400,
+"bid": 0.0,
+"ask": 0.48,
+"mid": 0.24,
+"last": null,
+"vol": 0.0,
+"oi": 0.0,
+"src": "candle"
+},
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.46,
+"mid": 0.23,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2758.0,
+"yes_qty": 0,
+"no_qty": 3134.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.46,
+"mid": 0.23,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2758.0,
+"yes_qty": 0,
+"no_qty": 3134.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.54,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3134.5,
+"buy_yes_liquidity_usd": 2758.0,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2758.0,
+"best_yes_bid": null,
+"best_no_bid": 0.54,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.54,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.140 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.140",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.135": {
+"ticker": "KXNATGASD-26NOV2317-T4.135",
+"title": "Will the natural gas close price be above 4.135 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795172400,
+"bid": 0.0,
+"ask": 0.24,
+"mid": 0.12,
+"last": null,
+"vol": 0.0,
+"oi": 0.0,
+"src": "candle"
+},
+{
+"t": 1795176000,
+"bid": 0.0,
+"ask": 0.41,
+"mid": 0.205,
+"last": null,
+"vol": 0.0,
+"oi": 0.0,
+"src": "candle"
+},
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.41,
+"mid": 0.205,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2749.95,
+"yes_qty": 0,
+"no_qty": 3132.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.41,
+"mid": 0.205,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2749.95,
+"yes_qty": 0,
+"no_qty": 3132.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.59,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3132.0,
+"buy_yes_liquidity_usd": 2749.95,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2749.95,
+"best_yes_bid": null,
+"best_no_bid": 0.59,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.59,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.135 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.135",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.130": {
+"ticker": "KXNATGASD-26NOV2317-T4.130",
+"title": "Will the natural gas close price be above 4.130 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.43,
+"mid": 0.215,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2751.79,
+"yes_qty": 0,
+"no_qty": 3134.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.43,
+"mid": 0.215,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2751.79,
+"yes_qty": 0,
+"no_qty": 3134.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.57,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3134.5,
+"buy_yes_liquidity_usd": 2751.79,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2751.79,
+"best_yes_bid": null,
+"best_no_bid": 0.57,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.57,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.130 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.130",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.125": {
+"ticker": "KXNATGASD-26NOV2317-T4.125",
+"title": "Will the natural gas close price be above 4.125 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.46,
+"mid": 0.23,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2753.0,
+"yes_qty": 0,
+"no_qty": 3134.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.46,
+"mid": 0.23,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2753.0,
+"yes_qty": 0,
+"no_qty": 3134.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.54,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3134.5,
+"buy_yes_liquidity_usd": 2753.0,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2753.0,
+"best_yes_bid": null,
+"best_no_bid": 0.54,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.54,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.125 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.125",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.120": {
+"ticker": "KXNATGASD-26NOV2317-T4.120",
+"title": "Will the natural gas close price be above 4.120 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.45,
+"mid": 0.225,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2752.6,
+"yes_qty": 0,
+"no_qty": 3134.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.45,
+"mid": 0.225,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2752.6,
+"yes_qty": 0,
+"no_qty": 3134.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.55,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3134.5,
+"buy_yes_liquidity_usd": 2752.6,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2752.6,
+"best_yes_bid": null,
+"best_no_bid": 0.55,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.19,
+1665.5
+],
+[
+0.2,
+20.0
+],
+[
+0.21,
+75.5
+],
+[
+0.55,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.120 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.120",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.115": {
+"ticker": "KXNATGASD-26NOV2317-T4.115",
+"title": "Will the natural gas close price be above 4.115 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.38,
+"mid": 0.19,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2766.28,
+"yes_qty": 0,
+"no_qty": 3130.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.38,
+"mid": 0.19,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2766.28,
+"yes_qty": 0,
+"no_qty": 3130.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.62,
+35.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 35.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3130.5,
+"buy_yes_liquidity_usd": 2766.28,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2766.28,
+"best_yes_bid": null,
+"best_no_bid": 0.62,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.62,
+35.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.115 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.115",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.110": {
+"ticker": "KXNATGASD-26NOV2317-T4.110",
+"title": "Will the natural gas close price be above 4.110 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.4,
+"mid": 0.2,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2767.99,
+"yes_qty": 0,
+"no_qty": 3133.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.4,
+"mid": 0.2,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2767.99,
+"yes_qty": 0,
+"no_qty": 3133.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.6,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3133.0,
+"buy_yes_liquidity_usd": 2767.99,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2767.99,
+"best_yes_bid": null,
+"best_no_bid": 0.6,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.6,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.110 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.110",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.105": {
+"ticker": "KXNATGASD-26NOV2317-T4.105",
+"title": "Will the natural gas close price be above 4.105 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.44,
+"mid": 0.22,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2774.51,
+"yes_qty": 0,
+"no_qty": 3133.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.44,
+"mid": 0.22,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2774.51,
+"yes_qty": 0,
+"no_qty": 3133.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.56,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3133.0,
+"buy_yes_liquidity_usd": 2774.51,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2774.51,
+"best_yes_bid": null,
+"best_no_bid": 0.56,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.56,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.105 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.105",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.100": {
+"ticker": "KXNATGASD-26NOV2317-T4.100",
+"title": "Will the natural gas close price be above 4.100 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.5,
+"mid": 0.25,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2776.79,
+"yes_qty": 0,
+"no_qty": 3133.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.5,
+"mid": 0.25,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2776.79,
+"yes_qty": 0,
+"no_qty": 3133.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.5,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3133.0,
+"buy_yes_liquidity_usd": 2776.79,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2776.79,
+"best_yes_bid": null,
+"best_no_bid": 0.5,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.5,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.100 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.100",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.095": {
+"ticker": "KXNATGASD-26NOV2317-T4.095",
+"title": "Will the natural gas close price be above 4.095 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.54,
+"mid": 0.27,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2774.66,
+"yes_qty": 0,
+"no_qty": 3135.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.54,
+"mid": 0.27,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2774.66,
+"yes_qty": 0,
+"no_qty": 3135.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.46,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3135.5,
+"buy_yes_liquidity_usd": 2774.66,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2774.66,
+"best_yes_bid": null,
+"best_no_bid": 0.46,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.46,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.095 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.095",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.090": {
+"ticker": "KXNATGASD-26NOV2317-T4.090",
+"title": "Will the natural gas close price be above 4.090 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.36,
+"mid": 0.18,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2766.47,
+"yes_qty": 0,
+"no_qty": 3133.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.36,
+"mid": 0.18,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2766.47,
+"yes_qty": 0,
+"no_qty": 3133.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.64,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3133.0,
+"buy_yes_liquidity_usd": 2766.47,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2766.47,
+"best_yes_bid": null,
+"best_no_bid": 0.64,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.64,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.090 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.090",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.085": {
+"ticker": "KXNATGASD-26NOV2317-T4.085",
+"title": "Will the natural gas close price be above 4.085 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.47,
+"mid": 0.235,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2771.83,
+"yes_qty": 0,
+"no_qty": 3135.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.47,
+"mid": 0.235,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2771.83,
+"yes_qty": 0,
+"no_qty": 3135.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.53,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3135.5,
+"buy_yes_liquidity_usd": 2771.83,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2771.83,
+"best_yes_bid": null,
+"best_no_bid": 0.53,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.53,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.085 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.085",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.080": {
+"ticker": "KXNATGASD-26NOV2317-T4.080",
+"title": "Will the natural gas close price be above 4.080 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.36,
+"mid": 0.18,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2766.47,
+"yes_qty": 0,
+"no_qty": 3133.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.36,
+"mid": 0.18,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2766.47,
+"yes_qty": 0,
+"no_qty": 3133.0
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.64,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3133.0,
+"buy_yes_liquidity_usd": 2766.47,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2766.47,
+"best_yes_bid": null,
+"best_no_bid": 0.64,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.64,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.080 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.080",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.075": {
+"ticker": "KXNATGASD-26NOV2317-T4.075",
+"title": "Will the natural gas close price be above 4.075 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.4,
+"mid": 0.2,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2768.99,
+"yes_qty": 0,
+"no_qty": 3135.5
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.4,
+"mid": 0.2,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2768.99,
+"yes_qty": 0,
+"no_qty": 3135.5
+}
+],
+"book": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.6,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 0.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 0,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 0,
+"no_bid_qty_total": 3135.5,
+"buy_yes_liquidity_usd": 2768.99,
+"buy_no_liquidity_usd": 0,
+"total_liquidity_usd": 2768.99,
+"best_yes_bid": null,
+"best_no_bid": 0.6,
+"levels": {
+"yes": [],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.6,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.075 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.075",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.070": {
+"ticker": "KXNATGASD-26NOV2317-T4.070",
+"title": "Will the natural gas close price be above 4.070 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.24,
+"mid": 0.125,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3064.31,
+"yes_qty": 280.5,
+"no_qty": 3240.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.22,
+"mid": 0.115,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3060.1,
+"yes_qty": 280.5,
+"no_qty": 3233.0
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+280.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.2,
+75.5
+],
+[
+0.21,
+19.0
+],
+[
+0.73,
+13.5
+],
+[
+0.77,
+13.5
+],
+[
+0.78,
+113.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 280.5,
+"no_bid_qty": 113.0,
+"yes_bid_levels": 1,
+"no_bid_levels": 8,
+"yes_bid_qty_total": 280.5,
+"no_bid_qty_total": 3233.0,
+"buy_yes_liquidity_usd": 2782.4,
+"buy_no_liquidity_usd": 277.69,
+"total_liquidity_usd": 3060.1,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.78,
+"levels": {
+"yes": [
+[
+0.01,
+280.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.2,
+75.5
+],
+[
+0.21,
+19.0
+],
+[
+0.73,
+13.5
+],
+[
+0.77,
+13.5
+],
+[
+0.78,
+113.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.070 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.070",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.065": {
+"ticker": "KXNATGASD-26NOV2317-T4.065",
+"title": "Will the natural gas close price be above 4.065 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.17,
+"mid": 0.09,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3062.45,
+"yes_qty": 280.5,
+"no_qty": 3254.64
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.17,
+"mid": 0.09,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3063.93,
+"yes_qty": 280.5,
+"no_qty": 3254.64
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+280.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.2,
+75.5
+],
+[
+0.21,
+19.0
+],
+[
+0.81,
+148.14
+],
+[
+0.83,
+13.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 280.5,
+"no_bid_qty": 13.5,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 280.5,
+"no_bid_qty_total": 3254.64,
+"buy_yes_liquidity_usd": 2786.23,
+"buy_no_liquidity_usd": 277.69,
+"total_liquidity_usd": 3063.93,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.83,
+"levels": {
+"yes": [
+[
+0.01,
+280.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.2,
+75.5
+],
+[
+0.21,
+19.0
+],
+[
+0.81,
+148.14
+],
+[
+0.83,
+13.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.065 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.065",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.060": {
+"ticker": "KXNATGASD-26NOV2317-T4.060",
+"title": "Will the natural gas close price be above 4.060 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.2,
+"mid": 0.105,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3043.58,
+"yes_qty": 280.5,
+"no_qty": 3329.72
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.2,
+"mid": 0.105,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3043.58,
+"yes_qty": 280.5,
+"no_qty": 3329.72
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+280.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.65,
+75.5
+],
+[
+0.79,
+12.5
+],
+[
+0.8,
+222.22
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 280.5,
+"no_bid_qty": 222.22,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 280.5,
+"no_bid_qty_total": 3329.72,
+"buy_yes_liquidity_usd": 2765.88,
+"buy_no_liquidity_usd": 277.69,
+"total_liquidity_usd": 3043.58,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.8,
+"levels": {
+"yes": [
+[
+0.01,
+280.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.65,
+75.5
+],
+[
+0.79,
+12.5
+],
+[
+0.8,
+222.22
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.060 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.060",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.055": {
+"ticker": "KXNATGASD-26NOV2317-T4.055",
+"title": "Will the natural gas close price be above 4.055 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.21,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3066.77,
+"yes_qty": 316.0,
+"no_qty": 3258.64
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.2,
+"mid": 0.105,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3080.11,
+"yes_qty": 316.0,
+"no_qty": 3332.72
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+316.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.79,
+15.5
+],
+[
+0.8,
+222.22
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 316.0,
+"no_bid_qty": 222.22,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 316.0,
+"no_bid_qty_total": 3332.72,
+"buy_yes_liquidity_usd": 2767.27,
+"buy_no_liquidity_usd": 312.84,
+"total_liquidity_usd": 3080.11,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.8,
+"levels": {
+"yes": [
+[
+0.01,
+316.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.79,
+15.5
+],
+[
+0.8,
+222.22
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.055 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.055",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.050": {
+"ticker": "KXNATGASD-26NOV2317-T4.050",
+"title": "Will the natural gas close price be above 4.050 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.19,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3085.21,
+"yes_qty": 318.5,
+"no_qty": 3332.72
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.2,
+"mid": 0.105,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3074.09,
+"yes_qty": 318.5,
+"no_qty": 3258.64
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.79,
+148.14
+],
+[
+0.8,
+15.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 318.5,
+"no_bid_qty": 15.5,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 318.5,
+"no_bid_qty_total": 3258.64,
+"buy_yes_liquidity_usd": 2758.78,
+"buy_no_liquidity_usd": 315.31,
+"total_liquidity_usd": 3074.09,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.8,
+"levels": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.79,
+148.14
+],
+[
+0.8,
+15.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.050 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.050",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.045": {
+"ticker": "KXNATGASD-26NOV2317-T4.045",
+"title": "Will the natural gas close price be above 4.045 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.19,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3067.69,
+"yes_qty": 321.0,
+"no_qty": 3254.64
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.19,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3090.66,
+"yes_qty": 321.0,
+"no_qty": 3328.72
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+321.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.77,
+222.22
+],
+[
+0.81,
+11.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 321.0,
+"no_bid_qty": 11.5,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 321.0,
+"no_bid_qty_total": 3328.72,
+"buy_yes_liquidity_usd": 2772.87,
+"buy_no_liquidity_usd": 317.79,
+"total_liquidity_usd": 3090.66,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.81,
+"levels": {
+"yes": [
+[
+0.01,
+321.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.77,
+222.22
+],
+[
+0.81,
+11.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.045 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.045",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.040": {
+"ticker": "KXNATGASD-26NOV2317-T4.040",
+"title": "Will the natural gas close price be above 4.040 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.17,
+"mid": 0.09,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3064.89,
+"yes_qty": 316.0,
+"no_qty": 3256.64
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.17,
+"mid": 0.09,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3039.71,
+"yes_qty": 316.0,
+"no_qty": 3108.5
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+316.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.83,
+13.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 316.0,
+"no_bid_qty": 13.5,
+"yes_bid_levels": 1,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 316.0,
+"no_bid_qty_total": 3108.5,
+"buy_yes_liquidity_usd": 2726.87,
+"buy_no_liquidity_usd": 312.84,
+"total_liquidity_usd": 3039.71,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.83,
+"levels": {
+"yes": [
+[
+0.01,
+316.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.83,
+13.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.040 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.040",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.035": {
+"ticker": "KXNATGASD-26NOV2317-T4.035",
+"title": "Will the natural gas close price be above 4.035 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.19,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3070.66,
+"yes_qty": 318.5,
+"no_qty": 3255.64
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.21,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3042.51,
+"yes_qty": 318.5,
+"no_qty": 3107.5
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.79,
+12.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 318.5,
+"no_bid_qty": 12.5,
+"yes_bid_levels": 1,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 318.5,
+"no_bid_qty_total": 3107.5,
+"buy_yes_liquidity_usd": 2727.2,
+"buy_no_liquidity_usd": 315.31,
+"total_liquidity_usd": 3042.51,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.79,
+"levels": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.64,
+75.5
+],
+[
+0.79,
+12.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.035 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.035",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.030": {
+"ticker": "KXNATGASD-26NOV2317-T4.030",
+"title": "Will the natural gas close price be above 4.030 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.2,
+"mid": 0.105,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3119.45,
+"yes_qty": 318.5,
+"no_qty": 3281.14
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.44,
+"mid": 0.225,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3109.27,
+"yes_qty": 318.5,
+"no_qty": 3173.5
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.52,
+40.5
+],
+[
+0.56,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 318.5,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 318.5,
+"no_bid_qty_total": 3173.5,
+"buy_yes_liquidity_usd": 2793.95,
+"buy_no_liquidity_usd": 315.31,
+"total_liquidity_usd": 3109.27,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.56,
+"levels": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.52,
+40.5
+],
+[
+0.56,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.030 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.030",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": [
+{
+"to_ts": 1795180749,
+"direction": "up",
+"delta": 0.12
+}
+]
+},
+"KXNATGASD-26NOV2317-T4.025": {
+"ticker": "KXNATGASD-26NOV2317-T4.025",
+"title": "Will the natural gas close price be above 4.025 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.17,
+"mid": 0.09,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3082.83,
+"yes_qty": 318.5,
+"no_qty": 3283.64
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.18,
+"mid": 0.095,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3101.21,
+"yes_qty": 318.5,
+"no_qty": 3256.5
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.58,
+40.5
+],
+[
+0.63,
+75.5
+],
+[
+0.64,
+121.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 318.5,
+"no_bid_qty": 121.0,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 318.5,
+"no_bid_qty_total": 3256.5,
+"buy_yes_liquidity_usd": 2785.9,
+"buy_no_liquidity_usd": 315.31,
+"total_liquidity_usd": 3101.21,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.64,
+"levels": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.58,
+40.5
+],
+[
+0.63,
+75.5
+],
+[
+0.64,
+121.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.025 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.025",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.020": {
+"ticker": "KXNATGASD-26NOV2317-T4.020",
+"title": "Will the natural gas close price be above 4.020 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.18,
+"mid": 0.095,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3073.54,
+"yes_qty": 318.5,
+"no_qty": 3106.5
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.18,
+"mid": 0.095,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3101.68,
+"yes_qty": 318.5,
+"no_qty": 3254.64
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.2,
+75.5
+],
+[
+0.21,
+19.0
+],
+[
+0.81,
+148.14
+],
+[
+0.82,
+13.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 318.5,
+"no_bid_qty": 13.5,
+"yes_bid_levels": 1,
+"no_bid_levels": 7,
+"yes_bid_qty_total": 318.5,
+"no_bid_qty_total": 3254.64,
+"buy_yes_liquidity_usd": 2786.37,
+"buy_no_liquidity_usd": 315.31,
+"total_liquidity_usd": 3101.68,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.82,
+"levels": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.02,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.2,
+75.5
+],
+[
+0.21,
+19.0
+],
+[
+0.81,
+148.14
+],
+[
+0.82,
+13.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.020 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.020",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.015": {
+"ticker": "KXNATGASD-26NOV2317-T4.015",
+"title": "Will the natural gas close price be above 4.015 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.46,
+"mid": 0.235,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3087.21,
+"yes_qty": 321.0,
+"no_qty": 3133.5
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.46,
+"mid": 0.235,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3089.21,
+"yes_qty": 321.0,
+"no_qty": 3135.5
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+321.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.54,
+40.5
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 321.0,
+"no_bid_qty": 40.5,
+"yes_bid_levels": 1,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 321.0,
+"no_bid_qty_total": 3135.5,
+"buy_yes_liquidity_usd": 2771.42,
+"buy_no_liquidity_usd": 317.79,
+"total_liquidity_usd": 3089.21,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.54,
+"levels": {
+"yes": [
+[
+0.01,
+321.0
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.54,
+40.5
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.015 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.015",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.010": {
+"ticker": "KXNATGASD-26NOV2317-T4.010",
+"title": "Will the natural gas close price be above 4.010 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.47,
+"mid": 0.24,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3167.85,
+"yes_qty": 318.5,
+"no_qty": 3301.5
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.53,
+"mid": 0.27,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3088.25,
+"yes_qty": 318.5,
+"no_qty": 3133.0
+}
+],
+"book": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.47,
+38.0
+]
+]
+},
+"liquidity": {
+"yes_bid_qty": 318.5,
+"no_bid_qty": 38.0,
+"yes_bid_levels": 1,
+"no_bid_levels": 6,
+"yes_bid_qty_total": 318.5,
+"no_bid_qty_total": 3133.0,
+"buy_yes_liquidity_usd": 2772.93,
+"buy_no_liquidity_usd": 315.31,
+"total_liquidity_usd": 3088.25,
+"best_yes_bid": 0.01,
+"best_no_bid": 0.47,
+"levels": {
+"yes": [
+[
+0.01,
+318.5
+]
+],
+"no": [
+[
+0.01,
+833.0
+],
+[
+0.03,
+500.0
+],
+[
+0.18,
+1665.5
+],
+[
+0.19,
+21.0
+],
+[
+0.2,
+75.5
+],
+[
+0.47,
+38.0
+]
+]
+}
+},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.010 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.010",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4.005": {
+"ticker": "KXNATGASD-26NOV2317-T4.005",
+"title": "Will the natural gas close price be above 4.005 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.25,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.18,
+"mid": 0.095,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4.005 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.005",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T4": {
+"ticker": "KXNATGASD-26NOV2317-T4",
+"title": "Will the natural gas close price be above 4 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.26,
+"mid": 0.135,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.49,
+"mid": 0.25,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 4 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": [
+{
+"to_ts": 1795180749,
+"direction": "up",
+"delta": 0.115
+}
+]
+},
+"KXNATGASD-26NOV2317-T3.995": {
+"ticker": "KXNATGASD-26NOV2317-T3.995",
+"title": "Will the natural gas close price be above 3.995 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.41,
+"mid": 0.21,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.41,
+"mid": 0.21,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.995 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.995",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.990": {
+"ticker": "KXNATGASD-26NOV2317-T3.990",
+"title": "Will the natural gas close price be above 3.990 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.47,
+"mid": 0.24,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.47,
+"mid": 0.24,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.990 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.990",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.985": {
+"ticker": "KXNATGASD-26NOV2317-T3.985",
+"title": "Will the natural gas close price be above 3.985 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.44,
+"mid": 0.225,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.26,
+"mid": 0.135,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.985 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.985",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.980": {
+"ticker": "KXNATGASD-26NOV2317-T3.980",
+"title": "Will the natural gas close price be above 3.980 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.5,
+"mid": 0.255,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.5,
+"mid": 0.255,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.980 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.980",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.975": {
+"ticker": "KXNATGASD-26NOV2317-T3.975",
+"title": "Will the natural gas close price be above 3.975 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.41,
+"mid": 0.21,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.26,
+"mid": 0.135,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.975 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.975",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.970": {
+"ticker": "KXNATGASD-26NOV2317-T3.970",
+"title": "Will the natural gas close price be above 3.970 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.07,
+"ask": 0.11,
+"mid": 0.09,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.08,
+"ask": 0.12,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.970 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.970",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.965": {
+"ticker": "KXNATGASD-26NOV2317-T3.965",
+"title": "Will the natural gas close price be above 3.965 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.07,
+"ask": 0.11,
+"mid": 0.09,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.08,
+"ask": 0.12,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.965 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.965",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.960": {
+"ticker": "KXNATGASD-26NOV2317-T3.960",
+"title": "Will the natural gas close price be above 3.960 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.08,
+"ask": 0.12,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.08,
+"ask": 0.12,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.960 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.960",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.955": {
+"ticker": "KXNATGASD-26NOV2317-T3.955",
+"title": "Will the natural gas close price be above 3.955 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.08,
+"ask": 0.12,
+"mid": 0.1,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.955 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.955",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.950": {
+"ticker": "KXNATGASD-26NOV2317-T3.950",
+"title": "Will the natural gas close price be above 3.950 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.950 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.950",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.945": {
+"ticker": "KXNATGASD-26NOV2317-T3.945",
+"title": "Will the natural gas close price be above 3.945 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.945 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.945",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.940": {
+"ticker": "KXNATGASD-26NOV2317-T3.940",
+"title": "Will the natural gas close price be above 3.940 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.940 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.940",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.935": {
+"ticker": "KXNATGASD-26NOV2317-T3.935",
+"title": "Will the natural gas close price be above 3.935 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.1,
+"ask": 0.14,
+"mid": 0.12,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.09,
+"ask": 0.13,
+"mid": 0.11,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.935 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.935",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.930": {
+"ticker": "KXNATGASD-26NOV2317-T3.930",
+"title": "Will the natural gas close price be above 3.930 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.1,
+"ask": 0.14,
+"mid": 0.12,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.1,
+"ask": 0.14,
+"mid": 0.12,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.930 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.930",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.925": {
+"ticker": "KXNATGASD-26NOV2317-T3.925",
+"title": "Will the natural gas close price be above 3.925 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.1,
+"ask": 0.14,
+"mid": 0.12,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.1,
+"ask": 0.14,
+"mid": 0.12,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.925 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.925",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.920": {
+"ticker": "KXNATGASD-26NOV2317-T3.920",
+"title": "Will the natural gas close price be above 3.920 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.1,
+"ask": 0.14,
+"mid": 0.12,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.11,
+"ask": 0.15,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.920 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.920",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.915": {
+"ticker": "KXNATGASD-26NOV2317-T3.915",
+"title": "Will the natural gas close price be above 3.915 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.11,
+"ask": 0.15,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.11,
+"ask": 0.15,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.915 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.915",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.910": {
+"ticker": "KXNATGASD-26NOV2317-T3.910",
+"title": "Will the natural gas close price be above 3.910 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.11,
+"ask": 0.15,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.11,
+"ask": 0.15,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.910 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.910",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.905": {
+"ticker": "KXNATGASD-26NOV2317-T3.905",
+"title": "Will the natural gas close price be above 3.905 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.11,
+"ask": 0.15,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.12,
+"ask": 0.16,
+"mid": 0.14,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.905 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.905",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.900": {
+"ticker": "KXNATGASD-26NOV2317-T3.900",
+"title": "Will the natural gas close price be above 3.900 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.11,
+"ask": 0.15,
+"mid": 0.13,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.12,
+"ask": 0.16,
+"mid": 0.14,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.900 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.900",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.895": {
+"ticker": "KXNATGASD-26NOV2317-T3.895",
+"title": "Will the natural gas close price be above 3.895 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.12,
+"ask": 0.16,
+"mid": 0.14,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.12,
+"ask": 0.16,
+"mid": 0.14,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.895 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.895",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.890": {
+"ticker": "KXNATGASD-26NOV2317-T3.890",
+"title": "Will the natural gas close price be above 3.890 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.12,
+"ask": 0.16,
+"mid": 0.14,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.13,
+"ask": 0.17,
+"mid": 0.15,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.890 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.890",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.885": {
+"ticker": "KXNATGASD-26NOV2317-T3.885",
+"title": "Will the natural gas close price be above 3.885 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.13,
+"ask": 0.17,
+"mid": 0.15,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.13,
+"ask": 0.17,
+"mid": 0.15,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.885 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.885",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.880": {
+"ticker": "KXNATGASD-26NOV2317-T3.880",
+"title": "Will the natural gas close price be above 3.880 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.13,
+"ask": 0.17,
+"mid": 0.15,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.13,
+"ask": 0.17,
+"mid": 0.15,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.880 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.880",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.875": {
+"ticker": "KXNATGASD-26NOV2317-T3.875",
+"title": "Will the natural gas close price be above 3.875 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.13,
+"ask": 0.17,
+"mid": 0.15,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.14,
+"ask": 0.18,
+"mid": 0.16,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.875 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.875",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.870": {
+"ticker": "KXNATGASD-26NOV2317-T3.870",
+"title": "Will the natural gas close price be above 3.870 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.14,
+"ask": 0.18,
+"mid": 0.16,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.14,
+"ask": 0.18,
+"mid": 0.16,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.870 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.870",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.865": {
+"ticker": "KXNATGASD-26NOV2317-T3.865",
+"title": "Will the natural gas close price be above 3.865 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.14,
+"ask": 0.18,
+"mid": 0.16,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.15,
+"ask": 0.19,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.865 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.865",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.860": {
+"ticker": "KXNATGASD-26NOV2317-T3.860",
+"title": "Will the natural gas close price be above 3.860 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.15,
+"ask": 0.19,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.15,
+"ask": 0.19,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.860 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.860",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.855": {
+"ticker": "KXNATGASD-26NOV2317-T3.855",
+"title": "Will the natural gas close price be above 3.855 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.15,
+"ask": 0.19,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.15,
+"ask": 0.19,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.855 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.855",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXNATGASD-26NOV2317-T3.850": {
+"ticker": "KXNATGASD-26NOV2317-T3.850",
+"title": "Will the natural gas close price be above 3.850 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"event": "Natural gas price on Nov 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.15,
+"ask": 0.19,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.15,
+"ask": 0.19,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T22:00:00Z",
+"rules_primary": "If the close price of the 1-minute candlestick for natural gas on November 23, 2026 at 5:00 PM EST is above 3.850 USD/MMBtu, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.850",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+"site": "https://kalshi.com/markets/kxnatgasd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T99P000": {
+"ticker": "KXTTFD-23NOV261659-T99P000",
+"title": "Dutch TTF gas above $99.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.28,
+"ask": 0.36,
+"mid": 0.32,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.28,
+"ask": 0.36,
+"mid": 0.32,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 99.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T99P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T98P000": {
+"ticker": "KXTTFD-23NOV261659-T98P000",
+"title": "Dutch TTF gas above $98.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.32,
+"ask": 0.41,
+"mid": 0.365,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.32,
+"ask": 0.41,
+"mid": 0.365,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 98.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T98P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T97P000": {
+"ticker": "KXTTFD-23NOV261659-T97P000",
+"title": "Dutch TTF gas above $97.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.37,
+"ask": 0.45,
+"mid": 0.41,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.37,
+"ask": 0.45,
+"mid": 0.41,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 97.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T97P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T96P000": {
+"ticker": "KXTTFD-23NOV261659-T96P000",
+"title": "Dutch TTF gas above $96.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.41,
+"ask": 0.5,
+"mid": 0.455,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.41,
+"ask": 0.5,
+"mid": 0.455,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 96.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T96P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T95P000": {
+"ticker": "KXTTFD-23NOV261659-T95P000",
+"title": "Dutch TTF gas above $95.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.46,
+"ask": 0.55,
+"mid": 0.505,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.46,
+"ask": 0.55,
+"mid": 0.505,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 95.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T95P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T94P000": {
+"ticker": "KXTTFD-23NOV261659-T94P000",
+"title": "Dutch TTF gas above $94.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.51,
+"ask": 0.59,
+"mid": 0.55,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.51,
+"ask": 0.59,
+"mid": 0.55,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 94.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T94P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T93P000": {
+"ticker": "KXTTFD-23NOV261659-T93P000",
+"title": "Dutch TTF gas above $93.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.55,
+"ask": 0.64,
+"mid": 0.595,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.55,
+"ask": 0.64,
+"mid": 0.595,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 93.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T93P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T92P000": {
+"ticker": "KXTTFD-23NOV261659-T92P000",
+"title": "Dutch TTF gas above $92.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.6,
+"ask": 0.69,
+"mid": 0.645,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.6,
+"ask": 0.69,
+"mid": 0.645,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 92.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T92P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T91P000": {
+"ticker": "KXTTFD-23NOV261659-T91P000",
+"title": "Dutch TTF gas above $91.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.65,
+"ask": 0.73,
+"mid": 0.69,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.65,
+"ask": 0.73,
+"mid": 0.69,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 91.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T91P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T90P000": {
+"ticker": "KXTTFD-23NOV261659-T90P000",
+"title": "Dutch TTF gas above $90.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.69,
+"ask": 0.78,
+"mid": 0.735,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.69,
+"ask": 0.78,
+"mid": 0.735,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 90.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T90P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T89P000": {
+"ticker": "KXTTFD-23NOV261659-T89P000",
+"title": "Dutch TTF gas above $89.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.74,
+"ask": 0.82,
+"mid": 0.78,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.74,
+"ask": 0.82,
+"mid": 0.78,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 89.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T89P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T88P000": {
+"ticker": "KXTTFD-23NOV261659-T88P000",
+"title": "Dutch TTF gas above $88.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.78,
+"ask": 0.86,
+"mid": 0.82,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.78,
+"ask": 0.86,
+"mid": 0.82,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 88.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T88P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T87P000": {
+"ticker": "KXTTFD-23NOV261659-T87P000",
+"title": "Dutch TTF gas above $87.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.81,
+"ask": 0.9,
+"mid": 0.855,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.81,
+"ask": 0.9,
+"mid": 0.855,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 87.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T87P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T86P000": {
+"ticker": "KXTTFD-23NOV261659-T86P000",
+"title": "Dutch TTF gas above $86.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.84,
+"ask": 0.93,
+"mid": 0.885,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.84,
+"ask": 0.93,
+"mid": 0.885,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 86.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T86P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T85P000": {
+"ticker": "KXTTFD-23NOV261659-T85P000",
+"title": "Dutch TTF gas above $85.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.87,
+"ask": 0.96,
+"mid": 0.915,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.87,
+"ask": 0.96,
+"mid": 0.915,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 85.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T85P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T84P000": {
+"ticker": "KXTTFD-23NOV261659-T84P000",
+"title": "Dutch TTF gas above $84.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.89,
+"ask": 0.98,
+"mid": 0.935,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.89,
+"ask": 0.98,
+"mid": 0.935,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 84.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T84P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T83P000": {
+"ticker": "KXTTFD-23NOV261659-T83P000",
+"title": "Dutch TTF gas above $83.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.91,
+"ask": 0.99,
+"mid": 0.95,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.91,
+"ask": 0.99,
+"mid": 0.95,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 83.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T83P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T82P000": {
+"ticker": "KXTTFD-23NOV261659-T82P000",
+"title": "Dutch TTF gas above $82.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.92,
+"ask": 0.99,
+"mid": 0.955,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.92,
+"ask": 0.99,
+"mid": 0.955,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 82.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T82P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T81P000": {
+"ticker": "KXTTFD-23NOV261659-T81P000",
+"title": "Dutch TTF gas above $81.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.93,
+"ask": 1.0,
+"mid": 0.965,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.93,
+"ask": 1.0,
+"mid": 0.965,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 81.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T81P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T80P000": {
+"ticker": "KXTTFD-23NOV261659-T80P000",
+"title": "Dutch TTF gas above $80.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.94,
+"ask": 1.0,
+"mid": 0.97,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.94,
+"ask": 1.0,
+"mid": 0.97,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 80.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T80P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T79P000": {
+"ticker": "KXTTFD-23NOV261659-T79P000",
+"title": "Dutch TTF gas above $79.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 79.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T79P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T78P000": {
+"ticker": "KXTTFD-23NOV261659-T78P000",
+"title": "Dutch TTF gas above $78.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 78.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T78P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T77P000": {
+"ticker": "KXTTFD-23NOV261659-T77P000",
+"title": "Dutch TTF gas above $77.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 77.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T77P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T76P000": {
+"ticker": "KXTTFD-23NOV261659-T76P000",
+"title": "Dutch TTF gas above $76.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 76.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T76P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T75P000": {
+"ticker": "KXTTFD-23NOV261659-T75P000",
+"title": "Dutch TTF gas above $75.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.96,
+"ask": 1.0,
+"mid": 0.98,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.96,
+"ask": 1.0,
+"mid": 0.98,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 75.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T75P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T74P000": {
+"ticker": "KXTTFD-23NOV261659-T74P000",
+"title": "Dutch TTF gas above $74.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.96,
+"ask": 1.0,
+"mid": 0.98,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.96,
+"ask": 1.0,
+"mid": 0.98,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 74.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T74P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T73P000": {
+"ticker": "KXTTFD-23NOV261659-T73P000",
+"title": "Dutch TTF gas above $73.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.96,
+"ask": 1.0,
+"mid": 0.98,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.96,
+"ask": 1.0,
+"mid": 0.98,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 73.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T73P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T112P000": {
+"ticker": "KXTTFD-23NOV261659-T112P000",
+"title": "Dutch TTF gas above $112.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.06,
+"mid": 0.03,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.06,
+"mid": 0.03,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 112.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T112P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T111P000": {
+"ticker": "KXTTFD-23NOV261659-T111P000",
+"title": "Dutch TTF gas above $111.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.07,
+"mid": 0.035,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.0,
+"ask": 0.07,
+"mid": 0.035,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 111.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T111P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T110P000": {
+"ticker": "KXTTFD-23NOV261659-T110P000",
+"title": "Dutch TTF gas above $110.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.08,
+"mid": 0.045,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.08,
+"mid": 0.045,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 110.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T110P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T109P000": {
+"ticker": "KXTTFD-23NOV261659-T109P000",
+"title": "Dutch TTF gas above $109.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.09,
+"mid": 0.05,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.01,
+"ask": 0.09,
+"mid": 0.05,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 109.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T109P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T108P000": {
+"ticker": "KXTTFD-23NOV261659-T108P000",
+"title": "Dutch TTF gas above $108.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.02,
+"ask": 0.1,
+"mid": 0.06,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.02,
+"ask": 0.1,
+"mid": 0.06,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 108.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T108P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T107P000": {
+"ticker": "KXTTFD-23NOV261659-T107P000",
+"title": "Dutch TTF gas above $107.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.03,
+"ask": 0.12,
+"mid": 0.075,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.03,
+"ask": 0.12,
+"mid": 0.075,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 107.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T107P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T106P000": {
+"ticker": "KXTTFD-23NOV261659-T106P000",
+"title": "Dutch TTF gas above $106.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.05,
+"ask": 0.14,
+"mid": 0.095,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.05,
+"ask": 0.14,
+"mid": 0.095,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 106.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T106P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T105P000": {
+"ticker": "KXTTFD-23NOV261659-T105P000",
+"title": "Dutch TTF gas above $105.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.07,
+"ask": 0.16,
+"mid": 0.115,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.07,
+"ask": 0.16,
+"mid": 0.115,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 105.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T105P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T104P000": {
+"ticker": "KXTTFD-23NOV261659-T104P000",
+"title": "Dutch TTF gas above $104.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.1,
+"ask": 0.19,
+"mid": 0.145,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.1,
+"ask": 0.19,
+"mid": 0.145,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 104.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T104P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T103P000": {
+"ticker": "KXTTFD-23NOV261659-T103P000",
+"title": "Dutch TTF gas above $103.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.13,
+"ask": 0.21,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.13,
+"ask": 0.21,
+"mid": 0.17,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 103.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T103P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T102P000": {
+"ticker": "KXTTFD-23NOV261659-T102P000",
+"title": "Dutch TTF gas above $102.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.16,
+"ask": 0.25,
+"mid": 0.205,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.16,
+"ask": 0.25,
+"mid": 0.205,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 102.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T102P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T101P000": {
+"ticker": "KXTTFD-23NOV261659-T101P000",
+"title": "Dutch TTF gas above $101.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.2,
+"ask": 0.28,
+"mid": 0.24,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.2,
+"ask": 0.28,
+"mid": 0.24,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 101.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T101P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+},
+"KXTTFD-23NOV261659-T100P000": {
+"ticker": "KXTTFD-23NOV261659-T100P000",
+"title": "Dutch TTF gas above $100.000 on Nov 23 at 4:59:59 PM EST?",
+"event": "Dutch TTF gas price on November 23, 2026 at 4:59:59 PM EST",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.24,
+"ask": 0.32,
+"mid": 0.28,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+},
+{
+"t": 1795180749,
+"bid": 0.24,
+"ask": 0.32,
+"mid": 0.28,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"book": {},
+"liquidity": {},
+"close_time": "2026-11-23T21:59:59Z",
+"rules_primary": "If the USD price of Dutch TTF is above 100.000 U.S. dollars at 4:59:59 PM EST on November 23, 2026, then the market resolves to Yes.",
+"sources": {
+"market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTTFD-23NOV261659-T100P000",
+"event": "https://api.elections.kalshi.com/trade-api/v2/events/KXTTFD-23NOV261659",
+"series": "https://api.elections.kalshi.com/trade-api/v2/series/KXTTFD",
+"site": "https://kalshi.com/markets/kxttfd"
+},
+"jumps": []
+}
+}

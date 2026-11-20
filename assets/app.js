@@ -64,7 +64,7 @@
     var depthCanvas = $("depthChart");
     var state = { topic: "all", range: 300, ticker: null, zoomY: true };
 
-    fetch("assets/data/markets.json", { cache: "no-store" })
+    fetch("data/markets.json", { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (d) { DATA = d; pick(); })
       .catch(function () { DATA = {}; pick(); });
@@ -216,7 +216,7 @@
   function initEquity() {
     var canvas = $("equityChart");
     if (!canvas) return;
-    fetch("assets/data/equity.json", { cache: "no-store" })
+    fetch("data/equity.json", { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (pts) {
         var range = 0;
