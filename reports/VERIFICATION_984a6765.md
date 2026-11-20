@@ -36,6 +36,8 @@ live observations came through the page fetcher.
 
 ## 2. Line-by-line checks
 
+Totals: 28 claims. 21 verified (C19 verified except the reciprocal-ask detail), 4 irregularities (I1–I4), 2 unverified or blocked (C24, C25), 1 not re-checked (C28).
+
 | # | Claim on the site | Official check | Result |
 |---|---|---|---|
 | C1 | Demo REST root `https://external-api.demo.kalshi.co/trade-api/v2` | OS1 table ("Recommended demo endpoint"); live OS15 returned 200 with `trading_active: true` | **Verified** |
