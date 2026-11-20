@@ -17,7 +17,7 @@ Task T3/T5 · Session `a2ec5543` · 2026-11-20 (UTC). Code: `scripts/build_site.
 5. **Moves**: a "sharp move" is a change of at least **$0.10** between two consecutive candle closes of the same market (either direction). Each move row links to the market's official API record and its contract-terms PDF. **No cause is attributed.** The cause field reads "NOT VERIFIED", because the API gives no official news attribution.
 6. **Resolved**: settled markets in the last 30 days, sorted by settlement time (newest first). Outcome = the official `result` field, shown as **YES** or **NO**. Any other result is shown as-is and flagged.
 7. **Backtest** (`scripts/backtest.py`): see section 3.
-8. **Publish**: the built site is written to `_site/`, checked by `check_site.py` (internal links, JSON parse, required files), and on `main` committed to `monitor/`.
+8. **Publish**: the built site is written to `_site/`, checked by `check_site.py` (internal links, JSON parse, required files), and on `main` committed to `a2ec5543/`.
 
 ## 2. Verification rules
 

@@ -6,7 +6,7 @@ Session `a2ec5543` · 2026-11-20 (UTC) · Branch `arena/a2ec5543-trade1` · PR #
 
 A read-only, category-separated monitor of **Kalshi demo** markets for five topics: gas prices, elections, culture, crypto, and golf. It is built from the official Kalshi Trade API (demo host `external-api.demo.kalshi.co`). Each event is shown with its official source link. Nothing is typed in by hand.
 
-Published page: `https://wingbangboozle1-lang.github.io/Trade1/monitor/` (after the `main` publish; see the deployment record in `COORDINATION.md`).
+Published page: `https://wingbangboozle1-lang.github.io/Trade1/a2ec5543/` (after the `main` publish; see the deployment record in `COORDINATION.md`).
 
 ## What it shows
 
@@ -42,7 +42,7 @@ Published page: `https://wingbangboozle1-lang.github.io/Trade1/monitor/` (after 
 - **Empty candles for `KXAAAGASM-26OCT31-4.18`:** cause unknown (see Flagged F6).
 - **Developer Agreement (S16):** not read. The PDF viewer did not return text.
 - **Two gas contract PDFs** (`AAAGASNEW`, `AAAGASMINMAX`): not opened.
-- **Publishing:** Pages is legacy `main /`. The site is committed as `monitor/` (see Flagged F13).
+- **Publishing:** Pages is legacy `main /`. The site is committed as `a2ec5543/` (see Flagged F13).
 
 ## Irregularities to review
 
