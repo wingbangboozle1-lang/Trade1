@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-11-20T13:19:05.597977+00:00",
+ "generated_at": "2026-11-20T13:21:16.590959+00:00",
  "window": "last 3 days (min_settled_ts = now-72h)",
  "source_urls": [
-  "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000",
-  "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000&cursor=CgsI2o2B2AYQgKe0FBIZS1hFVEhELTI2Tk9WMjAwNy1UMTY1NC45OQ",
-  "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000&cursor=CgsI2o2B2AYQsOiZFBIaS1hIWVBFRC0yNk5PVjIwMDgtVDQ5LjI0OTk"
+  "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921714&limit=1000&mve_filter=exclude",
+  "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921714&limit=1000&mve_filter=exclude&cursor=CgsI2o2B2AYQgKe0FBIZS1hFVEhELTI2Tk9WMjAwNy1UMTYxNC45OQ",
+  "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921714&limit=1000&mve_filter=exclude&cursor=CgsI2o2B2AYQsOiZFBIaS1hIWVBFRC0yNk5PVjIwMDgtVDQ3LjI0OTk"
  ],
  "settled_total": 6000,
  "in_scope_count": 22,
@@ -37,6 +37,7 @@
    "can_close_early": true,
    "strike_type": "greater_or_equal",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:15:24.61312Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -69,6 +70,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -101,6 +103,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -133,6 +136,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -165,6 +169,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -197,6 +202,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -229,6 +235,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -261,6 +268,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -293,6 +301,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -325,6 +334,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -357,6 +367,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -389,6 +400,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -421,6 +433,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -453,6 +466,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -485,6 +499,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -517,6 +532,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -549,6 +565,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -581,6 +598,7 @@
    "can_close_early": true,
    "strike_type": "greater",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:14:49.617968Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -613,6 +631,7 @@
    "can_close_early": true,
    "strike_type": "greater_or_equal",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T13:00:24.612578Z",
    "settlement_value_dollars": "1.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -645,6 +664,7 @@
    "can_close_early": true,
    "strike_type": "greater_or_equal",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T12:45:24.560168Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -677,6 +697,7 @@
    "can_close_early": true,
    "strike_type": "greater_or_equal",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T12:30:24.563109Z",
    "settlement_value_dollars": "1.0000",
    "_topic": "gas-prices",
    "_event_title": null
@@ -709,6 +730,7 @@
    "can_close_early": true,
    "strike_type": "greater_or_equal",
    "price_level_structure": "linear_cent",
+   "settlement_ts": "2026-11-20T12:15:24.562216Z",
    "settlement_value_dollars": "0.0000",
    "_topic": "gas-prices",
    "_event_title": null

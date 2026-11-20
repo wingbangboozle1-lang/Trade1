@@ -1,16 +1,22 @@
 {
  "topic": "culture",
  "label": "Culture",
- "generated_at": "2026-11-20T13:19:05.597977+00:00",
+ "generated_at": "2026-11-20T13:21:16.590959+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
-   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=1000"
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200",
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI8MuXhwcSFEtYU0hFSU5CQVVNT1VULTI2T0NU",
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXVi0yOE5PVjA3V1ZTMDA5"
   ],
   "markets": [
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwIv--A2AYQ4LPi2AMSK0tYTkZMTU9TVFJTSFlEUy0yNk5PVjIyVEVOREFMLVRFTlRQT0xMQVJEMjA",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgsIvu-A2AYQkISsPxIeS1hQQUxMQURJVU1ILTI2Tk9WMjMxNi1UODkzLjQ5"
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgsIv--A2AYQsK-GdBIeS1hQQUxMQURJVU1ILTI2Tk9WMjMwMC1UODg5LjQ5",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIve-A2AYQwOXf0wISHktYUEFMTEFESVVNSC0yNk5PVjI0MDAtVDg5MC40OQ"
+  ],
+  "event_markets_example": [
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTNATOSECGEN-99",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEWPOPE-70"
   ]
  },
  "definition": {
@@ -26,6 +32,1716 @@
   "title_keywords": "",
   "series_prefix": ""
  },
- "event_count": 0,
- "events": []
+ "event_count": 28,
+ "events": [
+  {
+   "event_ticker": "KXGTA7RELEASEDATE-USA",
+   "series_ticker": "KXGTA7RELEASEDATE",
+   "title": "Grand Theft Auto VII · Release Date",
+   "sub_title": "Grand Theft Auto VII by Rockstar Games - USA",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-19T01:39:13.673764Z",
+   "settlement_sources": [
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "Rockstar Games",
+     "url": "https://www.rockstargames.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Entertainment Weekly",
+     "url": "https://ew.com"
+    },
+    {
+     "name": "Take-Two Interactive",
+     "url": "https://www.take2games.com/"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    },
+    {
+     "name": "official website or verified social media account of the media distributor in geography",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "IMDb",
+     "url": "https://www.imdb.com"
+    },
+    {
+     "name": "Spotify",
+     "url": "https://www.spotify.com"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "Netflix",
+     "url": "https://www.netflix.com/tudum/top10"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "film studios responsible for the production of media",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMBONDSONG-35",
+   "series_ticker": "KXPERFORMBONDSONG",
+   "title": "Who will perform the next James Bond theme?",
+   "sub_title": "Before 2035",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-18T16:36:33.589505Z",
+   "settlement_sources": [
+    {
+     "name": "performer",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "official production company or studio releasing song",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "official credits of the release",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "the Recording Industry Association of America",
+     "url": "https://www.riaa.com"
+    },
+    {
+     "name": "Billboard",
+     "url": "https://www.billboard.com"
+    },
+    {
+     "name": "Rolling Stone",
+     "url": "https://www.rollingstone.com"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://www.ap.org"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    },
+    {
+     "name": "official websites or social media accounts of the production",
+     "url": "https://kalshi.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXJOHNNYDEPP-35",
+   "series_ticker": "KXJOHNNYDEPP",
+   "title": "Will Johnny Depp be cast in the next Pirates of the Caribbean?",
+   "sub_title": "Before 2035",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T08:23:04.157629Z",
+   "settlement_sources": [
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com/"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com/"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://www.abc.net.au/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXACTORSONNYCROCKETT-35",
+   "series_ticker": "KXACTORSONNYCROCKETT",
+   "title": "Who will be cast as the next Miami Vice?",
+   "sub_title": "Before 2035",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T08:23:04.157629Z",
+   "settlement_sources": [
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com/"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com/"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://www.abc.net.au/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXGTA6SONGS-31",
+   "series_ticker": "KXGTA6SONGS",
+   "title": "What songs will be on the GTA 6 radio at launch?",
+   "sub_title": "At launch",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-25T20:48:47.808431Z",
+   "settlement_sources": [
+    {
+     "name": "Kotaku",
+     "url": "https://kotaku.com"
+    },
+    {
+     "name": "Rockstar Games",
+     "url": "https://www.rockstargames.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXTVSEASONRELEASETHELASTOFUS",
+   "series_ticker": "KXTVSEASONRELEASETHELASTOFUS",
+   "title": "When will \"The Last of Us\" Season 3 be released?",
+   "sub_title": "\"The Last of Us\" Season 3",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T12:24:19.150006Z",
+   "settlement_sources": [
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com/"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://www.abc.net.au/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com/"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXACTORTOMCRUZ-30",
+   "series_ticker": "KXACTORTOMCRUZ",
+   "title": "Will Tom Cruise be cast in another Film With Ana de Armas?",
+   "sub_title": "Before 2030",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T08:23:04.157629Z",
+   "settlement_sources": [
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com/"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com/"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://www.abc.net.au/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXINDIANAPOWELL-30",
+   "series_ticker": "KXINDIANAPOWELL",
+   "title": "Will Glen Powell be cast in the next Indiana Jones movie?",
+   "sub_title": "Before 2030",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T08:23:04.157629Z",
+   "settlement_sources": [
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com/"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com/"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMROLEBRITNEY",
+   "series_ticker": "KXPERFORMROLEBRITNEY",
+   "title": "Who will play Britney Spears in the Jon M. Chu–directed biopic?",
+   "sub_title": "Who will play Britney Spears?",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T11:49:19.642239Z",
+   "settlement_sources": [
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com/c/tv/tv-news/"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com/"
+    },
+    {
+     "name": "Universal",
+     "url": "https://www.universalpictures.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMROLE007-VILLAIN",
+   "series_ticker": "KXPERFORMROLE007",
+   "title": "Who will be the next James Bond villain?",
+   "sub_title": "Who will play the Villain?",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-18T16:36:33.82533Z",
+   "settlement_sources": [
+    {
+     "name": "007.com",
+     "url": "https://www.007.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMROLE007-Q",
+   "series_ticker": "KXPERFORMROLE007",
+   "title": "Who will play Q in the next James Bond?",
+   "sub_title": "Who will be Q",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-27T02:29:11.513495Z",
+   "settlement_sources": [
+    {
+     "name": "007.com",
+     "url": "https://www.007.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMROLE007-MONEYPENNY",
+   "series_ticker": "KXPERFORMROLE007",
+   "title": "Who will play Moneypenny in the next James Bond?",
+   "sub_title": "Who will play Moneypenny?",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-27T02:29:11.502999Z",
+   "settlement_sources": [
+    {
+     "name": "007.com",
+     "url": "https://www.007.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMROLE007-M",
+   "series_ticker": "KXPERFORMROLE007",
+   "title": "Who will play M in the next James Bond film?",
+   "sub_title": "Who will play M?",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-27T02:29:11.490779Z",
+   "settlement_sources": [
+    {
+     "name": "007.com",
+     "url": "https://www.007.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMROLE007-FELIX",
+   "series_ticker": "KXPERFORMROLE007",
+   "title": "Who will play Felix Leiter in the next James Bond?",
+   "sub_title": "Who will play Felix Leiter?",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-27T02:29:11.482542Z",
+   "settlement_sources": [
+    {
+     "name": "007.com",
+     "url": "https://www.007.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPERFORMROLE007",
+   "series_ticker": "KXPERFORMROLE007",
+   "title": "Who will play the next Bond girl?",
+   "sub_title": "Who will play the next Bond girl?",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-18T22:36:19.678495Z",
+   "settlement_sources": [
+    {
+     "name": "007.com",
+     "url": "https://www.007.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXYTUBESUBSISHOWSPEED",
+   "series_ticker": "KXYTUBESUBSISHOWSPEED",
+   "title": "When will IShowSpeed reach 100 million Youtube subscribers?",
+   "sub_title": "100 million Youtube subscribers",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T15:44:21.406821Z",
+   "settlement_sources": [
+    {
+     "name": "YouTube",
+     "url": "https://www.youtube.com/c/ISHOWSPEED"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXTVSEASONRELEASEACOURTOFTHORNSANDROSES",
+   "series_ticker": "KXTVSEASONRELEASEACOURTOFTHORNSANDROSES",
+   "title": "Will A Court Of Thorns and Roses be released?",
+   "sub_title": "A Court Of Thorns and Roses",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T11:57:58.914407Z",
+   "settlement_sources": [
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com/"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://www.abc.net.au/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com/"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXSHOWENDSIMPSONS-30",
+   "series_ticker": "KXSHOWENDSIMPSONS",
+   "title": "Will there be an announcement that The Simpsons is ending?",
+   "sub_title": "Before 2030",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T11:51:03.678242Z",
+   "settlement_sources": [
+    {
+     "name": "producing network or streaming service of ",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "production company of ",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com/"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com/"
+    },
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "The Wrap",
+     "url": "https://www.thewrap.com"
+    },
+    {
+     "name": "Entertainment Weekly",
+     "url": "https://www.google.com/search?q=Entertainment+Weekly"
+    },
+    {
+     "name": "TVLine",
+     "url": "https://tvline.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://www.ap.org"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXSHOWENDFAMILYGUY-30",
+   "series_ticker": "KXSHOWENDFAMILYGUY",
+   "title": "Will there be an announcement that Family Guy is ending?",
+   "sub_title": "Before 2030",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T12:22:37.862173Z",
+   "settlement_sources": [
+    {
+     "name": "Hulu",
+     "url": "https://www.hulu.com/welcome"
+    },
+    {
+     "name": "Fuzzy Door",
+     "url": "https://fuzzydoor.com/"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com/"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com/"
+    },
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "The Wrap",
+     "url": "https://www.thewrap.com"
+    },
+    {
+     "name": "Entertainment Weekly",
+     "url": "https://www.google.com/search?q=Entertainment+Weekly"
+    },
+    {
+     "name": "TVLine",
+     "url": "https://tvline.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXMOVIERELEASEDATE-AUS",
+   "series_ticker": "KXMOVIERELEASEDATE",
+   "title": "Austin Powers 4: Release Date",
+   "sub_title": "a fourth Austin Powers movie - United States",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T05:24:33.386007Z",
+   "settlement_sources": [
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "Entertainment Weekly",
+     "url": "https://ew.com"
+    },
+    {
+     "name": "streaming platform for media in geography",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "The Source Agencies are",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "official website or verified social media account of the media distributor in geography",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "IMDb",
+     "url": "https://www.imdb.com"
+    },
+    {
+     "name": "Spotify",
+     "url": "https://www.spotify.com"
+    },
+    {
+     "name": "Netflix",
+     "url": "https://www.netflix.com/tudum/top10"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "film studios responsible for the production of media",
+     "url": "https://kalshi.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXMOVIERELEASEDATE-007",
+   "series_ticker": "KXMOVIERELEASEDATE",
+   "title": "James Bond · Release Date",
+   "sub_title": "James Bond",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T19:08:10.252326Z",
+   "settlement_sources": [
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "Entertainment Weekly",
+     "url": "https://ew.com"
+    },
+    {
+     "name": "streaming platform for media in geography",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "The Source Agencies are",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "official website or verified social media account of the media distributor in geography",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "IMDb",
+     "url": "https://www.imdb.com"
+    },
+    {
+     "name": "Spotify",
+     "url": "https://www.spotify.com"
+    },
+    {
+     "name": "Netflix",
+     "url": "https://www.netflix.com/tudum/top10"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "film studios responsible for the production of media",
+     "url": "https://kalshi.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXMEDIARELEASEPRISONBREAK-30JAN01",
+   "series_ticker": "KXMEDIARELEASEPRISONBREAK",
+   "title": "When will Prison Break return?",
+   "sub_title": "A New Season of Prison Break - Worldwide",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T11:52:43.941019Z",
+   "settlement_sources": [
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com/"
+    },
+    {
+     "name": "Netflix",
+     "url": "https://www.netflix.com/tudum/top10"
+    },
+    {
+     "name": "Spotify",
+     "url": "https://www.spotify.com"
+    },
+    {
+     "name": "IMDb",
+     "url": "https://www.imdb.com"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "Entertainment Weekly",
+     "url": "https://ew.com"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://www.semafor.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXMARRIAGESTYLESKRAVITZ-HSZK",
+   "series_ticker": "KXMARRIAGESTYLESKRAVITZ",
+   "title": "When will Harry Styles and Zoe Kravitz be married?",
+   "sub_title": "Before 2030",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T13:13:27.47421Z",
+   "settlement_sources": [
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "Harry Styles",
+     "url": "https://www.instagram.com/harrystyles/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "Zoë Kravitz",
+     "url": "https://www.instagram.com/zoeisabellakravitz/"
+    },
+    {
+     "name": "TMZ",
+     "url": "https://www.tmz.com"
+    },
+    {
+     "name": "official government marriage registries and vital statistics departments",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "E! News",
+     "url": "https://www.eonline.com/news/e-news"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "People Magazine",
+     "url": "https://www.people.com"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    },
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXGTA6SONGS-30",
+   "series_ticker": "KXGTA6SONGS",
+   "title": "What songs will be on the GTA 6 radio at launch?",
+   "sub_title": "At launch",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-18T21:56:41.132154Z",
+   "settlement_sources": [
+    {
+     "name": "Kotaku",
+     "url": "https://kotaku.com"
+    },
+    {
+     "name": "Rockstar Games",
+     "url": "https://www.rockstargames.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXARTISTCOLLABTHUGANDGUNNA-30",
+   "series_ticker": "KXARTISTCOLLABTHUGANDGUNNA",
+   "title": "Will Young Thug and Gunna make a song together?",
+   "sub_title": "Before 2030",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T08:23:09.53025Z",
+   "settlement_sources": [
+    {
+     "name": "Apple Music",
+     "url": "https://music.apple.com"
+    },
+    {
+     "name": "YouTube Music",
+     "url": "https://music.youtube.com"
+    },
+    {
+     "name": "Amazon Music",
+     "url": "https://music.amazon.com"
+    },
+    {
+     "name": "Tidal",
+     "url": "https://tidal.com"
+    },
+    {
+     "name": "SoundCloud",
+     "url": "https://www.soundcloud.com"
+    },
+    {
+     "name": "Bandcamp",
+     "url": "https://bandcamp.com"
+    },
+    {
+     "name": "Young Thug ",
+     "url": "https://open.spotify.com/artist/50co4Is1HCEo8bhOyUWKpn?si=c7OvE7ngTbSBu_IF5zq7iw"
+    },
+    {
+     "name": "Gunna",
+     "url": "https://open.spotify.com/artist/2hlmm7s2ICUX0LVIhVFlZQ?si=cbxdJ4KZTtCp-nhfMg0nDQ"
+    },
+    {
+     "name": "Billboard",
+     "url": "https://www.billboard.com"
+    },
+    {
+     "name": "Rolling Stone",
+     "url": "https://www.rollingstone.com"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "Pitchfork",
+     "url": "https://pitchfork.com"
+    },
+    {
+     "name": "Complex",
+     "url": "https://complex.com/"
+    },
+    {
+     "name": "XXL Magazine",
+     "url": "https://www.xxlmag.com"
+    },
+    {
+     "name": "Spotify",
+     "url": "https://www.spotify.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXARTISTCOLLABDRAKEKENDRICK-30",
+   "series_ticker": "KXARTISTCOLLABDRAKEKENDRICK",
+   "title": "Will Drake and Kendrick Lamar make a song together before 2030?",
+   "sub_title": "Before 2030",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T08:23:09.517207Z",
+   "settlement_sources": [
+    {
+     "name": "Apple Music",
+     "url": "https://music.apple.com"
+    },
+    {
+     "name": "YouTube Music",
+     "url": "https://music.youtube.com"
+    },
+    {
+     "name": "Amazon Music",
+     "url": "https://music.amazon.com"
+    },
+    {
+     "name": "Tidal",
+     "url": "https://tidal.com"
+    },
+    {
+     "name": "SoundCloud",
+     "url": "https://www.soundcloud.com"
+    },
+    {
+     "name": "Bandcamp",
+     "url": "https://bandcamp.com"
+    },
+    {
+     "name": "artist 1",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "artist 2",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Billboard",
+     "url": "https://www.billboard.com"
+    },
+    {
+     "name": "Rolling Stone",
+     "url": "https://www.rollingstone.com"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "Pitchfork",
+     "url": "https://pitchfork.com"
+    },
+    {
+     "name": "Complex",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "XXL Magazine",
+     "url": "https://www.xxlmag.com"
+    },
+    {
+     "name": "Spotify",
+     "url": "https://www.spotify.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "BEYONCEGENRE-30",
+   "series_ticker": "BEYONCEGENRE",
+   "title": "What genre will the next Beyonce album be?",
+   "sub_title": "Next Beyonce album genre",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T08:23:04.157629Z",
+   "settlement_sources": [
+    {
+     "name": "Billboard",
+     "url": "https://www.billboard.com/charts/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXGTA6STORY-01JAN30",
+   "series_ticker": "KXGTA6STORY",
+   "title": "GTA VI · New single-player story content announced when?",
+   "sub_title": "Quarterly deadlines through Oct 1, 2028",
+   "category": "Entertainment",
+   "mutually_exclusive": false,
+   "strike_date": "2030-01-01T05:00:00Z",
+   "last_updated_ts": "2026-11-18T15:55:41.799273Z",
+   "settlement_sources": [
+    {
+     "name": "MS Now",
+     "url": "https://www.ms.now/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "CNBC",
+     "url": "https://www.cnbc.com"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    },
+    {
+     "name": "Rockstar Games",
+     "url": "https://www.rockstargames.com/"
+    },
+    {
+     "name": "Take-Two Interactive Software, Inc. Investor Events",
+     "url": "https://www.take2games.com/ir"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  }
+ ]
 }

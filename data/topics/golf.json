@@ -1,16 +1,22 @@
 {
  "topic": "golf",
  "label": "Golf",
- "generated_at": "2026-11-20T13:19:05.597977+00:00",
+ "generated_at": "2026-11-20T13:21:16.590959+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
-   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=1000"
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200",
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI8MuXhwcSFEtYU0hFSU5CQVVNT1VULTI2T0NU",
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXVi0yOE5PVjA3V1ZTMDA5"
   ],
   "markets": [
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwIv--A2AYQ4LPi2AMSK0tYTkZMTU9TVFJTSFlEUy0yNk5PVjIyVEVOREFMLVRFTlRQT0xMQVJEMjA",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgsIvu-A2AYQkISsPxIeS1hQQUxMQURJVU1ILTI2Tk9WMjMxNi1UODkzLjQ5"
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgsIv--A2AYQsK-GdBIeS1hQQUxMQURJVU1ILTI2Tk9WMjMwMC1UODg5LjQ5",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIve-A2AYQwOXf0wISHktYUEFMTEFESVVNSC0yNk5PVjI0MDAtVDg5MC40OQ"
+  ],
+  "event_markets_example": [
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTNATOSECGEN-99",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEWPOPE-70"
   ]
  },
  "definition": {
@@ -20,6 +26,79 @@
   "title_keywords": "golf",
   "series_prefix": "^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)"
  },
- "event_count": 0,
- "events": []
+ "event_count": 3,
+ "events": [
+  {
+   "event_ticker": "KXPGAFUTURE-36MRUS",
+   "series_ticker": "KXPGAFUTURE",
+   "title": "Miles Russell: Golf Majors by 2036",
+   "sub_title": "Miles Russell",
+   "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T06:32:43.418724Z",
+   "settlement_sources": [
+    {
+     "name": "the Governing League",
+     "url": "https://www.pgatour.com/"
+    },
+    {
+     "name": "ESPN",
+     "url": "https://www.espn.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXPGAFUTURE-36JKOI",
+   "series_ticker": "KXPGAFUTURE",
+   "title": "Jackson Koivun: Golf Majors before 2036",
+   "sub_title": "Jackson Koivun",
+   "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T06:12:58.318235Z",
+   "settlement_sources": [
+    {
+     "name": "the Governing League",
+     "url": "https://www.pgatour.com/"
+    },
+    {
+     "name": "ESPN",
+     "url": "https://www.espn.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXGOLFMAJOR-30",
+   "series_ticker": "KXGOLFMAJOR",
+   "title": "Golfers to win a PGA Tour Major before 2030 ",
+   "sub_title": "2030",
+   "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-26T04:56:43.892108Z",
+   "settlement_sources": [
+    {
+     "name": "ESPN",
+     "url": "https://www.espn.com/"
+    },
+    {
+     "name": "the Governing League",
+     "url": "https://www.pgatour.com/"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  }
+ ]
 }

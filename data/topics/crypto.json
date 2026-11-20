@@ -1,16 +1,22 @@
 {
  "topic": "crypto",
  "label": "Crypto",
- "generated_at": "2026-11-20T13:19:05.597977+00:00",
+ "generated_at": "2026-11-20T13:21:16.590959+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
-   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=1000"
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200",
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI8MuXhwcSFEtYU0hFSU5CQVVNT1VULTI2T0NU",
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXVi0yOE5PVjA3V1ZTMDA5"
   ],
   "markets": [
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwIv--A2AYQ4LPi2AMSK0tYTkZMTU9TVFJTSFlEUy0yNk5PVjIyVEVOREFMLVRFTlRQT0xMQVJEMjA",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgsIvu-A2AYQkISsPxIeS1hQQUxMQURJVU1ILTI2Tk9WMjMxNi1UODkzLjQ5"
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgsIv--A2AYQsK-GdBIeS1hQQUxMQURJVU1ILTI2Tk9WMjMwMC1UODg5LjQ5",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIve-A2AYQwOXf0wISHktYUEFMTEFESVVNSC0yNk5PVjI0MDAtVDg5MC40OQ"
+  ],
+  "event_markets_example": [
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTNATOSECGEN-99",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEWPOPE-70"
   ]
  },
  "definition": {
@@ -18,8 +24,66 @@
    "Crypto"
   ],
   "title_keywords": "",
-  "series_prefix": "^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM)"
+  "series_prefix": "^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT)"
  },
- "event_count": 0,
- "events": []
+ "event_count": 3,
+ "events": [
+  {
+   "event_ticker": "KXBTCD-33MAY2100",
+   "series_ticker": "KXBTCD",
+   "title": "BTC price on May 21, 2033 at 12am EDT?",
+   "sub_title": "On May 21, 2033 at 12am EDT",
+   "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2033-05-21T04:00:00Z",
+   "last_updated_ts": "2026-08-26T09:27:32.445367Z",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXBTCD-33APR0610",
+   "series_ticker": "KXBTCD",
+   "title": "Bitcoin price on Apr 6, 2033 at 10am EDT?",
+   "sub_title": "On Apr 6, 2033 at 10am EDT",
+   "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2033-04-06T14:00:00Z",
+   "last_updated_ts": "2026-08-26T13:57:21.913437Z",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+    }
+   ],
+   "_match_reason": "category",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  },
+  {
+   "event_ticker": "KXDEMOFUTBOT-29DEC31",
+   "series_ticker": "KXDEMOFUTBOT",
+   "title": "Demo event contract futures bot test",
+   "sub_title": "",
+   "category": "Test",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-10-13T23:27:57.921782Z",
+   "settlement_sources": null,
+   "_match_reason": "series-prefix",
+   "_est_dollar_volume": 0,
+   "_volume_contracts": 0,
+   "_market_count": 0,
+   "_markets": []
+  }
+ ]
 }

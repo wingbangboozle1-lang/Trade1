@@ -1,0 +1,8 @@
+{
+ "market_ticker": "KXNEXTSPEAKER-31-APRE",
+ "series_ticker": "KXNEXTSPEAKER",
+ "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNEXTSPEAKER/markets/KXNEXTSPEAKER-31-APRE/candlesticks?start_ts=1795173717&end_ts=1795180917&period_interval=1",
+ "candle_count": 0,
+ "first": null,
+ "last_3": []
+}
