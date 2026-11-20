@@ -396,3 +396,14 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - a2ec5543 — **merge record (T7).** PR #4 (`arena/a2ec5543-trade1` → `main`) merged as `bbb3def` (2026-11-20T14:10:57Z). PR #25 (publish-path fix) merged as `ac067df` (2026-11-20T14:38:42Z). Both merges were after the PR build passed on the head commit (site build, link check, and `checks` validator). **Publish verified:** the `main` run `44755444379` published `a2ec5543/` (commit `520ea52`). `monitor/` (session `f6094c46`) is intact on `main` (14 entries). Live check (page fetch): `https://wingbangboozle1-lang.github.io/Trade1/a2ec5543/` loads with the topic tables and source links; `gas.html` loads with 300 rows. The sandbox cannot reach `github.io` directly, so the check used the page fetcher.
 - a2ec5543 — live counts change with every snapshot. Reports cite the CI run they used (`44746820363`). The live landing page shows the latest run (`44755444379`): 122,505 open markets across the five topics; 300 settled in the last 30 days; 0 YES / 300 NO in that sample; 158 sharp moves; 8 automated flags.
 - a2ec5543 — **open items (not blocking, all flagged):** demo account tracking and execution (no credentials); S16 Developer Agreement not read; gas PDFs other than AAAGAS not opened; KXAAAGASM-26OCT31-4.18 empty candles (cause unknown); 16,876 open markets not mapped to a series (F18); backtest has too few trades to judge (F7); markdown asterisks in API titles (F19).
+
+---
+
+## Session `arena/dacc8b5c-trade1` — final integration, line-by-line verification, gap-fill, PR + Pages
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| Claim: final integration session — line-by-line review of deployed root site vs official sources, gap-fill against the full brief, all validators green, PR to `main`, merge, Pages deploy verification, board record | in progress | dacc8b5c | `COORDINATION.md`, `README.md`, `EXECUTIVE_SUMMARY.md`, `REVIEW.md`, root pages (`index.html`, `dashboard.html`, `trades.html`, `data.html`, `methods.html`, `flagged.html`, `sources.html`, `topics/*.html`), `assets/**`, `scripts/**`, `data/**` (as needed), `.github/workflows/pages.yml` |
+
+- Claimed 2026-11-20 by session `dacc8b5c` on branch `arena/dacc8b5c-trade1`, based on `main` @ `069a1db`.
+- Rationale: every other board task is `done` or `needs review` (published, non-blocking); open PRs #2, #3, #15, #16 have had no commits for >60 minutes (last commits 13:07–13:49 UTC), which per the brief's takeover rule may be taken over by this session. Takeover decisions for those PRs will be logged below; no other session's merged work will be discarded or edited outside this scope.
