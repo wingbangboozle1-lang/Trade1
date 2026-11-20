@@ -897,6 +897,10 @@ remains `M = 1` (PDF: "default is 1 unless otherwise indicated"; every demo seri
   probes, defect + fix, merge/disposition table, validator results); fee fix in `assets/model.js`,
   `assets/app.js`, `scripts/portfolio_engine.py`; docs on `flagged.html` 6b/691-1 and
   `methods.html` §2/§4/§9; polish pass on 6b wording in this closing PR.
+- **CI note (PR #60, `09984ef0`):** the “Site checks + data refresh” render-gate step failed once on a
+  live-Kalshi-fetch flake (CI fetches the demo API live; the runner has no fixture cache) and **passed on
+  `gh run rerun --failed`** (run 44815952197 → success); `snapshot` is skipped on push by design
+  (`if: schedule || workflow_dispatch`). Pages: `built` for `09984ef0`.
 - **Task status: done.** Flagged items remain published and non-blocking (6b/691-1 open by design).
 
 ## Session `arena/6916270f-trade1` — final integration, line-by-line re-verification, PR + Pages
