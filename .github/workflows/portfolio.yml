@@ -51,6 +51,8 @@ jobs:
   ledger:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: write   # job level: only the "Commit the ledger" step needs write; steps cannot carry permissions
     steps:
       - uses: actions/checkout@v4
 
@@ -76,8 +78,6 @@ jobs:
 
       - name: Commit the ledger (main only)
         if: github.ref == 'refs/heads/main' && github.event.inputs.mode != 'selftest'
-        permissions:
-          contents: write
         run: |
           git config user.name "trade1-portfolio-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
