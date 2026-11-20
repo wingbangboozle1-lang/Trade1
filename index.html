@@ -17,6 +17,7 @@
     <a href="index.html" class="active">Home</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html">Portfolio</a>
     <a href="topics/gas-prices.html">Gas</a>
     <a href="topics/elections.html">Elections</a>
     <a href="topics/culture.html">Culture</a>
@@ -24,6 +25,7 @@
     <a href="topics/golf.html">Golf</a>
     <a href="data.html">Data</a>
     <a href="methods.html">Methods</a>
+    <a href="suggestions.html">Suggestions</a>
     <a href="flagged.html">Flagged</a>
     <a href="sources.html">Sources</a>
   </nav>
@@ -43,9 +45,11 @@
     <p><b>What this is.</b> A static, read-only web dashboard over the <a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">official Kalshi demo Trade API (v2)</a>. It watches live markets in five topics — gas prices, elections, culture, crypto, and golf — posts a chat alert whenever a market's sampled price moves <b>$0.10 or more in either direction</b>, shows interactive price charts (seconds / minutes / hours windows) with per-price contract depth from the official order book, and runs an automated <b>paper-trading</b> lab that tests documented strategies and tracks a simulated portfolio until events resolve YES or NO.</p>
     <ul>
       <li><b>Live data, no credentials.</b> All market data comes from public, unauthenticated demo endpoints (verified: <a href="sources.html">source list</a>). CORS was probed from a GitHub runner on 2026-11-20 — the demo API reflects any browser origin (<code>data/cors.json</code>), so the page polls the API directly.</li>
+      <li><b>Jumps annotated on the chart itself.</b> Every ≥ $0.10 jump for the selected market is drawn on the price chart inside the chosen time window, with a link strip underneath (official Kalshi page, the event's published settlement sources, and a news-search lead). Leads only — causality is never asserted.</li>
       <li><b>Two scrolling alert chats.</b> Left: every ≥ $0.10 move across in-scope events. Right: the same feed filtered by a documented ROI screen (momentum magnitude, 24h volume, spread) — formula in <a href="methods.html">Methods</a>. Each alert links the official Kalshi market page, the event's official settlement sources, and a news-search lead. Causality is never claimed.</li>
       <li><b>Resolution tracking.</b> Watched markets are re-checked on every poll; when the exchange settles them, the outcome (YES/NO, settlement time, settlement value) is recorded, and paper positions settle at $1 per winning contract.</li>
       <li><b>Strategy lab.</b> Four automated paper strategies (momentum, fade, favorite-harvest, 50¢ breakout) run on live quotes; performance is categorized by strategy and topic with equity, win rate, and ROI tables. Trades persist in the browser (export/import available).</li>
+      <li><b>An always-on ledger, so the track record survives.</b> The same four strategies also run inside GitHub Actions every ~30 minutes (<code>scripts/portfolio_engine.py</code>) and commit their trade ledger to the repository, so portfolio performance accumulates across days and every visitor sees the same numbers: <a href="portfolio.html">Portfolio</a>. It is a simulation — no credentials, no orders — because real demo-account tracking needs <i>your</i> demo API key (see <a href="flagged.html">Flagged</a> and <a href="suggestions.html">Suggestions</a> item #14).</li>
       <li><b>Verified snapshots.</b> A GitHub Actions pipeline (<code>scripts/collect.py</code>) re-verifies the API and refreshes <code>data/</code> snapshots twice hourly after deploy, with a per-request log (<code>data/log.md</code>) — every table row on the <a href="data.html">Data page</a> links the exact official URL it came from.</li>
       <li><b>Fees modeled from the official schedule.</b> Paper P&amp;L applies the official taker fee <code>roundup(0.07 × C × P × (1−P))</code> from <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">kalshi.com/docs/kalshi-fee-schedule.pdf</a> (verified this session; maker fees not modeled — flagged).</li>
       <li><b>Not implemented on purpose.</b> No account login, no order placement, no WebSocket (browsers cannot attach Kalshi's required signed handshake headers), no dollar figures presented as exchange-published (traded-notional values are labeled estimates). Full list on <a href="flagged.html">Flagged for Review</a>.</li>
@@ -65,6 +69,16 @@
       <a href="trades.html">Open Strategy Lab →</a>
     </div>
     <div class="box">
+      <h3>📒 Portfolio (CI ledger)</h3>
+      <p class="small muted">Automated simulated trades that keep running with no browser open: equity curve, trade ledger by strategy and topic, ≥10¢ alert feed, resolutions, per-row sources.</p>
+      <a href="portfolio.html">Open the ledger →</a>
+    </div>
+    <div class="box">
+      <h3>💡 Improvement plan</h3>
+      <p class="small muted">Source-checked suggestions for making the site more live and interactive — batched order books, measured traded dollars, jump replay, WS bridge, demo-key tracking.</p>
+      <a href="suggestions.html">Read the suggestions →</a>
+    </div>
+    <div class="box">
       <h3>🗂 Data &amp; verification</h3>
       <p class="small muted">Per-topic snapshot tables (every row linked to its official source URL), CORS probe results, collection log, and the Flagged-for-Review page.</p>
       <a href="data.html">Data tables →</a> · <a href="flagged.html">Flagged →</a>
@@ -79,6 +93,7 @@
       <li><b>Polling</b> — every ~12 s it batch-fetches the watchlist via <code>GET /markets?tickers=…</code> (verified single-response behavior), updates prices, samples, charts, and detects settlements directly from the response.</li>
       <li><b>Alerts</b> — any sampled move ≥ $0.10 posts to the all-events chat; the ROI screen decides what also posts to the model chat; the paper bot reacts per strategy rules.</li>
       <li><b>Detail views</b> — the selected market's order book is polled every ~8 s (bids only, asks derived by the official reciprocal rule) and candlesticks (1-min / 60-min) feed the longer chart windows.</li>
+      <li><b>Always-on ledger</b> — every ~30 min (<code>.github/workflows/portfolio.yml</code>) the same strategy rules run server-side, compare one priced cycle with the next, book fills at the official quotes with the official taker fee, settle on the exchange's YES/NO result, and commit <code>data/portfolio.json</code> for the <a href="portfolio.html">Portfolio</a> page.</li>
     </ol>
     <p class="muted small">REST responses are cached by the exchange for a short time (official docs), so everything lags the tape by a few seconds; sub-second swings are not observable over REST. See <a href="methods.html">Methods</a> for every parameter and <a href="flagged.html">Flagged</a> for every limitation.</p>
   </section>

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Making it more live and interactive</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Making it more live and interactive</h1>
+    <p>Prioritised, source-checked next steps — what is already built, what a static page can still do, and what needs a server or your demo key</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="suggestions.html" class="active">Suggestions</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="notice"><b>How to read this page.</b> Every row is checked against a published Kalshi source (link in the last
+    column). "Live today" means the code path exists on this site now; "quick win" means it fits a static page with no new
+    infrastructure; "needs a server" and "needs your key" are blocked on you or on infrastructure, not on research. Nothing here
+    is financial advice.</div>
+
+  <div class="box" style="margin-bottom:14px">
+    <h2>Live today</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Capability</th><th>Where</th><th>What it does now</th><th>Known limit</th></tr></thead>
+      <tbody>
+        <tr><td>Two ≥ $0.10 alert chats</td><td><a href="dashboard.html">Dashboard</a></td>
+          <td>Left chat: every sampled move of $0.10 or more in either direction across in-scope events. Right chat: the same
+            feed filtered by the documented ROI screen. Newest at the bottom, auto-scrolls while you are at the bottom.</td>
+          <td>Sampled every ~12 s while the tab is open — REST responses are cached, so the exchange itself lags by seconds.</td></tr>
+        <tr><td>Price chart with time windows</td><td><a href="dashboard.html">Dashboard</a></td>
+          <td>X axis time (30 s / 2 min / 10 min / 1 h / 6 h / 24 h buttons), Y axis contract price in dollars; 1-minute and
+            1-hour candlesticks feed the longer windows.</td>
+          <td>Sub-second ticks are not observable over REST.</td></tr>
+        <tr><td>Jump markers on the chart + jump strip</td><td><a href="dashboard.html">Dashboard</a></td>
+          <td>Each ≥ $0.10 jump for the selected market is drawn on the chart line inside the visible window, and the strip under
+            the chart lists them with the links that may explain the move.</td>
+          <td>Links are <i>leads</i> (official market page + settlement sources + a news search), never a claimed cause.</td></tr>
+        <tr><td>Order-book depth and liquidity</td><td><a href="dashboard.html">Dashboard</a></td>
+          <td>Per-price contract sizes for the selected market, with a depth ladder.</td>
+          <td>One market at a time (see quick win #1).</td></tr>
+        <tr><td>Paper trading lab</td><td><a href="trades.html">Strategy Lab</a></td>
+          <td>Four strategies fill at official quotes with official taker fees; persists in <code>localStorage</code>, export/import.</td>
+          <td>Per-browser, per-device.</td></tr>
+        <tr><td>Always-on ledger</td><td><a href="portfolio.html">Portfolio</a></td>
+          <td>The same strategies run in GitHub Actions every ~30 min and commit a growing trade ledger, equity curve,
+            performance by strategy and by topic, and resolutions — visible to every visitor.</td>
+          <td>30-minute sampling; no real account (see "needs your key").</td></tr>
+        <tr><td>Resolution tracking</td><td><a href="portfolio.html">Portfolio</a> · <a href="data.html">Data</a></td>
+          <td>Watched markets are re-quoted until the exchange settles them; the YES/NO result and settlement time are logged, and
+            open paper positions settle at $1.00 per winner.</td>
+          <td>Only markets currently on the watchlist.</td></tr>
+        <tr><td>Per-row provenance</td><td>every table</td>
+          <td>Each row links the exact endpoint URL that produced it; anything not confirmable from an official source is left
+            blank and listed on <a href="flagged.html">Flagged for Review</a>.</td>
+          <td>URLs are point-in-time; the demo exchange re-writes its own state.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <h2>Quick wins — static page, no new infrastructure</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Suggestion</th><th>Why it matters to a trader</th><th>Official capability that makes it possible</th><th>Effort</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><b>Batch the order book for the whole watchlist.</b> Replace "selected market only" depth with one call
+          covering up to 100 markets, and rank markets by resting size at ±1–3¢ of the touch.</td>
+          <td>Shows <i>how many contracts are available at a given price</i> for every market at once, which is what actually
+            tells you whether a $0.10 move is tradeable; it also turns "liquidity" from a derived number into an observed one.</td>
+          <td><a href="https://docs.kalshi.com/api-reference/market/get-multiple-market-orderbooks" target="_blank" rel="noopener">
+            GET /markets/orderbooks?tickers=…</a> — up to 100 tickers per request; returns yes bids and no bids only, levels as
+            [price, quantity] sorted ascending, best bid last; unknown tickers come back as empty arrays (documented).</td>
+          <td>small</td></tr>
+        <tr><td>2</td><td><b>Rank by measured traded dollars, not by an estimate.</b> Aggregate the tape (<code>count_fp ×
+          yes_price_dollars</code>) per market over a rolling window and use that for the "highest dollar amount" ordering;
+          use <code>taker_outcome_side</code> to show which side was aggressive into the move.</td>
+          <td>The site currently labels its dollar ranking as an estimate (<code>volume_fp × last_price_dollars</code>) because no
+            per-market dollar field is published. The trade tape does contain the size and price of every execution, so the ranking
+            can become measured, and "who hit whom" becomes visible next to each alert.</td>
+          <td><a href="https://docs.kalshi.com/api-reference/market/get-trades" target="_blank" rel="noopener">GET /markets/trades</a>
+            — filter by <code>ticker</code>, <code>min_ts</code>/<code>max_ts</code> (seconds; milliseconds are rejected 400),
+            <code>limit</code> ≤ 1000 with cursor pagination; block trades flagged by <code>is_block_trade</code>.</td>
+          <td>small</td></tr>
+        <tr><td>3</td><td><b>Desktop + sound alerts</b> for the model chat (Notification API), with a per-topic mute and a
+          "only ≥ $0.15" sensitivity slider.</td>
+          <td>A chat you must keep looking at is not an alerting system; you need to be pulled back to the terminal when a swing
+            clears your threshold.</td>
+          <td>Browser API only — no Kalshi dependency; polling cadence stays as documented
+            (<a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">rate limits</a>).</td>
+          <td>small</td></tr>
+        <tr><td>4</td><td><b>Keyboard + URL state.</b> <code>j</code>/<code>k</code> to walk rows, <code>Enter</code> to select,
+          <code>1</code>–<code>6</code> for the chart window, <code>a</code> to toggle alert sound; put the selected ticker in the
+          URL hash so a view is shareable and survives refresh.</td>
+          <td>Decision speed: pointing at a chart is slower than pressing a key while the tape moves.</td>
+          <td>No API impact; the ticker format is the documented
+            <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">market ticker</a>.</td>
+          <td>small</td></tr>
+        <tr><td>5</td><td><b>Show the valid price grid on the depth ladder.</b> Mark each level against the market's
+          <code>price_ranges</code> bands and print the tick size.</td>
+          <td>Tells you instantly whether the next level you would hit is 1¢, 0.5¢ or 0.1¢ away — that difference is most of the
+            edge on the 90¢+ end where the gas and golf series sit.</td>
+          <td><a href="https://docs.kalshi.com/getting_started/fixed_point_migration" target="_blank" rel="noopener">Fixed-point
+            representation</a> — <code>price_ranges</code> is "the source of truth for valid prices", the label
+            <code>price_level_structure</code> must not be keyed off.</td>
+          <td>small</td></tr>
+        <tr><td>6</td><td><b>Exchange-state banner.</b> Poll <code>GET /exchange/status</code> with the quotes and show
+          "trading active / paused / shard down" next to the price, instead of silently showing stale numbers.</td>
+          <td>A flat line that is actually an exchange pause is the fastest way to lose money on a "swing" that is not real.</td>
+          <td>Same response this repo already captures in <a href="data/exchange-status.json" target="_blank">data/exchange-status.json</a>
+            (<code>exchange_active</code>, <code>trading_active</code>, per-shard status), documented at
+            <a href="https://docs.kalshi.com/api-reference/exchange/get-exchange-status" target="_blank" rel="noopener">Get Exchange Status</a>.</td>
+          <td>small</td></tr>
+        <tr><td>7</td><td><b>Adaptive polling.</b> Read <code>X-RateLimit-*</code> headers, back off exponentially on
+          <code>429</code> (documented body <code>{"error":{"code":"too_many_requests"}}</code>), and widen the poll interval when
+          the bucket is low instead of hammering.</td>
+          <td>Keeps the dashboard alive for everyone during a busy news hour rather than turning it into a 429 wall.</td>
+          <td><a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">Rate Limits and Tiers</a>
+            — read/write buckets, header names, and the documented "no Retry-After, back off yourself" behaviour.</td>
+          <td>medium</td></tr>
+        <tr><td>8</td><td><b>Replayable alert history.</b> Write the alert feed out as dated JSONL from the CI pipeline and let the
+          dashboard scrub through a past session with the same chat + chart, including what the model chat would have shown.</td>
+          <td>You cannot judge a screener on a live tape only; replay makes the ROI screen auditable and testable after the fact.</td>
+          <td>Data already exists: this repo commits <a href="data/portfolio.json" target="_blank">data/portfolio.json</a> alerts;
+            the same pattern extends to a daily file.</td>
+          <td>medium</td></tr>
+        <tr><td>9</td><td><b>Sparklines and a heat strip per topic card</b> (24 h move, distance to 50¢, spread, time to close),
+          with the card clicking through to the pre-filtered dashboard.</td>
+          <td>Right now the five topics are separate pages; a trader wants "which of these 5 buckets is moving right now" in
+            one glance, then to drop into that bucket.</td>
+          <td>Fields already in use: <code>last_price_dollars</code>, <code>previous_price_dollars</code>, <code>close_time</code>
+            per <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a>.</td>
+          <td>small</td></tr>
+        <tr><td>10</td><td><b>Simplify: one decision bar.</b> Move the alert chats above the fold, collapse the table columns to
+          Market / Last / Δ / Spread / 24 h $ / Closes, and put depth, candles and settings behind a "detail" disclosure.</td>
+          <td>The brief's own goal — help a trader decide on a contract event. Fewer columns means faster scanning.</td>
+          <td>UI only.</td>
+          <td>small</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <h2>Needs a small server (real-time, not near-real-time)</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Suggestion</th><th>Why</th><th>What the official docs require</th></tr></thead>
+      <tbody>
+        <tr><td>11</td><td><b>WebSocket bridge for the tickers.</b> A tiny signing proxy subscribes to
+          <code>ticker</code> / <code>trade</code> / <code>market_lifecycle_v2</code> and fans the stream out to the page
+          (or pushes alerts server-side).</td>
+          <td>Removes the 12-second REST sampling and the exchange's own response cache from the alert path, and gives you
+            <code>determined</code>/<code>settled</code> the moment they happen instead of on the next poll.</td>
+          <td>Demo socket <code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code>
+            (<a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">demo environments</a>).
+            The handshake must carry <code>KALSHI-ACCESS-KEY</code>, <code>KALSHI-ACCESS-SIGNATURE</code> and
+            <code>KALSHI-ACCESS-TIMESTAMP</code> over the message <code>timestamp + "GET" + "/trade-api/ws/v2"</code>; public
+            market-data channels still run inside that authenticated session
+            (<a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">Quick Start: WebSockets</a>).
+            A browser cannot set headers on a WebSocket — that is why this site polls REST, and it is why a bridge is needed
+            (<a href="flagged.html">flagged item</a>). Keep-alive note: Kalshi sends a Ping only after 10 s idle, so a missing
+            Ping does not mean a dead connection.</td></tr>
+        <tr><td>12</td><td><b>Server-side alert engine</b> that evaluates the ≥ $0.10 rule on the WS stream and posts to a channel
+          (or writes a push notification) so an alert exists even with no tab open.</td>
+          <td>The current chats only fire while a browser tab is open; the CI ledger catches 30-minute swings but not the
+            second-scale move that a trade needs.</td>
+          <td>Same auth model as #11; nothing new in the API.</td></tr>
+        <tr><td>13</td><td><b>Longer chart history</b>: day candles plus the historical endpoint for markets past the cutoff, so the
+          window picker can offer 7 days / 30 days.</td>
+          <td>Election and golf series move over days; a 24 h window is the current ceiling.</td>
+          <td><a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">Get Market
+            Candlesticks</a> (period 1 / 60 / 1440 minutes) and
+            <a href="https://docs.kalshi.com/getting_started/historical_data" target="_blank" rel="noopener">Historical Data</a> for
+            markets settled before the cutoff.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <h2>Needs your demo API key (owner action, not a code gap)</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>What is ready</th><th>What is missing</th><th>Official setup path</th></tr></thead>
+      <tbody>
+        <tr><td>14</td><td>The paper ledger already models fees, fills at official quotes and settles on official results — swapping
+          quotes for your own demo account's balances and positions is a data-source change, and session
+          <code>20e3ad14</code> built a guarded implementation of exactly that in <code>scripts/demo_account/**</code> (open
+          draft PR #2: signing, read-only balance/positions, max 3 orders and $3.00 per run, dry-run by default).</td>
+          <td>A demo API key ID and your own private key, stored as repository secrets by you. No agent can create or hold them, and
+            this site never asks for them in the browser.</td>
+          <td><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">Demo environment</a> →
+            <a href="https://help.kalshi.com/en/articles/13823775-creating-and-using-a-demo-account" target="_blank" rel="noopener">create a demo account</a> →
+            <a href="https://docs.kalshi.com/getting_started/api_keys" target="_blank" rel="noopener">API keys</a> →
+            <a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">authenticated requests</a>.</td></tr>
+        <tr><td>15</td><td>Maker-fee modelling so the lab can quote limit-order P&amp;L instead of crossing every time.</td>
+          <td>A decision on which fills you want simulated as resting orders; maker multiplier is per series (e.g. KXAAAGASM, the
+            US gas price series, lists maker 1 / taker 1, so gas markets do carry a maker fee).</td>
+          <td><a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">Fee schedule PDF</a>
+            (maker: <code>roundup(M × 0.0175 × C × P × (1−P))</code>) and
+            <a href="https://kalshi.com/fee-schedule" target="_blank" rel="noopener">kalshi.com/fee-schedule</a> for scheduled changes.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h2>Suggested build order</h2>
+    <ol class="small">
+      <li>#1 batched order books and #2 measured traded dollars — both replace estimates with exchange-published facts, and both
+        make the alert list actionable rather than just interesting.</li>
+      <li>#10 simplification + #4 keyboard/hash state, so the page reads as one decision tool.</li>
+      <li>#3 notifications and #6 exchange-state banner, for trust ("is this number current, and is the exchange open?").</li>
+      <li>#11 the WS bridge, when you are ready to run one small stateless service.</li>
+      <li>#14 real demo-account tracking, the moment you add a demo API key.</li>
+    </ol>
+    <p class="muted small">Nothing on this page has been built on assumption: where a capability is not documented as published by
+      Kalshi, the row says so instead of inventing a number or a field. Gaps and contradictions stay on
+      <a href="flagged.html">Flagged for Review</a>.</p>
+  </div>
+
+  <p class="footer"><a href="index.html">Back to the landing page</a> · <a href="methods.html">Methods</a> ·
+    <a href="sources.html">Sources</a></p>
+</main>
+</body>
+</html>

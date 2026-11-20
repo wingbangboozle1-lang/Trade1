@@ -350,6 +350,7 @@ window.KalshiApp = (function () {
     M.pushAlert(alert);
     S.newAlerts.push({ ticker: m.ticker, delta: delta, dir: dir });
     pushChat(alert);
+    drawChart();
     renderKPIs();
   }
 
@@ -460,8 +461,82 @@ window.KalshiApp = (function () {
       var tt = t0 + (t1 - t0) * k / 3;
       x.fillText(hhmmss(tt), Math.max(L, Math.min(px(tt) - 26, W - 58)), H - 8);
     }
+    // >= $0.10 jump markers for the selected market, inside the visible window
+    var jumps = jumpsInWindow(S.selected);
+    jumps.forEach(function (a) {
+      var xx = px(a.t);
+      if (xx < L - 1 || xx > W - R + 1) return;
+      var up = a.dir === 'up';
+      var col = up ? (css.getPropertyValue('--green') || '#61d6a2') : (css.getPropertyValue('--red') || '#ff827c');
+      x.save();
+      x.strokeStyle = col; x.globalAlpha = 0.5; x.lineWidth = 1; x.setLineDash([3, 3]);
+      x.beginPath(); x.moveTo(xx, T); x.lineTo(xx, H - B); x.stroke();
+      x.setLineDash([]); x.globalAlpha = 1;
+      x.fillStyle = col;
+      var yy = py(a.to);
+      x.beginPath(); x.arc(xx, yy, 4, 0, 7); x.fill();
+      x.beginPath();
+      x.moveTo(xx, up ? yy - 9 : yy + 9); x.lineTo(xx - 4.5, up ? yy - 17 : yy + 17); x.lineTo(xx + 4.5, up ? yy - 17 : yy + 17);
+      x.closePath(); x.fill();
+      x.font = '10px system-ui';
+      var lab = (a.delta > 0 ? '+' : '') + a.delta.toFixed(2);
+      var ty = up ? yy - 21 : yy + 28;
+      x.fillText(lab, Math.max(L, Math.min(xx - 12, W - 46)), Math.max(T + 8, Math.min(ty, H - B - 2)));
+      x.restore();
+    });
+    if (jumps.length) {
+      x.fillStyle = css.getPropertyValue('--muted') || '#91a3a4';
+      x.font = '10px system-ui';
+      x.fillText(jumps.length + ' jump marker' + (jumps.length > 1 ? 's' : '') + ' (\u2265 $0.10)', L + 4, H - 8);
+    }
     var name = $('#kx-chart-name');
     if (name) name.textContent = S.selected || '';
+    renderJumps();
+  }
+
+  /* ---------- jump annotations on the chart (>= $0.10 moves, with links) ----------
+   * The brief asks the chart itself to carry the events/links that may have caused a sharp
+   * jump. Links are leads, never claimed causes: the official Kalshi page, the event's
+   * published settlement sources, and a news search for the market title.
+   */
+  function windowDef() {
+    return WINDOWS.filter(function (x) { return x.id === S.window; })[0] || WINDOWS[3];
+  }
+  function jumpsInWindow(ticker) {
+    var w = windowDef(), cutoff = Date.now() - w.s * 1000;
+    return M.state.alerts.filter(function (a) {
+      return a && a.t >= cutoff && (!ticker || a.ticker === ticker);
+    });
+  }
+  function jumpLinks(a) {
+    var ev = S.events[a.event];
+    var src = (ev && ev.settlement_sources ? ev.settlement_sources : []).filter(function (x) { return x && x.url && /^https:/.test(x.url); }).slice(0, 2);
+    var html = '<a href="' + esc(kalshiEventUrl(a.event)) + '" target="_blank" rel="noopener">market</a>' +
+      ' · <a href="' + esc(newsUrl(a.title)) + '" target="_blank" rel="noopener">news lead</a>';
+    src.forEach(function (x) { html += ' · <a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(String(x.name || 'source').slice(0, 18)) + '</a>'; });
+    return html;
+  }
+  function renderJumps() {
+    var box = $('#kx-jumps'); if (!box) return;
+    var rows = jumpsInWindow(S.selected).slice(-6).reverse();
+    var note = $('#kx-jumps-note');
+    if (note) note.textContent = rows.length
+      ? rows.length + ' jump' + (rows.length > 1 ? 's' : '') + ' of \u2265 $0.10 in this window for ' + (S.selected || 'the selected market') +
+        ' · links are leads, not causes'
+      : '';
+    if (!rows.length) {
+      box.innerHTML = '<span class="muted small" style="font-size:12px">No \u2265 $0.10 jump for this market inside the selected window — the markers appear the moment one is sampled.</span>';
+      return;
+    }
+    box.innerHTML = rows.map(function (a) {
+      var up = a.dir === 'up', arrow = up ? '\u25b2' : '\u25bc', col = up ? 'var(--green)' : 'var(--red)';
+      return '<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border:1px solid var(--line);' +
+        'border-left:3px solid ' + col + ';border-radius:8px;font-size:12px;background:#16211f">' +
+        '<b style="color:' + col + '">' + arrow + ' ' + (a.delta > 0 ? '+' : '') + a.delta.toFixed(2) + '</b>' +
+        '<span class="muted">' + hhmmss(a.t) + '</span>' +
+        '<span>' + esc(String(a.title || a.ticker).slice(0, 42)) + '</span>' +
+        '<span class="muted">' + jumpLinks(a) + '</span></span>';
+    }).join('');
   }
 
   /* ---------- chats ---------- */
@@ -563,7 +638,7 @@ window.KalshiApp = (function () {
     S.selected = ticker;
     S.book = null; S.candles = null; S.lastCandleFetch = 0;
     $('#kx-chart-name') && ($('#kx-chart-name').textContent = ticker);
-    pollBook(); fetchCandles(); renderTable(); renderBook();
+    pollBook(); fetchCandles(); renderTable(); renderBook(); drawChart();
   }
 
   /* ---------- orderbook panel ---------- */
@@ -673,9 +748,11 @@ window.KalshiApp = (function () {
   /* ---------- mount: dashboard ---------- */
   var NAV = [
     ['index.html', 'Home'], ['dashboard.html', 'Dashboard'], ['trades.html', 'Strategy lab'],
+    ['portfolio.html', 'Portfolio'],
     ['topics/gas-prices.html', 'Gas'], ['topics/elections.html', 'Elections'], ['topics/culture.html', 'Culture'],
     ['topics/crypto.html', 'Crypto'], ['topics/golf.html', 'Golf'],
-    ['data.html', 'Data'], ['methods.html', 'Methods'], ['flagged.html', 'Flagged'], ['sources.html', 'Sources']
+    ['data.html', 'Data'], ['methods.html', 'Methods'], ['suggestions.html', 'Suggestions'],
+    ['flagged.html', 'Flagged'], ['sources.html', 'Sources']
   ];
   function navHere(root) {
     var here = location.pathname.split('/').pop() || 'index.html';
@@ -716,6 +793,8 @@ window.KalshiApp = (function () {
       '<div class="box"><div class="row spread"><h2>Price chart</h2><span class="muted small" id="kx-chart-name">—</span></div>' +
       '<div class="chartbox"><canvas id="kx-chart"></canvas></div>' +
       '<p class="muted small" id="kx-chart-note"></p>' +
+      '<div id="kx-jumps" style="margin:6px 0 10px;display:flex;flex-wrap:wrap;gap:6px"></div>' +
+      '<p class="muted small" id="kx-jumps-note"></p>' +
       '<div id="kx-book"></div></div></div>' +
       '<div class="grid2" style="margin-top:14px">' +
       '<div class="box"><div class="row spread"><h2>\u226510\u00a2 alerts · all in-scope events</h2><span class="muted small">newest at bottom</span></div>' +
@@ -734,7 +813,7 @@ window.KalshiApp = (function () {
       });
     });
     $('#kx-win').addEventListener('change', function () {
-      S.window = this.value; S.candles = null; S.lastCandleFetch = 0; fetchCandles();
+      S.window = this.value; S.candles = null; S.lastCandleFetch = 0; fetchCandles(); drawChart();
     });
     $('#kx-refresh').addEventListener('click', function () { pollWatch(); pollBook(); fetchCandles(); });
 

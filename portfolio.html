@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Portfolio (CI paper-trading ledger)</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Portfolio — CI paper-trading ledger</h1>
+    <p>Automated simulated trades that keep running without a browser open · tracked until each event resolves YES or NO</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="suggestions.html">Suggestions</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="notice blue"><b>Simulation, and it is not a Kalshi account.</b> These fills are paper trades booked against official demo
+    quotes by <code>scripts/portfolio_engine.py</code> on GitHub Actions. No authentication, no orders, no account endpoints —
+    real demo-account tracking needs the owner's own demo API key (see <a href="flagged.html">Flagged for Review</a>).
+    Demo prices may not reflect real markets.</div>
+
+  <div class="row spread" style="margin-bottom:14px">
+    <div class="row">
+      <span class="pill" id="pf-status">loading…</span>
+      <span class="muted small" id="pf-meta"></span>
+    </div>
+    <div class="row">
+      <label for="pf-topic" class="small muted" style="margin:0">Topic</label>
+      <select id="pf-topic"><option value="">all</option></select>
+      <label for="pf-strategy" class="small muted" style="margin:0">Strategy</label>
+      <select id="pf-strategy"><option value="">all</option></select>
+      <button id="pf-refresh" type="button">Refresh</button>
+    </div>
+  </div>
+
+  <div id="pf-note" class="muted small" style="margin-bottom:12px"></div>
+
+  <div class="cards" id="pf-kpis"></div>
+
+  <div class="grid2" style="margin-bottom:14px">
+    <div class="box">
+      <div class="row spread"><h2>Equity curve</h2><span class="muted small" id="pf-eq-note"></span></div>
+      <div id="pf-equity" style="width:100%"></div>
+      <p class="muted small">Y axis: portfolio value (cash + open positions marked at the official bid). X axis: run time —
+        one point per engine cycle (~30 min). Starts at the $1,000.00 paper bankroll.</p>
+    </div>
+    <div class="box">
+      <h2>Open positions</h2>
+      <div class="tablewrap" style="max-height:260px" id="pf-positions"></div>
+    </div>
+  </div>
+
+  <div class="grid3" style="margin-bottom:14px">
+    <div class="box">
+      <h2>Performance by strategy</h2>
+      <div class="tablewrap" id="pf-by-strategy"></div>
+    </div>
+    <div class="box">
+      <h2>Performance by topic</h2>
+      <div class="tablewrap" id="pf-by-topic"></div>
+    </div>
+    <div class="box">
+      <h2>Trade types (exit reason)</h2>
+      <div class="tablewrap" id="pf-by-exit"></div>
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="row spread">
+      <h2>Trade ledger</h2>
+      <span class="muted small" id="pf-ledger-note"></span>
+    </div>
+    <div class="tablewrap" style="max-height:460px" id="pf-trades"></div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:14px">
+    <div class="box">
+      <div class="row spread"><h2>≥ $0.10 moves the engine acted on</h2>
+        <span class="muted small">alert chat twin — newest at the bottom, auto-scrolls</span></div>
+      <div class="chatbox" id="pf-alerts" style="height:300px"></div>
+    </div>
+    <div class="box">
+      <h2>Resolutions — tracked until settled</h2>
+      <div class="tablewrap" style="max-height:300px" id="pf-resolutions"></div>
+      <p class="muted small">Every watched market is re-quoted each cycle; when the exchange settles it, the YES/NO result
+        and settlement time are appended here and any open paper position pays $1.00 per winning contract.</p>
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="row spread"><h2>Watchlist</h2><span class="muted small" id="pf-live-note"></span></div>
+    <div class="tablewrap" style="max-height:420px" id="pf-watchlist"></div>
+    <p class="muted small">Ranked by the estimated 24 h traded dollars (<code>volume_24h_fp × last_price_dollars</code>) — an
+      estimate, labelled as such: the API publishes no per-market dollar-notional field (see
+      <a href="flagged.html">Flagged for Review</a>). Prices are re-polled live in this tab when the browser can reach the
+      demo API; the table is filled from the last committed snapshot either way.</p>
+  </div>
+
+  <div class="grid2" style="margin-bottom:14px">
+    <div class="box">
+      <h2>Rules the engine trades by</h2>
+      <div class="tablewrap" id="pf-rules"></div>
+    </div>
+    <div class="box">
+      <h2>Engine settings &amp; sources</h2>
+      <div id="pf-settings"></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Recent runs</h2>
+    <div class="tablewrap" style="max-height:240px" id="pf-runs"></div>
+  </div>
+
+  <p class="footer">Data written by <code>scripts/portfolio_engine.py</code>
+    (<a href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/portfolio.yml" target="_blank" rel="noopener">workflow runs</a>)
+    from the official demo API <code>https://external-api.demo.kalshi.co/trade-api/v2</code>. Fees from
+    <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">the published fee schedule</a>.
+    Educational tool — not financial advice.</p>
+</main>
+<script src="assets/portfolio.js"></script>
+</body>
+</html>
