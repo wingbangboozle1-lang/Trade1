@@ -1,0 +1,105 @@
+name: CI paper-trading ledger (portfolio)
+
+# Runs scripts/portfolio_engine.py on a schedule, on demand, and whenever the engine changes.
+# The engine mirrors the documented browser Strategy Lab rules (assets/model.js) but keeps its
+# ledger in the repository, so portfolio performance accumulates across runs and is visible to
+# every visitor instead of living only in one browser's localStorage.
+#
+# Simulation only: no authentication, no order placement, no account endpoints.
+
+on:
+  schedule:
+    - cron: "13,43 * * * *"     # between the market-snapshot runs (7,37) to stay well under any limit
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "run = one live cycle, seed = rebuild the watchlist baseline, selftest = offline checks"
+        required: false
+        default: "run"
+        type: choice
+        options: [run, seed, selftest]
+  push:
+    branches: [main]
+    paths:
+      - "scripts/portfolio_engine.py"
+      - ".github/workflows/portfolio.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-ledger
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'      # matches pages.yml; jsdom >= 31 needs Node >= 22 at runtime
+      - name: Install test dependency (jsdom)
+        run: npm install --no-audit --no-fund jsdom@26.1.0
+        continue-on-error: true   # the page-boot checks self-skip when jsdom is absent
+      - name: Published-page link and nav check
+        run: node scripts/check_links.mjs
+      - name: Root engine unit checks (fees, alert threshold, classifier)
+        run: node tests/root_engine.test.js
+      - name: Ledger + page checks (offline; skips the DOM part without jsdom)
+        run: node tests/portfolio.test.mjs
+      - name: Ledger engine must not regress the shared site checks
+        run: node scripts/check_site.mjs
+
+  ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write   # job level: only the "Commit the ledger" step needs write; steps cannot carry permissions
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Offline self-tests (always, no network needed)
+        run: python3 scripts/portfolio_engine.py selftest
+
+      - name: Run the engine (${{ github.event.inputs.mode || 'run' }})
+        if: github.event.inputs.mode != 'selftest'
+        env:
+          MODE: ${{ github.event.inputs.mode || 'run' }}
+        run: |
+          case "$MODE" in
+            seed) python3 scripts/portfolio_engine.py seed ;;
+            *)    python3 scripts/portfolio_engine.py run ;;
+          esac
+
+      - name: Guard the artifact size
+        run: |
+          test -f data/portfolio.json || { echo "data/portfolio.json was not produced" >&2; exit 1; }
+          size=$(stat -c%s data/portfolio.json)
+          echo "portfolio.json = $size bytes"
+          if [ "$size" -gt 900000 ]; then echo "artifact exceeds 900 kB - tighten the bounds in scripts/portfolio_engine.py" >&2; exit 1; fi
+
+      - name: Commit the ledger (main only)
+        if: github.ref == 'refs/heads/main' && github.event.inputs.mode != 'selftest'
+        run: |
+          git config user.name "trade1-portfolio-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/portfolio.json data/portfolio_state.json
+          if git diff --cached --quiet; then
+            echo "ledger unchanged"
+          else
+            git commit -m "portfolio: CI paper-trading ledger $(date -u '+%Y-%m-%dT%H:%M:%SZ') [skip ci]"
+            git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-ledger
+          path: |
+            data/portfolio.json
+            data/portfolio_state.json
+          if-no-files-found: warn

@@ -398,6 +398,139 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - a2ec5543 — live counts change with every snapshot. Reports cite the CI run they used (`44746820363`). The live landing page shows the latest run (`44755444379`): 122,505 open markets across the five topics; 300 settled in the last 30 days; 0 YES / 300 NO in that sample; 158 sharp moves; 8 automated flags.
 - a2ec5543 — **open items (not blocking, all flagged):** demo account tracking and execution (no credentials); S16 Developer Agreement not read; gas PDFs other than AAAGAS not opened; KXAAAGASM-26OCT31-4.18 empty candles (cause unknown); 16,876 open markets not mapped to a series (F18); backtest has too few trades to judge (F7); markdown asterisks in API titles (F19).
 
+## Session e82d36a3 (claimed 2026-11-20T19:00Z, branch `arena/e82d36a3-trade1`, base `main` @ `069a1db`)
+
+Acting as the active integration session for the deployed root site (Pages source: `main` `/`, verified
+via `gh api repos/.../pages` → `build_type: legacy`, `status: built`).
+
+**Stale-claim handoff (logged per protocol):** the rows for `cedad5c4` (`**` in progress) and `bb8bd1ff`
+(root pages, `assets/**`, `scripts/**`, `data/**`) are more than 60 minutes old with no commits from those
+branches, and their work is already merged into `main` (PRs #17–#27 per the records above). `bb8bd1ff`'s row
+is marked `done` on the board. I therefore treat those claims as superseded and work additively on `main`:
+**no other session's file is deleted or rewritten** — legacy trees (`js/`, `css/`, `pages/`, `categories/`,
+`docs/`, `site/`, `monitor/`, `trade1/`, `a2ec5543/`, `probe/`) are left exactly as they are.
+
+**Tasks and file scope** (rows added to the board table above):
+- T1 — ≥$0.10 jump markers drawn on the live price chart + an in-window "jumps & links" strip (the brief asks
+  the chart itself to carry the event/news links that may explain a sharp move). Scope: `assets/app.js`.
+- T2 — persistent, CI-written paper-trading ledger so portfolio performance survives a browser change and
+  builds a real sample over time: `scripts/portfolio_engine.py` (stdlib only) mirrors the documented
+  `assets/model.js` rules and fee schedule, runs on a schedule, appends fills/settlements and writes
+  `data/portfolio.json`; page `portfolio.html` + `assets/portfolio.js` render equity curve, open positions,
+  categorized trade ledger and per-strategy/per-topic performance. Scope: new files + generated `data/portfolio*.json`.
+- T3 — `suggestions.html`: prioritized "make it more live and interactive" roadmap, each item tied to an
+  official capability (with links) and marked implemented / proposed / blocked; nav wiring on the root pages.
+- T4 — re-verify the root site's factual claims line by line against official Kalshi docs and the live demo
+  API (from a GitHub Actions runner / page fetcher; this sandbox has no route to `*.demo.kalshi.co` — verified
+  `SSL_ERROR_SYSCALL` at 18:58Z); record in `reports/VERIFICATION_e82d36a3.md`, publish gaps in `flagged.html`.
+- T5 — disposition review of open PRs #16, #15, #3, #2 (results below). No edits to those branches.
+- T6 — PR + merge + Pages verification + this record.
+
+**Out of scope by design:** real demo-account order execution (needs the owner's demo API key + RSA/Ed25519
+private key; session `20e3ad14`'s PR #2 keeps that implementation in `scripts/demo_account/**` and is left for
+the owner). Nothing on this branch requests, stores, or accepts credentials.
+
+### e82d36a3 — completion record (T1–T5), 2026-11-20
+
+**Files this session wrote (all additive; the only edits to existing files were nav entries and one `PUBLISHED` set line):**
+`scripts/portfolio_engine.py` (new), `.github/workflows/portfolio.yml` (new), `portfolio.html` (new),
+`assets/portfolio.js` (new), `suggestions.html` (new), `scripts/check_links.mjs` (new),
+`tests/portfolio.test.mjs` (new), `data/portfolio.json` + `data/portfolio_state.json` (generated, seeded baseline),
+`reports/VERIFICATION_e82d36a3.md` (new); edited: `assets/app.js` (chart jump markers + jump/link strip + nav entry),
+`index.html`, `dashboard.html`, `trades.html`, `data.html`, `methods.html` (§8–§9), `sources.html`, `flagged.html`
+(E1–E12), `topics/*.html` (nav), `README.md`, `EXECUTIVE_SUMMARY.md` (addendum), `COORDINATION.md` (this section).
+No file owned by another session was deleted, renamed, or rewritten; their trees (`js/`, `css/`, `pages/`,
+`categories/`, `docs/`, `site/`, `monitor/`, `trade1/`, `a2ec5543/`, `probe/`) are untouched, and `scripts/check_site.mjs`
+was complemented rather than modified.
+
+**Sources used (all official, read 2026-11-20):** demo environment, Get Markets (params, paging/ordering, cache note, Market
+schema), Market Lifecycle (status enum + filter mapping), Fixed-Point Representation (units, `price_ranges`), Fee Rounding
+(ceil_6dp + balance alignment + worked example), fee schedule PDF (taker/maker formulas, no settlement fee, per-series
+multipliers incl. KXAAAGASM, effective 2026-07-07), Get Multiple Market Orderbooks, Get Trades, Quick Start: WebSockets
+(signed handshake, public channels, keepalive, 429 causes), Rate Limits and Tiers, Get Market Candlesticks / Historical Data,
+Get Exchange Status, Create Order (V2) (path + `410 Gone` legacy note), docs index `llms.txt`.
+
+**Verification performed:** 18 source checks (V1–V18) and 9 repo checks (R1–R9) in `reports/VERIFICATION_e82d36a3.md`;
+engine self-tests 50/50; ledger + page tests 60/60 (34/34 without jsdom); published-page link/nav check 0 failures;
+pre-existing checks re-run and still green (`check_site.mjs` 0 failures, `test_lib.mjs`, `tests/engine.test.js` 36/36,
+`tests/smoke.test.js` OK); one live API cycle executed on a GitHub runner (workflow run 44801621609, both jobs success,
+commit step correctly skipped off `main`).
+
+**Irregularities flagged (published on `flagged.html` as E1–E10 after the merge with `main`; twelve were drafted and two
+were dropped as duplicates of items `ff8ed1b0`'s consolidated tables already cover):** E1 re-verification that the merged
+Flag #1 / Flag #3 corrections are right (`active` is the documented market *status*; the candlestick path is
+`/series/{s}/markets/{t}/candlesticks`); E2 the lab (`Math.ceil` to a cent) and the ledger (`ceil_6dp` + $0.01 alignment)
+use different fee-rounding models on purpose, so their P&L is not comparable digit-for-digit; E3 maker fees unmodeled in
+both engines and **non-zero** for the in-scope gas series `KXAAAGASM` (schedule maker multiplier 1, corroborated by the
+demo API's `fee_type: "quadratic"` / `fee_multiplier: 1`); E4 the CI ledger's ~30-minute sampling is a slower clock than
+the lab's ~12 s polling; E5 wide-gap alert labels (`gap_minutes`, `wide gap` above 90 min) for the bootstrap comparison;
+E6 dollar ranking remains a labelled estimate with the measured alternative specified but unimplemented; E7 `GET
+/markets/trades` documents no ordering guarantee, so a measured 24 h ranking cannot be naively back-filled; E8 CI checker
+coverage (a new page must be added to `check_site.mjs`'s `PUBLISHED` set; `check_links.mjs` currently runs only in
+`portfolio.yml` — recommend one extra step in `pages.yml`); E9 real demo-account tracking still needs the owner's key
+(PRs #2 and #39 both sit unmerged); E10 repo history the site does not mention (7 open PRs, `resolved.html` published but
+unlinked, other sessions' trees left in place).
+
+**Coordination notes for other sessions:** `assets/app.js`, `index.html`, `flagged.html`, `methods.html`, `data/**` and
+`COORDINATION.md` were touched here — if any session still holds a live claim on those paths, rebase onto `main` after this
+merge and resolve in favour of `main`'s deployed files. New `.github/workflows/portfolio.yml` commits `data/portfolio.json`
+and `data/portfolio_state.json` to `main` at :13/:43 with `[skip ci]`; do not add a second writer for those two paths.
+
+**Merge record (this session ← `main` @ `fd2b4809`, 2026-11-20):** `main` moved forward while this work was in progress
+(PRs #29–#38: chart re-scaled with hover, trade-tape windows, exact integer fee math in `assets/model.js`, `alertMove()`
+integer ≥ $0.10 test, `check_site.mjs` widened to every published page, `live.html`/`strategies.html` and a duplicate
+engine removed, `executive-summary.html` added). Resolutions taken, all in favour of the deployed build: `assets/app.js`
+and `suggestions.html` = **main's version kept** and my work fitted to it — my duplicated chart-jump code was **withdrawn**
+because main already draws ≥ $0.10 markers and a links strip under the chart (`#kx-chart-alerts`), so both implementations
+did not survive side by side; the nav label "Suggestions" became main's "Ideas" site-wide; `README.md` /
+`EXECUTIVE_SUMMARY.md` = main's text kept, my content appended as a labelled addendum (main's README referenced a
+`verify-and-collect.yml` workflow that no longer exists — dropping my copy of that line removed the stale claim);
+`index.html` / `methods.html` / `flagged.html` = merged, with my §8–§9 re-pointed at main's §4 fee subsections and my
+E-list de-duplicated against main's Flags 1–19. `scripts/check_site.mjs` (their file) received one line: `portfolio.html`
+added to `PUBLISHED`, because the check fails on any page not in that set.
+
+**Post-merge check results (2026-11-20, all re-run against the merged tree):** `node scripts/check_site.mjs` →
+`{"checked":{"html":16,"links":329,"rows":1118,"resolved":625},"failures":0}`; `node scripts/check_links.mjs` →
+16 published pages, 329 local links, 168 external links, **0 failures**; `python3 scripts/portfolio_engine.py selftest` →
+**50/50**; `node tests/portfolio.test.mjs` → **60/60**; `node tests/engine.test.mjs` → **23/23**;
+`node tests/root_engine.test.js` → **40 passed / 0 failed**; `node scripts/test_lib.mjs` → passed; `node tools/build.mjs` →
+BUILD OK (note: it validates 15 HTML files, i.e. not `portfolio.html` — `check_links.mjs` covers that page, and
+`tests/portfolio.test.mjs` boots it).
+
+**PR disposition (no PR merged by this session; nothing in another session's branch was edited):** seven PRs are open —
+#16 (`e3c4e789`), #15 (`08347343`), #3 (`46259c0d`), draft #2 (`20e3ad14`), #32 (`777927dd`), #35 (`b93ba12e`), #39
+(`935f2113`). Measured before the merge moved on: #16 rewrites the published `index.html`, `topics/*.html`,
+`README.md`, `package.json` and `.github/workflows/pages.yml`; #15 is +724,939 lines and overwrites `assets/app.js`,
+`index.html`, `.gitignore`, `config/topics.json` and the probe workflow, committing a second generated-data pipeline; #3
+adds a second Pages root under `docs/` plus another `pages.yml`; #2 is purely additive apart from a `COORDINATION.md`
+append and is the guarded demo-account executor described in E9. All four older ones were cut before the consolidated
+root site, so merging them now would replace the deployed build with older, mutually conflicting versions — **left open**
+with the reason recorded here and on `flagged.html` (E10). #32/#35/#39 belong to sessions that are or were active on the
+same files; this session did not touch their branches.
+
+**Second merge (this session ← `origin/main` @ `24a7bfd`, PR #39 by `935f2113`):** `main` moved again mid-work and landed an
+authenticated demo-account track (`scripts/demo_account/**`, `demo-account/`, `.github/workflows/demo-account.yml`,
+`tests/demo-account.test.mjs`) plus a site audit (`reports/FINAL_AUDIT.md`) and a refreshed `tools/build.mjs` / `check_site.mjs`
+scope. Overlaps, all resolved as **union**, nothing discarded: `index.html` nav keeps both `Demo Account` (theirs) and `Portfolio`
+(mine); `scripts/check_site.mjs`'s `PUBLISHED` set is the union of both additions; `assets/app.js`'s mount `NAV` gains
+`['demo-account/', 'Demo Account']` alongside `['portfolio.html', 'Portfolio']`; `tools/build-report.json` is regenerated by
+`node tools/build.mjs` rather than hand-merged. Cross-links added both ways (`demo-account/index.html` → the CI ledger,
+`portfolio.html` → the demo-account console) so the two portfolio layers are discoverable from each other. My text was then
+re-verified against their merged code and corrected rather than left stale: `flagged.html` E9 now states the account track is
+**merged but inert without the owner's secrets**, adds my independent confirmation of the claim their `VERIFICATION.md` left
+open (the legacy `/portfolio/orders` write endpoints return `410 Gone` / `deprecated_v1_order_endpoint` per
+[Create Order (V2)](https://docs.kalshi.com/api-reference/orders/create-order-v2)), and E10 now lists draft PR #2 as
+**superseded by #39 — close, do not merge**. Methods §8 gained a comparability rule for the three paper/account layers.
+Post-merge checks re-run: `check_site.mjs` → `{"checked":{"html":18,"links":367,"rows":1118,"resolved":625},"failures":0}`;
+`check_links.mjs` → 16 published pages, 353 local links, 168 external links, 0 failures; `tools/build.mjs` → BUILD OK
+(17 HTML, 6 JS); `tests/portfolio.test.mjs` → 60/60.
+
+**Deploy note (do not misread this):** Pages publishes from `main` with `build_type: legacy` (`main` / `/`), verified via
+`gh api repos/wingbangboozle1-lang/Trade1/pages`. **A push to `arena/e82d36a3-trade1` therefore does not deploy anything**
+and no deploy claim is made for it; the Pages claim belongs to the merged `main` build (`ff8ed1b0`, PR #38). After this
+session's PR is merged, the ledger workflow's "Commit the ledger" step becomes active on `main` (it is correctly skipped on
+feature branches), which is what refreshes `data/portfolio.json` going forward.
+
 ### a67aa1ab — Integration, verification & bug-fix pass (root site)
 
 | Task | Status | Owner session | Files in scope |
@@ -612,7 +745,7 @@ This is a verification/documentation pass only; it does not take over another se
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| 935f2113 · T-DEMO-TAKEOVER: demo account track (authenticated snapshot, guarded executor, paper portfolio performance lab, trade categorisation), verification vs official sources, PR + merge + Pages record | in progress | 935f2113 (branch `arena/935f2113-trade1`, base `main` @ `069a1db`, ff to `3282656`) | `scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**`, `demo-account/**` (new), `tests/demo-account.test.mjs` (new), `COORDINATION.md` (append/reconcile), `index.html` (single nav link, integration role) |
+| 935f2113 · T-DEMO-TAKEOVER: demo account track (authenticated snapshot, guarded executor, paper portfolio performance lab, trade categorisation), verification vs official sources, PR + merge + Pages record | done | 935f2113 (branch `arena/935f2113-trade1`) | `scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**`, `demo-account/**` (new), `tests/demo-account.test.mjs` (new), `COORDINATION.md` (append/reconcile), `index.html` (single nav link, integration role) |
 
 - **Takeover of stale claim T-DEMO (session `20e3ad14`, PR #2 draft).** Per the brief's takeover rule: claim more than 60 minutes old with no commits (last commit 2026-11-20T13:07:57Z, >6h stale at claim time). PR #2's unmerged work (`scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**`) is adopted by cherry-pick/review into this branch; nothing is discarded. PR #2 will be closed with a takeover note once this work lands.
 - Why this task: it is the brief's largest remaining gap on `main` — "Track the portfolio performance using the kalshi demo account", "Execute trades on events and track the performance", "categorize trades and create strategies based on the type of trade" are not yet delivered anywhere on `main` (all sessions flagged demo credentials as absent).
@@ -629,6 +762,31 @@ This is a verification/documentation pass only; it does not take over another se
 - **Integration:** landing-page nav + one new bullet (root `index.html`, integration role), CI link-check coverage for `demo-account/*.html` (`scripts/check_site.mjs` V2_PAGES). Files owned by active session `1db0a677` (`EXECUTIVE_SUMMARY.md`, `reports/FINAL_AUDIT.md`) untouched; `cadbd003` files untouched.
 - **Blocked, not faked:** real demo-account execution still needs the owner's demo API key (repo secrets `KALSHI_DEMO_KEY_ID`/`KALSHI_DEMO_PRIVATE_KEY` or the browser key panel). The CI workflow records `configured: false` and sends nothing until then.
 - PR to `main` + merge + Pages verification recorded in the integration record below.
+
+### 935f2113 — PR, merge, and deployment record (final, 2026-11-20T19:40Z)
+
+- **PR #39** (`arena/935f2113-trade1` → `main`): https://github.com/wingbangboozle1-lang/Trade1/pull/39 —
+  **merged without waiting for approval** per the brief; merge commit **`24a72bf`** (state MERGED,
+  2026-11-20T19:37Z). Branch CI `checks` passed on the head (run 44803762674: engine tests, lib tests,
+  root engine unit checks, demo-account 89-test suite, `tools/build.mjs`, `scripts/check_site.mjs`).
+  Conflicts against concurrently-merged main (PRs #28/#34/#37/#40 consolidation + audit) were resolved
+  twice by union (coordination board, check lists, build globs) — nothing from any session discarded;
+  post-merge full suite re-run locally and green before each push.
+- **Pages deployment confirmed**: `gh api …/pages/builds/latest` → **built** at `c00ecaa` (the demo-account
+  workflow's own first status commit superseded the merge build; one transient `errored` build followed
+  by the successful one, same pattern earlier sessions logged). Live fetches verified:
+  - https://wingbangboozle1-lang.github.io/Trade1/demo-account/ renders the full lab (portfolio tiles,
+    two alert chats, chart panels, per-topic tables, positions/trades/analysis/resolutions, live panel, sources).
+  - https://wingbangboozle1-lang.github.io/Trade1/demo-account/flagged.html publishes F-DA-1…F-DA-11 with source links.
+- **T-DEMO workflow live on `main`**: first run committed `data/demo_account/status.json` (`c00ecaa`,
+  "Demo account not configured … No request was sent." with official doc sources) — the guarded
+  no-credentials behaviour verified in production CI.
+- **PR #2** (stale claim `20e3ad14`) **closed with a takeover note**; its content is preserved in `main`
+  via PR #39 (see the close comment for the mapping).
+- Task status: **done**. Unverified items remain published on `demo-account/flagged.html` and do not block.
+  The one remaining owner action (optional): add demo API credentials (`KALSHI_DEMO_KEY_ID`,
+  `KALSHI_DEMO_PRIVATE_KEY`) to enable real demo-account tracking/execution, or paste a key into the
+  browser panel. Until then live-account values stay blank by design (F-DA-7).
 ---
 
 ## Session `arena/dacc8b5c-trade1` — final integration, line-by-line verification, gap-fill, PR + Pages
