@@ -1,85 +1,50 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0e1518">
-<title>Kalshi Demo Dashboard</title>
-<link rel="stylesheet" href="css/app.css">
-</head>
-<body data-page="index">
-<main class="wrap">
-  <div class="notice"><b>Demo &amp; simulation only.</b> This dashboard reads public Kalshi demo market data with no credentials and runs paper (simulated) trades in your browser. It does not connect to, fund, or place orders in a Kalshi account. Live account trading requires a demo API key, which is not requested or stored here.</div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
+</head><body data-root="./">
+<header class="top" id="nav"></header>
+<main>
 
-  <section class="box">
-    <h2>Executive summary</h2>
-    <p>Kalshi exposes a <a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">demo environment</a> with mock funds and a separate Trade API rooted at
-      <code>https://external-api.demo.kalshi.co/trade-api/v2</code> (also <code>https://demo-api.kalshi.co/trade-api/v2</code>). Public market-data endpoints —
-      <code>GET /markets</code>, <code>GET /markets/{ticker}/orderbook</code>, <code>GET /events</code>, <code>GET /series</code> —
-      need <strong>no authentication</strong> and are readable from a browser, so this static dashboard can poll them live. WebSocket streaming is real-time but
-      the handshake <a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">requires authentication</a>, so this site uses public REST polling.</p>
-    <p>The dashboard tracks live markets in five topics — <strong>gas prices, elections, culture, crypto, golf</strong> — selected by a keyword heuristic on title/subtitle/ticker text
-      (flagged: this is not an official category call). It ranks markets by the official <code>volume_fp</code> and shows a clearly-labeled <em>derived</em> dollar-volume estimate
-      (volume × notional, not an official field). Every market row links to the official Kalshi market page.</p>
-    <p>A sampled price feed detects swings of <strong>≥ $0.10</strong> in either direction and writes them to two scrolling alert chats: <strong>all events</strong> and a
-      <strong>high-ROI</strong> selective feed driven by a heuristic potential-return screen. A per-market chart plots YES price against time with selectable windows
-      (seconds → hours), and the order book shows contracts available at each bid price. A paper strategy engine auto-places simulated trades (momentum, mean-reversion, value),
-      settles them against the official <code>result</code> / <code>settlement_value_dollars</code> fields, and reports performance by strategy.</p>
-    <p class="note">Scope limits are listed on the <a href="flagged.html">Flagged for Review</a> page. Reference facts are verified against the official Kalshi docs on the
-      <a href="sources.html">Sources</a> page.</p>
-  </section>
+<h1>Kalshi Demo Monitor</h1>
+<p class="sub">Live, read-only view of Kalshi <b>demo</b> markets for gas prices, elections, culture, crypto and golf. Built from official Kalshi API documentation and endpoints.</p>
+<div class="notice"><b>Read this first.</b> Kalshi’s demo environment is a separate test environment with its own markets, prices and play money. Demo prices are not production Kalshi prices. The site does not connect to any account, place orders, or prove why prices moved.</div>
 
-  <section class="cards" id="idxStats"></section>
+<section class="box" style="margin-bottom:14px">
+<h2>Executive summary</h2>
+<ul class="clean">
+<li><b>What it does:</b> lists open markets in five topics, charts recent official trade prints, shows resting bid liquidity by price, flags swings of $0.10 or more within 5 minutes, and tracks simulated strategies and resolved outcomes.</li>
+<li><b>Where data comes from:</b> the official Kalshi Trade API (demo base <code>external-api.demo.kalshi.co/trade-api/v2</code>, documented at <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">API environments</a>). Every table row links to its own API endpoint.</li>
+<li><b>Ranking:</b> by open interest × notional value (a derived dollar figure) or by contracts traded (official volume). Kalshi does not publish a per-event dollar-volume field, so no official “dollar amount” ranking exists here.</li>
+<li><b>Causes of moves:</b> not verified. Alerts link to Kalshi’s official settlement sources for the event as context only.</li>
+<li><b>Not done:</b> demo-account portfolio tracking and order execution need demo API credentials, which were not provided. No trades were placed on Kalshi. Simulated trades are only in this browser.</li>
+<li><b>Open items:</b> see <a href="flagged.html">Flagged for Review</a> (keyword topic rules, demo-vs-production data, unverified browser access to the API, CORS, and repo findings).</li>
+</ul>
+</section>
 
-  <div class="layout">
-    <section>
-      <div class="box">
-        <div class="row between"><h2>Live markets · all supported topics</h2><span class="muted">Sorted by official volume (not dollar value). * = derived estimate.</span></div>
-        <div class="tablewrap"><table><thead><tr>
-          <th>Market / event</th><th>Topic</th><th class="num">YES bid</th><th class="num">YES ask</th><th class="num">NO bid</th>
-          <th class="num">Volume</th><th class="num">Open int.</th><th class="num">Est $ vol*</th><th class="num">Ask size</th><th>Status</th><th>Source</th>
-        </tr></thead><tbody id="markets"></tbody></table></div>
-        <p class="note">Data is fetched live from the Kalshi demo REST API on each poll. If the endpoint is unreachable from the browser, the table stays empty and the status indicator turns red — no values are filled in.</p>
-      </div>
-      <div class="box">
-        <h2>Live &amp; interactive — suggestions</h2>
-        <ul class="list">
-          <li><strong>Add a WebSocket mode</strong> behind a demo API key for sub-second ticks; until then REST polling at ~20s is the live transport.</li>
-          <li><strong>Per-event sparklines</strong> in the market table (mini price strips) so trends are visible without opening the chart.</li>
-          <li><strong>Alert sounds / browser notifications</strong> for ≥ $0.10 moves, with per-topic mute.</li>
-          <li><strong>Historical candle overlay</strong> from <code>GET /markets/candlesticks</code> to compare the live line against recent OHLC.</li>
-          <li><strong>Depth heat strip</strong>: color the order-book rows by contract size to spot thin liquidity at a price.</li>
-          <li><strong>Cause-linking</strong>: for each ≥ $0.10 jump, surface a field to attach and verify a news/event link; cause is currently shown as unverified.</li>
-          <li><strong>Watchlist persistence</strong> and export of alerts, positions, and settlement results to CSV for offline review.</li>
-        </ul>
-      </div>
-    </section>
-    <aside>
-      <div class="box">
-        <div class="row between"><h2>All events · alert feed</h2><span class="muted">≥ $0.10 moves</span></div>
-        <div class="chat" id="alertsPreview"></div>
-      </div>
-      <div class="box">
-        <div class="row between"><h2>High-ROI · selective feed</h2><span class="muted">model screen</span></div>
-        <div class="chat" id="roiPreview"></div>
-      </div>
-      <div class="box">
-        <h2>Explore</h2>
-        <ul class="list">
-          <li><a href="pages/gas.html">Gas prices</a> · <a href="pages/elections.html">Elections</a></li>
-          <li><a href="pages/culture.html">Culture</a> · <a href="pages/crypto.html">Crypto</a> · <a href="pages/golf.html">Golf</a></li>
-          <li><a href="alerts.html">Live alerts</a> · <a href="trading.html">Trading lab</a></li>
-          <li><a href="flagged.html">Flagged for review</a> · <a href="sources.html">Sources &amp; verification</a></li>
-        </ul>
-      </div>
-    </aside>
-  </div>
+<section class="grid g4" style="margin-bottom:14px">
+<div class="card kpi"><small>Gas prices</small><strong data-count="gas-prices">—</strong><br><a href="topics/gas-prices.html">Open topic →</a></div>
+<div class="card kpi"><small>Elections</small><strong data-count="elections">—</strong><br><a href="topics/elections.html">Open topic →</a></div>
+<div class="card kpi"><small>Culture</small><strong data-count="culture">—</strong><br><a href="topics/culture.html">Open topic →</a></div>
+<div class="card kpi"><small>Crypto</small><strong data-count="crypto">—</strong><br><a href="topics/crypto.html">Open topic →</a></div>
+<div class="card kpi"><small>Golf</small><strong data-count="golf">—</strong><br><a href="topics/golf.html">Open topic →</a></div>
+<div class="card kpi"><small>Live dashboard</small><strong style="font-size:16px">All topics</strong><br><a href="live.html">Open live view →</a></div>
+<div class="card kpi"><small>Resolved outcomes</small><strong data-count="resolved">—</strong><br><a href="resolved.html">Open resolved →</a></div>
+<div class="card kpi"><small>Strategies</small><strong style="font-size:16px">Simulated only</strong><br><a href="strategies.html">Open strategies →</a></div>
+</section>
 
-  <p class="footer">Public market data supplied by the Kalshi demo API when reachable. Educational prototype — not financial advice.
-    See <a href="sources.html">Sources</a> for the official documentation links backing every reference fact.</p>
+<section class="box">
+<h2>Snapshot status</h2>
+<p id="snapInfo" class="muted">Loading snapshot…</p>
+<p class="muted">Counts above come from <code>data/snapshot.json</code>, generated by <code>scripts/build_snapshot.mjs</code> in CI from public demo endpoints. The live pages refresh from the same endpoints in your browser.</p>
+</section>
+<script>
+fetch('data/snapshot.json',{cache:'no-store'}).then(r=>r.json()).then(s=>{
+  for(const [k,v] of Object.entries(s.topics||{})){const el=document.querySelector('[data-count="'+k+'"]');if(el)el.textContent=v.markets;}
+  const res=document.querySelector('[data-count="resolved"]'); if(res) res.textContent=(s.resolved||[]).length;
+  const c=s.coverage||{};
+  const trunc=['open','closed','settled'].filter(k=>c[k]&&c[k].truncated);document.getElementById('snapInfo').textContent='Built '+s.generated_at+' from '+s.api_base+' · events scanned '+(c.events_total_unique??'?')+' · pages truncated at cap: '+(trunc.length?trunc.join(', '):'none');
+}).catch(()=>{document.getElementById('snapInfo').textContent='Snapshot not available yet.';});
+</script>
+<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
 </main>
-<script src="js/reference.js"></script>
-<script src="js/engine.js"></script>
-<script src="js/ui.js"></script>
-</body>
-</html>
+<script type="module" src="./assets/app.mjs"></script>
+</body></html>
