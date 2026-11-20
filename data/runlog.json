@@ -1,0 +1,12 @@
+[
+ {
+  "at": "2026-11-20T13:17:02Z",
+  "base_url": "https://api.elections.kalshi.com/trade-api/v2",
+  "counts": {
+   "events": 3,
+   "markets": 117,
+   "series": 14869
+  },
+  "trading_active": true
+ }
+]

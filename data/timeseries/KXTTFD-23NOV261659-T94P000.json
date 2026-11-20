@@ -1,0 +1,21 @@
+{
+"ticker": "KXTTFD-23NOV261659-T94P000",
+"title": "Dutch TTF gas above $94.000 on Nov 23 at 4:59:59 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.51,
+"ask": 0.59,
+"mid": 0.55,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"event_ticker": "KXTTFD-23NOV261659",
+"series_ticker": "KXTTFD",
+"updated_at": "2026-11-20T13:17:06Z"
+}

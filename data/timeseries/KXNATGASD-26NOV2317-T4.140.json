@@ -1,0 +1,36 @@
+{
+"ticker": "KXNATGASD-26NOV2317-T4.140",
+"points": [
+{
+"t": 1795172400,
+"bid": 0.0,
+"ask": 0.48,
+"mid": 0.24,
+"last": null,
+"vol": 0.0,
+"oi": 0.0,
+"src": "candle"
+},
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.46,
+"mid": 0.23,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 2758.0,
+"yes_qty": 0,
+"no_qty": 3134.5
+}
+],
+"history_backfilled_at": "2026-11-20T13:17:05Z",
+"history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+"title": "Will the natural gas close price be above 4.140 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"event_ticker": "KXNATGASD-26NOV2317",
+"series_ticker": "KXNATGASD",
+"updated_at": "2026-11-20T13:17:06Z"
+}

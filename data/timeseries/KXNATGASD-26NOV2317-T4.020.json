@@ -1,0 +1,24 @@
+{
+"ticker": "KXNATGASD-26NOV2317-T4.020",
+"title": "Will the natural gas close price be above 4.020 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180622,
+"bid": 0.01,
+"ask": 0.18,
+"mid": 0.095,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 3073.54,
+"yes_qty": 318.5,
+"no_qty": 3106.5
+}
+],
+"event_ticker": "KXNATGASD-26NOV2317",
+"series_ticker": "KXNATGASD",
+"updated_at": "2026-11-20T13:17:06Z"
+}

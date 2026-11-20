@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T13:14:36Z",
+ "generated_at": "2026-11-20T13:17:17Z",
  "items": [
   {
    "id": "demo-credentials-missing",
@@ -95,13 +95,13 @@
    ]
   },
   {
-   "id": "no-snapshot-yet",
-   "severity": "unverified",
-   "title": "No collected market data in this build",
-   "detail": "The data files were empty when this page was generated, so market tables and the portfolio are blank. The pipeline fills them on its next run.",
-   "impact": "All market-derived tables are empty and marked as such.",
+   "id": "live-executor-blocked",
+   "severity": "blocker",
+   "title": "Live executor blocked by preflight",
+   "detail": "Last preflight: KALSHI_DEMO_API_KEY_ID is not set; KALSHI_DEMO_PRIVATE_KEY_PATH is not set",
+   "impact": "No demo orders were sent.",
    "sources": [
-    "https://docs.kalshi.com/api-reference/market/get-markets"
+    "https://docs.kalshi.com/getting_started/demo_env"
    ]
   }
  ]

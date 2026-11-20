@@ -1,0 +1,11 @@
+{
+ "generated_at": "2026-11-20T13:17:17Z",
+ "base_url": "https://external-api.demo.kalshi.co/trade-api/v2",
+ "credentials_present": false,
+ "problems": [
+  "KALSHI_DEMO_API_KEY_ID is not set",
+  "KALSHI_DEMO_PRIVATE_KEY_PATH is not set"
+ ],
+ "executed": false,
+ "status": "blocked"
+}

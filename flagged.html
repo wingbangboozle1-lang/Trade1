@@ -29,11 +29,11 @@ item can be checked by hand and challenged. Nothing here blocks the deploy; it e
 visible instead of hidden.</p>
 <div class="grid cols-4" style="margin-bottom:14px">
   <div class="card kpi"><span class="label">Blockers</span>
-<span class="value"><span class="money">1</span></span><span class="sub">needed for a requested feature</span></div>
+<span class="value"><span class="money">2</span></span><span class="sub">needed for a requested feature</span></div>
   <div class="card kpi"><span class="label">Irregularities</span>
 <span class="value"><span class="money">2</span></span><span class="sub">surprising but documented</span></div>
   <div class="card kpi"><span class="label">Unverified</span>
-<span class="value"><span class="money">3</span></span><span class="sub">blank on the site rather than guessed</span></div>
+<span class="value"><span class="money">2</span></span><span class="sub">blank on the site rather than guessed</span></div>
   <div class="card kpi"><span class="label">Notes</span>
 <span class="value"><span class="money">4</span></span><span class="sub">disclosures and editorial rules</span></div>
 </div>
@@ -45,7 +45,12 @@ visible instead of hidden.</p>
 <td><b>Demo-account trading has never executed</b><span class="tk">demo-credentials-missing</span></td>
 <td style="max-width:520px">The brief asks for trades executed on the Kalshi demo account. No demo API key exists in this environment and one cannot be self-provisioned: a demo account is created by a person at demo.kalshi.co and the private key is downloadable only once. collector/live_trading.py is implemented, self-tested, refuses to run without credentials, and is wired into the pipeline via KALSHI_DEMO_API_KEY_ID / KALSHI_DEMO_PRIVATE_KEY_PATH secrets.</td>
 <td class="mut" style="font-size:12.5px">Portfolio numbers on the site are simulated, not demo-account results.</td>
-<td><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">source</a></td></tr><tr id="culture-category-gap">
+<td><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">source</a></td></tr><tr id="live-executor-blocked">
+<td><span class="chip flag">blocker</span></td>
+<td><b>Live executor blocked by preflight</b><span class="tk">live-executor-blocked</span></td>
+<td style="max-width:520px">Last preflight: KALSHI_DEMO_API_KEY_ID is not set; KALSHI_DEMO_PRIVATE_KEY_PATH is not set</td>
+<td class="mut" style="font-size:12.5px">No demo orders were sent.</td>
+<td><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">source</a></td></tr><tr id="culture-category-gap">
 <td><span class="chip flag">irregularity</span></td>
 <td><b>Kalshi&#39;s Culture category is nearly empty</b><span class="tk">culture-category-gap</span></td>
 <td style="max-width:520px">The live API returns only two series under category=Culture, so this dashboard defines Culture as Culture + Entertainment + Social. Awards, music, TV and movie markets live under Entertainment; the mapping is shown on each page that uses it.</td>
@@ -60,12 +65,7 @@ visible instead of hidden.</p>
 <td><b>Causes of ≥ $0.10 moves are unattributed</b><span class="tk">jump-causes-unattributed</span></td>
 <td style="max-width:520px">Moves are detected from exchange prices. Naming a news cause would be a claim needing a source, so every move is labelled unverified until a reviewer files a source URL in data/attributions.json.</td>
 <td class="mut" style="font-size:12.5px">The sharp-move page shows facts and links, not explanations.</td>
-<td><a href="https://kalshi.com/markets" target="_blank" rel="noopener">source</a></td></tr><tr id="no-snapshot-yet">
-<td><span class="chip flag">unverified</span></td>
-<td><b>No collected market data in this build</b><span class="tk">no-snapshot-yet</span></td>
-<td style="max-width:520px">The data files were empty when this page was generated, so market tables and the portfolio are blank. The pipeline fills them on its next run.</td>
-<td class="mut" style="font-size:12.5px">All market-derived tables are empty and marked as such.</td>
-<td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">source</a></td></tr><tr id="no-websocket-without-keys">
+<td><a href="https://kalshi.com/markets" target="_blank" rel="noopener">source</a></td></tr><tr id="no-websocket-without-keys">
 <td><span class="chip flag">unverified</span></td>
 <td><b>Live push (WebSocket) not enabled</b><span class="tk">no-websocket-without-keys</span></td>
 <td style="max-width:520px">Kalshi&#39;s WebSocket requires an authenticated handshake even for public market-data channels, so a signature needs credentials. The site polls REST every 15 minutes instead. This is a documented API constraint, not an omission.</td>

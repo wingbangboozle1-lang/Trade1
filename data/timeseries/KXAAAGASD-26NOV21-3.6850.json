@@ -1,0 +1,26 @@
+{
+"ticker": "KXAAAGASD-26NOV21-3.6850",
+"points": [
+{
+"t": 1795180622,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0,
+"liq": 1036.02,
+"yes_qty": 0,
+"no_qty": 11067.0
+}
+],
+"history_backfilled_at": "2026-11-20T13:17:05Z",
+"history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+"title": "Will average **gas prices** be above $3.6850?",
+"topics": [
+"gas"
+],
+"event_ticker": "KXAAAGASD-26NOV21",
+"series_ticker": "KXAAAGASD",
+"updated_at": "2026-11-20T13:17:06Z"
+}
