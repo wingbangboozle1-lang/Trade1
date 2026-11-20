@@ -1,15 +1,41 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Resolved · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
 </head><body data-root="./">
-<header class="top" id="nav"></header>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Resolved markets</h1>
+    <p>Official YES / NO results for the tracked topics</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Summary</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="demo-account/">Demo Account</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="resolved.html" class="active">Resolved</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="suggestions.html">Ideas</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
 <main>
 
 <h1>Resolved markets</h1>
 <p class="sub">Markets whose official result is set (yes or no). Tracked from the Kalshi API status and result fields. <span class="muted">Count: <span id="resolvedCount">0</span></span></p>
-<div class="notice"><b>How it is determined:</b> Kalshi sets <code>result</code> when a market is determined and pays out at settlement. Settled markets appear with status <code>finalized</code> in the REST API (see the <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">market lifecycle</a> doc). Only official yes/no results are shown; anything else is left blank.</div>
+<div class="notice"><b>How it is determined:</b> Kalshi sets <code>result</code> when a market is <em>determined</em> (<code>yes</code>, <code>no</code>, or <code>scalar</code>) and pays out at settlement; in REST, settled markets end up at status <code>finalized</code> (see the <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">market lifecycle</a> doc). Only official yes/no results are shown; anything else is left blank.</div>
+<p class="muted small" id="resolvedNote"></p>
 <section class="box">
 <div class="tablewrap"><table><thead><tr><th>Market</th><th>Topic</th><th>Result</th><th>Settlement time</th><th>Status</th><th>Source</th></tr></thead><tbody id="resolvedBody"><tr><td colspan="6" class="empty">Loading…</td></tr></tbody></table></div>
-<p class="muted">Rows come from the official <code>/events?status=settled</code> endpoint (first pages, live) and from the build snapshot. Older settled markets may sit in Kalshi’s historical endpoints, which this page does not query (see Flagged).</p>
+<p class="muted">Rows come from the official <code>/markets?status=settled</code> endpoint (first pages, live) and from the build snapshot. Older settled markets may sit in Kalshi’s historical endpoints, which this page does not query (see Flagged).</p>
 </section>
 <div data-live></div>
 <footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
