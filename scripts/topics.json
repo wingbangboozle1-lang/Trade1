@@ -4,36 +4,53 @@
     {
       "id": "gas-prices",
       "label": "Gas prices",
-      "categories": ["Economics", "Energy"],
+      "categories": [
+        "Economics",
+        "Energy"
+      ],
       "title_keywords": "gasoline|gas price|gas prices|average gas|fuel price|petrol",
       "exclude_keywords": "natural gas|natgas|propane|heating oil",
-      "series_prefix": "^(KX)?(GAS|FUEL)"
+      "series_prefix": "^(KX)?(AAA)?GAS|^(KX)?FUEL"
     },
     {
       "id": "elections",
       "label": "Elections",
-      "categories": ["Elections"],
+      "categories": [
+        "Elections"
+      ],
       "title_keywords": "",
       "series_prefix": "^(KX)?(ELECT|SEN|HOUSE|GOV|PRES|MAYOR)"
     },
     {
       "id": "culture",
       "label": "Culture",
-      "categories": ["Culture", "Entertainment", "Mentions", "Music", "Movies", "TV", "Pop Culture"],
+      "categories": [
+        "Culture",
+        "Entertainment",
+        "Mentions",
+        "Music",
+        "Movies",
+        "TV",
+        "Pop Culture"
+      ],
       "title_keywords": "",
       "series_prefix": ""
     },
     {
       "id": "crypto",
       "label": "Crypto",
-      "categories": ["Crypto"],
+      "categories": [
+        "Crypto"
+      ],
       "title_keywords": "",
       "series_prefix": "^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT)"
     },
     {
       "id": "golf",
       "label": "Golf",
-      "categories": ["Sports"],
+      "categories": [
+        "Sports"
+      ],
       "title_keywords": "golf",
       "series_prefix": "^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)"
     }

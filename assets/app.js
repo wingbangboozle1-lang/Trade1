@@ -80,6 +80,12 @@ window.KalshiApp = (function () {
   function kalshiEventUrl(ev) { return 'https://kalshi.com/markets/' + encodeURIComponent(String(ev || '').toLowerCase()); }
   function newsUrl(title) { return 'https://news.google.com/search?q=' + encodeURIComponent(title) + '&hl=en-US'; }
 
+  /* root prefix so data/ fetches work from subpages (topics/*.html) */
+  var ROOT = (function () {
+    var t = document.querySelector('script[src$="app.js"]');
+    return t ? t.getAttribute('src').replace(/assets\/app\.js.*$/, '') : '';
+  })();
+
   /* ---------- state ---------- */
   var S = {
     mode: 'boot',            // boot | live | snapshot | error
@@ -98,6 +104,7 @@ window.KalshiApp = (function () {
     eventQueue: [],          // event tickers needing market fetch
     evFetchCursor: 0,
     lastDiscovery: 0,
+    degraded: false,
     lastCandleFetch: 0,
     timer: null
   };
@@ -137,7 +144,7 @@ window.KalshiApp = (function () {
     var left = ids.length, any = false;
     S.watch = {}; S.list = []; S.events = {};
     ids.forEach(function (id) {
-      fetch('data/topics/' + id + '.json', { cache: 'no-store' }).then(function (r) {
+      fetch(ROOT + 'data/topics/' + id + '.json', { cache: 'no-store' }).then(function (r) {
         return r.ok ? r.json() : null;
       }).catch(function () { return null; }).then(function (j) {
         if (j && j.events) {
@@ -177,9 +184,57 @@ window.KalshiApp = (function () {
         });
         S.lastDiscovery = Date.now();
         fetchQueuedEvents(0);
+        discoverSeries();
         maybeLive();
       });
     })('');
+  }
+
+  /* Series discovery: GET /series?category=X&include_volume=true is the
+   * authoritative listing (verified live). Filtered per-topic by series/title
+   * regexes, then each series' open markets are pulled. This covers fast
+   * cycling series (hourly crypto, daily AAA gas) that /events paging misses. */
+  function discoverSeries() {
+    if (S.mode === 'snapshot') return;
+    M.TOPICS.forEach(function (t) {
+      var seen = {}, srs = [], left = t.categories.length;
+      if (!t.categories.length) return;
+      t.categories.forEach(function (cat) {
+        api('/series', { category: cat, include_volume: 'true', limit: '200' }, function (err, j) {
+          if (!err && j && j.series) {
+            j.series.forEach(function (sr) {
+              if (!sr.ticker || seen[sr.ticker]) return;
+              var title = sr.title || '';
+              var hay = title + ' ' + sr.ticker;
+              if (t.exclRe && new RegExp(t.exclRe, 'i').test(hay)) return;
+              if (t.titleRe && !(new RegExp(t.titleRe, 'i').test(title) ||
+                                 new RegExp(t.seriesRe || '\\x00', 'i').test(sr.ticker))) return;
+              seen[sr.ticker] = sr; srs.push(sr);
+            });
+          }
+          if (--left === 0) {
+            srs.sort(function (a, b) { return (Number(b.volume_fp) || 0) - (Number(a.volume_fp) || 0); });
+            srs.slice(0, 12).forEach(function (sr) {
+              api('/markets', { series_ticker: sr.ticker, status: 'open', limit: '1000' }, function (err2, j2) {
+                if (err2 || !j2 || !j2.markets) return;
+                j2.markets.forEach(function (m) {
+                  if (!m.ticker) return;
+                  var et = m.event_ticker;
+                  if (!S.events[et]) {
+                    S.events[et] = { event_ticker: et, title: m.title, series_ticker: sr.ticker,
+                                     settlement_sources: sr.settlement_sources || [], _topic: t.id };
+                  }
+                  m._topic = t.id;
+                  if (!S.watch[m.ticker]) { S.watch[m.ticker] = m; S.list.push(m.ticker); }
+                  else S.watch[m.ticker] = Object.assign(S.watch[m.ticker], m);
+                });
+                trimWatch();
+              });
+            });
+          }
+        });
+      });
+    });
   }
   function fetchQueuedEvents(depth) {
     if (S.mode === 'snapshot') return;
@@ -229,6 +284,7 @@ window.KalshiApp = (function () {
     });
   }
   function handleMarketBatch(j) {
+    if (S.degraded) { S.degraded = false; S.modeNote = ''; maybeLive(); }
     var now = Date.now();
     var fresh = (j && j.markets) || [];
     var resolvedNow = {};
@@ -278,8 +334,9 @@ window.KalshiApp = (function () {
     var a = cur.last !== null ? cur.last : cur.bid;
     var b = prev.last !== null ? prev.last : prev.bid;
     if (a === null || b === null) return;
-    var delta = Math.round((a - b) * 1000) / 1000;
-    if (Math.abs(delta) < CFG.alertThreshold) return;
+    var raw = a - b;
+    if (Math.abs(raw) < CFG.alertThreshold - 1e-9) return; // tolerance: 4dp official prices
+    var delta = Math.round(raw * 1000) / 1000;
     var dir = delta > 0 ? 'up' : 'down';
     var vol24 = Number(m.volume_24h_fp || 0), vol = Number(m.volume_fp || 0);
     var estdv = isFinite(vol) && isFinite(Number(m.last_price_dollars)) ? Math.round(vol * Number(m.last_price_dollars)) : null;
@@ -559,7 +616,6 @@ window.KalshiApp = (function () {
       return s + (isFinite(v) && isFinite(p) ? v * p : 0);
     }, 0);
     set('#kpi-dv', '$' + fmtK(dv));
-    $('#kpi-equity').parentElement && ($('#kpi-equity').parentElement.className = 'kpi-inline');
   }
 
   /* ---------- status banner ---------- */
@@ -576,12 +632,12 @@ window.KalshiApp = (function () {
     if (note) note.textContent = S.modeNote || (S.lastError ? ('Last API error: ' + S.lastError) : '');
   }
   function degrade() {
-    if (S.mode === 'live' && S.list.length === 0) {
-      S.mode = 'snapshot';
-      S.modeNote = 'Live demo API could not be reached from this browser. Showing the Actions-verified snapshot in data/ (see Data page). Alerts and paper trading are paused in snapshot mode.';
-      loadSnapshot(function (any) {
-        renderStatus(); renderTable(); renderKPIs(); renderResolved();
-      });
+    if (!S.degraded) {
+      S.degraded = true;
+      if (!S.list.length) {
+        loadSnapshot(function () { renderTable(); renderKPIs(); renderResolved(); });
+      }
+      S.modeNote = 'Live demo API could not be reached from this browser/network — showing the Actions-verified snapshot in data/ until a request succeeds (auto-retries).';
       renderStatus();
     }
   }
@@ -602,7 +658,7 @@ window.KalshiApp = (function () {
     setInterval(function () {
       if (!document.hidden) {
         M.recordEquity(Date.now());
-        var acted = M.runStrategies(S.newAlerts.splice(0), S.watch, Date.now());
+        var acted = M.runStrategies(S.newAlerts.splice(0), S.watch, S.list, Date.now());
         if (acted.length && $('#kx-trades-hint')) {
           $('#kx-trades-hint').textContent = 'Bot actions this cycle: ' +
             acted.map(function (a) { return a.ticker + ' → ' + a.strategy + ' ' + a.side.toUpperCase(); }).join(', ');
@@ -686,7 +742,7 @@ window.KalshiApp = (function () {
     drawChart();
     if (!S.timer) { S.timer = true; loops(); }
     // boot sequence
-    fetch('data/meta.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; })
+    fetch(ROOT + 'data/meta.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; }).then(function (meta) {
         if (meta && meta.generated_at) {
           S.modeNote = 'Snapshot bootstrap: data/ collected ' + meta.generated_at.replace('T', ' ').slice(0, 19) + 'Z by Actions; live polling takes over on first successful request.';

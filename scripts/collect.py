@@ -240,31 +240,84 @@ def main():
             continue
         buckets[tid].append((e, why))
 
-    # Complete market set per in-scope event: GET /markets?event_ticker=X returns
-    # every matching market in one response (documented single-response behavior).
+    # ---- 5b. per-topic series discovery (authoritative: GET /series?category=) ----
+    # Covers fast-cycling series (hourly crypto, daily AAA gas) that /events
+    # paging cannot reach; series carry settlement_sources + official volume.
+    have_tickers = {m.get("ticker") for m in markets if m.get("ticker")}
+    series_stats = {}
+    for t in topics:
+        seen_series, matched = set(), []
+        for cat in t["categories"]:
+            j = fetch_json(f"{BASE}/series?category={urllib.parse.quote(cat)}"
+                           f"&include_volume=true&limit=1000", "(series list)")
+            for sr in (j or {}).get("series") or []:
+                tick = sr.get("ticker")
+                if not tick or tick in seen_series:
+                    continue
+                hay = f"{sr.get('title') or ''} {tick}"
+                if t.get("exclude_keywords") and re.search(t["exclude_keywords"], hay, re.I):
+                    continue
+                if t["title_keywords"] and not (
+                        re.search(t["title_keywords"], sr.get("title") or "", re.I)
+                        or re.search(t["series_prefix"], tick, re.I)):
+                    continue
+                seen_series.add(tick)
+                matched.append(sr)
+        matched.sort(key=lambda sr: fnum(sr.get("volume_fp")) or 0, reverse=True)
+        log(f"topic {t['id']}: {len(matched)} series matched (categories {t['categories']}); fetching top {min(40, len(matched))} by volume")
+        for sr in matched[:40]:
+            j = fetch_json(f"{BASE}/markets?series_ticker={urllib.parse.quote(sr['ticker'])}"
+                           f"&status=open&limit=1000", "(series markets)")
+            ms = (j or {}).get("markets") or []
+            series_stats[sr["ticker"]] = len(ms)
+            for m in ms:
+                if not m.get("ticker") or m["ticker"] in have_tickers:
+                    continue
+                have_tickers.add(m["ticker"])
+                markets.append(m)
+                et = m.get("event_ticker")
+                if et and not any(pe[0]["event_ticker"] == et for pe in buckets[t["id"]]):
+                    buckets[t["id"]].append((
+                        {"event_ticker": et, "title": m.get("title"),
+                         "series_ticker": sr["ticker"], "category": sr.get("category"),
+                         "settlement_sources": sr.get("settlement_sources")},
+                        "series-discovery"))
+    log(f"markets after series discovery: {len(markets)}")
+
+    # rank each bucket by provisional est dollar volume from sweep membership,
+    # then fetch official metadata + complete market set per event (per-topic budget)
+    for tid, pairs in buckets.items():
+        def provisional(pe):
+            e = pe[0]
+            return sum((fnum(m.get("volume_fp")) or 0) * (fnum(m.get("last_price_dollars")) or 0)
+                       for m in markets if m.get("event_ticker") == e["event_ticker"])
+        pairs.sort(key=provisional, reverse=True)
+
     ev_fetch_count, ev_fetch_urls = 0, []
-    for tid, pairs in list(buckets.items()):
+    for tid, pairs in buckets.items():
+        budget = 60
         for e, why in pairs:
-            if ev_fetch_count >= 160:
+            if budget <= 0:
                 break
             et = e["event_ticker"]
-            # official event metadata (category, series_ticker, settlement_sources)
-            je = fetch_json(f"{BASE}/events/{urllib.parse.quote(et)}", "(event metadata)")
-            ev_fetch_count += 1
-            if je and je.get("event"):
-                e.update({k: je["event"][k] for k in EVENT_FIELDS if k in je["event"]})
+            if "category" not in e or not e.get("settlement_sources"):
+                je = fetch_json(f"{BASE}/events/{urllib.parse.quote(et)}", "(event metadata)")
+                ev_fetch_count += 1
+                budget -= 1
+                if je and je.get("event"):
+                    e.update({k: je["event"][k] for k in EVENT_FIELDS if k in je["event"]})
             url = f"{BASE}/markets?event_ticker={urllib.parse.quote(et)}"
             j = fetch_json(url, "(event markets)")
             ev_fetch_count += 1
+            budget -= 1
             if j and j.get("markets"):
                 if len(ev_fetch_urls) < 5:
                     ev_fetch_urls.append(url)
-                have = {m["ticker"] for m in markets}
                 for m in j["markets"]:
-                    if m.get("ticker") and m["ticker"] not in have:
+                    if m.get("ticker") and m["ticker"] not in have_tickers:
+                        have_tickers.add(m["ticker"])
                         markets.append(m)
-                        have.add(m["ticker"])
-        log(f"in-scope event metadata+market fetches so far: {ev_fetch_count}")
+        log(f"topic {tid}: event fetch budget used {60 - budget}")
     log(f"markets after per-event fetch: {len(markets)}")
 
     # market-level classification pass: derive a series guess from the event
@@ -434,6 +487,8 @@ def main():
             "markets_open_count": len(markets),
             "settled_count_recent": len(settled),
             "event_metadata_and_market_fetches": ev_fetch_count,
+            "series_discovered_per_topic": {t["id"]: sum(1 for k in series_stats if k) for t in topics},
+            "series_market_counts_top": dict(sorted(series_stats.items(), key=lambda kv: -kv[1])[:25]),
             "orderbook_ok": os.path.exists(os.path.join(OUT, "samples/orderbook-sample.json")),
             "candlesticks_ok": os.path.exists(os.path.join(OUT, "samples/candlesticks-sample.json")),
         },

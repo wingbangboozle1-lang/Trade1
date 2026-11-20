@@ -31,7 +31,9 @@ window.KalshiModel = (function () {
     bank: 1000,            // virtual starting bankroll, USD
     perTradeDollars: 25,   // target cost per paper trade
     maxPositions: 8,
-    fees: false,           // UNVERIFIED fee schedule — off by default (flagged)
+    fees: true,            // official taker fee: roundup(0.07 x C x P x (1-P)) —
+                           // kalshi.com/docs/kalshi-fee-schedule.pdf (verified 2026-11-20).
+                           // Maker fees are not modeled (paper fills assume immediate match).
     strategies: {
       momentum:  { on: true, holdMin: 15, takeProfit: 0.15, stopLoss: 0.10, minScore: 0.45, maxSpread: 0.06 },
       fade:      { on: true, holdMin: 10, takeProfit: 0.08, stopLoss: 0.08, maxSpread: 0.04, minVol24h: 100 },
@@ -55,7 +57,7 @@ window.KalshiModel = (function () {
   var TOPICS = [
     { id: 'gas-prices', label: 'Gas prices', categories: ['Economics', 'Energy'],
       titleRe: 'gasoline|gas price|gas prices|average gas|fuel price|petrol',
-      exclRe: 'natural gas|natgas|propane|heating oil', seriesRe: '^(KX)?(GAS|FUEL)' },
+      exclRe: 'natural gas|natgas|propane|heating oil', seriesRe: '^(KX)?(AAA)?GAS|^(KX)?FUEL' },
     { id: 'elections', label: 'Elections', categories: ['Elections'],
       titleRe: '', exclRe: '', seriesRe: '^(KX)?(ELECT|SEN|HOUSE|GOV|PRES|MAYOR)' },
     { id: 'culture', label: 'Culture', categories: ['Culture', 'Entertainment', 'Mentions', 'Music', 'Movies', 'TV', 'Pop Culture'],
@@ -101,7 +103,9 @@ window.KalshiModel = (function () {
     return Math.round(s * 1000) / 1000;
   }
 
-  /* ---------- fee (OFF by default; UNVERIFIED schedule — flagged) ---------- */
+  /* ---------- fee (official schedule: taker = roundup(0.07 x C x P x (1-P));
+   * source: https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026.
+   * Maker fees are not modeled — paper fills assume immediately-matched orders.) --- */
   function fee(costPerContract, qty) {
     if (!state.bot.fees) return 0;
     var p = costPerContract;
@@ -141,13 +145,14 @@ window.KalshiModel = (function () {
     var cost = qty * ba.ask;
     if (cost > cash) { qty = Math.floor(cash / ba.ask); cost = qty * ba.ask; }
     if (qty < 1) return false;
-    cash = Math.round((cash - cost) * 10000) / 10000;
+    var fEntry = fee(ba.ask, qty);
+    cash = Math.round((cash - cost - fEntry) * 10000) / 10000;
     state.trades.push({
       id: Date.now() + ':' + Math.random().toString(36).slice(2, 7),
       t: new Date().toISOString(), ticker: m.ticker, event_ticker: m.event_ticker,
       title: m.title, topic: m._topic || null, side: side, qty: qty,
       entry: ba.ask, strategy: strategy, status: 'open', mark: ba.bid,
-      note: note || ''
+      feeEntry: fEntry, note: note || ''
     });
     persistAll();
     return true;
@@ -159,7 +164,7 @@ window.KalshiModel = (function () {
     cash = Math.round((cash + proceeds - f) * 10000) / 10000;
     t.status = 'closed';
     t.exit = { t: when || new Date().toISOString(), price: price, reason: reason, fee: f };
-    t.pnl = Math.round((t.qty * (price - t.entry) - f) * 10000) / 10000;
+    t.pnl = Math.round((t.qty * (price - t.entry) - (t.feeEntry || 0) - f) * 10000) / 10000;
     persistAll();
   }
 
@@ -168,7 +173,7 @@ window.KalshiModel = (function () {
     cash = Math.round((cash + t.qty * payout) * 10000) / 10000;
     t.status = 'settled';
     t.exit = { t: when || new Date().toISOString(), price: payout, reason: 'settlement (' + result + ')' };
-    t.pnl = Math.round(t.qty * (payout - t.entry) * 10000) / 10000;
+    t.pnl = Math.round((t.qty * (payout - t.entry) - (t.feeEntry || 0)) * 10000) / 10000;
     persistAll();
   }
 
@@ -182,7 +187,7 @@ window.KalshiModel = (function () {
       t.mark = ba.bid;
       var cfg = st[t.strategy] || {};
       var heldMin = (now - new Date(t.t).getTime()) / 60000;
-      var pl = ba.bid - t.entry;
+      var pl = Math.round((ba.bid - t.entry) * 10000) / 10000; // 4dp: official price precision
       if (cfg.takeProfit !== undefined && pl >= cfg.takeProfit) return closeTrade(t, ba.bid, 'take-profit');
       if (cfg.stopLoss !== undefined && pl <= -cfg.stopLoss) return closeTrade(t, ba.bid, 'stop-loss');
       if (cfg.holdMin !== undefined && heldMin >= cfg.holdMin) return closeTrade(t, ba.bid, 'time-exit');
@@ -190,14 +195,15 @@ window.KalshiModel = (function () {
   }
 
   /* Strategy entries, evaluated per poll cycle. `newAlerts` = alerts since last
-   * cycle [{ticker, delta, dir}]; `markets` = live map ticker -> market. */
+   * cycle [{ticker, delta, dir}]; `watch` = live map ticker -> market;
+   * `watchList` = its tickers. */
   var cycle = 0;
-  function runStrategies(newAlerts, markets, now) {
+  function runStrategies(newAlerts, watch, watchList, now) {
     var bot = state.bot, st = bot.strategies;
     if (!bot.enabled) return [];
     var acted = [];
     (newAlerts || []).forEach(function (a) {
-      var m = markets[a.ticker];
+      var m = watch[a.ticker];
       if (!m || !m._topic) return;
       var spread = Number(m.yes_ask_dollars) - Number(m.yes_bid_dollars);
       var vol24 = Number(m.volume_24h_fp || 0);
@@ -211,7 +217,7 @@ window.KalshiModel = (function () {
       }
     });
     // scan strategies (every cycle for breakout, every 5th for harvest to save CPU)
-    var scan = markets.list || [];
+    var scan = (watchList || []).map(function (t) { return watch[t]; }).filter(Boolean);
     scan.forEach(function (m) {
       if (!m._topic) return;
       var spread = Number(m.yes_ask_dollars) - Number(m.yes_bid_dollars);
