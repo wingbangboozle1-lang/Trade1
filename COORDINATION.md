@@ -234,3 +234,33 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - Pages: legacy source `main /`. Latest build for the merge commit reported `built`. Live check: `https://wingbangboozle1-lang.github.io/Trade1/` serves the v2 landing page; `flagged.html` serves the Flagged for Review page (F1–F12, R1–R11, N1–N4).
 - Not done and flagged: demo-account portfolio and order execution (no credentials supplied); high-ROI rule is a placeholder; PR #6/#7 site trees and PR #5/#6 `dashboard.html`/`categories/` have broken local links (R11) and are not checked by v2 CI.
 - Open PRs at merge time: #2, #3, #4 (overlaps logged above). PR #6 and #7 are merged.
+
+### Integration record (session `ed8bbdf4` — PR #12)
+
+- Session `ed8bbdf4` was assigned branch `arena/ed8bbdf4-trade1`, branched from `main` @ `73ba253`.
+  It built an independent, complete alternate dashboard (landing + executive summary, five topic
+  subpages, live alert chats, charts, order-book depth, paper-trade lab, resolved tracking,
+  flagged + sources pages, standalone `scripts/paper_engine.py`) using the official Kalshi docs
+  verified this session (demo env, market data quick start, WebSockets quick start, Get Markets,
+  Get Market Orderbook, changelog). All JS passed `node --check`; the Python engine passed
+  `py_compile`; all render paths were exercised under a headless DOM harness; the topic keyword
+  matcher was corrected to word-boundary matching (word "someth**ing**" was falsely matching the
+  "eth" crypto term) and confirmed against fixtures.
+- While this session was active, parallel sessions advanced `main` by 35 commits with a complete,
+  deployed v2 dashboard (PRs #5–#8, #11) that already satisfies the full brief. PR #12 was
+  therefore **not** a fresh deliverable but an integration of this session's branch into the
+  already-merged v2 site.
+- Merge conflict resolved **without discarding the other sessions' work**: `main` was merged into
+  the branch; all Pages-source files that conflicted (`index.html`, `flagged.html`, `sources.html`,
+  `pages/*.html`, `README.md`, `COORDINATION.md`, `.gitignore`, `.github/workflows/pages.yml`) were
+  resolved in favor of the deployed v2 site (the single GitHub Pages source, published from the
+  `main` root). The session's duplicate alternate tree (`css/app.css`, `js/engine.js`, `js/ui.js`,
+  `js/reference.js`, `alerts.html`, `trading.html`) was removed so the repo keeps one Pages source
+  and no second conflicting tree (see R11). Nothing from `main` was deleted.
+- Unique artifact preserved from this session: `scripts/paper_engine.py` (standalone, dependency-free
+  paper-trade automation; `main` had only `.mjs` snapshot/check tooling). README updated to document it.
+- Verified before merge: `scripts/paper_engine.py` compiles (`py_compile`); the resolved tree is
+  byte-identical to `origin/main` except for the added `scripts/paper_engine.py` and the README/COORDINATION
+  notes (`git diff origin/main --stat` shows only those).
+- PR #12 merged to `main`; Pages deployment confirmed below. The merged v2 site remains the live,
+  CI-passing deliverable; this session's contributions are the automation script and the integration log.

@@ -52,6 +52,19 @@ node scripts/check_site.mjs
 python3 -m http.server 8000   # then open http://localhost:8000/
 ```
 
+## Standalone paper-trade engine
+
+`scripts/paper_engine.py` is a runnable, dependency-free (stdlib-only) automation script that
+mirrors the browser strategy engine (momentum, mean-reversion, value) against public Kalshi
+demo market data. It places **simulated** trades, settles them against the official
+`result` / `settlement_value_dollars` fields, and prints alerts and performance. Nothing is
+sent to Kalshi.
+
+```bash
+python3 scripts/paper_engine.py --once            # one pass
+python3 scripts/paper_engine.py --loop --interval 20
+```
+
 ## Verification
 Every technical claim is traceable to an official Kalshi source (see `docs/sources.md` and
 `docs/verification.md`). The build sandbox cannot reach Kalshi hosts, so live values are fetched
