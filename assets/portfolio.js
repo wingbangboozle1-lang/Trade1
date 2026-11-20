@@ -47,8 +47,24 @@
     return isNaN(d) ? '' : d.toISOString().slice(11, 19) + 'Z';
   }
   function mdhm(t) { var d = new Date(t); return isNaN(d) ? '' : d.toISOString().slice(5, 10) + ' ' + d.toISOString().slice(11, 16) + 'Z'; }
-  function marketUrl(ticker) { return 'https://kalshi.com/markets/' + encodeURIComponent(String(ticker || '').toLowerCase()); }
-  function eventUrl(ev) { return 'https://kalshi.com/markets/' + encodeURIComponent(String(ev || '').toLowerCase()); }
+  /* Kalshi's market page is the SERIES page: https://kalshi.com/markets/{series_ticker}
+   * (the pattern in the official Quick Start guide). Verified live 2026-11-20: a *market*
+   * ticker (https://kalshi.com/markets/kxethd-26nov2017-t1779.99) is a 404, while the
+   * series page (https://kalshi.com/markets/kxethd) resolves. Ledger rows carry the
+   * confirmed `kalshi_url` (series taken from the official event record); when a row has
+   * none, the link falls back to the official API record instead of guessing a URL. */
+  function seriesUrl(row) {
+    if (row && row.kalshi_url) return row.kalshi_url;
+    var s = (row && row.series_ticker) || seriesPrefix(row && row.ticker);
+    return s ? 'https://kalshi.com/markets/' + encodeURIComponent(String(s).toLowerCase()) : '';
+  }
+  /* Kalshi's ticker format is {SERIES}-{EVENT}-{STRIKE}, so the series is the part of a
+   * market ticker before the first "-" (the same rule the CI ledger uses). */
+  function seriesPrefix(ticker) {
+    var t = String(ticker || '');
+    var i = t.indexOf('-');
+    return i === -1 ? t : t.slice(0, i);
+  }
   function newsUrl(title) { return 'https://news.google.com/search?q=' + encodeURIComponent(title || '') + '&hl=en-US'; }
   function apiUrl(ticker) { return API + '/markets?tickers=' + encodeURIComponent(ticker || ''); }
   function srcLink(url, label) {
@@ -152,7 +168,7 @@
   function renderPositions() {
     var rows = filtered((state.doc.positions || []).slice().reverse());
     var cols = [
-      { label: 'Market', render: function (r) { return '<a href="' + esc(marketUrl(r.ticker)) + '" target="_blank" rel="noopener">' + esc(cleanTitle(r.title) || r.ticker) + '</a><br><span class="muted small">' + esc(r.ticker) + ' · ' + esc(r.topic || '') + '</span>'; } },
+      { label: 'Market', render: function (r) { var u = seriesUrl(r); var label = esc(cleanTitle(r.title) || r.ticker); return (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + label + '</a>' : label) + '<br><span class="muted small">' + esc(r.ticker) + ' · ' + esc(r.topic || '') + '</span>'; } },
       { label: 'Strategy', render: function (r) { return '<span class="badge">' + esc(r.strategy) + '</span>'; } },
       { label: 'Side', render: function (r) { return '<b class="' + (r.side === 'yes' ? 'up' : 'down') + '">' + esc((r.side || '').toUpperCase()) + '</b>'; } },
       { label: 'Qty', render: function (r) { return esc(r.qty_contracts); } },
@@ -178,7 +194,7 @@
     });
     var rows = filtered(all).slice(0, 120);
     var cols = [
-      { label: 'Market', sortable: true, k: 'ticker', render: function (r) { return '<a href="' + esc(marketUrl(r.ticker)) + '" target="_blank" rel="noopener">' + esc(cleanTitle(r.title) || r.ticker) + '</a><br><span class="muted small">' + esc(r.ticker) + '</span>'; } },
+      { label: 'Market', sortable: true, k: 'ticker', render: function (r) { var u = seriesUrl(r); var label = esc(cleanTitle(r.title) || r.ticker); return (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + label + '</a>' : label) + '<br><span class="muted small">' + esc(r.ticker) + '</span>'; } },
       { label: 'Topic', k: 'topic', sortable: true, render: function (r) { return esc(r.topic || '—'); } },
       { label: 'Strategy', k: 'strategy', sortable: true, render: function (r) { return '<span class="badge">' + esc(r.strategy) + '</span>'; } },
       { label: 'Side', render: function (r) { return esc((r.side || '').toUpperCase()); } },
@@ -250,7 +266,7 @@
       return '<div class="msg ' + esc(a.dir) + (a.model_pick ? ' model' : '') + '">' +
         '<span class="time">' + esc(hhmm(a.t)) + '</span>' +
         '<b class="' + esc(a.dir) + '">' + arrow + ' ' + (a.delta_usd > 0 ? '+' : '') + Number(a.delta_usd).toFixed(4) + '</b> ' +
-        '<a href="' + esc(eventUrl(a.event_ticker)) + '" target="_blank" rel="noopener">' + esc(cleanTitle(a.title) || a.ticker) + '</a> ' +
+        (seriesUrl(a) ? '<a href="' + esc(seriesUrl(a)) + '" target="_blank" rel="noopener">' + esc(cleanTitle(a.title) || a.ticker) + '</a> ' : esc(cleanTitle(a.title) || a.ticker) + ' ') +
         '<span class="meta">' + plain(a.from_usd, 4) + ' → ' + plain(a.to_usd, 4) +
         (a.spread_usd !== null && a.spread_usd !== undefined ? ' · spread ' + Number(a.spread_usd).toFixed(2) : '') +
         (a.vol24_contracts !== null && a.vol24_contracts !== undefined ? ' · 24h ' + Number(a.vol24_contracts).toLocaleString() + 'c' : '') +
@@ -259,7 +275,7 @@
           ? ' · over ' + Number(a.gap_minutes).toFixed(0) + ' min' + (a.wide_gap ? ' <span class=\"flag\">(wide gap)</span>' : '') : '') + '</span>' +
         '<div class="links">' + srcLink(a.source, 'quote response') +
         ' · <a href="' + esc(newsUrl(cleanTitle(a.title))) + '" target="_blank" rel="noopener">news search (lead, not a cause)</a>' +
-        ' · <a href="' + esc(marketUrl(a.ticker)) + '" target="_blank" rel="noopener">Kalshi market</a></div></div>';
+        ' · <a href="' + esc(apiUrl(a.ticker)) + '" target="_blank" rel="noopener">official API record</a></div></div>';
     }).join('');
     if (stick) box.scrollTop = box.scrollHeight;
   }
@@ -267,7 +283,7 @@
   function renderResolutions() {
     var rows = filtered((state.doc.resolutions || []).slice().reverse()).slice(0, 40);
     $('#pf-resolutions').innerHTML = table([
-      { label: 'Market', render: function (r) { return '<a href="' + esc(eventUrl(r.event_ticker)) + '" target="_blank" rel="noopener">' + esc(cleanTitle(r.title) || r.ticker) + '</a>'; } },
+      { label: 'Market', render: function (r) { var u = seriesUrl(r); var label = esc(cleanTitle(r.title) || r.ticker); return u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + label + '</a>' : label; } },
       { label: 'Topic', render: function (r) { return esc(r.topic || '—'); } },
       { label: 'Resolved', render: function (r) { return '<b class="' + (r.result === 'yes' ? 'up' : 'down') + '">' + esc(String(r.result || '').toUpperCase()) + '</b>'; } },
       { label: 'Settlement time', render: function (r) { return '<span class="small">' + esc(tstr(r.settlement_ts) || '—') + '</span>'; } },
@@ -281,7 +297,7 @@
     var cols = [
       { label: 'Market', render: function (r) {
         var q = state.quotes[r.ticker] || {};
-        return '<a href="' + esc(marketUrl(r.ticker)) + '" target="_blank" rel="noopener">' + esc(cleanTitle(q.title || r.title) || r.ticker) + '</a>' +
+        var wu = seriesUrl(r); var wlabel = esc(cleanTitle(q.title || r.title) || r.ticker); return (wu ? '<a href="' + esc(wu) + '" target="_blank" rel="noopener">' + wlabel + '</a>' : wlabel) +
           '<br><span class="muted small">' + esc(r.ticker) + (r.event_ticker ? ' · ' + esc(r.event_ticker) : '') + '</span>'; } },
       { label: 'Topic', render: function (r) { return esc(r.topic); } },
       { label: 'Last', render: function (r) {

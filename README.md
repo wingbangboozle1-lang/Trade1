@@ -34,7 +34,7 @@ tracking, and every table row linked to the official API record it came from.
   data collector — see `data/cors.json`). Discovery via `GET /events?status=open&limit=200`
   (200 is the documented maximum), batched prices via `GET /markets?tickers=…`, depth via
   `GET /markets/{ticker}/orderbook`, seconds-windows via `GET /markets/trades`, longer windows via
-  `GET /series/{s}/markets/{t}/candlesticks` (`period_interval` 1 or 60 only).
+  `GET /series/{s}/markets/{t}/candlesticks` (`period_interval` accepts 1, 60 or 1440 minutes; the chart uses 1 and 60).
 - **Snapshots**: `.github/workflows/pages.yml` runs `scripts/collect.py` on a schedule from GitHub
   Actions (the runner can reach Kalshi; the build sandbox cannot), refreshes `data/` and commits it
   with a per-request log in `data/log.md`.
@@ -47,9 +47,13 @@ tracking, and every table row linked to the official API record it came from.
   are documented in [methods.html](methods.html) §8–§9. (The account-capable layer is separate: `demo-account.yml` +
   `scripts/demo_account/**`, which stays inert until the owner adds the demo-key secrets.)
 - **Paper trading**: four strategies in `assets/model.js` fill against official quotes with the
-  official taker fee `roundup(0.07 × C × P × (1−P))` from the
-  [fee schedule](https://kalshi.com/docs/kalshi-fee-schedule.pdf) and settle at $1 per winning
-  contract. `localStorage` only — no orders, no credentials.
+  official taker fee `roundup(M × 0.07 × C × P × (1−P))` from the
+  [fee schedule](https://kalshi.com/docs/kalshi-fee-schedule.pdf), where `M` is the per-series
+  taker multiplier from the schedule's Non-Standard Fees table (default 1; e.g. `KXBTCY`/`KXETHY`
+  are published as *no fees*, so `M = 0`). The transcribed table is published for review at
+  [`data/fee_schedule_series.json`](data/fee_schedule_series.json); rows that could not be read
+  unambiguously are listed there as not transcribed and fall back to `M = 1`. Paper trades settle
+  at $1 per winning contract. `localStorage` only — no orders, no credentials.
 
 ## Checks
 

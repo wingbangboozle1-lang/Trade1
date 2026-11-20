@@ -17,6 +17,7 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 | a2ec5543 · T5 | Simulated strategies + trade categorisation | needs review (6 trades; sample too small to judge, F7) | a2ec5543 | `scripts/backtest.py`, `reports/METHODOLOGY.md` |
 | a2ec5543 · T6 | Executive summary + Flagged for Review | done (published; F1–F19) | a2ec5543 | `reports/EXECUTIVE_SUMMARY.md`, `reports/FLAGGED_FOR_REVIEW.md` |
 | a2ec5543 · T7 | Integration: PR to `main`, build check, publish, Pages verification | done (PR #4 `bbb3def`, PR #25 `ac067df`, PR #26 `5d0280a` merged; publish verified) | a2ec5543 | `COORDINATION.md` (this section) |
+| **Final integration & verification (`b93ba12e`)** | Live API line-by-line re-verification of the deployed root site, fee-schedule accuracy fix (non-standard per-series taker multipliers + integer-cent rounding), unit tests, docs, PR → merge → Pages | **in progress** | `b93ba12e` (branch `arena/b93ba12e-trade1`) | `assets/model.js`, `tests/model.test.js`, `methods.html`, `flagged.html`, `sources.html`, `README.md`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md` |
 
 | Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Full live dashboard v2: alerts, charts, orderbook, sim trading, resolutions, data pipeline, CORS verification, topic subpages, integration + PR + Pages | in progress | bb8bd1ff (branch `arena/bb8bd1ff-trade1`) | COORDINATION.md, README.md, index.html (takeover, see log), dashboard.html, trades.html, data.html, methods.html, flagged.html, sources.html, topics/*.html, assets/**, data/**, scripts/**, .github/workflows/verify-and-collect.yml |
@@ -814,6 +815,22 @@ This is a verification/documentation pass only; it does not take over another se
 - **Stale-PR dispositions (takeover rule: >60 min with no commits):** #2 (draft demo-account track) — content already superseded on main by the `demo-account/` lab (PRs #28/#39) and closed by session `935f2113`; **#3, #15, #16 closed by this session** with explanatory comments — each was an alternate site tree that would clobber the consolidated single-site Pages source; branches preserved untouched, nothing deleted. **#32 (`777927dd`) and #35 (`b93ba12e`) left open** — their sessions were active at close time (commits within the hour); not touched.
 - **Irregularities:** published on `flagged.html` (post-correction list in `REVIEW.md`); none block the merge. Dead files noted, not deleted: `tests/engine.test.js` / `tests/smoke.test.js` reference the removed `monitor/` tree and are not in CI.
 
+---
+
+## Session `arena/6916270f-trade1` — final integration, line-by-line re-verification, PR + Pages
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 6916270f · T1 | Final integration session: re-verify the combined site line by line against official Kalshi sources, merge the two open branches (#32, #35) once stale, confirm build + link checks, PR to `main`, merge, verify Pages | **in progress** | 6916270f | `COORDINATION.md` (append only), `REVIEW.md` (append only), `reports/INTEGRATION_AUDIT_6916270f.md` (new), and — after takeover — the files those branches touch |
+
+- **Claimed** 2026-11-20T20:03Z by session `6916270f` on branch `arena/6916270f-trade1`, based on `main` @ `9f519d6` (PR #45, `dacc8b5c`).
+- **Scope note:** this session is the *final integration* role described in the brief. It does **not** edit files owned by live sessions until their claims go stale (>60 min with no commits) or they are merged. At claim time the open branches were:
+  - **PR #32** (`arena/777927dd-trade1`, session `777927dd`) — last commit `8b52c3e7` @ 19:27Z — files: `assets/app.js`, `assets/model.js`, `scripts/build_snapshot.mjs`, `scripts/collect.py`, `scripts/check_site.mjs`, `dashboard.html`, `data.html`, `topics/*.html`, `tools/render_test.mjs`, `scripts/test_fees.mjs`, `scripts/test_model.mjs`, `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `EXECUTIVE_SUMMARY.md`, `REVIEW.md`, `COORDINATION.md`, `flagged.html`, `methods.html`, `sources.html`, `suggestions.html`, `index.html`, `trades.html`, `tools/build-report.json`.
+  - **PR #35** (`arena/b93ba12e-trade1`, session `b93ba12e`) — last commit `4a0ca037` @ 19:12Z — files: `assets/model.js`, `tests/model.test.js`, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md`, `README.md`, `flagged.html`, `methods.html`, `sources.html`.
+  Both were `CONFLICTING` against `main` at claim time. They are **not** touched until the takeover rule applies; this session logs every takeover and preserves all of their content.
+- **Verification plan:** re-read the official Kalshi docs pages (API reference, getting-started guides, fee-schedule PDF) and re-fetch live demo-API responses to confirm every endpoint, parameter, field name, unit and fee formula used by the site; run every validator in `.github/workflows/pages.yml` locally; verify each published page over `https://wingbangboozle1-lang.github.io/Trade1/`; confirm every table row carries an official source URL; then PR → merge → confirm the Pages build is `built` and the live site serves the merged commit.
+- **Rules honoured:** no value is inferred or filled in — anything that cannot be confirmed from an official source stays blank and is published on the Flagged for Review page with its source link. No other session's committed work is discarded during conflict resolution.
+
 ## Session `arena/984a6765-trade1` — re-verification, gap review, PR + Pages
 
 | Task | Status | Owner | Files in scope |
@@ -833,6 +850,41 @@ This is a verification/documentation pass only; it does not take over another se
   - **Merge note:** `flagged.html` is also edited by PR #35 and PR #32. Whichever merges second should resolve the conflict by keeping both sections, not by discarding either.
 - **Board hygiene (not edited, logged):** several rows above still read "in progress" for work that later sessions completed (e.g. the cedad5c4 v2 row and the a2ec5543 T4 row). Their completion records are in the sections below them. Treat the later "done" rows as authoritative.
 - **Stale claims:** PRs #32 and #35 were both still open at 20:05 UTC (last commits 19:15–19:27 UTC, under 60 min). Per the takeover rule, they were not taken over.
+
+## Final integration & verification — session `b93ba12e` (branch `arena/b93ba12e-trade1`, 2026-11-20)
+
+**Role.** Final integration session. All prior sessions' PRs were already merged to `main`; this session branched from `main` @ `069a1db`, re-verified the combined deployed root site line by line against the official Kalshi sources, fixed a real accuracy bug in the paper-trading fee model, added tests, updated the docs, and opened the PR → merge → Pages cycle. No other session's files were modified; scope is the root site's fee model + its docs + this board.
+
+**Live line-by-line verification (performed 2026-11-20, against the official demo REST API `https://external-api.demo.kalshi.co/trade-api/v2`).** The sandbox's direct egress allowlist does not include Kalshi, so verification used the page fetcher against the live endpoints. Each snapshot value was re-fetched and matched:
+
+| Check | Endpoint / value | Result |
+|---|---|---|
+| Gas market | `GET /markets/KXAAAGASM-26NOV30-3.90` | `volume_fp` 31027.52 ✅ matches snapshot |
+| Elections market | `GET /markets/KXPRESNOMD-28-GPLA` | `volume_fp` 465856531.27 ✅ matches |
+| Culture market | `GET /markets/KXOSCARPIC-27-ODY` | `volume_fp` 1577862.98 ✅ matches |
+| Crypto market | `GET /markets/KXBTCY-27JAN0100-B47500` | `volume_fp` 80178705.51 ✅ matches |
+| Golf market | `GET /markets/KXPGATOUR-THRC26-SSTR` | live (volume ticked up since snapshot — expected) |
+| Resolved market | `GET /markets/KXGOLFMAJOR-30-RFOX` | `result:"yes"`, `settlement_ts` 2026-07-19T18:49:28.40545Z, `settlement_value_dollars` 1.0, `status:"finalized"` ✅ matches `data/resolved.json` exactly |
+| Orderbook | `GET /markets/KXPRESNOMD-28-GPLA/orderbook?depth=20` | 200, `orderbook_fp.{yes_dollars,no_dollars}` shape ✅ (empty for this market — bid/ask sizes are 0) |
+| Candlesticks | `GET /series/KXECCOMPACT/markets/KXECCOMPACT-30/candlesticks?...period_interval=60` | 200, `candlesticks[]` ✅ |
+| Events page size | `GET /events?status=open&limit=200` | 200, 200 events returned ✅ (confirms `limit=1000` rejection / `limit=200` working) |
+| Fee schedule | `https://kalshi.com/docs/kalshi-fee-schedule.pdf` (fetched directly) | taker `round_up(M×0.07×C×P×(1−P))`, maker `0.0175×`, Non-Standard per-series multiplier table, "no settlement fee", effective 2026-07-07 ✅ |
+
+All 1118 snapshot rows and 601 resolved rows carry a `source_url` on the configured API base; `node scripts/check_site.mjs` → 146 links, 0 failures. `node tests/engine.test.js` 36/36, `node tests/smoke.test.js` pass, `node scripts/test_lib.mjs` pass.
+
+**Bug found and fixed (fee rounding).** The deployed `assets/model.js` fee used naive `Math.ceil(0.07×qty×p×(1−p)×100)/100`. Binary float renders `0.07×100×0.5×0.5` as `1.7500000000000002`, so the exact official value **$1.75** was ceiled to **$1.76** — overcharging every paper trade by a cent. This is the same float-precision class the monitor build guarded against. Fixed with integer-cent rounding plus a float-epsilon guard (`Math.ceil(rawCents − 1e-9)/100`), mirroring the already-tested `monitor/assets/app.js` approach. Caught by the new `tests/model.test.js` (failed before the fix, 21/21 after).
+
+**Enhancement (non-standard per-series taker multipliers).** The official schedule's Non-Standard Fees table gives per-series taker multipliers. For the five tracked topics the material case is **`KXBTCY` and `KXETHY` (crypto) with taker multiplier M=0 → no taker fee**; `KXAAAGASM`, `KXPGATOUR`, `KXPGARYDER`, `KXPGASOLHEIM`, `KXEMMY*`, `KXFED*`, `KXCPI*` are standard (M=1). `assets/model.js` now carries the multiplier map, derives the series prefix from the market ticker (`seriesOf`), and applies M in `fee()`; the taker path is exact and the maker path remains unmodeled (paper fills assume immediate match — flagged). `KXELECTIRAN`/`KXPAHLAVIHEAD` (M=0) also included. Series not listed default to M=1.
+
+**Files changed.** `assets/model.js` (fee map + helpers + epsilon-guarded rounding + call-site series pass-through + `series_ticker` on trades + stale header comment fixed); `tests/model.test.js` (new, 21 assertions pinned to the official table incl. non-standard multipliers); `methods.html`, `flagged.html` (#6), `sources.html`, `README.md`, `EXECUTIVE_SUMMARY.md` (fee documentation updated).
+
+**Irregularities / open items (all published on `flagged.html`, none blocking).**
+- Maker fees still not modeled (documented simplification).
+- Demo-account portfolio tracking/execution requires user demo API keys; the site never requests credentials, so the portfolio shown is the local paper portfolio (Flag #12).
+- Demo `status:"active"` vs documented status set (Flag #1); placeholder `settlement_sources` in some demo events (Flag #4, re-observed live this session).
+- `previous_price_dollars` semantics remain an assumption (Flag #7).
+- Dollar-notional ranking is a computed estimate, not exchange-published (Flag #5).
+- The non-standard multiplier table is transcribed from the official PDF; the garbled OCR rows in the middle of the PDF's Non-Standard table were deliberately **not** transcribed (avoid hallucination) — only clearly-read series are mapped; unlisted series safely default to M=1.
 
 ## Session `arena/9d4380a2-trade1` — brief-to-delivery coverage audit + line-by-line re-verification (claimed 2026-11-20 20:05 UTC)
 
@@ -922,3 +974,46 @@ Branch `arena/9d4380a2-trade1`, base `main` @ `9f519d6`. Arena fixes the branch 
   - The remote session branch had my first claim commit (`3644133`), which I rebased. Updated with `--force-with-lease` pinned to `3644133`. That was my own commit on my own branch, and nothing else had been pushed there.
 - **Process note (logged for transparency):** during validation I briefly ran `git checkout main` in the local clone to test the merged tree. Nothing was pushed to `main` from that checkout, and I switched back to `arena/9d4380a2-trade1` straight away. The branch was reset to the merged `main` state with no local edits. The rule against switching branches was not followed in that step.
 - **Task status:** done. Open items, all published on `flagged.html` with source links and not blocking: **9d-1** (D1, gas misclassification of 2 resolved rows; collector fix requested to the owner of `scripts/collect.py`), **9d-3** (news-search leads, not official), **9d-4** (README candlestick wording; change requested to PR #35's owner), **9d-5** (demo-account tracking and orders blocked on the owner's demo API key). Fixed here: **9d-2** (broken Resolved page).
+
+---
+
+## Session `arena/6916270f-trade1` — final integration, defect repair, PR + Pages (2026-11-20)
+
+**Claim.** Taken at 2026-11-20 ~20:00 UTC on branch `arena/6916270f-trade1` from `main` @ `9f519d6`.
+Scope claimed: `assets/**`, `scripts/**`, `tests/**`, `tools/**`, `.github/workflows/pages.yml`,
+`data/fee_schedule_series.json`, `reports/INTEGRATION_AUDIT_6916270f.md`, `flagged.html`,
+`resolved.html`, `README.md`, `EXECUTIVE_SUMMARY.md`, `methods.html`, `COORDINATION.md`.
+Shared outputs (site navigation, the published index) were only changed in the final integration
+step, after the other sessions' work was merged.
+
+**Takeovers of stale sessions (their work was merged, not discarded).**
+
+| Session | PR | Last commit | Action |
+|---|---|---|---|
+| `b93ba12e` | #35 | `4a0ca03` @ 19:12:32Z | Claim went stale (>60 min without commits at 20:13Z, PR still open) → merged into this branch. Its per-series multiplier work and `tests/model.test.js` are kept; the multiplier map was re-transcribed from the official PDF this session and the transcribed table is published. |
+| `777927dd` | #32 | `8b52c3e` @ 19:27:01Z | Session went stale and the PR was closed unmerged → the parts that were still needed (`tools/render_test.mjs`, `scripts/test_fees.mjs`, `scripts/test_model.mjs`) were taken over and adapted; the chart null-guard and the candlestick wording fix were kept. |
+
+**Merged from `main`.** `origin/main` @ `d09bd26` (PRs #46–#54 from sessions `984a6765`, `a53ab816`,
+`9d4380a2`, `d6489a30`). `COORDINATION.md` conflicts were resolved by keeping every session's block.
+
+**Defects found and fixed (all with an automated gate).** D1 alerts lost their topic · D2 only the
+first 200 watchlist tickers were polled (watchlist holds 400) · D3 `determined`/`amended` results were
+not recorded as resolutions · D4 portfolio rows linked a 404 market-ticker URL · D5 README's
+`period_interval` wording · D6 the Resolved page did not disclose the 200-of-3,213 cap · D7 the link
+checker could not see a missing `<script src>` · D8 the chart threw without a canvas context ·
+D9 the Resolved/Summary pages were orphaned from the navigation · D10 the CI ledger hard-coded the
+taker multiplier · D11 ledger rows carried no series ticker.
+Full line-by-line audit: [`reports/INTEGRATION_AUDIT_6916270f.md`](reports/INTEGRATION_AUDIT_6916270f.md).
+Published irregularities: `flagged.html` items `691-1 … 691-11` (none blocks the merge).
+
+**Validators (2026-11-20, all exit 0).** `tools/build.mjs` 18 HTML / 6 JS / 0 broken links ·
+`scripts/check_site.mjs` 18 HTML, 424 links, 1,250 rows, 825 resolved, 0 failures ·
+`scripts/check_links.mjs` 16 pages, 392 local + 208 external links, 0 failures ·
+`tests/engine.test.mjs` 23/23 · `tests/live_fixes.test.mjs` 3/3 · `tests/root_engine.test.js` 40/40 ·
+`tests/model.test.js` 21/21 · `scripts/test_model.mjs` 20 checks · `scripts/test_fees.mjs` 42 published
+fee rows + 10 multipliers · `tests/portfolio.test.mjs` 60/60 · `tests/demo-account.test.mjs` 89/89 ·
+`scripts/test_lib.mjs` passed · `portfolio_engine.py selftest` 57/57 · `tools/render_test.mjs` 15/15
+pages rendered with 0 JS errors.
+
+**CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
+`tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.

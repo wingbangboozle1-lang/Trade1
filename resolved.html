@@ -25,6 +25,7 @@
     <a href="topics/culture.html">Culture</a>
     <a href="topics/crypto.html">Crypto</a>
     <a href="topics/golf.html">Golf</a>
+    <a href="resolved.html" class="active">Resolved</a>
     <a href="data.html">Data</a>
     <a href="methods.html">Methods</a>
     <a href="suggestions.html">Ideas</a>
@@ -93,6 +94,81 @@
   }).catch(function (e) {
     fail('Could not load data/resolved.json (' + e.message + ').');
   });
+
+  /* ---- live refresh --------------------------------------------------
+   * The snapshot above is refreshed by GitHub Actions every few hours. This
+   * block additionally polls the official demo API for the newest settled
+   * markets and prepends any in-scope one that the snapshot does not have yet.
+   * Scope comes from the committed topic snapshots (each event carries the
+   * official series ticker), so nothing outside the five topics is listed.
+   * Source: GET /markets?status=settled
+   *   https://docs.kalshi.com/api-reference/market/get-markets
+   *   https://docs.kalshi.com/getting_started/market_lifecycle
+   */
+  var LIVE_URL = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude';
+  var TOPIC_IDS = ['gas-prices', 'elections', 'culture', 'crypto', 'golf'];
+  var seen = {};
+  function seriesPrefix(t) { var s = String(t || ''); var i = s.indexOf('-'); return i === -1 ? s : s.slice(0, i); }
+  function loadScope() {
+    return Promise.all(TOPIC_IDS.map(function (id) {
+      return fetch('data/topics/' + id + '.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; })
+        .then(function (d) {
+          var out = {};
+          ((d && d.events) || []).forEach(function (ev) { if (ev.series_ticker) out[ev.series_ticker] = id; });
+          return out;
+        });
+    })).then(function (parts) {
+      var scope = {};
+      parts.forEach(function (p) { Object.keys(p).forEach(function (k) { scope[k] = p[k]; }); });
+      return scope;
+    });
+  }
+  function liveRow(m, topic) {
+    var tr = document.createElement('tr');
+    var t = cell((m.title || m.ticker) + ' ');
+    var code = document.createElement('code'); code.textContent = m.ticker; t.appendChild(code);
+    tr.appendChild(t);
+    tr.appendChild(cell(topic));
+    tr.appendChild(cell(m.result));
+    tr.appendChild(cell(m.settlement_ts));
+    tr.appendChild(cell(m.settlement_value_dollars));
+    tr.appendChild(cell(m.status));
+    var src = document.createElement('td');
+    var a = document.createElement('a');
+    a.href = API + encodeURIComponent(m.ticker);
+    a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'official API record';
+    src.appendChild(a); tr.appendChild(src);
+    return tr;
+  }
+  function pollLive(scope) {
+    fetch(LIVE_URL, { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function (d) {
+      var added = 0;
+      (d.markets || []).forEach(function (m) {
+        if (!m.ticker || seen[m.ticker]) return;
+        if (m.result !== 'yes' && m.result !== 'no') return;
+        var topic = scope[seriesPrefix(m.ticker)];
+        if (!topic) return;
+        seen[m.ticker] = true;
+        body.insertBefore(liveRow(m, topic), body.firstChild);
+        added++;
+      });
+      if (added) {
+        var cap = document.getElementById('rs-cap');
+        if (cap) cap.textContent = cap.textContent + ' + ' + added + ' live';
+      }
+    }).catch(function () { /* the snapshot stays as the source of truth */ });
+  }
+  loadScope().then(function (scope) {
+    fetch('data/resolved.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; }).then(function (d) {
+        ((d && d.markets) || []).forEach(function (m) { if (m.ticker) seen[m.ticker] = true; });
+      }).then(function () { pollLive(scope); });
+  });
+  setInterval(function () { loadScope().then(pollLive); }, 60000);
 })();
 </script>
 </body>

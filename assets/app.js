@@ -318,14 +318,24 @@ window.KalshiApp = (function () {
   }
 
   /* ---------- watchlist polling (batched, also detects settlements) ---------- */
+  /* Poll the WHOLE watchlist. The watchlist holds up to CFG.maxWatch (400) markets and
+     a request carries at most CFG.chunk (200) tickers, so the list is sent in chunks -
+     one request per chunk. Polling only the first chunk (an earlier revision) left
+     every market past the 200th ticker frozen on its first-seen price: no alerts,
+     no settlement detection, stale rows in the table. */
   function pollWatch() {
     if (S.mode === 'snapshot') return;
-    var tickers = S.list.slice(0, CFG.chunk);
+    var tickers = S.list.slice(0, CFG.maxWatch);
     if (!tickers.length) return;
-    api('/markets', { tickers: tickers.join(',') }, function (err, j) {
-      if (err) { S.lastError = String(err.message || err); degrade(); return; }
-      handleMarketBatch(j);
-      maybeLive();
+    var chunks = [];
+    for (var i = 0; i < tickers.length; i += CFG.chunk) chunks.push(tickers.slice(i, i + CFG.chunk));
+    var pending = chunks.length, failed = 0;
+    chunks.forEach(function (slice) {
+      api('/markets', { tickers: slice.join(',') }, function (err, j) {
+        if (err) { failed++; S.lastError = String(err.message || err); }
+        else handleMarketBatch(j);
+        if (--pending === 0) { if (failed) degrade(); else maybeLive(); }
+      });
     });
   }
   function handleMarketBatch(j) {
@@ -347,11 +357,20 @@ window.KalshiApp = (function () {
         var h = S.history[m.ticker] || (S.history[m.ticker] = []);
         h.push({ t: now, last: isFinite(last) ? last : null, bid: isFinite(bid) ? bid : null, ask: isFinite(ask) ? ask : null });
         if (h.length > 720) h.splice(0, h.length - 720);
-        checkAlert(m, h, now);
+        /* The alert is built from the merged watch entry, not the raw API object:
+           the raw object has no _topic (the topic is attached by the classifier),
+           so building the alert from it dropped the topic from every alert. */
+        checkAlert(merged, h, now);
       }
       // settlement detection straight from the batch response
       var st = String(m.status || '');
-      if ((st === 'finalized' || st === 'settled' || st === 'closed') && (m.result === 'yes' || m.result === 'no')) {
+      /* Official market lifecycle (https://docs.kalshi.com/getting_started/market_lifecycle):
+         `closed` = past close_time, awaiting determination (result is still empty);
+         `determined` = result known, settlement timer running; `amended` = re-determined
+         after a dispute; `finalized` = settlement complete. All three of the last
+         statuses can carry an official yes/no result, so all three are resolutions. */
+      if ((st === 'finalized' || st === 'determined' || st === 'amended' || st === 'settled' || st === 'closed')
+          && (m.result === 'yes' || m.result === 'no')) {
         if (!M.state.resolved[m.ticker]) {
           resolvedNow[m.ticker] = {
             result: m.result, settlement_ts: m.settlement_ts || null,
@@ -574,7 +593,9 @@ window.KalshiApp = (function () {
     var rect = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
     if (rect.width < 10) return;
     box.width = rect.width * dpr; box.height = rect.height * dpr;
-    var x = box.getContext('2d'); x.scale(dpr, dpr);
+    /* A browser (or a test DOM) without a 2d canvas backend returns null - draw
+       nothing instead of throwing and killing the rest of the page. */
+    var x = box.getContext && box.getContext('2d'); if (!x) return; x.scale(dpr, dpr);
     var W = rect.width, H = rect.height, L = 44, R = 8, T = 10, B = 24;
     x.clearRect(0, 0, W, H);
     var css = getComputedStyle(document.documentElement);
@@ -922,12 +943,12 @@ window.KalshiApp = (function () {
 
   /* ---------- mount: dashboard ---------- */
   var NAV = [
-    ['index.html', 'Home'], ['dashboard.html', 'Dashboard'], ['trades.html', 'Strategy lab'],
-    ['demo-account/', 'Demo Account'], ['portfolio.html', 'Portfolio'],
+    ['index.html', 'Home'], ['executive-summary.html', 'Summary'], ['dashboard.html', 'Dashboard'],
+    ['trades.html', 'Strategy lab'], ['demo-account/', 'Demo Account'], ['portfolio.html', 'Portfolio'],
     ['topics/gas-prices.html', 'Gas'], ['topics/elections.html', 'Elections'], ['topics/culture.html', 'Culture'],
     ['topics/crypto.html', 'Crypto'], ['topics/golf.html', 'Golf'],
-    ['data.html', 'Data'], ['methods.html', 'Methods'], ['suggestions.html', 'Ideas'],
-    ['flagged.html', 'Flagged'], ['sources.html', 'Sources']
+    ['data.html', 'Data'], ['resolved.html', 'Resolved'], ['methods.html', 'Methods'],
+    ['suggestions.html', 'Ideas'], ['flagged.html', 'Flagged'], ['sources.html', 'Sources']
   ];
   function navHere(root) {
     var here = location.pathname.split('/').pop() || 'index.html';
@@ -1084,7 +1105,7 @@ window.KalshiApp = (function () {
     var d = M.state.equity;
     var rect = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
     box.width = rect.width * dpr; box.height = rect.height * dpr;
-    var x = box.getContext('2d'); x.scale(dpr, dpr);
+    var x = box.getContext && box.getContext('2d'); if (!x) return; x.scale(dpr, dpr);
     var W = rect.width, H = rect.height;
     x.clearRect(0, 0, W, H);
     x.strokeStyle = '#2a383b'; x.fillStyle = '#91a3a4'; x.font = '11px system-ui';
@@ -1221,6 +1242,10 @@ window.KalshiApp = (function () {
 
   return {
     state: S, select: select, renderTrades: renderTrades, drawChart: drawChart,
+    /* pollWatch is exported so the CI test suite can drive one poll cycle and
+       assert that every chunk of the watchlist is requested (a regression gate
+       for the defect where only the first 200 tickers were ever polled). */
+    pollWatch: pollWatch,
     CFG: CFG
   };
 })();

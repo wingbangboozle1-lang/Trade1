@@ -8,7 +8,7 @@ import path from 'node:path';
 import { API_BASES } from '../assets/lib.mjs';
 
 const SITE = '.';
-const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts']);
+const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts', '.render-cache']);
 const failures = [];
 const checked = { html: 0, links: 0, rows: 0, resolved: 0 };
 
@@ -35,9 +35,11 @@ if (unknown.length) { console.log('FAIL unpublished page not in the check list: 
 for (const f of files.filter(f => f.endsWith('.html'))) {
   checked.html++;
   // Inline scripts build URLs by concatenation (`href="'+esc(u)+'"`), which is not a
-  // static link; strip <script> bodies before scanning or every template produces
-  // false "broken link" failures.
-  const html = (await readFile(f, 'utf8')).replace(/<script\b[\s\S]*?<\/script>/gi, '');
+  // static link; strip <script> BODIES before scanning or every template produces
+  // false "broken link" failures. The opening tag is kept so that a <script src=...>
+  // pointing at a file that does not exist is still caught (this is how the missing
+  // assets/app.mjs behind resolved.html was found).
+  const html = (await readFile(f, 'utf8')).replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, '$1');
   const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map(m => m[1]);
   for (const ref of refs) {
     if (/^(https?:|mailto:|#|javascript:)/.test(ref)) continue;

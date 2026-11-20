@@ -206,6 +206,57 @@ def price_str(b):
 #   cash                -> micro-dollars
 FEE_MODEL = Fraction(7, 100)          # general taker rate 0.07 (fee schedule PDF)
 
+# Per-series taker multiplier M from the published Non-Standard Fees table
+# (https://kalshi.com/docs/kalshi-fee-schedule.pdf, cross-checked against
+# https://kalshi.com/fee-schedule). The transcribed table is committed at
+# data/fee_schedule_series.json so it can be reviewed line by line; series that
+# are not listed there use the default M = 1 (the schedule's documented default).
+FEE_TABLE_PATH = os.path.join("data", "fee_schedule_series.json")
+
+
+def load_fee_multipliers():
+    """series ticker -> taker multiplier M (default 1 for anything not listed)."""
+    out = {}
+    try:
+        with open(FEE_TABLE_PATH, encoding="utf-8") as f:
+            doc = json.load(f)
+        for series, row in (doc.get("series") or {}).items():
+            m = row.get("taker")
+            if m is not None:
+                out[str(series).upper()] = Fraction(m)
+    except Exception as exc:                    # missing file -> documented default
+        log_line([], f"fee table unavailable ({exc}); using default multiplier M=1")
+    return out
+
+
+FEE_MULTIPLIERS = load_fee_multipliers()
+FEE_MULTIPLIER = FEE_MULTIPLIERS.get("__default__", Fraction(1))   # documented default M = 1
+
+
+def series_prefix(ticker):
+    """Series ticker = the part of a market/event ticker before the first "-"
+    (Kalshi ticker format {SERIES}-{EVENT}-{STRIKE}; the same rule the browser
+    broker uses). Verified against GET /events/{event}: event.series_ticker."""
+    t = str(ticker or "")
+    i = t.find("-")
+    return t if i == -1 else t[:i]
+
+
+def taker_multiplier(series):
+    """M for a series (default 1)."""
+    if not series:
+        return Fraction(1)
+    return FEE_MULTIPLIERS.get(str(series).upper(), Fraction(1))
+
+
+def kalshi_series_url(series_ticker):
+    """Kalshi's series page: https://kalshi.com/markets/{series_ticker}
+    (the pattern shown in the official Quick Start guide and verified live on
+    2026-11-20 - a *market* ticker does not resolve, a series ticker does)."""
+    if not series_ticker:
+        return None
+    return "https://kalshi.com/markets/" + str(series_ticker).lower()
+
 FEE_RULE_TEXT = (
     "taker: fees = roundup(M x 0.07 x C x P x (1-P)) with M=1 "
     "(https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective 2026-07-07). The model fee is rounded up to "
@@ -217,10 +268,15 @@ FEE_RULE_TEXT = (
 )
 
 
-def taker_fee(contracts_h, price_b, multiplier=FEE_MULTIPLIER):
-    """Taker fee in micro-dollars: ceil_6dp(M x 0.07 x C x P x (1-P))."""
+def taker_fee(contracts_h, price_b, series=None, multiplier=None):
+    """Taker fee in micro-dollars: ceil_6dp(M x 0.07 x C x P x (1-P)).
+
+    M is the per-series multiplier from the published Non-Standard Fees table
+    (default 1; series published as "no fees" have M = 0)."""
     if not contracts_h or price_b is None:
         return 0
+    if multiplier is None:
+        multiplier = taker_multiplier(series_prefix(series) if series else None)
     c = Fraction(contracts_h, 100)
     p = Fraction(price_b, 10000)
     exact = multiplier * FEE_MODEL * c * p * (1 - p)          # dollars, exact
@@ -237,28 +293,28 @@ def align_down(x):
     return (int(x) // 10000) * 10000
 
 
-def cash_debit(contracts_h, price_b):
+def cash_debit(contracts_h, price_b, series=None):
     """What a buyer actually pays: align_down(cost + fee), plus the rounding fee explicitly."""
-    cost, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b)
+    cost, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b, series)
     aligned = align_down(cost + fee)
     return aligned, cost, fee, aligned - cost        # debit, cost, net fee, (fee+rounding)
 
 
-def cash_credit(contracts_h, price_b):
+def cash_credit(contracts_h, price_b, series=None):
     """What a seller actually receives: align_down(revenue - fee)."""
-    rev, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b)
+    rev, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b, series)
     aligned = align_down(rev - fee)
     return aligned, rev, fee, rev - aligned
 
 
-def gross_for_budget(budget, price_b):
+def gross_for_budget(budget, price_b, series=None):
     """Largest whole-0.01-contract size whose aligned cost+fee fits the budget (0 if none)."""
     if not price_b or price_b <= 0 or budget <= 0:
         return 0
     lo, hi, best = 1, max(1, int(budget * 100 / price_b) + 1000), 0
     while lo <= hi:
         mid = (lo + hi) // 2
-        if cash_debit(mid, price_b)[0] <= budget:
+        if cash_debit(mid, price_b, series)[0] <= budget:
             best, lo = mid, mid + 1
         else:
             hi = mid - 1
@@ -291,9 +347,12 @@ def load_topic_rows():
             for m in ev.get("_markets") or []:
                 if not m.get("ticker"):
                     continue
+                series = ev.get("series_ticker")
                 rows.append({
                     "ticker": m["ticker"],
                     "event_ticker": m.get("event_ticker") or ev.get("event_ticker"),
+                    "series_ticker": series,
+                    "kalshi_url": kalshi_series_url(series),
                     "topic": topic,
                     "title": m.get("title") or ev.get("title"),
                     "yes_sub_title": m.get("yes_sub_title"),
@@ -473,14 +532,17 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
     # whole contracts only: fractional contract sizes are supported only on markets that allow
     # them (https://docs.kalshi.com/getting_started/fixed_point_migration), and the engine does
     # not read that permission per market, so it never requests a fractional size.
-    qty = (gross_for_budget(budget, ask) // 100) * 100
+    series = st["watch"].get(ticker, {}).get("series_ticker") or series_prefix(ticker)
+    qty = (gross_for_budget(budget, ask, series) // 100) * 100
     if qty < 100:
         return None
-    debit, cost, fee, rounding = cash_debit(qty, ask)
+    debit, cost, fee, rounding = cash_debit(qty, ask, series)
     st["cash_cc"] -= debit
     trade = {
         "id": f"{when}:{ticker}:{strategy}:{len(st['trades'])}",
         "t": when, "ticker": ticker, "event_ticker": q.get("event_ticker"),
+        "series_ticker": series,
+        "kalshi_url": kalshi_series_url(series),
         "title": q.get("title"), "topic": st["watch"][ticker]["topic"], "side": side,
         "qty_c": qty, "entry_bits": ask, "fee_cc": fee, "cost_cc": cost,
         "rounding_cc": rounding,
@@ -494,7 +556,7 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
 def close(st, t, price_bits, reason, when, source=None):
     if price_bits is None:
         return
-    credit, rev, fee, rounding = cash_credit(t["qty_c"], price_bits)
+    credit, rev, fee, rounding = cash_credit(t["qty_c"], price_bits, t.get("series_ticker"))
     st["cash_cc"] += credit
     t["status"] = "closed"
     t["exit"] = {"t": when, "price_bits": price_bits, "reason": reason, "fee_cc": fee,
@@ -585,8 +647,11 @@ def run_cycle(st, quotes, sources, when, log_list):
         if res in ("yes", "no") and q.get("status") in ("finalized", "settled", "closed", "determined", "amended"):
             settled_now[ticker] = res
             if (ticker, res) not in known:
+                res_series = w.get("series_ticker") or series_prefix(ticker)
                 st["resolutions"].append({
                     "t": when, "ticker": ticker, "event_ticker": q.get("event_ticker"),
+                    "series_ticker": res_series,
+                    "kalshi_url": w.get("kalshi_url") or kalshi_series_url(res_series),
                     "title": q.get("title") or w.get("title"), "topic": w.get("topic"),
                     "result": res, "settlement_ts": q.get("settlement_ts"),
                     "source": sources[0] if sources else None,
@@ -616,6 +681,8 @@ def run_cycle(st, quotes, sources, when, log_list):
             score = model_score(delta, q["vol24"], q["vol"], sp if sp is not None else 9900)
             alert = {
                 "t": when, "ticker": ticker, "event_ticker": q.get("event_ticker"),
+                "series_ticker": w.get("series_ticker") or series_prefix(ticker),
+                "kalshi_url": w.get("kalshi_url"),
                 "title": q.get("title") or w.get("title"), "topic": w["topic"],
                 "from_bits": prev_bits, "to_bits": cur_bits, "delta_bits": delta,
                 "prev_t": prev_t,
@@ -745,6 +812,8 @@ def trade_public(t):
         open_pnl = usd(position_cost(t["qty_c"], mark) - t["cost_cc"] - t["fee_cc"] - t.get("rounding_cc", 0))
     return {
         "id": t["id"], "t": t["t"], "ticker": t["ticker"], "event_ticker": t.get("event_ticker"),
+        "series_ticker": t.get("series_ticker") or series_prefix(t["ticker"]),
+        "kalshi_url": t.get("kalshi_url") or kalshi_series_url(t.get("series_ticker") or series_prefix(t["ticker"])),
         "title": t.get("title"), "topic": t.get("topic"), "side": t["side"],
         "qty_contracts": t["qty_c"] / 100, "strategy": t["strategy"], "status": t["status"],
         "entry_usd": round(t["entry_bits"] / 10000, 4),
@@ -764,6 +833,8 @@ def trade_public(t):
 def alert_public(a):
     return {
         "t": a["t"], "ticker": a["ticker"], "event_ticker": a.get("event_ticker"),
+        "series_ticker": a.get("series_ticker") or series_prefix(a.get("ticker")),
+        "kalshi_url": a.get("kalshi_url") or kalshi_series_url(a.get("series_ticker") or series_prefix(a.get("ticker"))),
         "title": a.get("title"), "topic": a.get("topic"),
         "from_usd": round(a["from_bits"] / 10000, 4), "to_usd": round(a["to_bits"] / 10000, 4),
         "delta_usd": round(a["delta_bits"] / 10000, 4), "dir": a["dir"], "score": a["score"],
@@ -835,6 +906,8 @@ def write_artifact(st, watch_rows, sources, log_list, status="live", note=""):
         "watchlist": [{
             "ticker": w.get("ticker"), "topic": w.get("topic"), "title": w.get("title"),
             "event_ticker": w.get("event_ticker"),
+            "series_ticker": w.get("series_ticker"),
+            "kalshi_url": w.get("kalshi_url"),
             "last_usd": round(w["last_quote"]["last"] / 10000, 4) if w.get("last_quote", {}).get("last") is not None else None,
             "yes_bid_usd": round(w["last_quote"]["yes_bid"] / 10000, 4) if w.get("last_quote", {}).get("yes_bid") is not None else None,
             "yes_ask_usd": round(w["last_quote"]["yes_ask"] / 10000, 4) if w.get("last_quote", {}).get("yes_ask") is not None else None,
@@ -881,6 +954,8 @@ def cmd_seed(args):
         w = st["watch"].setdefault(r["ticker"], {})
         w.update({"ticker": r["ticker"], "topic": r["topic"], "title": r["title"],
                   "event_ticker": r["event_ticker"], "close_time": r.get("close_time"),
+                  "series_ticker": r.get("series_ticker"),
+                  "kalshi_url": r.get("kalshi_url"),
                   "source": r.get("source_url")})
         w.setdefault("first_seen", now_iso())
         w.setdefault("samples", [])
@@ -911,6 +986,8 @@ def cmd_run(args):
         w = st["watch"].setdefault(r["ticker"], {})
         w.update({"ticker": r["ticker"], "topic": r["topic"], "title": r["title"],
                   "event_ticker": r["event_ticker"], "close_time": r.get("close_time"),
+                  "series_ticker": r.get("series_ticker"),
+                  "kalshi_url": r.get("kalshi_url"),
                   "source": r.get("source_url")})
         w.setdefault("first_seen", now_iso())
         w.setdefault("samples", [])
@@ -1043,6 +1120,16 @@ def selftest():
     ok("cent-rounded display of the table's 1c/$0.50 row", round(taker_fee(100, 5000) / 1e6, 2) == 0.02)
     ok("cent-rounded display of the table's 100c/$0.99 row", round(taker_fee(100 * 100, 9900) / 1e6, 2) == 0.07)
     ok("fee(0 contracts) = 0", taker_fee(0, 5000) == 0)
+    # per-series taker multiplier M (official Non-Standard Fees table,
+    # https://kalshi.com/docs/kalshi-fee-schedule.pdf + https://kalshi.com/fee-schedule)
+    ok("published no-fee series KXBTCY pays no taker fee", taker_fee(100 * 100, 5000, "KXBTCY") == 0)
+    ok("published no-fee series KXETHY pays no taker fee", taker_fee(100 * 100, 5000, "KXETHY") == 0)
+    ok("market ticker resolves to its series prefix",
+       taker_fee(100 * 100, 5000, "KXBTCY-27JAN0100-B47500") == 0)
+    ok("standard series KXAAAGASM keeps M=1", taker_fee(100 * 100, 5000, "KXAAAGASM") == 1_750_000)
+    ok("unlisted series defaults to M=1", taker_fee(100 * 100, 5000, "KXNOTLISTED") == 1_750_000)
+    ok("fee table file loaded with a default multiplier of 1", FEE_MULTIPLIER == 1)
+    ok("KXBTCY multiplier in the loaded table is 0", taker_multiplier("KXBTCY") == 0)
     # Worked example, https://docs.kalshi.com/getting_started/fee_rounding (non-direct member,
     # $0.01 balance alignment): buy with revenue -$0.055000 and model fee $0.00363825
     #   trade fee      = ceil_6dp($0.00363825) = $0.003639

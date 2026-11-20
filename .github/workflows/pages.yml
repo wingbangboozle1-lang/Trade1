@@ -47,6 +47,24 @@ jobs:
         run: node tools/build.mjs
       - name: Every page link resolves and every snapshot row has an official source URL
         run: node scripts/check_site.mjs
+      - name: Fee model vs the official fee schedule table (42 published rows + per-series multipliers)
+        run: node scripts/test_fees.mjs
+      - name: Dashboard model checks (alert threshold, classifier, ROI screen, fill band)
+        run: node scripts/test_model.mjs
+      - name: Live-dashboard regressions (alert topic, full watchlist polling, determined/amended results)
+        run: node tests/live_fixes.test.mjs
+      - name: Render every published page in jsdom (empty-render / JS-error gate)
+        # jsdom ships no canvas backend, so the canvas guard in assets/app.js keeps the
+        # page alive there; every other JS error still fails the run. This is what
+        # caught the five topic pages rendering blank and the Resolved page loading a
+        # module that no longer existed.
+        run: |
+          node tools/render_test.mjs --wait=9000 \
+            index.html dashboard.html trades.html data.html methods.html \
+            flagged.html sources.html suggestions.html executive-summary.html \
+            resolved.html portfolio.html \
+            topics/gas-prices.html topics/elections.html topics/culture.html \
+            topics/crypto.html topics/golf.html
       - name: Published-page link and nav parity check
         run: node scripts/check_links.mjs
 

@@ -1,0 +1,102 @@
+{
+  "artifact": "official Kalshi per-series fee multipliers used by the paper-trading engines",
+  "generated_at": "2026-11-20",
+  "verified_by_session": "6916270f",
+  "rules": {
+    "taker_formula": "fees = round up(M x 0.07 x C x P x (1-P))",
+    "maker_formula": "fees = round up(M x 0.0175 x C x P x (1-P))",
+    "default_taker_multiplier": 1,
+    "default_maker_multiplier": 0,
+    "settlement_fee": "none (There is no settlement fee.)"
+  },
+  "sources": [
+    {
+      "id": "fee-schedule-pdf",
+      "url": "https://kalshi.com/docs/kalshi-fee-schedule.pdf",
+      "label": "Kalshi Trading Fees PDF (last updated and effective July 7, 2026) - 'General Trading Fees Table' and 'Non-Standard Fees' table",
+      "read": "2026-11-20"
+    },
+    {
+      "id": "fee-schedule-page",
+      "url": "https://kalshi.com/fee-schedule",
+      "label": "Kalshi public fee-schedule page - 'Non-standard fees' table (confirms KXBTCY / KXCITRINI = no fees; adds series published after the PDF)",
+      "read": "2026-11-20"
+    },
+    {
+      "id": "fee-rounding",
+      "url": "https://docs.kalshi.com/getting_started/fee_rounding",
+      "label": "Kalshi API docs - Fee Rounding (trade fee = ceil_6dp(model fee); balance alignment; rounding fee)",
+      "read": "2026-11-20"
+    }
+  ],
+  "notes": [
+    "Only rows that could be read unambiguously are transcribed. The PDF's middle pages are OCR-garbled; those rows are listed under 'not_transcribed' and are treated as the default multiplier (taker M = 1).",
+    "The public API exposes a per-series 'fee_multiplier' field on GET /series/{ticker}; on the demo environment it returns 1 even for series the published fee schedule marks as 'no fees' (for example KXBTCY, KXETHY). The published fee schedule is used here because it is the document that defines the formula; the discrepancy is published as a Flagged-for-Review item.",
+    "Maker fees are not modeled by the paper brokers (paper fills are assumed to be immediately matched = taker)."
+  ],
+  "series": {
+    "KXAAAGASM": { "maker": 1, "taker": 1, "title": "US gas price", "seen_in": ["fee-schedule-pdf", "fee-schedule-page"] },
+    "KXAOMENSINGLES": { "maker": 1, "taker": 1, "title": "Argentina Open men's singles", "seen_in": ["fee-schedule-page"] },
+    "KXATPMATCH": { "maker": 1, "taker": 1, "title": "ATP Tennis Match", "seen_in": ["fee-schedule-pdf", "fee-schedule-page"] },
+    "KXBALLONDOR": { "maker": 1, "taker": 1, "title": "Ballon d'Or", "seen_in": ["fee-schedule-pdf", "fee-schedule-page"] },
+    "KXBTCMAX125": { "maker": 1, "taker": 1, "title": "When will bitcoin hit 125k?", "seen_in": ["fee-schedule-page"] },
+    "KXBTCMAX150": { "maker": 1, "taker": 1, "title": "When will bitcoin hit 150k?", "seen_in": ["fee-schedule-pdf", "fee-schedule-page"] },
+    "KXBTCY": { "maker": 0, "taker": 0, "title": "BTC price range EOY", "seen_in": ["fee-schedule-pdf", "fee-schedule-page"] },
+    "KXBUNDESLIGA": { "maker": 1, "taker": 1, "title": "BUNDESLIGA", "seen_in": ["fee-schedule-page"] },
+    "KXBUNDESLIGAGAME": { "maker": 1, "taker": 1, "title": "Bundesliga Game", "seen_in": ["fee-schedule-page"] },
+    "KXCITRINI": { "maker": 0, "taker": 0, "title": "Will the Citrini scenario materialize?", "seen_in": ["fee-schedule-pdf", "fee-schedule-page"] },
+    "KXCPI": { "maker": 1, "taker": 1, "title": "CPI", "seen_in": ["fee-schedule-pdf"] },
+    "KXCPIYOY": { "maker": 1, "taker": 1, "title": "Inflation", "seen_in": ["fee-schedule-pdf"] },
+    "KXDOED": { "maker": 0, "taker": 0, "title": "DOE eliminated", "seen_in": ["fee-schedule-pdf"] },
+    "KXEGGS": { "maker": 1, "taker": 1, "title": "Egg prices", "seen_in": ["fee-schedule-pdf"] },
+    "KXELECTIRAN": { "maker": 0, "taker": 0, "title": "Will Iran hold a presidential election?", "seen_in": ["fee-schedule-pdf"] },
+    "KXEMMYCACTO": { "maker": 1, "taker": 1, "title": "Emmys Award for Lead Comedy Actor", "seen_in": ["fee-schedule-pdf"] },
+    "KXEMMYCACTR": { "maker": 1, "taker": 1, "title": "Emmys Award for Lead Comedy Actress", "seen_in": ["fee-schedule-pdf"] },
+    "KXEMMYCSERIES": { "maker": 1, "taker": 1, "title": "Emmys Award for Comedy Series", "seen_in": ["fee-schedule-pdf"] },
+    "KXEMMYDACTO": { "maker": 1, "taker": 1, "title": "Emmys Award for Lead Drama Actor", "seen_in": ["fee-schedule-pdf"] },
+    "KXEMMYDACTR": { "maker": 1, "taker": 1, "title": "Emmys Award for Lead Drama Actress", "seen_in": ["fee-schedule-pdf"] },
+    "KXEMMYDSERIES": { "maker": 1, "taker": 1, "title": "Emmys Award for Drama Series", "seen_in": ["fee-schedule-pdf"] },
+    "KXETHY": { "maker": 0, "taker": 0, "title": "ETH price EOY", "seen_in": ["fee-schedule-pdf"] },
+    "KXFED": { "maker": 1, "taker": 1, "title": "Fed funds rate", "seen_in": ["fee-schedule-pdf"] },
+    "KXFEDDECISION": { "maker": 1, "taker": 1, "title": "Fed meeting", "seen_in": ["fee-schedule-pdf"] },
+    "KXGAMBLINGREPEAL": { "maker": 0, "taker": 0, "title": "Gambling Repeal", "seen_in": ["fee-schedule-pdf"] },
+    "KXGDP": { "maker": 1, "taker": 1, "title": "US GDP growth", "seen_in": ["fee-schedule-pdf"] },
+    "KXGREENLAND": { "maker": 0, "taker": 0, "title": "Greenland purchase", "seen_in": ["fee-schedule-pdf"] },
+    "KXHEISMAN": { "maker": 1, "taker": 1, "title": "Heisman Trophy Winner", "seen_in": ["fee-schedule-pdf"] },
+    "KXINXY": { "maker": 1, "taker": 1, "title": "S&P 500 yearly range", "seen_in": ["fee-schedule-pdf"] },
+    "KXIPO": { "maker": 1, "taker": 1, "title": "IPOs", "seen_in": ["fee-schedule-pdf"] },
+    "KXIRANDEMOCRACY": { "maker": 0, "taker": 0, "title": "Will Iran become a democracy in 2026?", "seen_in": ["fee-schedule-pdf"] },
+    "KXLALIGA": { "maker": 1, "taker": 1, "title": "LA LIGA", "seen_in": ["fee-schedule-pdf"] },
+    "KXLAYOFFSYINFO": { "maker": 0, "taker": 0, "title": "Tech layoffs", "seen_in": ["fee-schedule-pdf"] },
+    "KXLLM1": { "maker": 1, "taker": 1, "title": "Year-end top LLM", "seen_in": ["fee-schedule-pdf"] },
+    "KXPAHLAVIHEAD": { "maker": 0, "taker": 0, "title": "Will Pahlavi lead Iran?", "seen_in": ["fee-schedule-pdf"] },
+    "KXPAYROLLS": { "maker": 1, "taker": 1, "title": "Jobs numbers", "seen_in": ["fee-schedule-pdf"] },
+    "KXPGARYDER": { "maker": 1, "taker": 1, "title": "Ryder Cup", "seen_in": ["fee-schedule-pdf"] },
+    "KXPGASOLHEIM": { "maker": 1, "taker": 1, "title": "Solheim Cup", "seen_in": ["fee-schedule-pdf"] },
+    "KXPGATOUR": { "maker": 1, "taker": 1, "title": "PGA Tour", "seen_in": ["fee-schedule-pdf"] },
+    "KXRATECUTCOUNT": { "maker": 1, "taker": 1, "title": "Number of rate cuts", "seen_in": ["fee-schedule-pdf"] },
+    "KXSB": { "maker": 1, "taker": 1, "title": "Super Bowl", "seen_in": ["fee-schedule-pdf"] },
+    "KXSUPERBOWLHEADLINE": { "maker": 1, "taker": 1, "title": "Who will headline super bowl LX", "seen_in": ["fee-schedule-pdf"] },
+    "KXU3": { "maker": 1, "taker": 1, "title": "Unemployment", "seen_in": ["fee-schedule-pdf"] },
+    "KXUCL": { "maker": 1, "taker": 1, "title": "UEFA Champions League", "seen_in": ["fee-schedule-pdf"] },
+    "KXUCLGAME": { "maker": 1, "taker": 1, "title": "UEFA Champions League Game", "seen_in": ["fee-schedule-pdf"] },
+    "KXWCGAME": { "maker": 1, "taker": 1, "title": "World Cup Game", "seen_in": ["fee-schedule-pdf"] },
+    "KXWNBA": { "maker": 1, "taker": 1, "title": "WNBA Championship", "seen_in": ["fee-schedule-pdf"] },
+    "KXWNBAGAME": { "maker": 1, "taker": 1, "title": "WNBA Game", "seen_in": ["fee-schedule-pdf"] },
+    "KXWTAMATCH": { "maker": 1, "taker": 1, "title": "WTA Tennis Match", "seen_in": ["fee-schedule-pdf"] }
+  },
+  "not_transcribed": {
+    "reason": "The PDF's middle pages are OCR-garbled (series names and multipliers interleaved), and the public fee-schedule page paginates client-side, so these rows could not be read unambiguously. They are treated as the default multiplier (taker M = 1) and flagged for manual review.",
+    "series": [
+      "KXMARMAD", "KXMEANRWMAODRLDCUP", "KXMLEBNWORLDCUP", "KXMLBAL", "KXMLBASGAME",
+      "KXMLBGAME", "KXMLBNL", "KXMVE", "KXNASDAQ100Y", "KXNBA", "KXNBAEAST",
+      "KXNBAMVP", "KXNBAROY", "KXNBAWEST", "KXNCAAF", "KXNCAAFACC", "KXNFLGAME",
+      "KXNFLMVP", "KXNFLNFCCHAMP", "KXNFLNFCEAST", "KXNFLNFCNORTH", "KXNFLNFCSOUTH",
+      "KXNFLNFCWEST", "KXNFLOPOTY", "KXNFLOROTY", "KXNHL", "KXNHLEAST", "KXNHLWEST",
+      "KXNFLAFCCHAMP", "KXNFLAFCEAST", "KXNFLAFCNORTH", "KXNFLAFCSOUTH", "KXNFLAFCWEST",
+      "KXNFLCOTY", "KXNFLCPOTY", "KXNFLDPOTY", "KXNFLDROTY", "KXNCAAFB10", "KXNCAAFB12",
+      "KXNCAAFGAME", "KXNCAAFPLAYOFF", "KXNCAAFSEC"
+    ],
+    "also_not_covered": "Series published after 2026-07-07 that are not on page 1 of the public fee-schedule page could not be read (the page paginates client-side). A series outside this file is treated as the default multiplier (taker M = 1)."
+  }
+}

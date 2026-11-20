@@ -25,6 +25,7 @@
     <a href="topics/culture.html">Culture</a>
     <a href="topics/crypto.html">Crypto</a>
     <a href="topics/golf.html">Golf</a>
+    <a href="resolved.html">Resolved</a>
     <a href="data.html">Data</a>
     <a href="methods.html" class="active">Methods</a>
     <a href="suggestions.html">Ideas</a>
@@ -82,7 +83,7 @@
   </table></div>
   <ul class="small">
     <li>Sizing: target $25 per trade (configurable), max 8 concurrent positions, one position per strategy per market.</li>
-    <li>Fills assume the official quote with <b>no slippage</b> — optimistic; flagged. Fees: taker <code>roundup(0.07 × C × P × (1−P))</code> per the official <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">fee schedule</a> (effective July 7, 2026), applied on paper entries and exits; maker fees not modeled (paper fills assume immediate match) — flagged. Fees can be toggled off in the Strategy Lab.</li>
+    <li>Fills assume the official quote with <b>no slippage</b> — optimistic; flagged. Fees: taker <code>roundup(M × 0.07 × C × P × (1−P))</code> per the official <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">fee schedule</a> (verified this session, effective 2026-07-07), where <code>M</code> is the per-series <b>taker multiplier</b> from the schedule's Non-Standard Fees table (default 1; e.g. <code>KXBTCY</code>/<code>KXETHY</code> have <code>M=0</code> → no taker fee). Rounding is done in integer cents with a float-epsilon guard so an exact $1.75 does not ceil to $1.76 (unit-tested against the schedule's own worked examples). There is no settlement fee. Applied on paper entries and exits; maker fees not modeled (paper fills assume immediate match) — flagged. Fees can be toggled off in the Strategy Lab.</li>
     <li>Mark-to-market uses the official bid; settlement pays $1 per winning contract (<a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_settlement">Market Settlement</a>).</li>
     <li>All trades live in <code>localStorage</code> only (export/import/reset in the Strategy Lab).</li>
   </ul>

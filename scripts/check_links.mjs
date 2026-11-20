@@ -24,9 +24,9 @@ const OFFICIAL = [
   'external-api.demo.kalshi.co', 'demo-api.kalshi.co', 'external-api-ws.demo.kalshi.co',
   'demo.kalshi.co', 'kalshi.com/docs', 'github.com', 'news.google.com'
 ];
-const NAV_TARGETS = ['index.html', 'dashboard.html', 'trades.html', 'portfolio.html',
+const NAV_TARGETS = ['index.html', 'executive-summary.html', 'dashboard.html', 'trades.html', 'portfolio.html',
   'topics/gas-prices.html', 'topics/elections.html', 'topics/culture.html', 'topics/crypto.html',
-  'topics/golf.html', 'data.html', 'methods.html', 'suggestions.html', 'flagged.html', 'sources.html'];
+  'topics/golf.html', 'data.html', 'resolved.html', 'methods.html', 'suggestions.html', 'flagged.html', 'sources.html'];
 
 const failures = [], warnings = [];
 const counts = { pages: 0, links: 0, external: 0, datarefs: 0 };
