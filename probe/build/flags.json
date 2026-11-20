@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20 13:34 UTC",
+ "generated_at": "2026-11-20 13:47 UTC",
  "flags": [
   {
    "severity": "info",
@@ -11,22 +11,36 @@
   {
    "severity": "info",
    "scope": "markets",
+   "entity": "gas",
+   "message": "Topic has 713 open markets; first 300 written (sorted by est. 24h $).",
+   "source_url": ""
+  },
+  {
+   "severity": "info",
+   "scope": "markets",
+   "entity": "golf",
+   "message": "Topic has 1986 open markets; first 300 written (sorted by est. 24h $).",
+   "source_url": ""
+  },
+  {
+   "severity": "info",
+   "scope": "markets",
    "entity": "crypto",
-   "message": "Topic has 76500 open markets; first 5000 written (sorted by est. 24h $).",
+   "message": "Topic has 76495 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {
    "severity": "info",
    "scope": "markets",
    "entity": "culture",
-   "message": "Topic has 9861 open markets; first 5000 written (sorted by est. 24h $).",
+   "message": "Topic has 9861 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {
    "severity": "info",
    "scope": "markets",
    "entity": "elections",
-   "message": "Topic has 35341 open markets; first 5000 written (sorted by est. 24h $).",
+   "message": "Topic has 35341 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {

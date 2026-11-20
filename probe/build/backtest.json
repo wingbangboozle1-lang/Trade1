@@ -1,5 +1,5 @@
 {
- "generated_epoch": 1795181699,
+ "generated_epoch": 1795182474,
  "method": "Simulated only. No fees, no slippage beyond quoted candle ask/bid, 1 contract per trade, no position sizing.",
  "markets_considered": 250,
  "markets_with_candles": 250,
@@ -14,42 +14,169 @@
  "summary": [
   {
    "strategy": "S0_BUY_YES_FIRST_QUOTE",
-   "topic": "gas",
+   "topic": "crypto",
+   "trades": 3,
+   "win_rate": 0.0,
+   "avg_pnl_per_contract": -1.0,
+   "total_pnl_per_contract": -3.0,
+   "sample_flag": "insufficient sample (<30 trades)"
+  },
+  {
+   "strategy": "S1_LONGSHOT_YES",
+   "topic": "crypto",
+   "trades": 2,
+   "win_rate": 0.0,
+   "avg_pnl_per_contract": -1.0,
+   "total_pnl_per_contract": -2.0,
+   "sample_flag": "insufficient sample (<30 trades)"
+  },
+  {
+   "strategy": "S2_FAVOURITE_NO",
+   "topic": "crypto",
    "trades": 1,
    "win_rate": 0.0,
-   "avg_pnl_per_contract": -0.54,
-   "total_pnl_per_contract": -0.54,
+   "avg_pnl_per_contract": 0.0,
+   "total_pnl_per_contract": 0.0,
    "sample_flag": "insufficient sample (<30 trades)"
   }
  ],
  "by_band": [
   {
    "strategy": "S0_BUY_YES_FIRST_QUOTE",
-   "band": "$0.10-$0.49",
+   "band": "<$0.10",
+   "trades": 2,
+   "win_rate": 0.0,
+   "avg_pnl_per_contract": -1.0,
+   "sample_flag": "insufficient sample (<30 trades)"
+  },
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "band": ">=$0.90",
    "trades": 1,
    "win_rate": 0.0,
-   "avg_pnl_per_contract": -0.54,
+   "avg_pnl_per_contract": -1.0,
+   "sample_flag": "insufficient sample (<30 trades)"
+  },
+  {
+   "strategy": "S1_LONGSHOT_YES",
+   "band": "<$0.10",
+   "trades": 2,
+   "win_rate": 0.0,
+   "avg_pnl_per_contract": -1.0,
+   "sample_flag": "insufficient sample (<30 trades)"
+  },
+  {
+   "strategy": "S2_FAVOURITE_NO",
+   "band": ">=$0.90",
+   "trades": 1,
+   "win_rate": 0.0,
+   "avg_pnl_per_contract": 0.0,
    "sample_flag": "insufficient sample (<30 trades)"
   }
  ],
- "trade_count": 1,
+ "trade_count": 6,
  "trades": [
   {
    "strategy": "S0_BUY_YES_FIRST_QUOTE",
-   "ticker": "KXAAAGASD-26NOV20-3.6900",
-   "topic": "gas",
-   "title": "Will average **gas prices** be above $3.6900?",
+   "ticker": "KXXRPD-26NOV2008-T1.6399",
+   "topic": "crypto",
+   "title": "Ripple price at Nov 20, 2026 at 8am EST?",
    "side": "YES",
-   "entry_t": 1795136400,
-   "entry_price": 0.54,
-   "exit_t": "2026-11-20T13:14:49.617968Z",
+   "entry_t": 1795096800,
+   "entry_price": 1.0,
+   "exit_t": "2026-11-20T13:39:49.61392Z",
    "exit_kind": "settlement",
    "exit_value": 0.0,
-   "pnl_per_contract": -0.54,
+   "pnl_per_contract": -1.0,
    "outcome": "no",
-   "band": "$0.10-$0.49",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXAAAGASD-26NOV20-3.6900",
-   "source_terms": "https://assets.kalshi.com/contract_terms/AAAGAS.pdf"
+   "band": "<$0.10",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRPD-26NOV2008-T1.6399",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO.pdf"
+  },
+  {
+   "strategy": "S1_LONGSHOT_YES",
+   "ticker": "KXXRPD-26NOV2008-T1.6399",
+   "topic": "crypto",
+   "title": "Ripple price at Nov 20, 2026 at 8am EST?",
+   "side": "YES",
+   "entry_t": 1795096800,
+   "entry_price": 1.0,
+   "exit_t": "2026-11-20T13:39:49.61392Z",
+   "exit_kind": "settlement",
+   "exit_value": 0.0,
+   "pnl_per_contract": -1.0,
+   "outcome": "no",
+   "band": "<$0.10",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRPD-26NOV2008-T1.6399",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO.pdf"
+  },
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "ticker": "KXXRPD-26NOV2008-T0.9399",
+   "topic": "crypto",
+   "title": "Ripple price at Nov 20, 2026 at 8am EST?",
+   "side": "YES",
+   "entry_t": 1795179600,
+   "entry_price": 1.0,
+   "exit_t": "2026-11-20T13:39:49.61392Z",
+   "exit_kind": "settlement",
+   "exit_value": 0.0,
+   "pnl_per_contract": -1.0,
+   "outcome": "no",
+   "band": ">=$0.90",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRPD-26NOV2008-T0.9399",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO.pdf"
+  },
+  {
+   "strategy": "S2_FAVOURITE_NO",
+   "ticker": "KXXRPD-26NOV2008-T0.9399",
+   "topic": "crypto",
+   "title": "Ripple price at Nov 20, 2026 at 8am EST?",
+   "side": "NO",
+   "entry_t": 1795179600,
+   "entry_price": 1.0,
+   "exit_t": "2026-11-20T13:39:49.61392Z",
+   "exit_kind": "settlement",
+   "exit_value": 1.0,
+   "pnl_per_contract": 0.0,
+   "outcome": "no",
+   "band": ">=$0.90",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRPD-26NOV2008-T0.9399",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO.pdf"
+  },
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "ticker": "KXXRPD-26NOV2007-T1.6399",
+   "topic": "crypto",
+   "title": "Ripple price at Nov 20, 2026 at 7am EST?",
+   "side": "YES",
+   "entry_t": 1795093200,
+   "entry_price": 1.0,
+   "exit_t": "2026-11-20T13:39:49.613498Z",
+   "exit_kind": "settlement",
+   "exit_value": 0.0,
+   "pnl_per_contract": -1.0,
+   "outcome": "no",
+   "band": "<$0.10",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRPD-26NOV2007-T1.6399",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO.pdf"
+  },
+  {
+   "strategy": "S1_LONGSHOT_YES",
+   "ticker": "KXXRPD-26NOV2007-T1.6399",
+   "topic": "crypto",
+   "title": "Ripple price at Nov 20, 2026 at 7am EST?",
+   "side": "YES",
+   "entry_t": 1795093200,
+   "entry_price": 1.0,
+   "exit_t": "2026-11-20T13:39:49.613498Z",
+   "exit_kind": "settlement",
+   "exit_value": 0.0,
+   "pnl_per_contract": -1.0,
+   "outcome": "no",
+   "band": "<$0.10",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRPD-26NOV2007-T1.6399",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO.pdf"
   }
  ]
 }
