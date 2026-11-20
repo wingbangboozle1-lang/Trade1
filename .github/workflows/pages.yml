@@ -1,0 +1,25 @@
+name: KalshiDash CI + Pages
+
+# GitHub Pages is configured to serve this repo from the `main` branch at path `/`,
+# so the static site is published automatically when the site files are merged to
+# `main`. This workflow validates the build (JS syntax + broken-link/asset check)
+# on every push and pull request so a broken site can never land on `main`.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate site (syntax + broken-link check)
+        run: node tools/build.mjs

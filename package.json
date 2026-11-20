@@ -1,0 +1,11 @@
+{
+  "name": "trade1-kalshi-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live interactive Kalshi demo dashboard: gas, elections, culture, crypto, golf; price/liquidity charts, sharp-move flags, simulated strategy engine, portfolio tracking.",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs"
+  },
+  "license": "UNLICENSED"
+}

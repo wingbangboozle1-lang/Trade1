@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1216">
+<title>Flagged for review | Kalshi Demo Monitor</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head><body>
+<header>
+  <div class="brand"><div class="mark" style="background:var(--amber);color:#4a2a06">!</div><div>
+    <h1>Flagged for review</h1>
+    <p>Unverified items, scope limits, and irregularities — Kalshi Demo Monitor</p>
+  </div></div>
+  <a href="index.html" style="color:var(--muted);text-decoration:underline">← Landing page</a>
+</header>
+
+<main class="wrap">
+  <div class="notice">
+    <b>Nothing on this page blocks the site going live.</b> These items are published for review so they can be checked against official Kalshi sources
+    after deployment. Values left blank here could not be confirmed from an official source in this session and were never inferred or filled in.
+  </div>
+
+  <section>
+    <h2>Verification context</h2>
+    <p>This sandbox cannot reach <code>external-api.demo.kalshi.co</code>, <code>demo-api.kalshi.co</code>, or <code>docs.kalshi.com</code> (connections failed).
+    Only github.com is reachable. Therefore: no live Kalshi market values were fetched, no official doc page was retrieved directly, and no deployed Pages
+    build has been observed. All links below are from the project brief and prior repo records; treat them as pointers for manual review, not as verified content.</p>
+  </section>
+
+  <section>
+    <h2>Flagged / not implemented</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Item</th><th>Detail</th><th>Suggested source for review</th></tr></thead>
+        <tbody>
+          <tr><td>Authenticated demo-account tracking</td><td>Position, balance, fill, settlement, and P&amp;L tracking require signed private-key requests; no credentials are requested or stored here.</td><td><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Official authenticated request guide</a></td></tr>
+          <tr><td>Automated trade execution</td><td>Not implemented. Paper trades are browser localStorage simulations only; no orders are submitted to Kalshi.</td><td><a href="https://docs.kalshi.com/api-reference" target="_blank" rel="noopener">Kalshi API reference</a></td></tr>
+          <tr><td>Real portfolio performance</td><td>Demo-account performance/settlement history is not ingested; simulated cost is shown, no mark-to-market or realized P&amp;L.</td><td><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Official authenticated request guide</a></td></tr>
+          <tr><td>Resolved-market yes/no archive</td><td>Resolution outcomes are not archived or ingested; the open-market endpoint does not guarantee resolved results here.</td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets reference</a></td></tr>
+          <tr><td>True highest dollar-amount ranking</td><td>Rows are sorted by API-reported contract volume; dollar notional is not inferred.</td><td><a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">Demo REST API</a></td></tr>
+          <tr><td>Persistent WebSocket feed</td><td>REST polling only (30 s markets, 5 s selected-market samples). WebSocket quick start is documented but not implemented.</td><td><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">Official WebSocket quick start</a></td></tr>
+          <tr><td>News-cause attribution for sharp moves</td><td>≥ $0.10 alerts link to the official market page only; no external cause is attributed.</td><td><a href="https://kalshi.com/markets" target="_blank" rel="noopener">Official Kalshi markets site</a></td></tr>
+          <tr><td>Topic classification</td><td>Keyword heuristic over title/subtitle/category; not official Kalshi topic labels.</td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets reference</a></td></tr>
+          <tr><td>GitHub Pages deployment</td><td>Workflow configured to deploy on pushes to <code>main</code>; repository Pages setting and successful deploy not yet verified from this branch.</td><td><a href=".github/workflows/pages.yml" target="_blank" rel="noopener">Pages workflow (repo)</a></td></tr>
+          <tr><td>Browser CORS/API availability</td><td>Whether the demo API allows fetch from the GitHub Pages origin is untested.</td><td>Deployed site (after Pages publish)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Source links for manual review</h2>
+    <ul class="list">
+      <li><a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">Kalshi demo REST API (recommended)</a> — base endpoint used by the dashboard.</li>
+      <li><a href="https://demo-api.kalshi.co/trade-api/v2" target="_blank" rel="noopener">Kalshi demo REST API (alternate)</a> — also supported per project brief.</li>
+      <li><a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener">Official Quick Start: Market Data</a> — market listing, orderbook, REST freshness caveat.</li>
+      <li><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">Official Quick Start: WebSockets</a> — documented demo WebSocket endpoints.</li>
+      <li><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Official authenticated request guide</a> — private-key signing required for account features.</li>
+      <li><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets API reference</a> — response fields and status filters.</li>
+      <li><a href="https://docs.kalshi.com/api-reference/market/get-market-order-book" target="_blank" rel="noopener">Official Get Market Orderbook reference</a> — bid levels/quantities.</li>
+      <li><a href="https://kalshi.com/markets" target="_blank" rel="noopener">Official Kalshi markets site</a> — inspect markets and settlement criteria.</li>
+      <li><a href=".github/workflows/pages.yml" target="_blank" rel="noopener">GitHub Pages workflow</a> — deploys static site on push to <code>main</code>.</li>
+      <li><a href="COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a> — shared task board and session log.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Verification policy applied</h2>
+    <ul class="list">
+      <li>Every market row links to its official market page (<code>https://kalshi.com/markets/{event_ticker}</code>).</li>
+      <li>If a value cannot be confirmed from an official source, it is left blank and flagged unverified — never inferred or filled in.</li>
+      <li>No hallucinated prices, volumes, outcomes, or event names appear anywhere on the site.</li>
+      <li>All no-hallucination rules apply to the dashboard, category pages, and findings tables equally.</li>
+    </ul>
+  </section>
+
+  <div class="footer">Kalshi Demo Monitor — educational prototype, not financial advice.</div>
+</main>
+</body></html>
