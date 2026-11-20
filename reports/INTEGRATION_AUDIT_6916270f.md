@@ -69,7 +69,12 @@ with the page fetcher; every request URL is recorded.
 | D3 | `assets/app.js` → settlement detection | Only `finalized`/`settled`/`closed` were treated as resolved; the official lifecycle also has `determined` (settlement timer running) and `amended` (re-determined after a dispute) **with a result set**, so those resolutions were never recorded. | S1 + L9 | `determined` and `amended` with `result ∈ {yes,no}` now count as resolved |
 | D4 | `assets/portfolio.js` + `scripts/portfolio_engine.py` | Portfolio rows linked `https://kalshi.com/markets/{market_ticker}` — that shape is a **404** (L12). | L11/L12 | rows now carry the series ticker, confirmed from `GET /events/{event}` (`series_ticker`), and link the series page (L11); the official API record link stays on every row |
 | D5 | `README.md` | "period_interval 1 or 60 only" — the API accepts 1, 60 **and 1440**; the chart uses 1 and 60. | S7 (change request R-984-1 from session 984a6765) | wording corrected |
-| D6 | `resolved.html` | The page implied it lists every resolved in-scope market; the snapshot stores the newest **200 of 3,213** (`settled_total` 6,000) with no disclosure. | `data/resolved.json` (change request R-984-3) | the cap is stated on the page with the live counts |
+| D6 | `resolved.html` | The page implied it lists every resolved in-scope market; the snapshot stores the newest **200 of 3,213** (`settled_total` 6,000) with no disclosure. | `data/resolved.json` (change request R-984-3) | the cap is stated on the page with the live counts (row `rs-cap`) |
+| D7 | `scripts/check_site.mjs` | The checker stripped whole `<script>` elements before scanning for links, so a `<script src=…>` pointing at a deleted file could not be detected — the published Resolved page was affected. | the page was found loading a module that is not in the repo | the opening tag is kept and checked; verified by deleting the module again and watching the check fail |
+| D8 | `assets/app.js` → chart | `getContext('2d')` was used without a null check, so a DOM without a canvas backend threw and killed the rest of the page. | `tools/render_test.mjs` reported `TypeError: Cannot read properties of null (reading 'scale')` on `trades.html` | the chart returns without drawing when no 2d context exists |
+| D9 | navigation | The Resolved page (and the Summary page) were published but reachable only by direct URL — no navigation entry, so a reviewer landing on the home page could not find them. | `scripts/check_links.mjs` warned "legacy page outside the published navigation" | the Resolved page is in the navigation of every published page and in the nav-parity check |
+| D10 | `scripts/portfolio_engine.py` | The CI ledger hard-coded the taker multiplier `M = 1` and therefore charged fees on series the published schedule lists as *no fees*. | S3/S4 | the multiplier table is loaded from `data/fee_schedule_series.json`; `selftest` pins the `M = 0` series |
+| D11 | `assets/portfolio.js` + ledger rows | Ledger rows linked `kalshi.com/markets/{market_ticker}` (a 404) and carried no series ticker. | L11/L12 | rows carry `series_ticker` and `kalshi_url` (series page); the official API record link stays on every row |
 
 ## 5. Irregularities (published on the Flagged for Review page, non-blocking)
 
@@ -89,15 +94,33 @@ with the page fetcher; every request URL is recorded.
 
 ## 6. Validators run on the merged result
 
-| Check | Command | Result |
+| Check | Command | Result (run 2026-11-20, all exit 0) |
 |---|---|---|
-| Site build + local links | `node tools/build.mjs` | see the completion record below |
-| Published-page link/nav | `node scripts/check_links.mjs` | see the completion record below |
-| Row/URL coverage | `node scripts/check_site.mjs` | see the completion record below |
-| Browser engine (jsdom) | `node tests/engine.test.mjs` | see the completion record below |
-| Root engine unit checks | `node tests/root_engine.test.js` | see the completion record below |
-| Ledger tests | `node tests/portfolio.test.mjs` | see the completion record below |
-| Demo-account suite | `node tests/demo-account.test.mjs` | see the completion record below |
-| Offline lib tests | `node scripts/test_lib.mjs` | see the completion record below |
-| Fee-table test | `node scripts/test_fees.mjs` | see the completion record below |
-| Ledger self-test | `python3 scripts/portfolio_engine.py selftest` | see the completion record below |
+| Site build + local links | `node tools/build.mjs` | `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links.` |
+| Published-page link/nav | `node scripts/check_links.mjs` | `16 published pages, 392 local links, 208 external links, 0 failures` |
+| Row/URL coverage | `node scripts/check_site.mjs` | `{"checked":{"html":18,"links":424,"rows":1250,"resolved":825},"failures":0}` |
+| Browser engine (jsdom) | `node tests/engine.test.mjs` | `23/23 passed` |
+| Live-dashboard regressions | `node tests/live_fixes.test.mjs` | `3 passed, 0 failed` (D1/D2/D3 — each verified to fail against the pre-fix code) |
+| Root engine unit checks | `node tests/root_engine.test.js` | `40 passed, 0 failed` |
+| Fee-model unit checks | `node tests/model.test.js` | `21 passed, 0 failed` |
+| Dashboard model checks | `node scripts/test_model.mjs` | `20 checks passed` |
+| Fee-table test | `node scripts/test_fees.mjs` | 42 published fee-table assertions + 10 per-series multipliers + cross-check against `data/fee_schedule_series.json` |
+| Ledger tests | `node tests/portfolio.test.mjs` | `60/60 portfolio checks passed` |
+| Demo-account suite | `node tests/demo-account.test.mjs` | `89 passed, 0 failed` |
+| Offline lib tests | `node scripts/test_lib.mjs` | `lib tests passed` |
+| Ledger self-test | `python3 scripts/portfolio_engine.py selftest` | `57/57 checks passed` |
+| Render gate (every published page in jsdom) | `node tools/render_test.mjs --wait=9000 <15 pages>` | 15/15 pages rendered, 0 JS errors |
+
+The render gate is the check that would have caught the broken Resolved page: it boots each
+published page against the real static files and fails on an empty render or any JS error.
+
+## 7. Completion record
+
+* Defects **D1–D11** are implemented and covered by automated gates; the validator results are in
+  section 6 (all exit 0 on 2026-11-20).
+* Irregularities **I6–I9** and the inherited **9d-1 … 9d-5** are published on the
+  [Flagged for Review](../flagged.html) page as `691-1 … 691-11`; none of them blocks the merge.
+* The published per-series fee table is `data/fee_schedule_series.json`; the browser model and the
+  CI ledger both read it (the browser map is cross-checked against it in `scripts/test_fees.mjs`).
+* Sources of this audit: `reports/COVERAGE_9d4380a2.md`, `reports/VERIFICATION_9d4380a2.md`,
+  `reports/VERIFICATION_a53ab816.md`, and the `COORDINATION.md` board.

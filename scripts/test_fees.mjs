@@ -12,6 +12,7 @@
  * Usage: node scripts/test_fees.mjs      (exit 0 = all rows match)
  */
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
 // [price, 1-contract fee, 100-contract price, 100-contract fee] — verbatim from the PDF table.
 const PUBLISHED = [
@@ -82,6 +83,26 @@ if (!near(M.fee(0.5, 100, 'KXBTCY-27JAN0100-B47500'), 0)) {
 if (M.takerMultiplier('KXBTCY') !== 0 || M.takerMultiplier('KXAAAGASM') !== 1 || M.takerMultiplier('KXNEW') !== 1) {
   failures++;
   console.log('  ✗ takerMultiplier() does not follow the published table (default M = 1)');
+}
+
+/* The browser model and the published transcription (data/fee_schedule_series.json) must
+ * agree, otherwise the two paper-trading engines would charge different fees for the
+ * same market. This compares every series the JSON marks as "no fees" (M = 0). */
+try {
+  const table = JSON.parse(readFileSync(new URL('../data/fee_schedule_series.json', import.meta.url), 'utf8'));
+  const noFee = Object.keys(table.series || {}).filter((k) => (table.series[k] || {}).taker === 0);
+  let mismatch = 0;
+  for (const s of noFee) {
+    if (M.takerMultiplier(s) !== 0) {
+      mismatch++;
+      console.log(`  ✗ ${s} is M=0 in data/fee_schedule_series.json but the browser model charges a fee`);
+    }
+  }
+  if (mismatch) failures++;
+  else console.log(`  ✓ browser model agrees with data/fee_schedule_series.json on ${noFee.length} no-fee series`);
+} catch (e) {
+  failures++;
+  console.log('  ✗ could not read data/fee_schedule_series.json: ' + e.message);
 }
 
 const rows = PUBLISHED.length;
