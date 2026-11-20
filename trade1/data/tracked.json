@@ -1,0 +1,329 @@
+{
+ "generated_at": "2026-11-20T13:52:01+00:00",
+ "tracked": {
+  "KXTRUMPGOLFD-26NOV20-SUN": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Trump golf on Nov 22, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXTRUMPGOLFD-26NOV20-SUN"
+  },
+  "KXPGATIGER-26": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Tiger Woods compete in any PGA event in 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXPGATIGER-26"
+  },
+  "KXTRUMPGOLFD-26NOV20-SAT": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Trump golf on Nov 21, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXTRUMPGOLFD-26NOV20-SAT"
+  },
+  "KXPGATOUR-MAST27-SSCH": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Masters Tournament: Scottie Scheffler wins",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXPGATOUR-MAST27-SSCH"
+  },
+  "KXPGATOUR-MAST27-RMCI": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Masters Tournament: Rory McIlroy wins",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXPGATOUR-MAST27-RMCI"
+  },
+  "KXPGATOUR-MAST27-JRAH": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Masters Tournament: Jon Rahm wins",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXPGATOUR-MAST27-JRAH"
+  },
+  "KXAAAGASW-26NOV23-3.6200": {
+   "topic": "gas-prices",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will average **gas prices** be above $3.6200?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXAAAGASW-26NOV23-3.6200"
+  },
+  "KXAAAGASW-26NOV23-3.6300": {
+   "topic": "gas-prices",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will average **gas prices** be above $3.6300?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXAAAGASW-26NOV23-3.6300"
+  },
+  "KXAAAGASM-26NOV30-3.45": {
+   "topic": "gas-prices",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will average **gas prices** be above $3.45?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXAAAGASM-26NOV30-3.45"
+  },
+  "KXDIESELW-26NOV23-T5.80": {
+   "topic": "gas-prices",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Diesel Price on November 23, 2026 be above $5.80?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXDIESELW-26NOV23-T5.80"
+  },
+  "KXDIESELW-26NOV23-T5.78": {
+   "topic": "gas-prices",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Diesel Price on November 23, 2026 be above $5.78?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXDIESELW-26NOV23-T5.78"
+  },
+  "KXAAAGASW-26NOV23-3.6100": {
+   "topic": "gas-prices",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will average **gas prices** be above $3.6100?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXAAAGASW-26NOV23-3.6100"
+  },
+  "KXBTCD-26NOV2017-T59999.99": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2017-T59999.99"
+  },
+  "KXBTC50VS100-BTC-26DEC31": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will BTC hit $50,000 before $100,000 by Dec 31, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTC50VS100-BTC-26DEC31"
+  },
+  "KXBTCD-26NOV2017-T58999.99": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2017-T58999.99"
+  },
+  "KXBTCD-26NOV2009-T61299.99": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2009-T61299.99"
+  },
+  "KXBTCD-26NOV2009-T61399.99": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2009-T61399.99"
+  },
+  "KXBTCD-26NOV2017-T57999.99": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2017-T57999.99"
+  },
+  "KXBLUEWAVECOMBO-27FEB": {
+   "topic": "elections",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Democrats hold 218 or more seats in the House after the 2026 midterms AND hold 49 or more seats in the Senate after the 2026 midterms?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBLUEWAVECOMBO-27FEB"
+  },
+  "KXSENATEDEMLEAD-28JAN01-CSHU": {
+   "topic": "elections",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Chuck Schumer win the next Senate Democratic Leader election?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXSENATEDEMLEAD-28JAN01-CSHU"
+  },
+  "KXPRESNOMR-28-MR": {
+   "topic": "elections",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Marco Rubio be the nominee for the Presidency for the Republican party?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXPRESNOMR-28-MR"
+  },
+  "KXSENMAJ-27-CSCH": {
+   "topic": "elections",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Who will win the U.S. Senate Majority Leader election for the 120th Congress?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXSENMAJ-27-CSCH"
+  },
+  "KXHUANGTESTIFY-27JUL-27JAN": {
+   "topic": "elections",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Jensen Huang testify in front of Congress before Jan 2027?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXHUANGTESTIFY-27JUL-27JAN"
+  },
+  "KXPRESNOMR-28-JDV": {
+   "topic": "elections",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will J.D. Vance be the nominee for the Presidency for the Republican party?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXPRESNOMR-28-JDV"
+  },
+  "KXGTASALESRECORD-27JAN31-GTA6": {
+   "topic": "culture",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will GTA 6 break the record for the highest-grossing videogame in 24 hours?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXGTASALESRECORD-27JAN31-GTA6"
+  },
+  "KXGAMEAWARDS-2026-GTA": {
+   "topic": "culture",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "2026 Game of the Year?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXGAMEAWARDS-2026-GTA"
+  },
+  "KXRT-HUN-60": {
+   "topic": "culture",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "The Hunger Games: Sunrise on the Reaping Rotten Tomatoes score?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXRT-HUN-60"
+  },
+  "KXGTA6UNITS-01JAN27-T3000000": {
+   "topic": "culture",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "GTA VI · 3 million+ sold-in units before Jan 2027?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXGTA6UNITS-01JAN27-T3000000"
+  },
+  "KXMC-GTA6-97": {
+   "topic": "culture",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Grand Theft Auto VI Metacritic score?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXMC-GTA6-97"
+  },
+  "KXTOPSONG-26NOV28-CHO": {
+   "topic": "culture",
+   "first_seen": "2026-11-20T13:46:17+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Choosin' Texas be #1 on the Billboard Hot 100 during the week of Nov 28, 2026",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXTOPSONG-26NOV28-CHO"
+  },
+  "KXWTGLCHAMPION-26-LA": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:52:01+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will Los Angeles Golf Club (W) win the 2026 WTGL Championship?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXWTGLCHAMPION-26-LA"
+  },
+  "KXPGATOUR-MAST27-JKOI": {
+   "topic": "golf",
+   "first_seen": "2026-11-20T13:52:01+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Masters Tournament: Jackson Koivun wins",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXPGATOUR-MAST27-JKOI"
+  },
+  "KXAAAGASD-26NOV21-3.6550": {
+   "topic": "gas-prices",
+   "first_seen": "2026-11-20T13:52:01+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Will average **gas prices** be above $3.6550?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXAAAGASD-26NOV21-3.6550"
+  },
+  "KXBTC15M-26NOV200900-00": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:52:01+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "BTC price up in next 15 mins?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTC15M-26NOV200900-00"
+  },
+  "KXBTCD-26NOV2009-T61499.99": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:52:01+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2009-T61499.99"
+  },
+  "KXBTCD-26NOV2009-T61599.99": {
+   "topic": "crypto",
+   "first_seen": "2026-11-20T13:52:01+00:00",
+   "resolved": null,
+   "status": "active",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "checked_at": "2026-11-20T13:52:01+00:00",
+   "source_url": "https://external-api.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2009-T61599.99"
+  }
+ }
+}

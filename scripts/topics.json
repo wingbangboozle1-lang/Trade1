@@ -1,0 +1,62 @@
+{
+  "$comment": "Topic mapping for the Kalshi demo collector. Match reason is logged per event as 'category' (category in categories, gated by title_keywords when present) or 'series-prefix' (strong ticker regex fallback). Editable; mirrored in assets/app.js TOPICS for live matching - keep both in sync (flagged in flagged.html). golf.exclude_categories mirrors session f6094c46's PR #20 finding (Trump golf-club markets sit in Politics); mirrored in assets/model.js.",
+  "topics": [
+    {
+      "id": "gas-prices",
+      "label": "Gas prices",
+      "categories": [
+        "Economics",
+        "Energy"
+      ],
+      "title_keywords": "gasoline|gas price|gas prices|average gas|fuel price|petrol",
+      "exclude_keywords": "natural gas|natgas|propane|heating oil",
+      "series_prefix": "^(KX)?(AAA)?GAS|^(KX)?FUEL"
+    },
+    {
+      "id": "elections",
+      "label": "Elections",
+      "categories": [
+        "Elections"
+      ],
+      "title_keywords": "",
+      "series_prefix": "^(KX)?(ELECT|SEN|HOUSE|GOV|PRES|MAYOR)"
+    },
+    {
+      "id": "culture",
+      "label": "Culture",
+      "categories": [
+        "Culture",
+        "Entertainment",
+        "Mentions",
+        "Music",
+        "Movies",
+        "TV",
+        "Pop Culture"
+      ],
+      "title_keywords": "",
+      "series_prefix": ""
+    },
+    {
+      "id": "crypto",
+      "label": "Crypto",
+      "categories": [
+        "Crypto"
+      ],
+      "title_keywords": "",
+      "series_prefix": "^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT)"
+    },
+    {
+      "id": "golf",
+      "label": "Golf",
+      "categories": [
+        "Sports"
+      ],
+      "title_keywords": "golf",
+      "series_prefix": "^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)",
+      "exclude_categories": [
+        "Politics",
+        "Elections"
+      ]
+    }
+  ]
+}

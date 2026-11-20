@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo Monitor — Home</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="index">
+<header class="top">
+  <div class="brand"><div class="mark">K</div><div><h1>Kalshi Demo Monitor</h1><p>Live markets · alerts · simulated strategies — official demo API only</p></div></div>
+  <nav class="mainnav" id="mainnav"></nav>
+</header>
+<main class="wrap">
+  <div class="notice ok"><b>Executive summary.</b>
+    This site tracks <b>live events on the Kalshi demo exchange</b> (<a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">official demo REST API</a>) in five topics — <b>gas prices, elections, culture, crypto, and golf</b> — ranked by estimated dollar amount. It runs a <b>live alerting system for price swings ≥ $0.10</b> (two scrolling feeds: all events, and a high-ROI filter driven by a documented heuristic model), follows tracked events <b>through resolution with the exchange's official yes/no result</b>, and runs <b>automated simulated trades</b> (four paper strategies, official fee-schedule math) with portfolio analytics by strategy and topic. It is 100% client-side: your browser reads the public demo API directly; no credentials are requested or stored; nothing is sent to the exchange.</div>
+  <div class="notice hidden" id="apiNotice"></div>
+
+  <div class="dashlayout">
+    <div class="stack">
+      <div class="panel">
+        <h2>Topic pages — organized by category, kept separate</h2>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">
+          <a class="card" href="gas-prices.html"><small>Topic</small><strong class="badge" style="color:var(--green)">Gas prices</strong><small>KXGAS · KXAAAGASM (EIA / AAA)</small></a>
+          <a class="card" href="elections.html"><small>Topic</small><strong class="badge" style="color:var(--blue)">Elections</strong><small>category "Elections" + race keywords</small></a>
+          <a class="card" href="culture.html"><small>Topic</small><strong class="badge" style="color:var(--violet)">Culture</strong><small>category "Culture" + entertainment keywords</small></a>
+          <a class="card" href="crypto.html"><small>Topic</small><strong class="badge" style="color:var(--amber)">Crypto</strong><small>series category "Crypto" (BTC/ETH…)</small></a>
+          <a class="card" href="golf.html"><small>Topic</small><strong class="badge" style="color:#8fe388">Golf</strong><small>official /series?tags=Golf whitelist</small></a>
+        </div>
+        <p class="muted">Each topic page pairs the <b>verified snapshot tables</b> (captured 2026-11-20 from official endpoints, source-linked per row) with <b>live tables</b> your browser fetches at view time, a topic-filtered alert feed, the topic's resolution archive, and official settlement sources for every series.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Verified endpoints & facts (official sources)</h2>
+        <div id="endpointTable"></div>
+      </div>
+
+      <div class="panel">
+        <h2>How the dashboard works</h2>
+        <ul class="list">
+          <li><b>Discovery</b> — your browser pages through the official <code>/events</code> and <code>/markets</code> open-market listings (cursor pagination), then classifies every event into exactly one of the five topics using (1) official series whitelists fetched live from <code>/series?category=Crypto</code> and <code>/series?tags=Golf</code>, (2) exact event category match, (3) documented keyword rules. Results are cached locally for 10 minutes to respect rate limits.</li>
+          <li><b>Ranking</b> — events are ranked by <b>estimated traded dollars</b> (Σ volume × last price) and estimated open-interest dollars; the API publishes volume in contracts, not dollars, so these columns are labeled estimates everywhere (see <a href="flagged.html">flagged items</a>).</li>
+          <li><b>Alerting</b> — the watcher rotates through the highest-dollar events (top 12 by default) every ~2.5 s, comparing each market's last traded price between consecutive observations and against the exchange-reported previous price. Moves ≥ $0.10 in either direction post to the <b>All events</b> feed with links: official API response, event data, demo site, and a news-context search link (attribution explicitly unverified).</li>
+          <li><b>Model feed</b> — a transparent heuristic (momentum, volume surge, visible liquidity, spread tightness, tradability) posts markets it "likes" with a fee-adjusted estimated ROI when score ≥ 0.62 and est. ROI ≥ 5%. Definitions on <a href="strategies.html">Strategies</a>.</li>
+          <li><b>Resolution</b> — followed events are re-checked against the official settled-markets endpoint; the <code>result</code> field (yes/no) is copied verbatim into the archive. Results are never guessed.</li>
+          <li><b>Simulated trading</b> — four paper strategies trade automatically against observed top-of-book with official fee math (taker: <code>fees = round_up(0.07 × C × P × (1−P))</code>; maker fills 0 on quadratic series; settlement pays $1/contract with no settlement fee). Portfolio P&L by strategy and by topic on <a href="strategies.html">Strategies</a>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="panel">
+        <h2>Open the live dashboard</h2>
+        <p class="muted">Two scrolling alert feeds (all events + model picks), price charts with 60-second → 24-hour windows, the official orderbook ladder with contracts available at each price, a real trade tape, resolution tracking, and the automated paper-trading bot — all live.</p>
+        <p><a class="primary" style="display:inline-block;padding:9px 16px" href="live.html">▶ Launch live dashboard</a></p>
+        <p class="src">If your browser or network blocks the demo API, pages still render the verified snapshot and show a clear banner with a manual CORS check command.</p>
+      </div>
+      <div class="panel">
+        <h2>Verification policy</h2>
+        <ul class="list">
+          <li>Every committed table row carries a link to the official API request URL or official docs page that produced it.</li>
+          <li>Unconfirmable values are left blank and flagged — never inferred or filled in (<a href="flagged.html">Flagged for Review</a>).</li>
+          <li>Live values are fetched at view time from official endpoints; the request URL for each row is linked in the table.</li>
+          <li>Full line-by-line verification log: <code>docs/VERIFICATION.md</code> in the repository and <a href="flagged.html">here</a>.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>Repository</h2>
+        <ul class="list">
+          <li><a href="https://github.com/wingbangboozle1-lang/Trade1" target="_blank" rel="noopener">GitHub repository ↗</a></li>
+          <li><a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md (task board) ↗</a></li>
+          <li><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">Official Kalshi demo environment docs ↗</a></li>
+          <li><a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">Official fee schedule PDF ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Data: official Kalshi demo REST API, public endpoints only — no credentials requested or stored. Paper trades are simulated in your browser and are never sent to the exchange. Educational tool, not financial advice. <a href="flagged.html">Flagged for Review</a></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

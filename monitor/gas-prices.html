@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo Monitor — Gas prices</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="topic" data-topic="gas">
+<header class="top">
+  <div class="brand"><div class="mark">K</div><div><h1>Gas prices — Kalshi demo</h1><p>Live events · verified snapshot · resolutions · official sources</p></div></div>
+  <nav class="mainnav" id="mainnav"></nav>
+</header>
+<main class="wrap">
+  <div class="notice ok"><b>Gas prices on the Kalshi demo exchange.</b> Gas price markets settle against official fuel-price data. The demo environment currently lists the series but few or zero open events — that exchange state is reported honestly rather than padded with filler.</div>
+  <div class="notice hidden" id="apiNotice"></div>
+
+  <div class="cards">
+    <div class="card"><small>Live in-scope events</small><strong id="statEvents" class="num">—</strong></div>
+    <div class="card"><small>Σ est. traded $</small><strong id="statDollars" class="num">—</strong></div>
+    <div class="card"><small>Σ contracts traded</small><strong id="statVol" class="num">—</strong></div>
+    <div class="card"><small>In-scope open markets</small><strong id="statMarkets" class="num">—</strong></div>
+  </div>
+
+  <div class="dashlayout">
+    <div class="stack">
+      <div class="panel">
+        <h2>Live events <span class="muted" style="font-size:12px">(fetched from the official demo API by your browser, ranked by est. traded $)</span></h2>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>#</th><th>Event</th><th>Topic</th><th class="right">Est. traded $</th><th class="right">Est. OI $</th><th class="right">Volume</th><th class="right">24h</th><th class="right">Top mid</th><th>Source</th></tr></thead>
+            <tbody id="eventsBody"></tbody>
+          </table>
+        </div>
+        <p class="src">Rows appear automatically while this page is open. Empty means the demo environment currently lists no open events in this topic — a genuine exchange state, not an error (see the verified snapshot and <a href="flagged.html">flagged items</a>).</p>
+      </div>
+
+      <div class="panel">
+        <h2>Gas prices alert feed (≥ threshold swings)</h2>
+        <div class="chatbox" style="max-height:380px">
+          <header><span>🔔 Alerts filtered to Gas prices</span><span class="count" id="chatTopicCount">0 entries</span></header>
+          <div class="chatlist" id="chatTopic"></div>
+        </div>
+        <p class="src">Full cross-topic feed on the <a href="live.html">live dashboard ↗</a>. News links are context searches — attribution is never asserted.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Resolution archive — how followed events resolved (yes/no)</h2>
+        <div id="resTable"></div>
+        <p class="src">Results are copied verbatim from the exchange's official <code>result</code> field via the settled-markets endpoint — never inferred. Full archive: <a href="resolved.html">Resolved page ↗</a></p>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="panel">
+        <h2>Verified snapshot — Gas prices (2026-11-20, official API)</h2>
+        <div id="snapTable"></div>
+      </div>
+      <div class="panel">
+        <h2>Official series & settlement sources</h2>
+        <div id="topicSources"></div>
+      </div>
+      <div class="panel">
+        <h2>Topic classification rule</h2>
+        <p class="muted">Whitelist of gas series verified on demo (KXGAS “Gas weekly”, KXAAAGASM “US gas price”) matched by series-ticker prefix, plus event titles matching /gas price(s)/, /gasoline/, /fuel price/. Both series' official settlement sources (U.S. EIA, AAA) are linked below.</p>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Data: official Kalshi demo REST API, public endpoints only — no credentials requested or stored. Paper trades are simulated in your browser and are never sent to the exchange. Educational tool, not financial advice. <a href="flagged.html">Flagged for Review</a></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

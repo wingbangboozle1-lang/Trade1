@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo Monitor — Findings & analysis</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="findings">
+<header class="top">
+  <div class="brand"><div class="mark">K</div><div><h1>Findings & analysis</h1><p>Alert archive · biggest moves · counts by topic · methodology</p></div></div>
+  <nav class="mainnav" id="mainnav"></nav>
+</header>
+<main class="wrap">
+  <div class="notice"><b>What this page shows.</b> Every alert the monitor captured in this browser (all events feed, model picks, resolutions, simulated bot actions), with counts and the biggest observed moves. The archive is local to your browser; use Export to save it.</div>
+  <div class="notice hidden" id="apiNotice"></div>
+  <div class="toolbar">
+    <button id="exportBtn">⬇ Export session JSON</button>
+    <label>Alert threshold <select id="thresholdSel"></select></label>
+    <span class="spacer"></span>
+    <span class="muted">Alerts fire on moves ≥ the threshold between consecutive observations, plus an independent signal from the exchange-reported previous price.</span>
+  </div>
+  <div class="panel"><div id="archiveBody"><div class="chatempty">Loading archive…</div></div></div>
+  <div class="dashlayout">
+    <div class="panel">
+      <h2>Methodology & limitations (read before drawing conclusions)</h2>
+      <ul class="list">
+        <li><b>Sample window.</b> The monitor only observes while a page is open. Moves that happen while you are away are not in the archive (the exchange's official candlesticks/trades endpoints remain the source of truth).</li>
+        <li><b>Two independent signals.</b> "Observed" = our consecutive polls; "exchange-reported" = the market's official <code>previous_price_dollars</code> vs <code>last_price_dollars</code>. Both must exceed the same threshold; both are labeled in the archive.</li>
+        <li><b>Attribution.</b> We never assert why a price jumped. Alert entries include a news-search link labeled <i>unverified context</i>; confirming a cause requires reading the linked sources yourself.</li>
+        <li><b>Demo data quality.</b> The demo environment is sparser than production: some topics (gas, culture) had zero open events at snapshot time, and some demo markets trade rarely. Empty tables are genuine exchange states, flagged on the <a href="flagged.html">Flagged page</a>.</li>
+        <li><b>Dollar ranking.</b> Estimated (volume × last price) because the API does not publish official per-event dollar volume; true traded dollars are computed from official trade prints only for the selected market's tape sample.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Suggested next steps for a trader</h2>
+      <ul class="list">
+        <li>Keep the <a href="live.html">live dashboard</a> open on a second screen; the watcher rotates the top events by estimated dollars every ~2.5 s.</li>
+        <li>Set the threshold to $0.05 for quiet periods (e.g. overnight) and back to $0.10 for busy sessions.</li>
+        <li>Check the tape and orderbook ladder before trusting any alert — thin books make small prints look like news.</li>
+        <li>Review <a href="strategies.html">strategy analytics</a> after each session; close or disable strategies whose demo fills persistently underperform fees.</li>
+        <li>Read each market's official rules (linked in the event panel) before trading around resolution.</li>
+      </ul>
+    </div>
+  </div>
+</main>
+<footer>Data: official Kalshi demo REST API, public endpoints only — no credentials requested or stored. Paper trades are simulated in your browser and are never sent to the exchange. Educational tool, not financial advice. <a href="flagged.html">Flagged for Review</a></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

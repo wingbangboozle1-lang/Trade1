@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo Monitor — Flagged for Review</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="flagged">
+<header class="top">
+  <div class="brand"><div class="mark">K</div><div><h1>Flagged for Review</h1><p>Irregularities, assumptions, and unverified items — nothing here was silently smoothed over</p></div></div>
+  <nav class="mainnav" id="mainnav"></nav>
+</header>
+<main class="wrap">
+  <div class="notice"><b>Policy.</b> Values that cannot be confirmed from an official source are left blank and flagged — never inferred. Irregularities do not block the release; they are published here with source links so they can be reviewed and corrected after go-live.</div>
+  <div class="notice hidden" id="apiNotice"></div>
+
+  <div class="panel">
+    <h2>Verified irregularities & assumptions (each with its official source)</h2>
+    <div id="irregTable"></div>
+  </div>
+
+  <div class="dashlayout">
+    <div class="panel">
+      <h2>Build-environment limitations (transparency)</h2>
+      <ul class="list">
+        <li><b>Sandbox egress.</b> The build environment only permits github.com / npm / pypi traffic, so Kalshi endpoints were verified through server-side page fetches (official API responses, quoted verbatim in the snapshot), not through a live browser. Browser CORS behavior is therefore unverified at build time; the site degrades gracefully to the verified snapshot and prints a manual <code>curl</code> CORS check in the banner.</li>
+        <li><b>WebSocket.</b> Kalshi's WS requires authentication headers at handshake; a static page cannot set them without user credentials. REST polling is used instead (documented as having separate unauthenticated limits). Source: <a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">official WS quick start ↗</a>.</li>
+        <li><b>Demo account connection.</b> Real demo-account portfolio/order endpoints require demo API keys. None exist in this build, so account tracking is implemented as the simulated engine and the limitation is disclosed rather than faked. Source: <a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">official demo docs ↗</a>.</li>
+        <li><b>News attribution.</b> Alerts link a news search for the event title, labeled unverified. No claim about causation is made anywhere in the app.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Deliberate design choices (not irregularities, but visible)</h2>
+      <ul class="list">
+        <li><b>Est. dollar columns</b> are labeled estimates everywhere (volume × last price; OI × mid) because the API publishes contracts, not dollars.</li>
+        <li><b>Single-topic assignment</b> — an event appears in exactly one topic tab (first-match-wins) to keep topics separate per the project brief; "All" views aggregate the five.</li>
+        <li><b>Model & bot parameters</b> (thresholds, sizing, exits) are constants documented on the Strategies page rather than hidden magic.</li>
+        <li><b>Local persistence only</b> — alerts, picks, resolutions, and paper trades live in your browser's localStorage; nothing is transmitted anywhere except read-only calls to the official API.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Manual verification commands (for review after go-live)</h2>
+    <ul class="list mono">
+      <li>CORS preflight: <code>curl -sS -X OPTIONS "https://external-api.demo.kalshi.co/trade-api/v2/markets" -H "Origin: https://&lt;this-site&gt;" -H "Access-Control-Request-Method: GET" -D - -o /dev/null | grep -i access-control</code></li>
+      <li>Live markets: <code>curl -sS "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=2"</code></li>
+      <li>Gas series: <code>curl -sS "https://external-api.demo.kalshi.co/trade-api/v2/series/KXGAS"</code></li>
+      <li>Golf whitelist: <code>curl -sS "https://external-api.demo.kalshi.co/trade-api/v2/series?tags=Golf"</code></li>
+      <li>Fee schedule: <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">kalshi.com/docs/kalshi-fee-schedule.pdf ↗</a></li>
+    </ul>
+  </div>
+</main>
+<footer>Data: official Kalshi demo REST API, public endpoints only — no credentials requested or stored. Paper trades are simulated in your browser and are never sent to the exchange. Educational tool, not financial advice.</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

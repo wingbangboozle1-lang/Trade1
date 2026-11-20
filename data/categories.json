@@ -1,0 +1,25 @@
+{
+ "generated_at": "2026-11-20T13:48:43.793828+00:00",
+ "source_urls": [
+  "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200",
+  "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI8MuXhwcSFEtYU0hFSU5CQVVNT1VULTI2T0NU",
+  "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXVi0yOE5PVjA3V1ZTMDA5"
+ ],
+ "open_event_count": 2400,
+ "categories": {
+  "Elections": 2140,
+  "Sports": 71,
+  "Economics": 61,
+  "Politics": 42,
+  "Entertainment": 28,
+  "Science and Technology": 26,
+  "Financials": 10,
+  "Climate and Weather": 9,
+  "Companies": 7,
+  "World": 2,
+  "Crypto": 2,
+  "Social": 1,
+  "Test": 1
+ },
+ "unclassified_events": 225
+}
