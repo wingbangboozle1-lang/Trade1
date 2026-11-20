@@ -5,7 +5,8 @@
       "id": "gas-prices",
       "label": "Gas prices",
       "categories": ["Economics", "Energy"],
-      "title_keywords": "gasoline|gas price|gas prices|fuel price|petrol",
+      "title_keywords": "gasoline|gas price|gas prices|average gas|fuel price|petrol",
+      "exclude_keywords": "natural gas|natgas|propane|heating oil",
       "series_prefix": "^(KX)?(GAS|FUEL)"
     },
     {
@@ -27,7 +28,7 @@
       "label": "Crypto",
       "categories": ["Crypto"],
       "title_keywords": "",
-      "series_prefix": "^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM)"
+      "series_prefix": "^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT)"
     },
     {
       "id": "golf",

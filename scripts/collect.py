@@ -118,7 +118,7 @@ MARKET_FIELDS = [
     "volume_24h", "volume_24h_fp", "open_interest", "open_interest_fp",
     "liquidity", "notional_volume", "open_time", "close_time",
     "expected_expiration_time", "latest_expiration_time", "can_close_early",
-    "strike_type", "price_level_structure", "settled_time", "settlement_value_dollars",
+    "strike_type", "price_level_structure", "settlement_ts", "settlement_value_dollars",
 ]
 EVENT_FIELDS = [
     "event_ticker", "series_ticker", "title", "sub_title", "category",
@@ -158,6 +158,8 @@ def classify(event, topics):
     series = event.get("series_ticker", "") or ""
     cat = event.get("category") or ""
     for t in topics:
+        if t.get("exclude_keywords") and re.search(t["exclude_keywords"], f"{title} {series}", re.I):
+            continue
         if cat and cat in t["categories"]:
             if not t["title_keywords"] or re.search(t["title_keywords"], title, re.I):
                 return t["id"], "category"
@@ -200,14 +202,18 @@ def main():
         wjson("exchange-status.json", {"fetched_from": f"{BASE}/exchange/status", "response": ex})
 
     # ---------- 3. open events (paged) ----------
-    events, event_urls = paged("/events", {"status": "open", "limit": "1000"}, "events")
+    events, event_urls = paged("/events", {"status": "open", "limit": "200"}, "events", max_pages=12)
     events_status_open_ok = bool(events) or len(event_urls) > 0
     log(f"open events collected: {len(events)}")
 
     # ---------- 4. open markets (paged). Docs document status=open; the live demo
     # emits status 'active' - we record which call shape works and what it returns.
-    markets, market_urls = paged("/markets", {"status": "open", "limit": "1000"}, "markets")
+    markets, market_urls = paged("/markets", {"status": "open", "limit": "1000", "mve_filter": "exclude"}, "markets")
     markets_status_open_ok = bool(markets)
+    if not markets:  # retry without mve_filter in case that param is rejected
+        log("mve_filter=exclude sweep empty - retrying plain")
+        markets, market_urls = paged("/markets", {"status": "open", "limit": "1000"}, "markets")
+        markets_status_open_ok = bool(markets)
     if not markets:
         log("status=open returned no markets - retrying without status filter")
         markets, market_urls = paged("/markets", {"limit": "1000"}, "markets")
@@ -228,6 +234,27 @@ def main():
             unclassified += 1
             continue
         buckets[tid].append((e, why))
+
+    # Complete market set per in-scope event: GET /markets?event_ticker=X returns
+    # every matching market in one response (documented single-response behavior).
+    ev_fetch_count, ev_fetch_urls = 0, []
+    for tid, pairs in list(buckets.items()):
+        for e, why in pairs:
+            if ev_fetch_count >= 250:
+                break
+            url = f"{BASE}/markets?event_ticker={urllib.parse.quote(e['event_ticker'])}"
+            j = fetch_json(url, "(event markets)")
+            ev_fetch_count += 1
+            if j and j.get("markets"):
+                if len(ev_fetch_urls) < 5:
+                    ev_fetch_urls.append(url)
+                have = {m["ticker"] for m in markets}
+                for m in j["markets"]:
+                    if m.get("ticker") and m["ticker"] not in have:
+                        markets.append(m)
+                        have.add(m["ticker"])
+        log(f"in-scope event market fetches so far: {ev_fetch_count}")
+    log(f"markets after per-event fetch: {len(markets)}")
 
     topic_files = {}
     for t in topics:
@@ -259,6 +286,7 @@ def main():
             "source_urls": {
                 "events": event_urls[:3],
                 "markets": market_urls[:3],
+                "event_markets_example": ev_fetch_urls[:2],
             },
             "definition": {"categories": t["categories"],
                            "title_keywords": t["title_keywords"],
@@ -285,7 +313,8 @@ def main():
     # ---------- 6. settled markets (recent) -> resolution outcomes ----------
     since = int(time.time()) - 3 * 24 * 3600
     settled, settled_urls = paged("/markets", {
-        "status": "settled", "min_settled_ts": str(since), "limit": "1000"}, "markets")
+        "status": "settled", "min_settled_ts": str(since), "limit": "1000",
+        "mve_filter": "exclude"}, "markets")
     log(f"settled markets collected (last 3 days): {len(settled)}")
     in_scope = []
     for m in settled:
@@ -310,7 +339,7 @@ def main():
             row["_topic"] = tid
             row["_event_title"] = e.get("title") if e else None
             in_scope.append(row)
-    in_scope.sort(key=lambda m: m.get("settled_time") or "", reverse=True)
+    in_scope.sort(key=lambda m: m.get("settlement_ts") or "", reverse=True)
     wjson("resolved.json", {
         "generated_at": started.isoformat(),
         "window": "last 3 days (min_settled_ts = now-72h)",
@@ -322,7 +351,10 @@ def main():
 
     # ---------- 7. samples for field-level verification ----------
     open_in_scope = [m for t in topic_files.values() for ev in t["events"]
-                     for m in ev["_markets"][:1]]
+                     for m in ev["_markets"]]
+    open_in_scope = [m for m in open_in_scope
+                     if not (m.get("ticker") or "").startswith("KXMVECROSSCATEGORY")]
+    open_in_scope.sort(key=lambda m: fnum(m.get("volume_fp") or m.get("volume")) or 0, reverse=True)
     sample = open_in_scope[0] if open_in_scope else (markets[0] if markets else None)
     if sample:
         ticker = sample["ticker"]
@@ -376,6 +408,7 @@ def main():
             "events_open_count": len(events),
             "markets_open_count": len(markets),
             "settled_count_recent": len(settled),
+            "event_market_fetches": ev_fetch_count,
             "orderbook_ok": os.path.exists(os.path.join(OUT, "samples/orderbook-sample.json")),
             "candlesticks_ok": os.path.exists(os.path.join(OUT, "samples/candlesticks-sample.json")),
         },
