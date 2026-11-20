@@ -1120,6 +1120,16 @@ def selftest():
     ok("cent-rounded display of the table's 1c/$0.50 row", round(taker_fee(100, 5000) / 1e6, 2) == 0.02)
     ok("cent-rounded display of the table's 100c/$0.99 row", round(taker_fee(100 * 100, 9900) / 1e6, 2) == 0.07)
     ok("fee(0 contracts) = 0", taker_fee(0, 5000) == 0)
+    # per-series taker multiplier M (official Non-Standard Fees table,
+    # https://kalshi.com/docs/kalshi-fee-schedule.pdf + https://kalshi.com/fee-schedule)
+    ok("published no-fee series KXBTCY pays no taker fee", taker_fee(100 * 100, 5000, "KXBTCY") == 0)
+    ok("published no-fee series KXETHY pays no taker fee", taker_fee(100 * 100, 5000, "KXETHY") == 0)
+    ok("market ticker resolves to its series prefix",
+       taker_fee(100 * 100, 5000, "KXBTCY-27JAN0100-B47500") == 0)
+    ok("standard series KXAAAGASM keeps M=1", taker_fee(100 * 100, 5000, "KXAAAGASM") == 1_750_000)
+    ok("unlisted series defaults to M=1", taker_fee(100 * 100, 5000, "KXNOTLISTED") == 1_750_000)
+    ok("fee table file loaded with a default multiplier of 1", FEE_MULTIPLIER == 1)
+    ok("KXBTCY multiplier in the loaded table is 0", taker_multiplier("KXBTCY") == 0)
     # Worked example, https://docs.kalshi.com/getting_started/fee_rounding (non-direct member,
     # $0.01 balance alignment): buy with revenue -$0.055000 and model fee $0.00363825
     #   trade fee      = ceil_6dp($0.00363825) = $0.003639
