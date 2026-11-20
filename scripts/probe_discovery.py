@@ -13,7 +13,6 @@ cats = collections.Counter(e.get("category", "") for e in events)
 print("CATEGORIES (open events):", dict(cats))
 mstat = collections.Counter(m.get("status", "") for e in events for m in e.get("markets", []))
 print("MARKET STATUSES (open events):", dict(mstat))
-tags = collections.Counter(t for e in events for t in []) 
 
 pat = re.compile(r"gas|gasoline|golf|pga|masters|open championship|ryder|crypto|bitcoin|btc|ethereum|eth|solana|doge|culture|oscar|grammy|emmy|box office|music|movie|album|celebrity|tiktok|election|president|senate|house|governor|mayor|primary|prime minister", re.I)
 hits = []
@@ -22,6 +21,9 @@ for e in events:
     if pat.search(blob):
         hits.append((e.get("category"), e.get("series_ticker"), e.get("event_ticker"), e.get("title")))
 print("EVENT HITS:", len(hits))
+allm=[m for e in events for m in e.get("markets",[])]
+print("SAMPLE MARKET KEYS:", sorted(allm[0].keys()) if allm else None)
+print("EVENT KEYS:", sorted(events[0].keys()) if events else None)
 for h in sorted(hits, key=lambda x: (str(x[0]), str(x[1])))[:400]:
     print("  ", h)
 
