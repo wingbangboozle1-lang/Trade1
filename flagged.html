@@ -1,67 +1,82 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Flagged for Review · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
-</head><body data-root="./">
-<header class="top" id="nav"></header>
-<main>
-<h1>Flagged for Review</h1>
-<p class="sub">Items the reviewer should check. These do not block publishing. Each item lists its source link or states that no verified source exists yet.</p>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Flagged for Review</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Flagged for Review</h1>
+    <p>Everything we could not verify, could not implement, or that behaved unexpectedly</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="flagged.html" class="active">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="notice"><b>Rule:</b> nothing here blocks the site, but every item below is either <b>unverified</b> (left blank wherever it would appear), <b>behavior that contradicts the docs</b>, or a <b>deliberate limitation</b>. Sources are linked for each item so you can re-check.</div>
 
-<section class="box" style="margin-bottom:14px">
-<h2>A · Data and method flags</h2>
-<div class="tablewrap"><table><thead><tr><th>#</th><th>Item</th><th>Detail</th><th>Source / check</th></tr></thead><tbody>
-<tr><td>F1</td><td>Demo ≠ production</td><td>The brief specifies the demo endpoint. Kalshi documents demo as a separate environment with separate credentials. Demo markets include test-style entries (for example custom strikes labelled “demo strike”). Demo prices may not reflect real Kalshi markets. A production read-only option is available on the dashboard (public endpoints).</td><td><a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">API environments</a></td></tr>
-<tr><td>F2</td><td>Topic rules are heuristics</td><td>Topics come from the official event <code>category</code> (only “Elections” and “Crypto” are mapped directly; “Entertainment” is mapped to Culture) and keyword regexes. Gas prices uses “gas price(s)”, gasoline or diesel only, so energy-consumption and natural-gas text is excluded. Elections uses election, primary-election phrasing, senate, governor, congress, president, mayor, nominee (the bare word “primary” was removed after it matched “primary energy”). Known remaining risks: “president” can match non-election text; “Masters” can match non-golf text; Entertainment includes non-culture events. A first build matched a bare “gas” inside an energy-consumption market; this was found in review and fixed. Rules are listed on each topic page and in the snapshot file.</td><td>Rules in <code>assets/lib.mjs</code>; categories listed in the snapshot (<code>categories_seen</code>)</td></tr>
-<tr><td>F3</td><td>“Highest dollar amount” is derived</td><td>Kalshi does not publish an official per-event dollar-volume field in the market object. The dashboard ranks by open interest × notional value per contract (derived, labelled) or by contracts traded (official <code>volume_fp</code>). Contracts are not dollars.</td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a> (field list)</td></tr>
-<tr><td>F4</td><td>Cause of price swings not verified</td><td>Alerts show the move and the event’s official settlement sources as context. No news item has been matched to any move. Those links are not causes.</td><td>Leave blank until a verified source exists</td></tr>
-<tr><td>F5</td><td>Browser access to the API is not verified</td><td>The build sandbox has no route to Kalshi. The live pages call the API from the visitor’s browser, which needs CORS to allow the GitHub Pages origin. The CI build records a CORS check (see <code>data/cors_check.txt</code> after deploy). If blocked, pages fall back to the build snapshot and say so.</td><td>CORS behaviour is not described on the Kalshi pages checked; verification is by CI check only</td></tr>
-<tr><td>F6</td><td>Trade-history gaps</td><td>Trades before the historical cutoff move to <code>/historical/trades</code>; the chart uses the live endpoint only. Longer windows (1–6 hours) can be incomplete.</td><td><a href="https://docs.kalshi.com/getting_started/historical_data" target="_blank" rel="noopener">Historical data</a></td></tr>
-<tr><td>F7</td><td>Resolved history is incomplete</td><td>Resolved rows come from the first pages of <code>/events?status=settled</code> plus the build snapshot. Older settled markets are in historical endpoints not queried here.</td><td><a href="https://docs.kalshi.com/getting_started/historical_data" target="_blank" rel="noopener">Historical data</a>; <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market lifecycle</a></td></tr>
-<tr><td>F8</td><td>Rate limits unknown for public calls</td><td>The docs say unauthenticated requests have separate limits without stating numbers. Polling is paced and backs off on HTTP 429. No numeric limit is claimed.</td><td><a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">Rate limits</a></td></tr>
-<tr><td>F9</td><td>Simulated P&amp;L excludes fees and spreads</td><td>The series object lists <code>fee_type: quadratic</code> and <code>fee_multiplier: 1</code> for the series observed. Fees are not applied. Entries use the last trade price, not an executable ask.</td><td><a href="https://docs.kalshi.com/getting_started/orderbook_responses" target="_blank" rel="noopener">Orderbook responses</a> (spread); fee fields observed on <code>/series</code> (demo)</td></tr>
-<tr><td>R10</td><td>Snapshot data is committed to the repository</td><td>The Pages workflow commits <code>data/snapshot.json</code> (about 1.6 MB, capped) and <code>data/cors_check.txt</code> on schedule with <code>[skip ci]</code>. <code>.gitignore</code> does not list them. Each refresh adds a commit to <code>main</code>. The static site needs the file because the legacy Pages source serves from <code>main /</code>.</td><td><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" target="_blank" rel="noopener">GitHub Pages publishing source</a>; <code>.gitignore</code></td><td>Not blocking. Owner decision: move to Actions deploy when the Pages source can be switched, or keep committing.</td></tr>
-<tr><td>R11</td><td>Other sessions' pages on main have broken local links</td><td>The checker (scoped to v2 pages) does not cover <code>dashboard.html</code> and <code>pages/*.html</code>, <code>categories/*.html</code> from earlier merged work. Its first full run found two links that escape the repo (<code>../assets/css/style.css</code>, <code>../assets/js/app.js</code> in <code>dashboard.html</code>). These files stay published from the root until their owner fixes or removes them.</td><td><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noopener">GitHub Pages site</a>; <code>scripts/check_site.mjs</code> output</td><td>Not blocking for v2. Owner of PR #6 / #5 to fix or remove.</td></tr>
-<tr><td>F11</td><td>Coverage is partial (page caps)</td><td>The snapshot read 20 pages (4,000 events) of open events, 5 pages of closed and 5 pages of settled events. All three reached the cap, so totals beyond the cap are unknown. The live pages read 10 pages of open events. Markets beyond the cap, including older resolved outcomes, are not shown. The gas topic currently has no open gasoline markets in the scanned pages; its only matched markets are diesel price markets (series KXDIESELD).</td><td><a href="https://docs.kalshi.com/getting_started/pagination" target="_blank" rel="noopener">Pagination</a>; coverage block in <code>data/snapshot.json</code></td></tr>
-<tr><td>F12</td><td>Demo data may not look like production</td><td>Observed in the demo responses: category “Test” and “harrison-test” exist; election nominee markets show volume_fp values in the hundreds of millions of contracts; many markets have zero price. Treat demo figures as test-environment figures, not market evidence. The production read-only option is on the dashboard for comparison.</td><td><a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">API environments</a>; <code>categories_seen</code> in <code>data/snapshot.json</code></td></tr>
-<tr><td>F10</td><td>Small sample</td><td>Strategy results come from alerts observed in one browser. Win rates and averages are not statistically meaningful yet.</td><td>Internal method</td></tr>
-</tbody></table></div>
-</section>
+  <section class="box">
+    <h2>Live API behavior that differs from the docs</h2>
+    <div class="tablewrap"><table>
+      <tr><th>#</th><th>Finding</th><th>Evidence (official endpoints)</th><th>Docs that say otherwise</th></tr>
+      <tr><td>1</td><td>Demo returns market <code>status: "active"</code> for open markets and <code>"finalized"</code> for settled ones; the docs enumerate <code>unopened / open / closed / settled</code>. The engine treats both spellings as equivalent.</td><td class="src"><a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=3">live response (status "active")</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
+      <tr><td>2</td><td><code>GET /events?limit=1000</code> is rejected with 400 <code>bad_request</code>; <code>limit=200</code> works. The engine pages at 200.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md (400 recorded)</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-events">Get Events</a></td></tr>
+      <tr><td>3</td><td><code>GET /markets/{ticker}/candlesticks</code> (documented path) is not what the API serves — it is <code>GET /series/{series}/markets/{ticker}/candlesticks</code>. First probe of the series path on demo failed for the sampled market; probe results per run are in meta findings (<code>candlesticks_ok</code>). If a run reports failed, chart windows ≥ 1h fall back to session samples.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/meta.json">data/meta.json</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a></td></tr>
+      <tr><td>4</td><td>Event <code>settlement_sources</code> sometimes contain template gaps (e.g., <code>"official government sources of "</code> with a missing name) — demo data quality issue, shown verbatim when used.</td><td class="src"><a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=3">live response example</a></td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-events">Get Events</a></td></tr>
+    </table></div>
+  </section>
 
-<section class="box" style="margin-bottom:14px">
-<h2>B · Not done / blocked (needs your input)</h2>
-<div class="tablewrap"><table><thead><tr><th>#</th><th>Requested item</th><th>Status</th><th>Why</th></tr></thead><tbody>
-<tr><td>N1</td><td>Track the Kalshi <b>demo account</b> portfolio on the site</td><td>Not built. Left blank.</td><td>Account endpoints need an API key pair. Kalshi says demo keys work only with demo endpoints. No credentials were provided and none are stored.</td></tr>
-<tr><td>N2</td><td>Automated <b>order execution</b> on demo</td><td>Not built. No orders have been placed.</td><td>Same credential requirement. Order endpoints are authenticated.</td></tr>
-<tr><td>N3</td><td>Verified reasons for price swings (news/links)</td><td>Not built. Blank.</td><td>No verifiable source links to specific moves were available in this session.</td></tr>
-<tr><td>N4</td><td>Historical candlestick (OHLC) charts</td><td>Not built.</td><td>Needs series ticker per market; planned for a later pass.</td></tr>
-</tbody></table></div>
-</section>
+  <section class="box" style="margin-top:14px">
+    <h2>Unverified / intentionally not inferred</h2>
+    <div class="tablewrap"><table>
+      <tr><th>#</th><th>Item</th><th>Why it is blank / flagged</th><th>Check it yourself</th></tr>
+      <tr><td>5</td><td><b>Dollar volume.</b> “Est. traded $” is computed (contracts × last price). No official per-market dollar-notional field was present in demo responses this session, so no cell claims an exchange-published dollar figure.</td><td>Value not returned by the API</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets schema</a></td></tr>
+      <tr><td>6</td><td><b>Trading fees.</b> Paper P&amp;L excludes fees by default. The 7% quadratic formula is widely cited but was not verified against an official Kalshi fee document in this session; a toggle exists and is labeled UNVERIFIED when enabled.</td><td>No official fee-schedule source confirmed</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding (docs)</a></td></tr>
+      <tr><td>7</td><td><b>News attribution.</b> Alerts link the official market page, the event’s official settlement sources, and a Google News search labeled “lead”. Nothing claims a specific news item caused a move.</td><td>Causality cannot be verified automatically</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-events">settlement_sources field</a></td></tr>
+      <tr><td>8</td><td><b>ROI model.</b> The score weights (0.30/0.25/0.20/0.25) are documented engineering choices, not backtested alpha. No performance claim is made for the model chat.</td><td>Heuristic screen</td><td class="src"><a href="methods.html">Methods §3</a></td></tr>
+      <tr><td>9</td><td><b>Topic matching.</b> Category + keyword rules can over- or under-include (e.g., synthetic demo series <code>KXDEMOFUT*</code> are included in Crypto because they are BTC-price markets on demo; “gas price” phrasing in titles is guarded against natural-gas false positives but coverage is not guaranteed complete).</td><td>Heuristic classification</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/topics.json">scripts/topics.json</a></td></tr>
+      <tr><td>10</td><td><b>Slippage.</b> Paper fills assume the official quote, no slippage, infinite size at the best level. Real fills would differ.</td><td>Simulation simplification</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/orderbook_responses">Orderbook Responses</a></td></tr>
+      <tr><td>11</td><td><b>Unauthenticated rate limits</b> are undocumented (“subject to separate limits”). The client backs off on 429 and polls modestly (~12 s watchlist, ~8 s selected book); actual thresholds unknown.</td><td>Not documented</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a></td></tr>
+      <tr><td>12</td><td><b>Demo-account portfolio.</b> Tracking a real demo-account balance/positions requires demo API keys and signed requests. The site never asks for credentials (per the no-manual-input requirement) and does not implement account endpoints; the portfolio shown is the local paper portfolio.</td><td>Requires credentials we deliberately do not request</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests">Authenticated Requests</a></td></tr>
+    </table></div>
+  </section>
 
-<section class="box" style="margin-bottom:14px">
-<h2>C · Repository review findings (main branch, commit 73ba253)</h2>
-<div class="tablewrap"><table><thead><tr><th>#</th><th>Finding</th><th>Verification</th><th>Action in this branch</th></tr></thead><tbody>
-<tr><td>R1</td><td>Prototype labelled rows “open” while the API reports <code>active</code> (filter <code>status=open</code> is correct).</td><td><a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market lifecycle</a> (filter-to-status map); live response observed on demo <code>/events</code></td><td>Rows show API status values.</td></tr>
-<tr><td>R2</td><td>Prototype fetched only the first page (<code>limit=1000</code>, no cursor loop).</td><td><a href="https://docs.kalshi.com/getting_started/pagination" target="_blank" rel="noopener">Pagination</a></td><td>Cursor loop with page cap; truncation shown.</td></tr>
-<tr><td>R3</td><td>Prototype displayed <code>volume_fp</code> without units in a “Highest listed volume” card.</td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a></td><td>Labelled as contracts; dollar figure is derived and labelled.</td></tr>
-<tr><td>R4</td><td>Pages is configured as a legacy build from <code>main</code> root, not a GitHub Actions build. The prototype’s <code>deploy-pages</code> workflow therefore could not publish on this setting. Changing the setting needs admin rights that this session’s token does not have (HTTP 403).</td><td>GitHub API: <code>repos/wingbangboozle1-lang/Trade1/pages</code> (build_type legacy, source main /); <a href="https://github.com/actions/configure-pages" target="_blank" rel="noopener">configure-pages</a> (<code>enablement</code> needs a non-GITHUB_TOKEN token)</td><td>Site is published from the repository root on <code>main</code> under the existing legacy setting. No setting change was made.</td></tr>
-<tr><td>R5</td><td>Under the legacy source, everything at the repository root is public, including <code>README.md</code>, <code>COORDINATION.md</code>, <code>scripts/</code> and <code>.github/</code> workflow files. The prototype’s <code>path: .</code> upload had the same effect.</td><td>GitHub Pages behaviour for branch sources</td><td>Accepted and noted. Nothing secret is stored in the repository (no credentials).</td></tr>
-<tr><td>R6</td><td>GitHub Actions are pinned to major tags (e.g. <code>actions/checkout@v4</code>), not commit SHAs.</td><td>Workflow file on main</td><td>Not changed; flagged for review.</td></tr>
-<tr><td>R7</td><td>No LICENSE file and no <code>.gitignore</code> in the repository.</td><td><code>ls</code> of repo root on main</td><td>Not added (owner decision).</td></tr>
-<tr><td>R8</td><td>Prototype claimed CORS-dependent live data in the README without a check.</td><td>README on main</td><td>CI records a CORS check (F5).</td></tr>
-<tr><td>R9</td><td>About 12 other agent branches on the remote (e.g. <code>arena/08347343-trade1</code>, <code>arena/a2ec5543-trade1</code>) implement overlapping dashboards and claim the same files (<code>index.html</code>, <code>pages.yml</code>).</td><td><code>git ls-remote --heads origin</code></td><td>Not merged. Needs owner decision on which branch becomes the integration target.</td></tr>
-</tbody></table></div>
-</section>
+  <section class="box" style="margin-top:14px">
+    <h2>Deliberate limitations</h2>
+    <div class="tablewrap"><table>
+      <tr><th>#</th><th>Item</th><th>Reason</th><th>Reference</th></tr>
+      <tr><td>13</td><td><b>No WebSocket.</b> Kalshi WS requires signed auth headers during the handshake; browsers cannot attach custom headers to a WebSocket, so the dashboard polls REST instead (documented multi-second cache lag).</td><td>Browser platform constraint</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_websockets">Quick Start: WebSockets</a></td></tr>
+      <tr><td>14</td><td><b>No order placement.</b> The strategy lab is paper-only by design; no portfolio/order endpoints are called.</td><td>Safety / demo scope</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">Demo environment</a></td></tr>
+      <tr><td>15</td><td><b>Alerts are sampled.</b> Moves ≥ $0.10 are detected between polls (~12 s); faster intrabar swings are invisible over REST (cached responses lag “several seconds”).</td><td>REST polling constraint</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_market_data">Market Data Quick Start</a></td></tr>
+      <tr><td>16</td><td><b>Session chart samples reset on reload.</b> Sub-hour windows use session samples (memory only); longer windows use exchange candlesticks, which survive reload.</td><td>localStorage quota prudence</td><td class="src"><a href="methods.html">Methods §6</a></td></tr>
+    </table></div>
+  </section>
 
-<section class="box">
-<h2>D · Suggestions to make the site more live and interactive</h2>
-<ul class="clean">
-<li>Switch price updates from 15-second polling to the documented WebSocket feed (demo: <code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code>). <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">Source</a></li>
-<li>Keep a time series between builds (CI artifact or data branch) so charts can exceed the 6-hour browser window. <a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">Candlesticks endpoint</a> for official OHLC history.</li>
-<li>Add sparklines in the market table and a depth chart from the orderbook.</li>
-<li>Add sound or desktop alerts, a pause button and per-topic alert thresholds.</li>
-<li>Show the event’s official rules text next to each alert, so reviewers can read resolution criteria. <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Lifecycle</a></li>
-</ul>
-</section>
-<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
+  <section class="box" style="margin-top:14px">
+    <h2>Carried from the previous session (ee533bdf, published for review)</h2>
+    <ul class="small">
+      <li>That session’s prototype flags — authenticated demo account, order execution, settlement archive, news attribution, dollar-notional ranking, Pages deploy confirmation — are addressed or superseded by this build (CORS probed and passed; deploy is verified from this session; dollar figures stay labeled as estimates).</li>
+      <li>Its verification note (“no live endpoint/browser CORS test was possible”) is resolved by the Actions-based probes recorded in <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/cors.json">data/cors.json</a> and <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md</a>.</li>
+    </ul>
+  </section>
+
+  <p class="footer">Found something wrong? Every number on the <a href="data.html">Data page</a> links the exact official URL it came from, and the raw per-request log is in <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md</a>.</p>
 </main>
-<script type="module" src="./assets/app.mjs"></script>
-</body></html>
+</body>
+</html>
