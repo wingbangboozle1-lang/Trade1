@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-11-20T13:04:50.119Z",
+  "configured": false,
+  "environment": "demo",
+  "message": "Demo account not configured: KALSHI_DEMO_KEY_ID and/or KALSHI_DEMO_PRIVATE_KEY are not set. No request was sent.",
+  "sources": [
+    "https://docs.kalshi.com/api-reference/portfolio/get-balance",
+    "https://docs.kalshi.com/api-reference/portfolio/get-positions",
+    "https://docs.kalshi.com/getting_started/quick_start_authenticated_requests"
+  ]
+}
