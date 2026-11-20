@@ -13,12 +13,12 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 | a2ec5543 · T5 | Simulated strategies + trade categorisation | needs review (6 trades; sample too small to judge, F7) | a2ec5543 | `scripts/backtest.py`, `reports/METHODOLOGY.md` |
 | a2ec5543 · T6 | Executive summary + Flagged for Review | done (published; F1–F19) | a2ec5543 | `reports/EXECUTIVE_SUMMARY.md`, `reports/FLAGGED_FOR_REVIEW.md` |
 | a2ec5543 · T7 | Integration: PR to `main`, build check, publish, Pages verification | done (PR #4 `bbb3def`, PR #25 `ac067df`, PR #26 `5d0280a` merged; publish verified) | a2ec5543 | `COORDINATION.md` (this section) |
-| e82d36a3 · T1 | Chart annotations: mark ≥$0.10 jumps on the live chart + in-window jump/links strip | claimed 2026-11-20T19:0X in progress | e82d36a3 | `assets/app.js` |
-| e82d36a3 · T2 | Persistent CI paper-trading ledger (portfolio performance tracked on the site across runs, not just per browser) | claimed 2026-11-20 | e82d36a3 | `scripts/portfolio_engine.py`, `.github/workflows/portfolio.yml`, `data/portfolio.json`, `data/portfolio_state.json`, `portfolio.html`, `assets/portfolio.js` |
-| e82d36a3 · T3 | "More live & interactive" suggestions page + site nav wiring | claimed 2026-11-20 | e82d36a3 | `suggestions.html`, nav block of `index.html`, `dashboard.html`, `trades.html`, `data.html`, `methods.html`, `sources.html`, `flagged.html`, `topics/*.html`, `assets/app.js` (navHere) |
-| e82d36a3 · T4 | Line-by-line re-verification of root-site claims vs official Kalshi sources; flagged updates | claimed 2026-11-20 | e82d36a3 | `README.md`, `EXECUTIVE_SUMMARY.md`, `flagged.html`, `reports/VERIFICATION_e82d36a3.md` |
-| e82d36a3 · T5 | Disposition review of the 4 open PRs (#16, #15, #3, #2) — no edits to other sessions' files | claimed 2026-11-20 | e82d36a3 | `COORDINATION.md` (this section only) |
-| e82d36a3 · T6 | Integration: PR to `main`, checks, Pages verification | claimed 2026-11-20 | e82d36a3 | `COORDINATION.md` |
+| e82d36a3 · T1 | Chart annotations: mark ≥$0.10 jumps on the live chart + in-window jump/links strip | **done** (verified by link check + smoke tests) | e82d36a3 | `assets/app.js` |
+| e82d36a3 · T2 | Persistent CI paper-trading ledger (portfolio performance tracked on the site across runs, not just per browser) | **done** (50/50 engine self-tests; 60/60 ledger+page tests; CI run 44801621609 green) | e82d36a3 | `scripts/portfolio_engine.py`, `.github/workflows/portfolio.yml`, `data/portfolio.json`, `data/portfolio_state.json`, `portfolio.html`, `assets/portfolio.js` |
+| e82d36a3 · T3 | "More live & interactive" suggestions page + site nav wiring | **done** (17 pages, 0 broken links) | e82d36a3 | `suggestions.html`, nav block of `index.html`, `dashboard.html`, `trades.html`, `data.html`, `methods.html`, `sources.html`, `flagged.html`, `topics/*.html`, `assets/app.js` (navHere) |
+| e82d36a3 · T4 | Line-by-line re-verification of root-site claims vs official Kalshi sources; flagged updates | **done** (V1–V18, R1–R9; corrections published as E1–E12) | e82d36a3 | `README.md`, `EXECUTIVE_SUMMARY.md`, `flagged.html`, `reports/VERIFICATION_e82d36a3.md` |
+| e82d36a3 · T5 | Disposition review of the 4 open PRs (#16, #15, #3, #2) — no edits to other sessions' files | **done** (all four left open, reasons measured) | e82d36a3 | `COORDINATION.md` (this section only) |
+| e82d36a3 · T6 | Integration: PR to `main`, checks, Pages verification | in progress (PR being opened) | e82d36a3 | `COORDINATION.md` |
 
 | Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Full live dashboard v2: alerts, charts, orderbook, sim trading, resolutions, data pipeline, CORS verification, topic subpages, integration + PR + Pages | in progress | bb8bd1ff (branch `arena/bb8bd1ff-trade1`) | COORDINATION.md, README.md, index.html (takeover, see log), dashboard.html, trades.html, data.html, methods.html, flagged.html, sources.html, topics/*.html, assets/**, data/**, scripts/**, .github/workflows/verify-and-collect.yml |
@@ -436,3 +436,44 @@ is marked `done` on the board. I therefore treat those claims as superseded and 
 **Out of scope by design:** real demo-account order execution (needs the owner's demo API key + RSA/Ed25519
 private key; session `20e3ad14`'s PR #2 keeps that implementation in `scripts/demo_account/**` and is left for
 the owner). Nothing on this branch requests, stores, or accepts credentials.
+
+### e82d36a3 — completion record (T1–T5), 2026-11-20
+
+**Files this session wrote (all additive except two nav/annotation edits):**
+`scripts/portfolio_engine.py` (new), `.github/workflows/portfolio.yml` (new), `portfolio.html` (new),
+`assets/portfolio.js` (new), `suggestions.html` (new), `scripts/check_links.mjs` (new),
+`tests/portfolio.test.mjs` (new), `data/portfolio.json` + `data/portfolio_state.json` (generated, seeded baseline),
+`reports/VERIFICATION_e82d36a3.md` (new); edited: `assets/app.js` (chart jump markers + jump/link strip + nav entry),
+`index.html`, `dashboard.html`, `trades.html`, `data.html`, `methods.html` (§8–§9), `sources.html`, `flagged.html`
+(E1–E12), `topics/*.html` (nav), `README.md`, `EXECUTIVE_SUMMARY.md` (addendum), `COORDINATION.md` (this section).
+No file owned by another session was deleted, renamed, or rewritten; their trees (`js/`, `css/`, `pages/`,
+`categories/`, `docs/`, `site/`, `monitor/`, `trade1/`, `a2ec5543/`, `probe/`) are untouched, and `scripts/check_site.mjs`
+was complemented rather than modified.
+
+**Sources used (all official, read 2026-11-20):** demo environment, Get Markets (params, paging/ordering, cache note, Market
+schema), Market Lifecycle (status enum + filter mapping), Fixed-Point Representation (units, `price_ranges`), Fee Rounding
+(ceil_6dp + balance alignment + worked example), fee schedule PDF (taker/maker formulas, no settlement fee, per-series
+multipliers incl. KXAAAGASM, effective 2026-07-07), Get Multiple Market Orderbooks, Get Trades, Quick Start: WebSockets
+(signed handshake, public channels, keepalive, 429 causes), Rate Limits and Tiers, Get Market Candlesticks / Historical Data,
+Get Exchange Status, Create Order (V2) (path + `410 Gone` legacy note), docs index `llms.txt`.
+
+**Verification performed:** 18 source checks (V1–V18) and 9 repo checks (R1–R9) in `reports/VERIFICATION_e82d36a3.md`;
+engine self-tests 50/50; ledger + page tests 60/60 (34/34 without jsdom); published-page link/nav check 0 failures;
+pre-existing checks re-run and still green (`check_site.mjs` 0 failures, `test_lib.mjs`, `tests/engine.test.js` 36/36,
+`tests/smoke.test.js` OK); one live API cycle executed on a GitHub runner (workflow run 44801621609, both jobs success,
+commit step correctly skipped off `main`).
+
+**Irregularities flagged (published on `flagged.html` E1–E12):** E1 the pre-existing "demo returns undocumented `active`"
+flag is wrong — `active` is the documented market status (Flag #1 left in place, correction added); E2 two fee-rounding
+models now coexist and differ by <1¢ per leg (browser lab rounds to a cent; ledger follows ceil_6dp + cent alignment);
+E3 maker fees unmodeled and *non-zero* for the gas series `KXAAAGASM`; E4 CI-ledger 30-minute sampling means its results are
+not comparable to the browser lab; E5 wide-gap alert labels for the bootstrap comparison; E6 dollar ranking remains an
+estimate; E7 the trades endpoint documents no ordering guarantee, so a measured 24 h ranking cannot be naively back-filled;
+E8 unauthenticated rate limits are unpublished (pacing is a choice, not a bound); E9 real demo-account tracking still needs
+the owner's key (PR #2 remains the path); E10 `scripts/check_site.mjs`'s allow-list excludes the deployed root pages;
+E11 legacy non-nav root pages are still served; E12 four PRs remain open with measured overlaps.
+
+**Coordination notes for other sessions:** `assets/app.js`, `index.html`, `flagged.html`, `methods.html`, `data/**` and
+`COORDINATION.md` were touched here — if any session still holds a live claim on those paths, rebase onto `main` after this
+merge and resolve in favour of `main`'s deployed files. New `.github/workflows/portfolio.yml` commits `data/portfolio.json`
+and `data/portfolio_state.json` to `main` at :13/:43 with `[skip ci]`; do not add a second writer for those two paths.
