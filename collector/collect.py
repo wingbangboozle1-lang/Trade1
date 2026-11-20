@@ -38,7 +38,7 @@ CATEGORIES = [
 
 JUMP_THRESHOLD = 0.10          # the user-specified alert level, in dollars
 MAX_DEPTH_TICKERS = 45         # orderbook calls per run, liquidity-first (rate-limit friendly)
-EVENT_MARKET_CALLS = 120       # targeted /markets?event_ticker= calls per run
+EVENT_MARKET_CALLS = 180       # targeted /markets?event_ticker= calls per run, split by topic
 
 
 def build_universe(client: KalshiClient) -> dict:
@@ -125,13 +125,30 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
         s_ = series_index.get(e.get("series_ticker") or "") or {}
         if s_.get("topics"):
             topic_events.append(e)
-    # soonest-closing first: those are the events a trader can still act on
-    topic_events.sort(key=lambda e: e.get("strike_date") or e.get("close_time") or "9999")
-    covered = {m.get("event_ticker") for m in markets}
-    fetched = 0
+
+    # Budget allocation matters as much as the budget. Ordering all events by close time alone
+    # starves entire topics: crypto runs 15-minute markets whose close times are always nearest, so
+    # the first run spent every call on crypto and gas and returned no golf or culture markets.
+    # Instead each topic gets a guaranteed share, round-robin, most-dollar-relevant first.
+    by_topic = defaultdict(list)
     for e in topic_events:
-        if fetched >= EVENT_MARKET_CALLS:
-            break
+        s_ = series_index.get(e["series_ticker"]) or {}
+        for t in s_.get("topics") or []:
+            by_topic[t].append(e)
+    # Soonest-closing events first inside each topic: those are the ones a trader can still act on.
+    # The events endpoint returns no close time, so strike_date is used when present.
+    for t in by_topic:
+        by_topic[t].sort(key=lambda e: (e.get("strike_date") or "9999", str(e.get("event_ticker"))))
+    order, idx = [], 0
+    while len(order) < EVENT_MARKET_CALLS and any(idx < len(v) for v in by_topic.values()):
+        for t in sorted(by_topic):
+            if idx < len(by_topic[t]) and len(order) < EVENT_MARKET_CALLS:
+                order.append(by_topic[t][idx])
+        idx += 1
+
+    covered = {m.get("event_ticker") for m in markets}
+    fetched = defaultdict(int)
+    for e in order:
         if e["event_ticker"] in covered:
             continue
         try:
@@ -139,9 +156,10 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
         except Exception as err:  # noqa: BLE001
             print(f"  event {e['event_ticker']}: {err}", file=sys.stderr)
             continue
-        fetched += 1
+        for t in (series_index.get(e["series_ticker"]) or {}).get("topics") or []:
+            fetched[t] += 1
         markets.extend(extra)
-    print(f"  targeted event fetches: {fetched} ({len(topic_events)} topic events live)")
+    print(f"  targeted event fetches by topic: {dict(fetched)} ({len(topic_events)} topic events live)")
     print(f"  markets after targeted pass: {len(markets)}")
 
     rows = []
