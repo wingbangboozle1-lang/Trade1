@@ -9,17 +9,17 @@
   "no_sub_title": "Hunter Biden",
   "status": "active",
   "result": "",
-  "last_price_dollars": "0.8100",
+  "last_price_dollars": "0.8110",
   "previous_price_dollars": "0.0030",
   "previous_yes_bid_dollars": "0.0020",
   "yes_bid_dollars": "0.0020",
-  "yes_ask_dollars": "0.8100",
-  "no_bid_dollars": "0.1900",
+  "yes_ask_dollars": "0.8110",
+  "no_bid_dollars": "0.1890",
   "no_ask_dollars": "0.9980",
   "yes_bid_size_fp": "83333.33",
-  "yes_ask_size_fp": "243.09",
-  "volume_fp": "537223919.96",
-  "volume_24h_fp": "62298.24",
+  "yes_ask_size_fp": "1406.06",
+  "volume_fp": "537224345.99",
+  "volume_24h_fp": "62375.79",
   "open_interest_fp": "140195139.02",
   "open_time": "2025-08-24T19:10:03Z",
   "close_time": "2028-11-07T15:00:00Z",
@@ -28,7 +28,7 @@
   "can_close_early": true,
   "strike_type": "custom",
   "price_level_structure": "deci_cent",
-  "_est_dollar_volume": 435151375.17,
-  "_est_dollar_volume_24h": 50461.57
+  "_est_dollar_volume": 435688944.6,
+  "_est_dollar_volume_24h": 50586.77
  }
 }
