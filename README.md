@@ -22,7 +22,7 @@ tracking, and every table row linked to the official API record it came from.
 | [`flagged.html`](flagged.html) | Flagged for Review: unverified values, contradictions, deliberate limitations |
 | [`sources.html`](sources.html) | The official documentation pages used for verification |
 | [`suggestions.html`](suggestions.html) | Ideas for making the site more live and interactive |
-| [`live.html`](live.html), [`resolved.html`](resolved.html), [`strategies.html`](strategies.html) | Companion views (all-topics live ticker, resolved markets, strategy notes) |
+| [`resolved.html`](resolved.html) | Resolved markets with their official YES/NO result and settlement timestamp |
 
 ## Architecture
 
@@ -64,9 +64,9 @@ CI (`.github/workflows/pages.yml`) runs all three on every push and pull request
 ## Repository layout
 
 ```
-assets/       app.js (engine), model.js (strategies/broker), site.css, lib.mjs (snapshot helpers)
+assets/       app.js (the one engine), model.js (strategies/broker), site.css, lib.mjs (snapshot helpers)
 data/         verified snapshots: topics/*, resolved.json, meta.json, cors.json, log.md
-scripts/      collect.py (collector/verifier), topics.json (topic rules), check_site.mjs, test_lib.mjs
+scripts/      collect.py (collector/verifier), build_snapshot.mjs, topics.json (topic rules), check_site.mjs, test_lib.mjs
 tests/        engine.test.mjs (jsdom tests of the published pages)
 tools/        build.mjs (syntax + link + nav checks)
 topics/       one topic page per tracked topic
@@ -76,7 +76,9 @@ COORDINATION.md  shared task board for parallel sessions
 
 Earlier parallel sessions' separate site trees (`site/`, `monitor/`, `a2ec5543/`, `trade1/`,
 `pages/`, `categories/`, `js/`, `css/`) were **removed** in the consolidation pass recorded in
-`COORDINATION.md`; their findings live on in `flagged.html` and `docs/`. One site is published.
+`COORDINATION.md`, together with their duplicate engine (`assets/app.mjs`, `assets/js/app.js`,
+`assets/css/style.css`), their stale test files and the one-off probe/builder scripts. Their findings
+live on in `flagged.html`, `reports/` and `docs/`. One site, one engine, one check suite is published.
 
 ## Run locally
 

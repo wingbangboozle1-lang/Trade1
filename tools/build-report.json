@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-20T19:23:56.136Z",
-  "files": 20,
+  "checkedAt": "2026-11-20T19:27:38.475Z",
+  "files": 19,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
@@ -24,7 +24,6 @@
   ],
   "jsFiles": [
     "assets/app.js",
-    "assets/js/app.js",
     "assets/model.js"
   ]
 }
