@@ -1,18 +1,16 @@
 {
-  "checkedAt": "2026-11-20T19:23:56.136Z",
-  "files": 20,
+  "checkedAt": "2026-11-20T19:28:07.993Z",
+  "files": 17,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
     "index.html",
     "dashboard.html",
-    "live.html",
     "trades.html",
     "data.html",
     "methods.html",
     "flagged.html",
     "sources.html",
-    "strategies.html",
     "resolved.html",
     "executive-summary.html",
     "suggestions.html",
@@ -24,7 +22,6 @@
   ],
   "jsFiles": [
     "assets/app.js",
-    "assets/js/app.js",
     "assets/model.js"
   ]
 }

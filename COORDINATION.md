@@ -567,3 +567,34 @@ session was discarded**:
 `tests/engine.test.mjs` was updated in the same commit: the "integer 4dp alert threshold" assertion now checks
 `ALERT_UNITS`/`Math.round(cur * 10000)` in `assets/model.js` (where the comparison moved) and asserts that
 `assets/app.js` actually calls `M.alertMove()` and still has the `previous_price_dollars` fallback.
+
+### ff8ed1b0 — PR #34 and PR #37 merged; repo reduced to one engine (2026-11-20)
+
+| PR | From → to | Result |
+|---|---|---|
+| [#34](https://github.com/wingbangboozle1-lang/Trade1/pull/34) | `arena/ff8ed1b0-trade1` → `main` | MERGED (merge commit `3542f77`, 2026-11-20T19:22:14Z), checks green |
+| [#37](https://github.com/wingbangboozle1-lang/Trade1/pull/37) | same branch → `main` | MERGED (merge commit `c0e1d1c`, 2026-11-20T19:25:36Z), checks green |
+
+**Pages deploy confirmed after both merges:** `gh api repos/.../pages` → `status: built`,
+`build_type: legacy`, source `main` `/`; the *pages build and deployment* run completed `success` for
+`3542f77` and again for `c0e1d1c`. `https://wingbangboozle1-lang.github.io/Trade1/executive-summary.html`
+was fetched through the page fetcher after the first merge and rendered the new requirement→delivery table.
+
+**Second-merge conflicts (PR #33/#36 from `3fa0d383`)** were resolved additively and are itemised in the
+section above; the only behavioural change either way is that `checkAlert()` now calls the other session's
+tested `M.alertMove()` for both the sample step *and* the `previous_price_dollars` fallback, instead of its
+own inline comparison — the same rule, now covered by `tests/root_engine.test.js` as well.
+
+**Repo reduced to one engine, one check suite.** Deleted in the same session after verifying nothing
+references them: `assets/app.mjs`, `assets/js/app.js`, `assets/css/style.css` (the second, ES-module engine
+that only the superseded `live.html`/`resolved.html`/`strategies.html` loaded), `tests/engine.test.js` and
+`tests/smoke.test.js` (both read `monitor/assets/app.js`, a tree removed in the consolidation, so they could
+never pass), and the one-off builders/probes `scripts/build_site.py`, `kalshi_api.py`, `backtest.py`,
+`render_site.py`, `check_site.py`, `trade1_collect.py`, `trade1_check.py`, `probe_discovery.py`,
+`probe_discovery2.py`, plus `config/topics.json` and `config/sources.json` (a second, divergent copy of the
+topic rules — `scripts/topics.json` is the authoritative one) and `scripts/paper_engine.py` (superseded by
+the in-browser paper broker, which is the one the site actually runs; its Kalshi-link bug was fixed before
+removal and the fix now lives in `assets/app.js → kalshiUrl()`). `live.html` and `strategies.html` were then
+removed too — no nav entry pointed at them, one of them still loaded the deleted engine, and both duplicated
+Dashboard/Strategy Lab content. Remaining site: **15 pages**, `BUILD OK`, `23/23` engine tests, `40/40` unit
+tests, `0` check failures. Their findings remain in `flagged.html`, `reports/` and `docs/`.
