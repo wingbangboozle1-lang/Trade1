@@ -1,7 +1,7 @@
 {
  "topic": "elections",
  "label": "Elections",
- "generated_at": "2026-11-20T13:42:10.526018+00:00",
+ "generated_at": "2026-11-20T13:48:43.793828+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -43,8 +43,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 901597823.93,
-   "_volume_contracts": 7982716160.43,
+   "_est_dollar_volume": 901538925.45,
+   "_volume_contracts": 7982717476.44,
    "_market_count": 63,
    "_markets": [
     {
@@ -95,9 +95,9 @@
      "no_bid_dollars": "0.0570",
      "no_ask_dollars": "0.9900",
      "yes_bid_size_fp": "1.00",
-     "yes_ask_size_fp": "1054.17",
-     "volume_fp": "186513579.52",
-     "volume_24h_fp": "7792.39",
+     "yes_ask_size_fp": "1024.23",
+     "volume_fp": "186513609.46",
+     "volume_24h_fp": "7790.88",
      "open_interest_fp": "89344735.06",
      "open_time": "2025-02-07T19:24:58Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -106,8 +106,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 175882305.49,
-     "_est_dollar_volume_24h": 7348.22
+     "_est_dollar_volume": 175882333.72,
+     "_est_dollar_volume_24h": 7346.8
     },
     {
      "ticker": "KXPRESNOMD-28-HCLI",
@@ -157,9 +157,9 @@
      "no_bid_dollars": "0.7290",
      "no_ask_dollars": "0.7400",
      "yes_bid_size_fp": "1282.04",
-     "yes_ask_size_fp": "976.98",
-     "volume_fp": "54530579.50",
-     "volume_24h_fp": "7653.46",
+     "yes_ask_size_fp": "944.15",
+     "volume_fp": "54530612.33",
+     "volume_24h_fp": "7664.52",
      "open_interest_fp": "10488313.14",
      "open_time": "2025-05-23T17:01:15Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -168,8 +168,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 14777787.04,
-     "_est_dollar_volume_24h": 2074.09
+     "_est_dollar_volume": 14777795.94,
+     "_est_dollar_volume_24h": 2077.08
     },
     {
      "ticker": "KXPRESNOMD-28-RW",
@@ -188,9 +188,9 @@
      "no_bid_dollars": "0.9670",
      "no_ask_dollars": "0.9690",
      "yes_bid_size_fp": "16129.02",
-     "yes_ask_size_fp": "14966.31",
-     "volume_fp": "414908784.69",
-     "volume_24h_fp": "7654.27",
+     "yes_ask_size_fp": "14937.71",
+     "volume_fp": "414908813.29",
+     "volume_24h_fp": "7652.33",
      "open_interest_fp": "189529515.91",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -199,8 +199,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 13691989.89,
-     "_est_dollar_volume_24h": 252.59
+     "_est_dollar_volume": 13691990.84,
+     "_est_dollar_volume_24h": 252.53
     },
     {
      "ticker": "KXPRESNOMD-28-AOC",
@@ -219,9 +219,9 @@
      "no_bid_dollars": "0.8500",
      "no_ask_dollars": "0.8600",
      "yes_bid_size_fp": "3571.41",
-     "yes_ask_size_fp": "189.83",
-     "volume_fp": "59042517.53",
-     "volume_24h_fp": "7720.78",
+     "yes_ask_size_fp": "145.75",
+     "volume_fp": "59042561.61",
+     "volume_24h_fp": "7727.03",
      "open_interest_fp": "14795880.46",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -230,8 +230,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 8856377.63,
-     "_est_dollar_volume_24h": 1158.12
+     "_est_dollar_volume": 8856384.24,
+     "_est_dollar_volume_24h": 1159.05
     },
     {
      "ticker": "KXPRESNOMD-28-KH",
@@ -250,9 +250,9 @@
      "no_bid_dollars": "0.9500",
      "no_ask_dollars": "0.9520",
      "yes_bid_size_fp": "10416.66",
-     "yes_ask_size_fp": "7535.17",
-     "volume_fp": "134220721.17",
-     "volume_24h_fp": "7594.21",
+     "yes_ask_size_fp": "7499.65",
+     "volume_fp": "134220756.69",
+     "volume_24h_fp": "7600.92",
      "open_interest_fp": "17647637.07",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -261,8 +261,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 6711036.06,
-     "_est_dollar_volume_24h": 379.71
+     "_est_dollar_volume": 6711037.83,
+     "_est_dollar_volume_24h": 380.05
     },
     {
      "ticker": "KXPRESNOMD-28-MK",
@@ -281,9 +281,9 @@
      "no_bid_dollars": "0.9670",
      "no_ask_dollars": "0.9680",
      "yes_bid_size_fp": "15624.99",
-     "yes_ask_size_fp": "4048.14",
-     "volume_fp": "201919186.15",
-     "volume_24h_fp": "37380.72",
+     "yes_ask_size_fp": "4011.32",
+     "volume_fp": "201919222.97",
+     "volume_24h_fp": "37392.84",
      "open_interest_fp": "38595763.54",
      "open_time": "2025-02-07T19:24:58Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -292,8 +292,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 6663333.14,
-     "_est_dollar_volume_24h": 1233.56
+     "_est_dollar_volume": 6663334.36,
+     "_est_dollar_volume_24h": 1233.96
     }
    ]
   },
@@ -641,8 +641,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 48317476.72,
-   "_volume_contracts": 1026896555.37,
+   "_est_dollar_volume": 48404896.94,
+   "_volume_contracts": 1026897894.19,
    "_market_count": 56,
    "_markets": [
     {
@@ -724,9 +724,9 @@
      "no_bid_dollars": "0.8400",
      "no_ask_dollars": "0.8500",
      "yes_bid_size_fp": "2222.22",
-     "yes_ask_size_fp": "902.25",
-     "volume_fp": "17623297.15",
-     "volume_24h_fp": "7548.75",
+     "yes_ask_size_fp": "870.00",
+     "volume_fp": "17623329.40",
+     "volume_24h_fp": "7558.93",
      "open_interest_fp": "5301002.82",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -735,8 +735,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2819727.54,
-     "_est_dollar_volume_24h": 1207.8
+     "_est_dollar_volume": 2819732.7,
+     "_est_dollar_volume_24h": 1209.43
     },
     {
      "ticker": "KXPRESNOMR-28-MR",
@@ -755,9 +755,9 @@
      "no_bid_dollars": "0.7800",
      "no_ask_dollars": "0.7900",
      "yes_bid_size_fp": "1587.30",
-     "yes_ask_size_fp": "462.79",
-     "volume_fp": "11563320.94",
-     "volume_24h_fp": "11405.81",
+     "yes_ask_size_fp": "426.27",
+     "volume_fp": "11563357.46",
+     "volume_24h_fp": "11413.50",
      "open_interest_fp": "2689578.58",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -766,8 +766,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2543930.61,
-     "_est_dollar_volume_24h": 2509.28
+     "_est_dollar_volume": 2543938.64,
+     "_est_dollar_volume_24h": 2510.97
     },
     {
      "ticker": "KXPRESNOMR-28-JDV",
@@ -786,10 +786,10 @@
      "no_bid_dollars": "0.6700",
      "no_ask_dollars": "0.6800",
      "yes_bid_size_fp": "3637.62",
-     "yes_ask_size_fp": "231.58",
-     "volume_fp": "6776499.02",
-     "volume_24h_fp": "7598.14",
-     "open_interest_fp": "3084058.58",
+     "yes_ask_size_fp": "194.02",
+     "volume_fp": "6776536.58",
+     "volume_24h_fp": "7594.87",
+     "open_interest_fp": "3084096.14",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
      "expected_expiration_time": "2028-11-07T15:00:00Z",
@@ -797,8 +797,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2236244.68,
-     "_est_dollar_volume_24h": 2507.39
+     "_est_dollar_volume": 2236257.07,
+     "_est_dollar_volume_24h": 2506.31
     },
     {
      "ticker": "KXPRESNOMR-28-TCAR",
@@ -817,9 +817,9 @@
      "no_bid_dollars": "0.9720",
      "no_ask_dollars": "0.9730",
      "yes_bid_size_fp": "6172.83",
-     "yes_ask_size_fp": "5120.66",
-     "volume_fp": "68974137.13",
-     "volume_24h_fp": "7941.11",
+     "yes_ask_size_fp": "5103.37",
+     "volume_fp": "68974154.42",
+     "volume_24h_fp": "7948.24",
      "open_interest_fp": "19484042.84",
      "open_time": "2025-10-01T03:21:09Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -828,8 +828,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1931275.84,
-     "_est_dollar_volume_24h": 222.35
+     "_est_dollar_volume": 1931276.32,
+     "_est_dollar_volume_24h": 222.55
     },
     {
      "ticker": "KXPRESNOMR-28-GY",
@@ -848,9 +848,9 @@
      "no_bid_dollars": "0.9720",
      "no_ask_dollars": "0.9730",
      "yes_bid_size_fp": "12345.66",
-     "yes_ask_size_fp": "5908.10",
-     "volume_fp": "27586153.10",
-     "volume_24h_fp": "42942.92",
+     "yes_ask_size_fp": "5870.59",
+     "volume_fp": "27586190.61",
+     "volume_24h_fp": "42960.43",
      "open_interest_fp": "10688149.88",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -859,8 +859,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 772412.29,
-     "_est_dollar_volume_24h": 1202.4
+     "_est_dollar_volume": 772413.34,
+     "_est_dollar_volume_24h": 1202.89
     },
     {
      "ticker": "KXPRESNOMR-28-SHS",
@@ -879,9 +879,9 @@
      "no_bid_dollars": "0.9920",
      "no_ask_dollars": "0.9940",
      "yes_bid_size_fp": "27777.77",
-     "yes_ask_size_fp": "18792.67",
-     "volume_fp": "96261441.53",
-     "volume_24h_fp": "7627.89",
+     "yes_ask_size_fp": "18758.64",
+     "volume_fp": "96261475.56",
+     "volume_24h_fp": "7640.17",
      "open_interest_fp": "40095706.23",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
@@ -890,8 +890,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 770091.53,
-     "_est_dollar_volume_24h": 61.02
+     "_est_dollar_volume": 770091.8,
+     "_est_dollar_volume_24h": 61.12
     }
    ]
   },
@@ -1179,8 +1179,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 25648976.81,
-   "_volume_contracts": 1442401339.54,
+   "_est_dollar_volume": 25704367.45,
+   "_volume_contracts": 1442402795.35,
    "_market_count": 53,
    "_markets": [
     {
@@ -1201,9 +1201,9 @@
      "no_bid_dollars": "0.8200",
      "no_ask_dollars": "0.8300",
      "yes_bid_size_fp": "980.39",
-     "yes_ask_size_fp": "109.39",
-     "volume_fp": "33459723.93",
-     "volume_24h_fp": "5702.49",
+     "yes_ask_size_fp": "67.31",
+     "volume_fp": "33459766.01",
+     "volume_24h_fp": "5712.41",
      "open_interest_fp": "5249528.24",
      "open_time": "2025-12-27T18:27:01Z",
      "close_time": "2029-11-07T15:00:00Z",
@@ -1212,8 +1212,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 6022750.31,
-     "_est_dollar_volume_24h": 1026.45
+     "_est_dollar_volume": 6022757.88,
+     "_est_dollar_volume_24h": 1028.23
     },
     {
      "ticker": "KXPRESPERSON-28-AOCA",
@@ -1233,10 +1233,10 @@
      "no_bid_dollars": "0.9090",
      "no_ask_dollars": "0.9100",
      "yes_bid_size_fp": "3703.70",
-     "yes_ask_size_fp": "1127.50",
-     "volume_fp": "30321877.22",
-     "volume_24h_fp": "5428.54",
-     "open_interest_fp": "6540862.46",
+     "yes_ask_size_fp": "1094.41",
+     "volume_fp": "30321910.31",
+     "volume_24h_fp": "5446.64",
+     "open_interest_fp": "6540895.55",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
      "expected_expiration_time": "2029-01-21T15:00:00Z",
@@ -1244,8 +1244,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2759290.83,
-     "_est_dollar_volume_24h": 494.0
+     "_est_dollar_volume": 2759293.84,
+     "_est_dollar_volume_24h": 495.64
     },
     {
      "ticker": "KXPRESPERSON-28-RDES",
@@ -1265,10 +1265,10 @@
      "no_bid_dollars": "0.9420",
      "no_ask_dollars": "0.9440",
      "yes_bid_size_fp": "8928.57",
-     "yes_ask_size_fp": "3177.41",
-     "volume_fp": "33943085.15",
-     "volume_24h_fp": "6189.08",
-     "open_interest_fp": "10856333.71",
+     "yes_ask_size_fp": "3142.14",
+     "volume_fp": "33943120.42",
+     "volume_24h_fp": "6182.28",
+     "open_interest_fp": "10856368.98",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
      "expected_expiration_time": "2029-01-21T15:00:00Z",
@@ -1276,8 +1276,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1968698.94,
-     "_est_dollar_volume_24h": 358.97
+     "_est_dollar_volume": 1968700.98,
+     "_est_dollar_volume_24h": 358.57
     },
     {
      "ticker": "KXPRESPERSON-28-MRUB",
@@ -1297,9 +1297,9 @@
      "no_bid_dollars": "0.9110",
      "no_ask_dollars": "0.9130",
      "yes_bid_size_fp": "3831.40",
-     "yes_ask_size_fp": "1137.96",
-     "volume_fp": "21753870.15",
-     "volume_24h_fp": "5482.29",
+     "yes_ask_size_fp": "1106.60",
+     "volume_fp": "21753901.51",
+     "volume_24h_fp": "5509.82",
      "open_interest_fp": "3493094.39",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
@@ -1308,8 +1308,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1936094.44,
-     "_est_dollar_volume_24h": 487.92
+     "_est_dollar_volume": 1936097.23,
+     "_est_dollar_volume_24h": 490.37
     },
     {
      "ticker": "KXPRESPERSON-28-JVAN",
@@ -1329,9 +1329,9 @@
      "no_bid_dollars": "0.8600",
      "no_ask_dollars": "0.8700",
      "yes_bid_size_fp": "8974.35",
-     "yes_ask_size_fp": "2611.00",
-     "volume_fp": "11602262.99",
-     "volume_24h_fp": "6656.30",
+     "yes_ask_size_fp": "2582.40",
+     "volume_fp": "11602291.59",
+     "volume_24h_fp": "6669.46",
      "open_interest_fp": "3056519.14",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
@@ -1340,8 +1340,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1624316.82,
-     "_est_dollar_volume_24h": 931.88
+     "_est_dollar_volume": 1624320.82,
+     "_est_dollar_volume_24h": 933.72
     },
     {
      "ticker": "KXPRESPERSON-28-VRAM",
@@ -1361,10 +1361,10 @@
      "no_bid_dollars": "0.9970",
      "no_ask_dollars": "0.9980",
      "yes_bid_size_fp": "166666.66",
-     "yes_ask_size_fp": "55553.81",
-     "volume_fp": "507695386.16",
-     "volume_24h_fp": "61184.42",
-     "open_interest_fp": "190195296.56",
+     "yes_ask_size_fp": "55555.55",
+     "volume_fp": "507695406.82",
+     "volume_24h_fp": "61207.02",
+     "open_interest_fp": "190195317.22",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
      "expected_expiration_time": "2029-01-21T15:00:00Z",
@@ -1372,8 +1372,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1523086.16,
-     "_est_dollar_volume_24h": 183.55
+     "_est_dollar_volume": 1523086.22,
+     "_est_dollar_volume_24h": 183.62
     },
     {
      "ticker": "KXPRESPERSON-28-KHAR",
@@ -1393,9 +1393,9 @@
      "no_bid_dollars": "0.9670",
      "no_ask_dollars": "0.9680",
      "yes_bid_size_fp": "15624.99",
-     "yes_ask_size_fp": "10211.48",
-     "volume_fp": "38282025.07",
-     "volume_24h_fp": "21822.76",
+     "yes_ask_size_fp": "10180.99",
+     "volume_fp": "38282055.56",
+     "volume_24h_fp": "21828.43",
      "open_interest_fp": "8511657.67",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
@@ -1404,8 +1404,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1263306.83,
-     "_est_dollar_volume_24h": 720.15
+     "_est_dollar_volume": 1263307.83,
+     "_est_dollar_volume_24h": 720.34
     },
     {
      "ticker": "KXPRESPERSON-28-GNEWS",
@@ -1425,10 +1425,10 @@
      "no_bid_dollars": "0.9220",
      "no_ask_dollars": "0.9230",
      "yes_bid_size_fp": "2164.50",
-     "yes_ask_size_fp": "1381.33",
-     "volume_fp": "15291669.41",
-     "volume_24h_fp": "12912.93",
-     "open_interest_fp": "4694764.88",
+     "yes_ask_size_fp": "1339.29",
+     "volume_fp": "15291711.45",
+     "volume_24h_fp": "12923.77",
+     "open_interest_fp": "4694806.92",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
      "expected_expiration_time": "2029-01-21T15:00:00Z",
@@ -1436,8 +1436,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1192750.21,
-     "_est_dollar_volume_24h": 1007.21
+     "_est_dollar_volume": 1192753.49,
+     "_est_dollar_volume_24h": 1008.05
     }
    ]
   },
@@ -3510,8 +3510,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 166958.68,
-   "_volume_contracts": 8966472.27,
+   "_est_dollar_volume": 169815.17,
+   "_volume_contracts": 8967245.13,
    "_market_count": 31,
    "_markets": [
     {
@@ -3532,10 +3532,10 @@
      "no_bid_dollars": "0.4800",
      "no_ask_dollars": "0.4900",
      "yes_bid_size_fp": "653.58",
-     "yes_ask_size_fp": "150.02",
-     "volume_fp": "67542.78",
-     "volume_24h_fp": "2557.73",
-     "open_interest_fp": "48982.96",
+     "yes_ask_size_fp": "118.85",
+     "volume_fp": "67573.95",
+     "volume_24h_fp": "2582.71",
+     "open_interest_fp": "49014.13",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3543,8 +3543,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 35122.25,
-     "_est_dollar_volume_24h": 1330.02
+     "_est_dollar_volume": 35138.45,
+     "_est_dollar_volume_24h": 1343.01
     },
     {
      "ticker": "KXFRENCHPRES-27-DLIS",
@@ -3564,10 +3564,10 @@
      "no_bid_dollars": "0.8600",
      "no_ask_dollars": "0.8700",
      "yes_bid_size_fp": "1282.05",
-     "yes_ask_size_fp": "417.24",
-     "volume_fp": "197710.11",
-     "volume_24h_fp": "2807.14",
-     "open_interest_fp": "180125.65",
+     "yes_ask_size_fp": "385.61",
+     "volume_fp": "197741.74",
+     "volume_24h_fp": "2812.19",
+     "open_interest_fp": "180157.28",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3575,8 +3575,40 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 27679.42,
-     "_est_dollar_volume_24h": 393.0
+     "_est_dollar_volume": 27683.84,
+     "_est_dollar_volume_24h": 393.71
+    },
+    {
+     "ticker": "KXFRENCHPRES-27-BRET",
+     "event_ticker": "KXFRENCHPRES-27",
+     "market_type": "binary",
+     "title": "Will Bruno Retailleau win the 2027 French presidential election?",
+     "subtitle": ":: Republican",
+     "yes_sub_title": "Bruno Retailleau",
+     "no_sub_title": "Bruno Retailleau",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.0400",
+     "previous_price_dollars": "0.0200",
+     "previous_yes_bid_dollars": "0.0100",
+     "yes_bid_dollars": "0.0100",
+     "yes_ask_dollars": "0.0200",
+     "no_bid_dollars": "0.9800",
+     "no_ask_dollars": "0.9900",
+     "yes_bid_size_fp": "66666.64",
+     "yes_ask_size_fp": "8333.33",
+     "volume_fp": "140951.68",
+     "volume_24h_fp": "44303.98",
+     "open_interest_fp": "96710.61",
+     "open_time": "2025-03-13T04:27:36Z",
+     "close_time": "2028-05-30T14:00:00Z",
+     "expected_expiration_time": "2027-05-31T14:00:00Z",
+     "latest_expiration_time": "2028-05-30T14:00:00Z",
+     "can_close_early": true,
+     "strike_type": "custom",
+     "price_level_structure": "linear_cent",
+     "_est_dollar_volume": 5638.07,
+     "_est_dollar_volume_24h": 1772.16
     },
     {
      "ticker": "KXFRENCHPRES-27-MBOM",
@@ -3592,14 +3624,14 @@
      "previous_price_dollars": "0.0100",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "1.0000",
-     "no_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.0100",
+     "no_bid_dollars": "0.9900",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "0.00",
-     "volume_fp": "551402.06",
-     "volume_24h_fp": "93492.32",
-     "open_interest_fp": "366184.71",
+     "yes_ask_size_fp": "16666.66",
+     "volume_fp": "551421.11",
+     "volume_24h_fp": "93486.34",
+     "open_interest_fp": "366186.66",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3607,8 +3639,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5514.02,
-     "_est_dollar_volume_24h": 934.92
+     "_est_dollar_volume": 5514.21,
+     "_est_dollar_volume_24h": 934.86
     },
     {
      "ticker": "KXFRENCHPRES-27-XBER",
@@ -3629,9 +3661,9 @@
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "16666.66",
-     "volume_fp": "545150.23",
-     "volume_24h_fp": "62756.50",
-     "open_interest_fp": "345880.74",
+     "volume_fp": "545178.99",
+     "volume_24h_fp": "62743.96",
+     "open_interest_fp": "345885.70",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3639,8 +3671,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5451.5,
-     "_est_dollar_volume_24h": 627.57
+     "_est_dollar_volume": 5451.79,
+     "_est_dollar_volume_24h": 627.44
     },
     {
      "ticker": "KXFRENCHPRES-27-CDEL",
@@ -3661,9 +3693,9 @@
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
-     "volume_fp": "525401.63",
-     "volume_24h_fp": "1534.75",
-     "open_interest_fp": "329684.39",
+     "volume_fp": "525424.54",
+     "volume_24h_fp": "1531.96",
+     "open_interest_fp": "329694.00",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3671,8 +3703,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5254.02,
-     "_est_dollar_volume_24h": 15.35
+     "_est_dollar_volume": 5254.25,
+     "_est_dollar_volume_24h": 15.32
     },
     {
      "ticker": "KXFRENCHPRES-27-MBAR",
@@ -3688,14 +3720,14 @@
      "previous_price_dollars": "0.0100",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.0100",
-     "no_bid_dollars": "0.9900",
+     "yes_ask_dollars": "1.0000",
+     "no_bid_dollars": "0.0000",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "16666.66",
-     "volume_fp": "447191.61",
-     "volume_24h_fp": "32383.85",
-     "open_interest_fp": "347638.64",
+     "yes_ask_size_fp": "0.00",
+     "volume_fp": "447207.68",
+     "volume_24h_fp": "32375.92",
+     "open_interest_fp": "347654.71",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3703,8 +3735,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4471.92,
-     "_est_dollar_volume_24h": 323.84
+     "_est_dollar_volume": 4472.08,
+     "_est_dollar_volume_24h": 323.76
     },
     {
      "ticker": "KXFRENCHPRES-27-JBAR",
@@ -3718,16 +3750,16 @@
      "result": "",
      "last_price_dollars": "0.0400",
      "previous_price_dollars": "0.0300",
-     "previous_yes_bid_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.0200",
      "yes_bid_dollars": "0.0200",
      "yes_ask_dollars": "0.0400",
      "no_bid_dollars": "0.9600",
      "no_ask_dollars": "0.9800",
      "yes_bid_size_fp": "24999.99",
-     "yes_ask_size_fp": "11516.48",
-     "volume_fp": "111737.18",
-     "volume_24h_fp": "19436.94",
-     "open_interest_fp": "74365.51",
+     "yes_ask_size_fp": "11497.84",
+     "volume_fp": "111779.00",
+     "volume_24h_fp": "19461.76",
+     "open_interest_fp": "74383.42",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3735,40 +3767,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4469.49,
-     "_est_dollar_volume_24h": 777.48
-    },
-    {
-     "ticker": "KXFRENCHPRES-27-VPEC",
-     "event_ticker": "KXFRENCHPRES-27",
-     "market_type": "binary",
-     "title": "Will Valérie Pécresse win the 2027 French presidential election?",
-     "subtitle": ":: Republican",
-     "yes_sub_title": "Valérie Pécresse",
-     "no_sub_title": "Valérie Pécresse",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.0100",
-     "previous_price_dollars": "0.0100",
-     "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.0100",
-     "no_bid_dollars": "0.9900",
-     "no_ask_dollars": "1.0000",
-     "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "15863.47",
-     "volume_fp": "444713.30",
-     "volume_24h_fp": "32732.66",
-     "open_interest_fp": "319447.67",
-     "open_time": "2025-03-13T04:27:36Z",
-     "close_time": "2028-05-30T14:00:00Z",
-     "expected_expiration_time": "2027-05-31T14:00:00Z",
-     "latest_expiration_time": "2028-05-30T14:00:00Z",
-     "can_close_early": true,
-     "strike_type": "custom",
-     "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4447.13,
-     "_est_dollar_volume_24h": 327.33
+     "_est_dollar_volume": 4471.16,
+     "_est_dollar_volume_24h": 778.47
     }
    ]
   },
