@@ -1,7 +1,7 @@
 {
  "topic": "gas-prices",
  "label": "Gas prices",
- "generated_at": "2026-11-20T13:37:23.373758+00:00",
+ "generated_at": "2026-11-20T13:42:10.526018+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -32,8 +32,12 @@
   {
    "event_ticker": "KXAAAGASM-26NOV30",
    "series_ticker": "KXAAAGASM",
-   "title": "Will average **gas prices** be above $5.00?",
+   "title": "Gas prices in the US in Nov 2026?",
+   "sub_title": "On Nov 30, 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-30T15:00:00Z",
+   "last_updated_ts": "2026-11-13T02:00:08.790718Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -298,8 +302,12 @@
   {
    "event_ticker": "KXAAAGASW-26NOV23",
    "series_ticker": "KXAAAGASW",
-   "title": "Will average **gas prices** be above $3.9400?",
+   "title": "US gas prices this week",
+   "sub_title": "On Nov 23, 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-23T04:59:00Z",
+   "last_updated_ts": "2026-11-15T21:06:35.467463Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -307,8 +315,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 24515.58,
-   "_volume_contracts": 140571.23,
+   "_est_dollar_volume": 24543.6,
+   "_volume_contracts": 140658.57,
    "_market_count": 21,
    "_markets": [
     {
@@ -321,17 +329,17 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.9300",
-     "previous_price_dollars": "0.8100",
+     "previous_price_dollars": "0.9600",
      "previous_yes_bid_dollars": "0.8000",
-     "yes_bid_dollars": "0.8600",
+     "yes_bid_dollars": "0.8700",
      "yes_ask_dollars": "0.9300",
      "no_bid_dollars": "0.0700",
-     "no_ask_dollars": "0.1400",
-     "yes_bid_size_fp": "193.79",
-     "yes_ask_size_fp": "43.27",
-     "volume_fp": "14603.34",
-     "volume_24h_fp": "4453.12",
-     "open_interest_fp": "11459.50",
+     "no_ask_dollars": "0.1300",
+     "yes_bid_size_fp": "5.00",
+     "yes_ask_size_fp": "14.38",
+     "volume_fp": "14632.23",
+     "volume_24h_fp": "4466.61",
+     "open_interest_fp": "11488.39",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
      "expected_expiration_time": "2026-11-23T15:00:00Z",
@@ -339,8 +347,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 13581.11,
-     "_est_dollar_volume_24h": 4141.4
+     "_est_dollar_volume": 13607.97,
+     "_est_dollar_volume_24h": 4153.95
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.6000",
@@ -361,7 +369,7 @@
      "yes_bid_size_fp": "173.61",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "7777.15",
-     "volume_24h_fp": "651.63",
+     "volume_24h_fp": "633.24",
      "open_interest_fp": "7065.29",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
@@ -371,7 +379,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 7699.38,
-     "_est_dollar_volume_24h": 645.11
+     "_est_dollar_volume_24h": 626.91
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.6400",
@@ -385,15 +393,15 @@
      "last_price_dollars": "0.0200",
      "previous_price_dollars": "0.2900",
      "previous_yes_bid_dollars": "0.2800",
-     "yes_bid_dollars": "0.0100",
-     "yes_ask_dollars": "0.0200",
-     "no_bid_dollars": "0.9800",
-     "no_ask_dollars": "0.9900",
-     "yes_bid_size_fp": "16666.66",
-     "yes_ask_size_fp": "8332.44",
-     "volume_fp": "41163.39",
-     "volume_24h_fp": "26543.20",
-     "open_interest_fp": "31509.05",
+     "yes_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.0800",
+     "no_bid_dollars": "0.9200",
+     "no_ask_dollars": "1.0000",
+     "yes_bid_size_fp": "0.00",
+     "yes_ask_size_fp": "1899.17",
+     "volume_fp": "41187.58",
+     "volume_24h_fp": "26543.56",
+     "open_interest_fp": "31524.83",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
      "expected_expiration_time": "2026-11-23T15:00:00Z",
@@ -401,8 +409,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 823.27,
-     "_est_dollar_volume_24h": 530.86
+     "_est_dollar_volume": 823.75,
+     "_est_dollar_volume_24h": 530.87
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.6600",
@@ -421,9 +429,9 @@
      "no_bid_dollars": "0.9800",
      "no_ask_dollars": "0.9900",
      "yes_bid_size_fp": "16665.66",
-     "yes_ask_size_fp": "4287.45",
-     "volume_fp": "36989.44",
-     "volume_24h_fp": "4252.60",
+     "yes_ask_size_fp": "4253.19",
+     "volume_fp": "37023.70",
+     "volume_24h_fp": "4254.36",
      "open_interest_fp": "26934.78",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
@@ -432,8 +440,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 739.79,
-     "_est_dollar_volume_24h": 85.05
+     "_est_dollar_volume": 740.47,
+     "_est_dollar_volume_24h": 85.09
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.5800",
@@ -485,7 +493,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "6822.76",
-     "volume_24h_fp": "90.72",
+     "volume_24h_fp": "67.31",
      "open_interest_fp": "6822.76",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
@@ -495,7 +503,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 272.91,
-     "_est_dollar_volume_24h": 3.63
+     "_est_dollar_volume_24h": 2.69
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.7000",
@@ -564,8 +572,12 @@
   {
    "event_ticker": "KXAAAGASMINTX-26DEC31",
    "series_ticker": "KXAAAGASMINTX",
-   "title": "Will average **gas prices** be above or below $2.30 by Dec 31, 2026?",
+   "title": "How low will gas prices in Texas get this year?",
+   "sub_title": "In 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-12-31T15:00:00Z",
+   "last_updated_ts": "2026-11-13T01:59:52.153661Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -768,8 +780,12 @@
   {
    "event_ticker": "KXAAAGASM-26DEC31",
    "series_ticker": "KXAAAGASM",
-   "title": "Will average **gas prices** be above $3.30?",
+   "title": "Gas prices in the US in Dec 2026?",
+   "sub_title": "On Dec 31, 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-12-31T15:00:00Z",
+   "last_updated_ts": "2026-11-13T02:00:00.974602Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -941,8 +957,12 @@
   {
    "event_ticker": "KXAAAGASWNJ-26NOV23",
    "series_ticker": "KXAAAGASWNJ",
-   "title": "Will average **gas prices** be above $4.1000?",
+   "title": "New Jersey gas prices this week",
+   "sub_title": "On Nov 23, 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-23T04:59:00Z",
+   "last_updated_ts": "2026-11-15T21:06:35.467463Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -1207,8 +1227,12 @@
   {
    "event_ticker": "KXAAAGASMINCA-26DEC31",
    "series_ticker": "KXAAAGASMINCA",
-   "title": "Will average **gas prices** be above or below $4.10 by Dec 31, 2026?",
+   "title": "How low will gas prices in California get this year?",
+   "sub_title": "In 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-12-31T15:00:00Z",
+   "last_updated_ts": "2026-11-13T01:59:52.364427Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -1382,8 +1406,12 @@
   {
    "event_ticker": "KXAAAGASD-28SEP16",
    "series_ticker": "KXAAAGASD",
-   "title": "Will average **gas prices** be above $3.5?",
+   "title": "US Gas prices in at the end of in Sep 2028?",
+   "sub_title": "On Sep 16, 2028",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2028-09-17T00:00:00Z",
+   "last_updated_ts": "2026-06-07T18:41:12.260296Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -1493,8 +1521,12 @@
   {
    "event_ticker": "KXAAAGASMAXCA-26DEC31",
    "series_ticker": "KXAAAGASMAXCA",
-   "title": "Will average **gas prices** be above or below $8.00 by Dec 31, 2026?",
+   "title": "How high will gas prices in California get this year?",
+   "sub_title": "In 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-12-31T15:00:00Z",
+   "last_updated_ts": "2026-11-13T01:59:52.651887Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -1759,8 +1791,12 @@
   {
    "event_ticker": "KXAAAGASMAXTX-26DEC31",
    "series_ticker": "KXAAAGASMAXTX",
-   "title": "Will average **gas prices** be above or below $6.00 by Dec 31, 2026?",
+   "title": "How high will gas prices in Texas get this year?",
+   "sub_title": "In 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-12-31T15:00:00Z",
+   "last_updated_ts": "2026-11-13T01:59:52.431979Z",
    "settlement_sources": [
     {
      "name": "AAA",
@@ -2025,8 +2061,12 @@
   {
    "event_ticker": "KXAAAGASMTX-26NOV30",
    "series_ticker": "KXAAAGASMTX",
-   "title": "Will average **gas prices** be above $4.0000?",
+   "title": "Texas gas prices in Nov 2026",
+   "sub_title": "On Nov 30, 2026",
    "category": "Economics",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-30T04:59:00Z",
+   "last_updated_ts": "2026-11-13T00:31:23.358868Z",
    "settlement_sources": [
     {
      "name": "AAA",

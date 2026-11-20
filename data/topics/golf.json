@@ -1,7 +1,7 @@
 {
  "topic": "golf",
  "label": "Golf",
- "generated_at": "2026-11-20T13:37:23.373758+00:00",
+ "generated_at": "2026-11-20T13:42:10.526018+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -31,8 +31,11 @@
   {
    "event_ticker": "KXPGATOUR-THRC26",
    "series_ticker": "KXPGATOUR",
-   "title": "The RSM Classic: Bill Haas wins",
+   "title": "The RSM Classic Winner",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-20T02:39:17.305957Z",
    "settlement_sources": [
     {
      "name": "Fox Sports",
@@ -48,8 +51,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 170271.06,
-   "_volume_contracts": 16140502.05,
+   "_est_dollar_volume": 168223.31,
+   "_volume_contracts": 16142877.72,
    "_market_count": 155,
    "_markets": [
     {
@@ -69,9 +72,9 @@
      "no_bid_dollars": "0.9750",
      "no_ask_dollars": "0.9780",
      "yes_bid_size_fp": "549.00",
-     "yes_ask_size_fp": "5892.44",
-     "volume_fp": "759396.06",
-     "volume_24h_fp": "515280.89",
+     "yes_ask_size_fp": "5864.97",
+     "volume_fp": "759423.53",
+     "volume_24h_fp": "515291.63",
      "open_interest_fp": "681894.62",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -80,8 +83,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 18984.9,
-     "_est_dollar_volume_24h": 12882.02
+     "_est_dollar_volume": 18985.59,
+     "_est_dollar_volume_24h": 12882.29
     },
     {
      "ticker": "KXPGATOUR-THRC26-MTHO",
@@ -100,10 +103,10 @@
      "no_bid_dollars": "0.8700",
      "no_ask_dollars": "0.8800",
      "yes_bid_size_fp": "1388.88",
-     "yes_ask_size_fp": "1241.42",
-     "volume_fp": "84140.91",
-     "volume_24h_fp": "41211.82",
-     "open_interest_fp": "53097.41",
+     "yes_ask_size_fp": "1215.76",
+     "volume_fp": "84166.57",
+     "volume_24h_fp": "41215.17",
+     "open_interest_fp": "53123.07",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -111,8 +114,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 10938.32,
-     "_est_dollar_volume_24h": 5357.54
+     "_est_dollar_volume": 10941.65,
+     "_est_dollar_volume_24h": 5357.97
     },
     {
      "ticker": "KXPGATOUR-THRC26-KMIT",
@@ -131,9 +134,9 @@
      "no_bid_dollars": "0.9210",
      "no_ask_dollars": "0.9220",
      "yes_bid_size_fp": "549.00",
-     "yes_ask_size_fp": "1333.42",
-     "volume_fp": "128684.69",
-     "volume_24h_fp": "59178.82",
+     "yes_ask_size_fp": "1309.01",
+     "volume_fp": "128709.10",
+     "volume_24h_fp": "59184.33",
      "open_interest_fp": "123001.68",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -142,8 +145,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 10166.09,
-     "_est_dollar_volume_24h": 4675.13
+     "_est_dollar_volume": 10168.02,
+     "_est_dollar_volume_24h": 4675.56
     },
     {
      "ticker": "KXPGATOUR-THRC26-MGRE",
@@ -162,9 +165,9 @@
      "no_bid_dollars": "0.9520",
      "no_ask_dollars": "0.9570",
      "yes_bid_size_fp": "4424.96",
-     "yes_ask_size_fp": "2916.54",
-     "volume_fp": "125192.23",
-     "volume_24h_fp": "109215.77",
+     "yes_ask_size_fp": "2883.86",
+     "volume_fp": "125224.91",
+     "volume_24h_fp": "109240.31",
      "open_interest_fp": "111780.78",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -173,8 +176,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 6009.23,
-     "_est_dollar_volume_24h": 5242.36
+     "_est_dollar_volume": 6010.8,
+     "_est_dollar_volume_24h": 5243.53
     },
     {
      "ticker": "KXPGATOUR-THRC26-TMOO",
@@ -193,10 +196,10 @@
      "no_bid_dollars": "0.9950",
      "no_ask_dollars": "0.9960",
      "yes_bid_size_fp": "916666.52",
-     "yes_ask_size_fp": "93807.28",
-     "volume_fp": "1155356.70",
-     "volume_24h_fp": "841105.16",
-     "open_interest_fp": "1149867.81",
+     "yes_ask_size_fp": "93773.88",
+     "volume_fp": "1155390.10",
+     "volume_24h_fp": "841104.17",
+     "open_interest_fp": "1149901.21",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -204,8 +207,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5776.78,
-     "_est_dollar_volume_24h": 4205.53
+     "_est_dollar_volume": 5776.95,
+     "_est_dollar_volume_24h": 4205.52
     },
     {
      "ticker": "KXPGATOUR-THRC26-JSVE",
@@ -224,10 +227,10 @@
      "no_bid_dollars": "0.9620",
      "no_ask_dollars": "0.9670",
      "yes_bid_size_fp": "4824.75",
-     "yes_ask_size_fp": "3661.11",
-     "volume_fp": "135051.59",
-     "volume_24h_fp": "119024.83",
-     "open_interest_fp": "124382.08",
+     "yes_ask_size_fp": "3625.83",
+     "volume_fp": "135086.87",
+     "volume_24h_fp": "119027.09",
+     "open_interest_fp": "124417.36",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -235,8 +238,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5131.96,
-     "_est_dollar_volume_24h": 4522.94
+     "_est_dollar_volume": 5133.3,
+     "_est_dollar_volume_24h": 4523.03
     },
     {
      "ticker": "KXPGATOUR-THRC26-LHOD",
@@ -255,10 +258,10 @@
      "no_bid_dollars": "0.9770",
      "no_ask_dollars": "0.9790",
      "yes_bid_size_fp": "8485.50",
-     "yes_ask_size_fp": "6490.03",
-     "volume_fp": "221169.98",
-     "volume_24h_fp": "209609.53",
-     "open_interest_fp": "208449.57",
+     "yes_ask_size_fp": "6470.14",
+     "volume_fp": "221189.87",
+     "volume_24h_fp": "209611.14",
+     "open_interest_fp": "208469.46",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -266,8 +269,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5086.91,
-     "_est_dollar_volume_24h": 4821.02
+     "_est_dollar_volume": 5087.37,
+     "_est_dollar_volume_24h": 4821.06
     },
     {
      "ticker": "KXPGATOUR-THRC26-RCAS",
@@ -286,9 +289,9 @@
      "no_bid_dollars": "0.9780",
      "no_ask_dollars": "0.9810",
      "yes_bid_size_fp": "35087.68",
-     "yes_ask_size_fp": "54368.92",
-     "volume_fp": "231024.82",
-     "volume_24h_fp": "215853.16",
+     "yes_ask_size_fp": "54342.12",
+     "volume_fp": "231051.62",
+     "volume_24h_fp": "215853.49",
      "open_interest_fp": "224563.74",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -297,21 +300,20 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5082.55,
-     "_est_dollar_volume_24h": 4748.77
+     "_est_dollar_volume": 5083.14,
+     "_est_dollar_volume_24h": 4748.78
     }
    ]
   },
   {
    "event_ticker": "KXPGATOUR-MAST27",
    "series_ticker": "KXPGATOUR",
-   "title": "Masters Tournament: Jordan Spieth wins",
+   "title": "2027 The Masters Champion",
+   "sub_title": "2027 Masters Tournament",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-20T13:04:50.688912Z",
    "settlement_sources": [
-    {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com"
-    },
     {
      "name": "ESPN",
      "url": "https://www.espn.com/"
@@ -319,6 +321,10 @@
     {
      "name": "the Governing League",
      "url": "https://www.pgatour.com/"
+    },
+    {
+     "name": "the Governing Body",
+     "url": "https://www.masters.com/index.html"
     }
    ],
    "_match_reason": "series-discovery",
@@ -579,8 +585,11 @@
   {
    "event_ticker": "KXLPGATOUR-CMEGTC26",
    "series_ticker": "KXLPGATOUR",
-   "title": "CME Group Tour Championship: Yuri Yoshida wins",
+   "title": "CME Group Tour Championship Winner",
+   "sub_title": "2026 CME Group Tour Championship",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-16T23:54:57.606619Z",
    "settlement_sources": [
     {
      "name": "The Wall Street Journal",
@@ -853,8 +862,11 @@
   {
    "event_ticker": "KXPGATOP20-THRC26",
    "series_ticker": "KXPGATOP20",
-   "title": "Bill Haas finishes top 20",
+   "title": "The Rsm Classic: Top 20 Finishers",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-19T20:31:27.804398Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -1127,12 +1139,23 @@
   {
    "event_ticker": "KXPGAR1LEAD-MAST27",
    "series_ticker": "KXPGAR1LEAD",
-   "title": "Will Ryan Gerard lead at the end of Round 1 in the The Masters?",
+   "title": "The Masters End of Round 1 Leader",
+   "sub_title": "2026 The Masters",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-04-09T15:03:32.479195Z",
    "settlement_sources": [
     {
-     "name": "the Governing League",
-     "url": "https://www.pgatour.com/"
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "ESPN",
+     "url": "https://www.espn.com/"
+    },
+    {
+     "name": "Fox Sports",
+     "url": "https://www.foxsports.com/"
     }
    ],
    "_match_reason": "series-discovery",
@@ -1238,8 +1261,11 @@
   {
    "event_ticker": "KXPGATOP5-THRC26",
    "series_ticker": "KXPGATOP5",
-   "title": "Bill Haas finishes top 5",
+   "title": "The Rsm Classic: Top 5 Finishers",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-19T20:31:27.73702Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -1512,24 +1538,23 @@
   {
    "event_ticker": "KXLIVCOMPETE-27APR",
    "series_ticker": "KXLIVCOMPETE",
-   "title": "Tyrrell Hatton to compete in a LIV Golf Tournament in Q1 2027 (January 1, 2027 to March 31, 2027)?",
+   "title": "Golfers to Compete in a LIV Golf Tournament in Q1 2027",
+   "sub_title": "Q1 2027",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-05-07T19:37:17.273425Z",
    "settlement_sources": [
-    {
-     "name": "LIV Golf",
-     "url": "https://www.livgolf.com/"
-    },
     {
      "name": "ESPN",
      "url": "https://www.espn.com"
     },
     {
-     "name": "The Wall Street Journal",
-     "url": "https://www.wsj.com/"
+     "name": "LIV Golf",
+     "url": "https://www.livgolf.com/"
     },
     {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com"
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
     },
     {
      "name": "AP",
@@ -1538,6 +1563,10 @@
     {
      "name": "Golf Channel",
      "url": "https://golfchannel.com"
+    },
+    {
+     "name": "Fox Sports",
+     "url": "https://www.foxsports.com"
     }
    ],
    "_match_reason": "series-discovery",
@@ -2071,8 +2100,11 @@
   {
    "event_ticker": "KXGOLFMAJOR-27",
    "series_ticker": "KXGOLFMAJOR",
-   "title": "Will Xander Schauffele win a golf major championship in 2027?",
+   "title": "Golfers to win a PGA Tour Major in 2027 ",
+   "sub_title": "2027",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-07-20T15:35:57.465753Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -2643,20 +2675,23 @@
   {
    "event_ticker": "KXPGARYDER-RC27",
    "series_ticker": "KXPGARYDER",
-   "title": "Will Team USA win the Ryder Cup?",
+   "title": "2027 Ryder Cup Winner",
+   "sub_title": "2027 Ryder Cup",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-04-28T05:41:14.991507Z",
    "settlement_sources": [
     {
-     "name": "The Wall Street Journal",
-     "url": "https://www.wsj.com/"
+     "name": "Fox Sports",
+     "url": "https://www.foxsports.com/"
     },
     {
      "name": "ESPN",
      "url": "https://www.espn.com/"
     },
     {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com/"
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
     }
    ],
    "_match_reason": "series-discovery",
@@ -2762,8 +2797,11 @@
   {
    "event_ticker": "KXPGATOP10-THRC26",
    "series_ticker": "KXPGATOP10",
-   "title": "Bill Haas finishes top 10",
+   "title": "The Rsm Classic: Top 10 Finishers",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-19T20:31:27.870177Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -3036,22 +3074,12 @@
   {
    "event_ticker": "KXPGATOUR-THOC26H24975",
    "series_ticker": "KXPGATOUR",
-   "title": "Will Ryan Fox win the tournament?",
+   "title": "Harrison PR 24975 demo validation fixture",
+   "sub_title": "",
    "category": "Sports",
-   "settlement_sources": [
-    {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com"
-    },
-    {
-     "name": "ESPN",
-     "url": "https://www.espn.com/"
-    },
-    {
-     "name": "the Governing League",
-     "url": "https://www.pgatour.com/"
-    }
-   ],
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-09-12T03:26:03.462481Z",
+   "settlement_sources": null,
    "_match_reason": "series-discovery",
    "_est_dollar_volume": 0,
    "_volume_contracts": 0,
@@ -3091,22 +3119,12 @@
   {
    "event_ticker": "KXPGATOP20-THOC26H24975",
    "series_ticker": "KXPGATOP20",
-   "title": "Ryan Fox finishes top 20",
+   "title": "Harrison PR 24975 demo validation fixture",
+   "sub_title": "",
    "category": "Sports",
-   "settlement_sources": [
-    {
-     "name": "ESPN",
-     "url": "https://www.espn.com"
-    },
-    {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com"
-    },
-    {
-     "name": "the Governing League",
-     "url": "https://www.pgatour.com/"
-    }
-   ],
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-09-12T03:26:05.164589Z",
+   "settlement_sources": null,
    "_match_reason": "series-discovery",
    "_est_dollar_volume": 0,
    "_volume_contracts": 0,
@@ -3146,22 +3164,12 @@
   {
    "event_ticker": "KXPGATOP10-THOC26H24975",
    "series_ticker": "KXPGATOP10",
-   "title": "Ryan Fox finishes top 10",
+   "title": "Harrison PR 24975 demo validation fixture",
+   "sub_title": "",
    "category": "Sports",
-   "settlement_sources": [
-    {
-     "name": "ESPN",
-     "url": "https://www.espn.com"
-    },
-    {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com"
-    },
-    {
-     "name": "the Governing League",
-     "url": "https://www.pgatour.com/"
-    }
-   ],
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-09-12T03:26:04.723871Z",
+   "settlement_sources": null,
    "_match_reason": "series-discovery",
    "_est_dollar_volume": 0,
    "_volume_contracts": 0,
@@ -3201,22 +3209,12 @@
   {
    "event_ticker": "KXPGATOP5-THOC26H24975",
    "series_ticker": "KXPGATOP5",
-   "title": "Ryan Fox finishes top 5",
+   "title": "Harrison PR 24975 demo validation fixture",
+   "sub_title": "",
    "category": "Sports",
-   "settlement_sources": [
-    {
-     "name": "ESPN",
-     "url": "https://www.espn.com"
-    },
-    {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com"
-    },
-    {
-     "name": "the Governing League",
-     "url": "https://www.pgatour.com/"
-    }
-   ],
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-09-12T03:26:04.302355Z",
+   "settlement_sources": null,
    "_match_reason": "series-discovery",
    "_est_dollar_volume": 0,
    "_volume_contracts": 0,
@@ -3256,8 +3254,11 @@
   {
    "event_ticker": "KXPGAR2LEAD-THRC26",
    "series_ticker": "KXPGAR2LEAD",
-   "title": "Bill Haas leads at the end of Round 2",
+   "title": "The RSM Classic End of Round 2 Leader",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-19T20:31:18.444846Z",
    "settlement_sources": [
     {
      "name": "the Governing League",
@@ -3522,8 +3523,11 @@
   {
    "event_ticker": "KXPGAMAKECUT-THRC26",
    "series_ticker": "KXPGAMAKECUT",
-   "title": "Bill Haas makes the cut",
+   "title": "The RSM Classic: To Make the Cut",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-19T20:31:18.595552Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -3796,22 +3800,12 @@
   {
    "event_ticker": "KXPGAMAKECUT-THOC26H24975",
    "series_ticker": "KXPGAMAKECUT",
-   "title": "Ryan Fox makes the cut",
+   "title": "Harrison PR 24975 demo validation fixture",
+   "sub_title": "",
    "category": "Sports",
-   "settlement_sources": [
-    {
-     "name": "ESPN",
-     "url": "https://www.espn.com"
-    },
-    {
-     "name": "Fox Sports",
-     "url": "https://www.foxsports.com"
-    },
-    {
-     "name": "the Governing League",
-     "url": "https://www.pgatour.com/"
-    }
-   ],
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-09-12T03:26:03.903176Z",
+   "settlement_sources": null,
    "_match_reason": "series-discovery",
    "_est_dollar_volume": 0,
    "_volume_contracts": 0,
@@ -3851,8 +3845,11 @@
   {
    "event_ticker": "KXPGAR3LEAD-THRC26",
    "series_ticker": "KXPGAR3LEAD",
-   "title": "Bill Haas leads at the end of Round 3",
+   "title": "The RSM Classic End of Round 3 Leader",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-19T20:31:18.213238Z",
    "settlement_sources": [
     {
      "name": "the Governing League",
@@ -4117,8 +4114,11 @@
   {
    "event_ticker": "KXPGAROUNDSCORE-THRC26R2",
    "series_ticker": "KXPGAROUNDSCORE",
-   "title": "Will Matt Wallace shoot under 69.5 in Round 2?",
+   "title": "The RSM Classic: Round 2 Scores",
+   "sub_title": "The RSM Classic Round 2",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-20T00:06:49.132918Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -4391,16 +4391,19 @@
   {
    "event_ticker": "KXPGAHOLEINONE-THRC26",
    "series_ticker": "KXPGAHOLEINONE",
-   "title": "Will there be 3+ holes-in-one at the 2026 The RSM Classic?",
+   "title": "The RSM Classic: Hole-in-One",
+   "sub_title": "2026 The RSM Classic",
    "category": "Sports",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-19T20:31:17.977355Z",
    "settlement_sources": [
-    {
-     "name": "the Governing League",
-     "url": "https://www.pgatour.com/"
-    },
     {
      "name": "ESPN",
      "url": "https://www.espn.com"
+    },
+    {
+     "name": "the Governing League",
+     "url": "https://www.pgatour.com/"
     }
    ],
    "_match_reason": "series-discovery",
@@ -4508,8 +4511,11 @@
   {
    "event_ticker": "KXPGAH2H-THRC26R2APUTDWU",
    "series_ticker": "KXPGAH2H",
-   "title": "Will Dylan Wu beat Andrew Putnam in the 2nd round of the The RSM Classic?",
+   "title": "2nd Round Head-to-Head: Putnam vs Wu",
+   "sub_title": "2nd Round - Putnam vs Wu",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-20T03:06:39.265596Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -4612,8 +4618,11 @@
   {
    "event_ticker": "KXPGAH2H-THRC26R2TDUNMMEI",
    "series_ticker": "KXPGAH2H",
-   "title": "Will Tyler Duncan beat Mac Meissner in the 2nd round of the The RSM Classic?",
+   "title": "2nd Round Head-to-Head: Duncan vs Meissner",
+   "sub_title": "2nd Round - Duncan vs Meissner",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-20T00:06:56.982567Z",
    "settlement_sources": [
     {
      "name": "ESPN",
@@ -4716,8 +4725,11 @@
   {
    "event_ticker": "KXPGA3BALL-THRC26R2ACOOBCAUSMAZ",
    "series_ticker": "KXPGA3BALL",
-   "title": "Will Stefano Mazzoli win the 2nd round 3-ball matchup?",
+   "title": "2nd Round 3-Ball: Cook/Cauley/Mazzoli",
+   "sub_title": "R2 - Cook/Cauley/Mazzoli",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-19T22:36:53.021495Z",
    "settlement_sources": [
     {
      "name": "Fox Sports",
@@ -4839,8 +4851,11 @@
   {
    "event_ticker": "KXPGA3BALL-THRC26R2KMITHENGDTHO",
    "series_ticker": "KXPGA3BALL",
-   "title": "Will Keith Mitchell win the 2nd round 3-ball matchup?",
+   "title": "2nd Round 3-Ball: Mitchell/English/Thompson",
+   "sub_title": "R2 - Mitchell/English/Thompson",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-19T22:36:52.96061Z",
    "settlement_sources": [
     {
      "name": "Fox Sports",
@@ -4962,8 +4977,11 @@
   {
    "event_ticker": "KXPGA3BALL-THRC26R2GHIGDRILLGLO",
    "series_ticker": "KXPGA3BALL",
-   "title": "Will Lucas Glover win the 2nd round 3-ball matchup?",
+   "title": "2nd Round 3-Ball: Higgo/Riley/Glover",
+   "sub_title": "R2 - Higgo/Riley/Glover",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-19T22:36:52.306894Z",
    "settlement_sources": [
     {
      "name": "Fox Sports",
@@ -5085,8 +5103,11 @@
   {
    "event_ticker": "KXPGA3BALL-THRC26R2JHIGKVILASMA",
    "series_ticker": "KXPGA3BALL",
-   "title": "Will Karl Vilips win the 2nd round 3-ball matchup?",
+   "title": "2nd Round 3-Ball: Highsmith/Vilips/Smalley",
+   "sub_title": "R2 - Highsmith/Vilips/Smalley",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-19T22:36:52.267369Z",
    "settlement_sources": [
     {
      "name": "Fox Sports",
@@ -5208,8 +5229,11 @@
   {
    "event_ticker": "KXPGA3BALL-THRC26R2SSTRCRAMTFIN",
    "series_ticker": "KXPGA3BALL",
-   "title": "Will Tony Finau win the 2nd round 3-ball matchup?",
+   "title": "2nd Round 3-Ball: Straka/Ramey/Finau",
+   "sub_title": "R2 - Straka/Ramey/Finau",
    "category": "Sports",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-19T22:36:52.246904Z",
    "settlement_sources": [
     {
      "name": "Fox Sports",

@@ -1,7 +1,7 @@
 {
  "topic": "culture",
  "label": "Culture",
- "generated_at": "2026-11-20T13:37:23.373758+00:00",
+ "generated_at": "2026-11-20T13:42:10.526018+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -37,8 +37,12 @@
   {
    "event_ticker": "KXOSCARPIC-27",
    "series_ticker": "KXOSCARPIC",
-   "title": "Will Tender Loving Care win Best Picture at the Oscars?",
+   "title": "Oscar for Best Picture?",
+   "sub_title": "In 2027",
    "category": "Entertainment",
+   "mutually_exclusive": true,
+   "strike_date": "2027-12-31T15:00:00Z",
+   "last_updated_ts": "2026-09-14T16:50:38.555814Z",
    "settlement_sources": [
     {
      "name": "Academy of Motion Picture Arts and Sciences",
@@ -311,20 +315,19 @@
   {
    "event_ticker": "KXDANCINGWITHTHESTARS-26DEC31",
    "series_ticker": "KXDANCINGWITHTHESTARS",
-   "title": "Will Taylor Hanson win Dancing with the Stars Season 35?",
+   "title": "Dancing with the Stars Season 35 · Winner",
+   "sub_title": "Dancing with the Stars Season 35",
    "category": "Entertainment",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-10-06T19:38:56.333833Z",
    "settlement_sources": [
     {
-     "name": "the official broadcaster or streaming platform of  (e",
-     "url": "https://kalshi.com/"
+     "name": "ABC",
+     "url": "https://abc.com/"
     },
     {
-     "name": "The Source Agencies are",
-     "url": "https://kalshi.com/"
-    },
-    {
-     "name": "in hierarchical order",
-     "url": "https://kalshi.com/"
+     "name": "Disney+",
+     "url": "https://www.disneyplus.com/"
     }
    ],
    "_match_reason": "series-discovery",
@@ -585,8 +588,11 @@
   {
    "event_ticker": "KXFEATURE-26GTA6",
    "series_ticker": "KXFEATURE",
-   "title": "Will Zach Bryan be featured on Grand Theft Auto VI: The Album?",
+   "title": "Grand Theft Auto VI: The Album · Features",
+   "sub_title": "XXX - Grand Theft Auto VI: The Album",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T22:26:10.95213Z",
    "settlement_sources": [
     {
      "name": "Spotify",
@@ -594,8 +600,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 517155.15,
-   "_volume_contracts": 13931251.41,
+   "_est_dollar_volume": 517163.9,
+   "_volume_contracts": 13931689.31,
    "_market_count": 130,
    "_markets": [
     {
@@ -617,7 +623,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "118460.33",
-     "volume_24h_fp": "215.03",
+     "volume_24h_fp": "191.66",
      "open_interest_fp": "95106.35",
      "open_time": "2026-09-17T15:36:54Z",
      "close_time": "2026-12-31T04:59:00Z",
@@ -626,7 +632,7 @@
      "can_close_early": true,
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 60414.77,
-     "_est_dollar_volume_24h": 109.67
+     "_est_dollar_volume_24h": 97.75
     },
     {
      "ticker": "KXFEATURE-26GTA6-LAN",
@@ -767,7 +773,7 @@
      "yes_bid_size_fp": "56.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "166907.98",
-     "volume_24h_fp": "653.42",
+     "volume_24h_fp": "636.83",
      "open_interest_fp": "101897.87",
      "open_time": "2026-09-17T15:36:54Z",
      "close_time": "2026-12-31T04:59:00Z",
@@ -776,7 +782,7 @@
      "can_close_early": true,
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 10014.48,
-     "_est_dollar_volume_24h": 39.21
+     "_est_dollar_volume_24h": 38.21
     },
     {
      "ticker": "KXFEATURE-26GTA6-BAB",
@@ -797,7 +803,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "150319.24",
-     "volume_24h_fp": "687.73",
+     "volume_24h_fp": "668.26",
      "open_interest_fp": "117139.87",
      "open_time": "2026-09-17T15:36:54Z",
      "close_time": "2026-12-31T04:59:00Z",
@@ -806,7 +812,7 @@
      "can_close_early": true,
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 9019.15,
-     "_est_dollar_volume_24h": 41.26
+     "_est_dollar_volume_24h": 40.1
     },
     {
      "ticker": "KXFEATURE-26GTA6-DRA",
@@ -827,7 +833,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "128240.50",
-     "volume_24h_fp": "728.66",
+     "volume_24h_fp": "708.04",
      "open_interest_fp": "78831.67",
      "open_time": "2026-09-17T15:36:54Z",
      "close_time": "2026-12-31T04:59:00Z",
@@ -836,15 +842,18 @@
      "can_close_early": true,
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 8976.84,
-     "_est_dollar_volume_24h": 51.01
+     "_est_dollar_volume_24h": 49.56
     }
    ]
   },
   {
    "event_ticker": "KXTIME-26",
    "series_ticker": "KXTIME",
-   "title": "Will Jensen Huang be Time Person of the Year in 2026?",
+   "title": "TIME's Person of the Year for 2026?",
+   "sub_title": "In 2026",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-12T17:06:21.593079Z",
    "settlement_sources": [
     {
      "name": "TIME",
@@ -852,10 +861,42 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 125628.68,
-   "_volume_contracts": 2689627.54,
+   "_est_dollar_volume": 133242.54,
+   "_volume_contracts": 2690708.9,
    "_market_count": 48,
    "_markets": [
+    {
+     "ticker": "KXTIME-26-JDV",
+     "event_ticker": "KXTIME-26",
+     "market_type": "binary",
+     "title": "Will JD Vance be Time Person of the Year in 2026?",
+     "subtitle": "JD Vance",
+     "yes_sub_title": "JD Vance",
+     "no_sub_title": "JD Vance",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.0400",
+     "previous_price_dollars": "0.0200",
+     "previous_yes_bid_dollars": "0.0100",
+     "yes_bid_dollars": "0.0200",
+     "yes_ask_dollars": "0.0300",
+     "no_bid_dollars": "0.9700",
+     "no_ask_dollars": "0.9800",
+     "yes_bid_size_fp": "8333.33",
+     "yes_ask_size_fp": "5555.55",
+     "volume_fp": "209382.47",
+     "volume_24h_fp": "28097.07",
+     "open_interest_fp": "109614.00",
+     "open_time": "2026-09-09T23:34:28Z",
+     "close_time": "2027-01-01T04:59:00Z",
+     "expected_expiration_time": "2027-01-01T15:00:00Z",
+     "latest_expiration_time": "2027-12-31T15:00:00Z",
+     "can_close_early": true,
+     "strike_type": "custom",
+     "price_level_structure": "linear_cent",
+     "_est_dollar_volume": 8375.3,
+     "_est_dollar_volume_24h": 1123.88
+    },
     {
      "ticker": "KXTIME-26-SCO",
      "event_ticker": "KXTIME-26",
@@ -876,7 +917,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "41561.86",
-     "volume_24h_fp": "2258.42",
+     "volume_24h_fp": "2237.61",
      "open_interest_fp": "32073.73",
      "open_time": "2026-11-05T20:34:44Z",
      "close_time": "2027-01-01T04:59:00Z",
@@ -886,7 +927,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 8312.37,
-     "_est_dollar_volume_24h": 451.68
+     "_est_dollar_volume_24h": 447.52
     },
     {
      "ticker": "KXTIME-26-ZOH",
@@ -906,9 +947,9 @@
      "no_bid_dollars": "0.7600",
      "no_ask_dollars": "0.7700",
      "yes_bid_size_fp": "2173.89",
-     "yes_ask_size_fp": "511.59",
-     "volume_fp": "33832.88",
-     "volume_24h_fp": "6917.03",
+     "yes_ask_size_fp": "479.97",
+     "volume_fp": "33864.50",
+     "volume_24h_fp": "6932.88",
      "open_interest_fp": "24551.92",
      "open_time": "2026-02-19T20:03:26Z",
      "close_time": "2027-01-01T04:59:00Z",
@@ -917,8 +958,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 8119.89,
-     "_est_dollar_volume_24h": 1660.09
+     "_est_dollar_volume": 8127.48,
+     "_est_dollar_volume_24h": 1663.89
     },
     {
      "ticker": "KXTIME-26-JOS",
@@ -938,10 +979,10 @@
      "no_bid_dollars": "0.8300",
      "no_ask_dollars": "0.8400",
      "yes_bid_size_fp": "1113.93",
-     "yes_ask_size_fp": "804.54",
-     "volume_fp": "45658.43",
-     "volume_24h_fp": "4881.88",
-     "open_interest_fp": "34528.37",
+     "yes_ask_size_fp": "779.94",
+     "volume_fp": "45683.03",
+     "volume_24h_fp": "4886.11",
+     "open_interest_fp": "34552.97",
      "open_time": "2026-11-05T20:34:44Z",
      "close_time": "2027-01-01T04:59:00Z",
      "expected_expiration_time": "2027-01-01T15:00:00Z",
@@ -949,40 +990,40 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 7761.93,
-     "_est_dollar_volume_24h": 829.92
+     "_est_dollar_volume": 7766.12,
+     "_est_dollar_volume_24h": 830.64
     },
     {
-     "ticker": "KXTIME-26-JDV",
+     "ticker": "KXTIME-26-JAME",
      "event_ticker": "KXTIME-26",
      "market_type": "binary",
-     "title": "Will JD Vance be Time Person of the Year in 2026?",
-     "subtitle": "JD Vance",
-     "yes_sub_title": "JD Vance",
-     "no_sub_title": "JD Vance",
+     "title": "Will James Stephen \"Jimmy\" Donaldson / MrBeast be Time Person of the Year in 2026?",
+     "subtitle": "James Stephen \"Jimmy\" Donaldson / MrBeast",
+     "yes_sub_title": "James Stephen \"Jimmy\" Donaldson / MrBeast",
+     "no_sub_title": "James Stephen \"Jimmy\" Donaldson / MrBeast",
      "status": "active",
      "result": "",
-     "last_price_dollars": "0.0300",
+     "last_price_dollars": "0.0400",
      "previous_price_dollars": "0.0200",
      "previous_yes_bid_dollars": "0.0100",
-     "yes_bid_dollars": "0.0200",
-     "yes_ask_dollars": "0.0300",
-     "no_bid_dollars": "0.9700",
-     "no_ask_dollars": "0.9800",
-     "yes_bid_size_fp": "8333.33",
-     "yes_ask_size_fp": "5553.11",
-     "volume_fp": "209369.52",
-     "volume_24h_fp": "28093.31",
-     "open_interest_fp": "109605.17",
-     "open_time": "2026-09-09T23:34:28Z",
+     "yes_bid_dollars": "0.0100",
+     "yes_ask_dollars": "0.0400",
+     "no_bid_dollars": "0.9600",
+     "no_ask_dollars": "0.9900",
+     "yes_bid_size_fp": "16666.66",
+     "yes_ask_size_fp": "4094.49",
+     "volume_fp": "160128.23",
+     "volume_24h_fp": "16236.09",
+     "open_interest_fp": "99963.02",
+     "open_time": "2026-09-10T00:06:14Z",
      "close_time": "2027-01-01T04:59:00Z",
      "expected_expiration_time": "2027-01-01T15:00:00Z",
      "latest_expiration_time": "2027-12-31T15:00:00Z",
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 6281.09,
-     "_est_dollar_volume_24h": 842.8
+     "_est_dollar_volume": 6405.13,
+     "_est_dollar_volume_24h": 649.44
     },
     {
      "ticker": "KXTIME-26-ANN",
@@ -1002,10 +1043,10 @@
      "no_bid_dollars": "0.8300",
      "no_ask_dollars": "0.8400",
      "yes_bid_size_fp": "2083.32",
-     "yes_ask_size_fp": "962.08",
-     "volume_fp": "30797.05",
-     "volume_24h_fp": "2054.18",
-     "open_interest_fp": "26258.66",
+     "yes_ask_size_fp": "921.62",
+     "volume_fp": "30837.51",
+     "volume_24h_fp": "2072.60",
+     "open_interest_fp": "26299.12",
      "open_time": "2026-11-05T20:34:44Z",
      "close_time": "2027-01-01T04:59:00Z",
      "expected_expiration_time": "2027-01-01T15:00:00Z",
@@ -1013,8 +1054,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5235.5,
-     "_est_dollar_volume_24h": 349.21
+     "_est_dollar_volume": 5242.38,
+     "_est_dollar_volume_24h": 352.34
     },
     {
      "ticker": "KXTIME-26-ABD",
@@ -1034,9 +1075,9 @@
      "no_bid_dollars": "0.8100",
      "no_ask_dollars": "0.8200",
      "yes_bid_size_fp": "1851.84",
-     "yes_ask_size_fp": "161.92",
-     "volume_fp": "26708.85",
-     "volume_24h_fp": "2866.53",
+     "yes_ask_size_fp": "125.11",
+     "volume_fp": "26745.66",
+     "volume_24h_fp": "2885.76",
      "open_interest_fp": "18179.37",
      "open_time": "2026-09-09T23:34:28Z",
      "close_time": "2027-01-01T04:59:00Z",
@@ -1045,72 +1086,40 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5074.68,
-     "_est_dollar_volume_24h": 544.64
+     "_est_dollar_volume": 5081.68,
+     "_est_dollar_volume_24h": 548.29
     },
     {
-     "ticker": "KXTIME-26-JAM",
+     "ticker": "KXTIME-26-LIO",
      "event_ticker": "KXTIME-26",
      "market_type": "binary",
-     "title": "Will James Talarico be Time Person of the Year in 2026?",
-     "subtitle": "James Talarico",
-     "yes_sub_title": "James Talarico",
-     "no_sub_title": "James Talarico",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.2400",
-     "previous_price_dollars": "0.2500",
-     "previous_yes_bid_dollars": "0.2200",
-     "yes_bid_dollars": "0.2300",
-     "yes_ask_dollars": "0.2400",
-     "no_bid_dollars": "0.7600",
-     "no_ask_dollars": "0.7700",
-     "yes_bid_size_fp": "1449.26",
-     "yes_ask_size_fp": "754.76",
-     "volume_fp": "20351.80",
-     "volume_24h_fp": "2010.55",
-     "open_interest_fp": "14737.71",
-     "open_time": "2026-05-18T21:33:15Z",
-     "close_time": "2027-01-01T04:59:00Z",
-     "expected_expiration_time": "2027-01-01T15:00:00Z",
-     "latest_expiration_time": "2027-12-31T15:00:00Z",
-     "can_close_early": true,
-     "strike_type": "custom",
-     "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4884.43,
-     "_est_dollar_volume_24h": 482.53
-    },
-    {
-     "ticker": "KXTIME-26-JP",
-     "event_ticker": "KXTIME-26",
-     "market_type": "binary",
-     "title": "Will Jerome Powell be Time Person of the Year in 2026?",
-     "subtitle": "Jerome Powell",
-     "yes_sub_title": "Jerome Powell",
-     "no_sub_title": "Jerome Powell",
+     "title": "Will Lionel Messi be Time Person of the Year in 2026?",
+     "subtitle": "Lionel Messi",
+     "yes_sub_title": "Lionel Messi",
+     "no_sub_title": "Lionel Messi",
      "status": "active",
      "result": "",
      "last_price_dollars": "0.0400",
-     "previous_price_dollars": "0.0200",
-     "previous_yes_bid_dollars": "0.0100",
-     "yes_bid_dollars": "0.0100",
+     "previous_price_dollars": "0.0400",
+     "previous_yes_bid_dollars": "0.0200",
+     "yes_bid_dollars": "0.0200",
      "yes_ask_dollars": "0.0400",
      "no_bid_dollars": "0.9600",
-     "no_ask_dollars": "0.9900",
-     "yes_bid_size_fp": "33333.32",
-     "yes_ask_size_fp": "7566.94",
-     "volume_fp": "110453.14",
-     "volume_24h_fp": "29966.49",
-     "open_interest_fp": "86910.92",
-     "open_time": "2025-12-15T02:22:54Z",
+     "no_ask_dollars": "0.9800",
+     "yes_bid_size_fp": "8333.33",
+     "yes_ask_size_fp": "3248.24",
+     "volume_fp": "122315.19",
+     "volume_24h_fp": "8519.50",
+     "open_interest_fp": "93450.70",
+     "open_time": "2026-07-20T19:34:56Z",
      "close_time": "2027-01-01T04:59:00Z",
      "expected_expiration_time": "2027-01-01T15:00:00Z",
      "latest_expiration_time": "2027-12-31T15:00:00Z",
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4418.13,
-     "_est_dollar_volume_24h": 1198.66
+     "_est_dollar_volume": 4892.61,
+     "_est_dollar_volume_24h": 340.78
     }
    ]
   },
@@ -1413,17 +1422,20 @@
   {
    "event_ticker": "KXRT-HUN",
    "series_ticker": "KXRT",
-   "title": "The Hunger Games: Sunrise on the Reaping Rotten Tomatoes score?",
+   "title": "The Hunger Games: Sunrise on the Reaping · Rotten Tomatoes score",
+   "sub_title": "The Hunger Games: Sunrise on the Reaping",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-10-29T00:06:30.706858Z",
    "settlement_sources": [
     {
      "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
+     "url": "https://www.rottentomatoes.com/m/the_hunger_games_sunrise_on_the_reaping"
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 42148.16,
-   "_volume_contracts": 177849.17,
+   "_est_dollar_volume": 42166.82,
+   "_volume_contracts": 177919.72,
    "_market_count": 13,
    "_markets": [
     {
@@ -1444,10 +1456,10 @@
      "no_bid_dollars": "0.4700",
      "no_ask_dollars": "0.4900",
      "yes_bid_size_fp": "326.79",
-     "yes_ask_size_fp": "221.80",
-     "volume_fp": "19966.78",
-     "volume_24h_fp": "7821.66",
-     "open_interest_fp": "17156.98",
+     "yes_ask_size_fp": "188.72",
+     "volume_fp": "19999.86",
+     "volume_24h_fp": "7832.48",
+     "open_interest_fp": "17190.06",
      "open_time": "2026-09-15T18:51:08Z",
      "close_time": "2026-11-23T15:00:00Z",
      "expected_expiration_time": "2026-11-23T15:00:00Z",
@@ -1455,8 +1467,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 10582.39,
-     "_est_dollar_volume_24h": 4145.48
+     "_est_dollar_volume": 10599.93,
+     "_est_dollar_volume_24h": 4151.21
     },
     {
      "ticker": "KXRT-HUN-60",
@@ -1606,7 +1618,7 @@
      "yes_bid_size_fp": "40.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "24753.74",
-     "volume_24h_fp": "6641.28",
+     "volume_24h_fp": "6620.34",
      "open_interest_fp": "21129.69",
      "open_time": "2026-10-29T00:34:19Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -1616,7 +1628,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 2970.45,
-     "_est_dollar_volume_24h": 796.95
+     "_est_dollar_volume_24h": 794.44
     },
     {
      "ticker": "KXRT-HUN-70",
@@ -1638,7 +1650,7 @@
      "yes_bid_size_fp": "316.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "16711.34",
-     "volume_24h_fp": "5490.35",
+     "volume_24h_fp": "5472.14",
      "open_interest_fp": "13468.41",
      "open_time": "2026-09-15T18:51:08Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -1648,7 +1660,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 2840.93,
-     "_est_dollar_volume_24h": 933.36
+     "_est_dollar_volume_24h": 930.26
     },
     {
      "ticker": "KXRT-HUN-72",
@@ -1664,14 +1676,14 @@
      "previous_price_dollars": "0.5900",
      "previous_yes_bid_dollars": "0.5800",
      "yes_bid_dollars": "0.0200",
-     "yes_ask_dollars": "1.0000",
-     "no_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.0300",
+     "no_bid_dollars": "0.9700",
      "no_ask_dollars": "0.9800",
-     "yes_bid_size_fp": "10.00",
-     "yes_ask_size_fp": "0.00",
-     "volume_fp": "23102.35",
-     "volume_24h_fp": "6573.31",
-     "open_interest_fp": "17614.12",
+     "yes_bid_size_fp": "8345.33",
+     "yes_ask_size_fp": "5555.19",
+     "volume_fp": "23139.82",
+     "volume_24h_fp": "6584.17",
+     "open_interest_fp": "17633.43",
      "open_time": "2026-10-29T00:34:19Z",
      "close_time": "2026-11-23T15:00:00Z",
      "expected_expiration_time": "2026-11-23T15:00:00Z",
@@ -1679,8 +1691,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 693.07,
-     "_est_dollar_volume_24h": 197.2
+     "_est_dollar_volume": 694.19,
+     "_est_dollar_volume_24h": 197.53
     }
    ]
   },
@@ -2559,17 +2571,20 @@
   {
    "event_ticker": "KXRT-FUR",
    "series_ticker": "KXRT",
-   "title": "The Further Mis-Adventures of Cliff Booth Rotten Tomatoes score?",
+   "title": "The Further Mis-Adventures of Cliff Booth · Rotten Tomatoes score",
+   "sub_title": "The Further Mis-Adventures of Cliff Booth",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-09T22:20:41.514799Z",
    "settlement_sources": [
     {
      "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
+     "url": "https://www.rottentomatoes.com/m/the_further_mis-adventures_of_cliff_booth"
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 13137.91,
-   "_volume_contracts": 43143.89,
+   "_est_dollar_volume": 13224.94,
+   "_volume_contracts": 43225.46,
    "_market_count": 10,
    "_markets": [
     {
@@ -2590,9 +2605,9 @@
      "no_bid_dollars": "0.8300",
      "no_ask_dollars": "0.8600",
      "yes_bid_size_fp": "50.40",
-     "yes_ask_size_fp": "661.77",
-     "volume_fp": "29295.41",
-     "volume_24h_fp": "25491.89",
+     "yes_ask_size_fp": "636.87",
+     "volume_fp": "29320.31",
+     "volume_24h_fp": "25514.10",
      "open_interest_fp": "24822.67",
      "open_time": "2026-11-09T22:04:17Z",
      "close_time": "2026-11-30T15:00:00Z",
@@ -2601,8 +2616,40 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4980.22,
-     "_est_dollar_volume_24h": 4333.62
+     "_est_dollar_volume": 4984.45,
+     "_est_dollar_volume_24h": 4337.4
+    },
+    {
+     "ticker": "KXRT-FUR-70",
+     "event_ticker": "KXRT-FUR",
+     "market_type": "binary",
+     "title": "The Further Mis-Adventures of Cliff Booth Rotten Tomatoes score?",
+     "subtitle": "Above 70",
+     "yes_sub_title": "Above 70",
+     "no_sub_title": "Above 70",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.9900",
+     "previous_price_dollars": "0.7900",
+     "previous_yes_bid_dollars": "0.9400",
+     "yes_bid_dollars": "0.9600",
+     "yes_ask_dollars": "0.9900",
+     "no_bid_dollars": "0.0100",
+     "no_ask_dollars": "0.0400",
+     "yes_bid_size_fp": "173.61",
+     "yes_ask_size_fp": "140.39",
+     "volume_fp": "2796.73",
+     "volume_24h_fp": "1105.78",
+     "open_interest_fp": "2670.15",
+     "open_time": "2026-11-09T22:04:17Z",
+     "close_time": "2026-11-30T15:00:00Z",
+     "expected_expiration_time": "2026-11-30T15:00:00Z",
+     "latest_expiration_time": "2026-12-07T15:00:00Z",
+     "can_close_early": true,
+     "strike_type": "greater",
+     "price_level_structure": "linear_cent",
+     "_est_dollar_volume": 2768.76,
+     "_est_dollar_volume_24h": 1094.72
     },
     {
      "ticker": "KXRT-FUR-75",
@@ -2622,10 +2669,10 @@
      "no_bid_dollars": "0.0500",
      "no_ask_dollars": "0.0700",
      "yes_bid_size_fp": "18.66",
-     "yes_ask_size_fp": "463.26",
-     "volume_fp": "2869.81",
-     "volume_24h_fp": "1746.49",
-     "open_interest_fp": "2677.20",
+     "yes_ask_size_fp": "440.15",
+     "volume_fp": "2892.92",
+     "volume_24h_fp": "1764.94",
+     "open_interest_fp": "2700.31",
      "open_time": "2026-11-09T22:04:17Z",
      "close_time": "2026-11-30T15:00:00Z",
      "expected_expiration_time": "2026-11-30T15:00:00Z",
@@ -2633,40 +2680,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 2726.32,
-     "_est_dollar_volume_24h": 1659.17
-    },
-    {
-     "ticker": "KXRT-FUR-70",
-     "event_ticker": "KXRT-FUR",
-     "market_type": "binary",
-     "title": "The Further Mis-Adventures of Cliff Booth Rotten Tomatoes score?",
-     "subtitle": "Above 70",
-     "yes_sub_title": "Above 70",
-     "no_sub_title": "Above 70",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.9800",
-     "previous_price_dollars": "0.7900",
-     "previous_yes_bid_dollars": "0.9400",
-     "yes_bid_dollars": "0.9600",
-     "yes_ask_dollars": "0.9800",
-     "no_bid_dollars": "0.0200",
-     "no_ask_dollars": "0.0400",
-     "yes_bid_size_fp": "173.61",
-     "yes_ask_size_fp": "5.60",
-     "volume_fp": "2763.17",
-     "volume_24h_fp": "1077.31",
-     "open_interest_fp": "2636.59",
-     "open_time": "2026-11-09T22:04:17Z",
-     "close_time": "2026-11-30T15:00:00Z",
-     "expected_expiration_time": "2026-11-30T15:00:00Z",
-     "latest_expiration_time": "2026-12-07T15:00:00Z",
-     "can_close_early": true,
-     "strike_type": "greater",
-     "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 2707.91,
-     "_est_dollar_volume_24h": 1055.76
+     "_est_dollar_volume": 2748.27,
+     "_est_dollar_volume_24h": 1676.69
     },
     {
      "ticker": "KXRT-FUR-80",
@@ -2833,12 +2848,15 @@
   {
    "event_ticker": "KXRT-FOC",
    "series_ticker": "KXRT",
-   "title": "Focker-In-Law Rotten Tomatoes score?",
+   "title": "Focker-In-Law · Rotten Tomatoes score",
+   "sub_title": "Focker-In-Law",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-10-19T19:35:44.795861Z",
    "settlement_sources": [
     {
      "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
+     "url": "https://www.rottentomatoes.com/m/focker_in_law"
     }
    ],
    "_match_reason": "series-discovery",
@@ -3051,11 +3069,11 @@
      "last_price_dollars": "0.1700",
      "previous_price_dollars": "0.1700",
      "previous_yes_bid_dollars": "0.1700",
-     "yes_bid_dollars": "0.0100",
+     "yes_bid_dollars": "0.0000",
      "yes_ask_dollars": "0.1700",
      "no_bid_dollars": "0.8300",
-     "no_ask_dollars": "0.9900",
-     "yes_bid_size_fp": "30.00",
+     "no_ask_dollars": "1.0000",
+     "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "26.00",
      "volume_fp": "4327.28",
      "volume_24h_fp": "0.00",
@@ -3539,17 +3557,20 @@
   {
    "event_ticker": "KXRT-IPL",
    "series_ticker": "KXRT",
-   "title": "I Play Rocky Rotten Tomatoes score?",
+   "title": "I Play Rocky · Rotten Tomatoes score",
+   "sub_title": "I Play Rocky",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-09-22T16:38:53.400673Z",
    "settlement_sources": [
     {
      "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
+     "url": "https://www.rottentomatoes.com/m/i_play_rocky"
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 5678.41,
-   "_volume_contracts": 25489.03,
+   "_est_dollar_volume": 5679.01,
+   "_volume_contracts": 25509.03,
    "_market_count": 13,
    "_markets": [
     {
@@ -3667,9 +3688,9 @@
      "no_ask_dollars": "0.9800",
      "yes_bid_size_fp": "16676.66",
      "yes_ask_size_fp": "5555.55",
-     "volume_fp": "19974.43",
-     "volume_24h_fp": "6055.55",
-     "open_interest_fp": "13928.88",
+     "volume_fp": "19994.43",
+     "volume_24h_fp": "6075.55",
+     "open_interest_fp": "13938.88",
      "open_time": "2026-09-14T22:16:50Z",
      "close_time": "2026-11-23T15:00:00Z",
      "expected_expiration_time": "2026-11-23T15:00:00Z",
@@ -3677,8 +3698,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 599.23,
-     "_est_dollar_volume_24h": 181.67
+     "_est_dollar_volume": 599.83,
+     "_est_dollar_volume_24h": 182.27
     },
     {
      "ticker": "KXRT-IPL-77",
@@ -3813,12 +3834,15 @@
   {
    "event_ticker": "KXRT-AVE",
    "series_ticker": "KXRT",
-   "title": "Avengers: Doomsday Rotten Tomatoes score?",
+   "title": "\"Avengers: Doomsday\" Rotten Tomatoes score?",
+   "sub_title": "Avengers: Doomsday",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-08-11T21:07:20.42009Z",
    "settlement_sources": [
     {
      "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
+     "url": "https://www.rottentomatoes.com/m/avengers_doomsday"
     }
    ],
    "_match_reason": "series-discovery",
@@ -4087,12 +4111,15 @@
   {
    "event_ticker": "KXRT-VIO",
    "series_ticker": "KXRT",
-   "title": "Violent Night 2 Rotten Tomatoes score?",
+   "title": "Violent Night 2 · Rotten Tomatoes score",
+   "sub_title": "Violent Night 2",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-10-19T19:35:44.795861Z",
    "settlement_sources": [
     {
      "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
+     "url": "https://www.rottentomatoes.com/m/violent_night_2"
     }
    ],
    "_match_reason": "series-discovery",
@@ -4919,8 +4946,12 @@
   {
    "event_ticker": "KXOSCARSUPACTO-27",
    "series_ticker": "KXOSCARSUPACTO",
-   "title": "Will Andrew Garfield win Best Supporting Actor at the Oscars?",
+   "title": "Oscar for Best Supporting Actor?",
+   "sub_title": "In 2027",
    "category": "Entertainment",
+   "mutually_exclusive": true,
+   "strike_date": "2027-12-31T15:00:00Z",
+   "last_updated_ts": "2026-10-15T17:05:31.978027Z",
    "settlement_sources": [
     {
      "name": "Academy of Motion Picture Arts and Sciences",
@@ -6457,8 +6488,11 @@
   {
    "event_ticker": "KXOSCARNOMPIC-27",
    "series_ticker": "KXOSCARNOMPIC",
-   "title": "2027 Best Picture Oscar nominations?",
+   "title": "Oscar nominations for Best Picture?",
+   "sub_title": "In 2027",
    "category": "Entertainment",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-09-24T20:09:11.057222Z",
    "settlement_sources": [
     {
      "name": "Academy of Motion Picture Arts and Sciences",

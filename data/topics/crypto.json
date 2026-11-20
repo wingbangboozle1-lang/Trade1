@@ -1,7 +1,7 @@
 {
  "topic": "crypto",
  "label": "Crypto",
- "generated_at": "2026-11-20T13:37:23.373758+00:00",
+ "generated_at": "2026-11-20T13:42:10.526018+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -31,8 +31,12 @@
   {
    "event_ticker": "KXBTCY-27JAN0100",
    "series_ticker": "KXBTCY",
-   "title": "BTC price  on Jan 1, 2027?",
+   "title": "Bitcoin price at the end of 2026",
+   "sub_title": "On Jan 1, 2027 at 12am EST",
    "category": "Crypto",
+   "mutually_exclusive": true,
+   "strike_date": "2027-01-01T05:00:00Z",
+   "last_updated_ts": "2026-11-13T01:59:56.512157Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -63,7 +67,7 @@
      "yes_bid_size_fp": "9999.99",
      "yes_ask_size_fp": "2777.77",
      "volume_fp": "80178705.51",
-     "volume_24h_fp": "402.52",
+     "volume_24h_fp": "384.69",
      "open_interest_fp": "26587876.94",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -73,7 +77,7 @@
      "strike_type": "between",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 78575131.4,
-     "_est_dollar_volume_24h": 394.47
+     "_est_dollar_volume_24h": 377.0
     },
     {
      "ticker": "KXBTCY-27JAN0100-B147500",
@@ -125,7 +129,7 @@
      "yes_bid_size_fp": "1515.14",
      "yes_ask_size_fp": "13.55",
      "volume_fp": "49013410.91",
-     "volume_24h_fp": "2580.41",
+     "volume_24h_fp": "2565.34",
      "open_interest_fp": "8366925.90",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -135,7 +139,7 @@
      "strike_type": "between",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 11273084.51,
-     "_est_dollar_volume_24h": 593.49
+     "_est_dollar_volume_24h": 590.03
     },
     {
      "ticker": "KXBTCY-27JAN0100-B57500",
@@ -156,7 +160,7 @@
      "yes_bid_size_fp": "1041.66",
      "yes_ask_size_fp": "1960.78",
      "volume_fp": "65010685.37",
-     "volume_24h_fp": "8003.85",
+     "volume_24h_fp": "7981.70",
      "open_interest_fp": "13409310.77",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -166,7 +170,7 @@
      "strike_type": "between",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 10401709.66,
-     "_est_dollar_volume_24h": 1280.62
+     "_est_dollar_volume_24h": 1277.07
     },
     {
      "ticker": "KXBTCY-27JAN0100-B67500",
@@ -187,7 +191,7 @@
      "yes_bid_size_fp": "1916.78",
      "yes_ask_size_fp": "2777.76",
      "volume_fp": "42982186.80",
-     "volume_24h_fp": "2368.14",
+     "volume_24h_fp": "2347.84",
      "open_interest_fp": "7164867.64",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -197,7 +201,7 @@
      "strike_type": "between",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 7306971.76,
-     "_est_dollar_volume_24h": 402.58
+     "_est_dollar_volume_24h": 399.13
     },
     {
      "ticker": "KXBTCY-27JAN0100-B52500",
@@ -218,7 +222,7 @@
      "yes_bid_size_fp": "6249.99",
      "yes_ask_size_fp": "5262.59",
      "volume_fp": "61711409.80",
-     "volume_24h_fp": "4540.15",
+     "volume_24h_fp": "4526.56",
      "open_interest_fp": "7787531.90",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -228,7 +232,7 @@
      "strike_type": "between",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 5554026.88,
-     "_est_dollar_volume_24h": 408.61
+     "_est_dollar_volume_24h": 407.39
     },
     {
      "ticker": "KXBTCY-27JAN0100-B117500",
@@ -249,7 +253,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "125391764.66",
-     "volume_24h_fp": "58491.81",
+     "volume_24h_fp": "58472.90",
      "open_interest_fp": "21106124.34",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -259,7 +263,7 @@
      "strike_type": "between",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 3761752.94,
-     "_est_dollar_volume_24h": 1754.75
+     "_est_dollar_volume_24h": 1754.19
     },
     {
      "ticker": "KXBTCY-27JAN0100-B42500",
@@ -280,7 +284,7 @@
      "yes_bid_size_fp": "16666.65",
      "yes_ask_size_fp": "12499.98",
      "volume_fp": "89207336.93",
-     "volume_24h_fp": "402.36",
+     "volume_24h_fp": "383.77",
      "open_interest_fp": "25229904.76",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -290,15 +294,19 @@
      "strike_type": "between",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 3568293.48,
-     "_est_dollar_volume_24h": 16.09
+     "_est_dollar_volume_24h": 15.35
     }
    ]
   },
   {
    "event_ticker": "KXETHY-27JAN0100",
    "series_ticker": "KXETHY",
-   "title": "ETH price  on Jan 1, 2027?",
+   "title": "Ethereum price at the end of 2026",
+   "sub_title": "On Jan 1, 2027 at 12am EST",
    "category": "Crypto",
+   "mutually_exclusive": true,
+   "strike_date": "2027-01-01T05:00:00Z",
+   "last_updated_ts": "2026-11-13T01:59:56.444845Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -563,17 +571,20 @@
   {
    "event_ticker": "KXBTC50VS100-BTC-26DEC31",
    "series_ticker": "KXBTC50VS100",
-   "title": "Will BTC hit $50,000 before $100,000 by Dec 31, 2026?",
+   "title": "Will BTC hit $50,000 before $100,000?",
+   "sub_title": "Before Dec 31, 2026 at 11:59 PM ET",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T01:59:58.663382Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
-     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI"
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 962498.62,
-   "_volume_contracts": 3437495.07,
+   "_est_dollar_volume": 962505.17,
+   "_volume_contracts": 3437518.45,
    "_market_count": 1,
    "_markets": [
     {
@@ -594,26 +605,29 @@
      "no_bid_dollars": "0.7200",
      "no_ask_dollars": "0.7500",
      "yes_bid_size_fp": "666.66",
-     "yes_ask_size_fp": "440.26",
-     "volume_fp": "3437495.07",
-     "volume_24h_fp": "9874.23",
-     "open_interest_fp": "2052975.69",
+     "yes_ask_size_fp": "416.88",
+     "volume_fp": "3437518.45",
+     "volume_24h_fp": "9889.39",
+     "open_interest_fp": "2052999.07",
      "open_time": "2026-06-03T03:47:04Z",
      "close_time": "2027-01-01T04:59:00Z",
      "expected_expiration_time": "2027-01-01T04:59:00Z",
      "latest_expiration_time": "2027-01-08T04:59:00Z",
      "can_close_early": true,
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 962498.62,
-     "_est_dollar_volume_24h": 2764.78
+     "_est_dollar_volume": 962505.17,
+     "_est_dollar_volume_24h": 2769.03
     }
    ]
   },
   {
    "event_ticker": "KXBTCMAX100-26",
    "series_ticker": "KXBTCMAX100",
-   "title": "Will Bitcoin be above $100000 by December 1, 2026 at 12:00AM ET?",
+   "title": "When will Bitcoin cross $100k again?",
+   "sub_title": "2026",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T01:59:57.141228Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -887,8 +901,11 @@
   {
    "event_ticker": "KXBTCMINY-27JAN01",
    "series_ticker": "KXBTCMINY",
-   "title": "Will Bitcoin be below $55000.00 by Jan 1, 2027 at 12:00am ET?",
+   "title": "How low will Bitcoin get next year?",
+   "sub_title": "In 2026",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T01:59:57.076039Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -1159,8 +1176,11 @@
   {
    "event_ticker": "KXBTC2026200-27JAN01",
    "series_ticker": "KXBTC2026200",
-   "title": "Will Bitcoin be above $200000 by Jan 1, 2027 at 11:59PM ET?",
+   "title": "Will Bitcoin be above $200k by 2027?",
+   "sub_title": "Before 2027",
    "category": "Crypto",
+   "mutually_exclusive": true,
+   "last_updated_ts": "2026-11-13T01:59:57.286515Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -1208,8 +1228,11 @@
   {
    "event_ticker": "KXBTCMINMON-BTC-26NOV30",
    "series_ticker": "KXBTCMINMON",
-   "title": "Will BTC trimmed mean be below $55000.00 by 11:59 PM ET on Nov 30, 2026?",
+   "title": "How low will BTC get in November?",
+   "sub_title": "November",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-19T22:36:23.810023Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -1474,8 +1497,11 @@
   {
    "event_ticker": "KXBTCMAXMON-BTC-26NOV30",
    "series_ticker": "KXBTCMAXMON",
-   "title": "Will BTC trimmed mean be above $97500.00 by 11:59 PM ET on Nov 30, 2026?",
+   "title": "How high will BTC get in November?",
+   "sub_title": "November",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T02:00:08.44242Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -1740,8 +1766,11 @@
   {
    "event_ticker": "KXBTCMAXY-26DEC31",
    "series_ticker": "KXBTCMAXY",
-   "title": "Will Bitcoin be above $99999.99 by Dec 31, 2026 at 11:59 PM ET?",
+   "title": "Bitcoin reaches $200,000 before 2027?",
+   "sub_title": "Before Dec 31, 2026 at 11:59 PM ET",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T01:59:58.528507Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -1973,6 +2002,47 @@
    ]
   },
   {
+   "event_ticker": "KXDEMOFUTHOURLY-26NOV20H14",
+   "series_ticker": "KXDEMOFUTHOURLY",
+   "title": "Demo BTC at or above 61498.92 USD",
+   "category": null,
+   "_match_reason": "series-prefix",
+   "_est_dollar_volume": 2828.25,
+   "_volume_contracts": 6285.0,
+   "_market_count": 1,
+   "_markets": [
+    {
+     "ticker": "KXDEMOFUTHOURLY-26NOV20H14-UP",
+     "event_ticker": "KXDEMOFUTHOURLY-26NOV20H14",
+     "market_type": "binary",
+     "title": "Demo BTC at or above 61498.92 USD",
+     "yes_sub_title": "At or above reference",
+     "no_sub_title": "Below reference",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.4500",
+     "previous_price_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.0000",
+     "yes_bid_dollars": "0.0100",
+     "yes_ask_dollars": "1.0000",
+     "no_bid_dollars": "0.0000",
+     "no_ask_dollars": "0.9900",
+     "yes_bid_size_fp": "10.00",
+     "yes_ask_size_fp": "0.00",
+     "volume_fp": "6285.00",
+     "volume_24h_fp": "5985.00",
+     "open_interest_fp": "45.00",
+     "open_time": "2026-11-20T13:00:12.654045Z",
+     "close_time": "2026-11-20T14:00:00Z",
+     "latest_expiration_time": "2026-11-20T14:05:00Z",
+     "can_close_early": false,
+     "price_level_structure": "linear_cent",
+     "_est_dollar_volume": 2828.25,
+     "_est_dollar_volume_24h": 2693.25
+    }
+   ]
+  },
+  {
    "event_ticker": "KXDEMOFUTBOT-29DEC31",
    "series_ticker": "KXDEMOFUTBOT",
    "title": "Demo event contract futures bot test",
@@ -2018,100 +2088,14 @@
    ]
   },
   {
-   "event_ticker": "KXDEMOFUTHOURLY-26NOV20H14",
-   "series_ticker": "KXDEMOFUTHOURLY",
-   "title": "Demo BTC at or above 61498.92 USD",
-   "category": null,
-   "_match_reason": "series-prefix",
-   "_est_dollar_volume": 1951.25,
-   "_volume_contracts": 5575.0,
-   "_market_count": 1,
-   "_markets": [
-    {
-     "ticker": "KXDEMOFUTHOURLY-26NOV20H14-UP",
-     "event_ticker": "KXDEMOFUTHOURLY-26NOV20H14",
-     "market_type": "binary",
-     "title": "Demo BTC at or above 61498.92 USD",
-     "yes_sub_title": "At or above reference",
-     "no_sub_title": "Below reference",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.3500",
-     "previous_price_dollars": "0.0000",
-     "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.0100",
-     "yes_ask_dollars": "1.0000",
-     "no_bid_dollars": "0.0000",
-     "no_ask_dollars": "0.9900",
-     "yes_bid_size_fp": "10.00",
-     "yes_ask_size_fp": "0.00",
-     "volume_fp": "5575.00",
-     "volume_24h_fp": "5235.00",
-     "open_interest_fp": "75.00",
-     "open_time": "2026-11-20T13:00:12.654045Z",
-     "close_time": "2026-11-20T14:00:00Z",
-     "latest_expiration_time": "2026-11-20T14:05:00Z",
-     "can_close_early": false,
-     "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 1951.25,
-     "_est_dollar_volume_24h": 1832.25
-    }
-   ]
-  },
-  {
-   "event_ticker": "KXBTC15M-26NOV200845",
-   "series_ticker": "KXBTC15M",
-   "title": "BTC price up in next 15 mins?",
-   "category": "Crypto",
-   "settlement_sources": [
-    {
-     "name": "CF Benchmarks",
-     "url": "https://www.cfbenchmarks.com/"
-    }
-   ],
-   "_match_reason": "series-discovery",
-   "_est_dollar_volume": 272.92,
-   "_volume_contracts": 1049.69,
-   "_market_count": 1,
-   "_markets": [
-    {
-     "ticker": "KXBTC15M-26NOV200845-45",
-     "event_ticker": "KXBTC15M-26NOV200845",
-     "market_type": "binary",
-     "title": "BTC price up in next 15 mins?",
-     "yes_sub_title": "Target Price: $61,459.55",
-     "no_sub_title": "Target price: TBD",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.2600",
-     "previous_price_dollars": "0.0000",
-     "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.2800",
-     "yes_ask_dollars": "0.3000",
-     "no_bid_dollars": "0.7000",
-     "no_ask_dollars": "0.7200",
-     "yes_bid_size_fp": "30.00",
-     "yes_ask_size_fp": "80.00",
-     "volume_fp": "1049.69",
-     "volume_24h_fp": "757.69",
-     "open_interest_fp": "441.54",
-     "open_time": "2026-11-20T13:30:00Z",
-     "close_time": "2026-11-20T13:45:00Z",
-     "expected_expiration_time": "2026-11-20T13:50:00Z",
-     "latest_expiration_time": "2026-11-27T13:45:00Z",
-     "can_close_early": true,
-     "strike_type": "greater_or_equal",
-     "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 272.92,
-     "_est_dollar_volume_24h": 197.0
-    }
-   ]
-  },
-  {
    "event_ticker": "KXETHD-26NOV2009",
    "series_ticker": "KXETHD",
-   "title": "Ethereum price at Nov 20, 2026 at 9am EST?",
+   "title": "ETH price on Nov 20, 2026 at 9am EST?",
+   "sub_title": "On Nov 20, 2026 at 9am EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-20T14:00:00Z",
+   "last_updated_ts": "2026-11-19T10:02:11.854332Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -2136,11 +2120,11 @@
      "last_price_dollars": "0.7300",
      "previous_price_dollars": "0.0000",
      "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.0000",
+     "yes_bid_dollars": "0.8900",
      "yes_ask_dollars": "1.0000",
      "no_bid_dollars": "0.0000",
-     "no_ask_dollars": "1.0000",
-     "yes_bid_size_fp": "0.00",
+     "no_ask_dollars": "0.1100",
+     "yes_bid_size_fp": "100.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "50.00",
      "volume_24h_fp": "50.00",
@@ -2233,11 +2217,11 @@
      "previous_price_dollars": "0.0000",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "1.0000",
-     "no_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.1300",
+     "no_bid_dollars": "0.8700",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "0.00",
+     "yes_ask_size_fp": "3.00",
      "volume_fp": "50.00",
      "volume_24h_fp": "50.00",
      "open_interest_fp": "50.00",
@@ -2384,8 +2368,11 @@
   {
    "event_ticker": "KXETHMINY-27JAN01",
    "series_ticker": "KXETHMINY",
-   "title": "Will Ethereum reach below $750.00 by Jan 1, 2027 at 12:00AM ET?",
+   "title": "How low will Ethereum get next year?",
+   "sub_title": "2026",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T01:59:56.934603Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -2932,6 +2919,59 @@
    ]
   },
   {
+   "event_ticker": "KXBTC15M-26NOV200845",
+   "series_ticker": "KXBTC15M",
+   "title": "BTC 15 min · $61,459.55 target",
+   "sub_title": "Nov 20 - 8:30AM EST to 8:45AM EST",
+   "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-20T13:45:00Z",
+   "last_updated_ts": "2026-11-20T13:30:15.939239Z",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/"
+    }
+   ],
+   "_match_reason": "series-discovery",
+   "_est_dollar_volume": 40.94,
+   "_volume_contracts": 1949.49,
+   "_market_count": 1,
+   "_markets": [
+    {
+     "ticker": "KXBTC15M-26NOV200845-45",
+     "event_ticker": "KXBTC15M-26NOV200845",
+     "market_type": "binary",
+     "title": "BTC price up in next 15 mins?",
+     "yes_sub_title": "Target Price: $61,459.55",
+     "no_sub_title": "Target price: TBD",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.0210",
+     "previous_price_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.0000",
+     "yes_bid_dollars": "0.0250",
+     "yes_ask_dollars": "0.0280",
+     "no_bid_dollars": "0.9720",
+     "no_ask_dollars": "0.9750",
+     "yes_bid_size_fp": "30.00",
+     "yes_ask_size_fp": "5.00",
+     "volume_fp": "1949.49",
+     "volume_24h_fp": "1692.69",
+     "open_interest_fp": "989.92",
+     "open_time": "2026-11-20T13:30:00Z",
+     "close_time": "2026-11-20T13:45:00Z",
+     "expected_expiration_time": "2026-11-20T13:50:00Z",
+     "latest_expiration_time": "2026-11-27T13:45:00Z",
+     "can_close_early": true,
+     "strike_type": "greater_or_equal",
+     "price_level_structure": "tapered_deci_cent",
+     "_est_dollar_volume": 40.94,
+     "_est_dollar_volume_24h": 35.55
+    }
+   ]
+  },
+  {
    "event_ticker": "KXBTCD-33MAY2100",
    "series_ticker": "KXBTCD",
    "title": "BTC price on May 21, 2033 at 12am EDT?",
@@ -3212,8 +3252,12 @@
   {
    "event_ticker": "KXETHD-26NOV2017",
    "series_ticker": "KXETHD",
-   "title": "Ethereum price at Nov 20, 2026 at 5pm EST?",
+   "title": "ETH price on Nov 20, 2026 at 5pm EST?",
+   "sub_title": "On Nov 20, 2026 at 5pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-20T22:00:00Z",
+   "last_updated_ts": "2026-11-13T11:36:20.059284Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -3484,10 +3528,66 @@
    ]
   },
   {
+   "event_ticker": "KXETH15M-26NOV200845",
+   "series_ticker": "KXETH15M",
+   "title": "ETH 15 min · $1,732.61 target",
+   "sub_title": "Nov 20 - 8:30AM EST to 8:45AM EST",
+   "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-20T13:45:00Z",
+   "last_updated_ts": "2026-11-20T13:30:14.253551Z",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/"
+    }
+   ],
+   "_match_reason": "series-discovery",
+   "_est_dollar_volume": 4.44,
+   "_volume_contracts": 12.0,
+   "_market_count": 1,
+   "_markets": [
+    {
+     "ticker": "KXETH15M-26NOV200845-45",
+     "event_ticker": "KXETH15M-26NOV200845",
+     "market_type": "binary",
+     "title": "ETH price up in next 15 mins?",
+     "yes_sub_title": "Target Price: $1,732.61",
+     "no_sub_title": "Target price: TBD",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.3700",
+     "previous_price_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.0000",
+     "yes_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.3900",
+     "no_bid_dollars": "0.6100",
+     "no_ask_dollars": "1.0000",
+     "yes_bid_size_fp": "0.00",
+     "yes_ask_size_fp": "1.00",
+     "volume_fp": "12.00",
+     "volume_24h_fp": "6.00",
+     "open_interest_fp": "9.00",
+     "open_time": "2026-11-20T13:30:00Z",
+     "close_time": "2026-11-20T13:45:00Z",
+     "expected_expiration_time": "2026-11-20T13:50:00Z",
+     "latest_expiration_time": "2026-11-27T13:45:00Z",
+     "can_close_early": true,
+     "strike_type": "greater_or_equal",
+     "price_level_structure": "tapered_deci_cent",
+     "_est_dollar_volume": 4.44,
+     "_est_dollar_volume_24h": 2.22
+    }
+   ]
+  },
+  {
    "event_ticker": "KXETHMAXMON-ETH-26NOV30",
    "series_ticker": "KXETHMAXMON",
-   "title": "Will ETH trimmed mean be above $4250.00 by 11:59 PM ET on Nov 30, 2026?",
+   "title": "How high will ETH get in November?",
+   "sub_title": "November",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "last_updated_ts": "2026-11-13T02:00:08.10086Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -3752,8 +3852,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2411",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 11am EST?",
+   "sub_title": "On Dec 24, 2027 at 11am EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T16:00:00Z",
+   "last_updated_ts": "2026-09-22T16:01:45.503271Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -4038,8 +4142,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2413",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 1pm EST?",
+   "sub_title": "On Dec 24, 2027 at 1pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T18:00:00Z",
+   "last_updated_ts": "2026-09-22T16:01:52.543373Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -4312,8 +4420,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2414",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 2pm EST?",
+   "sub_title": "On Dec 24, 2027 at 2pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T19:00:00Z",
+   "last_updated_ts": "2026-09-22T16:01:56.103983Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -4586,8 +4698,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2418",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 6pm EST?",
+   "sub_title": "On Dec 24, 2027 at 6pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T23:00:00Z",
+   "last_updated_ts": "2026-09-22T16:02:09.90345Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -4860,8 +4976,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2410",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 10am EST?",
+   "sub_title": "On Dec 24, 2027 at 10am EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T15:00:00Z",
+   "last_updated_ts": "2026-09-22T16:01:39.22328Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -5134,8 +5254,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2412",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 12pm EST?",
+   "sub_title": "On Dec 24, 2027 at 12pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T17:00:00Z",
+   "last_updated_ts": "2026-09-22T16:01:49.043599Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -5414,8 +5538,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2419",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 7pm EST?",
+   "sub_title": "On Dec 24, 2027 at 7pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-25T00:00:00Z",
+   "last_updated_ts": "2026-09-22T16:02:13.343298Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -5688,8 +5816,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2415",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 3pm EST?",
+   "sub_title": "On Dec 24, 2027 at 3pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T20:00:00Z",
+   "last_updated_ts": "2026-09-22T16:01:59.583824Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -5962,8 +6094,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2417",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 5pm EST?",
+   "sub_title": "On Dec 24, 2027 at 5pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T22:00:00Z",
+   "last_updated_ts": "2026-09-22T16:02:06.463247Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -6236,8 +6372,12 @@
   {
    "event_ticker": "KXMAXSHARDINGTEST-27DEC2416",
    "series_ticker": "KXMAXSHARDINGTEST",
-   "title": "Bitcoin price on Dec 24, 2027?",
+   "title": "BTC price on Dec 24, 2027 at 4pm EST?",
+   "sub_title": "On Dec 24, 2027 at 4pm EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2027-12-24T21:00:00Z",
+   "last_updated_ts": "2026-09-22T16:02:02.983331Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -6510,8 +6650,12 @@
   {
    "event_ticker": "KXXRP15M-26NOV200845",
    "series_ticker": "KXXRP15M",
-   "title": "XRP price up in next 15 mins?",
+   "title": "XRP 15 min · $0.9376 target",
+   "sub_title": "Nov 20 - 8:30AM EST to 8:45AM EST",
    "category": "Crypto",
+   "mutually_exclusive": false,
+   "strike_date": "2026-11-20T13:45:00Z",
+   "last_updated_ts": "2026-11-20T13:30:15.427694Z",
    "settlement_sources": [
     {
      "name": "CF Benchmarks",
@@ -6536,13 +6680,13 @@
      "previous_price_dollars": "0.0000",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.4400",
-     "no_bid_dollars": "0.5600",
+     "yes_ask_dollars": "0.0610",
+     "no_bid_dollars": "0.9390",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "8.00",
+     "yes_ask_size_fp": "5.00",
      "volume_fp": "2.00",
-     "volume_24h_fp": "0.00",
+     "volume_24h_fp": "2.00",
      "open_interest_fp": "2.00",
      "open_time": "2026-11-20T13:30:00Z",
      "close_time": "2026-11-20T13:45:00Z",
@@ -6552,56 +6696,7 @@
      "strike_type": "greater_or_equal",
      "price_level_structure": "tapered_deci_cent",
      "_est_dollar_volume": 0.4,
-     "_est_dollar_volume_24h": 0.0
-    }
-   ]
-  },
-  {
-   "event_ticker": "KXETH15M-26NOV200845",
-   "series_ticker": "KXETH15M",
-   "title": "ETH price up in next 15 mins?",
-   "category": "Crypto",
-   "settlement_sources": [
-    {
-     "name": "CF Benchmarks",
-     "url": "https://www.cfbenchmarks.com/"
-    }
-   ],
-   "_match_reason": "series-discovery",
-   "_est_dollar_volume": 0.31,
-   "_volume_contracts": 1.0,
-   "_market_count": 1,
-   "_markets": [
-    {
-     "ticker": "KXETH15M-26NOV200845-45",
-     "event_ticker": "KXETH15M-26NOV200845",
-     "market_type": "binary",
-     "title": "ETH price up in next 15 mins?",
-     "yes_sub_title": "Target Price: $1,732.61",
-     "no_sub_title": "Target price: TBD",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.3100",
-     "previous_price_dollars": "0.0000",
-     "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.5000",
-     "no_bid_dollars": "0.5000",
-     "no_ask_dollars": "1.0000",
-     "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "1.00",
-     "volume_fp": "1.00",
-     "volume_24h_fp": "0.00",
-     "open_interest_fp": "1.00",
-     "open_time": "2026-11-20T13:30:00Z",
-     "close_time": "2026-11-20T13:45:00Z",
-     "expected_expiration_time": "2026-11-20T13:50:00Z",
-     "latest_expiration_time": "2026-11-27T13:45:00Z",
-     "can_close_early": true,
-     "strike_type": "greater_or_equal",
-     "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 0.31,
-     "_est_dollar_volume_24h": 0.0
+     "_est_dollar_volume_24h": 0.4
     }
    ]
   }
