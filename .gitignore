@@ -1,4 +1,2 @@
 node_modules/
-tools/build-report.json
-*.log
 .DS_Store
