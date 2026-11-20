@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo Account &amp; Strategy Lab — Kalshi Demo Dashboard</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>Demo Account &amp; Strategy Lab</h1>
+  <span class="sub">Kalshi <strong>demo</strong> environment · paper portfolio runs automatically · live account is opt-in</span>
+  <span id="live-mode" class="mode paper">PAPER MODE (automatic)</span>
+  <nav class="top">
+    <a href="../">Site home</a>
+    <a href="flagged.html">Flagged for Review</a>
+    <a href="VERIFICATION.md">Verification</a>
+    <a href="README.md">README</a>
+  </nav>
+</header>
+<main>
+
+<section>
+  <h2>Portfolio performance</h2>
+  <p class="muted">All values below are <strong>paper trades</strong> executed automatically against live prices from the official
+  Kalshi demo Trade API, or <strong>live demo-account</strong> values when you connect a key. Nothing is invented:
+  blank cells mean no data. <span class="flag-badge">demo prices may differ from production</span></p>
+  <div class="tiles">
+    <div class="tile"><div class="k">Paper cash</div><div class="v" id="stat-cash">—</div></div>
+    <div class="tile"><div class="k">Open positions</div><div class="v" id="stat-open">—</div></div>
+    <div class="tile"><div class="k">Closed trades</div><div class="v" id="stat-closed">—</div></div>
+    <div class="tile"><div class="k">Win rate</div><div class="v" id="stat-winrate">—</div></div>
+    <div class="tile"><div class="k">Realized P&amp;L</div><div class="v" id="stat-realized">—</div></div>
+    <div class="tile"><div class="k">Paper equity</div><div class="v" id="stat-equity">—</div></div>
+    <div class="tile"><div class="k">Last poll</div><div class="v" id="stat-updated" style="font-size:13px">—</div></div>
+  </div>
+  <div class="muted" id="stat-status">Boot</div>
+  <h3>Equity curve <span class="muted">(x = time · y = portfolio value, $)</span></h3>
+  <div id="chart-equity"></div>
+</section>
+
+<section>
+  <h2>Live alerting — two scrolling chats</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h3>All events</h3>
+      <div class="chat" id="chat-all"></div>
+    </div>
+    <div class="panel">
+      <h3>High-ROI model picks <span class="muted">(heuristic score ≥ 3 of 4 — flagged)</span></h3>
+      <div class="chat" id="chat-roi"></div>
+    </div>
+  </div>
+  <p class="muted">Swing threshold: last-price change ≥ <strong>$0.10 in either direction</strong> between samples (integer-cent
+  arithmetic). Each entry links to its market row on the official demo API. The <em>context</em> link opens a news/web
+  search for the event at that time — it is a search link only; <strong>causality is not verified</strong>
+  (<a href="flagged.html#f-da-6">flag F-DA-6</a>).</p>
+</section>
+
+<section>
+  <h2>Price movement chart</h2>
+  <div class="panel">
+    <h3 id="chart-market-title"></h3>
+    <div id="chart-market"></div>
+    <p class="muted">X axis = time · Y axis = current contract price ($0–$1). Alert markers show ≥ $0.10 jumps. Click a market row below to chart it.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Live markets by topic</h2>
+  <p class="muted">Topics stay separate; events within a topic stay grouped. Liquidity detail (how many contracts rest at a
+  given price) is one click away in each row's API link — the orderbook endpoint
+  (<code>GET /markets/{ticker}/orderbook</code>) lists every price level with its size.</p>
+  <div id="markets-tables"></div>
+</section>
+
+<section>
+  <h2>Paper positions</h2>
+  <table><thead><tr>
+    <th>Opened</th><th>Topic</th><th>Event / market</th><th>Strategy</th><th>Side</th><th>Entry</th><th>Count</th><th>Fee</th><th>Mark</th>
+  </tr></thead><tbody id="tbl-positions"></tbody></table>
+</section>
+
+<section>
+  <h2>Closed trades (to resolution)</h2>
+  <p class="muted">Positions are held until the market resolves <strong>YES or NO</strong> (the brief tracks live events until
+  resolution). Winning contracts pay $1 each at settlement; there is no settlement fee
+  (<a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official fee schedule</a>).</p>
+  <table><thead><tr>
+    <th>Opened</th><th>Topic</th><th>Event / market</th><th>Strategy</th><th>Trigger</th><th>Side</th><th>Entry</th><th>Count</th><th>Fee</th><th>Result</th><th>P&amp;L</th>
+  </tr></thead><tbody id="tbl-trades"></tbody></table>
+</section>
+
+<section>
+  <h2>Trade analysis &amp; categorisation</h2>
+  <div class="grid2">
+    <div class="panel"><h3>By topic</h3><div id="an-topic"></div></div>
+    <div class="panel"><h3>By strategy</h3><div id="an-strategy"></div></div>
+  </div>
+  <div class="panel" style="margin-top:14px"><h3>By entry trigger</h3><div id="an-trigger"></div></div>
+</section>
+
+<section>
+  <h2>Resolution tracker</h2>
+  <p class="muted">Watched events and held positions, tracked until each resolves YES or NO.</p>
+  <table><thead><tr><th>Resolved at</th><th>Topic</th><th>Event / market</th><th>Result</th><th>Position P&amp;L</th></tr></thead>
+  <tbody id="tbl-resolutions"></tbody></table>
+</section>
+
+<section>
+  <h2>Live demo account (opt-in)</h2>
+  <div class="panel">
+    <p class="muted" id="live-note">Not connected. Paper mode runs automatically.</p>
+    <p class="muted">Create a key at <a href="https://demo.kalshi.co/" target="_blank" rel="noopener">demo.kalshi.co</a> →
+    Account &amp; security → API Keys (official steps:
+    <a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Authenticated requests quick start</a>).
+    The key is stored in this browser's localStorage only — never sent anywhere except Kalshi's demo API, never committed to the repository.</p>
+    <div class="form-row">
+      <div><label for="live-keyid">API key ID</label><input id="live-keyid" placeholder="a952bcbe-…"></div>
+      <div><label for="live-pem">Private key (PEM)</label><textarea id="live-pem" placeholder="-----BEGIN PRIVATE KEY----- …"></textarea></div>
+    </div>
+    <button id="btn-connect">Connect (fetch balance)</button>
+    <button id="btn-balance" class="secondary">Refresh balance</button>
+    <button id="btn-positions" class="secondary">Refresh positions</button>
+    <button id="btn-disconnect" class="secondary">Disconnect &amp; erase key</button>
+    <div id="live-out" style="margin-top:10px"></div>
+    <h3>Guarded demo order</h3>
+    <p class="muted">Uses the official
+    <a href="https://docs.kalshi.com/api-reference/orders/create-order-v2" target="_blank" rel="noopener">Create Order (V2)</a>
+    endpoint (<code>POST /portfolio/events/orders</code>) with signed headers. Demo money only. The repo's CI workflow can also
+    execute plans server-side with hard guardrails (max 3 orders, $3/run, buy-YES only, dry-run default) — see
+    <a href="../scripts/demo_account/README.md">scripts/demo_account/README.md</a>.</p>
+    <div class="form-row">
+      <div><label for="ord-ticker">Market ticker</label><input id="ord-ticker" placeholder="KXBTC-26NOV30-B100"></div>
+      <div><label for="ord-side">Side</label><select id="ord-side"><option value="bid">bid = buy YES</option><option value="ask">ask = sell YES</option></select></div>
+      <div><label for="ord-price">Price (dollars, e.g. 0.5600)</label><input id="ord-price" placeholder="0.5600"></div>
+      <div><label for="ord-count">Contracts</label><input id="ord-count" placeholder="1"></div>
+      <div><label for="ord-confirm">Type PLACE DEMO ORDER to enable</label><input id="ord-confirm"></div>
+    </div>
+    <button id="btn-order">Submit demo order</button>
+    <div id="ord-out" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Strategies (fixed, documented rules — no fitting, no manual input)</h2>
+  <div class="panel">
+    <ul class="tight">
+      <li><strong>momentum-jump</strong> — buy the jump direction after a ≥ $0.10 last-price move between samples.</li>
+      <li><strong>fade-jump</strong> — buy the opposite side after the same trigger (mean reversion). When both fire on one jump the lab takes momentum only.</li>
+      <li><strong>value-ask</strong> — buy YES when the ask is ≤ $0.25 and 24h volume ≥ 100 contracts.</li>
+    </ul>
+    <p class="muted">Position sizing: 1 contract per trade, max 8 open, max $3 per trade, taker fees from the official schedule
+    (taker = round-up of M × 0.07 × C × P × (1 − P); series multiplier table transcribed from the official PDF; tested against
+    all 42 fee-table cells). Trades are categorised by topic × strategy × entry trigger above.</p>
+    <p class="muted">The <strong>high-ROI chat</strong> score (0–4): +1 jump ≥ $0.10 · +1 24h volume ≥ 50 · +1 spread ≤ $0.03 ·
+    +1 price in $0.05–$0.85. Score ≥ 3 is shown as a pick. This is a transparent heuristic, <strong>not</strong> a claim of
+    profitability — sample sizes are small and unverified (<a href="flagged.html#f-da-1">F-DA-1</a>).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Sources</h2>
+  <div class="panel">
+    <ul class="tight">
+      <li><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">Kalshi demo environment</a> — demo REST/WS hosts, mock funds, demo ≠ production.</li>
+      <li><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Authenticated requests quick start</a> — KALSHI-ACCESS-* headers, timestamp+METHOD+path signing, RSA-PSS/Ed25519.</li>
+      <li><a href="https://docs.kalshi.com/api-reference/orders/create-order-v2" target="_blank" rel="noopener">Create Order (V2)</a> — request/response fields and side semantics.</li>
+      <li><a href="https://docs.kalshi.com/api-reference/portfolio/get-balance" target="_blank" rel="noopener">Get Balance</a> · <a href="https://docs.kalshi.com/api-reference/portfolio/get-positions" target="_blank" rel="noopener">Get Positions</a> — portfolio fields.</li>
+      <li><a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">Official fee schedule (PDF)</a> — fee formula, worked table, series multipliers, “no settlement fee”.</li>
+      <li><a href="https://docs.kalshi.com/getting_started/fixed_point_migration" target="_blank" rel="noopener">Fixed-point fields</a> (<code>_dollars</code>/<code>_fp</code>) and <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">market lifecycle</a> (status <code>active</code>).</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<footer>
+  Trade1 · Kalshi demo dashboard · this page reads only the public demo API and (opt-in) your own demo account.
+  Unverified items are listed on the <a href="flagged.html">Flagged for Review</a> page. Nothing here is investment advice.
+</footer>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
