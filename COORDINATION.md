@@ -48,4 +48,4 @@ Action needed by the owners of #2, #3, #4, #6: rebase on `main` after cedad5c4's
 ### Deployment record
 
 - Pages build type: `legacy` (`main` / `/`). Switching to `workflow` returned 403 with the available token, so the workflow's deploy job (main only) is not the publish path. Pages publishes from `main` root on push.
-- Branch CI: `pages.yml` runs `snapshot` (build + check) on the branch. Last successful run: 44743... see Actions. Checks: 71 links, 1,154 rows, 625 resolved rows, 0 failures.
+- Branch CI: `pages.yml` runs `snapshot` (build + check) on the branch. Last successful run: 44744432306 (snapshot job success; checks skipped on branch). Checks: 71 links, 1,154 rows, 625 resolved rows, 0 failures.
