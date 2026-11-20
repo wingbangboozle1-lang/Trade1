@@ -15,6 +15,7 @@
   </div>
   <nav class="mainnav">
     <a href="index.html">Home</a>
+    <a href="executive-summary.html">Summary</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="trades.html">Strategy Lab</a>
     <a href="topics/gas-prices.html">Gas</a>
@@ -39,7 +40,7 @@
     <tr><td><code>GET /markets?tickers=…</code> (≤200 per call)</td><td>Watchlist prices + settlement detection</td><td>~12 s</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
     <tr><td><code>GET /markets?event_ticker=X</code></td><td>Full market set for a newly found event</td><td>on discovery</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
     <tr><td><code>GET /markets/{ticker}/orderbook</code></td><td>Depth panel + computed liquidity</td><td>~8 s (selected)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-orderbook">Get Market Orderbook</a></td></tr>
-    <tr><td><code>GET /series/{s}/markets/{t}/candlesticks?period_interval=1|60</code> (<code>start_ts</code>/<code>end_ts</code> in seconds)</td><td>Chart windows ≥ 1 hour</td><td>~60 s (visible)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a></td></tr>
+    <tr><td><code>GET /series/{s}/markets/{t}/candlesticks?period_interval=1|60</code></td><td>Chart windows ≥ 1 hour</td><td>~60 s (visible)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a></td></tr>
     <tr><td><code>GET /markets?status=settled&amp;min_settled_ts=…</code></td><td>Actions snapshot of recent resolutions</td><td>2×/hour (runner)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
     <tr><td><code>GET /series?category=X&amp;include_volume=true</code></td><td>Authoritative per-topic series discovery (covers hourly crypto / daily AAA-gas series that /events paging misses)</td><td>~6 min (client) + per runner run</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series-list">Get Series List</a></td></tr>
   </table></div>

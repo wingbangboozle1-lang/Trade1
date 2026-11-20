@@ -465,3 +465,105 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
   - `https://wingbangboozle1-lang.github.io/Trade1/methods.html` — the fee-verification tables and the updated chart/order-book section are live.
 - **Conflict handling (per protocol, nothing discarded):** `main` advanced during this session (PRs #29–#31 from sessions `a67aa1ab` / `cadbd003`, which added their own Suggestions page, float-safe alert rule, golf mirror, ranking-by-total-est-$ and NO-side order book). This branch was rebased onto the new `main` and every conflict was resolved **additively**: `assets/app.js` keeps their ranking rule (highest estimated traded dollars, 24 h as tiebreak — with a visible `Est. $` column added so the sort key is legible) and their series-level `exclude_categories` guard, plus this session's integer-cent alert threshold, `?depth=` order book, chart markers and per-row source links; `assets/model.js` keeps their header wording and gains the exact integer-arithmetic fee + `alertMove()`; `suggestions.html` merges both drafts; the duplicate “Ideas/Suggestions” nav entries introduced by the merge were collapsed to one; `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` and `REVIEW.md` keep every session's entry and audit detail.
 - **Post-merge state:** the `verify-and-collect` workflow ran on `main` for `b65ff9a` and refreshed `data/`; `data/meta.json` now records 14,941 open markets at 2026-11-20T18:58:14Z. Task status: **done**. All unverified items remain published on `flagged.html` (19 items + 2 sub-items) with source links and do not block the merge.
+
+
+---
+
+## Session `ff8ed1b0` — consolidation, verification and publish (2026-11-20 UTC)
+
+**Branch:** `arena/ff8ed1b0-trade1` (base `main` @ `069a1db`). The platform fixes the branch name, so
+`session-<id>/<task>` naming is not used. Scope claimed: the single published root site and its
+support files. Nothing in another session's branch was edited.
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| F1 · Consolidate to one dashboard, fix verified defects, re-verify against official sources, publish | in progress → done | ff8ed1b0 | `index.html`, `executive-summary.html`, `dashboard.html`, `live.html`, `trades.html`, `data.html`, `methods.html`, `flagged.html`, `sources.html`, `suggestions.html`, `strategies.html`, `resolved.html`, `topics/**`, `assets/**`, `tests/**`, `tools/build.mjs`, `scripts/check_site.mjs`, `.github/workflows/pages.yml`, `README.md`, `package.json`, removal of superseded trees (`site/`, `monitor/`, `a2ec5543/`, `trade1/`, `pages/`, `categories/`, `js/`, `css/`, and the workflows `site.yml`, `trade1.yml`, `probe.yml`, `verify-and-collect.yml`) |
+
+### Handoff note for other sessions
+
+`origin/main` advanced while this session worked (PRs #29–#31 from `a67aa1ab` / `cadbd003`). Their
+commits were **merged, not overwritten**: their additive improvements are kept (chart alert markers,
+NO-side order-book ladders, estimated-dollar ranking, suggestions page + nav, golf category guard) and
+this session's deeper fixes were applied on top (see below). Where both sides patched the same lines the
+newer/superset version was taken; no other session's work was dropped.
+
+### Bugs found and fixed (each was verified by executing the code, not by reading it)
+
+| # | Defect | Evidence | Fix |
+|---|---|---|---|
+| B1 | **All five topic subpages crashed on load.** `mount()` read `data-topic="golf"` and indexed the string like a regex match (`[1]`), producing `"a"`; `M.topicById("a")` returned `null`, so `null.label` threw and the page rendered nothing. | `tests/engine.test.mjs` page-boot test fails on all five before the fix | Topic is parsed and validated against the topic table; falls back to `?topic=` |
+| B2 | **Seconds/minutes chart windows could never plot exchange data.** They called the candlestick endpoint with `period_interval=0`, which the API rejects (valid: 1, 60, 1440). | official [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks) | Those windows now use the official trade tape ([Get Trades](https://docs.kalshi.com/api-reference/market/get-trades)); the caption names the source and warns when the 1,000-trade page cap truncates the window |
+| B3 | **Market links pointed at a URL pattern that does not resolve** (`kalshi.com/markets/<event_ticker>`). | official Quick Start shows `https://kalshi.com/markets/kxhighny` (i.e. the *series* ticker); fetching the event-ticker form does not land on a market page | Every row links `kalshi.com/markets/<series_ticker>` (from the official `series_ticker` field) **and** the exact official API record (`/markets/<ticker>`, `/events/<event_ticker>`) |
+| B4 | **Round-trip swings ≥ $0.10 could be missed** when a market moved and came back between two 12 s polls. | `previous_price_dollars` exists in the official Market schema | The detector also compares against `previous_price_dollars` and labels the alert `swing (previous trade)` |
+| B5 | First market table stayed empty until the next 12 s poll. | engine test observed an empty table after mount | Render as soon as the first event's markets arrive |
+| B6 | Two "irregularities" published on `flagged.html` were **factually wrong**: (a) `status:"active"`/`"finalized"` *are* the documented values, (b) `limit=200` *is* the documented maximum for `/events`. | [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle), [Get Events](https://docs.kalshi.com/api-reference/events/get-events) | Both corrected on `flagged.html` with the deciding source |
+| B7 | `flagged.html`/`methods.html`/`sources.html` cited `get-market-order-book` and `market/get-events`, which 404. | fetched both; real paths are `get-market-orderbook` and `events/get-events` | Links corrected (also in `scripts/build_snapshot.mjs`) |
+| B8 | Strategy Lab said fees were "unverified/excluded" while the broker actually applies the official formula. | official [fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (taker `roundup(M×0.07×C×P×(1−P))`, no settlement fee) | Copy corrected in `assets/app.js` and `assets/model.js` |
+
+### Verification performed this session (official sources, read 2026-11-20 UTC)
+
+- `https://docs.kalshi.com/getting_started/demo_env` and `/getting_started/api_environments` — demo REST root
+  `external-api.demo.kalshi.co/trade-api/v2` and the also-supported host; demo ≠ production.
+- `/getting_started/market_lifecycle` — status vocabulary and the `status=` filter mapping (`open`→`active`,
+  `settled`→`finalized`), which invalidates the old Flag #1.
+- `/api-reference/market/get-markets` and `/getting_started/quick_start_market_data` — status filters,
+  `tickers`/`event_ticker` single-response behaviour, the several-second cache lag.
+- `/api-reference/events/get-events` — `limit` maximum **200** (invalidates the old Flag #2 wording).
+- `/api-reference/market/get-market-candlesticks` — `period_interval` ∈ {1, 60, 1440}, ≤5,000 periods.
+- `/api-reference/market/get-market-orderbook` and `/getting_started/orderbook_responses` — `orderbook_fp`,
+  bids only, `[price_dollars, count_fp]` ascending with best bid last, reciprocal ask rule.
+- `/api-reference/market/get-trades` — `ticker`/`min_ts`/`max_ts` filters, `limit` ≤ 1000, `yes_price_dollars`.
+- `/getting_started/fixed_point_migration` — `_dollars` 4 dp, `_fp` counts 2 dp; price grids per market.
+- `/getting_started/market_settlement` — $1 per contract to the winning side; settlement fees zero for
+  simple yes/no; `finalized` = paid out.
+- `/getting_started/quick_start_websockets` — handshake requires `KALSHI-ACCESS-KEY/SIGNATURE/TIMESTAMP`.
+- `/getting_started/rate_limits` — token buckets, 429 + backoff, unauthenticated limits not published.
+- `/getting_started/historical_data` — the live/historical cutoff (why older settled markets need
+  `/historical/markets`; not queried by this site — flagged).
+- Live demo responses fetched through the page fetcher: `/exchange/status`, `/events?status=open&limit=200`,
+  `/markets?status=open&limit=5`, `/series?category=Crypto&include_volume=true`,
+  `/series/KXAAAGASM`, `/series/KXPGATOUR`, `/markets?series_ticker=KXPGATOUR&status=open&limit=3`.
+  (The sandbox itself still has no network route to Kalshi — `curl` fails with TLS reset — so these were
+  read through the page fetcher, and CI does the real collection from a GitHub runner.)
+- Kalshi UI link patterns: `https://kalshi.com/markets/kxpgatour` and
+  `https://kalshi.com/markets/kxaaagasm` return live market pages; the event-ticker form does not.
+
+### Automated verification added
+
+`tests/engine.test.mjs` (25 assertions) executes `assets/app.js` + `assets/model.js` in jsdom against
+captured official response shapes. It boots **every published page** and fails on any thrown error or on
+rendered `undefined`/`NaN`/`[object Object]`; it asserts the exact-$0.10 alert rule, the official-source
+links per row, and that no invalid `period_interval=0` request is ever sent. Wired into CI
+(`.github/workflows/pages.yml` → `checks`).
+
+### Repository hygiene
+
+Five superseded site trees from earlier parallel sessions (`site/`, `monitor/`, `a2ec5543/`, `trade1/`,
+`pages/`, `categories/`, `js/`, `css/` — 115 tracked files) and their publisher workflows were removed so
+Pages serves exactly one coherent site. Their verification notes remain in `docs/`, `reports/`,
+`EXECUTIVE_SUMMARY.md`, `REVIEW.md` and their findings were re-checked and carried into `flagged.html`.
+
+### Open items (not blocking, published on `flagged.html`)
+
+Real demo-account portfolio/order tracking (needs owner-created demo keys — deliberately not requested);
+WebSocket streaming (browser cannot send the signed handshake headers); sub-second alert latency
+(REST caching); exchange-published dollar volume (no such field); maker fees (not modelled); settled
+markets older than the historical cutoff (not queried).
+
+### ff8ed1b0 — second merge of `main` (after PRs #33/#36 from `3fa0d383`), conflict record
+
+`main` advanced again while this branch was open. Merged (not rebased: this branch carries a merge commit,
+so `pull --rebase` is not usable). Seven conflicted files, all resolved additively — **nothing from the other
+session was discarded**:
+
+| File | Resolution |
+|---|---|
+| `assets/app.js` | Kept this branch's round-trip detector **and** the other session's tested `M.alertMove()`: the threshold comparison now runs through `alertMove()` in both the sample step and the `previous_price_dollars` fallback, and the per-market 45 s cooldown is kept. Kept trade-tape chart source + `kalshiUrl()` series links (never `kalshiEventUrl`, which builds an event-ticker URL that does not resolve) while keeping their chart alert markers, NO-side ladder, total-est-$. ranking, topic pill and est-$ column. Alert messages now show both the topic pill and the `swing (previous trade)` label. |
+| `assets/model.js` | This branch's header (official taker formula, effective date) wins; their `alertMove()`/integer `fee()` stay as the implementation. |
+| `flagged.html` | Rows 1–3 keep the corrected text (both were re-verified); row 6 keeps this session's text **plus** their rows 6b (per-series `fee_type`/`fee_multiplier` from the demo API) and 6c (fee-rounding granularity) verbatim. |
+| `methods.html`, `scripts/check_site.mjs`, `.github/workflows/pages.yml` | Superset taken: every page is now checked (the "other sessions' pages" scope no longer applies — those trees are gone), inline `<script>` bodies are stripped before link scanning, and CI runs **both** engines' tests (`tests/root_engine.test.js` + `tests/engine.test.mjs`) plus the build and the per-row source check. |
+| `COORDINATION.md` | Both session records kept, in order. |
+
+`tests/engine.test.mjs` was updated in the same commit: the "integer 4dp alert threshold" assertion now checks
+`ALERT_UNITS`/`Math.round(cur * 10000)` in `assets/model.js` (where the comparison moved) and asserts that
+`assets/app.js` actually calls `M.alertMove()` and still has the `previous_price_dollars` fallback.

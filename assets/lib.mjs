@@ -98,8 +98,12 @@ export function marketRow(event, m, topicMatches, base = API_BASES.demo) {
     updated_time: m.updated_time ?? null,
     // Official API endpoint for this exact market (verification link).
     source_url: `${base}/markets/${encodeURIComponent(m.ticker)}`,
-    // Kalshi UI series page, pattern shown in the official Quick Start guide.
+    // Kalshi UI series page, pattern shown in the official Quick Start guide:
+    // https://docs.kalshi.com/getting_started/quick_start_market_data
+    // (the pattern is /markets/{series_ticker}; a bare event ticker does not resolve)
     kalshi_url: series ? `https://kalshi.com/markets/${series.toLowerCase()}` : null,
+    // Official API records for the exact row (verification links).
+    event_source_url: event.event_ticker ? `${base}/events/${encodeURIComponent(event.event_ticker)}` : null,
     // Official settlement sources Kalshi lists on the event (context links, not causes).
     event_settlement_sources: (event.settlement_sources || []).filter(s => s && s.url).map(s => ({ name: s.name, url: s.url })),
   };

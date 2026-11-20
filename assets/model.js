@@ -3,10 +3,14 @@
  * Everything in this file is local-only: no orders are sent to Kalshi, no
  * account is contacted, nothing leaves the browser. Paper fills are assumed
  * at the official bid/ask quotes with no slippage; see methods.html for the
- * documented assumptions and flagged.html for limitations. Taker fees use the
- * official schedule (verified 2026-11-20): roundup(0.07 x C x P x (1-P)) —
- * https://kalshi.com/docs/kalshi-fee-schedule.pdf (effective July 7, 2026).
- * Maker fees are not modeled (paper fills assume immediately-matched orders).
+ * documented assumptions and flagged.html for limitations.
+ *
+ * Fees: ON by default and pinned to the official taker formula
+ *   fee = roundup(M x 0.07 x C x P x (1 - P))
+ * from https://kalshi.com/docs/kalshi-fee-schedule.pdf (effective July 7, 2026;
+ * re-read 2026-11-20). Settlement pays $1 per winning contract with no
+ * settlement fee (same document). Maker fees are NOT modelled because a paper
+ * fill is assumed to be immediately matched (taker).
  *
  * Topic classification mirrors scripts/topics.json (authoritative for the
  * data/ snapshots). The two MUST be kept in sync — flagged in flagged.html.

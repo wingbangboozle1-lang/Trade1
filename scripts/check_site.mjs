@@ -21,21 +21,22 @@ async function walk(dir) {
   return out;
 }
 
-// Scope: the published root site (bb8bd1ff integration build, verified by
-// session 3fa0d383). Other sessions' HTML trees on the same branch
-// (a2ec5543/, monitor/, site/, trade1/, pages/, categories/, live.html,
-// resolved.html, strategies.html) are listed, not checked — they are
-// historical builds, not the Pages deploy. If the deploy ever moves,
-// update this set to match the published pages.
-const V2_PAGES = new Set(['index.html','dashboard.html','trades.html','data.html','methods.html','suggestions.html','flagged.html','sources.html',
+// Scope: every published page. Before consolidation several parallel sessions each
+// shipped their own HTML tree on the same branch and this check was scoped to avoid
+// failing on theirs; there is now one site, so every page is verified.
+const PUBLISHED = new Set(['index.html','executive-summary.html','dashboard.html','live.html','trades.html',
+  'data.html','methods.html','flagged.html','sources.html','suggestions.html','strategies.html','resolved.html',
   'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html']);
 const allFiles = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
-const files = allFiles.filter(f => V2_PAGES.has(f) || !f.endsWith('.html'));
-const notChecked = allFiles.filter(f => f.endsWith('.html') && !V2_PAGES.has(f));
-if (notChecked.length) console.log('not checked (other sessions\' pages): ' + notChecked.join(', '));
+const files = allFiles.filter(f => PUBLISHED.has(f) || !f.endsWith('.html'));
+const unknown = allFiles.filter(f => f.endsWith('.html') && !PUBLISHED.has(f));
+if (unknown.length) { console.log('FAIL unpublished page not in the check list: ' + unknown.join(', ')); process.exit(1); }
 for (const f of files.filter(f => f.endsWith('.html'))) {
   checked.html++;
-  const html = await readFile(f, 'utf8');
+  // Inline scripts build URLs by concatenation (`href="'+esc(u)+'"`), which is not a
+  // static link; strip <script> bodies before scanning or every template produces
+  // false "broken link" failures.
+  const html = (await readFile(f, 'utf8')).replace(/<script\b[\s\S]*?<\/script>/gi, '');
   const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map(m => m[1]);
   for (const ref of refs) {
     if (/^(https?:|mailto:|#|javascript:)/.test(ref)) continue;
