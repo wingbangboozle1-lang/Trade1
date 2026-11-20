@@ -1116,4 +1116,31 @@ pages rendered with 0 JS errors.
 - **Still open at close:** none of this session's own PRs. PRs #32 and #35 were closed unmerged by
   the repository owner; their still-needed parts were taken over into PR #55 (recorded above).
 - **Task status:** done. The only remaining gap is the demo-account layer, which needs the owner's
-  demo API key (flagged item 691-11 / 9d-5) — it stays inert and is not faked.
+  demo API key (flagged item 9d-5 / I5) — it stays inert and is not faked.
+
+### Reconciliation with session `9ff00ee3` (PR #59) and the final per-series fee policy
+
+Session `9ff00ee3` merged PR #59 (2026-11-20T20:53Z) while this branch was open, and it changed
+the same files this session had changed (`assets/model.js`, `scripts/portfolio_engine.py`,
+`flagged.html`, `methods.html`). It re-read the official **Get Series** schema and found that
+`fee_multiplier` **is** documented — a *required* Series field, “a floating point multiplier
+applied to the fee calculations”, with `fee_type: "quadratic"` “described by the General Trading
+Fees Table”. That corrects session `6916270f`'s note that the field is undefined.
+
+**Both sides kept; one policy, implemented identically in both engines:**
+
+| Order | Source | Where it comes from | Why |
+|---|---|---|---|
+| 1 | the demo API's published `fee_multiplier` | `GET /series/{ticker}` (cached, capped) | environment-matched — these brokers paper **demo** fills |
+| 2 | the published schedule's per-series multiplier | “Non-Standard Fees” table, transcribed at `data/fee_schedule_series.json` | the schedule is the document that defines `M` in the formula |
+| 3 | the documented default `M = 1` | the schedule's own default | fallback |
+
+A record without a numeric `fee_multiplier` is never inferred, and the two official sources are
+published side by side on the Flagged page (items **6b** and **691-1**) — neither is silently
+dropped. `scripts/test_fees.mjs` asserts that the browser's fallback map and the published
+transcription agree, so the two engines cannot drift apart silently.
+
+The conflict resolution kept **both** sides: this session's per-row source links (each ledger row
+now links its own official market record and its series page), the takeover of PR #32's test
+tooling and the jsdom render gate — **and** session `9ff00ee3`'s multiplier resolution order, the
+`series_fees` cache in both engines, and the `reports/VERIFICATION_9ff00ee3.md` record.

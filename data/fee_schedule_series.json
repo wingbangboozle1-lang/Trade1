@@ -31,7 +31,7 @@
   ],
   "notes": [
     "Only rows that could be read unambiguously are transcribed. The PDF's middle pages are OCR-garbled; those rows are listed under 'not_transcribed' and are treated as the default multiplier (taker M = 1).",
-    "The public API exposes a per-series 'fee_multiplier' field on GET /series/{ticker}; on the demo environment it returns 1 even for series the published fee schedule marks as 'no fees' (for example KXBTCY, KXETHY). The published fee schedule is used here because it is the document that defines the formula; the discrepancy is published as a Flagged-for-Review item.",
+    "The public API also exposes a per-series 'fee_multiplier' field on GET /series/{ticker} (a required Series schema field: 'a floating point multiplier applied to the fee calculations'). On the demo environment it returns 1 even for series the published fee schedule marks as 'no fees' (for example KXBTCY, KXETHY). This file is the transcription of the PUBLISHED FEE SCHEDULE and is used as the fallback for that multiplier: the paper engines resolve M in official-source order - (1) the demo API's published fee_multiplier when a Series record has been seen (environment-matched: the site papers demo fills), (2) else this transcribed schedule table, (3) else the documented default M = 1. The discrepancy between the two official sources is published as a Flagged-for-Review item (items 6b and 691-1).",
     "Maker fees are not modeled by the paper brokers (paper fills are assumed to be immediately matched = taker)."
   ],
   "series": {
