@@ -108,7 +108,8 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
 
     universe = build_universe(client)
     write_json(os.path.join(DATA, "universe.json"), universe)
-    print(f"  series indexed: {universe['series_count']}")
+    print(f"  series indexed: {universe['series_count_total']} total, "
+          f"{universe['series_count_relevant']} topic-relevant")
 
     # Events are paged deeply: with ~200 events per page we still need many pages to cover every
     # open market, and a market whose event is missing would be silently dropped from the ranking.
@@ -331,7 +332,7 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
         "generated_ts": now_ts(),
         "base_url": base,
         "exchange_status": status,
-        "counts": {"events": len(events_out), "markets": len(rows), "series": universe["series_count"]},
+        "counts": {"events": len(events_out), "markets": len(rows), "series": universe["series_count_relevant"]},
         "markets": rows,
         "events": sorted(events_out.values(), key=lambda e: -e["dollar_volume"]),
     }
