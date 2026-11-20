@@ -837,6 +837,30 @@ Branch `arena/9d4380a2-trade1`, base `main` @ `9f519d6`. Arena fixes the branch 
 
 | Task | Status | Owner | Files in scope |
 |---|---|---|---|
-| 9d4380a2 · T-AUDIT: map every requirement of the current brief to the delivered page, classify delivered / partial / blocked, re-verify a sample of live resolved rows and the cited official endpoint parameters against the official docs, publish gaps | in progress | 9d4380a2 | `reports/COVERAGE_9d4380a2.md` (new), `reports/VERIFICATION_9d4380a2.md` (new), `COORDINATION.md` (this section) |
+| 9d4380a2 · T-AUDIT: map every requirement of the current brief to the delivered page, classify delivered / partial / blocked, re-verify a sample of live resolved rows and the cited official endpoint parameters against the official docs, publish gaps | done (2026-11-20; records below; defect D1 and request I1 logged to owners) | 9d4380a2 | `reports/COVERAGE_9d4380a2.md` (new), `reports/VERIFICATION_9d4380a2.md` (new), `COORDINATION.md` (this section) |
 
 **Not claimed by this session (already owned by open PRs of other active sessions — not started here):** per-series taker multipliers and integer-cent fee rounding (PR #35, `b93ba12e`, `assets/model.js`, `methods.html`, `flagged.html`, `README.md`); candlestick/deep-link/check-coverage fixes (PR #32, `777927dd`, `assets/app.js`, `scripts/**`, many HTML pages). This session edits none of those files.
+
+### 9d4380a2 — completion record (T-AUDIT), 2026-11-20 UTC
+
+**Files written (new, in scope):** `reports/COVERAGE_9d4380a2.md` (20 brief requirements → Delivered / Partial / Blocked, each with caveats and links), `reports/VERIFICATION_9d4380a2.md` (sections E, F, resolved-row, D, I1–I7, carried-forward list).
+
+**Verification performed this session (official sources read 2026-11-20 via the page fetcher; the build sandbox has no route to `*.kalshi.co`):**
+- Demo base and WebSocket hosts — [demo env](https://docs.kalshi.com/getting_started/demo_env). Live `exchange/status` — `trading_active: true`, all four demo indices active.
+- `GET /events` limit default 200 / max 200 and status enum — [Get Events](https://docs.kalshi.com/api-reference/events/get-events). `GET /markets/trades` limit ≤ 1000, `min_ts`/`max_ts` — [Get Trades](https://docs.kalshi.com/api-reference/market/get-trades). Orderbook `depth` 0–100 (default all) — [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook). Candlestick `period_interval` ∈ {1, 60, 1440} — [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks).
+- Fees: general taker formula, maker formula, no settlement fee, Non-Standard Fees table — [Fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (effective July 7, 2026); rounding — [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding). Rate limits — [Rate Limits](https://docs.kalshi.com/getting_started/rate_limits).
+- Live `GET /markets/{ticker}` for 4 resolved rows, all matching the snapshot on result, status, settlement time and value (KXNATGAS15M-26NOV201415-15, KXPGA3BALL-THRC26R2RNEEKROYDLIN-RNEE, KXBTC-26NOV2013-T54200, KXROMLNBMGAME-26NOV201200PLOPIT-PLO).
+- Local validators on the branch: `npm run build` (BUILD OK), `node scripts/check_site.mjs` (0 failures), `node scripts/check_links.mjs` (0 failures), `python3 scripts/portfolio_engine.py selftest` (50/50), `node tests/portfolio.test.mjs` (60/60), `node tests/engine.test.mjs` (23/23), `node tests/root_engine.test.js` (40/40), `node scripts/test_lib.mjs` (passed), `node tests/demo-account.test.mjs` (89/89).
+
+**Irregularities (logged in VERIFICATION §5; none block the merge):**
+- **D1 (defect — owner of `scripts/collect.py`; not claimed by PR #32's diff):** 2 of 200 resolved rows are classed `gas-prices` in `data/resolved.json`. (a) `KXNATGAS15M-26NOV201415-15` is natural gas, which the gas topic excludes. (b) `KXROMLNBMGAME-26NOV201200PLOPIT-PLO` is a basketball match matched on `petrol` inside "Petrolul". Root cause: the settled-market fallback at `scripts/collect.py` L407–416 runs unanchored `re.search` on title keywords and skips `exclude_keywords`. Main `classify()` (L161–178) does apply them. **Request:** apply `exclude_keywords` and word-boundary matching in that fallback, then re-run the collector so the snapshot self-corrects.
+- **I1 (README — owner of PR #35, which edits README):** README says candlesticks take "`period_interval` 1 or 60 only". The official doc lists 1, 60 and 1440. **Request:** reword to "the site uses 1 and 60; the API also accepts 1440".
+- **I2 (fee multipliers):** already flagged (`flagged.html` 6b); fix in PR #35 — not started here.
+- **I3 (fee precision wording):** already flagged as F-DA-5; no change.
+- **I4 (demo account):** blocked on owner credentials (`data/demo_account/status.json`, `configured: false`).
+- **I5 → D1** (see above). **I6:** PRs #32 and #35 report `CONFLICTING` with `main` and touch overlapping files; logged, neither merged nor edited here.
+- **I7 (sources):** news-search links are leads, not official sources. Labelled on the site; the strict rule is not met for those links.
+
+**Not done here, on purpose:** fee multipliers and integer-cent rounding (PR #35), candlestick / deep-link / check-coverage fixes (PR #32), `flagged.html` and `index.html` changes (both PRs touch them). Those files were not edited by this session.
+
+**Publication status of the new findings:** the new report pages are in the repo (rendered on GitHub). Linking them into the site navigation and adding I1 / D1 to the published Flagged page would touch `flagged.html` and every page's nav, which both open PRs also edit. This is logged as a request to the integration session that merges #32 / #35, so this PR does not create a nav conflict.
