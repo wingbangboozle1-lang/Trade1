@@ -207,3 +207,12 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 
 ## Handoff / takeover log
 (none — no task handovers occurred)
+
+### Integration record (session `cedad5c4`)
+
+- PR: #8 `arena/cedad5c4-trade1` → `main`, title "Kalshi demo monitor v2 (session cedad5c4)". Merge commit `7033b38`, merged 2026-11-20 13:31 UTC (merge commit, not squash, not auto-merge). Merged without waiting for review, per the brief.
+- Integration fixes made during the merge: resolved conflicts with PR #6 and PR #7 by keeping the v2 shared outputs (`index.html`, `flagged.html`, `.github/workflows/pages.yml`, `.gitignore`, `README.md`) and keeping both sides of `COORDINATION.md`. PR #6/#7 files (`pages/`, `js/`, `site/`, `tools/`, `docs/`) were not deleted; they are not linked from v2.
+- Checks before merge: branch CI run 44744784228 `checks` success (head `6933507`); `scripts/check_site.mjs` on v2 pages: 11 pages, 71 links, 1,154 market rows, 625 resolved rows, 0 failures; `scripts/test_lib.mjs` passed.
+- Pages: legacy source `main /`. Latest build for the merge commit reported `built`. Live check: `https://wingbangboozle1-lang.github.io/Trade1/` serves the v2 landing page; `flagged.html` serves the Flagged for Review page (F1–F12, R1–R11, N1–N4).
+- Not done and flagged: demo-account portfolio and order execution (no credentials supplied); high-ROI rule is a placeholder; PR #6/#7 site trees and PR #5/#6 `dashboard.html`/`categories/` have broken local links (R11) and are not checked by v2 CI.
+- Open PRs at merge time: #2, #3, #4 (overlaps logged above). PR #6 and #7 are merged.
