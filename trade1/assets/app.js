@@ -18,8 +18,11 @@
     return '<td class="' + (cls || "") + '">' + esc(out) + "</td>";
   };
   var srcLink = function (url) { return url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">API</a>' : '<span class="flag">no source</span>'; };
+  // Resolve data relative to this script (trade1/assets/app.js -> trade1/data/), so subpages at any depth work.
+  var scriptEl = document.currentScript || document.querySelector('script[src*="assets/app.js"]');
+  var ROOT = new URL("../", scriptEl ? scriptEl.src : location.href);
   var fetchData = function () {
-    return fetch("data/markets.json", {cache: "no-store"}).then(function (r) {
+    return fetch(new URL("data/markets.json", ROOT), {cache: "no-store"}).then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
     });
@@ -32,7 +35,7 @@
     var totalRows = 0, jumps = D.jumps || [], resolved = D.resolved || [];
     topics.forEach(function (k) { totalRows += (D.topics[k] || {count: 0}).count; });
     var h = stamp(D) + '<div class="cards">' +
-      card(totalRows, "open markets tracked") + card(jumps.length, "jumps ≥ $0.10 (last 7 days, hourly)") +
+      card(totalRows, "open markets matched (all topics)") + card(jumps.length, "jumps ≥ $0.10 (last 7 days, hourly)") +
       card(resolved.length, "tracked markets resolved (yes/no)") + card((D.unverified || []).length, "items flagged unverified") + "</div>";
     h += "<h2>Topics</h2><div class='cards'>";
     topics.forEach(function (k) {
@@ -227,7 +230,7 @@
     root.innerHTML = h;
   }
 
-  var loadFlags = fetch("data/flags.json", {cache: "no-store"}).then(function (r) { return r.json(); }).catch(function () { return {}; });
+  var loadFlags = fetch(new URL("data/flags.json", ROOT), {cache: "no-store"}).then(function (r) { return r.json(); }).catch(function () { return {}; });
   fetchData().then(function (D) {
     if (page === "home") renderHome(D);
     else if (page === "topic") renderTopic(D);
