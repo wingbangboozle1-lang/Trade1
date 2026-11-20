@@ -78,10 +78,15 @@ CI (`.github/workflows/pages.yml`) runs all three on every push and pull request
 
 ```
 assets/       app.js (the one engine), model.js (strategies/broker), site.css, lib.mjs (snapshot helpers)
-data/         verified snapshots: topics/*, resolved.json, meta.json, cors.json, log.md
-scripts/      collect.py (collector/verifier), build_snapshot.mjs, topics.json (topic rules), check_site.mjs, test_lib.mjs
-tests/        engine.test.mjs (jsdom tests of the published pages)
+data/         verified snapshots: topics/*, resolved.json, meta.json, cors.json, log.md,
+              portfolio.json + portfolio_state.json (written by the ledger workflow, not by hand)
+scripts/      collect.py (collector/verifier), build_snapshot.mjs, topics.json (topic rules),
+              check_site.mjs, check_links.mjs (nav parity + external links), test_lib.mjs,
+              portfolio_engine.py (the CI ledger: self-tests, seed, one live cycle)
+tests/        engine.test.mjs (jsdom tests of the published pages), root_engine.test.js (fee/alert/unit
+              math), portfolio.test.mjs (ledger invariants + portfolio.html boot, DOM part self-skips)
 tools/        build.mjs (syntax + link + nav checks)
+.github/      workflows/pages.yml (site checks, snapshot collection, Pages), portfolio.yml (the ledger)
 topics/       one topic page per tracked topic
 docs/         per-session API notes and verification records
 COORDINATION.md  shared task board for parallel sessions
