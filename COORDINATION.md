@@ -236,11 +236,52 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - Not done and flagged: demo-account portfolio and order execution (no credentials supplied); high-ROI rule is a placeholder; PR #6/#7 site trees and PR #5/#6 `dashboard.html`/`categories/` have broken local links (R11) and are not checked by v2 CI.
 - Open PRs at merge time: #2, #3, #4 (overlaps logged above). PR #6 and #7 are merged.
 
+### Integration record (session `ed8bbdf4` — PR #12)
+
+- Session `ed8bbdf4` was assigned branch `arena/ed8bbdf4-trade1`, branched from `main` @ `73ba253`.
+  It built an independent, complete alternate dashboard (landing + executive summary, five topic
+  subpages, live alert chats, charts, order-book depth, paper-trade lab, resolved tracking,
+  flagged + sources pages, standalone `scripts/paper_engine.py`) using the official Kalshi docs
+  verified this session (demo env, market data quick start, WebSockets quick start, Get Markets,
+  Get Market Orderbook, changelog). All JS passed `node --check`; the Python engine passed
+  `py_compile`; all render paths were exercised under a headless DOM harness; the topic keyword
+  matcher was corrected to word-boundary matching (word "someth**ing**" was falsely matching the
+  "eth" crypto term) and confirmed against fixtures.
+- While this session was active, parallel sessions advanced `main` by 35 commits with a complete,
+  deployed v2 dashboard (PRs #5–#8, #11) that already satisfies the full brief. PR #12 was
+  therefore **not** a fresh deliverable but an integration of this session's branch into the
+  already-merged v2 site.
+- Merge conflict resolved **without discarding the other sessions' work**: `main` was merged into
+  the branch; all Pages-source files that conflicted (`index.html`, `flagged.html`, `sources.html`,
+  `pages/*.html`, `README.md`, `COORDINATION.md`, `.gitignore`, `.github/workflows/pages.yml`) were
+  resolved in favor of the deployed v2 site (the single GitHub Pages source, published from the
+  `main` root). The session's duplicate alternate tree (`css/app.css`, `js/engine.js`, `js/ui.js`,
+  `js/reference.js`, `alerts.html`, `trading.html`) was removed so the repo keeps one Pages source
+  and no second conflicting tree (see R11). Nothing from `main` was deleted.
+- Unique artifact preserved from this session: `scripts/paper_engine.py` (standalone, dependency-free
+  paper-trade automation; `main` had only `.mjs` snapshot/check tooling). README updated to document it.
+- Verified before merge: `scripts/paper_engine.py` compiles (`py_compile`); the resolved tree is
+  byte-identical to `origin/main` except for the added `scripts/paper_engine.py` and the README/COORDINATION
+  notes (`git diff origin/main --stat` shows only those).
+- **PR #12 merged to `main`**: https://github.com/wingbangboozle1-lang/Trade1/pull/12 — merge commit
+  `e1801aea`, merged 2026-11-20T13:38:53Z (merge commit, merged without waiting for review, per the brief).
+- **Pages deployment confirmed**: repository Pages status `built` (legacy source `main`, path `/`); live site
+  https://wingbangboozle1-lang.github.io/Trade1/ serves the v2 landing page with real snapshot counts
+  (Gas prices 36, Elections 13,345, Culture 1,365, Crypto 2,793, Golf 68, 625 resolved), built from the
+  official demo API. `scripts/paper_engine.py` is present on `main` (sha `b0929f91`) and served under
+  `/scripts/paper_engine.py`.
+- Final repository validators on the merged tree: `node scripts/test_lib.mjs` → lib tests passed;
+  `node scripts/check_site.mjs` → 11 HTML, 71 links, 1,154 rows, 625 resolved, 0 failures;
+  `node tools/build.mjs` → BUILD OK — 18 HTML, 20 JS files validated, 0 broken links.
+- The merged v2 site remains the live, CI-passing deliverable; this session's contributions are the
+  standalone automation script and the integration log.
+
 ### Final Market Lens integration — session `e3c4e789`
 
-- Claimed on Arena-assigned branch `arena/e3c4e789-trade1`, based on `main` at `73ba253`. Scope: this root dashboard shell, five generated topic pages, browser-side logic, source review page, tests, and documentation.
-- `main` advanced to `60a1676` during implementation. The branch now merges that history; it preserves the existing legacy Pages configuration (`main` / repository root) because the Pages API reports `build_type: legacy` and earlier integration notes record that switching to the workflow source was denied. The updated workflow adds this dashboard's test suite without replacing the configured publish path.
-- Overlap noted: open PR #12 (`arena/ed8bbdf4-trade1`) also changes `index.html`, `README.md`, `.github/workflows/pages.yml`, and related root dashboard outputs. No changes were made on that branch. The current session remains on its assigned branch and records the overlap for integration coordination.
-- Candidate implementation: source-linked live demo REST dashboard, five topic pages, event grouping/ranking by highest fresh market-level 24-hour contract volume, sampled ±$0.10 YES-bid alerts with a separate experimental liquidity/spread screen, chart windows, selectable bid-book depth, local paper strategy performance, resolution tracking, and title-based news-search links labeled as unverified context.
-- Explicitly not claimed: event-level traded dollar volume (left blank), a validated ROI model, account portfolio/order execution, historical server-side archive, authenticated WebSockets, verified news attribution, or browser-origin CORS behavior.
-- Local verification before integration: `node --check app.js`, `node --check logic.js`, `npm test` (7 Node tests, generator synchronization, 7-page static audit), and `git diff --check` passed. GitHub Actions, pull request, merge, final deployment, and browser-origin/CORS checks are pending.
+- Claimed on Arena-assigned branch `arena/e3c4e789-trade1`, based on `main` at `73ba253`. Scope: a new root dashboard shell, five generated topic pages, browser-side logic, source review page, tests, and documentation.
+- `main` advanced while this branch was active. Latest upstream `710726a` includes merged PRs #12 and #14. The branch merges that history and preserves all other files, including the already-published v2 assets and `scripts/paper_engine.py`.
+- Shared root integration retains GitHub Pages' configured legacy source (`main` / repository root), confirmed by the Pages API (`build_type: legacy`, `status: built`). `.github/workflows/pages.yml` retains that publish path and adds the dashboard test suite to existing CI.
+- Overlap log: PR #12 (branch `arena/ed8bbdf4-trade1`) has merged; no work was done on its branch. Open PR #15 (`arena/08347343-trade1`) changes `index.html`, shared README/coordination and workflow files and includes large captured data; open PR #17 (`arena/f6094c46-trade1`) adds a separate `site/` tree plus shared README/coordination/workflow changes. Neither branch has been edited here; resolve shared-output ownership through integration.
+- This dashboard uses public demo REST market data, five text-matched topic filters, event grouping ranked by the highest fresh market-level 24-hour contract volume, sampled ±$0.10 YES-bid alerts, a separately labeled experimental spread/liquidity screen, selected-market charts, selectable bid depth, local paper strategies/performance, resolution tracking, and title-based news-search links labeled as context only.
+- Explicit limits: event-level dollar turnover is unverified and left blank; candidate ROI is not validated; account portfolio/order execution is not implemented; the historical archive is browser-local; no authenticated WebSocket or verified news attribution is claimed; browser-origin CORS/live data behavior remains unverified.
+- Local verification before PR refresh: `node --check app.js`, `node --check logic.js`, `npm test` (7 Node tests, generator synchronization, 7-page static audit), `node scripts/test_lib.mjs`, `node scripts/check_site.mjs` (1,154 snapshot rows, 625 resolved, 0 failures), `node tools/build.mjs` (18 HTML, 20 JS, 0 broken links), and `git diff --check` passed. PR/merge and this branch's post-merge Pages confirmation remain pending.

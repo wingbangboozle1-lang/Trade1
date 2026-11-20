@@ -39,6 +39,10 @@ npm test
 
 Tests use Node's built-in test runner and Python's standard library only. They cover topic matching, numeric missing-value handling, the $0.10 threshold in both directions, the candidate screen, orderbook depth ordering, paper P&L, source links, and local HTML links/fragments. No live API response is used as test fixture data.
 
+## Separate standalone paper engine
+
+The repository also preserves `scripts/paper_engine.py` from an earlier integration. It is a separate, dependency-free simulation script and is not used by this browser dashboard. Its output is hypothetical only; it does not connect to an account or place orders.
+
 ## Deployment
 
 GitHub Pages is currently configured to publish the repository root from `main` (legacy Pages source). The existing workflow keeps that deployment mode, runs the prior repository checks plus `npm test` on pushes and pull requests, and refreshes the repository's separate official-data snapshot on scheduled/manual runs. This dashboard itself reads live public demo data from the browser and does not use that snapshot. The Pages API reported the legacy source as built before this change; verify the post-merge Pages build before considering deployment complete.
