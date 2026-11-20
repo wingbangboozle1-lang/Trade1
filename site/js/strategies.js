@@ -27,7 +27,6 @@
       downloadJSON("trade1-state.json", Store.exportAll());
     });
     document.getElementById("btn-refresh-universe").addEventListener("click", () => bootstrapUniverse(true));
-    document.getElementById("btn-sync-demo").addEventListener("click", () => DemoConnector.syncNow());
     setupFilters();
     bootstrapUniverse(false);
     startLoops();
