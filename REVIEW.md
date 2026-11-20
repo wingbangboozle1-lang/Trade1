@@ -24,22 +24,12 @@ their own verification notes stay in-tree for review.
 - Topic pages load the shared assets with correct relative paths and pass `data-topic`, so each page shows only
   its own topic while the engine keeps one shared watchlist.
 
-<<<<<<< HEAD
-### `assets/app.js` (engine)
-- Polling batch uses `GET /markets?tickers=…` — verified live: single response, empty cursor, works for settled markets too (settlement detection comes free from the same response).
-- Discovery uses `GET /events?status=open&limit=200` (verified: `limit=1000` → 400) and `GET /series?category=…&include_volume=true` (verified live; `status` is **not** sent on `/series` because it is not a documented parameter there).
-- Alert rule: sampled price delta ≥ $0.10 either direction, compared as integer 1e-4 units (official prices are 4-dp fixed-point strings per [Fixed-Point Representation](https://docs.kalshi.com/getting_started/fixed_point_migration)). This avoids binary-float misses (e.g. 0.66 − 0.56 = 0.0999… would fail a naive `>= 0.10`). Updated by session `a67aa1ab`.
-- Order book: `orderbook_fp.{yes_dollars,no_dollars}`, ascending, best bid last, asks derived as `1 − bid` per [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses). Computed bid-side liquidity is labeled computed, not exchange-published.
-- Chart windows ≥ 1 h use `GET /series/{s}/markets/{t}/candlesticks` (period 1 or 60 min) per [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks); sub-hour windows use session samples only (REST cache lag documented by Kalshi).
-- 429 handling: exponential backoff, per [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits).
-- No WebSocket (handshake requires signed headers browsers cannot attach — [WS Quick Start](https://docs.kalshi.com/getting_started/quick_start_websockets)). Flagged, not a bug.
-=======
 ### `assets/app.js` — live engine
 | Behavior | Verified against |
 |---|---|
 | Watchlist poll `GET /markets?tickers=…` (≤ 200 tickers/call) | [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets): with `tickers` as the only filter every match comes back in one response and the cursor is empty. Settlement detection comes free from the same response (`status` + `result`). |
 | Discovery `GET /events?status=open&limit=200` | [Get Events](https://docs.kalshi.com/api-reference/events/get-events): `limit` max 200; `limit=1000` → 400 (recorded in `data/log.md`). |
-| Series discovery `GET /series?category=…&include_volume=true` | [Get Series List](https://docs.kalshi.com/api-reference/market/get-series-list). `status` is **not** sent — it is not a documented parameter of `/series`. |
+| Series discovery `GET /series?category=…&include_volume=true` (and `?tags=…`) | [Get Series List](https://docs.kalshi.com/api-reference/market/get-series-list): the documented parameters are `category`, `tags`, `include_product_metadata`, `include_volume`, `min_updated_ts` — **`limit` is not documented and is ignored by the server** (verified live: `limit=1` still returned every matching series). `status` is **not** sent for the same reason. |
 | Order book `GET /markets/{ticker}/orderbook?depth=10` | [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook): bids only, `[price, qty]` ascending, best bid last, `depth` = best 1–100 levels per side, empty arrays for a book-less ticker. Verified live. |
 | Asks | Derived: YES ask ≡ 1 − NO bid, NO ask ≡ 1 − YES bid (official reciprocal rule). Every derived column is marked with an asterisk. |
 | Chart ≥ 1 h `GET /series/{s}/markets/{t}/candlesticks?start_ts&end_ts&period_interval` | [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks): path, `period_interval` ∈ {1,60,1440}, ≤ 5,000 periods, `start_ts`/`end_ts` in seconds. Verified live. |
@@ -47,7 +37,6 @@ their own verification notes stay in-tree for review.
 | 429 handling | Exponential back-off; polling only while the tab is visible — [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits). |
 | No WebSocket | The handshake requires signed headers a browser cannot attach to a WebSocket — [Quick Start: WebSockets](https://docs.kalshi.com/getting_started/quick_start_websockets). Flagged, not a bug. |
 | Table rows | Each row now links the exact official `GET /markets?tickers=…` response that produced it. |
->>>>>>> a54b78d (docs: refresh executive summary and line-by-line review notes)
 
 ### `assets/model.js` — ROI screen, paper broker, alert threshold
 - Score formula and weights are documented in `methods.html` §3 and labeled a heuristic (not verified alpha).
@@ -57,6 +46,7 @@ their own verification notes stay in-tree for review.
   and reproduces **all 21 published price rows × {1, 100} contracts** of the General Trading Fees Table.
 - Maker fees are deliberately not modeled (paper fills assume an immediate match) — flagged.
 - P&L, thresholds and rounding are covered by `tests/root_engine.test.js` (40 assertions, runs in CI).
+- Earlier floating-point defects found and fixed by earlier sessions are preserved here: `0.57 − 0.42 = 0.1499…` once missed a +15¢ take-profit (all P&L deltas are now rounded to 4 dp before threshold comparisons), and an undefined reference in the alert path.
 
 ### `scripts/collect.py` · `scripts/topics.json` · `.github/workflows/verify-and-collect.yml`
 - Stdlib-only Python; every value written to `data/` is verbatim from a URL logged in `data/log.md`. Absent
@@ -82,7 +72,10 @@ their own verification notes stay in-tree for review.
 - `log.md` — per-request audit trail (every request, its URL and its status).
 - Snapshots are point-in-time; the live site always prefers a fresh API response when reachable.
 
-### `data.html` · `methods.html` · `suggestions.html` · `flagged.html` · `sources.html`
+### `suggestions.html`
+- Merged from two parallel sessions' drafts: the live-feature list, the endpoint-anchored backlog, the continuous-organization rules and the trader's playbook. Every backlog row names the official endpoint it would use and links its doc page; nothing on the page is presented as verified data.
+
+### `data.html` · `methods.html` · `flagged.html` · `sources.html`
 - `data.html` renders the snapshots with a source link on every row; cells the API did not return stay blank.
 - `methods.html` documents every rule with official links, including the two verified fee tables (published
   table reproduction + per-series `fee_type`/`fee_multiplier` read from the API).
@@ -104,7 +97,6 @@ their own verification notes stay in-tree for review.
 
 ## 2. Irregularities flagged (details + links on [flagged.html](flagged.html))
 
-<<<<<<< HEAD
 ## Integration pass — session `a67aa1ab` (2026-11-20, branch `arena/a67aa1ab-trade1`, base `main` @ `069a1db`)
 
 Scope: root site docs + engine (`COORDINATION.md`, `EXECUTIVE_SUMMARY.md`, `REVIEW.md`, `assets/app.js`, `assets/model.js`, `scripts/collect.py`, `flagged.html`, `methods.html`). No other session's files touched.
@@ -127,7 +119,6 @@ Changes verified line by line:
 - Live probes: open any linked endpoint URL from `data.html` or `sources.html` in a browser.
 - Site build: all pages return HTTP 200 from a static server; JS passes `node --check` (done for `assets/app.js`, `assets/model.js`); model harness passes (see session log in COORDINATION.md).
 - Re-run `node scripts/test_lib.mjs` and `node scripts/check_site.mjs` (0 failures) before merge.
-=======
 | # | Item |
 |---|---|
 | 1 | Demo market `status` is `active`/`finalized`; docs enumerate `unopened/open/closed/settled`. |
@@ -166,4 +157,3 @@ Changes verified line by line:
   `node scripts/test_lib.mjs`, `node tests/engine.test.js`, `node tests/smoke.test.js`,
   `node scripts/check_site.mjs` — all run in CI on every push and pull request.
 - **Session history and task board:** [COORDINATION.md](COORDINATION.md).
->>>>>>> a54b78d (docs: refresh executive summary and line-by-line review notes)
