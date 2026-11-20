@@ -95,6 +95,9 @@ def series_for_event(event_ticker, series_map, cache):
     return found
 
 
+ODD_SOURCE_NAMES = {}  # (series ticker, name) -> contract terms URL; summarized once in main()
+
+
 def sources_list(series):
     out = []
     for s in (series or {}).get("settlement_sources") or []:
@@ -102,9 +105,9 @@ def sources_list(series):
         url = (s or {}).get("url", "")
         out.append({"name": name, "url": url})
         if name != name.strip() or "  " in name or name.endswith(" ") or name.endswith(" of"):
-            flag("info", "settlement_sources", (series or {}).get("ticker", ""),
-                 f"Settlement source name looks like unfilled template text: '{name}'",
-                 (series or {}).get("contract_terms_url", ""))
+            key = ((series or {}).get("ticker", ""), name)
+            if key not in ODD_SOURCE_NAMES:
+                ODD_SOURCE_NAMES[key] = (series or {}).get("contract_terms_url", "")
     return out
 
 
@@ -170,12 +173,14 @@ def fetch_open_markets():
                       limit=1000, max_pages=400, pause=0.1))
 
 
+SETTLED_PAGE_CAP = 200 * 1000  # rows; fetch stops here and the build flags it
+
+
 def fetch_settled_markets(min_settled_ts):
     out = []
-    cursor_pages = k.paginate("/markets", "markets",
-                              {"status": "settled", "mve_filter": "exclude", "min_settled_ts": min_settled_ts},
-                              limit=1000, max_pages=200, pause=0.1)
-    for m in cursor_pages:
+    for m in k.paginate("/markets", "markets",
+                        {"status": "settled", "mve_filter": "exclude", "min_settled_ts": min_settled_ts},
+                        limit=1000, max_pages=200, pause=0.1):
         out.append(m)
     return out
 
@@ -304,6 +309,16 @@ def main():
     # Resolved (settled) markets within the window
     settled_raw = fetch_settled_markets(NOW - RESOLVED_DAYS * 86400)
     print("settled non-combo markets in window:", len(settled_raw), flush=True)
+    if len(settled_raw) >= SETTLED_PAGE_CAP:
+        flag("review", "resolved", "settled fetch",
+             f"Settled-market fetch reached the {SETTLED_PAGE_CAP}-row page cap; the resolved list may be incomplete.",
+             f"{k.BASE}/markets?status=settled&mve_filter=exclude")
+    if ODD_SOURCE_NAMES:
+        sample = ", ".join(sorted({t for (t, _n) in ODD_SOURCE_NAMES})[:15])
+        first_url = next(iter(ODD_SOURCE_NAMES.values()))
+        flag("info", "settlement_sources", "all topics",
+             f"{len(ODD_SOURCE_NAMES)} settlement-source entries have odd formatting (leading/trailing space, double space, or ends in ' of'). Shown exactly as the API returns them. Example series: {sample}.",
+             first_url)
     resolved = []
     settled_seen = set()
     for m in settled_raw:
