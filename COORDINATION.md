@@ -112,6 +112,22 @@ branch); it is used in place of `session-<id>/<task>` naming.
     preserved intact.
 - Merged the result and pushed; PR #6 merged to `main`.
 
+#### Integration / publish (session 0db174ef, completion recorded on main @ ed59af6)
+- [x] Build + link validation (`node tools/build.mjs` -> BUILD OK)
+- [x] PR #6 created from `arena/0db174ef-trade1` to `main`
+  - https://github.com/wingbangboozle1-lang/Trade1/pull/6
+- [x] Merge conflict resolved (both sessions' work preserved)
+- [x] PR #6 merged to `main` (squash, commit `77f20e8`)
+- [x] CI workflow `KalshiDash CI + Pages` passed on `main` (conclusion: success)
+- [x] GitHub Pages build + deployment succeeded (status: built)
+  - Live site: https://wingbangboozle1-lang.github.io/Trade1/
+
+#### Result (session 0db174ef)
+All tasks (T1–T8 for session 0db174ef; M1 for session 81cacf69) are complete. The site builds with
+no broken links, the CI validation passes, PR #6 is merged to `main`, and GitHub Pages is live.
+Flagged irregularities / unverified items do not block the merge and are published on the site's
+Flagged for Review pages with source links.
+
 ### sess-a1-9a0ad587 — verification log (2026-11-20)
 
 Official sources fetched and read this session (links in `docs/SOURCES.md`, `docs/API_NOTES.md`):
