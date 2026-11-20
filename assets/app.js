@@ -562,7 +562,7 @@ window.KalshiApp = (function () {
   function select(ticker) {
     S.selected = ticker;
     S.book = null; S.candles = null; S.lastCandleFetch = 0;
-    $('#kx-sel-name') && ($('#kx-sel-name').textContent = ticker);
+    $('#kx-chart-name') && ($('#kx-chart-name').textContent = ticker);
     pollBook(); fetchCandles(); renderTable(); renderBook();
   }
 
@@ -865,7 +865,8 @@ window.KalshiApp = (function () {
       '<button id="kx-apply">Apply</button></div>' +
       '<p class="muted small">Fees: <b>' + (M.state.bot.fees ? 'ON (UNVERIFIED 7% quadratic)' : 'OFF') + '</b> — toggle below. Strategy parameters are fixed defaults documented in Methods.</p>' +
       '<button id="kx-fees">Toggle fees (unverified)</button>' +
-      '<p class="muted small" id="kx-trades-hint"></p></div></div>' +
+      '<p class="muted small" id="kx-trades-hint"></p>' +
+      '<p class="small" id="kx-sum" style="margin-top:8px"></p></div></div>' +
       '<div class="box" style="margin-top:14px"><h2>Strategy automation</h2><div class="tablewrap"><table id="kx-strategies"></table></div></div>' +
       '<div class="grid2" style="margin-top:14px">' +
       '<div class="box"><h2>Open paper positions (mark = official bid)</h2><div class="tablewrap"><table id="kx-positions"></table></div></div>' +
