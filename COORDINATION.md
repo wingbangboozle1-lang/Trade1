@@ -262,5 +262,15 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - Verified before merge: `scripts/paper_engine.py` compiles (`py_compile`); the resolved tree is
   byte-identical to `origin/main` except for the added `scripts/paper_engine.py` and the README/COORDINATION
   notes (`git diff origin/main --stat` shows only those).
-- PR #12 merged to `main`; Pages deployment confirmed below. The merged v2 site remains the live,
-  CI-passing deliverable; this session's contributions are the automation script and the integration log.
+- **PR #12 merged to `main`**: https://github.com/wingbangboozle1-lang/Trade1/pull/12 — merge commit
+  `e1801aea`, merged 2026-11-20T13:38:53Z (merge commit, merged without waiting for review, per the brief).
+- **Pages deployment confirmed**: repository Pages status `built` (legacy source `main`, path `/`); live site
+  https://wingbangboozle1-lang.github.io/Trade1/ serves the v2 landing page with real snapshot counts
+  (Gas prices 36, Elections 13,345, Culture 1,365, Crypto 2,793, Golf 68, 625 resolved), built from the
+  official demo API. `scripts/paper_engine.py` is present on `main` (sha `b0929f91`) and served under
+  `/scripts/paper_engine.py`.
+- Final repository validators on the merged tree: `node scripts/test_lib.mjs` → lib tests passed;
+  `node scripts/check_site.mjs` → 11 HTML, 71 links, 1,154 rows, 625 resolved, 0 failures;
+  `node tools/build.mjs` → BUILD OK — 18 HTML, 20 JS files validated, 0 broken links.
+- The merged v2 site remains the live, CI-passing deliverable; this session's contributions are the
+  standalone automation script and the integration log.
