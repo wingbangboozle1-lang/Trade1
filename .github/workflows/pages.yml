@@ -31,6 +31,10 @@ jobs:
           node-version: '20'
       - name: Unit checks (offline fixtures)
         run: node scripts/test_lib.mjs
+      - name: Unit checks — deployed root engine (assets/model.js)
+        run: node tests/root_engine.test.js
+      - name: Syntax check (deployed root engine)
+        run: node --check assets/app.js && node --check assets/model.js
       - name: Check links and that every row has an official source_url
         run: node scripts/check_site.mjs
 

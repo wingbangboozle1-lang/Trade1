@@ -3,10 +3,10 @@
  * Everything in this file is local-only: no orders are sent to Kalshi, no
  * account is contacted, nothing leaves the browser. Paper fills are assumed
  * at the official bid/ask quotes with no slippage; see methods.html for the
- * documented assumptions and flagged.html for limitations. Fees ARE applied
- * by default (official taker formula, verified from
- * kalshi.com/docs/kalshi-fee-schedule.pdf — see fee() below); maker fees
- * are not modeled (paper fills assume immediately-matched orders).
+ * documented assumptions and flagged.html for limitations. Taker fees use the
+ * official schedule (verified 2026-11-20): roundup(0.07 x C x P x (1-P)) —
+ * https://kalshi.com/docs/kalshi-fee-schedule.pdf (effective July 7, 2026).
+ * Maker fees are not modeled (paper fills assume immediately-matched orders).
  *
  * Topic classification mirrors scripts/topics.json (authoritative for the
  * data/ snapshots). The two MUST be kept in sync — flagged in flagged.html.
@@ -67,7 +67,7 @@ window.KalshiModel = (function () {
       titleRe: '', exclRe: '', seriesRe: '^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT)' },
     { id: 'golf', label: 'Golf', categories: ['Sports'],
       titleRe: 'golf', exclRe: '', seriesRe: '^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)',
-      exclCats: ['Politics', 'Elections'] }
+      exclCats: ['Politics', 'Elections'] } // mirrors scripts/topics.json golf.exclude_categories (PR #20 finding)
   ];
 
   function classify(category, title, series) {
@@ -108,11 +108,39 @@ window.KalshiModel = (function () {
 
   /* ---------- fee (official schedule: taker = roundup(0.07 x C x P x (1-P));
    * source: https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026.
-   * Maker fees are not modeled — paper fills assume immediately-matched orders.) --- */
+   * Maker fees are not modeled — paper fills assume immediately-matched orders.
+   *
+   * Computed in integer arithmetic: official prices are 4dp (p4 = P * 10000)
+   * and contract counts are 2dp (c2 = C * 100), so
+   *   fee_dollars = 7 * c2 * p4 * (10000 - p4) / 1e12
+   *   fee_cents   = 7 * c2 * p4 * (10000 - p4) / 1e10
+   * Every published row of the schedule's General Trading Fees Table is
+   * reproduced exactly (see tests/root_engine.test.js). The naive float form
+   * ceil(0.07 * 100 * 0.5 * 0.5 * 100) = ceil(175.00000000000003) = 176,
+   * i.e. $1.76 where the official table says $1.75 — hence the integer path. --- */
   function fee(costPerContract, qty) {
     if (!state.bot.fees) return 0;
-    var p = costPerContract;
-    return Math.ceil(0.07 * qty * p * (1 - p) * 100) / 100;
+    var p4 = Math.round(costPerContract * 10000);   // price in 1/10000 dollars
+    var c2 = Math.round(qty * 100);                   // contracts in 1/100
+    if (!isFinite(p4) || !isFinite(c2) || c2 <= 0) return 0;
+    if (p4 < 0 || p4 > 10000) return 0;
+    var cents = 7 * c2 * p4 * (10000 - p4) / 1e10;
+    return Math.ceil(cents - 1e-9) / 100;             // round up to the next cent
+  }
+
+  /* ---------- alert threshold (>= $0.10, either direction) ----------
+   * Prices are official 4dp fixed-point strings ("0.6600"). Binary float renders
+   * 0.66 - 0.56 as 0.09999999999999998, which would silently fail a naive
+   * ">= 0.10" test, so the comparison is done in whole 1/10000-dollar units.
+   * Returns null when the move is below the threshold, otherwise the move. */
+  var ALERT_UNITS = 1000; // $0.10 in 1/10000-dollar units
+  function alertMove(prev, cur, thresholdUnits) {
+    var t = (thresholdUnits === undefined || thresholdUnits === null) ? ALERT_UNITS : thresholdUnits;
+    if (prev === null || prev === undefined || cur === null || cur === undefined) return null;
+    var a = Math.round(cur * 10000), b = Math.round(prev * 10000);
+    var diff = a - b;
+    if (Math.abs(diff) < t) return null;
+    return { from: b / 10000, to: a / 10000, delta: Math.round(diff / 10) / 1000, dir: diff > 0 ? 'up' : 'down' };
   }
 
   /* ---------- broker ---------- */
@@ -334,7 +362,7 @@ window.KalshiModel = (function () {
     runStrategies: runStrategies, manage: manage, applyResolutions: applyResolutions,
     recordEquity: recordEquity, equity: equity, summary: summary,
     byStrategy: byStrategy, byTopic: byTopic, pushAlert: pushAlert,
-    persistAll: persistAll, reset: reset,
+    persistAll: persistAll, reset: reset, fee: fee, alertMove: alertMove,
     topicById: function (id) { return TOPICS.filter(function (t) { return t.id === id; })[0] || null; }
   };
 })();
