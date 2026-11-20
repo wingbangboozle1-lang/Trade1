@@ -6,13 +6,13 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 |---|---|---|---|
 | Kalshi demo dashboard, source research, site, verification, and deployment setup (prototype, PR #1) | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Kalshi demo monitor v2: live dashboard, topic subpages, alerts, simulated strategies, resolved tracker, sources, flagged page, Pages build | in progress | cedad5c4 | `**`, `scripts/**`, `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `COORDINATION.md` (removes prototype `index.html`) |
-| a2ec5543 · T1 | Repo review (line-by-line vs official sources, irregularities) | needs review | a2ec5543 | `reports/REPO_REVIEW.md` |
-| a2ec5543 · T2 | Official-source verification of Kalshi API fields and endpoints | needs review | a2ec5543 | `config/sources.json`, `reports/API_VERIFICATION.md` |
-| a2ec5543 · T3 | Market data pipeline (official demo REST → JSON, topics, moves, backtest) | in progress | a2ec5543 | `scripts/build_site.py`, `scripts/kalshi_api.py`, `scripts/backtest.py`, `scripts/render_site.py`, `scripts/check_site.py`, `config/topics.json` |
+| a2ec5543 · T1 | Repo review (line-by-line vs official sources, irregularities) | done (published, `review.html`; R1–R20) | a2ec5543 | `reports/REPO_REVIEW.md` |
+| a2ec5543 · T2 | Official-source verification of Kalshi API fields and endpoints | needs review (S16 not read; gas PDFs other than AAAGAS not opened; historical candles not implemented) | a2ec5543 | `config/sources.json`, `reports/API_VERIFICATION.md` |
+| a2ec5543 · T3 | Market data pipeline (official demo REST → JSON, topics, moves, backtest) | done (CI build passes; 16,876 unmapped markets flagged F18) | a2ec5543 | `scripts/build_site.py`, `scripts/kalshi_api.py`, `scripts/backtest.py`, `scripts/render_site.py`, `scripts/check_site.py`, `config/topics.json` |
 | a2ec5543 · T4 | Category site: landing + subpages + tables + charts (under `a2ec5543/`) | in progress | a2ec5543 | `site/**`, `.github/workflows/site.yml`, `monitor/**` (generated) |
-| a2ec5543 · T5 | Simulated strategies + trade categorisation | in progress | a2ec5543 | `scripts/backtest.py`, `reports/METHODOLOGY.md` |
-| a2ec5543 · T6 | Executive summary + Flagged for Review | in progress | a2ec5543 | `reports/EXECUTIVE_SUMMARY.md`, `reports/FLAGGED_FOR_REVIEW.md` |
-| a2ec5543 · T7 | Integration: PR to `main`, build check, publish, Pages verification | in progress | a2ec5543 | `COORDINATION.md` (this section), PR #4 |
+| a2ec5543 · T5 | Simulated strategies + trade categorisation | needs review (6 trades; sample too small to judge, F7) | a2ec5543 | `scripts/backtest.py`, `reports/METHODOLOGY.md` |
+| a2ec5543 · T6 | Executive summary + Flagged for Review | done (published; F1–F19) | a2ec5543 | `reports/EXECUTIVE_SUMMARY.md`, `reports/FLAGGED_FOR_REVIEW.md` |
+| a2ec5543 · T7 | Integration: PR to `main`, build check, publish, Pages verification | done (PR #4 `bbb3def`, PR #25 `ac067df`, PR #26 `5d0280a` merged; publish verified) | a2ec5543 | `COORDINATION.md` (this section) |
 
 | Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Full live dashboard v2: alerts, charts, orderbook, sim trading, resolutions, data pipeline, CORS verification, topic subpages, integration + PR + Pages | in progress | bb8bd1ff (branch `arena/bb8bd1ff-trade1`) | COORDINATION.md, README.md, index.html (takeover, see log), dashboard.html, trades.html, data.html, methods.html, flagged.html, sources.html, topics/*.html, assets/**, data/**, scripts/**, .github/workflows/verify-and-collect.yml |
