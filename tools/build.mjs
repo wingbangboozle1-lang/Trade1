@@ -44,12 +44,12 @@ async function walk(dir) {
  * trade1/, pages/, categories/, js/, css/) were removed in this session — see
  * COORDINATION.md. Checking a directory that no longer exists is a no-op. */
 const ROOT_PAGES = [
-  "index.html", "dashboard.html", "live.html", "trades.html", "data.html",
-  "methods.html", "flagged.html", "sources.html", "strategies.html",
-  "resolved.html", "executive-summary.html", "review.html", "suggestions.html",
+  "index.html", "dashboard.html", "trades.html", "data.html",
+  "methods.html", "flagged.html", "sources.html",
+  "resolved.html", "executive-summary.html", "suggestions.html",
 ];
 const HTML_GLOB = ROOT_PAGES.concat(["topics", "demo-account"]);
-const JS_GLOB = ["assets", "js", "demo-account/assets"];
+const JS_GLOB = ["assets", "demo-account/assets"];
 
 async function checkJsSyntax(file) {
   return new Promise((res) => {
