@@ -99,9 +99,34 @@ def classify(market: dict) -> str | None:
     return None
 
 
+def series_of(market: dict) -> str:
+    """Series ticker for a market.
+
+    The Kalshi UI market page is https://kalshi.com/markets/{series_ticker}
+    (lower-case) — see the official Quick Start
+    (https://docs.kalshi.com/getting_started/quick_start_market_data, which links
+    https://kalshi.com/markets/kxhighny). An *event* ticker in that position does
+    not resolve to a market page, so links are never built from one. The
+    official /markets object publishes `series_ticker`; the ticker prefix is
+    used only as a fallback, which is the series for every ticker shape seen on
+    the demo API.
+    """
+    st = market.get("series_ticker")
+    if st:
+        return str(st)
+    return str(market.get("ticker") or market.get("event_ticker") or "").split("-")[0]
+
+
 def market_url(market: dict) -> str:
-    et = market.get("event_ticker") or market.get("ticker", "")
-    return "https://kalshi.com/markets/" + urllib.parse.quote(str(et))
+    """Official Kalshi UI page for the market's series (verified pattern)."""
+    s = series_of(market)
+    return "https://kalshi.com/markets/" + urllib.parse.quote(s.lower()) if s else ""
+
+
+def api_market_url(market: dict) -> str:
+    """Exact official API record for the market (verification link)."""
+    t = market.get("ticker")
+    return BASE_URLS[0] + "/markets/" + urllib.parse.quote(str(t)) if t else ""
 
 
 def get(base: str, path: str) -> dict:
@@ -174,7 +199,8 @@ class PaperEngine:
                     self.state["last_alert_at"][t] = now
                     self.state["last_move"][t] = {"dir": "up" if delta > 0 else "down", "delta": str(delta)}
                     alerts.append({"ticker": t, "title": m.get("title"), "topic": classify(m),
-                                   "from": prev, "to": str(bid), "delta": str(delta), "url": market_url(m)})
+                                   "from": prev, "to": str(bid), "delta": str(delta),
+                                   "url": market_url(m), "api_url": api_market_url(m)})
         return alerts
 
     def evaluate_trades(self, markets: list[dict]) -> list[dict]:
