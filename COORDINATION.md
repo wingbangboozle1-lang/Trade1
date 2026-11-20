@@ -1017,3 +1017,37 @@ pages rendered with 0 JS errors.
 
 **CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
 `tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.
+
+### PR, merge and Pages record (final), 2026-11-20 UTC
+
+- **PR #55** `arena/6916270f-trade1` → `main`: final integration (D1–D11, the fee-table
+  transcription, the audit report, the CI gates). Checks **pass** (run 44811463798), mergeable
+  clean, merged **2026-11-20T20:29:58Z**, merge commit **`26d8b8d`**.
+- **PR #56** `arena/6916270f-trade1` → `main`: the per-series fee wording on `flagged.html` (row
+  6b) and `methods.html` §4 was made consistent with the decision that was implemented (the
+  published schedule defines `M`; the demo API's `fee_multiplier` disagrees — both are published).
+  Checks **pass** (run 44812431969), merged **2026-11-20T20:37:12Z**, merge commit **`826cefb`**.
+- **PR #57** `arena/6916270f-trade1` → `main`: the Resolved page's live-refresh rows were wiped
+  by the snapshot render (the counter still said "+10 live"); the page now renders from one row
+  list and the live poll is chained after the snapshot render. Checks **pass** (run 44813556063),
+  merged **2026-11-20T20:46:09Z**, merge commit **`723b6d4`**.
+- **Pages:** `gh api repos/wingbangboozle1-lang/Trade1/pages/builds/latest` → `status: built`
+  for `723b6d4`; the deploy run and the site-checks run both completed **success**. HTTPS
+  enforced, source `main /`.
+- **Live verification (page fetcher, 2026-11-20):**
+  - https://wingbangboozle1-lang.github.io/Trade1/ — the consolidated landing page with the
+    executive summary, the feature list, the pipeline description and the snapshot/CORS status.
+  - `dashboard.html` — 810 watchlist markets, the seconds/minutes/hours window selector, the
+    ≥ $0.10 alert rule, rows linked to `https://kalshi.com/markets/{series}` **and** the official
+    API record.
+  - `resolved.html` — "200 markets in the snapshot … settled in window: 6000 … in scope: 3213",
+    the cap disclosed ("200 of 3213 in-scope settled markets + 10 live"), the live rows now
+    visible and marked "· live", every row carrying its official API record link.
+  - `portfolio.html` — the ledger (96-market watchlist, 4 open positions, equity $995.44), each
+    row linked to a series page and its API record.
+  - `flagged.html` — the `6916270f` section with items 691-1 … 691-11, each with an official
+    source link.
+- **Still open at close:** none of this session's own PRs. PRs #32 and #35 were closed unmerged by
+  the repository owner; their still-needed parts were taken over into PR #55 (recorded above).
+- **Task status:** done. The only remaining gap is the demo-account layer, which needs the owner's
+  demo API key (flagged item 691-11 / 9d-5) — it stays inert and is not faked.
