@@ -1,18 +1,16 @@
 {
-  "checkedAt": "2026-11-20T19:38:18.020Z",
-  "files": 20,
+  "checkedAt": "2026-11-20T19:39:47.938Z",
+  "files": 22,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
     "index.html",
     "dashboard.html",
-    "live.html",
     "trades.html",
     "data.html",
     "methods.html",
     "flagged.html",
     "sources.html",
-    "strategies.html",
     "resolved.html",
     "executive-summary.html",
     "suggestions.html",
@@ -20,11 +18,15 @@
     "topics/culture.html",
     "topics/elections.html",
     "topics/gas-prices.html",
-    "topics/golf.html"
+    "topics/golf.html",
+    "demo-account/flagged.html",
+    "demo-account/index.html"
   ],
   "jsFiles": [
     "assets/app.js",
-    "assets/js/app.js",
-    "assets/model.js"
+    "assets/model.js",
+    "demo-account/assets/app.js",
+    "demo-account/assets/engine.js",
+    "demo-account/assets/signer.js"
   ]
 }

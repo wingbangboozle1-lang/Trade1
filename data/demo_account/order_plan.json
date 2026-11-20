@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-11-20T19:37:39.002Z",
+  "environment": "demo",
+  "strategy": "join-best-yes-bid",
+  "strategy_definition": "Buy 1 YES contract at the current best YES bid when the YES spread is $0.01-$0.03 and a YES bid is resting.",
+  "markets_scanned": 2000,
+  "scan_truncated": true,
+  "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-markets",
+    "https://docs.kalshi.com/getting_started/fixed_point_migration",
+    "https://docs.kalshi.com/getting_started/market_lifecycle"
+  ],
+  "orders": [
+    {
+      "ticker": "KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-16",
+      "side": "bid",
+      "price_dollars": "0.7200",
+      "count": 1,
+      "rationale": "YES bid 0.7200, YES ask 0.7300, spread 0.0100, resting YES bid size 120, 24h volume 0.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-16"
+    },
+    {
+      "ticker": "KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-19",
+      "side": "bid",
+      "price_dollars": "0.4800",
+      "count": 1,
+      "rationale": "YES bid 0.4800, YES ask 0.5000, spread 0.0200, resting YES bid size 22, 24h volume 0.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-19"
+    }
+  ]
+}

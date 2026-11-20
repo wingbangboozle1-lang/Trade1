@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "at": "2026-11-20T19:37:39.380Z",
+      "mode": "dry_run",
+      "ticker": "KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-16",
+      "request": {
+        "ticker": "KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-16",
+        "client_order_id": "14c3401b-0018-491b-b0dd-66bd4ca0a3af",
+        "side": "bid",
+        "count": "1.00",
+        "price": "0.7200",
+        "time_in_force": "good_till_canceled",
+        "self_trade_prevention_type": "taker_at_cross",
+        "post_only": true,
+        "reduce_only": false,
+        "cancel_order_on_pause": true
+      },
+      "status": "not_sent"
+    },
+    {
+      "at": "2026-11-20T19:37:39.380Z",
+      "mode": "dry_run",
+      "ticker": "KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-19",
+      "request": {
+        "ticker": "KXNFLRSHATT-26NOV22ARIKC-KCEJOHNSON10-19",
+        "client_order_id": "606d6d9e-561f-44ef-ad3a-f9afd87a7843",
+        "side": "bid",
+        "count": "1.00",
+        "price": "0.4800",
+        "time_in_force": "good_till_canceled",
+        "self_trade_prevention_type": "taker_at_cross",
+        "post_only": true,
+        "reduce_only": false,
+        "cancel_order_on_pause": true
+      },
+      "status": "not_sent"
+    }
+  ]
+}

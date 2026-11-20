@@ -1,0 +1,88 @@
+# Demo account track (Kalshi DEMO environment only).
+# - Scheduled run: read-only snapshot of balance and positions (no orders).
+# - Manual run (workflow_dispatch):
+#     mode=snapshot  read-only snapshot
+#     mode=plan      build an order plan from public demo markets and dry-run it (nothing sent)
+#     mode=live      build the plan and send guarded DEMO orders (max 3 orders / $3.00 per run, buy YES only)
+# Credentials come only from repository secrets KALSHI_DEMO_KEY_ID and KALSHI_DEMO_PRIVATE_KEY.
+# Without them the job records "not configured" and sends no authenticated request.
+name: Demo account track
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'   # scheduled runs are snapshot-only
+  push:                      # push to this track's files: dry-run plan only (no orders)
+    branches: [main, arena/20e3ad14-trade1]
+    paths: ['scripts/demo_account/**', '.github/workflows/demo-account.yml']
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'snapshot (read-only) | plan (dry-run) | live (guarded demo orders)'
+        type: choice
+        options: [snapshot, plan, live]
+        default: snapshot
+
+permissions:
+  contents: write
+
+concurrency:
+  group: demo-account-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      KALSHI_DEMO_KEY_ID: ${{ secrets.KALSHI_DEMO_KEY_ID }}
+      KALSHI_DEMO_PRIVATE_KEY: ${{ secrets.KALSHI_DEMO_PRIVATE_KEY }}
+      WRITE_STATUS: ${{ github.event_name != 'schedule' && 'true' || 'false' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Offline self-tests (no network, no credentials)
+        run: node scripts/demo_account/selftest.mjs
+
+      - name: Read-only demo snapshot
+        run: node scripts/demo_account/snapshot.mjs
+
+      - name: Resolve mode
+        id: mode
+        run: |
+          case "${EVENT}" in
+            workflow_dispatch) m="${INPUT_MODE}" ;;
+            push) m=plan ;;
+            *) m=snapshot ;;
+          esac
+          echo "mode=${m}" >> "$GITHUB_OUTPUT"
+          echo "Resolved mode: ${m}"
+        env:
+          EVENT: ${{ github.event_name }}
+          INPUT_MODE: ${{ inputs.mode }}
+
+      - name: Build order plan from public demo markets
+        if: steps.mode.outputs.mode != 'snapshot'
+        run: node scripts/demo_account/make_plan.mjs
+
+      - name: Execute plan (dry-run unless mode=live and credentials exist)
+        if: steps.mode.outputs.mode != 'snapshot'
+        env:
+          ALLOW_DEMO_ORDERS: ${{ steps.mode.outputs.mode == 'live' && 'true' || 'false' }}
+        run: node scripts/demo_account/execute.mjs
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/demo_account
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "Demo account data update [skip ci]"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
