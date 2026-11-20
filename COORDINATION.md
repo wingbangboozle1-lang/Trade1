@@ -598,3 +598,11 @@ removal and the fix now lives in `assets/app.js → kalshiUrl()`). `live.html` a
 removed too — no nav entry pointed at them, one of them still loaded the deleted engine, and both duplicated
 Dashboard/Strategy Lab content. Remaining site: **15 pages**, `BUILD OK`, `23/23` engine tests, `40/40` unit
 tests, `0` check failures. Their findings remain in `flagged.html`, `reports/` and `docs/`.
+
+### Final current-branch audit (`1db0a677`, 2026-11-20 UTC)
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| Final verification of integrated site, Pages, workflows, and remaining limitations | done | `1db0a677` (`arena/1db0a677-trade1`) | `reports/FINAL_AUDIT.md`, this section of `COORDINATION.md` |
+
+This is a verification/documentation pass only; it does not take over another session's implementation scope or alter the canonical site/data. Branch started at `069a1db6026f573f7b1227115c04e5cf481a9ed3`; mainline additions were preserved during rebases. See [`reports/FINAL_AUDIT.md`](reports/FINAL_AUDIT.md) for exact commands, live Pages/workflow evidence, official Kalshi references, limitations, and conflict notes. The audited scope explicitly excludes historical/other-session files that the canonical checker does not test.
