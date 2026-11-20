@@ -74,7 +74,7 @@
         cell(r.ticker) + cell(r.yes_bid, px, "n") + cell(r.yes_ask, px, "n") + cell(r.last_price, px, "n") +
         cell(r.volume_24h, num, "n") + cell(r.est_dollars_24h, usd, "n") + cell(r.open_interest, num, "n") +
         cell(r.yes_bid_size, num, "n") + cell(r.yes_ask_size, num, "n") + cell(when(r.close_time)) +
-        cell(r.result ? r.result.toUpperCase() : null, null, r.result === "yes" ? "yes" : r.result === "no" ? "no" : "") +
+        (r.result ? "<td class='" + (r.result === "yes" ? "yes" : "no") + "'>" + esc(r.result.toUpperCase()) + "</td>" : "<td><span class='note'>open (not settled)</span></td>") +
         cell(r.match_rule) + "<td>" + srcLink(r.source_url) + "</td></tr>";
     });
     return h + "</tbody></table></div>";
@@ -87,7 +87,7 @@
     var t = D.topics[topic] || {label: topic, rows: [], count: 0};
     var rows = t.rows || [];
     var h = stamp(D) + "<h2>" + esc(LABELS[topic] || topic) + " — open markets (" + (t.count || rows.length) + ")</h2>" +
-      (t.count > rows.length ? "<p class='note'>Showing the top " + rows.length + " by estimated 24h dollar volume out of " + t.count + ". The full list is in site/data/markets.json (rows per topic are capped to keep the page fast).</p>" : "") +
+      (t.count > rows.length ? "<p class='note'>Showing the top " + rows.length + " by estimated 24h dollar volume out of " + t.count + ". The full list is in trade1/data/markets.json (rows per topic are capped to keep the page fast).</p>" : "") +
       "<p class='note'>Grouped by event. Yes bid/ask and last are dollars per $1 contract. Match rule shows how each market got into this topic.</p>" +
       rowsTable(rows, false);
     var tops = Object.keys(D.top_detail || {}).map(function (k) { return D.top_detail[k]; }).filter(function (d) { return d.topic === topic; });
