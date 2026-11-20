@@ -1,0 +1,206 @@
+## /markets?status=open: count=3 statuses=['active', 'active', 'active'] results=['', '', ''] cursor_len=87
+## /markets?status=closed: count=3 statuses=['closed', 'closed', 'closed'] results=['', '', ''] cursor_len=46
+## /markets?status=settled: count=3 statuses=['finalized', 'finalized', 'finalized'] results=['no', 'no', 'yes'] cursor_len=59
+## /markets?status=finalized: ERROR HTTP 400 for https://external-api.demo.kalshi.co/trade-api/v2/markets?status=finalized&limit=3: {"error":{"code":"bad_request","message":"bad request","details":"invalid status filter"}}
+## /markets?status=active: ERROR HTTP 400 for https://external-api.demo.kalshi.co/trade-api/v2/markets?status=active&limit=3: {"error":{"code":"bad_request","message":"bad request","details":"invalid status filter"}}
+## historical/cutoff
+{"market_positions_last_updated_ts": "2026-09-21T00:00:00Z", "market_settled_ts": "2026-09-21T00:00:00Z", "orders_updated_ts": "2026-11-06T00:00:00Z", "trades_created_ts": "2026-09-21T00:00:00Z"}
+
+TOPIC SERIES COUNTS: {None: 10723, 'Culture': 2627, 'Elections': 2709, 'Golf': 134, 'Crypto': 320, 'Gas prices': 130}
+## series for Gas prices: 130
+    KXAAAGASCDRI | Economics | Rhode Island gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASCDND | Economics | North Dakota gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDKS | Economics | Kansas gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDIL | Economics | Illinois gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDOK | Economics | Oklahoma gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDOH | Economics | Ohio gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDSD | Economics | South Dakota gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASCDCO | Economics | Colorado gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDTN | Economics | Tennessee gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDFL | Economics | Florida gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDNY | Economics | New York gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDHI | Economics | Hawaii gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDWY | Economics | Wyoming gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDNJ | Economics | New Jersey gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDWV | Economics | West Virginia gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASED | Economics | US gas price on Election Day | ['Oil & Gas', 'Oil and energy'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDWA | Economics | Washington gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDMS | Economics | Mississippi gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDID | Economics | Idaho gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASMIN | Economics | US lowest gas price yearly | ['Oil & Gas', 'Oil and energy'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASMINMAX.pdf
+    KXAAAGASMAXTX | Economics | Texas highest gas price yearly | ['Oil & Gas', 'Oil and energy'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASMINMAX.pdf
+    KXAAAGASMINM | Economics | US lowest gas price monthly | ['Oil and energy'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASMINMAX.pdf
+    KXAAAGASDOK | Economics | Oklahoma gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDME | Economics | Maine gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASCDHI | Economics | Hawaii gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDAL | Economics | Alabama gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDTX | Economics | Texas gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDKY | Economics | Kentucky gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDVA | Economics | Virginia gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDMD | Economics | Maryland gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDMD | Economics | Maryland gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    AAAGASMINTX | Economics | Texas lowest gas price yearly | ['Oil and energy'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASMINMAX.pdf
+    KXAAAGASCDLA | Economics | Louisiana gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDGA | Economics | Georgia gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDNE | Economics | Nebraska gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDCA | Economics | California gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDIN | Economics | Indiana gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDAZ | Economics | Arizona gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDNC | Economics | North Carolina gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDDE | Economics | Delaware gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDWI | Economics | Wisconsin gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDCA | Economics | California gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDMA | Economics | Massachusetts gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASCDWI | Economics | Wisconsin gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDIA | Economics | Iowa gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDNM | Economics | New Mexico gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDLA | Economics | Louisiana gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDVT | Economics | Vermont gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    AAAGASW | Economics | US gas price up | ['Oil and energy'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDAZ | Economics | Arizona gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDMT | Economics | Montana gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDWY | Economics | Wyoming gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASW | Economics | US gas price up | ['Econ Weekly', 'Oil and energy'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDSC | Economics | South Carolina gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASCDAK | Economics | Alaska gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDDE | Economics | Delaware gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASCDWV | Economics | West Virginia gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+    KXAAAGASDMA | Economics | Massachusetts gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDAR | Economics | Arkansas gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+    KXAAAGASDAK | Economics | Alaska gas price | ['Oil and energy', 'Econ Daily'] | quadratic | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+## series for Golf: 134
+    KXCHAMPTOURR1LEAD | Sports | round 1 leader | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXDPWTTOP10 | Sports | DPWT Top 10 Finisher | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXPGAFUTURE | Sports | Future Major Championship Wins | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFUTUREMAJOR.pdf
+    KXPGAOCCUR | Sports | PGA Golf Event Occurence | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/SPORTEVENTOCCUR.pdf
+    KXDPWORLDTOUR | Sports | DP World Tour Tournament Winner | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/PGATOUR.pdf
+    KXPGAWIN | Sports | Golfer to Win | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFACHIEVEMENTS.pdf
+    KXCHAMPTOUR | Sports | PGA Champions Tour | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/PGATOUR.pdf
+    KXSCOTTIESLAM | Sports | Scottie grand slam | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFSLAM.pdf
+    KXDPWTTOP5 | Sports | DPWT Top 5 Finisher | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXRYDERCUP | Sports | Ryder Cup  | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXPGAR1T5 | Sports | golf top 5 r1 | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXPGAMAKECUT | Sports | PGA To Make Cut | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFCUT.pdf
+    KXGOLFMAJOR | Sports | Will golfer win a major by 2030? | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFERMAJOR.pdf
+    KXLPGAR3LEAD | Sports | Round 3 LPGA Leader | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXLPGAR2LEAD | Sports | LPGA Round 2 Leader | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXPGAROUNDLOW | Sports | lowest round score | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFLOWROUNDSCORE.pdf
+    KXPGARYDERMATCH | Sports | PGA Ryder Cup Matchups | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/PGARYDERMATCH.pdf
+    KXLIVOCCUR | Sports | LIV Golf Event Occurrence  | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/SPORTEVENTOCCUR.pdf
+    KXPGAPLAYOFF | Sports | Golf Playoff | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFPLAYOFF.pdf
+    KXNEXTWIN | Sports | Will golfer win this tournament next? | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/KXPGANEXTWIN.pdf
+    KXDPWORLDTOURR2LEAD | Sports | DP World Tour R2 Leader | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXPGACURRY | Sports | Steph Curry PGA | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ATHLETEEVENT.pdf
+    KXGOLFCAT | Sports | a | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFCATEGORYLEADER.pdf
+    KXDPWTH2H | Sports | golf tournament matchup | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFH2H.pdf
+    KXLPGADAYWINNER | Sports | Day winner of LPGA event | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFTEAMDAYWINNER.pdf
+    KXPGATOP20 | Sports | PGA Top 20 Finisher | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXPRESCUPWINMARGIN | Sports | Presidents Cup Win Margin | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFPTSLEADER.pdf
+    KXPGATOP40 | Sports | PGA Top 40 Finisher | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXLIVR3LEAD | Sports | LIV Round 3 Leader | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXPGAC | Sports | Golfers to Participate in the PGA championship | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ATHLETEEVENT.pdf
+    KXPGATOUR | Sports | PGA Tour | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/PGATOUR.pdf
+    KXPGARYDERTOP3 | Sports | Ryder Cup Top 3 Points Scorer | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/NEWACHIEVEMENT.pdf
+    KXTGLMATCH | Sports | TGL Golf Match | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXNELKHOLEINONE | Sports | NELK Hole in One | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/HOLEINONECHALLENGE.pdf
+    KXPGAR1TOP10 | Sports | PGA Round 1 Top 10 FInishers | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXDPWORLDTOURMAKECUT | Sports | DP World Tour To Make Cut | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFCUT.pdf
+    KXBRYSONCOURSERECORDS | Sports | Bryson Course Records | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/COURSERECORDS.pdf
+    KXGOLF | Sports | Golf Tournament Winner | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXPGATOP10 | Sports | PGA Top 10 Finisher | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXPGAEAGLE | Sports | Player to Record an Eagle in Round | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFWHOSTAT.pdf
+    KXPGAHOLE | Sports | Will the player win the hole matchup | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFHOLEWINNER.pdf
+    KXPGACUTLINE | Sports | PGA What Will the Cut Line Be | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/SPORTSTOURNAMENTTHRESHOLD.pdf
+    KXPGARYDERCUPD1 | Sports | Ryder Cup Day 1 Winner | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXDPWORLDTOURR3LEAD | Sports | DP World Tour R3 Leader | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXMASTERSCUT | Sports | Masters Cut | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/PGATOURQUALIFY.pdf
+    KXPGAROUNDBIRDIES | Sports | Golf Round Birdies | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFROUNDBIRDIES.pdf
+    KXBDSHOLEINONE | Sports | Bob Does Sports Hole in One | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/HOLEINONECHALLENGE.pdf
+    KXPGARYDER | Sports | Ryder Cup | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/PGATOUR.pdf
+    KXPGAT40 | Sports | top 40 | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXLIVTOUR | Sports | LIV Tour | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXPGAR1TOP5 | Sports | PGA Round 1 Top 5 FInishers | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXPGAUSO | Sports | golfers to compete in US Open | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ATHLETEEVENT.pdf
+    KXPRESCUP | Sports | President's Cup | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/PGATOUR.pdf
+    KXPGAGOLFERSCORE | Sports | Golf Round Strokes | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFSCORE.pdf
+    KXPGAREGION | Sports | PGA Region Winner | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFCOUNTRY.pdf
+    KXPGAWINMARGIN | Sports | PGA Win Margin | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFLEADMARGIN.pdf
+    KXPGAR2TOP10 | Sports | PGA Round 2 Top 10 FInishers | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+    KXGOLFMAJORFUT | Sports | How many majors will golfer win by 2036? | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFUTUREMAJOR.pdf
+    KXGENESISINVITATIONAL | Sports | Genesis Invitational Winner? | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+    KXPGAR1T10 | Sports | r1 top 10 | ['Golf'] | quadratic | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+## series for Crypto: 320
+    KXFDVLIGHTER | Crypto | FDV Lighter | ['Crypto', 'Pre-Market'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOFDV.pdf
+    KXBTCE | Crypto | Election day BTC | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/BTC.pdf
+    KXSOLMINY | Crypto | Sol Min Yearly | ['Crypto', 'Solana'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+    KXPVPTRADE | Crypto | PVPTrade | ['Crypto', 'Pre-Market'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOFDV.pdf
+    KXETHABOVE2500BY | Crypto | Ethereum above $2,500 by a date | ['ETH'] | quadratic | https://assets.kalshi.com/contract_terms/ETHMINMAX.pdf
+    KXHYPEEVENT | Crypto | HYPE after economic events | ['Crypto', 'HYPE'] | quadratic | https://assets.kalshi.com/contract_terms/BTCEVENT.pdf
+    KXFDVOPENSEA | Crypto | Opensea FDV  | ['Crypto', 'Pre-Market'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOFDV.pdf
+    KXBTCMAX100 | Crypto | When will bitcoin hit 100k? | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/BTCMINMAX.pdf
+    KXBTCMAXWEEK | Crypto | KXBTCMAXW | None | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+    KXDOGEMAXW | Crypto | Dogecoin max | ['Crypto', 'DOGE'] | quadratic | https://assets.kalshi.com/contract_terms/DOGEMINMAX.pdf
+    KXBTC60VS100 | Crypto | Will BTC fall below 60k before hitting 100k? | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOHIT.pdf
+    KXTONW | Crypto | TON Directional | None | quadratic | https://assets.kalshi.com/contract_terms/CRYPTO.pdf
+    KXBTCHALF | Crypto | BTC halving | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/BTCHALF.pdf
+    KXCOUNTRYBTC | Crypto | Country buying BTC | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/COUNTRYBTC.pdf
+    ETH | Crypto | Ethereum range | ['ETH'] | quadratic | https://assets.kalshi.com/contract_terms/ETH.pdf
+    KXSOLMINMON | Crypto | SOL Min monthly | ['Crypto', 'Solana'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+    KXDOGEY | Crypto | DOGE yearly | ['Crypto', 'Hourly', 'DOGE'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOY.pdf
+    KXHYPEY | Crypto | HYPE Yearly | ['Crypto', 'Hourly', 'HYPE'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOY.pdf
+    KXFDVWET | Crypto | WET FDV | ['Crypto', 'Pre-Market'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOFDV.pdf
+    KXSOLTPS | Crypto | SOL TPS | ['Crypto', 'Solana'] | quadratic | https://assets.kalshi.com/contract_terms/SOLTPS.pdf
+    KXDOT | Crypto | Polkadot range | None | quadratic | https://assets.kalshi.com/contract_terms/DOT.pdf
+    KXXRPD | Crypto | XRP Price above/below | ['Crypto', 'XRP'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTO.pdf
+    KXXRPMAXM | Crypto | XRP max monthly | ['Crypto', 'XRP'] | quadratic | https://assets.kalshi.com/contract_terms/RIPPLEMINMAX.pdf
+    KXETHMAXM | Crypto | Ethereum max monthly | ['Crypto', 'Ethereum'] | quadratic | https://assets.kalshi.com/contract_terms/ETHMINMAX.pdf
+    KXSOLFLIPETH | Crypto | SOL flip ETH | ['Crypto', 'Ethereum', 'Solana'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMARKETCAPCOMP.pdf
+    KXBTCATH | Crypto | BTC ATH | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/BTCMINMAX.pdf
+    KXXLMMINY | Crypto | XLM min | ['Crypto'] | quadratic | https://assets.kalshi.com/contract_terms/XLMMINMAX.pdf
+    KXETH15M | Crypto | ETH 15M price up down | ['ETH', '15 min'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf
+    KXNEARMAXMON | Crypto | NEAR Max Monthly | None | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAXMONTHLY.pdf
+    KXBTCD-B | Crypto | Bitcoin on election day | ['BTC'] | quadratic | https://assets.kalshi.com/contract_terms/BTC.pdf
+    KXHYPEMINY | Crypto | Hype Min Year | ['HYPE'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAXYEARLY.pdf
+    KXXRP15M | Crypto | XRP 15 Minute | ['15 min', 'XRP'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf
+    KXBTC2026250 | Crypto | Will Bitcoin hit 250k in 2026?  | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/BTCMINMAX.pdf
+    KXSOLABOVE140BY | Crypto | Solana above $140 by a date | ['SOL'] | quadratic | https://assets.kalshi.com/contract_terms/SOLMINMAX.pdf
+    KXSTABLEYIELDNOTION | Crypto | Stablecoin notional yield | ['Crypto'] | quadratic | https://assets.kalshi.com/contract_terms/STABLEYIELDNOTION.pdf
+    KXTESTCRYPTO | Crypto | TEST | None | quadratic | https://assets.kalshi.com/contract_terms/RANKLISTCRYPTO.pdf
+    KXHYPEMINMON | Crypto | Hype Min Monthly | ['Crypto', 'HYPE'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+    KXDOGEMAXMON | Crypto | Doge Max Monthly | ['Crypto', 'DOGE'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+    KXDOGE | Crypto | Dogecoin range | ['Crypto', 'Hourly', 'DOGE'] | quadratic | https://assets.kalshi.com/contract_terms/DOGE.pdf
+    KXFDVMEGAETH | Crypto | FDV MegaETH | ['Crypto', 'Pre-Market'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOFDV.pdf
+    KXXRPMINY | Crypto | XRP Min | None | quadratic | https://assets.kalshi.com/contract_terms/RIPPLEMINMAX.pdf
+    KXRANKLISTASTER20 | Crypto | Aster top 50  | ['Crypto'] | quadratic | https://assets.kalshi.com/contract_terms/RANKLISTCRYPTO.pdf
+    KXDOGEMAXY | Crypto | Dogecoin max | ['DOGE'] | quadratic | https://assets.kalshi.com/contract_terms/DOGEMINMAX.pdf
+    KXSOLEVENT | Crypto | Solana after economic events | ['Crypto', 'SOL', 'Solana'] | quadratic | https://assets.kalshi.com/contract_terms/BTCEVENT.pdf
+    KXSOLABOVE125BY | Crypto | Solana above $125 by a date | ['SOL'] | quadratic | https://assets.kalshi.com/contract_terms/SOLMINMAX.pdf
+    KXLTCMAXY | Crypto | LTC Max | ['Crypto', 'Litecoin'] | quadratic | https://assets.kalshi.com/contract_terms/LTCMINMAX.pdf
+    KXDOGE15M | Crypto | Dogecoin 15 Minute | ['DOGE', '15 min'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf
+    KXSOLD | Crypto | SOL Directional | ['Crypto', 'Solana'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTO.pdf
+    KXHBARPERP | Crypto | 100 HBAR | None | quadratic | https://assets.kalshi.com/contract_terms/.pdf
+    KXDOGED | Crypto | Dogecoin price Above/below | ['Crypto', 'Hourly', 'DOGE'] | quadratic | https://assets.kalshi.com/contract_terms/DOGE.pdf
+    KXSHIBAD | Crypto | Shiba price Above/below | ['Crypto', 'Shiba Inu'] | quadratic | https://assets.kalshi.com/contract_terms/SHIBA.pdf
+    KXHYPE | Crypto | Hype  | ['Crypto', 'HYPE'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTO.pdf
+    KXBTCDIFFICULTY | Crypto | Bitcoin mining difficulty | None | quadratic | https://assets.kalshi.com/contract_terms/BTCDIFFICULTY.pdf
+    KXZECMAXY | Crypto | ZEC Max Year | ['Crypto', 'Zcash'] | quadratic | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+    KXELSALVADORBTC | Crypto | El Salvador bitcoin | ['Crypto', 'Bitcoin'] | quadratic | https://assets.kalshi.com/contract_terms/ELSALVADORBTC.pdf
+    KXDOTMAXY | Crypto | Polkadot max | ['Crypto'] | quadratic | https://assets.kalshi.com/contract_terms/DOTMINMAX.pdf
+    KXUSDHVOTE | Crypto | USDH vote | ['Crypto'] | quadratic | https://assets.kalshi.com/contract_terms/VALIDATORVOTE.pdf
+    KXSOLSTABLESUPP | Crypto | sol stable supp | ['Crypto', 'Solana'] | quadratic | https://assets.kalshi.com/contract_terms/SOLSTABLESUPP.pdf
+    KXBTCMINMAXY | Crypto | Bitcoin min/max | ['BTC'] | quadratic | https://assets.kalshi.com/contract_terms/BTCMINMAX.pdf
+    BTC | Crypto | Bitcoin range | ['BTC'] | quadratic | https://assets.kalshi.com/contract_terms/BTC.pdf
+## KXAAAGASM markets: [('KXAAAGASM-26OCT31-4.18', 'finalized', 'yes', '0.8300', '784.60'), ('KXAAAGASM-26OCT31-4.16', 'finalized', 'yes', '0.0000', '0.00'), ('KXAAAGASM-26NOV30-5.00', 'active', '', '0.0000', '0.00')]
+## KXAAAGASM first market (full)
+{"can_close_early": true, "close_time": "2026-10-31T03:59:00Z", "created_time": "2026-10-29T16:36:33.870512Z", "event_ticker": "KXAAAGASM-26OCT31", "exchange_index": 0, "expected_expiration_time": "2026-10-31T14:00:00Z", "expiration_value": "", "floor_strike": 4.18, "last_price_dollars": "0.8300", "latest_expiration_time": "2026-11-30T14:00:00Z", "market_type": "binary", "no_ask_dollars": "1.0000", "no_bid_dollars": "0.0000", "no_sub_title": "Above 4.18", "notional_value_dollars": "1.0000", "open_interest_fp": "743.85", "open_time": "2026-10-29T17:04:13Z", "previous_price_dollars": "0.8300", "previous_yes_ask_dollars": "1.0000", "previous_yes_bid_dollars": "0.0000", "price_level_structure": "linear_cent", "price_ranges": [{"end": "1.0000", "start": "0.0000", "step": "0.0100"}], "result": "yes", "rules_primary": "If average regular gas prices for United States are strictly greater than $4.18 on Oct 31, 2026 according to AAA, then the market resolves to Yes.", "rules_secondary": "", "settlement_bounds_type": "default", "settlement_timer_seconds": 300, "settlement_ts": "2026-10-31T14:10:30.416365Z", "settlement_value_dollars": "1.0000", "status": "finalized", "strike_type": "greater", "ticker": "KXAAAGASM-26OCT31-4.18", "title": "Will average **gas prices** be above $4.18?", "updated_time": "2026-10-31T14:10:30.460026Z", "volume_24h_fp": "0.00", "volume_fp": "784.60", "yes_ask_dollars": "1.0000", "yes_ask_size_fp": "0.00", "yes_bid_dollars": "0.0000", "yes_bid_size_fp": "0.00", "yes_sub_title": "Above 4.18"}
+
+## candlesticks 1h last 3d count: 0
+## candlestick[0]
+null
+
+## orderbook
+{"orderbook_fp": {"no_dollars": [], "yes_dollars": []}}
+
+## CORS ACAO header: https://wingbangboozle1-lang.github.io | status 200
+## finalized ERROR HTTP 400 for https://external-api.demo.kalshi.co/trade-api/v2/markets?status=finalized&limit=2: {"error":{"code":"bad_request","message":"bad request","details":"invalid status filter"}}
+exit=0
