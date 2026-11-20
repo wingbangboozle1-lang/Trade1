@@ -13,7 +13,7 @@ on:
         description: Orderbook depth calls per cycle
         default: "45"
   push:
-    branches: [main]
+    branches: ["**"]
     paths:
       - "collector/**"
       - "scripts/**"
