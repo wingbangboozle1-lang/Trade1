@@ -1,0 +1,67 @@
+{
+  "_comment": "Topic definitions. Every topic maps to fields Kalshi publishes, so the mapping is checkable rather than keyword guesswork. Verified references: framework (category/categories/tags on a series, event carries `category`) https://docs.kalshi.com/getting_started/terms ; authoritative category->tag map https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories ; series list with category filter https://docs.kalshi.com/api-reference/market/get-series-list ; events expose category https://docs.kalshi.com/api-reference/events/get-events . Rule shape: a series joins a topic if ANY rule matches; inside one rule all present conditions must match (AND).",
+  "topics": {
+    "gas": {
+      "label": "Gas prices",
+      "blurb": "Retail gasoline price contracts. Kalshi tags these series \"Oil and energy\" (Economics) and \"Oil & Gas\" (Commodities).",
+      "sources": [
+        "https://gasprices.aaa.com/",
+        "https://www.eia.gov/petroleum/gasdiesel/"
+      ],
+      "basis": "Kalshi series tags Oil and energy / Oil & Gas (official tags_by_categories map)",
+      "rules": [
+        { "categories": ["Economics", "Commodities"], "tags": ["Oil and energy", "Oil & Gas"], "title_regex": "(?i)\\bgas\\b" }
+      ],
+      "note": "AAA is the settlement source Kalshi names for these series; EIA is listed as an independent public reference for retail prices."
+    },
+    "elections": {
+      "label": "Elections",
+      "blurb": "Kalshi's own \"Elections\" category: US and international election, nomination and control markets.",
+      "sources": [
+        "https://www.fec.gov/",
+        "https://www.nass.org/",
+        "https://www.electionguide.org/"
+      ],
+      "basis": "Kalshi category Elections",
+      "rules": [
+        { "categories": ["Elections"] }
+      ]
+    },
+    "culture": {
+      "label": "Culture",
+      "blurb": "Kalshi's \"Culture\" category plus the Entertainment and Social categories, where awards, music, TV, movies and celebrity markets are actually listed.",
+      "sources": [
+        "https://www.kalshi.com/"
+      ],
+      "basis": "Kalshi categories Culture + Entertainment + Social",
+      "rules": [
+        { "categories": ["Culture", "Entertainment", "Social"] }
+      ]
+    },
+    "crypto": {
+      "label": "Crypto",
+      "blurb": "Kalshi's own \"Crypto\" category: BTC, ETH, SOL and other price or threshold markets.",
+      "sources": [
+        "https://www.cfbenchmarks.com/"
+      ],
+      "basis": "Kalshi category Crypto",
+      "rules": [
+        { "categories": ["Crypto"] }
+      ]
+    },
+    "golf": {
+      "label": "Golf",
+      "blurb": "Sports series that Kalshi tags \"Golf\": PGA, LPGA and LIV tournament and leader markets.",
+      "sources": [
+        "https://www.pgatour.com/",
+        "https://www.lpga.com/"
+      ],
+      "basis": "Kalshi Sports category + Golf tag",
+      "rules": [
+        { "categories": ["Sports"], "tags": ["Golf"] }
+      ]
+    }
+  },
+  "exclude_ticker_prefixes": ["KXMVE", "KXMVECROSSCATEGORY"],
+  "exclude_note": "Exchange-manufactured combination products are excluded from rankings: https://docs.kalshi.com/api-reference/events/get-multivariate-events"
+}

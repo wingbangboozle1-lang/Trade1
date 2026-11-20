@@ -1,0 +1,99 @@
+name: pipeline
+
+# One cycle = collect -> time series -> resolutions -> simulated trading -> rebuild site -> deploy.
+# Public market data only; no credentials required for this workflow.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      depth:
+        description: Orderbook depth calls per cycle
+        default: "45"
+  push:
+    branches: [main]
+    paths:
+      - "collector/**"
+      - "scripts/**"
+      - "config/**"
+      - "assets/**"
+      - "docs/**"
+      - ".github/workflows/pipeline.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install --disable-pip-version-check cryptography
+
+      - name: Self-tests (fee model vs official schedule, topic rules, syntax)
+        run: python -m unittest discover -s tests -v
+
+      - name: Collect market data
+        run: python -m collector.collect --base https://api.elections.kalshi.com/trade-api/v2
+
+      - name: Append time series and detect >= $0.10 jumps
+        run: python -m collector.track
+
+      - name: Track resolutions (yes/no)
+        run: python -m collector.resolutions
+
+      - name: Run simulated trading strategies
+        run: python -m collector.paper_engine
+
+      - name: Live demo-account execution (no-ops without credentials)
+        env:
+          KALSHI_DEMO_API_KEY_ID: ${{ secrets.KALSHI_DEMO_API_KEY_ID }}
+          KALSHI_DEMO_PRIVATE_KEY_PATH: ${{ secrets.KALSHI_DEMO_PRIVATE_KEY_PATH }}
+        run: python -m collector.live_trading || true
+
+      - name: Build site
+        run: python -m sitegen.build
+
+      - name: Commit refreshed data and site
+        run: |
+          git config user.name "trade1-bot"
+          git config user.email "trade1-bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore(data): refresh market snapshot, series, resolutions and paper ledger [skip ci]"
+            git pull --rebase --autostash origin ${GITHUB_REF_NAME} || true
+            git push
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: cycle
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
