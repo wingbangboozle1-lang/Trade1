@@ -280,7 +280,7 @@ def main():
                     buckets[t["id"]].append((
                         {"event_ticker": et, "title": m.get("title"),
                          "series_ticker": sr["ticker"], "category": sr.get("category"),
-                         "settlement_sources": sr.get("settlement_sources")},
+                         "settlement_sources": sr.get("settlement_sources"), "_stub": True},
                         "series-discovery"))
     log(f"markets after series discovery: {len(markets)}")
 
@@ -300,7 +300,7 @@ def main():
             if budget <= 0:
                 break
             et = e["event_ticker"]
-            if "category" not in e or not e.get("settlement_sources"):
+            if e.get("_stub") or "category" not in e or not e.get("settlement_sources"):
                 je = fetch_json(f"{BASE}/events/{urllib.parse.quote(et)}", "(event metadata)")
                 ev_fetch_count += 1
                 budget -= 1
