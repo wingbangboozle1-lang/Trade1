@@ -17,11 +17,11 @@ export const API_BASES = {
 export const TOPICS = [
   {
     id: 'gas-prices', label: 'Gas prices', categories: [],
-    keywords: [/\bgas\b/i, /\bgasoline\b/i, /\bdiesel\b/i],
+    keywords: [/\bgas prices?\b/i, /\bgasoline\b/i, /\bdiesel\b/i],
   },
   {
     id: 'elections', label: 'Elections', categories: ['Elections'],
-    keywords: [/\belection/i, /\bprimar(y|ies)\b/i, /\bsenat/i, /\bgovernor\b/i, /\bcongress/i, /\bpresiden/i, /\bmayor\b/i, /\bnominee\b/i],
+    keywords: [/\belection/i, /\bprimary (elections?|winners?|races?|votes?)\b/i, /\bprimaries\b/i, /\bsenat/i, /\bgovernor\b/i, /\bcongress/i, /\bpresiden/i, /\bmayor\b/i, /\bnominee\b/i],
   },
   {
     id: 'culture', label: 'Culture', categories: ['Entertainment'],

@@ -25,7 +25,9 @@ assert.equal(row.event_settlement_sources[0].url, 'https://www.pgatour.com');
 assert.equal(rowsFromEvents([{ ...ev, title: 'Snow in Boston', markets: ev.markets, category: 'Climate', tags: [], series_ticker: 'KXSNOW' }]).length, 0);
 // "gas" must not match inside other words (e.g. Vegas) but must match natural gas.
 assert.equal(classifyEvent({ title: 'Vegas odds', markets: [], category: 'Sports' }).length, 0);
-assert.equal(classifyEvent({ title: 'Natural gas price', markets: [] })[0].topic, 'gas-prices');
+assert.equal(classifyEvent({ title: 'National average gas price', markets: [] })[0].topic, 'gas-prices');
+// Energy-consumption text containing the word "gas" must not match the gas-prices topic.
+assert.equal(classifyEvent({ title: 'Largest source of global primary energy consumption in 2030', markets: [{ title: 'Gas', yes_sub_title: 'Gas' }], category: 'Climate and Weather' }).length, 0);
 
 // Swing: net move up 0.12 within window -> alert.
 const now = 1_000_000;
