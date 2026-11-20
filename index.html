@@ -1,34 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>KalshiDash — Live Kalshi Demo Dashboard</title>
-<link rel="stylesheet" href="./css/style.css" />
-</head>
-<body data-page="home">
-<header id="topbar"></header>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
+</head><body data-root="./">
+<header class="top" id="nav"></header>
 <main>
-  <section class="panel">
-    <h1>KalshiDash</h1>
-    <p class="muted">
-      A live, interactive dashboard for the <strong>Kalshi demo API</strong>. Tracks the highest
-      dollar-volume events across five topics — <strong>gas prices, elections, culture, crypto,
-      and golf</strong> — until they resolve, runs automated simulated trades to test strategies,
-      and tracks portfolio performance.
-    </p>
-    <div class="stat-row">
-      <div class="stat"><div class="stat-label">Status</div><div class="stat-val" id="conn-status">—</div></div>
-      <div class="stat"><div class="stat-label">Topics</div><div class="stat-val">5</div></div>
-      <div class="stat"><div class="stat-label">Sharp-move threshold</div><div class="stat-val">$0.10</div></div>
-    </div>
-    <p class="muted small">
-      Demo base: <code>https://external-api.demo.kalshi.co/trade-api/v2</code> (fallback
-      <code>https://demo-api.kalshi.co/trade-api/v2</code>). All market values are fetched live in
-      your browser from the official Kalshi API. Values the build sandbox could not confirm are left
-      blank and flagged — see the <a href="pages/flagged.html">Flagged for Review</a> page.
-    </p>
-  </section>
 
   <section class="panel">
     <h2>Verification dashboard</h2>
@@ -56,60 +30,48 @@
     </div>
   </section>
 
-  <section class="panel">
-    <h2>What this dashboard does</h2>
-    <div class="grid-2">
-      <div>
-        <h3>Live tracking &amp; resolution</h3>
-        <ul>
-          <li>Highest dollar-volume events per topic, updated on a poll loop.</li>
-          <li>Events tracked until they resolve, with a clear <strong>yes / no</strong> outcome.</li>
-          <li>Interactive price chart: <strong>X = time</strong> (seconds / minutes / hours), <strong>Y = contract price</strong>.</li>
-          <li>Live orderbook — contracts available at each price (liquidity).</li>
-          <li>Sharp-move alerts for any price move <strong>≥ $0.10</strong>, with links to the market.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Strategy &amp; portfolio</h3>
-        <ul>
-          <li>Automated <strong>simulated (paper) trades</strong> testing momentum, mean-reversion, value, and liquidity strategies.</li>
-          <li>Trades categorized by strategy type and topic, with win-rate and P&amp;L analysis.</li>
-          <li>Optional <strong>real demo execution</strong> with your Kalshi demo API credentials (stored only in your browser).</li>
-          <li>Live demo balance and open positions via signed API calls.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+<h1>Kalshi Demo Monitor</h1>
+<p class="sub">Live, read-only view of Kalshi <b>demo</b> markets for gas prices, elections, culture, crypto and golf. Built from official Kalshi API documentation and endpoints.</p>
+<div class="notice"><b>Read this first.</b> Kalshi’s demo environment is a separate test environment with its own markets, prices and play money. Demo prices are not production Kalshi prices. The site does not connect to any account, place orders, or prove why prices moved.</div>
+</section>
 
-  <section class="panel">
-    <h2>Executive summary</h2>
-    <p>The Kalshi demo REST API (<a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">trade-api/v2</a>) exposes public, unauthenticated market data (series, events, markets, orderbook, candlesticks) and authenticated portfolio/trading endpoints secured with RSA-PSS request signing. This dashboard consumes the public market-data endpoints directly from the browser for live prices and liquidity, and uses signed requests (WebCrypto RSA-PSS) for portfolio tracking and optional execution. A full write-up with source links is in <code>docs/executive-summary.md</code>.</p>
-    <p><a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/executive-summary.md" target="_blank" rel="noopener">Read the executive summary &amp; findings →</a></p>
-  </section>
+<section class="box" style="margin-bottom:14px">
+<h2>Executive summary</h2>
+<ul class="clean">
+<li><b>What it does:</b> lists open markets in five topics, charts recent official trade prints, shows resting bid liquidity by price, flags swings of $0.10 or more within 5 minutes, and tracks simulated strategies and resolved outcomes.</li>
+<li><b>Where data comes from:</b> the official Kalshi Trade API (demo base <code>external-api.demo.kalshi.co/trade-api/v2</code>, documented at <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">API environments</a>). Every table row links to its own API endpoint.</li>
+<li><b>Ranking:</b> by open interest × notional value (a derived dollar figure) or by contracts traded (official volume). Kalshi does not publish a per-event dollar-volume field, so no official “dollar amount” ranking exists here.</li>
+<li><b>Causes of moves:</b> not verified. Alerts link to Kalshi’s official settlement sources for the event as context only.</li>
+<li><b>Not done:</b> demo-account portfolio tracking and order execution need demo API credentials, which were not provided. No trades were placed on Kalshi. Simulated trades are only in this browser.</li>
+<li><b>Open items:</b> see <a href="flagged.html">Flagged for Review</a> (keyword topic rules, demo-vs-production data, unverified browser access to the API, CORS, and repo findings).</li>
+</ul>
+</section>
 
-  <section class="panel">
-    <h2>Demo credentials (optional)</h2>
-    <p class="muted">Public market data needs no credentials. To track your demo portfolio or execute real demo orders, provide a Kalshi demo API key ID and private key. These are kept in your browser session only and sent directly to Kalshi.</p>
-    <form class="cred" id="cred-form">
-      <label>Kalshi demo API key ID<input id="keyid" type="text" autocomplete="off" /></label>
-      <label>Private key (PEM)<textarea id="keyfile" rows="6" autocomplete="off"></textarea></label>
-      <div><button type="submit">Load credentials</button></div>
-      <p id="cred-status" class="muted small"></p>
-    </form>
-  </section>
+<section class="grid g4" style="margin-bottom:14px">
+<div class="card kpi"><small>Gas prices</small><strong data-count="gas-prices">—</strong><br><a href="topics/gas-prices.html">Open topic →</a></div>
+<div class="card kpi"><small>Elections</small><strong data-count="elections">—</strong><br><a href="topics/elections.html">Open topic →</a></div>
+<div class="card kpi"><small>Culture</small><strong data-count="culture">—</strong><br><a href="topics/culture.html">Open topic →</a></div>
+<div class="card kpi"><small>Crypto</small><strong data-count="crypto">—</strong><br><a href="topics/crypto.html">Open topic →</a></div>
+<div class="card kpi"><small>Golf</small><strong data-count="golf">—</strong><br><a href="topics/golf.html">Open topic →</a></div>
+<div class="card kpi"><small>Live dashboard</small><strong style="font-size:16px">All topics</strong><br><a href="live.html">Open live view →</a></div>
+<div class="card kpi"><small>Resolved outcomes</small><strong data-count="resolved">—</strong><br><a href="resolved.html">Open resolved →</a></div>
+<div class="card kpi"><small>Strategies</small><strong style="font-size:16px">Simulated only</strong><br><a href="strategies.html">Open strategies →</a></div>
+</section>
+
+<section class="box">
+<h2>Snapshot status</h2>
+<p id="snapInfo" class="muted">Loading snapshot…</p>
+<p class="muted">Counts above come from <code>data/snapshot.json</code>, generated by <code>scripts/build_snapshot.mjs</code> in CI from public demo endpoints. The live pages refresh from the same endpoints in your browser.</p>
+</section>
+<script>
+fetch('data/snapshot.json',{cache:'no-store'}).then(r=>r.json()).then(s=>{
+  for(const [k,v] of Object.entries(s.topics||{})){const el=document.querySelector('[data-count="'+k+'"]');if(el)el.textContent=v.markets;}
+  const res=document.querySelector('[data-count="resolved"]'); if(res) res.textContent=(s.resolved||[]).length;
+  const c=s.coverage||{};
+  const trunc=['open','closed','settled'].filter(k=>c[k]&&c[k].truncated);document.getElementById('snapInfo').textContent='Built '+s.generated_at+' from '+s.api_base+' · events scanned '+(c.events_total_unique??'?')+' · pages truncated at cap: '+(trunc.length?trunc.join(', '):'none');
+}).catch(()=>{document.getElementById('snapInfo').textContent='Snapshot not available yet.';});
+</script>
+<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
 </main>
-<footer>
-  KalshiDash · data from the Kalshi demo API · see <a href="pages/flagged.html">Flagged for Review</a> for unverified items.
-</footer>
-<script src="./js/config.js"></script>
-<script src="./js/nav.js"></script>
-<script src="./js/kalshi.js"></script>
-<script src="./js/charts.js"></script>
-<script src="./js/store.js"></script>
-<script src="./js/dashboard.js"></script>
-<script src="./js/strategy.js"></script>
-<script src="./js/portfolio.js"></script>
-<script src="./js/flagged.js"></script>
-<script src="./js/app.js"></script>
-</body>
-</html>
+<script type="module" src="./assets/app.mjs"></script>
+</body></html>

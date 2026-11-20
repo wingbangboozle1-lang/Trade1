@@ -1,25 +1,74 @@
-name: KalshiDash CI + Pages
+name: Kalshi demo monitor · checks and data snapshot
 
-# GitHub Pages is configured to serve this repo from the `main` branch at path `/`,
-# so the static site is published automatically when the site files are merged to
-# `main`. This workflow validates the build (JS syntax + broken-link/asset check)
-# on every push and pull request so a broken site can never land on `main`.
+# GitHub Pages serves the repository root from `main` (legacy branch source).
+# This workflow (1) runs unit checks and link/source checks on every push and PR, and
+# (2) on schedule or manual dispatch, rebuilds data/snapshot.json from the official Kalshi
+#     demo Trade API (public, read-only, no credentials) and commits it back to the branch.
 
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */3 * * *'   # every 3 hours (UTC)
 
 permissions:
   contents: read
 
+concurrency:
+  group: site-data-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  validate:
+  checks:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
-      - name: Validate site (syntax + broken-link check)
-        run: node tools/build.mjs
+          node-version: '20'
+      - name: Unit checks (offline fixtures)
+        run: node scripts/test_lib.mjs
+      - name: Check links and that every row has an official source_url
+        run: node scripts/check_site.mjs
+
+  snapshot:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build snapshot from the official Kalshi demo API (public, read-only)
+        run: node scripts/build_snapshot.mjs --base demo --out data/snapshot.json
+      - name: Record CORS check for the GitHub Pages origin
+        run: |
+          {
+            echo "checked_at_utc: $(date -u +%FT%TZ)"
+            echo "origin: https://wingbangboozle1-lang.github.io"
+            echo "endpoint: https://external-api.demo.kalshi.co/trade-api/v2/markets?limit=1"
+            curl -sS -D - -o /dev/null -H "Origin: https://wingbangboozle1-lang.github.io" "https://external-api.demo.kalshi.co/trade-api/v2/markets?limit=1" \
+              | grep -i '^\(HTTP\|access-control-allow-origin\)' || echo "no access-control-allow-origin header returned"
+          } | tee data/cors_check.txt
+        continue-on-error: true
+      - name: Check links and source links
+        run: node scripts/check_site.mjs
+      - name: Commit refreshed snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshot.json data/cors_check.txt
+          if git diff --cached --quiet; then
+            echo "no snapshot change"
+          else
+            git commit -m "Refresh demo market snapshot (official API) [skip ci]"
+            git pull --rebase -q origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

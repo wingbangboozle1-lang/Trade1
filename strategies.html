@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strategies · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
+</head><body data-root="./">
+<header class="top" id="nav"></header>
+<main>
+
+<h1>Strategies &amp; trade analysis</h1>
+<p class="sub">Simulated 1-contract trades opened automatically on each alert, in this browser only. This is a forward test on a small sample, not evidence of profit.</p>
+<div class="notice flag"><b>Not real trades.</b> No orders are sent to Kalshi. Entries use the last official trade price. Fees, spreads, slippage and partial fills are not modelled. Kalshi’s series data lists a fee type (quadratic) and multiplier that are not applied here. See Flagged.</div>
+<section class="box" style="margin-bottom:14px">
+<h2>Strategies tested</h2>
+<ul class="clean">
+<li><b>A · Momentum follow:</b> on any ≥ $0.10 swing within 5 minutes, buy the side the price moved toward.</li>
+<li><b>B · Mean-reversion fade:</b> same trigger, buy the opposite side.</li>
+<li><b>C · Placeholder high-ROI screen:</b> momentum follow, only when the alert passes the placeholder screen (≥ 3 trades in the window, payout multiple ≥ 2×, side price ≤ $0.50). This screen is a rule, not a validated model.</li>
+</ul>
+<p class="muted">Each alert opens at most one simulated position per strategy per market per 5-minute bucket. Positions are marked at the last official trade price, and settled at $1.00 or $0.00 when the official result is known.</p>
+<div style="margin-top:8px"><button id="clearSim">Clear this browser’s simulated trades</button> <span class="muted">Simulated trades: <span id="simCount">0</span></span></div>
+</section>
+<section class="box" style="margin-bottom:14px"><h2>Performance by category</h2><div id="simSummary" class="muted">Loading…</div></section>
+<section class="box"><h2>Recent simulated trades</h2><div class="tablewrap"><table><thead><tr><th>Opened (UTC)</th><th>Strategy</th><th>Market</th><th>Side @ entry</th><th>Value now</th></tr></thead><tbody id="simRecent"></tbody></table></div></section>
+<div data-live></div>
+<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
+</main>
+<script type="module" src="./assets/app.mjs"></script>
+</body></html>

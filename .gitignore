@@ -10,3 +10,5 @@ __pycache__/
 # for charts; everything else carries a 40-point sparkline inside data/markets/latest.json.
 data/timeseries/*
 !data/timeseries/.gitkeep
+node_modules/
+.DS_Store
