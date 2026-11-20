@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1216">
+<title>Culture | Kalshi Demo Monitor</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>window.category = 'Culture';</script>
+</head><body>
+<header>
+  <div class="brand"><div class="mark" style="background:#b388ff;color:#2a124a">C</div><div>
+    <h1>Culture</h1>
+    <p>Entertainment &amp; awards contracts — music, film, TV, celebrity, award outcomes</p>
+  </div></div>
+  <a href="../dashboard.html" style="color:var(--muted);text-decoration:underline">→ Dashboard</a> · <a href="../index.html" style="color:var(--muted);text-decoration:underline">Landing</a>
+  <span class="pill" id="liveState">Checking API…</span>
+</header>
+
+<main class="wrap">
+  <div class="notice">
+    <b>Topic page: culture.</b> Markets below are filtered from the public demo market list by title/category keyword matching (culture, music, movie, film, celebrity, award, TV, entertainment).
+    Matching is a heuristic — not an official Kalshi classification — so relevant markets may be missing or unrelated ones included. Values are live/unverified until the deployed origin reaches the demo API.
+  </div>
+
+  <div class="toolbar" style="justify:flex-start;gap:12px">
+    <div class="controls"><button id="refresh">Refresh now</button></div>
+  </div>
+
+  <div class="cards">
+    <div class="card"><small>Open matching markets</small><strong id="marketCount">—</strong></div>
+    <div class="card"><small>Top displayed YES bid</small><strong id="topPrice">—</strong></div>
+    <div class="card"><small>Highest listed volume</small><strong id="topVolume">—</strong></div>
+    <div class="card"><small>Last updated</small><strong id="updated" style="font-size:16px">—</strong></div>
+  </div>
+
+  <div class="box">
+    <h2 id="tableTitle">Culture markets</h2>
+    <span id="status" style="color:var(--muted)">Fetching open markets…</span>
+    <p class="muted" style="font-size:12.5px">Sorted by API-reported contract volume. Every row links to the official market page; values are live and unverified.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Market / event</th><th>YES bid</th><th>YES ask</th><th>Volume</th><th>Liquidity</th><th>Status</th><th>Outcome</th></tr></thead>
+        <tbody id="markets"></tbody>
+      </table>
+    </div>
+    <p class="muted">Liquidity = best published YES/NO bid quantities from the public order book. Blank means not published — not zero.</p>
+  </div>
+
+  <div class="box">
+    <h2>Findings &amp; analysis — culture</h2>
+    <p class="muted" style="font-size:12.5px">Values below are left blank where they cannot be confirmed from an official Kalshi source in this session, per the verification policy. Each entry links to its official market page.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Entry</th><th>Observation / value</th><th>Source</th><th>Verification status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Topic scope</td><td></td><td><a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">Demo REST API</a></td><td class="tag-unverified">Unverified — live values not reachable from this session</td>
+          </tr>
+          <tr>
+            <td>Highest dollar-amount culture event</td><td></td><td>Official market page per row</td><td class="tag-unverified">Unverified — dollar notional not a published field</td>
+          </tr>
+          <tr>
+            <td>Sharp move ≥ $0.10 (last session)</td><td></td><td>Official market page per row</td><td class="tag-unverified">Unverified — no live samples captured</td>
+          </tr>
+          <tr>
+            <td>Resolution outcome (yes/no)</td><td></td><td>Official market page per row</td><td class="tag-unverified">Unverified — resolved-market archive not ingested</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Entries within this topic stay together on this page. Use the dashboard for live alerts and the contract-price chart.</p>
+  </div>
+</main>
+
+<script src="../assets/js/app.js"></script>
+</body></html>
