@@ -40,12 +40,16 @@ async function walk(dir) {
 /* The site is served from the repo root (GitHub Pages source: branch main, path /).
  * Site HTML = root index.html + pages/*.html + site/*.html (site/ build, session sess-a1-9a0ad587).
  * Site JS = js/*.js + site/js/*.js. Vendored third-party JS (site/vendor) is skipped. */
-const HTML_GLOB = [
-  "index.html", "pages",
-  "site/index.html", "site/topics", "site/strategies.html",
-  "site/flagged.html", "site/suggestions.html", "site/verification.html",
+/* One site only. Earlier parallel sessions' trees (a2ec5543/, site/, monitor/,
+ * trade1/, pages/, categories/, js/, css/) were removed in this session — see
+ * COORDINATION.md. Checking a directory that no longer exists is a no-op. */
+const ROOT_PAGES = [
+  "index.html", "dashboard.html", "live.html", "trades.html", "data.html",
+  "methods.html", "flagged.html", "sources.html", "strategies.html",
+  "resolved.html", "executive-summary.html", "review.html", "suggestions.html",
 ];
-const JS_GLOB = ["js", "site/js"];
+const HTML_GLOB = ROOT_PAGES.concat(["topics"]);
+const JS_GLOB = ["assets", "js"];
 
 async function checkJsSyntax(file) {
   return new Promise((res) => {
@@ -58,8 +62,11 @@ async function checkJsSyntax(file) {
   });
 }
 
-/* Extract src=/href= targets from HTML, skipping external (http/mailto/#). */
-function extractRefs(html) {
+/* Extract src=/href= targets from HTML, skipping external (http/mailto/#).
+ * <script> blocks are stripped first: inside them `href="..."` is JavaScript
+ * string concatenation (built at runtime), not a static document reference. */
+function extractRefs(htmlRaw) {
+  const html = htmlRaw.replace(/<script\b[\s\S]*?<\/script>/gi, '');
   const refs = [];
   const re = /(?:src|href)\s*=\s*"([^"]+)"/g;
   let m;
@@ -107,10 +114,10 @@ async function main() {
 
   // 3. Nav/topic target pages exist
   const navTargets = [
-    "index.html",
-    "pages/gas.html", "pages/elections.html", "pages/culture.html",
-    "pages/crypto.html", "pages/golf.html",
-    "pages/portfolio.html", "pages/flagged.html",
+    "index.html", "dashboard.html", "trades.html", "data.html", "methods.html",
+    "flagged.html", "sources.html", "executive-summary.html", "suggestions.html",
+    "topics/gas-prices.html", "topics/elections.html", "topics/culture.html",
+    "topics/crypto.html", "topics/golf.html",
   ];
   for (const t of navTargets) {
     if (!await exists(join(ROOT, t))) errors.push(`Missing nav target: ${t}`);

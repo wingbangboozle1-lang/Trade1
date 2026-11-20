@@ -35,10 +35,12 @@ window.KalshiApp = (function () {
     watchPollMs: 12000,          // watchlist price polling
     discoveryMs: 6 * 60000,      // open-events discovery sweep
     bookPollMs: 8000,            // orderbook for selected market
+    bookDepth: 10,               // official ?depth= price levels per side (1-100)
     candleMs: 60000,             // candlestick refresh for visible chart
     eventQueuePerCycle: 24,      // event->markets fetches per discovery cycle
     maxWatch: 400,
-    alertThreshold: 0.10,        // >= $0.10 either direction
+    alertThreshold: 0.10,        // >= $0.10 either direction (integer-cent compare, see checkAlert)
+    alertCooldownMs: 45000,      // per-market cooldown so oscillation does not spam the chats
     chunk: 200                   // tickers per batched request
   };
 
@@ -77,7 +79,34 @@ window.KalshiApp = (function () {
     return fmtN(n);
   }
   function hhmmss(t) { return new Date(t).toLocaleTimeString(); }
-  function kalshiEventUrl(ev) { return 'https://kalshi.com/markets/' + encodeURIComponent(String(ev || '').toLowerCase()); }
+
+  /* Kalshi UI link. Verified 2026-11-20: the market-page pattern is
+   * https://kalshi.com/markets/{series_ticker} (lower-case), as shown in the
+   * official Quick Start guide
+   * (https://docs.kalshi.com/getting_started/quick_start_market_data ->
+   *  "https://kalshi.com/markets/kxhighny"). Fetching
+   * https://kalshi.com/markets/{event_ticker} does NOT resolve to a market page,
+   * so we never build links from a bare event ticker. The series ticker comes
+   * from the event object we already hold (official /events field
+   * `series_ticker`); if it is missing we fall back to the ticker prefix, which
+   * is the series for every ticker shape observed on the demo API.
+   */
+  function seriesOf(ev) {
+    var e = ev ? S.events[ev] : null;
+    if (e && e.series_ticker) return String(e.series_ticker);
+    return String(ev || '').split('-')[0];
+  }
+  function kalshiUrl(ev) {
+    var s = seriesOf(ev);
+    return s ? 'https://kalshi.com/markets/' + encodeURIComponent(s.toLowerCase()) : '';
+  }
+  /* Official API URL for the exact event (verification link, per-row source). */
+  function apiEventUrl(ev) {
+    return CFG.bases[0] + '/events/' + encodeURIComponent(String(ev || ''));
+  }
+  function apiMarketUrl(ticker) {
+    return CFG.bases[0] + '/markets/' + encodeURIComponent(String(ticker || ''));
+  }
   function newsUrl(title) { return 'https://news.google.com/search?q=' + encodeURIComponent(title) + '&hl=en-US'; }
 
   /* root prefix so data/ fetches work from subpages (topics/*.html) */
@@ -96,6 +125,10 @@ window.KalshiApp = (function () {
     history: {},             // ticker -> [{t,last,bid,ask}] session samples (memory only)
     selected: null,
     book: null,              // last orderbook for selected
+    trades: [],              // official trade tape for selected (seconds windows)
+    tradesTruncated: false,
+    lastTradeFetch: 0,
+    chartSource: '',
     candles: null,           // [{t,p}] merged candle+sample series for current window
     window: '60m',
     topic: '',               // '' = all topics
@@ -176,7 +209,9 @@ window.KalshiApp = (function () {
         if (j.cursor && page < CFG.eventsMaxPages) return nextPage(j.cursor);
         var scope = [];
         all.forEach(function (ev) {
-          var t = M.classify(ev.category, ev.title, ev.series_ticker);
+          /* Mirror scripts/collect.py classify(): the collector matches
+           * title_keywords against "title + ' ' + sub_title". */
+          var t = M.classify(ev.category, (ev.title || '') + ' ' + (ev.sub_title || ''), ev.series_ticker);
           if (t) { ev._topic = t; S.events[ev.event_ticker] = ev; scope.push(ev.event_ticker); }
         });
         scope.forEach(function (et) {
@@ -257,10 +292,16 @@ window.KalshiApp = (function () {
           });
         }
         done++;
-        if (done === batch.length && S.eventQueue.length && depth + batch.length < CFG.eventQueuePerCycle) {
-          fetchQueuedEvents(depth + batch.length);
+        if (done === batch.length) {
+          // first paint must not wait for the next 12 s poll: render as soon as
+          // the first batch of markets is in memory, and start price polling.
+          trimWatch();
+          renderTable(); renderKPIs();
+          if (!S.pollStarted) { S.pollStarted = true; pollWatch(); }
+          if (S.eventQueue.length && depth + batch.length < CFG.eventQueuePerCycle) {
+            fetchQueuedEvents(depth + batch.length);
+          }
         }
-        trimWatch();
       });
     });
   }
@@ -331,31 +372,54 @@ window.KalshiApp = (function () {
     if (S.selected && (now - S.lastCandleFetch > CFG.candleMs)) fetchCandles();
   }
 
-  /* ---------- alerts (>= $0.10 sampled move, either direction) ---------- */
+  /* ---------- alerts (>= $0.10 move, either direction) ----------
+   * The brief asks for "sudden swings ... >= $0.10 in either direction". Two
+   * cases must fire, because REST polling cannot see the tick-by-tick path
+   * (official docs: responses are cached and can lag by seconds —
+   * https://docs.kalshi.com/api-reference/market/get-markets):
+   *   1. step:      |current sample - previous sample| >= $0.10
+   *   2. swing:     the market swung >= $0.10 and came back inside one poll
+   *                 window. The market object exposes `previous_price_dollars`
+   *                 (last trade price before the current one, per the official
+   *                 Market schema), so |current - previous_price| catches a
+   *                 round-trip that sampled deltas miss.
+   * Prices are compared in integer ten-thousandths of a dollar (4 dp, the
+   * documented price precision) so an exact $0.10 move can never fail on
+   * binary-float error (0.66 - 0.56 === 0.09999999999999998). The comparison
+   * itself lives in assets/model.js -> alertMove() so it can be unit-tested
+   * offline; a per-market cooldown stops oscillation from spamming the chats.
+   */
+  var lastAlertAt = {};
   function checkAlert(m, h, now) {
     if (h.length < 2) return;
     var prev = h[h.length - 2], cur = h[h.length - 1];
     var a = cur.last !== null ? cur.last : cur.bid;
     var b = prev.last !== null ? prev.last : prev.bid;
     if (a === null || b === null) return;
-    var raw = a - b;
-    // Integer 1e-4 comparison: official prices are 4-dp fixed-point strings,
-    // so an exact $0.10 move (e.g. $0.66 -> $0.56) must never fail the >= $0.10
-    // test through binary-float error (0.66 - 0.56 = 0.09999... in doubles).
-    if (Math.abs(Math.round(raw * 10000)) < 1000) return; // 1000 = $0.10 in 1e-4 units
-    var delta = Math.round(raw * 10000) / 10000;
-    var dir = delta > 0 ? 'up' : 'down';
+    var mv = M.alertMove(b, a);
+    var kind = 'sample';
+    if (!mv) {
+      // Fall back to the exchange-reported previous trade price to catch a
+      // swing that fully reversed between two polls.
+      var pp = Number(m.previous_price_dollars);
+      if (!isFinite(pp)) return;
+      mv = M.alertMove(pp, a);
+      if (!mv) return;
+      kind = 'swing (previous trade)';
+    }
+    if (lastAlertAt[m.ticker] && now - lastAlertAt[m.ticker] < CFG.alertCooldownMs) return;
+    lastAlertAt[m.ticker] = now;
     var vol24 = Number(m.volume_24h_fp || 0), vol = Number(m.volume_fp || 0);
     var estdv = isFinite(vol) && isFinite(Number(m.last_price_dollars)) ? Math.round(vol * Number(m.last_price_dollars)) : null;
     var alert = {
       t: now, ticker: m.ticker, event: m.event_ticker,
       title: (S.events[m.event_ticker] && S.events[m.event_ticker].title) || m.title || m.ticker,
-      topic: m._topic, from: b, to: a, delta: delta, dir: dir,
+      topic: m._topic, from: mv.from, to: mv.to, delta: mv.delta, dir: mv.dir, kind: kind,
       vol24: vol24, estdv: estdv,
-      score: M.score(delta, m)
+      score: M.score(mv.delta, m)
     };
     M.pushAlert(alert);
-    S.newAlerts.push({ ticker: m.ticker, delta: delta, dir: dir });
+    S.newAlerts.push({ ticker: m.ticker, delta: mv.delta, dir: mv.dir });
     pushChat(alert);
     renderKPIs();
   }
@@ -363,42 +427,81 @@ window.KalshiApp = (function () {
   /* ---------- orderbook (selected market) ---------- */
   function pollBook() {
     if (!S.selected || S.mode === 'snapshot') return;
-    api('/markets/' + encodeURIComponent(S.selected) + '/orderbook', null, function (err, j) {
+    /* depth = number of price levels per side, counted from the best bid
+     * (official parameter: 1-100, 0/omitted = all levels). */
+    api('/markets/' + encodeURIComponent(S.selected) + '/orderbook', { depth: String(CFG.bookDepth) }, function (err, j) {
       if (err) return;
       S.book = (j && (j.orderbook_fp || j.orderbook)) || { yes_dollars: [], no_dollars: [] };
       renderBook();
     });
   }
-  /* Derived YES ask = 1 - NO bid (official reciprocal relationship). */
+  /* Derived asks via the official reciprocal rule (YES ask = $1 - NO bid,
+   * NO ask = $1 - YES bid). Bids are exchange-published; asks are derived. */
   function bookViews() {
     var b = S.book || { yes_dollars: [], no_dollars: [] };
     var yb = (b.yes_dollars || []).map(function (x) { return { p: Number(x[0]), q: Number(x[1]) }; });
     var nb = (b.no_dollars || []).map(function (x) { return { p: Number(x[0]), q: Number(x[1]) }; });
     var ya = nb.map(function (x) { return { p: Math.round((1 - x.p) * 10000) / 10000, q: x.q }; }).reverse();
+    var na = yb.map(function (x) { return { p: Math.round((1 - x.p) * 10000) / 10000, q: x.q }; }).reverse();
     var liqY = yb.reduce(function (s, x) { return s + x.p * x.q; }, 0);
     var liqN = nb.reduce(function (s, x) { return s + x.p * x.q; }, 0);
-    return { yb: yb, ya: ya, nb: nb, liqY: liqY, liqN: liqN };
+    return { yb: yb, ya: ya, nb: nb, na: na, liqY: liqY, liqN: liqN };
   }
 
-  /* ---------- candlesticks for the chart window ---------- */
+  /* ---------- time series for the chart window ----------
+   * The official candlestick endpoint accepts ONLY period_interval 1, 60 or
+   * 1440 (minutes):
+   * https://docs.kalshi.com/api-reference/market/get-market-candlesticks
+   * So the seconds / minutes windows cannot be built from candlesticks at all
+   * (an earlier version asked for period_interval=0, which the API rejects).
+   * Those windows are built from the exchange TRADE TAPE instead:
+   *   GET /markets/trades?ticker=...&min_ts=...&max_ts=...&limit=1000
+   * https://docs.kalshi.com/api-reference/market/get-trades
+   * which is official, second-resolution data. Session polls (12 s) are merged
+   * in as a live tail. Windows >= 1h use candlesticks (1 min or 60 min).
+   */
   var WINDOWS = [
-    { id: '60s', label: 'Last 60 seconds', s: 60, candles: 0 },
-    { id: '5m', label: 'Last 5 minutes', s: 300, candles: 0 },
-    { id: '15m', label: 'Last 15 minutes', s: 900, candles: 0 },
-    { id: '60m', label: 'Last hour', s: 3600, candles: 1 },
-    { id: '6h', label: 'Last 6 hours', s: 21600, candles: 60 },
-    { id: '24h', label: 'Last 24 hours', s: 86400, candles: 60 }
+    { id: '60s', label: 'Last 60 seconds', s: 60, src: 'trades' },
+    { id: '5m', label: 'Last 5 minutes', s: 300, src: 'trades' },
+    { id: '15m', label: 'Last 15 minutes', s: 900, src: 'trades' },
+    { id: '60m', label: 'Last hour', s: 3600, src: 'candles', interval: 1 },
+    { id: '6h', label: 'Last 6 hours', s: 21600, src: 'candles', interval: 1 },
+    { id: '24h', label: 'Last 24 hours', s: 86400, src: 'candles', interval: 60 }
   ];
+  function fetchTrades() {
+    if (!S.selected || S.mode === 'snapshot') { drawChart(); return; }
+    var w = WINDOWS.filter(function (x) { return x.id === S.window; })[0] || WINDOWS[1];
+    var end = Math.floor(Date.now() / 1000);
+    var start = end - Math.min(w.s, 3600);       // trade tape: at most 1h per request
+    api('/markets/trades', { ticker: S.selected, min_ts: String(start), max_ts: String(end), limit: '1000' },
+      function (err, j) {
+        S.lastTradeFetch = Date.now();
+        if (err || !j) { S.trades = []; drawChart(); return; }
+        var pts = (j.trades || []).map(function (t) {
+          var p = Number(t.yes_price_dollars);
+          var ts = Date.parse(t.created_time);
+          return { t: isFinite(ts) ? ts : null, p: isFinite(p) ? p : null };
+        }).filter(function (x) { return x.t !== null && x.p !== null; });
+        pts.sort(function (a, b) { return a.t - b.t; });
+        S.trades = pts;
+        S.tradesTruncated = !!(j.cursor); // more pages exist than one request returned
+        drawChart();
+      });
+  }
   function fetchCandles() {
     if (!S.selected || S.mode === 'snapshot') return;
     var w = WINDOWS.filter(function (x) { return x.id === S.window; })[0];
-    if (!w || !w.candles) { drawChart(); return; }
+    if (!w || w.src !== 'candles') { fetchTrades(); return; }
     var ev = S.events[S.watch[S.selected] && S.watch[S.selected].event_ticker];
     var series = ev && ev.series_ticker;
     if (!series) { drawChart(); return; }
-    var end = Math.floor(Date.now() / 1000), start = end - Math.ceil(w.s / w.candles) * w.candles;
+    var periodMin = w.interval || 1;
+    var end = Math.floor(Date.now() / 1000);
+    // one request may span at most 5,000 periods (official docs) — we ask for
+    // exactly the window, which is far below that for a 6h / 24h window.
+    var start = end - Math.ceil(w.s / (periodMin * 60)) * periodMin * 60;
     api('/series/' + encodeURIComponent(series) + '/markets/' + encodeURIComponent(S.selected) + '/candlesticks',
-      { start_ts: start, end_ts: end, period_interval: String(w.candles) }, function (err, j) {
+      { start_ts: start, end_ts: end, period_interval: String(periodMin) }, function (err, j) {
         S.lastCandleFetch = Date.now();
         if (err || !j || !j.candlesticks) { drawChart(); return; }
         var pts = [];
@@ -415,20 +518,58 @@ window.KalshiApp = (function () {
   }
 
   /* ---------- chart ---------- */
+  /* Series for the selected window:
+   *  trades windows -> official trade prints (+ the 12 s poll samples as a tail)
+   *  candle windows -> official candlestick closes (+ poll samples as a tail)
+   * X axis is always time in ms, Y axis is the YES price in dollars (0-1).
+   */
   function chartData() {
-    var w = WINDOWS.filter(function (x) { return x.id === S.window; })[0] || WINDOWS[3];
+    var w = WINDOWS.filter(function (x) { return x.id === S.window; })[0] || WINDOWS[1];
     var cutoff = Date.now() - w.s * 1000;
     var h = (S.history[S.selected] || []).filter(function (x) { return x.t >= cutoff; })
       .map(function (x) { return { t: x.t, p: x.last !== null ? x.last : x.bid }; })
       .filter(function (x) { return x.p !== null; });
-    var base = h;
-    if (w.candles && S.candles && S.candles.length) {
-      base = S.candles.filter(function (x) { return x.t >= cutoff; }).concat(h);
-      base.sort(function (a, b) { return a.t - b.t; });
+    var base = h, src = 'session polls only';
+    if (w.src === 'trades' && S.trades && S.trades.length) {
+      base = S.trades.filter(function (x) { return x.t >= cutoff; })
+        .map(function (x) { return { t: x.t, p: x.p, src: 'trade print' }; }).concat(h);
+      src = 'official trade prints (GET /markets/trades)';
+    } else if (w.src === 'candles' && S.candles && S.candles.length) {
+      base = S.candles.filter(function (x) { return x.t >= cutoff; })
+        .map(function (x) { return { t: x.t, p: x.p, src: (w.interval || 1) + '-min candle close' }; }).concat(h);
+      src = 'official candlesticks (period ' + (w.interval || 1) + ' min)';
     }
+    base.sort(function (a, b) { return a.t - b.t; });
+    S.chartSource = src;
     return base;
   }
-  function drawChart() {
+  /* Hover readout: the canvas keeps the last plotted geometry so a mousemove can
+   * map the pointer back to the nearest official print (or candle close) and
+   * show its exact time and price. Nothing is inferred — the value shown is the
+   * value the API returned. */
+  var CHART = { pts: [], t0: 0, t1: 0, L: 44, W: 0 };
+  function chartHover(e) {
+    var box = $('#kx-chart'); if (!box || CHART.pts.length < 2) return;
+    var rect = box.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    if (mx < CHART.L || mx > CHART.W - 8) { drawChart(); return; }
+    var frac = (mx - CHART.L) / (CHART.W - 8 - CHART.L);
+    var t = CHART.t0 + frac * (CHART.t1 - CHART.t0);
+    var best = null, bestD = Infinity;
+    CHART.pts.forEach(function (d) {
+      var dd = Math.abs(d.t - t);
+      if (dd < bestD) { bestD = dd; best = d; }
+    });
+    if (!best) return;
+    var tip = $('#kx-chart-tip');
+    if (tip) {
+      tip.textContent = new Date(best.t).toLocaleString() + ' · ' + money(best.p) +
+        (best.src ? ' · ' + best.src : '');
+      tip.style.display = 'block';
+    }
+    drawChart(mx);
+  }
+  function drawChart(hoverX) {
     var box = $('#kx-chart'); if (!box) return;
     var rect = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
     if (rect.width < 10) return;
@@ -439,33 +580,43 @@ window.KalshiApp = (function () {
     var css = getComputedStyle(document.documentElement);
     var line = css.getPropertyValue('--line') || '#2a383b', muted = css.getPropertyValue('--muted') || '#91a3a4',
         green = css.getPropertyValue('--green') || '#61d6a2';
+    var data = chartData();
+    /* Y axis: contract price in dollars. The scale is the observed range of the
+     * plotted prints, padded by 2c and clamped to the legal $0.00-$1.00 grid —
+     * a fixed 0-1 axis would flatten a market trading at 45-52c into a line.
+     * Axis labels show the real bounds so nothing is implied. */
+    var prices = data.map(function (d) { return d.p; });
+    var lo = Math.min.apply(null, prices), hi = Math.max.apply(null, prices);
+    if (!isFinite(lo) || !isFinite(hi)) { lo = 0; hi = 1; }
+    lo = Math.max(0, lo - 0.02); hi = Math.min(1, hi + 0.02);
+    if (hi - lo < 0.01) { lo = Math.max(0, lo - 0.005); hi = Math.min(1, hi + 0.005); }
     x.strokeStyle = line; x.fillStyle = muted; x.font = '11px system-ui';
-    for (var i = 0; i <= 5; i++) {
-      var yy = T + i * (H - T - B) / 5;
+    for (var i = 0; i <= 4; i++) {
+      var yy = T + i * (H - T - B) / 4;
+      var lv = hi - i * (hi - lo) / 4;
       x.globalAlpha = 0.6;
       x.beginPath(); x.moveTo(L, yy); x.lineTo(W - R, yy); x.stroke();
       x.globalAlpha = 1;
-      x.fillText((1 - i / 5).toFixed(2), 6, yy + 4);
+      x.fillText(lv.toFixed(2), 6, yy + 4);
     }
-    var data = chartData();
+    var winLabel = ($('#kx-win') && $('#kx-win').selectedOptions[0] ? $('#kx-win').selectedOptions[0].text : S.window);
     $('#kx-chart-note') && ($('#kx-chart-note').textContent =
-      data.length + ' points · ' + ($('#kx-win') && $('#kx-win').selectedOptions[0] ? $('#kx-win').selectedOptions[0].text : S.window));
-    if (data.length < 2) { $('#kx-chart-name') && ($('#kx-chart-name').textContent = S.selected || 'Select a market'); return; }
+      data.length + ' points · ' + winLabel + ' · X = time, Y = contract price (axis scaled to the printed range, clamped to $0.00–$1.00; hover the line for exact values) · source: ' + (S.chartSource || '—') +
+      (S.tradesTruncated ? ' · NOTE: the 1,000-trade page cap was hit, so the oldest prints in this window are not shown' : ''));
+    if (data.length < 2) {
+      $('#kx-chart-name') && ($('#kx-chart-name').textContent = S.selected || 'Select a market');
+      var hint = $('#kx-chart-alerts');
+      if (hint) hint.innerHTML = '<span class="muted small">Chart builds from the official trade tape (seconds/minutes windows) and official candlesticks (hour+ windows), plus live poll samples. Select a market row to start.</span>';
+      return;
+    }
     var t0 = data[0].t, t1 = data[data.length - 1].t;
     if (t1 === t0) t1 = t0 + 1000;
     function px(t) { return L + (t - t0) / (t1 - t0) * (W - L - R); }
-    function py(p) { return T + (1 - p) * (H - T - B); }
+    CHART.pts = data; CHART.t0 = t0; CHART.t1 = t1; CHART.L = L; CHART.W = W;
+    function py(p) { return T + (hi - p) / (hi - lo) * (H - T - B); }
     x.strokeStyle = green; x.lineWidth = 2; x.beginPath();
     data.forEach(function (d, i) { i ? x.lineTo(px(d.t), py(d.p)) : x.moveTo(px(d.t), py(d.p)); });
     x.stroke();
-    // ≥10¢ swing alert markers for this ticker inside the window (colors: up=green, down=pink)
-    M.state.alerts.filter(function (a) {
-      return a.ticker === S.selected && a.t >= t0 && a.t <= t1;
-    }).forEach(function (a) {
-      x.fillStyle = a.dir === 'up' ? green : '#f48fb1';
-      x.beginPath(); x.arc(px(a.t), py(a.to), 4, 0, 7); x.fill();
-      x.strokeStyle = '#fff'; x.lineWidth = 1.5; x.stroke();
-    });
     var lastP = data[data.length - 1].p;
     x.fillStyle = green;
     x.beginPath(); x.arc(px(t1), py(lastP), 3.5, 0, 7); x.fill();
@@ -475,15 +626,47 @@ window.KalshiApp = (function () {
       var tt = t0 + (t1 - t0) * k / 3;
       x.fillText(hhmmss(tt), Math.max(L, Math.min(px(tt) - 26, W - 58)), H - 8);
     }
+    /* Alert markers: >= $0.10 jumps for the selected market in this window. */
+    var css2 = getComputedStyle(document.documentElement);
+    var red = css2.getPropertyValue('--red') || '#ff827c';
+    var marks = (M.state.alerts || []).filter(function (al) {
+      return al.ticker === S.selected && al.t >= t0 && al.t <= t1;
+    });
+    marks.forEach(function (al) {
+      x.fillStyle = al.dir === 'up' ? green : red;
+      x.beginPath(); x.arc(px(al.t), py(al.to), 4, 0, 7); x.fill();
+      x.fillStyle = muted; x.font = '10px system-ui';
+      x.fillText((al.delta > 0 ? '+' : '') + al.delta.toFixed(2), Math.min(px(al.t) + 5, W - 40), py(al.to) - 7);
+    });
+    if (typeof hoverX === 'number') {
+      x.strokeStyle = muted; x.globalAlpha = 0.7; x.lineWidth = 1;
+      x.beginPath(); x.moveTo(hoverX, T); x.lineTo(hoverX, H - B); x.stroke();
+      x.globalAlpha = 1;
+    }
     var name = $('#kx-chart-name');
     if (name) name.textContent = S.selected || '';
+    var hint2 = $('#kx-chart-alerts');
+    if (hint2) {
+      if (marks.length) {
+        hint2.innerHTML = '<span class="muted small">' + marks.length + ' alert marker(s) in this window (dots on the line). Latest: ' +
+          marks.slice(-1).map(function (al) {
+            return '<b class="' + al.dir + '">' + (al.delta > 0 ? '+' : '') + al.delta.toFixed(2) + '</b> ' +
+              '<a href="' + esc(kalshiUrl(al.event)) + '" target="_blank" rel="noopener">' + esc(al.title) + '</a> · ' +
+              '<a href="' + esc(newsUrl(al.title)) + '" target="_blank" rel="noopener">news search (lead)</a>';
+          }).join('') + ' — causality is never claimed.</span>';
+      } else {
+        hint2.innerHTML = '<span class="muted small">No ≥ $0.10 alert markers for this market in the selected window yet.</span>';
+      }
+    }
   }
 
   /* ---------- chats ---------- */
   function alertLinks(a) {
     var ev = S.events[a.event];
     var src = ev && ev.settlement_sources && ev.settlement_sources.filter(function (s) { return s.url && /^https:/.test(s.url); }).slice(0, 2) || [];
-    var html = '<a href="' + esc(kalshiEventUrl(a.event)) + '" target="_blank" rel="noopener">Kalshi market</a>';
+    var k = kalshiUrl(a.event);
+    var html = (k ? '<a href="' + esc(k) + '" target="_blank" rel="noopener">Kalshi series page</a> · ' : '')
+      + '<a href="' + esc(apiEventUrl(a.event)) + '" target="_blank" rel="noopener">official API record</a>';
     src.forEach(function (s) { html += ' · <a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.name.slice(0, 24)) + '</a>'; });
     html += ' · <a href="' + esc(newsUrl(a.title)) + '" target="_blank" rel="noopener">news search (lead)</a>';
     return html;
@@ -491,10 +674,13 @@ window.KalshiApp = (function () {
   function chatMsg(a, model) {
     var arrow = a.dir === 'up' ? '\u25b2' : '\u25bc';
     var cls = model ? 'msg model' : ('msg ' + a.dir);
+    var topicLabel = M.topicById(a.topic) ? M.topicById(a.topic).label : (a.topic || '');
     return '<div class="' + cls + '"><span class="time">' + hhmmss(a.t) + '</span>' +
       '<b class="' + a.dir + '">' + arrow + ' ' + (a.delta > 0 ? '+' : '') + a.delta.toFixed(2) + '</b> ' +
-      '<a href="' + esc(kalshiEventUrl(a.event)) + '" target="_blank" rel="noopener">' + esc(a.title) + '</a> ' +
-      '<span class="meta">' + esc(cents(a.from)) + ' \u2192 ' + esc(cents(a.to)) +
+      (topicLabel ? '<span class="pill" style="font-size:11px;padding:1px 8px">' + esc(topicLabel) + '</span> ' : '') +
+      (kalshiUrl(a.event) ? '<a href="' + esc(kalshiUrl(a.event)) + '" target="_blank" rel="noopener">' + esc(a.title) + '</a> ' : '<b>' + esc(a.title) + '</b> ') +
+      '<span class="meta">' + (a.kind && a.kind !== 'sample' ? esc(a.kind) + ' · ' : '') +
+      esc(cents(a.from)) + ' \u2192 ' + esc(cents(a.to)) +
       (a.vol24 !== null && a.vol24 !== undefined ? ' · 24h ' + fmtK(a.vol24) : '') +
       (a.estdv ? ' · est $' + fmtK(a.estdv) : '') +
       (model ? ' · score ' + a.score : '') + '</span>' +
@@ -559,8 +745,11 @@ window.KalshiApp = (function () {
       var dHtml = d === null ? '<span class="flat">—</span>' :
         '<span class="' + (d > 0 ? 'up' : d < 0 ? 'down' : 'flat') + '">' + (d > 0 ? '+' : '') + d.toFixed(2) + '</span>';
       var close = m.close_time ? new Date(m.close_time).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+      var apiUrl = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=' + encodeURIComponent(m.ticker);
       return '<tr data-t="' + esc(m.ticker) + '" class="' + (m.ticker === S.selected ? 'sel' : '') + '">' +
-        '<td><a href="' + esc(kalshiEventUrl(m.event_ticker)) + '" target="_blank" rel="noopener">' + esc(m.title || m.ticker) + '</a>' +
+        '<td>' + (kalshiUrl(m.event_ticker) ? '<a href="' + esc(kalshiUrl(m.event_ticker)) + '" target="_blank" rel="noopener">' + esc(m.title || m.ticker) + '</a>'
+          : esc(m.title || m.ticker)) +
+        ' · <a class="small" href="' + esc(apiMarketUrl(m.ticker)) + '" target="_blank" rel="noopener">API</a>' +
         '<br><small class="muted">' + esc(m.event_ticker) + ' · ' + esc(M.topicById(m._topic) ? M.topicById(m._topic).label : 'other') + '</small></td>' +
         '<td>' + esc(cents(m.yes_bid_dollars)) + '</td>' +
         '<td>' + esc(cents(m.yes_ask_dollars)) + '</td>' +
@@ -569,10 +758,12 @@ window.KalshiApp = (function () {
         '<td>' + esc(fmtK(m.volume_fp || m.volume)) + '</td>' +
         '<td>' + esc(fmtK(m.volume_24h_fp || m.volume_24h)) + '</td>' +
         '<td>' + (isFinite(Number(m.volume_fp)) && isFinite(Number(m.last_price_dollars)) ? '$' + fmtK(Number(m.volume_fp) * Number(m.last_price_dollars)) : '') + '</td>' +
+        '<td>' + (isFinite(Number(m.volume_24h_fp)) && isFinite(Number(m.last_price_dollars)) ? '$' + fmtK(Number(m.volume_24h_fp) * Number(m.last_price_dollars)) : '') + '</td>' +
         '<td>' + esc(fmtK(m.open_interest_fp || m.open_interest)) + '</td>' +
         '<td class="muted">' + esc(close) + '</td>' +
+        '<td class="src"><a href="' + esc(apiUrl) + '" target="_blank" rel="noopener">API</a></td>' +
         '</tr>';
-    }).join('') || '<tr><td colspan="10" class="muted">No markets in scope yet — discovery is running, or live API is unreachable (snapshot mode shows data/ rows on the Data page).</td></tr>';
+    }).join('') || '<tr><td colspan="12" class="muted">No markets in scope yet — discovery is running, or live API is unreachable (snapshot mode shows data/ rows on the Data page).</td></tr>';
     tb.querySelectorAll('tr[data-t]').forEach(function (tr) {
       tr.addEventListener('click', function (ev) {
         if (ev.target.closest('a')) return;
@@ -583,6 +774,7 @@ window.KalshiApp = (function () {
   function select(ticker) {
     S.selected = ticker;
     S.book = null; S.candles = null; S.lastCandleFetch = 0;
+    S.trades = []; S.lastTradeFetch = 0;
     $('#kx-chart-name') && ($('#kx-chart-name').textContent = ticker);
     pollBook(); fetchCandles(); renderTable(); renderBook();
   }
@@ -599,14 +791,14 @@ window.KalshiApp = (function () {
       }).join('') || '<tr><td colspan="3" class="muted">empty</td></tr>';
     }
     box.innerHTML =
-      '<h3 class="spread">' + esc(S.selected) + '<span class="muted small"> book polled every ' + (CFG.bookPollMs / 1000) + 's</span></h3>' +
+      '<h3 class="spread">' + esc(S.selected) + '<span class="muted small"> book polled every ' + (CFG.bookPollMs / 1000) + 's · contracts at each price</span></h3>' +
       '<table class="ladder"><thead><tr><th>YES ask*</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.ya) + '</tbody></table>' +
       '<table class="ladder"><thead><tr><th>YES bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.yb) + '</tbody></table>' +
-      '<table class="ladder"><thead><tr><th>NO ask†</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.yb.map(function (x) { return { p: Math.round((1 - x.p) * 10000) / 10000, q: x.q }; }).reverse()) + '</tbody></table>' +
-      '<table class="ladder"><thead><tr><th>NO bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.nb) + '</tbody></table>' +
-      '<p class="muted small">*YES ask = $1.00 − NO bid (official reciprocal rule). †NO ask = $1.00 − YES bid (derived). ' +
-      'Columns show contracts available at each price (bid/ask size). Computed bid-side liquidity: YES <b>' + money(v.liqY) + '</b> · NO <b>' + money(v.liqN) + '</b> · total <b>' + money(v.liqY + v.liqN) + '</b>. ' +
-      'Empty book = no resting orders (official behavior).</p>';
+      '<table class="ladder"><thead><tr><th>NO ask*</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.na, 'no') + '</tbody></table>' +
+      '<table class="ladder"><thead><tr><th>NO bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.nb, 'no') + '</tbody></table>' +
+      '<p class="muted small">*Asks are derived (YES ask = $1.00 − NO bid; NO ask = $1.00 − YES bid; official reciprocal rule). ' +
+      'Computed bid-side liquidity (Σ price × contracts): YES <b>' + money(v.liqY) + '</b> · NO <b>' + money(v.liqN) + '</b> · total <b>' + money(v.liqY + v.liqN) + '</b>. ' +
+      'Empty book = no resting orders (official behavior). Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets/' + encodeURIComponent(S.selected) + '/orderbook" target="_blank" rel="noopener">orderbook API</a>.</p>';
   }
 
   /* ---------- resolved strip ---------- */
@@ -615,7 +807,8 @@ window.KalshiApp = (function () {
     var keys = Object.keys(M.state.resolved).slice(-10).reverse();
     box.innerHTML = keys.map(function (t) {
       var r = M.state.resolved[t];
-      return '<tr><td><a href="' + esc(kalshiEventUrl(r.event)) + '" target="_blank" rel="noopener">' + esc(r.title || t) + '</a></td>' +
+      return '<tr><td>' + (kalshiUrl(r.event) ? '<a href="' + esc(kalshiUrl(r.event)) + '" target="_blank" rel="noopener">' + esc(r.title || t) + '</a>' : esc(r.title || t)) +
+        ' · <a class="small" href="' + esc(apiMarketUrl(t)) + '" target="_blank" rel="noopener">API</a></td>' +
         '<td><span class="badge ' + (r.result === 'yes' ? 'yes' : 'no') + '">' + esc(String(r.result).toUpperCase()) + '</span></td>' +
         '<td class="muted">' + esc(r.settlement_ts ? r.settlement_ts.slice(0, 16).replace('T', ' ') + 'Z' : '') + '</td></tr>';
     }).join('') || '<tr><td colspan="3" class="muted">Nothing watched has settled yet. Watched markets are checked on every poll; settled ones flip to YES/NO here automatically.</td></tr>';
@@ -675,6 +868,14 @@ window.KalshiApp = (function () {
   function loops() {
     setInterval(function () { if (!document.hidden) pollWatch(); }, CFG.watchPollMs);
     setInterval(function () {
+      // selected market: trade tape for the seconds windows, independent of the
+      // slower candlestick refresh
+      if (!document.hidden && S.selected && S.mode !== 'snapshot') {
+        var w = WINDOWS.filter(function (x) { return x.id === S.window; })[0];
+        if (w && w.src === 'trades') fetchTrades();
+      }
+    }, 20000);
+    setInterval(function () {
       if (!document.hidden && Date.now() - S.lastDiscovery > CFG.discoveryMs) discover();
     }, 30000);
     setInterval(function () { if (!document.hidden) pollBook(); }, CFG.bookPollMs);
@@ -698,7 +899,8 @@ window.KalshiApp = (function () {
     ['index.html', 'Home'], ['dashboard.html', 'Dashboard'], ['trades.html', 'Strategy lab'],
     ['topics/gas-prices.html', 'Gas'], ['topics/elections.html', 'Elections'], ['topics/culture.html', 'Culture'],
     ['topics/crypto.html', 'Crypto'], ['topics/golf.html', 'Golf'],
-    ['data.html', 'Data'], ['methods.html', 'Methods'], ['flagged.html', 'Flagged'], ['sources.html', 'Sources']
+    ['data.html', 'Data'], ['methods.html', 'Methods'], ['suggestions.html', 'Ideas'],
+    ['flagged.html', 'Flagged'], ['sources.html', 'Sources']
   ];
   function navHere(root) {
     var here = location.pathname.split('/').pop() || 'index.html';
@@ -733,12 +935,14 @@ window.KalshiApp = (function () {
       '<div class="box"><div class="row spread"><h2 id="kx-title">' + (S.topic ? esc(M.topicById(S.topic).label) + ' · live markets' : 'Live markets · all topics') +
       '</h2><span class="muted small" id="kx-count"></span></div>' +
       '<div class="tablewrap" style="max-height:430px"><table><thead><tr>' +
-      '<th>Event</th><th>YES bid</th><th>YES ask</th><th>Last</th><th>\u0394 sample</th><th>Vol</th><th>24h vol</th><th>Est 24h $</th><th>Open int.</th><th>Closes</th>' +
+      '<th>Event</th><th>YES bid</th><th>YES ask</th><th>Last</th><th>\u0394 sample</th><th>Vol</th><th>24h vol</th><th>Est. $</th><th>Est 24h $</th><th>Open int.</th><th>Closes</th><th>Source</th>' +
       '</tr></thead><tbody id="kx-rows"></tbody></table></div>' +
-      '<p class="muted small">Ranked by estimated 24h traded dollars (total contracts \u00d7 last price — computed, not exchange-published; blank when the market reports no volume). \u0394 sample = change vs the previous poll sample.</p></div>' +
+      '<p class="muted small">Ranked by <b>estimated traded dollars</b> (total contracts \u00d7 last price), ties broken by estimated 24h dollars \u2014 both computed from exchange-reported fields, not exchange-published (blank when the market reports no volume). \u0394 sample = change vs the previous poll sample. Every row links the official <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=" target="_blank" rel="noopener">GET /markets?tickers=</a> response that produced it.</p></div>' +
       '<div class="box"><div class="row spread"><h2>Price chart</h2><span class="muted small" id="kx-chart-name">—</span></div>' +
-      '<div class="chartbox"><canvas id="kx-chart"></canvas></div>' +
+      '<div class="chartbox" style="position:relative"><canvas id="kx-chart"></canvas>' +
+      '<div id="kx-chart-tip" class="muted small" style="display:none;position:absolute;top:4px;right:6px;background:rgba(10,20,22,.86);border:1px solid var(--line);border-radius:6px;padding:2px 8px;pointer-events:none"></div></div>' +
       '<p class="muted small" id="kx-chart-note"></p>' +
+      '<p id="kx-chart-alerts"></p>' +
       '<div id="kx-book"></div></div></div>' +
       '<div class="grid2" style="margin-top:14px">' +
       '<div class="box"><div class="row spread"><h2>\u226510\u00a2 alerts · all in-scope events</h2><span class="muted small">newest at bottom</span></div>' +
@@ -760,6 +964,11 @@ window.KalshiApp = (function () {
       S.window = this.value; S.candles = null; S.lastCandleFetch = 0; fetchCandles();
     });
     $('#kx-refresh').addEventListener('click', function () { pollWatch(); pollBook(); fetchCandles(); });
+    $('#kx-chart').addEventListener('mousemove', chartHover);
+    $('#kx-chart').addEventListener('mouseleave', function () {
+      var tip = $('#kx-chart-tip'); if (tip) tip.style.display = 'none';
+      drawChart();
+    });
 
     renderChats(); renderTable(); renderKPIs(); renderResolved(); renderBook(); renderStatus();
     drawChart();
@@ -787,7 +996,8 @@ window.KalshiApp = (function () {
     function tradeRows(list) {
       return list.slice().reverse().map(function (t) {
         return '<tr><td>' + esc(t.t.slice(0, 16).replace('T', ' ')) + '</td>' +
-          '<td><a href="' + esc(kalshiEventUrl(t.event_ticker)) + '" target="_blank" rel="noopener">' + esc(t.title || t.ticker) + '</a><br><small class="muted">' + esc(t.ticker) + '</small></td>' +
+          '<td>' + (kalshiUrl(t.event_ticker) ? '<a href="' + esc(kalshiUrl(t.event_ticker)) + '" target="_blank" rel="noopener">' + esc(t.title || t.ticker) + '</a>' : esc(t.title || t.ticker)) +
+          ' · <a class="small" href="' + esc(apiMarketUrl(t.ticker)) + '" target="_blank" rel="noopener">API</a><br><small class="muted">' + esc(t.ticker) + '</small></td>' +
           '<td>' + esc(t.side.toUpperCase()) + '</td><td>' + esc(cents(t.entry)) + '</td>' +
           '<td>' + (t.status === 'open' ? esc(cents(t.mark)) : esc(cents(t.exit && t.exit.price))) + '</td>' +
           '<td>' + esc(fmtN(t.qty)) + '</td><td>' + esc(t.strategy) + '</td>' +
@@ -872,7 +1082,7 @@ window.KalshiApp = (function () {
       '<div class="row spread"><div class="row"><span class="pill" id="kx-mode">…</span><span class="muted small" id="kx-mode-note"></span></div>' +
       '<div class="row"><button id="kx-bot-toggle">Bot: —</button><button id="kx-export">Export JSON</button>' +
       '<button id="kx-import">Import JSON</button><button id="kx-clear" class="danger">Reset</button></div></div>' +
-      '<p class="notice blue small">Automated <b>paper</b> trading: when the bot is ON it evaluates the documented strategies every poll cycle against live demo quotes and records local-only fills. No orders are sent to Kalshi; nothing here can touch a real or demo account. Paper fills use the official taker fee schedule (verified from kalshi.com docs) — toggle below. Nothing here can touch a real or demo account.</p>' +
+      '<p class="notice blue small">Automated <b>paper</b> trading: when the bot is ON it evaluates the documented strategies every poll cycle against live demo quotes and records local-only fills. No orders are sent to Kalshi; nothing here can touch a real or demo account. Fees use the official taker formula <code>roundup(0.07 &times; C &times; P &times; (1&minus;P))</code> from the <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official fee schedule</a> (verified 2026-11-20, effective July 7 2026). Maker fees are not modelled because paper fills assume an immediately-matched order — see <a href="flagged.html">Flagged</a>.</p>' +
       '<div class="cards">' +
       '<div class="card"><small>Paper equity</small><strong id="kpi-equity">—</strong></div>' +
       '<div class="card"><small>Cash</small><strong id="kpi-cash">—</strong></div>' +
@@ -886,8 +1096,8 @@ window.KalshiApp = (function () {
       '<span>Per trade $ <input id="kx-per" type="number" min="1" step="5" value="' + M.state.bot.perTradeDollars + '"></span>' +
       '<span>Max positions <input id="kx-max" type="number" min="1" max="40" value="' + M.state.bot.maxPositions + '"></span>' +
       '<button id="kx-apply">Apply</button></div>' +
-      '<p class="muted small">Fees: <b>' + (M.state.bot.fees ? 'ON (official taker schedule)' : 'OFF') + '</b> — toggle below. Strategy parameters are fixed defaults documented in Methods.</p>' +
-      '<button id="kx-fees">Toggle fees (unverified)</button>' +
+      '<p class="muted small">Fees: <b>' + (M.state.bot.fees ? 'ON (official taker formula)' : 'OFF') + '</b> — toggle below. Fee = roundup(0.07 &times; contracts &times; price &times; (1 &minus; price)) per the <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official schedule</a>; settlement has no fee. Maker fees are not modelled.</p>' +
+      '<button id="kx-fees">Toggle fees</button>' +
       '<p class="muted small" id="kx-trades-hint"></p>' +
       '<p class="small" id="kx-sum" style="margin-top:8px"></p></div></div>' +
       '<div class="box" style="margin-top:14px"><h2>Strategy automation</h2><div class="tablewrap"><table id="kx-strategies"></table></div></div>' +
@@ -963,7 +1173,17 @@ window.KalshiApp = (function () {
     var node = document.getElementById('kalshi-app');
     if (!node) return;
     var page = node.getAttribute('data-page');
-    var topic = (node.getAttribute('data-topic') || location.search.match(/topic=([a-z-]+)/) || [null, ''])[1] || '';
+    /* Topic page detection. `data-topic` holds the topic id itself ("golf"),
+     * while the tab strip uses ?topic=... . An earlier revision indexed the
+     * attribute string like a regex match and produced "a", which made
+     * M.topicById() return null and crashed every topic subpage on load. */
+    var topic = '';
+    var attr = node.getAttribute('data-topic');
+    if (attr && M.topicById(attr)) topic = attr;
+    else {
+      var q = location.search.match(/[?&]topic=([a-z-]+)/);
+      if (q && M.topicById(q[1])) topic = q[1];
+    }
     if (page === 'trades') mountTrades(node);
     else mountDashboard(node, { topic: topic, compact: !!node.getAttribute('data-topic'), root: node.getAttribute('data-root') || '' });
   }

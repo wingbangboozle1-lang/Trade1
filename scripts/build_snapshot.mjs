@@ -81,11 +81,11 @@ const snapshot = {
   method: 'Public unauthenticated GET requests to the Kalshi Trade API. Topic = official event category and/or keyword rule (see lib.mjs). Every row links to its official API endpoint.',
   docs: {
     environments: 'https://docs.kalshi.com/getting_started/api_environments',
-    get_events: 'https://docs.kalshi.com/api-reference/market/get-events',
+    get_events: 'https://docs.kalshi.com/api-reference/events/get-events',
     get_markets: 'https://docs.kalshi.com/api-reference/market/get-markets',
     lifecycle: 'https://docs.kalshi.com/getting_started/market_lifecycle',
     pagination: 'https://docs.kalshi.com/getting_started/pagination',
-    orderbook: 'https://docs.kalshi.com/api-reference/market/get-market-order-book',
+    orderbook: 'https://docs.kalshi.com/api-reference/market/get-market-orderbook',
     orderbook_format: 'https://docs.kalshi.com/getting_started/orderbook_responses',
     trades: 'https://docs.kalshi.com/api-reference/market/get-trades',
   },
