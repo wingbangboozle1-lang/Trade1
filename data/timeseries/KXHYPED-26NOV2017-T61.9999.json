@@ -13,9 +13,18 @@
 "last": 0.76,
 "vol": 1448.6,
 "oi": 944.96
+},
+{
+"t": 1795181209,
+"bid": 0.61,
+"ask": 0.63,
+"mid": 0.62,
+"last": 0.63,
+"vol": 1450.6,
+"oi": 946.96
 }
 ],
 "event_ticker": "KXHYPED-26NOV2017",
 "series_ticker": "KXHYPED",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:53Z"
 }

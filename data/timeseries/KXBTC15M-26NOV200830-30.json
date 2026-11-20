@@ -12,9 +12,21 @@
 "liq": 39855.6,
 "yes_qty": 39273.31,
 "no_qty": 31087.05
+},
+{
+"t": 1795181209,
+"bid": 0.25,
+"ask": 0.26,
+"mid": 0.255,
+"last": 0.26,
+"vol": 1836176.15,
+"oi": 346480.29,
+"liq": 21209.18,
+"yes_qty": 15285.25,
+"no_qty": 29217.77
 }
 ],
-"history_backfilled_at": "2026-11-20T13:22:51Z",
+"history_backfilled_at": "2026-11-20T13:26:49Z",
 "history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
 "title": "BTC price up in next 15 mins?",
 "topics": [
@@ -22,5 +34,5 @@
 ],
 "event_ticker": "KXBTC15M-26NOV200830",
 "series_ticker": "KXBTC15M",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:52Z"
 }

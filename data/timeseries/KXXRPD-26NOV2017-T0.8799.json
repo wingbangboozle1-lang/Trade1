@@ -13,9 +13,18 @@
 "last": 0.79,
 "vol": 240.16,
 "oi": 240.16
+},
+{
+"t": 1795181209,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.79,
+"vol": 240.16,
+"oi": 240.16
 }
 ],
 "event_ticker": "KXXRPD-26NOV2017",
 "series_ticker": "KXXRPD",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:53Z"
 }

@@ -16,9 +16,21 @@
 "liq": 117.84,
 "yes_qty": 1311.0,
 "no_qty": 12.5
+},
+{
+"t": 1795181209,
+"bid": 0.96,
+"ask": 0.99,
+"mid": 0.975,
+"last": 0.99,
+"vol": 2172.76,
+"oi": 1778.82,
+"liq": 136.17,
+"yes_qty": 1463.77,
+"no_qty": 12.5
 }
 ],
 "event_ticker": "KXNATGASW-26NOV2017",
 "series_ticker": "KXNATGASW",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:53Z"
 }

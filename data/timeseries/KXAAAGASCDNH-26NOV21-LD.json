@@ -16,9 +16,21 @@
 "liq": 446.72,
 "yes_qty": 142.49,
 "no_qty": 328.7
+},
+{
+"t": 1795181209,
+"bid": 0.82,
+"ask": 0.85,
+"mid": 0.835,
+"last": 0.84,
+"vol": 240.46,
+"oi": 220.46,
+"liq": 451.3,
+"yes_qty": 141.49,
+"no_qty": 333.7
 }
 ],
 "event_ticker": "KXAAAGASCDNH-26NOV21",
 "series_ticker": "KXAAAGASCDNH",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:53Z"
 }

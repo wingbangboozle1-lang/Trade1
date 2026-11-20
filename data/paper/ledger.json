@@ -1,7 +1,7 @@
 {
  "created_at": "2026-11-20T13:23:07Z",
  "starting_balance": 10000.0,
- "cash": 8641.62,
+ "cash": 8759.73,
  "positions": [
   {
    "ticker": "KXAAAGASCDCA-26NOV21-SD",
@@ -399,8 +399,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.915 -> 0.885 over 6 snapshots",
-   "mark": 0.11,
-   "unrealized": -0.25
+   "mark": 0.12,
+   "unrealized": 0.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T59999.99",
@@ -418,8 +418,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.875 -> 0.835 over 6 snapshots",
-   "mark": 0.16,
-   "unrealized": -0.25
+   "mark": 0.18,
+   "unrealized": 0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T60499.99",
@@ -437,8 +437,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.815 -> 0.765 over 6 snapshots",
-   "mark": 0.23,
-   "unrealized": -0.25
+   "mark": 0.26,
+   "unrealized": 0.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T60999.99",
@@ -456,8 +456,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.725 -> 0.645 over 6 snapshots",
-   "mark": 0.35,
-   "unrealized": -0.25
+   "mark": 0.36,
+   "unrealized": 0.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T60999.99",
@@ -475,8 +475,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.645 is -0.058 below the 10-snapshot mean 0.703",
-   "mark": 0.64,
-   "unrealized": -0.25
+   "mark": 0.63,
+   "unrealized": -0.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T61499.99",
@@ -532,8 +532,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.485 -> 0.395 over 6 snapshots",
-   "mark": 0.6,
-   "unrealized": -0.25
+   "mark": 0.62,
+   "unrealized": 0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T61999.99",
@@ -551,8 +551,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.395 is -0.063 below the 10-snapshot mean 0.458",
-   "mark": 0.39,
-   "unrealized": -0.5
+   "mark": 0.37,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T62499.99",
@@ -570,8 +570,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.345 -> 0.265 over 6 snapshots",
-   "mark": 0.73,
-   "unrealized": -0.25
+   "mark": 0.74,
+   "unrealized": 0.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T62499.99",
@@ -589,8 +589,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.265 is -0.063 below the 10-snapshot mean 0.328",
-   "mark": 0.26,
-   "unrealized": -0.5
+   "mark": 0.25,
+   "unrealized": -1.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T62999.99",
@@ -608,8 +608,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.235 -> 0.160 over 6 snapshots",
-   "mark": 0.83,
-   "unrealized": -0.5
+   "mark": 0.85,
+   "unrealized": 0.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T62999.99",
@@ -627,8 +627,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.160 is -0.052 below the 10-snapshot mean 0.213",
-   "mark": 0.15,
-   "unrealized": -1.0
+   "mark": 0.14,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T63499.99",
@@ -646,8 +646,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES ask 0.090 with 59799/52965 contracts resting",
-   "mark": 0.08,
-   "unrealized": -0.25
+   "mark": 0.09,
+   "unrealized": 0.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T63999.99",
@@ -684,8 +684,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES ask 0.040 with 47297/54114 contracts resting",
-   "mark": 0.03,
-   "unrealized": -0.25
+   "mark": 0.02,
+   "unrealized": -0.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T64999.99",
@@ -705,63 +705,6 @@
    "reason": "YES ask 0.030 with 39289/51794 contracts resting",
    "mark": 0.01,
    "unrealized": -0.5
-  },
-  {
-   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.8,
-   "cost": 20.0,
-   "fees": 0.28,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
-   "topics": [
-    "elections"
-   ],
-   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
-   "reason": "Reference 0.103 vs bid 0.200 (edge -0.142)",
-   "mark": 0.71,
-   "unrealized": -2.25
-  },
-  {
-   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
-   "side": "yes",
-   "contracts": 25,
-   "avg_price": 0.29,
-   "cost": 7.25,
-   "fees": 0.37,
-   "opened_ts": 1795180970,
-   "strategy": "topic_uncertainty",
-   "family": "Event thesis",
-   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
-   "topics": [
-    "elections"
-   ],
-   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
-   "reason": "YES ask 0.290 with 1200/2710 contracts resting",
-   "mark": 0.2,
-   "unrealized": -2.25
-  },
-  {
-   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
-   "side": "yes",
-   "contracts": 25,
-   "avg_price": 0.11,
-   "cost": 2.75,
-   "fees": 0.18,
-   "opened_ts": 1795180970,
-   "strategy": "topic_uncertainty",
-   "family": "Event thesis",
-   "title": "Will Democrats win the 2026 national House popular vote by at least 14.4 percentage points?",
-   "topics": [
-    "elections"
-   ],
-   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
-   "reason": "YES ask 0.110 with 1007/2628 contracts resting",
-   "mark": 0.03,
-   "unrealized": -2.0
   },
   {
    "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.5",
@@ -855,8 +798,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.81,
-   "unrealized": -1.0
+   "mark": 0.8,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.855",
@@ -874,8 +817,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.81,
-   "unrealized": -1.0
+   "mark": 0.8,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.860",
@@ -912,8 +855,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
-   "mark": 0.82,
-   "unrealized": -1.0
+   "mark": 0.81,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.870",
@@ -950,8 +893,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
-   "mark": 0.83,
-   "unrealized": -1.0
+   "mark": 0.82,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.880",
@@ -1007,8 +950,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
-   "mark": 0.84,
-   "unrealized": -1.0
+   "mark": 0.83,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.895",
@@ -1045,8 +988,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.85,
-   "unrealized": -1.0
+   "mark": 0.84,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.905",
@@ -1064,8 +1007,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.85,
-   "unrealized": -1.0
+   "mark": 0.84,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.910",
@@ -1121,8 +1064,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.86,
-   "unrealized": -1.0
+   "mark": 0.85,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.925",
@@ -1197,8 +1140,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
-   "mark": 0.87,
-   "unrealized": -1.0
+   "mark": 0.86,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.945",
@@ -1254,8 +1197,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
-   "mark": 0.88,
-   "unrealized": -1.0
+   "mark": 0.87,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.960",
@@ -1486,44 +1429,6 @@
    "unrealized": -2.0
   },
   {
-   "ticker": "KXTTFD-23NOV261659-T101P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.8,
-   "cost": 20.0,
-   "fees": 0.28,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $101.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.200 (edge -0.235)",
-   "mark": 0.72,
-   "unrealized": -2.0
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T102P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.84,
-   "cost": 21.0,
-   "fees": 0.24,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $102.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.160 (edge -0.200)",
-   "mark": 0.75,
-   "unrealized": -2.25
-  },
-  {
    "ticker": "KXTTFD-23NOV261659-T103P000",
    "side": "no",
    "contracts": 25,
@@ -1541,82 +1446,6 @@
    "reason": "Reference 0.005 vs bid 0.130 (edge -0.165)",
    "mark": 0.79,
    "unrealized": -2.0
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T104P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.9,
-   "cost": 22.5,
-   "fees": 0.16,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $104.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.100 (edge -0.140)",
-   "mark": 0.81,
-   "unrealized": -2.25
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T105P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.93,
-   "cost": 23.25,
-   "fees": 0.12,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $105.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.070 (edge -0.110)",
-   "mark": 0.84,
-   "unrealized": -2.25
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T106P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.95,
-   "cost": 23.75,
-   "fees": 0.09,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $106.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.050 (edge -0.090)",
-   "mark": 0.86,
-   "unrealized": -2.25
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T107P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.97,
-   "cost": 24.25,
-   "fees": 0.06,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $107.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.030 (edge -0.070)",
-   "mark": 0.88,
-   "unrealized": -2.25
   },
   {
    "ticker": "KXTTFD-23NOV261659-T97P000",
@@ -1638,25 +1467,6 @@
    "unrealized": -2.0
   },
   {
-   "ticker": "KXTTFD-23NOV261659-T98P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.68,
-   "cost": 17.0,
-   "fees": 0.39,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $98.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.320 (edge -0.360)",
-   "mark": 0.59,
-   "unrealized": -2.25
-  },
-  {
    "ticker": "KXTTFD-23NOV261659-T99P000",
    "side": "no",
    "contracts": 25,
@@ -1673,6 +1483,101 @@
    "event_ticker": "KXTTFD-23NOV261659",
    "reason": "Reference 0.005 vs bid 0.280 (edge -0.315)",
    "mark": 0.64,
+   "unrealized": -2.0
+  },
+  {
+   "ticker": "KXBTC15M-26NOV200830-30",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.26,
+   "cost": 6.5,
+   "fees": 0.34,
+   "opened_ts": 1795181209,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "BTC price up in next 15 mins?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTC15M-26NOV200830",
+   "reason": "YES ask 0.260 with 15285/29218 contracts resting",
+   "mark": 0.25,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T58999.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.1,
+   "cost": 2.5,
+   "fees": 0.16,
+   "opened_ts": 1795181209,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.945 -> 0.905 over 6 snapshots",
+   "mark": 0.09,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T60499.99",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.74,
+   "cost": 18.5,
+   "fees": 0.34,
+   "opened_ts": 1795181209,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2017",
+   "reason": "YES mid 0.735 is -0.063 below the 10-snapshot mean 0.798",
+   "mark": 0.73,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.29,
+   "cost": 7.25,
+   "fees": 0.37,
+   "opened_ts": 1795181209,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "YES ask 0.290 with 1200/2710 contracts resting",
+   "mark": 0.2,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.11,
+   "cost": 2.75,
+   "fees": 0.18,
+   "opened_ts": 1795181209,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.4 percentage points?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+   "reason": "YES ask 0.110 with 1007/2628 contracts resting",
+   "mark": 0.03,
    "unrealized": -2.0
   }
  ],
@@ -3223,6 +3128,261 @@
    "topics": [
     "gas"
    ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.71,
+   "fee": 0.37,
+   "cost": -17.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.71 (entry 0.80)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.2,
+   "fee": 0.28,
+   "cost": -5.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "stop loss at 0.20 (entry 0.29)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.03,
+   "fee": 0.06,
+   "cost": -0.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "stop loss at 0.03 (entry 0.11)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T101P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.72,
+   "fee": 0.36,
+   "cost": -18.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.72 (entry 0.80)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T102P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.75,
+   "fee": 0.33,
+   "cost": -18.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.75 (entry 0.84)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T104P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.81,
+   "fee": 0.27,
+   "cost": -20.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.81 (entry 0.90)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T105P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.84,
+   "fee": 0.24,
+   "cost": -21.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.84 (entry 0.93)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T106P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.86,
+   "fee": 0.22,
+   "cost": -21.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.86 (entry 0.95)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T107P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.88,
+   "fee": 0.19,
+   "cost": -22.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.88 (entry 0.97)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T98P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.59,
+   "fee": 0.43,
+   "cost": -14.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.59 (entry 0.68)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:04Z",
+   "ticker": "KXBTC15M-26NOV200830-30",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.26,
+   "fee": 0.34,
+   "cost": 6.5,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.260 with 15285/29218 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:04Z",
+   "ticker": "KXBTCD-26NOV2017-T58999.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.1,
+   "fee": 0.16,
+   "cost": 2.5,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.945 -> 0.905 over 6 snapshots",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:04Z",
+   "ticker": "KXBTCD-26NOV2017-T60499.99",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.74,
+   "fee": 0.34,
+   "cost": 18.5,
+   "strategy": "fade_stretched_move",
+   "family": "Market making",
+   "reason": "YES mid 0.735 is -0.063 below the 10-snapshot mean 0.798",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:04Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.29,
+   "fee": 0.37,
+   "cost": 7.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.290 with 1200/2710 contracts resting",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:04Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.11,
+   "fee": 0.18,
+   "cost": 2.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.110 with 1007/2628 contracts resting",
+   "topics": [
+    "elections"
+   ]
   }
  ],
  "equity_curve": [
@@ -3232,10 +3392,208 @@
    "cash": 8641.62,
    "positions": 1249.75,
    "equity": 9891.37
+  },
+  {
+   "t": 1795181209,
+   "at": "2026-11-20T13:27:04Z",
+   "cash": 8759.73,
+   "positions": 1120.75,
+   "equity": 9880.48
   }
  ],
- "closed": [],
+ "closed": [
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.8,
+   "exit": 0.71,
+   "fees": 0.65,
+   "realized": -2.62,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "elections"
+   ],
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
+   "reason_close": "stop loss at 0.71 (entry 0.80)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "contracts": 25,
+   "entry": 0.29,
+   "exit": 0.2,
+   "fees": 0.65,
+   "realized": -2.53,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "topics": [
+    "elections"
+   ],
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
+   "reason_close": "stop loss at 0.20 (entry 0.29)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "contracts": 25,
+   "entry": 0.11,
+   "exit": 0.03,
+   "fees": 0.24,
+   "realized": -2.06,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "topics": [
+    "elections"
+   ],
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.4 percentage points?",
+   "reason_close": "stop loss at 0.03 (entry 0.11)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T101P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.8,
+   "exit": 0.72,
+   "fees": 0.64,
+   "realized": -2.36,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $101.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.72 (entry 0.80)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T102P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.84,
+   "exit": 0.75,
+   "fees": 0.57,
+   "realized": -2.58,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $102.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.75 (entry 0.84)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T104P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.9,
+   "exit": 0.81,
+   "fees": 0.43,
+   "realized": -2.52,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $104.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.81 (entry 0.90)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T105P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.93,
+   "exit": 0.84,
+   "fees": 0.36,
+   "realized": -2.49,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $105.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.84 (entry 0.93)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T106P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.95,
+   "exit": 0.86,
+   "fees": 0.31,
+   "realized": -2.47,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $106.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.86 (entry 0.95)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T107P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.97,
+   "exit": 0.88,
+   "fees": 0.25,
+   "realized": -2.44,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $107.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.88 (entry 0.97)",
+   "holding_ts": 239
+  },
+  {
+   "ts": 1795181209,
+   "at": "2026-11-20T13:27:03Z",
+   "ticker": "KXTTFD-23NOV261659-T98P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.68,
+   "exit": 0.59,
+   "fees": 0.82,
+   "realized": -2.68,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $98.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.59 (entry 0.68)",
+   "holding_ts": 239
+  }
+ ],
  "note": "Simulated portfolio only. No Kalshi account is connected; no order was placed.",
- "updated_at": "2026-11-20T13:23:07Z",
- "last_snapshot_ts": 1795180970
+ "updated_at": "2026-11-20T13:27:04Z",
+ "last_snapshot_ts": 1795181209
 }

@@ -13,9 +13,18 @@
 "last": 0.88,
 "vol": 800.0,
 "oi": 800.0
+},
+{
+"t": 1795181209,
+"bid": 0.81,
+"ask": 0.9,
+"mid": 0.855,
+"last": 0.88,
+"vol": 800.0,
+"oi": 800.0
 }
 ],
 "event_ticker": "KXSOLD-26NOV2009",
 "series_ticker": "KXSOLD",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:52Z"
 }

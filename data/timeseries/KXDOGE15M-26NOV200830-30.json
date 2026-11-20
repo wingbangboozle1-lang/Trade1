@@ -13,9 +13,18 @@
 "last": 0.64,
 "vol": 8057.44,
 "oi": 3671.97
+},
+{
+"t": 1795181209,
+"bid": 0.051,
+"ask": 0.058,
+"mid": 0.0545,
+"last": 0.06,
+"vol": 14404.78,
+"oi": 5448.1
 }
 ],
 "event_ticker": "KXDOGE15M-26NOV200830",
 "series_ticker": "KXDOGE15M",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:52Z"
 }

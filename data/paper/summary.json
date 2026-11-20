@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-11-20T13:23:07Z",
+ "generated_at": "2026-11-20T13:27:04Z",
  "starting_balance": 10000.0,
- "cash": 8641.62,
- "positions_value": 1261.25,
- "equity": 9902.87,
- "total_return": -0.0097,
- "realized_total": 0,
- "fees_total": 0,
- "open_positions": 88,
- "closed_trades": 0,
- "fills": 91,
+ "cash": 8759.73,
+ "positions_value": 1132.25,
+ "equity": 9891.98,
+ "total_return": -0.0108,
+ "realized_total": -24.75,
+ "fees_total": 4.92,
+ "open_positions": 83,
+ "closed_trades": 10,
+ "fills": 106,
  "strategies": [
   {
    "strategy": "fair_value_vs_clock",
@@ -20,15 +20,15 @@
     "max_price": 0.45,
     "min_days_to_close": 3
    },
-   "closed_trades": 0,
-   "win_rate": null,
-   "realized": 0.0,
-   "fees": 0.0,
-   "roi": null,
-   "avg_hold_hours": null,
-   "open_positions": 65,
-   "unrealized": -75.75,
-   "open_cost": 1154.0
+   "closed_trades": 8,
+   "win_rate": 0.0,
+   "realized": -20.16,
+   "fees": 4.03,
+   "roi": -0.1174,
+   "avg_hold_hours": 0.07,
+   "open_positions": 57,
+   "unrealized": -60.5,
+   "open_cost": 982.25
   },
   {
    "strategy": "momentum_ignition",
@@ -46,9 +46,9 @@
    "fees": 0.0,
    "roi": null,
    "avg_hold_hours": null,
-   "open_positions": 8,
-   "unrealized": -2.25,
-   "open_cost": 89.5
+   "open_positions": 9,
+   "unrealized": 0.5,
+   "open_cost": 92.0
   },
   {
    "strategy": "fade_stretched_move",
@@ -65,9 +65,9 @@
    "fees": 0.0,
    "roi": null,
    "avg_hold_hours": null,
-   "open_positions": 5,
-   "unrealized": -2.5,
-   "open_cost": 71.25
+   "open_positions": 6,
+   "unrealized": -5.0,
+   "open_cost": 89.75
   },
   {
    "strategy": "post_jump_drift",
@@ -95,15 +95,15 @@
     "min_depth": 25,
     "max_price": 0.4
    },
-   "closed_trades": 0,
-   "win_rate": null,
-   "realized": 0.0,
-   "fees": 0.0,
-   "roi": null,
-   "avg_hold_hours": null,
-   "open_positions": 10,
-   "unrealized": -8.5,
-   "open_cost": 24.0
+   "closed_trades": 2,
+   "win_rate": 0.0,
+   "realized": -4.59,
+   "fees": 0.89,
+   "roi": -0.459,
+   "avg_hold_hours": 0.07,
+   "open_positions": 11,
+   "unrealized": -8.75,
+   "open_cost": 30.5
   },
   {
    "strategy": "complement_arbitrage",
@@ -124,7 +124,20 @@
    "open_cost": 0.0
   }
  ],
- "by_topic": [],
+ "by_topic": [
+  {
+   "topic": "elections",
+   "trades": 3,
+   "realized": -7.21,
+   "win_rate": 0.0
+  },
+  {
+   "topic": "gas",
+   "trades": 7,
+   "realized": -17.54,
+   "win_rate": 0.0
+  }
+ ],
  "equity_curve": [
   {
    "t": 1795180970,
@@ -132,6 +145,13 @@
    "cash": 8641.62,
    "positions": 1249.75,
    "equity": 9891.37
+  },
+  {
+   "t": 1795181209,
+   "at": "2026-11-20T13:27:04Z",
+   "cash": 8759.73,
+   "positions": 1120.75,
+   "equity": 9880.48
   }
  ],
  "disclaimer": "Simulated fills on observed quotes. Not exchange trades, no Kalshi account involved, and no slippage beyond the quoted touch is modelled."

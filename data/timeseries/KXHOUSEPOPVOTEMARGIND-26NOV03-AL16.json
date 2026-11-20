@@ -13,9 +13,18 @@
 "last": 0.01,
 "vol": 946.36,
 "oi": 381.99
+},
+{
+"t": 1795181209,
+"bid": 0.0,
+"ask": 0.05,
+"mid": 0.025,
+"last": 0.01,
+"vol": 946.36,
+"oi": 381.99
 }
 ],
 "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
 "series_ticker": "KXHOUSEPOPVOTEMARGIND",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:52Z"
 }

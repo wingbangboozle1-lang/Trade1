@@ -13,9 +13,18 @@
 "last": 0.77,
 "vol": 45.0,
 "oi": 25.0
+},
+{
+"t": 1795181209,
+"bid": 0.92,
+"ask": 0.95,
+"mid": 0.935,
+"last": 0.77,
+"vol": 45.0,
+"oi": 25.0
 }
 ],
 "event_ticker": "KXAAAGASCDLA-26NOV21",
 "series_ticker": "KXAAAGASCDLA",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:53Z"
 }

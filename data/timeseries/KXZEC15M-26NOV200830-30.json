@@ -13,9 +13,18 @@
 "last": 0.61,
 "vol": 6522.0,
 "oi": 2466.87
+},
+{
+"t": 1795181209,
+"bid": 0.16,
+"ask": 0.18,
+"mid": 0.17,
+"last": 0.18,
+"vol": 19126.92,
+"oi": 4504.54
 }
 ],
 "event_ticker": "KXZEC15M-26NOV200830",
 "series_ticker": "KXZEC15M",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:52Z"
 }

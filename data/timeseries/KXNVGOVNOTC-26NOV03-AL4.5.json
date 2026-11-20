@@ -16,9 +16,21 @@
 "liq": 3105.26,
 "yes_qty": 0,
 "no_qty": 7183.0
+},
+{
+"t": 1795181209,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.01,
+"vol": 7213.59,
+"oi": 4912.59,
+"liq": 3105.26,
+"yes_qty": 0,
+"no_qty": 7183.0
 }
 ],
 "event_ticker": "KXNVGOVNOTC-26NOV03",
 "series_ticker": "KXNVGOVNOTC",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:52Z"
 }

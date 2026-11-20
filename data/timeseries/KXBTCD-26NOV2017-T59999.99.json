@@ -482,9 +482,21 @@
 "liq": 58489.94,
 "yes_qty": 53318.08,
 "no_qty": 55339.49
+},
+{
+"t": 1795181209,
+"bid": 0.81,
+"ask": 0.82,
+"mid": 0.815,
+"last": 0.81,
+"vol": 370151.65,
+"oi": 85573.69,
+"liq": 58716.93,
+"yes_qty": 52901.16,
+"no_qty": 55757.52
 }
 ],
-"history_backfilled_at": "2026-11-20T13:22:51Z",
+"history_backfilled_at": "2026-11-20T13:26:49Z",
 "history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
 "title": "Bitcoin price on Nov 20, 2026?",
 "topics": [
@@ -492,5 +504,5 @@
 ],
 "event_ticker": "KXBTCD-26NOV2017",
 "series_ticker": "KXBTCD",
-"updated_at": "2026-11-20T13:22:55Z"
+"updated_at": "2026-11-20T13:26:53Z"
 }
