@@ -4,7 +4,7 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Current deployed-site audit: rerun tests/build, confirm official-source evidence and GitHub Pages deployment, correct verified stale safety/review statements, record findings | in progress | a53ab816 (`arena/a53ab816-trade1`) | `COORDINATION.md`, `reports/VERIFICATION_a53ab816.md`, `flagged.html`, `README.md` |
+| Current deployed-site audit: rerun tests/build, confirm official-source evidence and GitHub Pages deployment, correct verified stale safety/review statements, record findings | done (PR #48 merged; deploy verified; final record below) | a53ab816 (`arena/a53ab816-trade1`) | `COORDINATION.md`, `reports/VERIFICATION_a53ab816.md`, `flagged.html`, `README.md` |
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
@@ -876,3 +876,18 @@ Branch `arena/9d4380a2-trade1`, base `main` @ `9f519d6`. Arena fixes the branch 
 - **Pages:** build for `14312e3` (which includes `fd9c5e1`, after PRs #47 and #48 from other sessions) → **built**. Live check: https://wingbangboozle1-lang.github.io/Trade1/flagged.html shows the "Added by session 984a6765" section with I1–I5.
 - **Still open at close:** PR #32 (`arena/777927dd-trade1`) and PR #35 (`arena/b93ba12e-trade1`). Not edited by this session; change requests R-984-1 to R-984-3 above are for their owners.
 - **Task status:** done. The verification claims are on `flagged.html` and `reports/VERIFICATION_984a6765.md`. The owner's only optional action is still the demo-account key (F-DA-7 / I5), which needs a human to create a demo account and key.
+
+---
+
+## Session `arena/a53ab816-trade1` — deployed-site audit and factual cleanup
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Current deployed-site audit: official source checks, rerun test/build suite, correct inaccurate review and safety claims, verify PR + Pages deployment | **done** (PR #48 merged; checks and Pages deploy passed) | a53ab816 | `COORDINATION.md`, `reports/VERIFICATION_a53ab816.md`, `flagged.html`, `README.md` |
+
+- Sources fetched from Kalshi docs: demo environment, API environments, Get Events, Get Market Candlesticks, Get Market Orderbook, Market Settlement, Quick Start WebSockets, Authenticated Requests, Create Order (V2), and Fee Rounding. Exact links and per-topic verification notes are in [`reports/VERIFICATION_a53ab816.md`](reports/VERIFICATION_a53ab816.md).
+- Corrected `flagged.html` claims about nonexistent account endpoints/order support; clarified no-key paper default vs opt-in demo account. Corrected the also-supported WS host typo; clarified two distinct simulation fee-rounding implementations and removed an overbroad fee guarantee; refreshed stale PR and CI-status notes. `README.md` now states the same account/paper boundary.
+- Local verification: build 18 HTML / 6 JS / 0 broken links; snapshot/source checker 1,250 market rows and 825 resolved rows with 0 failures; engine tests 23/23; root engine 40/40; demo-account 89/89; portfolio 60/60; Python portfolio selftest 50/50; published link checker 16 pages, 360 local / 175 external links, 0 failures. The link checker reports two legacy pages outside the published nav.
+- **PR #48**: https://github.com/wingbangboozle1-lang/Trade1/pull/48 — merged at 2026-11-20 20:07 UTC, merge commit `14312e3b2f7ba72d47f82757b21c14bb7591a7fa`. Required checks passed (run [44808347447](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44808347447)).
+- **Pages verification:** API reports `status: built`, HTTPS enforced, source `main /`; build ID `1388061000` completed for `14312e3b2f7ba72d47f82757b21c14bb7591a7fa`. Deploy run [44808435520](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44808435520) and main site checks [44808436536](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44808436536) succeeded. The deployed [Flagged for Review page](https://wingbangboozle1-lang.github.io/Trade1/flagged.html) was fetched and displayed the corrected content.
+- Limits: no demo-account credentials were provided; this session made no authenticated API request or order. Default paper simulation is automatic; live account reads/orders are optional and key-gated. The ROI model and news leads are not proof of profitability or causation. No current live market snapshot is asserted by this audit.
