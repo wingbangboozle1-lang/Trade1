@@ -28,11 +28,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
+      # jsdom >= 31 needs Node >= 22 at runtime; pinning both here keeps the
+      # check reproducible on the runner and in a local sandbox.
       - name: Install test dependency (jsdom)
-        run: npm install --no-audit --no-fund jsdom
+        run: npm install --no-audit --no-fund jsdom@26.1.0
       - name: Engine tests (real dashboard code in jsdom, offline fixtures)
         run: node tests/engine.test.mjs
       - name: Library tests (offline fixtures)
@@ -51,9 +53,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
       - name: Collect verified snapshots from the official demo API
         run: python3 scripts/collect.py
       - name: Check links and source links
