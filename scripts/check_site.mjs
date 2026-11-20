@@ -21,7 +21,13 @@ async function walk(dir) {
   return out;
 }
 
-const files = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
+// Scope: only the v2 site pages. Other sessions' HTML on the same branch is listed, not checked.
+const V2_PAGES = new Set(['index.html','live.html','resolved.html','strategies.html','sources.html','flagged.html',
+  'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html']);
+const allFiles = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
+const files = allFiles.filter(f => V2_PAGES.has(f) || !f.endsWith('.html'));
+const notChecked = allFiles.filter(f => f.endsWith('.html') && !V2_PAGES.has(f));
+if (notChecked.length) console.log('not checked (other sessions\' pages): ' + notChecked.join(', '));
 for (const f of files.filter(f => f.endsWith('.html'))) {
   checked.html++;
   const html = await readFile(f, 'utf8');
