@@ -17,7 +17,6 @@ import { fileURLToPath } from "node:url";
 import { dirname, join, normalize, resolve, relative } from "node:path";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = join(ROOT, "site");
 
 const errors = [];
 const warnings = [];
@@ -37,6 +36,11 @@ async function walk(dir) {
   }
   return out;
 }
+
+/* The site is served from the repo root (GitHub Pages source: branch main, path /).
+ * Site HTML = root index.html + pages/*.html. Site JS = js/*.js. */
+const HTML_GLOB = ["index.html", "pages"];
+const JS_GLOB = ["js"];
 
 async function checkJsSyntax(file) {
   return new Promise((res) => {
@@ -62,9 +66,21 @@ function extractRefs(html) {
   return refs;
 }
 
+async function collect(globs) {
+  const files = [];
+  for (const g of globs) {
+    const full = join(ROOT, g);
+    if (!(await exists(full))) continue;
+    const s = await stat(full);
+    if (s.isFile()) files.push(full);
+    else files.push(...await walk(full));
+  }
+  return files;
+}
+
 async function main() {
-  const htmlFiles = (await walk(SITE)).filter((f) => f.endsWith(".html"));
-  const jsFiles = (await walk(SITE)).filter((f) => f.endsWith(".js"));
+  const htmlFiles = (await collect(HTML_GLOB)).filter((f) => f.endsWith(".html"));
+  const jsFiles = (await collect(JS_GLOB)).filter((f) => f.endsWith(".js"));
   report.htmlFiles = htmlFiles.map((f) => relative(ROOT, f));
   report.jsFiles = jsFiles.map((f) => relative(ROOT, f));
 
@@ -92,7 +108,7 @@ async function main() {
     "pages/portfolio.html", "pages/flagged.html",
   ];
   for (const t of navTargets) {
-    if (!await exists(join(SITE, t))) errors.push(`Missing nav target: site/${t}`);
+    if (!await exists(join(ROOT, t))) errors.push(`Missing nav target: ${t}`);
   }
 
   // 4. docs exist

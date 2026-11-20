@@ -20,17 +20,20 @@ and tracks portfolio performance.
 
 ## Structure
 ```
-site/                 static, no-build dashboard
-  index.html          landing
-  pages/              gas, elections, culture, crypto, golf, portfolio, flagged
-  js/kalshi.js        Kalshi demo client (public + RSA-PSS signed)
-  js/strategy.js      simulated strategy engine + categorization + performance
-  js/charts.js        lightweight canvas price + liquidity charts
-  css/style.css
-docs/                 executive summary, API reference, sources, verification log
-tools/build.mjs       build + broken-link/syntax validation
-.github/workflows/pages.yml   GitHub Pages deployment
+index.html          landing page (served from repo root)
+pages/              gas, elections, culture, crypto, golf, portfolio, flagged
+js/kalshi.js        Kalshi demo client (public + RSA-PSS signed)
+js/strategy.js      simulated strategy engine + categorization + performance
+js/charts.js        lightweight canvas price + liquidity charts
+js/store.js         live polling, price series, sharp-move detection, resolution
+css/style.css
+docs/               executive summary, API reference, sources, verification log
+tools/build.mjs     build + broken-link/syntax validation
+.github/workflows/pages.yml   CI validation (Pages served from main branch root)
 ```
+
+The site is served from the repo root: GitHub Pages source is **branch `main`, path `/`**, so the
+landing page and subpages are published automatically when merged to `main`.
 
 ## Build / validate
 ```bash
@@ -39,7 +42,7 @@ npm run build    # node tools/build.mjs — syntax-checks JS, checks every link
 
 ## Run locally
 ```bash
-npx --yes serve site
+npx --yes serve .
 ```
 Public market data needs no credentials. For the demo portfolio / real orders, provide a Kalshi demo
 API key ID + private key on the home page (stored only in your browser session).

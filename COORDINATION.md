@@ -27,11 +27,11 @@ from the official API. Anything the sandbox could not confirm is left blank and 
 |----|------|--------|-------|----------------|
 | T1 | Executive summary + project scope | done | session-0db174ef-trade1 | `docs/executive-summary.md` |
 | T2 | Official API reference + verification notes | done | session-0db174ef-trade1 | `docs/api-reference.md`, `docs/verification.md`, `docs/sources.md` |
-| T3 | Kalshi demo client (public + RSA-PSS signed) | done | session-0db174ef-trade1 | `site/js/kalshi.js` |
-| T4 | Core dashboard: state, charts, tables, sharp-move flags | done | session-0db174ef-trade1 | `site/js/store.js`, `site/js/charts.js`, `site/js/dashboard.js`, `site/css/style.css` |
-| T5 | Topic pages (gas, elections, culture, crypto, golf) | done | session-0db174ef-trade1 | `site/pages/*.html`, `site/js/nav.js` |
-| T6 | Portfolio tracker + simulated strategy engine + demo execution | done | session-0db174ef-trade1 | `site/js/strategy.js`, `site/js/portfolio.js`, `site/pages/portfolio.html` |
-| T7 | Flagged for Review + topic landing index | done | session-0db174ef-trade1 | `site/pages/flagged.html`, `site/js/flagged.js` |
+| T3 | Kalshi demo client (public + RSA-PSS signed) | done | session-0db174ef-trade1 | `js/kalshi.js` |
+| T4 | Core dashboard: state, charts, tables, sharp-move flags | done | session-0db174ef-trade1 | `js/store.js`, `js/charts.js`, `js/dashboard.js`, `css/style.css` |
+| T5 | Topic pages (gas, elections, culture, crypto, golf) | done | session-0db174ef-trade1 | `pages/*.html`, `js/nav.js` |
+| T6 | Portfolio tracker + simulated strategy engine + demo execution | done | session-0db174ef-trade1 | `js/strategy.js`, `js/portfolio.js`, `pages/portfolio.html` |
+| T7 | Flagged for Review + topic landing index | done | session-0db174ef-trade1 | `pages/flagged.html`, `js/flagged.js` |
 | T8 | Site build/link validation + GitHub Pages + PR + merge | in progress | session-0db174ef-trade1 | `tools/build.mjs`, `.github/workflows/pages.yml`, `package.json`, `README.md` |
 
 Note: the task text refers to a separate "integration branch". This session is pinned to
@@ -78,7 +78,7 @@ branch for the purposes of this session.
   official sources (see verification.md).
 
 ### T3 — Kalshi client
-- `site/js/kalshi.js`: public fetch + WebCrypto RSA-PSS signing; host probe with fast timeout +
+- `js/kalshi.js`: public fetch + WebCrypto RSA-PSS signing; host probe with fast timeout +
   fallback; portfolio + order endpoints; WS subscribe. Fails gracefully (no invented data).
 
 ### T4 — Core dashboard
@@ -100,7 +100,7 @@ branch for the purposes of this session.
 ### T8 — Build + Pages + PR
 - `tools/build.mjs`: JS syntax + broken-link/asset + nav-target check. Result:
   **BUILD OK — 8 HTML, 10 JS files validated, 0 broken links.**
-- `.github/workflows/pages.yml`: build + deploy `site/` to GitHub Pages on push to `main`.
+- `.github/workflows/pages.yml`: CI validation on push/PR; Pages served from `main` branch root.
 
 ## Integration / publish
 

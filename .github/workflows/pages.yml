@@ -1,21 +1,20 @@
-name: Deploy KalshiDash to GitHub Pages
+name: KalshiDash CI + Pages
+
+# GitHub Pages is configured to serve this repo from the `main` branch at path `/`,
+# so the static site is published automatically when the site files are merged to
+# `main`. This workflow validates the build (JS syntax + broken-link/asset check)
+# on every push and pull request so a broken site can never land on `main`.
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  pull_request:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,17 +23,3 @@ jobs:
           node-version: "22"
       - name: Validate site (syntax + broken-link check)
         run: node tools/build.mjs
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
