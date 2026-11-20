@@ -1,7 +1,7 @@
 {
  "topic": "golf",
  "label": "Golf",
- "generated_at": "2026-11-20T13:42:10.526018+00:00",
+ "generated_at": "2026-11-20T13:48:43.793828+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -51,8 +51,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 168223.31,
-   "_volume_contracts": 16142877.72,
+   "_est_dollar_volume": 169469.02,
+   "_volume_contracts": 16145738.44,
    "_market_count": 155,
    "_markets": [
     {
@@ -72,9 +72,9 @@
      "no_bid_dollars": "0.9750",
      "no_ask_dollars": "0.9780",
      "yes_bid_size_fp": "549.00",
-     "yes_ask_size_fp": "5864.97",
-     "volume_fp": "759423.53",
-     "volume_24h_fp": "515291.63",
+     "yes_ask_size_fp": "5827.18",
+     "volume_fp": "759461.32",
+     "volume_24h_fp": "515292.92",
      "open_interest_fp": "681894.62",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -83,8 +83,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 18985.59,
-     "_est_dollar_volume_24h": 12882.29
+     "_est_dollar_volume": 18986.53,
+     "_est_dollar_volume_24h": 12882.32
     },
     {
      "ticker": "KXPGATOUR-THRC26-MTHO",
@@ -103,10 +103,10 @@
      "no_bid_dollars": "0.8700",
      "no_ask_dollars": "0.8800",
      "yes_bid_size_fp": "1388.88",
-     "yes_ask_size_fp": "1215.76",
-     "volume_fp": "84166.57",
-     "volume_24h_fp": "41215.17",
-     "open_interest_fp": "53123.07",
+     "yes_ask_size_fp": "1190.19",
+     "volume_fp": "84192.14",
+     "volume_24h_fp": "41227.47",
+     "open_interest_fp": "53148.64",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -114,8 +114,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 10941.65,
-     "_est_dollar_volume_24h": 5357.97
+     "_est_dollar_volume": 10944.98,
+     "_est_dollar_volume_24h": 5359.57
     },
     {
      "ticker": "KXPGATOUR-THRC26-KMIT",
@@ -134,9 +134,9 @@
      "no_bid_dollars": "0.9210",
      "no_ask_dollars": "0.9220",
      "yes_bid_size_fp": "549.00",
-     "yes_ask_size_fp": "1309.01",
-     "volume_fp": "128709.10",
-     "volume_24h_fp": "59184.33",
+     "yes_ask_size_fp": "1261.03",
+     "volume_fp": "128757.08",
+     "volume_24h_fp": "59198.89",
      "open_interest_fp": "123001.68",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -145,8 +145,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 10168.02,
-     "_est_dollar_volume_24h": 4675.56
+     "_est_dollar_volume": 10171.81,
+     "_est_dollar_volume_24h": 4676.71
     },
     {
      "ticker": "KXPGATOUR-THRC26-MGRE",
@@ -165,9 +165,9 @@
      "no_bid_dollars": "0.9520",
      "no_ask_dollars": "0.9570",
      "yes_bid_size_fp": "4424.96",
-     "yes_ask_size_fp": "2883.86",
-     "volume_fp": "125224.91",
-     "volume_24h_fp": "109240.31",
+     "yes_ask_size_fp": "2859.94",
+     "volume_fp": "125248.83",
+     "volume_24h_fp": "109252.44",
      "open_interest_fp": "111780.78",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -176,8 +176,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 6010.8,
-     "_est_dollar_volume_24h": 5243.53
+     "_est_dollar_volume": 6011.94,
+     "_est_dollar_volume_24h": 5244.12
     },
     {
      "ticker": "KXPGATOUR-THRC26-TMOO",
@@ -196,10 +196,10 @@
      "no_bid_dollars": "0.9950",
      "no_ask_dollars": "0.9960",
      "yes_bid_size_fp": "916666.52",
-     "yes_ask_size_fp": "93773.88",
-     "volume_fp": "1155390.10",
-     "volume_24h_fp": "841104.17",
-     "open_interest_fp": "1149901.21",
+     "yes_ask_size_fp": "93743.44",
+     "volume_fp": "1155420.54",
+     "volume_24h_fp": "841115.44",
+     "open_interest_fp": "1149931.65",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -207,8 +207,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5776.95,
-     "_est_dollar_volume_24h": 4205.52
+     "_est_dollar_volume": 5777.1,
+     "_est_dollar_volume_24h": 4205.58
     },
     {
      "ticker": "KXPGATOUR-THRC26-JSVE",
@@ -227,10 +227,10 @@
      "no_bid_dollars": "0.9620",
      "no_ask_dollars": "0.9670",
      "yes_bid_size_fp": "4824.75",
-     "yes_ask_size_fp": "3625.83",
-     "volume_fp": "135086.87",
-     "volume_24h_fp": "119027.09",
-     "open_interest_fp": "124417.36",
+     "yes_ask_size_fp": "3592.75",
+     "volume_fp": "135119.95",
+     "volume_24h_fp": "119043.52",
+     "open_interest_fp": "124450.44",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -238,8 +238,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5133.3,
-     "_est_dollar_volume_24h": 4523.03
+     "_est_dollar_volume": 5134.56,
+     "_est_dollar_volume_24h": 4523.65
     },
     {
      "ticker": "KXPGATOUR-THRC26-LHOD",
@@ -258,10 +258,10 @@
      "no_bid_dollars": "0.9770",
      "no_ask_dollars": "0.9790",
      "yes_bid_size_fp": "8485.50",
-     "yes_ask_size_fp": "6470.14",
-     "volume_fp": "221189.87",
-     "volume_24h_fp": "209611.14",
-     "open_interest_fp": "208469.46",
+     "yes_ask_size_fp": "6444.68",
+     "volume_fp": "221215.33",
+     "volume_24h_fp": "209615.49",
+     "open_interest_fp": "208494.92",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
      "expected_expiration_time": "2026-11-22T00:00:00Z",
@@ -269,8 +269,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5087.37,
-     "_est_dollar_volume_24h": 4821.06
+     "_est_dollar_volume": 5087.95,
+     "_est_dollar_volume_24h": 4821.16
     },
     {
      "ticker": "KXPGATOUR-THRC26-RCAS",
@@ -289,9 +289,9 @@
      "no_bid_dollars": "0.9780",
      "no_ask_dollars": "0.9810",
      "yes_bid_size_fp": "35087.68",
-     "yes_ask_size_fp": "54342.12",
-     "volume_fp": "231051.62",
-     "volume_24h_fp": "215853.49",
+     "yes_ask_size_fp": "54298.10",
+     "volume_fp": "231095.64",
+     "volume_24h_fp": "215868.02",
      "open_interest_fp": "224563.74",
      "open_time": "2026-11-16T01:34:34Z",
      "close_time": "2026-12-06T00:00:00Z",
@@ -300,8 +300,8 @@
      "can_close_early": true,
      "strike_type": "structured",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 5083.14,
-     "_est_dollar_volume_24h": 4748.78
+     "_est_dollar_volume": 5084.1,
+     "_est_dollar_volume_24h": 4749.1
     }
    ]
   },
