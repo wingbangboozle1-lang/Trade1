@@ -13,6 +13,7 @@ import {
   dollarsToUnits, unitsToDollars, takerFeeUnits, makerFeeUnits,
   classifyTopic, generateSignals, createPortfolio, openPosition, settlePositions,
   equityUnits, analyzeBy, portfolioStats, JUMP_THRESHOLD_UNITS, feeMultipliersForSeries,
+  SERIES_FEE_MULTIPLIERS_PDF,
 } from '../demo-account/assets/engine.js';
 import { validatePlan, dollarsToUnits as planDollarsToUnits, isOnPriceGrid } from '../scripts/demo_account/order_rules.mjs';
 import { preSignText, signText, authHeaders } from '../scripts/demo_account/kalshi_auth.mjs';
@@ -43,15 +44,26 @@ for (const [price, fee1, fee100] of OFFICIAL_TABLE) {
   ok(takerFeeUnits(cost100, p, 100, 1) === dollarsToUnits(fee100.toFixed(2)),
     `fee 100 @ $${price} = $${fee100}`);
 }
-// Series multiplier: KXBTCY has taker multiplier 0 -> fee 0 (official non-standard table)
-ok(takerFeeUnits(dollarsToUnits('10.00'), dollarsToUnits('0.50'), 100, 0) === 0, 'KXBTCY taker fee 0');
+// A series whose API fee_multiplier is 0 pays no taker fee (formula check only;
+// the demo feed reports fee_multiplier 1 for every in-scope series, incl. KXBTCY).
+ok(takerFeeUnits(dollarsToUnits('10.00'), dollarsToUnits('0.50'), 100, 0) === 0, 'taker fee 0 when M = 0');
+ok(takerFeeUnits(dollarsToUnits('50.00'), dollarsToUnits('0.50'), 100, 1) === dollarsToUnits('1.75'),
+  'taker fee with M = 1 (100 contracts @ $0.50 -> $1.75, the official table row)');
+ok(takerFeeUnits(dollarsToUnits('0.50'), dollarsToUnits('0.50'), 1, 1) === dollarsToUnits('0.02'),
+  'taker fee with M = 1 (1 contract @ $0.50 -> $0.02, the official table row)');
 // Maker multiplier default 0 -> 0; KXAAAGASM maker multiplier 1 -> nonzero (0.0175 rule)
 ok(makerFeeUnits(dollarsToUnits('50.00'), dollarsToUnits('0.50'), 100, 0) === 0, 'maker default fee 0');
 // maker 100 @ 0.50, M=1: raw = 0.0175*100*0.25 = 0.4375 -> cost 50 + 0.4375 = 50.4375 -> 50.44 -> 0.44
 ok(makerFeeUnits(dollarsToUnits('50.00'), dollarsToUnits('0.50'), 100, 1) === dollarsToUnits('0.44'),
   'maker 100 @ $0.50 M=1 = $0.44');
-ok(JSON.stringify(feeMultipliersForSeries('KXBTCY')) === '[0,0]', 'KXBTCY multiplier map');
-ok(JSON.stringify(feeMultipliersForSeries('KXUNKNOWN')) === '[0,1]', 'default multipliers');
+// Taker multiplier M comes from the environment's own series metadata
+// (GET /series/{ticker} -> fee_multiplier), not from the PDF's production table.
+// Live demo readings 2026-11-20: KXBTCY -> fee_type "quadratic", fee_multiplier 1
+//   https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCY
+ok(JSON.stringify(feeMultipliersForSeries('KXBTCY', 1)) === '[0,1]', 'KXBTCY multiplier from the API (fee_multiplier 1)');
+ok(JSON.stringify(feeMultipliersForSeries('KXUNKNOWN')) === '[0,1]', 'default multipliers (M defaults to 1)');
+ok(JSON.stringify(feeMultipliersForSeries('KXUNKNOWN', 0)) === '[0,0]', 'a series the API reports as fee_multiplier 0 pays no taker fee');
+ok(SERIES_FEE_MULTIPLIERS_PDF.KXBTCY[1] === 0, 'the PDF production table is kept as a labelled reference only');
 
 // ---------------------------------------------------------------------------
 // 1b. Topic classification against LIVE series shapes observed 2026-11-20

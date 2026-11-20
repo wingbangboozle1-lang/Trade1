@@ -29,11 +29,14 @@ Anything that could not be confirmed is blank/flagged on [flagged.html](flagged.
 | V19 | Unauthenticated request limits | [Rate limits](https://docs.kalshi.com/getting_started/rate_limits) | Docs say limits exist but do not publish numbers. Poller conservatively capped; flagged F-DA-10. | flagged (numbers unpublished) |
 | V20 | Browser CORS for signed requests (custom `KALSHI-ACCESS-*` headers) | — | Public-endpoint CORS is verified (`data/cors.json`); preflight behaviour for custom headers is not verifiable without a key. Flagged F-DA-2. | flagged |
 | V21 | Auth spec cross-check against official Kalshi code | [Kalshi/kalshi-starter-code-python](https://github.com/Kalshi/kalshi-starter-code-python) (official Kalshi GitHub org) | Repo enumerated via GitHub API 2026-11-20. (The docs samples above are the authoritative check; the starter repo is listed as corroboration.) | corroborating |
+| V22 | Per-series taker multiplier M in this environment | `GET /series/{ticker}` → `fee_type`, `fee_multiplier` (official Get Series List schema: https://docs.kalshi.com/api-reference/market/get-series-list) | Read live 2026-11-20: `KXBTCY` → `fee_type "quadratic"`, `fee_multiplier 1` (https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCY); `KXETHY` → same (https://external-api.demo.kalshi.co/trade-api/v2/series/KXETHY); `KXAAAGASM` → `fee_multiplier 1` (https://external-api.demo.kalshi.co/trade-api/v2/series/KXAAAGASM). The PDF’s Non-Standard table lists KXBTCY/KXETHY as 0/0 — production values. | verified (API) |
+| V23 | Batch vs single-market vs order-book quotes for the same market | `GET /markets?tickers=KXPRESNOMD-28-HBID`, `GET /markets/KXPRESNOMD-28-HBID`, `GET /markets/KXPRESNOMD-28-HBID/orderbook?depth=20` | Measured twice, ~50 min apart on 2026-11-20: the batch endpoint reported `yes_ask_dollars "0.8110"` while the single-market endpoint reported `"0.0030"` and the order book (best NO bid `0.9970` @ 55555.55) implies `0.0030`. The order book was byte-identical between the two readings. | verified (API) |
 
 ## Tests run (2026-11-20)
 
-- `node tests/demo-account.test.mjs` → **89 passed, 0 failed** — official fee table (42 cells),
-  maker-fee example, series multiplier map, topic classification against live series shapes,
+- `node tests/demo-account.test.mjs` → **93 passed, 0 failed** — official fee table (42 cells),
+  maker-fee example, series multiplier map (taker M from the API, PDF table kept as reference),
+  topic classification against live series shapes,
   pre-sign text, RSA-PSS and Ed25519 round-trips, order-plan guard rules, $0.10 integer-cent
   threshold (including the exact 0.66→0.56 case), paper settlement P&L, analysis grouping.
 - `node --check` on `demo-account/assets/{app,engine,signer}.js` and all `scripts/demo_account/*.mjs` → clean.
@@ -47,3 +50,5 @@ Anything that could not be confirmed is blank/flagged on [flagged.html](flagged.
 - **F-DA-8** — no official dollar-volume field exists; ranking is by 24h contract volume, labelled as such.
 - **F-DA-1** — strategy/ROI claims: none made. Heuristics only.
 - **F-DA-7** — live demo-account values remain blank without credentials (not faked).
+- **F-DA-12** — the PDF’s per-series table (production) and the demo API’s `fee_multiplier` disagree
+  for `KXBTCY`/`KXETHY`; the engine follows the API it trades on.

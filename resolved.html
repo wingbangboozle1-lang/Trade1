@@ -1,18 +1,128 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Resolved · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
-</head><body data-root="./">
-<header class="top" id="nav"></header>
-<main>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resolved · Kalshi Demo Monitor</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Kalshi Demo Monitor</h1>
+    <p>Live dashboard, alerting, and strategy lab on the official Kalshi demo Trade API</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Summary</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="resolved.html" class="active">Resolved</a>
+    <a href="demo-account/">Demo Account</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="suggestions.html">Ideas</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
 
-<h1>Resolved markets</h1>
-<p class="sub">Markets whose official result is set (yes or no). Tracked from the Kalshi API status and result fields. <span class="muted">Count: <span id="resolvedCount">0</span></span></p>
-<div class="notice"><b>How it is determined:</b> Kalshi sets <code>result</code> when a market is determined and pays out at settlement. Settled markets appear with status <code>finalized</code> in the REST API (see the <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">market lifecycle</a> doc). Only official yes/no results are shown; anything else is left blank.</div>
-<section class="box">
-<div class="tablewrap"><table><thead><tr><th>Market</th><th>Topic</th><th>Result</th><th>Settlement time</th><th>Status</th><th>Source</th></tr></thead><tbody id="resolvedBody"><tr><td colspan="6" class="empty">Loading…</td></tr></tbody></table></div>
-<p class="muted">Rows come from the official <code>/events?status=settled</code> endpoint (first pages, live) and from the build snapshot. Older settled markets may sit in Kalshi’s historical endpoints, which this page does not query (see Flagged).</p>
-</section>
-<div data-live></div>
-<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
+  <section class="box">
+    <h2>Resolved events — how each market resolved (YES / NO)</h2>
+    <p class="small">Every row is a market the exchange has settled. The <b>Result</b> column is the official
+    <code>result</code> field verbatim (<code>yes</code> or <code>no</code>) — never inferred from the price.
+    The settlement time and settlement value are the official <code>settlement_ts</code> and
+    <code>settlement_value_dollars</code> fields. Each row links the exact official API response it came from.</p>
+    <div class="notice"><b>How it is determined.</b> Kalshi sets <code>result</code> when a market is determined and
+    pays out at settlement. Settled markets appear with status <code>finalized</code> in the REST API (see the
+    <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_lifecycle">market lifecycle</a> doc).
+    Paper positions settle at <b>$1.00 per winning contract</b> and there is <b>no settlement fee</b>
+    (<a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">official fee schedule</a>).</div>
+    <p class="muted small" id="kx-resolved-note">&nbsp;</p>
+    <div class="tablewrap" style="max-height:520px"><table id="kx-resolved-table"></table></div>
+    <p class="muted small">Archive: <code>data/resolved.json</code>, refreshed by the scheduled collector
+    (<code>scripts/collect.py</code>) from <code>GET /markets?status=settled&amp;min_settled_ts=…</code>; every request is logged in
+    <code>data/log.md</code>. The live dashboard and the Demo Account lab additionally re-check the markets they are
+    watching on every poll and settle open paper positions when the exchange sets the result.</p>
+    <ul class="small">
+      <li><a href="dashboard.html">Live dashboard</a> — the resolution strip under the chart.</li>
+      <li><a href="demo-account/">Demo Account &amp; Strategy Lab</a> — the resolution tracker and per-trade P&amp;L.</li>
+      <li><a href="portfolio.html">Portfolio ledger</a> — the always-on CI trade ledger with resolved outcomes.</li>
+      <li><a href="data.html">Data page</a> — the raw per-topic snapshot tables.</li>
+    </ul>
+  </section>
+
+  <p class="footer">Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice ·
+  Kalshi is not affiliated with this site. <a href="flagged.html">Flagged for Review</a> · <a href="sources.html">Sources</a></p>
 </main>
-<script type="module" src="./assets/app.mjs"></script>
-</body></html>
+<script>
+(function () {
+  'use strict';
+  var BASE = 'https://external-api.demo.kalshi.co/trade-api/v2';
+  var API = 'https://external-api.demo.kalshi.co/trade-api/v2';
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function money(v) {
+    if (v === null || v === undefined || v === '') return '<span class="muted">—</span>';
+    var n = Number(v);
+    if (!isFinite(n)) return '<span class="muted">—</span>';
+    return '$' + n.toFixed(2);
+  }
+  function when(ts) {
+    if (!ts) return '<span class="muted">—</span>';
+    return esc(String(ts).replace('T', ' ').slice(0, 19)) + 'Z';
+  }
+  function marketApiUrl(ticker) { return API + '/markets/' + encodeURIComponent(String(ticker || '')); }
+
+  fetch('data/resolved.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .catch(function () { return null; })
+    .then(function (d) {
+      var t = document.getElementById('kx-resolved-table');
+      var note = document.getElementById('kx-resolved-note');
+      var rows = (d && d.markets) || [];
+      var src = (d && d.source_urls && d.source_urls[0]) ||
+        'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude';
+      if (note) {
+        var published = rows.length;
+        var shown = Math.min(200, published);
+        var inscope = (d && d.in_scope_count != null) ? d.in_scope_count : null;
+        var fetched = (d && d.settled_total != null) ? d.settled_total : null;
+        note.innerHTML = 'Showing <b>' + shown + '</b> of the <b>' + published + '</b> resolved rows published in ' +
+          '<code>data/resolved.json</code>' +
+          (inscope != null ? (' — <b>' + inscope + '</b> in-scope settled markets were found among <b>' + fetched + '</b> markets fetched') : '') +
+          '. Collected ' + esc((d && d.generated_at) ? String(d.generated_at).slice(0, 19).replace('T', ' ') + 'Z' : '—') +
+          '. Window: ' + esc((d && d.window) ? d.window : '—') + '.';
+      }
+      if (!t) return;
+      t.innerHTML = '<tr><th>Market</th><th>Topic</th><th>Result</th><th>Settlement (UTC)</th><th>Settlement value</th>' +
+        '<th>Volume (contracts)</th><th>Source</th></tr>' +
+        (rows.length
+          ? rows.map(function (m) {
+            return '<tr><td><a target="_blank" rel="noopener" href="' + esc(marketApiUrl(m.ticker)) + '">' +
+              esc(m.title || m.ticker) + '</a><br><small class="muted">' + esc(m.ticker) + '</small></td>' +
+              '<td>' + esc(m._topic || '') + '</td>' +
+              '<td><span class="badge ' + (m.result === 'yes' ? 'yes' : 'no') + '">' + esc(String(m.result || '').toUpperCase()) + '</span></td>' +
+              '<td>' + when(m.settlement_ts) + '</td>' +
+              '<td>' + money(m.settlement_value_dollars) + '</td>' +
+              '<td>' + (m.volume_fp != null ? esc(m.volume_fp) : '<span class="muted">—</span>') + '</td>' +
+              '<td class="src"><a target="_blank" rel="noopener" href="' + esc(marketApiUrl(m.ticker)) + '">market record</a> · ' +
+              '<a target="_blank" rel="noopener" href="' + esc(src) + '">settled endpoint</a></td></tr>';
+          }).join('')
+          : '<tr><td colspan="7" class="muted">No resolved in-scope markets in the current snapshot.</td></tr>');
+    });
+})();
+</script>
+</body>
+</html>

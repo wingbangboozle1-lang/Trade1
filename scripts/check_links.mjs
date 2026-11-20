@@ -24,7 +24,8 @@ const OFFICIAL = [
   'external-api.demo.kalshi.co', 'demo-api.kalshi.co', 'external-api-ws.demo.kalshi.co',
   'demo.kalshi.co', 'kalshi.com/docs', 'github.com', 'news.google.com'
 ];
-const NAV_TARGETS = ['index.html', 'dashboard.html', 'trades.html', 'portfolio.html',
+const NAV_TARGETS = ['index.html', 'executive-summary.html', 'dashboard.html', 'trades.html', 'portfolio.html',
+  'resolved.html',
   'topics/gas-prices.html', 'topics/elections.html', 'topics/culture.html', 'topics/crypto.html',
   'topics/golf.html', 'data.html', 'methods.html', 'suggestions.html', 'flagged.html', 'sources.html'];
 
@@ -88,6 +89,21 @@ for (const f of pages) {
   for (const fr of new Set(fetches)) {
     const t = path.normalize(path.join(ROOT, path.dirname(f), fr.split('?')[0]));
     try { await stat(t); } catch { failures.push(`${f}: fetch target missing ${fr}`); }
+  }
+  /* <script src="..."> targets are checked against the raw file. The refs list
+     above is built from the script-stripped HTML, which would otherwise drop
+     every script tag together with its src attribute — that is how
+     resolved.html kept pointing at the deleted assets/app.mjs without failing. */
+  for (const m of raw.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/gi)) {
+    const ref = m[1];
+    if (/^(https?:|\/\/)/.test(ref)) continue;
+    const clean = ref.split('#')[0].split('?')[0];
+    if (!clean) continue;
+    counts.links++;
+    const target = path.normalize(path.join(path.dirname(f), clean));
+    const rel = path.relative(ROOT, target);
+    if (rel.startsWith('..')) { failures.push(`${f}: script src escapes the published tree (${ref})`); continue; }
+    try { await stat(target); } catch { failures.push(`${f}: broken script src ${ref}`); }
   }
   // nav parity (published pages only)
   if (!STRICT.has(f)) continue;

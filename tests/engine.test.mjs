@@ -8,7 +8,8 @@
  *
  * Run: node tests/engine.test.mjs      (requires: npm install jsdom)
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
 import { JSDOM } from 'jsdom';
 import assert from 'node:assert/strict';
 
@@ -214,7 +215,33 @@ function bootPage(page, handler) {
   w.addEventListener('error', e => errors.push(e.message));
   w.fetch = (u) => {
     const s = String(u);
-    if (!/^https?:/.test(s)) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve({}) });
+    if (!/^https?:/.test(s)) {
+      /* relative snapshot fetch (data/*.json): the inline scripts on index,
+         data and resolved read these, so they get shaped fixtures rather
+         than an empty object (an empty object made the inline code throw). */
+      const rel = s.split('?')[0];
+      let b = {};
+      if (rel.endsWith('data/meta.json')) {
+        b = { generated_at: '2026-11-20T19:12:41.608488+00:00', base: BASE, findings: {
+          events_open_count: 2400, markets_open_count: 15208, settled_count_recent: 6000, candlesticks_ok: true } };
+      } else if (rel.endsWith('data/resolved.json')) {
+        b = { generated_at: '2026-11-20T19:12:41.608488+00:00', window: 'last 3 days', settled_total: 6000,
+          in_scope_count: 3213, source_urls: [BASE + '/markets?status=settled'],
+          markets: [{ ticker: 'KXTEST-1', title: 'Test market', _topic: 'crypto', result: 'yes',
+            settlement_ts: '2026-07-19T18:49:28.40545Z', settlement_value_dollars: '1.0000', volume_fp: '10.00' }] };
+      } else if (rel.endsWith('data/categories.json')) {
+        b = { source_urls: [BASE + '/events?status=open'], categories: { Elections: 10 } };
+      } else if (rel.endsWith('data/cors.json')) {
+        b = { probed_at: '2026-11-20T19:12:42.000000+00:00', probes: [] };
+      } else if (rel.includes('data/topics/')) {
+        b = { topic: 'x', label: 'Test topic', generated_at: '2026-11-20T19:12:41.608488+00:00',
+          source_urls: { events: [BASE + '/events?status=open'] }, event_count: 1,
+          events: [{ event_ticker: 'KXTEST', title: 'Test event', category: 'Elections',
+            _match_reason: 'test', _volume_contracts: 10, _est_dollar_volume: 5,
+            _markets: [{ ticker: 'KXTEST-1', yes_bid_dollars: '0.4000', yes_ask_dollars: '0.4100', close_time: '2026-12-01T15:00:00Z' }] }] };
+      }
+      return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(b) });
+    }
     const p = new URL(s).pathname.replace('/trade-api/v2', '');
     let b = {};
     if (p === '/events') b = { events: [EVENT], cursor: '' };
@@ -230,8 +257,26 @@ function bootPage(page, handler) {
       fillText: n, save: n, restore: n, setLineDash: n };
   };
   w.HTMLCanvasElement.prototype.getBoundingClientRect = () => ({ width: 600, height: 240 });
+  /* Every <script src="..."> the page references must exist on disk. A page
+     that pointed at a deleted module (resolved.html -> assets/app.mjs, removed
+     in the site consolidation) still "booted" here because nothing was
+     evaluated, so the check is now explicit. */
+  for (const m of html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/gi)) {
+    const ref = m[1];
+    if (/^(https?:|\/\/)/.test(ref)) continue;
+    const target = path.resolve(path.dirname(new URL('../' + page, import.meta.url).pathname), ref.split('#')[0]);
+    if (!existsSync(target)) errors.push('missing script src: ' + ref);
+  }
   if (html.includes('assets/app.js')) {
     try { w.eval(MODEL); w.eval(APP); } catch (e) { errors.push('eval: ' + e.message); }
+  }
+  /* Inline scripts are page-specific logic (data.html tables, the resolved
+     tracker). jsdom runs with runScripts:"outside-only", so they are evaluated
+     here by hand — otherwise a broken inline script would never be noticed. */
+  for (const m of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)) {
+    const code = m[1];
+    if (!code.trim()) continue;
+    try { w.eval(code); } catch (e) { errors.push('inline script: ' + e.message); }
   }
   w.document.dispatchEvent(new w.Event('DOMContentLoaded'));
   return { w, errors };

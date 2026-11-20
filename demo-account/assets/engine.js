@@ -75,11 +75,34 @@ function feeUnitsExact(costUnits, priceUnits, count, multiplier, rateNum, rateDe
   return Number(centsCount * 100n) - costUnits;
 }
 
-// Series-specific fee multipliers transcribed from the official PDF's Non-Standard Fees table
-// (both pages read 2026-11-20; [maker, taker]). Series not listed use defaults maker 0 / taker 1.
-// Flagged F-DA-5: table reflects the PDF fetched 2026-11-20 (effective 2026-07-07); check
-// https://kalshi.com/fee-schedule for scheduled changes.
-export const SERIES_FEE_MULTIPLIERS = Object.freeze({
+// ---------------------------------------------------------------------------
+// FEE MULTIPLIERS — the environment's own series metadata is the source.
+//
+// The official Get Series List schema returns two fee fields per series:
+//   "fee_type": "quadratic"   and   "fee_multiplier": <int>
+//   https://docs.kalshi.com/api-reference/market/get-series-list
+// The API exposes ONE multiplier, which is the taker multiplier M in
+//   fees = round up (M * 0.07 * C * P * (1-P)).
+// Every in-scope series read live on the demo host on 2026-11-20 reports
+//   fee_type "quadratic" and fee_multiplier 1 — INCLUDING KXBTCY and KXETHY:
+//     https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCY
+//     https://external-api.demo.kalshi.co/trade-api/v2/series/KXETHY
+// The published PDF's "Non-Standard Fees" table lists KXBTCY / KXETHY as 0 / 0.
+// Those are the PRODUCTION values; the demo feed reports 1 for them.
+// We therefore follow the demo API (flagged F-DA-12) and keep the PDF
+// transcription below only as a labelled production reference.
+// Check https://kalshi.com/fee-schedule for scheduled changes.
+// ---------------------------------------------------------------------------
+
+/** Default taker multiplier M when the series metadata was not read
+ *  ("M = the multiplier for each contract (default is 1 unless otherwise
+ *  indicated)", official fee schedule PDF). */
+export const DEFAULT_TAKER_MULTIPLIER = 1;
+
+/** PRODUCTION multipliers transcribed from the official PDF's Non-Standard Fees
+ *  table (both pages read 2026-11-20; [maker, taker]). REFERENCE ONLY — the
+ *  demo engine uses the API's own `fee_multiplier`, not this table. */
+export const SERIES_FEE_MULTIPLIERS_PDF = Object.freeze({
   KXAAAGASM: [1, 1], KXATPMATCH: [1, 1], KXBALLONDOR: [1, 1], KXBTCMAX150: [1, 1],
   KXBTCY: [0, 0], KXCITRINI: [0, 0], KXCPI: [1, 1], KXCPIYOY: [1, 1], KXDOED: [0, 0],
   KXEGGS: [1, 1], KXELECTIRAN: [0, 0], KXEMMYCACTO: [1, 1], KXEMMYCACTR: [1, 1],
@@ -91,8 +114,19 @@ export const SERIES_FEE_MULTIPLIERS = Object.freeze({
   KXSUPERBOWLHEADLINE: [1, 1],
 });
 
-export function feeMultipliersForSeries(seriesTicker) {
-  return SERIES_FEE_MULTIPLIERS[seriesTicker] || [0, 1]; // [maker, taker]
+/**
+ * Fee multipliers for one series in THIS environment.
+ * @param seriesTicker          series ticker (kept for the reference table)
+ * @param apiTakerMultiplier    `fee_multiplier` read from GET /series/{ticker};
+ *                              undefined when that metadata was not read.
+ * @returns {[maker, taker]}  maker fees are not modeled (0); the taker
+ *          multiplier is the API value, or the documented default of 1.
+ */
+export function feeMultipliersForSeries(seriesTicker, apiTakerMultiplier) {
+  const taker = (apiTakerMultiplier === undefined || apiTakerMultiplier === null)
+    ? DEFAULT_TAKER_MULTIPLIER
+    : Number(apiTakerMultiplier);
+  return [0, Number.isFinite(taker) ? taker : DEFAULT_TAKER_MULTIPLIER];
 }
 
 // ---------------------------------------------------------------------------
@@ -216,7 +250,7 @@ export function openPosition(pf, signal, market, topic, tsMs, maxOpen = 8, maxPe
   const count = 1;
   const costUnits = signal.priceUnits * count;
   const series = market.series_ticker || '';
-  const [makerM, takerM] = feeMultipliersForSeries(series);
+  const [makerM, takerM] = feeMultipliersForSeries(series, market.fee_multiplier);
   const feeUnits = signal.side === 'yes'
     ? takerFeeUnits(costUnits, signal.priceUnits, count, takerM)
     : takerFeeUnits(costUnits, signal.priceUnits, count, takerM); // taker both ways in paper

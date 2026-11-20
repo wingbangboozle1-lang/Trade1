@@ -54,6 +54,14 @@
   <tr id="f-da-11"><td>F-DA-11</td><td>Trading eligibility (jurisdiction)</td>
     <td>Availability varies by location and can change. This project uses the demo environment only; confirm eligibility on Kalshi's official help center before any real-world use.</td>
     <td><a href="https://help.kalshi.com/en/">help.kalshi.com</a></td></tr>
+  <tr id="f-da-12"><td>F-DA-12</td><td>Per-series taker multiplier: the PDF table and the demo API disagree</td>
+    <td>The official fee PDF’s “Non-Standard Fees” table lists <code>KXBTCY</code> and <code>KXETHY</code> as maker 0 / taker 0, but the demo exchange publishes
+    <code>fee_type: "quadratic"</code> and <code>fee_multiplier: 1</code> for both series. The PDF carries the <em>production</em> schedule; the API reports the fee
+    structure of the environment actually being traded. The engine therefore uses the API’s <code>fee_multiplier</code> (read live during series discovery from
+    <code>GET /series/{ticker}</code>) and falls back to the documented default of 1 when a series’ metadata was not read; the PDF table is kept only as a labelled
+    reference. <strong>Effect:</strong> before this change the paper broker charged <em>no</em> taker fee on <code>KXBTCY</code>/<code>KXETHY</code> trades, which the demo API
+    contradicts. The API exposes a single multiplier, which is the taker M; maker multipliers are not published per series and maker fees are not modeled at all.</td>
+    <td><a href="https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCY" target="_blank" rel="noopener">demo series KXBTCY</a> · <a href="https://external-api.demo.kalshi.co/trade-api/v2/series/KXETHY" target="_blank" rel="noopener">demo series KXETHY</a> · <a href="https://docs.kalshi.com/api-reference/market/get-series-list" target="_blank" rel="noopener">Get Series List</a> · <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official fee schedule PDF</a></td></tr>
   </tbody></table>
 </section>
 </main>

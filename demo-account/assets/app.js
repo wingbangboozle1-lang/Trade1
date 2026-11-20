@@ -26,6 +26,10 @@ const FALLBACK_SERIES = {
 const state = {
   seriesByTopic: Object.fromEntries(engine.TOPICS.map((t) => [t, []])),
   seriesTitle: {},
+  // seriesTicker -> { fee_multiplier, fee_type } read from GET /series (official
+  // Get Series List). The taker multiplier M comes from here, not from the PDF's
+  // production table (see engine.js and flagged F-DA-12).
+  seriesFee: {},
   markets: new Map(), // ticker -> { m, topic, samples: [{tsMs,lastUnits}], lastSeenMs }
   alerts: [],
   roiAlerts: [],
@@ -94,13 +98,24 @@ async function discoverSeries() {
   for (let page = 0; page < 3; page++) {
     const res = await getJSON(`/series?limit=200${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`);
     for (const s of res.series || []) {
+      const st = s.ticker || s.series_ticker;
+      // Official per-series fee structure (fee_type, fee_multiplier) — the
+      // taker multiplier M used by the paper broker. Absent fields are left
+      // undefined and the engine falls back to the documented default of 1.
+      if (st && (s.fee_multiplier !== undefined || s.fee_type !== undefined)) {
+        state.seriesFee[st] = {
+          fee_multiplier: s.fee_multiplier,
+          fee_type: s.fee_type,
+          sourceUrl: `${API}/series/${encodeURIComponent(st)}`,
+        };
+      }
       const topic = engine.classifyTopic({
-        title: s.title, series_ticker: s.ticker || s.series_ticker,
+        title: s.title, series_ticker: st,
         category: s.category, tags: s.tags,
       });
       if (topic !== 'other') {
-        found[topic].push(s.ticker || s.series_ticker);
-        title[s.ticker || s.series_ticker] = s.title || '';
+        found[topic].push(st);
+        title[st] = s.title || '';
       }
     }
     cursor = res.cursor || '';
@@ -129,6 +144,8 @@ function marketSample(m) {
     title: m.title || m.ticker,
     event_ticker: m.event_ticker || '',
     series_ticker: m.series_ticker || m.ticker?.split('-')[0] || '',
+    // taker multiplier M for this series, read from GET /series (official)
+    fee_multiplier: (state.seriesFee[m.series_ticker] || {}).fee_multiplier,
     status: m.status,
     result: m.result || '',
     lastUnits: Number.isFinite(lastUnits) && lastUnits > 0 ? lastUnits : mid,

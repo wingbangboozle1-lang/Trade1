@@ -152,8 +152,10 @@
       <li><strong>value-ask</strong> — buy YES when the ask is ≤ $0.25 and 24h volume ≥ 100 contracts.</li>
     </ul>
     <p class="muted">Position sizing: 1 contract per trade, max 8 open, max $3 per trade, taker fees from the official schedule
-    (taker = round-up of M × 0.07 × C × P × (1 − P); series multiplier table transcribed from the official PDF; tested against
-    all 42 fee-table cells). Trades are categorised by topic × strategy × entry trigger above.</p>
+    (taker = round-up of M × 0.07 × C × P × (1 − P); M is the series’ taker multiplier read from the
+    environment’s own series metadata — <code>GET /series/{ticker}</code> → <code>fee_multiplier</code> — and every in-scope series read live on the demo
+    host reports <code>fee_multiplier: 1</code> (the PDF’s non-standard table lists production values that differ for some series — flagged F-DA-12);
+    tested against all 42 fee-table cells). Trades are categorised by topic × strategy × entry trigger above.</p>
     <p class="muted">The <strong>high-ROI chat</strong> score (0–4): +1 jump ≥ $0.10 · +1 24h volume ≥ 50 · +1 spread ≤ $0.03 ·
     +1 price in $0.05–$0.85. Score ≥ 3 is shown as a pick. This is a transparent heuristic, <strong>not</strong> a claim of
     profitability — sample sizes are small and unverified (<a href="flagged.html#f-da-1">F-DA-1</a>).</p>

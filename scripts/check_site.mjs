@@ -34,10 +34,26 @@ const unknown = allFiles.filter(f => f.endsWith('.html') && !PUBLISHED.has(f));
 if (unknown.length) { console.log('FAIL unpublished page not in the check list: ' + unknown.join(', ')); process.exit(1); }
 for (const f of files.filter(f => f.endsWith('.html'))) {
   checked.html++;
+  const rawHtml = await readFile(f, 'utf8');
+  /* <script src="..."> targets are checked BEFORE the script bodies are
+     stripped below. The old order dropped every script tag with its src
+     attribute, so a page could load a deleted module and still pass —
+     exactly what happened to resolved.html (assets/app.mjs was removed in
+     the consolidation, the page kept pointing at it). */
+  for (const m of rawHtml.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/gi)) {
+    const ref = m[1];
+    if (/^(https?:|\/\/)/.test(ref)) continue;
+    const clean = ref.split('#')[0].split('?')[0];
+    if (!clean) continue;
+    checked.links++;
+    const target = path.normalize(path.join(path.dirname(f), clean));
+    if (target.startsWith('..')) { failures.push(`${f}: script src escapes repo ${ref}`); continue; }
+    try { await stat(target); } catch { failures.push(`${f}: broken script src ${ref}`); }
+  }
   // Inline scripts build URLs by concatenation (`href="'+esc(u)+'"`), which is not a
   // static link; strip <script> bodies before scanning or every template produces
   // false "broken link" failures.
-  const html = (await readFile(f, 'utf8')).replace(/<script\b[\s\S]*?<\/script>/gi, '');
+  const html = rawHtml.replace(/<script\b[\s\S]*?<\/script>/gi, '');
   const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map(m => m[1]);
   for (const ref of refs) {
     if (/^(https?:|mailto:|#|javascript:)/.test(ref)) continue;
