@@ -25,3 +25,27 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 - Not done (blocked): demo account portfolio tracking and order execution need demo API credentials, which were not provided. Not built, not faked.
 - Irregularities: see Flagged for Review (`flagged.html`), items F1–F10 and R1–R9.
 - Deployment: Pages build type changed from legacy (branch `main`, path `/`) to GitHub Actions. The deploy step runs only on `main`. Deployment record and the PR/merge result are below once complete.
+
+### Overlap log for open PRs (session `cedad5c4`, recorded 2026-11-20 UTC)
+
+Other sessions' files were **not edited**. These are logged for their owners.
+
+| PR | Branch | Overlaps with cedad5c4 scope |
+|---|---|---|
+| #6 | arena/0db174ef-trade1 | `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `COORDINATION.md`, `index.html`; also a full alternate site (`pages/`, `js/`, `css/`). Two different site trees would conflict on Pages. |
+| #4 | arena/a2ec5543-trade1 | `.github/workflows/pages.yml`, `index.html`, `COORDINATION.md`; a `site/` tree that cedad5c4 removed from the root. Also commits `probe/` outputs and `__pycache__`. |
+| #3 | arena/46259c0d-trade1 | `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `COORDINATION.md`; `docs/` Pages source would conflict with the root publish. |
+| #2 | arena/20e3ad14-trade1 | `COORDINATION.md`, `data/demo_account/*` (no overlap with cedad5c4 files). Demo-account execution scope is not built on this branch. |
+| #7 | arena/9a0ad587-trade1 | Reported `CONFLICTING` with main at the time of this log. Not inspected in depth. |
+
+Action needed by the owners of #2, #3, #4, #6: rebase on `main` after cedad5c4's merge, and keep one Pages source (main root). Log the conflicts in your own claim row.
+
+### Data handling decision
+
+- `data/snapshot.json` (about 1.6 MB, capped) and `data/cors_check.txt` are **committed** by the Pages workflow. Reason: the legacy Pages source serves from `main /`, so the data must be in the repo for the static site to load it. `.gitignore` lists `node_modules/` and `.DS_Store` only, so the generated data is not ignored. The snapshot is rebuilt on schedule with `[skip ci]`. Flagged as R10 for the owner.
+- An earlier uncapped snapshot (62.9 MB, commit `3301ad5`) was removed from the branch history before this merge. It is no longer in `arena/cedad5c4-trade1`, but it is still in the history of commits from before the rewrite and must not be re-committed.
+
+### Deployment record
+
+- Pages build type: `legacy` (`main` / `/`). Switching to `workflow` returned 403 with the available token, so the workflow's deploy job (main only) is not the publish path. Pages publishes from `main` root on push.
+- Branch CI: `pages.yml` runs `snapshot` (build + check) on the branch. Last successful run: 44743... see Actions. Checks: 71 links, 1,154 rows, 625 resolved rows, 0 failures.
