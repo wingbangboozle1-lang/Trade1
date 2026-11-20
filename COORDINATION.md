@@ -2,7 +2,7 @@
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
+| Kalshi demo dashboard, source research, site, verification, and deployment setup | in progress | e3c4e789 | COORDINATION.md, README.md, index.html, app.js, styles.css, topics/*.html, flagged-for-review.html, tests/, .github/workflows/pages.yml |
 
 ## Task log
 
@@ -14,3 +14,9 @@
 - Verification performed: extracted embedded JavaScript and ran `node --check`; ran `git diff --check`. No live endpoint/browser CORS test was possible here; endpoint data are not represented as verified live values.
 - Flagged / not implemented: authenticated demo account, actual order execution/automation, account performance/settlement history, resolved-market outcome archive, official dollar-notional ranking (volume is shown without claiming dollar value), persistent WebSocket feed, verified news-cause attribution, and confirmation of Pages deployment. App deliberately stores no credentials and paper trades are not exchange trades. The topic filter is heuristic and needs review; dynamic rows are only present when API requests work.
 - Pages workflow deploys on `main`; GitHub repository Pages setting and successful deployed workflow remain unverified from this branch.
+
+### Final integration handoff
+- Claimed 2026-11-20 by current session `e3c4e789` as the final integration/review pass. The previously completed dashboard task was merged into `main`; its `needs review` status is being handled as integration work, not as a second parallel implementation.
+- Work is restricted to Arena-assigned branch `arena/e3c4e789-trade1`; no other branch/worktree will be created. Shared site outputs and coordination file are owned by this integration pass.
+- Scope: `COORDINATION.md`, `README.md`, `index.html`, `app.js`, `styles.css`, `topics/*.html`, `flagged-for-review.html`, `tests/`, `.github/workflows/pages.yml`.
+- Integration claim is only a coordination record; verification, build, deployment, and flagged items will be recorded after completion.
