@@ -1,5 +1,5 @@
 {
- "probed_at": "2026-11-20T14:11:04.744315+00:00",
+ "probed_at": "2026-11-20T14:38:50.080297+00:00",
  "endpoints": [
   "https://external-api.demo.kalshi.co/trade-api/v2",
   "https://demo-api.kalshi.co/trade-api/v2"
@@ -11,7 +11,7 @@
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "(none)",
    "http_status": 200,
-   "latency_s": 0.27,
+   "latency_s": 0.3,
    "response_headers": {
     "vary": "Accept-Language"
    }
@@ -22,7 +22,7 @@
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "https://wingbangboozle1-lang.github.io",
    "http_status": 200,
-   "latency_s": 0.19,
+   "latency_s": 0.27,
    "response_headers": {
     "access-control-allow-credentials": "true",
     "access-control-allow-origin": "https://wingbangboozle1-lang.github.io",
@@ -36,7 +36,7 @@
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "https://example.com",
    "http_status": 200,
-   "latency_s": 0.18,
+   "latency_s": 0.27,
    "response_headers": {
     "access-control-allow-credentials": "true",
     "access-control-allow-origin": "https://example.com",
@@ -50,7 +50,7 @@
    "url": "https://demo-api.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "https://wingbangboozle1-lang.github.io",
    "http_status": 200,
-   "latency_s": 0.3,
+   "latency_s": 0.14,
    "response_headers": {
     "access-control-allow-credentials": "true",
     "access-control-allow-origin": "https://wingbangboozle1-lang.github.io",
@@ -64,7 +64,7 @@
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets",
    "request_origin": "https://wingbangboozle1-lang.github.io",
    "http_status": 204,
-   "latency_s": 0.17,
+   "latency_s": 0.24,
    "response_headers": {
     "access-control-allow-credentials": "true",
     "access-control-allow-headers": "Origin,Content-Length,Content-Type,Idempotency-Key,X-Csrf-Token,X-Aws-Waf-Token,Traceparent,Tracestate,X-Gclid,X-Msclkid,X-Gbraid,X-Fbclid,X-Fbp,X-Fbc,X-Rdt-Cid,X-Ttclid,X-Ttp,X-Twclid,X-Sc-Cid,X-Idfa,X-Device-Idfv,X-Advertising-Id,X-Firebase-App-Instance-Id,X-Appsflyer-Web-Id,X-Af-Channel,X-Af-Media-Source,X-Appsflyer-Device-Id,X-Att-Status,X-Signature",

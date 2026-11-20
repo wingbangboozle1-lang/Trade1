@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-20T14:11:04.744315+00:00",
- "finished_at": "2026-11-20T14:13:12.402791+00:00",
+ "generated_at": "2026-11-20T14:38:50.080297+00:00",
+ "finished_at": "2026-11-20T14:41:54.925186+00:00",
  "base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "alt_base": "https://demo-api.kalshi.co/trade-api/v2",
  "pages_origin": "https://wingbangboozle1-lang.github.io",
@@ -11,7 +11,7 @@
    "active": 6000
   },
   "events_open_count": 2400,
-  "markets_open_count": 15116,
+  "markets_open_count": 15148,
   "settled_count_recent": 6000,
   "event_metadata_and_market_fetches": 261,
   "series_discovered_per_topic": {
@@ -72,7 +72,6 @@
   "result",
   "status",
   "strike_type",
-  "subtitle",
   "ticker",
   "title",
   "volume_24h_fp",

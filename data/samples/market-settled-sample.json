@@ -1,62 +1,56 @@
 {
- "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794924788&limit=1000&mve_filter=exclude",
+ "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794926509&limit=1000&mve_filter=exclude",
  "raw_market": {
   "can_close_early": true,
-  "close_time": "2026-11-20T13:40:00Z",
-  "created_time": "2026-11-20T12:00:38.37331Z",
-  "early_close_condition": "This market will close and expire early if the event occurs.",
-  "event_ticker": "KXQUICKSETTLE-20NOV26H0840",
+  "close_time": "2026-11-20T14:38:08Z",
+  "created_time": "2026-11-20T12:06:36.698889Z",
+  "custom_strike": {
+   "soccer_team": "3c49c03e-208f-4d62-8c5b-da675bb47a3a"
+  },
+  "early_close_condition": "This market will close and expire after a winner is declared.",
+  "event_ticker": "KXSGPPLSPREAD-26NOV20ALBBAL",
   "exchange_index": 0,
-  "expected_expiration_time": "2026-11-20T13:40:00Z",
-  "expiration_value": "2.0",
+  "expected_expiration_time": "2026-11-20T17:30:00Z",
+  "expiration_value": "",
+  "floor_strike": 3.5,
   "last_price_dollars": "0.0000",
-  "latest_expiration_time": "2026-11-20T13:40:00Z",
+  "latest_expiration_time": "2026-11-22T11:30:00Z",
   "market_type": "binary",
   "no_ask_dollars": "1.0000",
   "no_bid_dollars": "0.0000",
-  "no_sub_title": "3",
+  "no_sub_title": "Albirex Niigata (S) wins by more than 3.5 goals",
   "notional_value_dollars": "1.0000",
-  "occurrence_datetime": "2026-11-20T13:40:00Z",
   "open_interest_fp": "0.00",
-  "open_time": "2026-11-20T13:30:00Z",
+  "open_time": "2026-11-20T12:34:20Z",
   "previous_price_dollars": "0.0000",
   "previous_yes_ask_dollars": "0.0000",
   "previous_yes_bid_dollars": "0.0000",
-  "price_level_structure": "tapered_deci_cent",
+  "price_level_structure": "linear_cent",
   "price_ranges": [
    {
-    "end": "0.1000",
-    "start": "0.0000",
-    "step": "0.0010"
-   },
-   {
-    "end": "0.9000",
-    "start": "0.1000",
-    "step": "0.0100"
-   },
-   {
     "end": "1.0000",
-    "start": "0.9000",
-    "step": "0.0010"
+    "start": "0.0000",
+    "step": "0.0100"
    }
   ],
   "result": "no",
-  "rules_primary": "If 1+1 equals 3 at the scheduled time, the market resolves to Yes.",
-  "rules_secondary": "2",
+  "rules_primary": "If Albirex Niigata (S) wins by more than 3.5 goals in the Albirex Niigata (S) vs Balestier Khalsa professional Singapore Premier League soccer game originally scheduled for Nov 20, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties), then the market resolves to Yes.",
+  "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
   "settlement_bounds_type": "default",
-  "settlement_timer_seconds": 1800,
-  "settlement_ts": "2026-11-20T14:11:04.564137Z",
+  "settlement_timer_seconds": 30,
+  "settlement_ts": "2026-11-20T14:41:24.610696Z",
   "settlement_value_dollars": "0.0000",
   "status": "finalized",
-  "ticker": "KXQUICKSETTLE-20NOV26H0840-3",
-  "title": "1+1 = 3",
-  "updated_time": "2026-11-20T14:11:04.624908Z",
+  "strike_type": "greater",
+  "ticker": "KXSGPPLSPREAD-26NOV20ALBBAL-ALB4",
+  "title": "Albirex Niigata (S) wins by more than 3.5 goals?",
+  "updated_time": "2026-11-20T14:41:24.622739Z",
   "volume_24h_fp": "0.00",
   "volume_fp": "0.00",
   "yes_ask_dollars": "1.0000",
   "yes_ask_size_fp": "0.00",
   "yes_bid_dollars": "0.0000",
   "yes_bid_size_fp": "0.00",
-  "yes_sub_title": "3"
+  "yes_sub_title": "Albirex Niigata (S) wins by more than 3.5 goals"
  }
 }
