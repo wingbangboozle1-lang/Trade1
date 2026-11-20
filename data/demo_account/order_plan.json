@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-11-20T13:06:51.546Z",
+  "environment": "demo",
+  "strategy": "join-best-yes-bid",
+  "strategy_definition": "Buy 1 YES contract at the current best YES bid when the YES spread is $0.01-$0.03 and a YES bid is resting.",
+  "markets_scanned": 2000,
+  "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-markets",
+    "https://docs.kalshi.com/getting_started/fixed_point_migration",
+    "https://docs.kalshi.com/getting_started/market_lifecycle"
+  ],
+  "orders": []
+}
