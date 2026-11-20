@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T13:35:34Z",
+ "generated_at": "2026-11-20T13:36:08Z",
  "items": [
   {
    "id": "demo-credentials-missing",
@@ -10,6 +10,39 @@
    "sources": [
     "https://docs.kalshi.com/getting_started/demo_env",
     "https://docs.kalshi.com/getting_started/quick_start_authenticated_requests"
+   ]
+  },
+  {
+   "id": "arbitrage-bug-archived",
+   "severity": "note",
+   "title": "A simulated-trading bug was found on live data and is archived, not erased",
+   "detail": "The complement-arbitrage rule was first written backwards: it required YES bid + NO bid to be BELOW 1.00 before buying both sides, but buying YES and NO costs 2 - (YES bid + NO bid) and pays $1, so the edge only exists when the bids sum ABOVE 1.00. The buggy version lost $449.84 across 26 closed simulated trades in the first two live runs. The rule now requires YES bid + NO bid >= 1 + 0.03, both legs must price inside $0.02-$0.98, and two regression tests pin the behaviour. The pre-fix ledger is kept in data/paper/archive/ledger-2026-11-20-pre-arbitrage-fix.json as the audit trail; the live ledger was reset so the portfolio page reflects the corrected engine only.",
+   "impact": "Portfolio figures before 2026-11-20 13:40Z are not comparable with later figures.",
+   "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-market-orderbook",
+    "https://docs.kalshi.com/getting_started/market_settlement"
+   ]
+  },
+  {
+   "id": "resolution-status-finalized",
+   "severity": "note",
+   "title": "Resolved markets report status 'finalized', not only 'settled'",
+   "detail": "The first resolutions tracker only counted status == 'settled' and therefore reported zero resolved markets while four markets already carried a result. Verified against GET /markets/KX10SONG-26-KAR, which returned status 'finalized' together with result 'yes', settlement_value_dollars '1.0000' and a settlement_ts. The tracker now accepts both states and records the settlement value, timestamp and raw status as evidence.",
+   "impact": "Early resolution counts understated outcomes; fixed and re-verified.",
+   "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-markets",
+    "https://docs.kalshi.com/getting_started/market_settlement"
+   ]
+  },
+  {
+   "id": "jumps-use-observation-mid",
+   "severity": "note",
+   "title": "Jump detection compares two of our own observations, not exchange trades",
+   "detail": "A move is flagged when two consecutive collector observations differ by >= $0.10 in the mid price. If a price moves and reverts between two runs the move is not recorded, and a slow drift of 5c twice is not flagged even though it totals 10c. Exchange candles are backfilled where available but are not used for jump detection because they can lag live quotes by a few seconds.",
+   "impact": "The sharp-move log is a lower bound on real volatility.",
+   "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+    "https://docs.kalshi.com/api-reference/market/get-markets"
    ]
   },
   {

@@ -195,9 +195,10 @@ def build_index(snap, summary, res_summary, jumps, universe):
     for t in topics:
         evs = sorted(top_events.get(t["slug"], []), key=lambda e: -e["dollar_volume"])
         mk = [m for m in markets if t["slug"] in m["topics"]]
+        dv = sum(e["dollar_volume"] for e in evs)
         per_topic.append(
             f'''<div class="card">
-<h2>{esc(t["label"])} <span class="hint">{len(mk)} markets · {len(evs)} events</span></h2>
+<h2>{esc(t["label"])} <span class="hint">{len(mk)} markets · {len(evs)} events · {money(dv, 0)}</span></h2>
 <p class="faint" style="font-size:12.5px;margin:0 0 10px">{esc(t["basis"])}</p>
 {_mini_table(evs[:6])}
 <p style="margin:10px 0 0"><a href="markets.html?topic={t["slug"]}">Open {esc(t["label"])} markets →</a></p>
@@ -790,6 +791,19 @@ def build_summary(snap, summary, res_summary, jumps, universe):
     counts = (snap or {}).get("counts") or {}
     events = (snap or {}).get("events") or []
     biggest = events[0] if events else None
+    top_title = (biggest or {}).get("title") or "no event"
+    top_dv = (biggest or {}).get("dollar_volume")
+    jump_count = len((jumps or {}).get("jumps") or [])
+    liqs = [((m.get("book") or {}).get("total_liquidity_usd") or 0) for m in (snap or {}).get("markets") or []]
+    max_liq = max(liqs) if liqs else None
+    by = {r["strategy"]: r for r in (summary or {}).get("strategies") or []}
+    fv = by.get("fair_value_vs_clock") or {}
+    tu = by.get("topic_uncertainty") or {}
+    fv_realized, fv_closed = fv.get("realized"), fv.get("closed_trades")
+    tu_realized = tu.get("realized")
+    fees_total = (summary or {}).get("fees_total")
+    culture_in_top10 = sum(1 for e in events[:10] if "culture" in (e.get("topics") or []))
+    elections_in_top10 = sum(1 for e in events[:10] if "elections" in (e.get("topics") or []))
     body = f"""
 <h1>Executive summary</h1>
 <p class="lede">What this project is, what it measured, and what it deliberately does not claim.
@@ -840,22 +854,37 @@ Every figure links back to the page that computes it.</p>
 <div class="card">
 <h2>Findings</h2>
 <ul class="clean">
+  <li><strong>Culture, not elections, carries the most money on this exchange today.</strong> The largest
+    live event tracked was {esc(top_title)} at {money(top_dv, 0)} of traded volume, with
+    {num(culture_in_top10, 0)} culture events inside the top ten. Elections are second and crypto has the most individual markets but a long
+    tail of short-dated strikes.</li>
   <li><strong>Kalshi's demo environment is not a copy of production.</strong> Its open market list is
-    dominated by freshly created multivariate combination markets with zero volume, so this dashboard
-    reads live prices from the public production read endpoint and reserves the demo account for order
-    execution. Both endpoints are Kalshi-documented; see <a href="methodology.html">Methodology</a>.</li>
+    dominated by freshly created multivariate combination markets with zero volume, so this dashboard reads
+    live prices from the public production read endpoint and reserves the demo account for order execution.
+    Both endpoints are Kalshi-documented; see <a href="methodology.html">Methodology</a>.</li>
   <li><strong>Topic membership is checkable, not guessed.</strong> Market topics come from Kalshi's own
     series <code>category</code>/<code>categories</code>/<code>tags</code> fields and the published
-    category→tag map, which is why "Culture" includes Entertainment and why "Golf" is a Sports tag.</li>
+    category&rarr;tag map, which is why "Culture" includes Entertainment and why "Golf" is a Sports tag.</li>
+  <li><strong>Whole topics can vanish if paging is naive.</strong> Markets are listed newest-first and
+    Kalshi creates thousands a day, so a plain listing returned gas only; the collector now spends a
+    per-event budget split evenly across the five topics, which is why all five are populated.</li>
   <li><strong>"Highest dollar amount" is reported two honest ways</strong>: traded dollar volume and
-    resting liquidity dollars. Kalshi publishes no single "money at stake" figure, so none is invented.</li>
-  <li><strong>Sharp moves are detected, causes are not asserted.</strong> A ≥ $0.10 move is a fact from
-    two observations; a news explanation needs a source, and unattributed moves stay labelled unverified.</li>
-  <li><strong>Strategy results are simulated and reproducible.</strong> Six rule-based strategies trade the
-    collected data with official fees and $1 settlement; the ledger is a committed JSON file, so any number
-    on the Portfolio page can be re-derived.</li>
-  <li><strong>The fee model is verified, not assumed.</strong> The engine's implementation reproduces all
-    21 published rows of Kalshi's fee schedule, and the test suite fails the build if it ever stops.</li>
+    resting liquidity dollars. Kalshi publishes no single "money at stake" figure, so none is invented.
+    Liquidity is concentrated: the deepest books tracked rest around {money(max_liq, 0)}.</li>
+  <li><strong>Sharp moves are detected, causes are not asserted.</strong> {num(jump_count, 0)} moves of at
+    least $0.10 were recorded. A move is a fact from two observations; a news explanation needs a source,
+    and unattributed moves stay labelled unverified.</li>
+  <li><strong>Strategy results are simulated and reproducible</strong>, and they are not flattering. The
+    mean-reversion and event-driven rules have not closed a trade yet, the statistical rule is losing
+    ({money(fv_realized)} over {num(fv_closed)} closed), and the only positive contributor so far is the
+    thesis rule at {money(tu_realized)}. Fees are small ({money(fees_total)}) precisely because most
+    positions are still open.</li>
+  <li><strong>The fee model is verified, not assumed.</strong> The engine reproduces all 21 published rows of
+    Kalshi's fee schedule, and the test suite fails the build if it ever stops.</li>
+  <li><strong>A real bug was found and is documented, not hidden.</strong> The complement-arbitrage rule was
+    initially inverted and lost $449.84 across 26 simulated trades before the fix; the pre-fix ledger is
+    archived in <code>data/paper/archive/</code> and explained on
+    <a href="flagged.html">Flagged for review</a>.</li>
 </ul>
 </div>
 
@@ -1027,6 +1056,42 @@ def build_flagged_data(snap, res_summary, live_status, jumps):
                   "pipeline via KALSHI_DEMO_API_KEY_ID / KALSHI_DEMO_PRIVATE_KEY_PATH secrets.",
         "impact": "Portfolio numbers on the site are simulated, not demo-account results.",
         "sources": [SOURCES["demo_env"]["url"], SOURCES["auth"]["url"]],
+    })
+    items.append({
+        "id": "arbitrage-bug-archived", "severity": "note",
+        "title": "A simulated-trading bug was found on live data and is archived, not erased",
+        "detail": "The complement-arbitrage rule was first written backwards: it required YES bid + NO bid "
+                  "to be BELOW 1.00 before buying both sides, but buying YES and NO costs 2 - (YES bid + NO "
+                  "bid) and pays $1, so the edge only exists when the bids sum ABOVE 1.00. The buggy version "
+                  "lost $449.84 across 26 closed simulated trades in the first two live runs. The rule now "
+                  "requires YES bid + NO bid >= 1 + 0.03, both legs must price inside $0.02-$0.98, and two "
+                  "regression tests pin the behaviour. The pre-fix ledger is kept in "
+                  "data/paper/archive/ledger-2026-11-20-pre-arbitrage-fix.json as the audit trail; the live "
+                  "ledger was reset so the portfolio page reflects the corrected engine only.",
+        "impact": "Portfolio figures before 2026-11-20 13:40Z are not comparable with later figures.",
+        "sources": [SOURCES["orderbook"]["url"], SOURCES["settlement"]["url"]],
+    })
+    items.append({
+        "id": "resolution-status-finalized", "severity": "note",
+        "title": "Resolved markets report status 'finalized', not only 'settled'",
+        "detail": "The first resolutions tracker only counted status == 'settled' and therefore reported "
+                  "zero resolved markets while four markets already carried a result. Verified against "
+                  "GET /markets/KX10SONG-26-KAR, which returned status 'finalized' together with "
+                  "result 'yes', settlement_value_dollars '1.0000' and a settlement_ts. The tracker now "
+                  "accepts both states and records the settlement value, timestamp and raw status as evidence.",
+        "impact": "Early resolution counts understated outcomes; fixed and re-verified.",
+        "sources": [SOURCES["get_markets"]["url"], SOURCES["settlement"]["url"]],
+    })
+    items.append({
+        "id": "jumps-use-observation-mid", "severity": "note",
+        "title": "Jump detection compares two of our own observations, not exchange trades",
+        "detail": "A move is flagged when two consecutive collector observations differ by >= $0.10 in the "
+                  "mid price. If a price moves and reverts between two runs the move is not recorded, and a "
+                  "slow drift of 5c twice is not flagged even though it totals 10c. Exchange candles are "
+                  "backfilled where available but are not used for jump detection because they can lag live "
+                  "quotes by a few seconds.",
+        "impact": "The sharp-move log is a lower bound on real volatility.",
+        "sources": [SOURCES["candlesticks"]["url"], SOURCES["get_markets"]["url"]],
     })
     items.append({
         "id": "no-websocket-without-keys", "severity": "unverified",

@@ -76,22 +76,37 @@ Every figure links back to the page that computes it.</p>
 <div class="card">
 <h2>Findings</h2>
 <ul class="clean">
+  <li><strong>Culture, not elections, carries the most money on this exchange today.</strong> The largest
+    live event tracked was Oscar Winner: Best Picture at <span class="money">$13,481,274</span> of traded volume, with
+    <span class="money">6</span> culture events inside the top ten. Elections are second and crypto has the most individual markets but a long
+    tail of short-dated strikes.</li>
   <li><strong>Kalshi's demo environment is not a copy of production.</strong> Its open market list is
-    dominated by freshly created multivariate combination markets with zero volume, so this dashboard
-    reads live prices from the public production read endpoint and reserves the demo account for order
-    execution. Both endpoints are Kalshi-documented; see <a href="methodology.html">Methodology</a>.</li>
+    dominated by freshly created multivariate combination markets with zero volume, so this dashboard reads
+    live prices from the public production read endpoint and reserves the demo account for order execution.
+    Both endpoints are Kalshi-documented; see <a href="methodology.html">Methodology</a>.</li>
   <li><strong>Topic membership is checkable, not guessed.</strong> Market topics come from Kalshi's own
     series <code>category</code>/<code>categories</code>/<code>tags</code> fields and the published
-    category→tag map, which is why "Culture" includes Entertainment and why "Golf" is a Sports tag.</li>
+    category&rarr;tag map, which is why "Culture" includes Entertainment and why "Golf" is a Sports tag.</li>
+  <li><strong>Whole topics can vanish if paging is naive.</strong> Markets are listed newest-first and
+    Kalshi creates thousands a day, so a plain listing returned gas only; the collector now spends a
+    per-event budget split evenly across the five topics, which is why all five are populated.</li>
   <li><strong>"Highest dollar amount" is reported two honest ways</strong>: traded dollar volume and
-    resting liquidity dollars. Kalshi publishes no single "money at stake" figure, so none is invented.</li>
-  <li><strong>Sharp moves are detected, causes are not asserted.</strong> A ≥ $0.10 move is a fact from
-    two observations; a news explanation needs a source, and unattributed moves stay labelled unverified.</li>
-  <li><strong>Strategy results are simulated and reproducible.</strong> Six rule-based strategies trade the
-    collected data with official fees and $1 settlement; the ledger is a committed JSON file, so any number
-    on the Portfolio page can be re-derived.</li>
-  <li><strong>The fee model is verified, not assumed.</strong> The engine's implementation reproduces all
-    21 published rows of Kalshi's fee schedule, and the test suite fails the build if it ever stops.</li>
+    resting liquidity dollars. Kalshi publishes no single "money at stake" figure, so none is invented.
+    Liquidity is concentrated: the deepest books tracked rest around <span class="money">$61,063</span>.</li>
+  <li><strong>Sharp moves are detected, causes are not asserted.</strong> <span class="money">101</span> moves of at
+    least $0.10 were recorded. A move is a fact from two observations; a news explanation needs a source,
+    and unattributed moves stay labelled unverified.</li>
+  <li><strong>Strategy results are simulated and reproducible</strong>, and they are not flattering. The
+    mean-reversion and event-driven rules have not closed a trade yet, the statistical rule is losing
+    (<span class="money">-$47.37</span> over <span class="money">19</span> closed), and the only positive contributor so far is the
+    thesis rule at <span class="money">$5.08</span>. Fees are small (<span class="money">$12.34</span>) precisely because most
+    positions are still open.</li>
+  <li><strong>The fee model is verified, not assumed.</strong> The engine reproduces all 21 published rows of
+    Kalshi's fee schedule, and the test suite fails the build if it ever stops.</li>
+  <li><strong>A real bug was found and is documented, not hidden.</strong> The complement-arbitrage rule was
+    initially inverted and lost $449.84 across 26 simulated trades before the fix; the pre-fix ledger is
+    archived in <code>data/paper/archive/</code> and explained on
+    <a href="flagged.html">Flagged for review</a>.</li>
 </ul>
 </div>
 

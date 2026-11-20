@@ -35,7 +35,7 @@ visible instead of hidden.</p>
   <div class="card kpi"><span class="label">Unverified</span>
 <span class="value"><span class="money">2</span></span><span class="sub">blank on the site rather than guessed</span></div>
   <div class="card kpi"><span class="label">Notes</span>
-<span class="value"><span class="money">4</span></span><span class="sub">disclosures and editorial rules</span></div>
+<span class="value"><span class="money">7</span></span><span class="sub">disclosures and editorial rules</span></div>
 </div>
 <div class="card">
 <h2>Review queue</h2>
@@ -70,7 +70,12 @@ visible instead of hidden.</p>
 <td><b>Live push (WebSocket) not enabled</b><span class="tk">no-websocket-without-keys</span></td>
 <td style="max-width:520px">Kalshi&#39;s WebSocket requires an authenticated handshake even for public market-data channels, so a signature needs credentials. The site polls REST every 15 minutes instead. This is a documented API constraint, not an omission.</td>
 <td class="mut" style="font-size:12.5px">Updates are as fresh as the last pipeline run (timestamp shown on every page).</td>
-<td><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">source</a></td></tr><tr id="fees-series-table-partial">
+<td><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">source</a></td></tr><tr id="arbitrage-bug-archived">
+<td><span class="chip flag">note</span></td>
+<td><b>A simulated-trading bug was found on live data and is archived, not erased</b><span class="tk">arbitrage-bug-archived</span></td>
+<td style="max-width:520px">The complement-arbitrage rule was first written backwards: it required YES bid + NO bid to be BELOW 1.00 before buying both sides, but buying YES and NO costs 2 - (YES bid + NO bid) and pays $1, so the edge only exists when the bids sum ABOVE 1.00. The buggy version lost $449.84 across 26 closed simulated trades in the first two live runs. The rule now requires YES bid + NO bid &gt;= 1 + 0.03, both legs must price inside $0.02-$0.98, and two regression tests pin the behaviour. The pre-fix ledger is kept in data/paper/archive/ledger-2026-11-20-pre-arbitrage-fix.json as the audit trail; the live ledger was reset so the portfolio page reflects the corrected engine only.</td>
+<td class="mut" style="font-size:12.5px">Portfolio figures before 2026-11-20 13:40Z are not comparable with later figures.</td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-market-orderbook" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener">source</a></td></tr><tr id="fees-series-table-partial">
 <td><span class="chip flag">note</span></td>
 <td><b>Per-series fee multipliers are only partly transcribed</b><span class="tk">fees-series-table-partial</span></td>
 <td style="max-width:520px">Kalshi&#39;s fee schedule lists per-series multipliers in a table whose PDF text layer is partly garbled. Only rows that could be read unambiguously are encoded; all other series use the schedule defaults (taker M=1, maker M=0). Series with a non-standard multiplier outside that subset would be fee-mispriced in simulation.</td>
@@ -85,12 +90,22 @@ visible instead of hidden.</p>
 <td><b>Price history begins with the first collector run</b><span class="tk">history-starts-now</span></td>
 <td style="max-width:520px">Chart series are built from observations this repo has collected. They are not exchange history and are not back-filled; the candlestick endpoint is used only where a real exchange history exists for the requested window.</td>
 <td class="mut" style="font-size:12.5px">Charts get richer over time; early windows can be sparse.</td>
-<td><a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">source</a></td></tr><tr id="no-money-at-stake">
+<td><a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">source</a></td></tr><tr id="jumps-use-observation-mid">
+<td><span class="chip flag">note</span></td>
+<td><b>Jump detection compares two of our own observations, not exchange trades</b><span class="tk">jumps-use-observation-mid</span></td>
+<td style="max-width:520px">A move is flagged when two consecutive collector observations differ by &gt;= $0.10 in the mid price. If a price moves and reverts between two runs the move is not recorded, and a slow drift of 5c twice is not flagged even though it totals 10c. Exchange candles are backfilled where available but are not used for jump detection because they can lag live quotes by a few seconds.</td>
+<td class="mut" style="font-size:12.5px">The sharp-move log is a lower bound on real volatility.</td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">source</a></td></tr><tr id="no-money-at-stake">
 <td><span class="chip flag">note</span></td>
 <td><b>No single &#39;total money at stake&#39; figure exists</b><span class="tk">no-money-at-stake</span></td>
 <td style="max-width:520px">Kalshi&#39;s public API exposes per-market volume and open interest, not a committed capital pool. The dashboard reports traded dollar volume, open-interest dollars and resting liquidity instead, and never presents a made-up aggregate.</td>
 <td class="mut" style="font-size:12.5px">Rankings use traded dollars, which can differ from capital currently at risk.</td>
-<td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">source</a></td></tr></tbody></table></div>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">source</a></td></tr><tr id="resolution-status-finalized">
+<td><span class="chip flag">note</span></td>
+<td><b>Resolved markets report status &#39;finalized&#39;, not only &#39;settled&#39;</b><span class="tk">resolution-status-finalized</span></td>
+<td style="max-width:520px">The first resolutions tracker only counted status == &#39;settled&#39; and therefore reported zero resolved markets while four markets already carried a result. Verified against GET /markets/KX10SONG-26-KAR, which returned status &#39;finalized&#39; together with result &#39;yes&#39;, settlement_value_dollars &#39;1.0000&#39; and a settlement_ts. The tracker now accepts both states and records the settlement value, timestamp and raw status as evidence.</td>
+<td class="mut" style="font-size:12.5px">Early resolution counts understated outcomes; fixed and re-verified.</td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener">source</a></td></tr></tbody></table></div>
 </div>
 <div class="card" style="margin-top:14px">
   <h2>How to clear an item</h2>
