@@ -1,12 +1,13 @@
 {
-  "checkedAt": "2026-11-20T19:42:46.165Z",
-  "files": 23,
+  "checkedAt": "2026-11-20T19:50:01.853Z",
+  "files": 24,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
     "index.html",
     "dashboard.html",
     "trades.html",
+    "portfolio.html",
     "data.html",
     "methods.html",
     "flagged.html",

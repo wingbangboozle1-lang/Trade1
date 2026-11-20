@@ -44,7 +44,7 @@ async function walk(dir) {
  * trade1/, pages/, categories/, js/, css/) were removed in this session — see
  * COORDINATION.md. Checking a directory that no longer exists is a no-op. */
 const ROOT_PAGES = [
-  "index.html", "dashboard.html", "trades.html", "data.html",
+  "index.html", "dashboard.html", "trades.html", "portfolio.html", "data.html",
   "methods.html", "flagged.html", "sources.html",
   "resolved.html", "executive-summary.html", "suggestions.html",
 ];
