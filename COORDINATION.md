@@ -974,3 +974,46 @@ Branch `arena/9d4380a2-trade1`, base `main` @ `9f519d6`. Arena fixes the branch 
   - The remote session branch had my first claim commit (`3644133`), which I rebased. Updated with `--force-with-lease` pinned to `3644133`. That was my own commit on my own branch, and nothing else had been pushed there.
 - **Process note (logged for transparency):** during validation I briefly ran `git checkout main` in the local clone to test the merged tree. Nothing was pushed to `main` from that checkout, and I switched back to `arena/9d4380a2-trade1` straight away. The branch was reset to the merged `main` state with no local edits. The rule against switching branches was not followed in that step.
 - **Task status:** done. Open items, all published on `flagged.html` with source links and not blocking: **9d-1** (D1, gas misclassification of 2 resolved rows; collector fix requested to the owner of `scripts/collect.py`), **9d-3** (news-search leads, not official), **9d-4** (README candlestick wording; change requested to PR #35's owner), **9d-5** (demo-account tracking and orders blocked on the owner's demo API key). Fixed here: **9d-2** (broken Resolved page).
+
+---
+
+## Session `arena/6916270f-trade1` — final integration, defect repair, PR + Pages (2026-11-20)
+
+**Claim.** Taken at 2026-11-20 ~20:00 UTC on branch `arena/6916270f-trade1` from `main` @ `9f519d6`.
+Scope claimed: `assets/**`, `scripts/**`, `tests/**`, `tools/**`, `.github/workflows/pages.yml`,
+`data/fee_schedule_series.json`, `reports/INTEGRATION_AUDIT_6916270f.md`, `flagged.html`,
+`resolved.html`, `README.md`, `EXECUTIVE_SUMMARY.md`, `methods.html`, `COORDINATION.md`.
+Shared outputs (site navigation, the published index) were only changed in the final integration
+step, after the other sessions' work was merged.
+
+**Takeovers of stale sessions (their work was merged, not discarded).**
+
+| Session | PR | Last commit | Action |
+|---|---|---|---|
+| `b93ba12e` | #35 | `4a0ca03` @ 19:12:32Z | Claim went stale (>60 min without commits at 20:13Z, PR still open) → merged into this branch. Its per-series multiplier work and `tests/model.test.js` are kept; the multiplier map was re-transcribed from the official PDF this session and the transcribed table is published. |
+| `777927dd` | #32 | `8b52c3e` @ 19:27:01Z | Session went stale and the PR was closed unmerged → the parts that were still needed (`tools/render_test.mjs`, `scripts/test_fees.mjs`, `scripts/test_model.mjs`) were taken over and adapted; the chart null-guard and the candlestick wording fix were kept. |
+
+**Merged from `main`.** `origin/main` @ `d09bd26` (PRs #46–#54 from sessions `984a6765`, `a53ab816`,
+`9d4380a2`, `d6489a30`). `COORDINATION.md` conflicts were resolved by keeping every session's block.
+
+**Defects found and fixed (all with an automated gate).** D1 alerts lost their topic · D2 only the
+first 200 watchlist tickers were polled (watchlist holds 400) · D3 `determined`/`amended` results were
+not recorded as resolutions · D4 portfolio rows linked a 404 market-ticker URL · D5 README's
+`period_interval` wording · D6 the Resolved page did not disclose the 200-of-3,213 cap · D7 the link
+checker could not see a missing `<script src>` · D8 the chart threw without a canvas context ·
+D9 the Resolved/Summary pages were orphaned from the navigation · D10 the CI ledger hard-coded the
+taker multiplier · D11 ledger rows carried no series ticker.
+Full line-by-line audit: [`reports/INTEGRATION_AUDIT_6916270f.md`](reports/INTEGRATION_AUDIT_6916270f.md).
+Published irregularities: `flagged.html` items `691-1 … 691-11` (none blocks the merge).
+
+**Validators (2026-11-20, all exit 0).** `tools/build.mjs` 18 HTML / 6 JS / 0 broken links ·
+`scripts/check_site.mjs` 18 HTML, 424 links, 1,250 rows, 825 resolved, 0 failures ·
+`scripts/check_links.mjs` 16 pages, 392 local + 208 external links, 0 failures ·
+`tests/engine.test.mjs` 23/23 · `tests/live_fixes.test.mjs` 3/3 · `tests/root_engine.test.js` 40/40 ·
+`tests/model.test.js` 21/21 · `scripts/test_model.mjs` 20 checks · `scripts/test_fees.mjs` 42 published
+fee rows + 10 multipliers · `tests/portfolio.test.mjs` 60/60 · `tests/demo-account.test.mjs` 89/89 ·
+`scripts/test_lib.mjs` passed · `portfolio_engine.py selftest` 57/57 · `tools/render_test.mjs` 15/15
+pages rendered with 0 JS errors.
+
+**CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
+`tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.
