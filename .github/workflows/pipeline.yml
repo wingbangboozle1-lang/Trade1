@@ -4,7 +4,9 @@ name: pipeline
 # Public market data only; no credentials required for this workflow.
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    # GitHub cron is best-effort and can skip runs at busy minutes; the catch-up step below makes
+    # a missed cycle harmless by collecting again if the last snapshot is stale.
+    - cron: "3,18,33,48 * * * *"
   workflow_dispatch:
     inputs:
       depth:
@@ -48,8 +50,27 @@ jobs:
       - name: Self-tests (fee model vs official schedule, topic rules, syntax)
         run: python -m unittest discover -s tests -v
 
+      - name: Catch up if the last snapshot is stale
+        id: staleness
+        run: |
+          python - <<'PY'
+          import json, os, time
+          p = "data/markets/latest.json"
+          stale = True
+          if os.path.exists(p):
+              d = json.load(open(p))
+              age = time.time() - (d.get("generated_ts") or 0)
+              stale = age > 45 * 60
+              print(f"last snapshot age: {age/60:.1f} min -> stale={stale}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write("stale=" + ("true" if stale else "false") + "\n")
+          PY
+
       - name: Collect market data
         run: python -m collector.collect --base https://api.elections.kalshi.com/trade-api/v2
+
+      - name: Backfill exchange candle history (documented 1/60/1440-minute intervals)
+        run: python -m collector.history --limit 20 --minutes 60 --hours 48 || true
 
       - name: Append time series and detect >= $0.10 jumps
         run: python -m collector.track

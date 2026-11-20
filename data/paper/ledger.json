@@ -1,0 +1,1294 @@
+{
+ "created_at": "2026-11-20T13:11:40Z",
+ "starting_balance": 10000.0,
+ "cash": 9048.56,
+ "positions": [
+  {
+   "ticker": "KXAIRDROPMONAD-26DEC30-1",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.23,
+   "cost": 17.25,
+   "fees": 0.93,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Monad airdrop \u2014 strike 1",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXAIRDROPMONAD-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.2,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXAIRDROPMONAD-26DEC30-1",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.8,
+   "cost": 60.0,
+   "fees": 0.84,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Monad airdrop \u2014 strike 1",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXAIRDROPMONAD-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.77,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXAIRDROPMONAD-26DEC31-2",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.28,
+   "cost": 21.0,
+   "fees": 1.07,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Monad airdrop \u2014 strike 2",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXAIRDROPMONAD-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.25,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXAIRDROPMONAD-26DEC31-2",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.75,
+   "cost": 56.25,
+   "fees": 0.99,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Monad airdrop \u2014 strike 2",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXAIRDROPMONAD-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.72,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXAIRDROPMONAD-26DEC32-3",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.33,
+   "cost": 24.75,
+   "fees": 1.17,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Monad airdrop \u2014 strike 3",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXAIRDROPMONAD-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.3,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXAIRDROPMONAD-26DEC32-3",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.7,
+   "cost": 52.5,
+   "fees": 1.11,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Monad airdrop \u2014 strike 3",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXAIRDROPMONAD-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.67,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXETHATH-26DEC30-1",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.23,
+   "cost": 17.25,
+   "fees": 0.93,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "ETH ATH \u2014 strike 1",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXETHATH-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.2,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXETHATH-26DEC30-1",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.8,
+   "cost": 60.0,
+   "fees": 0.84,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "ETH ATH \u2014 strike 1",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXETHATH-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.77,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXETHATH-26DEC31-2",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.28,
+   "cost": 21.0,
+   "fees": 1.07,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "ETH ATH \u2014 strike 2",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXETHATH-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.25,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXETHATH-26DEC31-2",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.75,
+   "cost": 56.25,
+   "fees": 0.99,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "ETH ATH \u2014 strike 2",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXETHATH-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.72,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXETHATH-26DEC32-3",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.33,
+   "cost": 24.75,
+   "fees": 1.17,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "ETH ATH \u2014 strike 3",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXETHATH-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.3,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXETHATH-26DEC32-3",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.7,
+   "cost": 52.5,
+   "fees": 1.11,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "ETH ATH \u2014 strike 3",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXETHATH-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.67,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXLIVR1LEAD-26DEC30-1",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.23,
+   "cost": 17.25,
+   "fees": 0.93,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Liv Round 1 Leader \u2014 strike 1",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLIVR1LEAD-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.2,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXLIVR1LEAD-26DEC30-1",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.8,
+   "cost": 60.0,
+   "fees": 0.84,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Liv Round 1 Leader \u2014 strike 1",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLIVR1LEAD-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.77,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXLIVR1LEAD-26DEC31-2",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.28,
+   "cost": 21.0,
+   "fees": 1.07,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Liv Round 1 Leader \u2014 strike 2",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLIVR1LEAD-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.25,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXLIVR1LEAD-26DEC31-2",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.75,
+   "cost": 56.25,
+   "fees": 0.99,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Liv Round 1 Leader \u2014 strike 2",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLIVR1LEAD-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.72,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXLIVR1LEAD-26DEC32-3",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.33,
+   "cost": 24.75,
+   "fees": 1.17,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Liv Round 1 Leader \u2014 strike 3",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLIVR1LEAD-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.3,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXLIVR1LEAD-26DEC32-3",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.7,
+   "cost": 52.5,
+   "fees": 1.11,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "Liv Round 1 Leader \u2014 strike 3",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLIVR1LEAD-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.67,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXNEARMINMON-26DEC30-1",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.23,
+   "cost": 17.25,
+   "fees": 0.93,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "NEAR Min Monthly \u2014 strike 1",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXNEARMINMON-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.2,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXNEARMINMON-26DEC30-1",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.8,
+   "cost": 60.0,
+   "fees": 0.84,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "NEAR Min Monthly \u2014 strike 1",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXNEARMINMON-26DEC30",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "mark": 0.77,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXNEARMINMON-26DEC31-2",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.28,
+   "cost": 21.0,
+   "fees": 1.07,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "NEAR Min Monthly \u2014 strike 2",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXNEARMINMON-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.25,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXNEARMINMON-26DEC31-2",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.75,
+   "cost": 56.25,
+   "fees": 0.99,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "NEAR Min Monthly \u2014 strike 2",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXNEARMINMON-26DEC31",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "mark": 0.72,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXNEARMINMON-26DEC32-3",
+   "side": "yes",
+   "contracts": 75,
+   "avg_price": 0.33,
+   "cost": 24.75,
+   "fees": 1.17,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "NEAR Min Monthly \u2014 strike 3",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXNEARMINMON-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.3,
+   "unrealized": -2.25
+  },
+  {
+   "ticker": "KXNEARMINMON-26DEC32-3",
+   "side": "no",
+   "contracts": 75,
+   "avg_price": 0.7,
+   "cost": 52.5,
+   "fees": 1.11,
+   "opened_ts": 1795180299,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "title": "NEAR Min Monthly \u2014 strike 3",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXNEARMINMON-26DEC32",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "mark": 0.67,
+   "unrealized": -2.25
+  }
+ ],
+ "fills": [
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.23,
+   "fee": 0.62,
+   "cost": 11.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.8,
+   "fee": 0.56,
+   "cost": 40.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.28,
+   "fee": 0.71,
+   "cost": 14.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.75,
+   "fee": 0.66,
+   "cost": 37.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.33,
+   "fee": 0.78,
+   "cost": 16.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.7,
+   "fee": 0.74,
+   "cost": 35.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.23,
+   "fee": 0.62,
+   "cost": 11.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.8,
+   "fee": 0.56,
+   "cost": 40.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.28,
+   "fee": 0.71,
+   "cost": 14.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.75,
+   "fee": 0.66,
+   "cost": 37.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.33,
+   "fee": 0.78,
+   "cost": 16.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.7,
+   "fee": 0.74,
+   "cost": 35.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.23,
+   "fee": 0.62,
+   "cost": 11.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.8,
+   "fee": 0.56,
+   "cost": 40.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.28,
+   "fee": 0.71,
+   "cost": 14.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.75,
+   "fee": 0.66,
+   "cost": 37.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.33,
+   "fee": 0.78,
+   "cost": 16.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.7,
+   "fee": 0.74,
+   "cost": 35.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.23,
+   "fee": 0.62,
+   "cost": 11.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.8,
+   "fee": 0.56,
+   "cost": 40.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.20 + NO bid 0.77 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.28,
+   "fee": 0.71,
+   "cost": 14.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.75,
+   "fee": 0.66,
+   "cost": 37.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.25 + NO bid 0.72 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.33,
+   "fee": 0.78,
+   "cost": 16.5,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 50,
+   "price": 0.7,
+   "fee": 0.74,
+   "cost": 35.0,
+   "strategy": "complement_arbitrage",
+   "family": "Arbitrage",
+   "reason": "YES bid 0.30 + NO bid 0.67 = 0.97, locking 0.03 per pair",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.8,
+   "fee": 0.28,
+   "cost": 20.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.200 (edge -0.160)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.23,
+   "fee": 0.31,
+   "cost": 5.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.230 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.75,
+   "fee": 0.33,
+   "cost": 18.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.250 (edge -0.210)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.28,
+   "fee": 0.36,
+   "cost": 7.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.280 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.7,
+   "fee": 0.37,
+   "cost": 17.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.300 (edge -0.260)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXAIRDROPMONAD-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.33,
+   "fee": 0.39,
+   "cost": 8.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.330 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.8,
+   "fee": 0.28,
+   "cost": 20.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.200 (edge -0.160)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.23,
+   "fee": 0.31,
+   "cost": 5.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.230 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.75,
+   "fee": 0.33,
+   "cost": 18.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.250 (edge -0.210)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.28,
+   "fee": 0.36,
+   "cost": 7.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.280 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.7,
+   "fee": 0.37,
+   "cost": 17.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.300 (edge -0.260)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXETHATH-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.33,
+   "fee": 0.39,
+   "cost": 8.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.330 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.8,
+   "fee": 0.28,
+   "cost": 20.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.200 (edge -0.160)",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.23,
+   "fee": 0.31,
+   "cost": 5.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.230 with 300/260 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.75,
+   "fee": 0.33,
+   "cost": 18.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.250 (edge -0.210)",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.28,
+   "fee": 0.36,
+   "cost": 7.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.280 with 300/260 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.7,
+   "fee": 0.37,
+   "cost": 17.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.300 (edge -0.260)",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXLIVR1LEAD-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.33,
+   "fee": 0.39,
+   "cost": 8.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.330 with 300/260 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC30-1",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.8,
+   "fee": 0.28,
+   "cost": 20.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.200 (edge -0.160)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC30-1",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.23,
+   "fee": 0.31,
+   "cost": 5.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.230 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC31-2",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.75,
+   "fee": 0.33,
+   "cost": 18.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.250 (edge -0.210)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC31-2",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.28,
+   "fee": 0.36,
+   "cost": 7.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.280 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC32-3",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.7,
+   "fee": 0.37,
+   "cost": 17.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "Reference 0.055 vs bid 0.300 (edge -0.260)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "ticker": "KXNEARMINMON-26DEC32-3",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.33,
+   "fee": 0.39,
+   "cost": 8.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.330 with 300/260 contracts resting",
+   "topics": [
+    "crypto"
+   ]
+  }
+ ],
+ "equity_curve": [
+  {
+   "t": 1795180299,
+   "at": "2026-11-20T13:11:40Z",
+   "cash": 9048.56,
+   "positions": 873.0,
+   "equity": 9921.56
+  }
+ ],
+ "closed": [],
+ "note": "Simulated portfolio only. No Kalshi account is connected; no order was placed.",
+ "updated_at": "2026-11-20T13:11:40Z",
+ "last_snapshot_ts": 1795180299
+}

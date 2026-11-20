@@ -1,0 +1,98 @@
+{
+ "generated_at": "2026-11-20T13:14:10Z",
+ "items": [
+  {
+   "id": "demo-credentials-missing",
+   "severity": "blocker",
+   "title": "Demo-account trading has never executed",
+   "detail": "The brief asks for trades executed on the Kalshi demo account. No demo API key exists in this environment and one cannot be self-provisioned: a demo account is created by a person at demo.kalshi.co and the private key is downloadable only once. collector/live_trading.py is implemented, self-tested, refuses to run without credentials, and is wired into the pipeline via KALSHI_DEMO_API_KEY_ID / KALSHI_DEMO_PRIVATE_KEY_PATH secrets.",
+   "impact": "Portfolio numbers on the site are simulated, not demo-account results.",
+   "sources": [
+    "https://docs.kalshi.com/getting_started/demo_env",
+    "https://docs.kalshi.com/getting_started/quick_start_authenticated_requests"
+   ]
+  },
+  {
+   "id": "no-websocket-without-keys",
+   "severity": "unverified",
+   "title": "Live push (WebSocket) not enabled",
+   "detail": "Kalshi's WebSocket requires an authenticated handshake even for public market-data channels, so a signature needs credentials. The site polls REST every 15 minutes instead. This is a documented API constraint, not an omission.",
+   "impact": "Updates are as fresh as the last pipeline run (timestamp shown on every page).",
+   "sources": [
+    "https://docs.kalshi.com/getting_started/quick_start_websockets",
+    "https://docs.kalshi.com/getting_started/rate_limits"
+   ]
+  },
+  {
+   "id": "jump-causes-unattributed",
+   "severity": "unverified",
+   "title": "Causes of \u2265 $0.10 moves are unattributed",
+   "detail": "Moves are detected from exchange prices. Naming a news cause would be a claim needing a source, so every move is labelled unverified until a reviewer files a source URL in data/attributions.json.",
+   "impact": "The sharp-move page shows facts and links, not explanations.",
+   "sources": [
+    "https://kalshi.com/markets"
+   ]
+  },
+  {
+   "id": "gas-title-rule",
+   "severity": "note",
+   "title": "One editorial rule in the gas topic",
+   "detail": "Gas-price membership requires a Kalshi 'Oil and energy' / 'Oil & Gas' tag AND the word 'gas' in the series title. Without the title test, oil-inventory series would be counted as gasoline price markets. This is the only editorial test in the topic config and it is declared here rather than hidden in code.",
+   "impact": "Possibly excludes a gas series whose title omits the word 'gas'.",
+   "sources": [
+    "https://docs.kalshi.com/getting_started/terms",
+    "https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories"
+   ]
+  },
+  {
+   "id": "culture-category-gap",
+   "severity": "irregularity",
+   "title": "Kalshi's Culture category is nearly empty",
+   "detail": "The live API returns only two series under category=Culture, so this dashboard defines Culture as Culture + Entertainment + Social. Awards, music, TV and movie markets live under Entertainment; the mapping is shown on each page that uses it.",
+   "impact": "Culture numbers are broader than the literal category name.",
+   "sources": [
+    "https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories"
+   ]
+  },
+  {
+   "id": "demo-not-production",
+   "severity": "irregularity",
+   "title": "Demo market data is not representative",
+   "detail": "Kalshi states demo markets 'may not be reflective of those in real markets'. A probe of the demo endpoint returned 200 open markets of which 193 were multivariate combination markets with zero volume. Live prices therefore come from the public production read endpoint; the demo environment is reserved for order execution.",
+   "impact": "Rankings reflect production markets, while executions target demo markets.",
+   "sources": [
+    "https://docs.kalshi.com/getting_started/demo_env"
+   ]
+  },
+  {
+   "id": "no-money-at-stake",
+   "severity": "note",
+   "title": "No single 'total money at stake' figure exists",
+   "detail": "Kalshi's public API exposes per-market volume and open interest, not a committed capital pool. The dashboard reports traded dollar volume, open-interest dollars and resting liquidity instead, and never presents a made-up aggregate.",
+   "impact": "Rankings use traded dollars, which can differ from capital currently at risk.",
+   "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-markets"
+   ]
+  },
+  {
+   "id": "fees-series-table-partial",
+   "severity": "note",
+   "title": "Per-series fee multipliers are only partly transcribed",
+   "detail": "Kalshi's fee schedule lists per-series multipliers in a table whose PDF text layer is partly garbled. Only rows that could be read unambiguously are encoded; all other series use the schedule defaults (taker M=1, maker M=0). Series with a non-standard multiplier outside that subset would be fee-mispriced in simulation.",
+   "impact": "Simulated fees may differ from exchange fees for unusual series.",
+   "sources": [
+    "https://kalshi.com/docs/kalshi-fee-schedule.pdf"
+   ]
+  },
+  {
+   "id": "history-starts-now",
+   "severity": "note",
+   "title": "Price history begins with the first collector run",
+   "detail": "Chart series are built from observations this repo has collected. They are not exchange history and are not back-filled; the candlestick endpoint is used only where a real exchange history exists for the requested window.",
+   "impact": "Charts get richer over time; early windows can be sparse.",
+   "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-market-candlesticks"
+   ]
+  }
+ ]
+}

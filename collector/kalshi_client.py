@@ -218,6 +218,11 @@ class KalshiClient:
         )
         return data.get("candlesticks") or []
 
+    def candlestick_path(self, series_ticker: str, ticker: str) -> str:
+        """Documented path, kept public so the UI can deep-link the same request."""
+        return (f"/series/{urllib.parse.quote(series_ticker)}/markets/"
+                f"{urllib.parse.quote(ticker)}/candlesticks")
+
     def trades(self, ticker: str | None = None, min_ts: int | None = None,
                max_ts: int | None = None, limit: int = 200):
         return self.get("/markets/trades", ticker=ticker, min_ts=min_ts, max_ts=max_ts,

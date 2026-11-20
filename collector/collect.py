@@ -74,6 +74,8 @@ def depth_summary(book: dict) -> dict:
     no = book.get("no") or []
     yes_qty = sum(q for _, q in yes)
     no_qty = sum(q for _, q in no)
+    # NOTE both sides use (1 - resting price) deliberately: the two are symmetric statements of
+    # "dollars that must be paid to take the other side", which is what the UI labels them as.
     yes_liquidity = sum(q * (1 - p) for p, q in no)
     no_liquidity = sum(q * (1 - p) for p, q in yes)
     return {
@@ -149,6 +151,8 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
             "no_bid": round(1 - yes_ask, 4) if (yes_ask is not None and 0 < yes_ask <= 1) else None,
             "no_ask": round(1 - yes_bid, 4) if (yes_bid is not None and 0 <= yes_bid < 1) else None,
             "mid": mid,
+            "price_label": ("mid" if (yes_bid is not None and yes_ask is not None and yes_ask > 0)
+                            else ("bid only" if yes_bid is not None else "ask only")),
             "last_price": last,
             "volume": volume,
             "volume_24h": vol24,
@@ -169,7 +173,8 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
                 "market": f"{base}/markets/{ticker}",
                 "event": f"{base}/events/{m.get('event_ticker')}",
                 "series": f"{base}/series/{series_ticker}",
-                "site": f"https://kalshi.com/markets/{series_ticker.lower()}/{ticker.lower()}",
+                # Verified pattern: kalshi.com/markets/<series ticker lowercase> resolves to the event page.
+                "site": f"https://kalshi.com/markets/{series_ticker.lower()}",
             },
         })
 
@@ -219,8 +224,9 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
             "liquidity_usd": 0.0,
             "close_ts": r["close_ts"],
             "close_time": r["close_time"],
-            "best_yes_bid": None,
-            "best_yes_ask": None,
+            "top_yes_price": None,
+            "top_yes_bid": None,
+            "top_yes_ask": None,
             "site": f"https://kalshi.com/markets/{r['series_ticker'].lower()}",
             "rules_primary": r["rules_primary"],
             "settlement_sources": (series_index.get(r["series_ticker"]) or {}).get("settlement_sources", []),
@@ -232,12 +238,16 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
             agg["liquidity_usd"] = round(agg["liquidity_usd"] + (r["book"].get("total_liquidity_usd") or 0), 2)
         if r["close_ts"] and (agg["close_ts"] is None or r["close_ts"] < agg["close_ts"]):
             agg["close_ts"], agg["close_time"] = r["close_ts"], r["close_time"]
+        # Event-level price summary: the most expensive YES (the leading outcome) and the range.
         if r["mid"] is not None:
-            if agg["best_yes_bid"] is None or r["mid"] > agg["best_yes_bid"]:
-                agg["best_yes_bid"] = r["mid"]
+            if agg["top_yes_price"] is None or r["mid"] > agg["top_yes_price"]:
+                agg["top_yes_price"] = r["mid"]
+        if r["yes_bid"] is not None:
+            if agg["top_yes_bid"] is None or r["yes_bid"] > agg["top_yes_bid"]:
+                agg["top_yes_bid"] = r["yes_bid"]
         if r["yes_ask"] is not None:
-            if agg["best_yes_ask"] is None or r["yes_ask"] < agg["best_yes_ask"]:
-                agg["best_yes_ask"] = r["yes_ask"]
+            if agg["top_yes_ask"] is None or r["yes_ask"] < agg["top_yes_ask"]:
+                agg["top_yes_ask"] = r["yes_ask"]
 
     return {
         "generated_at": iso(),

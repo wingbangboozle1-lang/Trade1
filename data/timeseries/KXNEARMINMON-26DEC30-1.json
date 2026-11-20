@@ -1,0 +1,24 @@
+{
+"ticker": "KXNEARMINMON-26DEC30-1",
+"title": "NEAR Min Monthly \u2014 strike 1",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180299,
+"bid": 0.2,
+"ask": 0.23,
+"mid": 0.215,
+"last": 0.22,
+"vol": 5000.0,
+"oi": 1800.0,
+"liq": 900.0,
+"yes_qty": 300,
+"no_qty": 260
+}
+],
+"event_ticker": "KXNEARMINMON-26DEC30",
+"series_ticker": "KXNEARMINMON",
+"updated_at": "2026-11-20T13:11:40Z"
+}
