@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategies & Portfolio — Kalshi Demo Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><a href="index.html">Trade<span>1</span> · Kalshi Demo</a></div>
+    <nav class="main">
+      <a href="index.html">Overview</a>
+      <a href="topics/gas-prices.html">⛽ Gas</a>
+      <a href="topics/elections.html">🗳️ Elections</a>
+      <a href="topics/culture.html">🎬 Culture</a>
+      <a href="topics/crypto.html">₿ Crypto</a>
+      <a href="topics/golf.html">⛳ Golf</a>
+      <a href="strategies.html" class="active">Strategies</a>
+      <a href="suggestions.html">Suggestions</a>
+      <a href="flagged.html">Flagged</a>
+      <a href="verification.html">Verification</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="pill pill-idle" id="status-pill">● Connecting…</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="net-banner" id="net-banner">
+    <b>Could not reach the Kalshi demo API.</b> The paper engine only fills against live demo quotes —
+    it never invents prices. Check <a href="flagged.html">Flagged F1</a>.
+  </div>
+
+  <section class="hero">
+    <h1>Automated simulated trading & portfolio performance</h1>
+    <p class="blurb">
+      The paper engine trades <b>live Kalshi demo prices</b> with simulated fills at the best bid/ask and
+      Kalshi's <b>official fee formula</b> (<a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">fee schedule</a>:
+      taker fee = roundup(M × 0.07 × C × P × (1−P))). Positions settle at <b>$1/$0</b> when the market resolves YES/NO
+      (<a href="https://docs.kalshi.com/getting_started/market_settlement.md" target="_blank" rel="noopener">official settlement rules</a>).
+      Starting bankroll: <b>$10,000</b> simulated (mirroring demo mock funds). Everything persists in your browser and exports as CSV/JSON.
+    </p>
+  </section>
+
+  <section class="card">
+    <div class="panel-head">
+      <h2>Engine controls</h2>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <label class="switch"><input type="checkbox" id="engine-toggle"> <b>Engine ON</b></label>
+        <span class="chip chip-other" id="engine-state">PAUSED</span>
+        <button class="btn btn-sm btn-ghost" id="btn-refresh-universe">Refresh universe</button>
+        <button class="btn btn-sm btn-ghost" id="btn-export-trades">Export trades CSV</button>
+        <button class="btn btn-sm btn-ghost" id="btn-export-all">Export all state (JSON)</button>
+        <button class="btn btn-sm" id="btn-reset" style="background:var(--bad)">Reset portfolio</button>
+      </div>
+    </div>
+    <p class="small muted" id="universe-note">Loading universe…</p>
+    <div id="strategies-box"></div>
+    <p class="small muted">Strategies only trade markets whose live quotes this page polls. "Order-book Imbalance" additionally
+      polls the book of your open imbalance positions. Trades are categorized by strategy, topic and outcome automatically.</p>
+  </section>
+
+  <section class="stat-grid" style="margin-bottom:16px">
+    <div class="stat"><span>Cash</span><b class="stat-value" id="stat-cash"></b></div>
+    <div class="stat"><span>Equity</span><b class="stat-value" id="stat-equity"></b></div>
+    <div class="stat"><span>Total return</span><b class="stat-value" id="stat-return"></b></div>
+    <div class="stat"><span>Realized P&L</span><b class="stat-value" id="stat-realized"></b></div>
+    <div class="stat"><span>Unrealized</span><b class="stat-value" id="stat-unrealized"></b></div>
+    <div class="stat"><span>Fees paid</span><b class="stat-value" id="stat-fees"></b></div>
+    <div class="stat"><span>Win rate</span><b class="stat-value" id="stat-wr"></b></div>
+    <div class="stat"><span>Max drawdown</span><b class="stat-value" id="stat-dd"></b></div>
+    <div class="stat"><span>Open positions</span><b class="stat-value" id="stat-open"></b></div>
+  </section>
+
+  <section class="card">
+    <div class="panel-head"><h2>Portfolio equity curve</h2><span class="stamp" id="perf-stamp"></span></div>
+    <div class="chart-box"><canvas id="equity-chart"></canvas></div>
+  </section>
+
+  <div class="grid-2">
+    <section class="card">
+      <h2>P&L by strategy</h2>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>Strategy</th><th>Closed</th><th>W/L</th><th>P&L</th></tr></thead>
+        <tbody id="by-strategy-tbody"><tr><td colspan="4" class="muted">No closed trades yet.</td></tr></tbody>
+      </table></div>
+    </section>
+    <section class="card">
+      <h2>P&L by topic</h2>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>Topic</th><th>Closed</th><th>W/L</th><th>P&L</th></tr></thead>
+        <tbody id="by-topic-tbody"><tr><td colspan="4" class="muted">No closed trades yet.</td></tr></tbody>
+      </table></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Open positions (marked to live demo quotes)</h2>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Event</th><th>Market</th><th>Topic</th><th>Strategy</th><th>Side</th><th>Ct</th><th>Entry</th><th>Mark</th><th>uP&L</th><th>Opened</th></tr></thead>
+      <tbody id="positions-tbody"><tr><td colspan="10" class="muted">No open positions.</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>Live trade stream</h2>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Time</th><th>Kind</th><th>Event</th><th>Topic</th><th>Strategy</th><th>Fill</th><th>P&L</th></tr></thead>
+      <tbody id="stream-tbody"><tr><td colspan="7" class="muted">No activity yet.</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <div class="panel-head">
+      <h2>Closed trades &amp; analysis</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <select id="f-strategy"></select>
+        <select id="f-topic"></select>
+        <select id="f-outcome">
+          <option value="">All outcomes</option>
+          <option value="win">Wins</option>
+          <option value="loss">Losses</option>
+          <option value="flat">Flat</option>
+        </select>
+      </div>
+    </div>
+    <p class="sub">Every closed trade shows its categorization and exit reason (target / stop / timeout / flip / settlement).</p>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Closed</th><th>Event</th><th>Topic</th><th>Strategy</th><th>Position</th><th>Entry → Exit</th><th>Fees</th><th>P&L</th><th>Outcome</th><th>Hold</th></tr></thead>
+      <tbody id="trades-tbody"><tr><td colspan="10" class="muted">No closed trades yet.</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>Optional: connect your real Kalshi <i>demo</i> account (read-only)</h2>
+    <div id="connector-panel"></div>
+  </section>
+
+  <footer>
+    Simulated fills reference live demo quotes; they are not exchange-executed orders.
+    <a href="verification.html">Methodology</a> · <a href="flagged.html">Flagged for review (F2, F11)</a>
+  </footer>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/kalshi.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/connector.js"></script>
+<script src="js/strategies.js"></script>
+</body>
+</html>

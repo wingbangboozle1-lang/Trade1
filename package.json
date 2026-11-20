@@ -1,8 +1,13 @@
 {
-  "name": "kalshi-demo-market-lens",
+  "name": "trade1-kalshi-dashboard",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "description": "Live interactive Kalshi demo dashboard: gas, elections, culture, crypto, golf; price/liquidity charts, sharp-move flags, simulated strategy engine, portfolio tracking.",
   "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs",
     "test": "node --test tests/*.test.js && python3 scripts/generate_topic_pages.py --check && python3 tests/check_site.py"
-  }
+  },
+  "license": "UNLICENSED"
 }

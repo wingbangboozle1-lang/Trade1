@@ -11,7 +11,7 @@ A static GitHub Pages dashboard prototype for Kalshi's **demo** market-data API.
 - Records a price alert when a market's observed `yes_bid_dollars` changes by at least $0.10 between successful snapshots. Two scrolling feeds show all qualifying moves and an experimental liquidity/spread-screen subset. Each alert also links to a title-based Google News search for possible context; no article is verified or attributed as the cause of a move.
 - Charts a selected market's YES bid over 30 seconds, 5 minutes, 1 hour, or 6 hours, sampled locally while this page is open. It fetches the selected market's public orderbook and shows a selectable top 5/10/20/50 YES/NO bid depth with the reported contract quantity at each price.
 - Automatically records browser-local paper trades by default after a candidate passes the documented-on-page screen. Momentum and mean-reversion strategies are available for comparison. Paper P&L is indicative only: fills, fees, queue position, slippage, and partial fills are not simulated.
-- Keeps a local resolution watch for tickers discovered by this browser and displays a result only when the API returns settled status and `result` is `yes` or `no`. Local storage is not a server-side archive.
+- Keeps a local resolution watch for tickers discovered by this browser and displays a result only when the API returns `status: settled` or the review-observed `status: finalized`, together with `result: yes` or `no`. Raw status labels remain visible. Local storage is not a server-side archive.
 
 ## Important boundaries
 
