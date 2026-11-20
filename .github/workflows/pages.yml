@@ -31,6 +31,14 @@ jobs:
           node-version: '20'
       - name: Unit checks (offline fixtures)
         run: node scripts/test_lib.mjs
+      - name: Engine + smoke tests (published site, offline)
+        run: |
+          node --check assets/app.js
+          node --check assets/model.js
+          node tests/engine.test.js
+          node tests/smoke.test.js
+      - name: Site build + link validation (published root site)
+        run: node tools/build.mjs
       - name: Check links and that every row has an official source_url
         run: node scripts/check_site.mjs
 

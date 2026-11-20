@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Suggestions</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Suggestions — more live, more interactive</h1>
+    <p>Concrete improvements to make the dashboard faster to read and faster to act on</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="suggestions.html" class="active">Suggestions</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="notice"><b>How to read this page.</b> Everything in section 1 already runs with <b>zero manual input</b>. Section 2 is the improvement backlog, ordered by trader value, each labeled with its effort and any official-source constraint. Nothing here is implemented yet unless it says “shipped”; nothing is claimed as done that is not on the <a href="dashboard.html">dashboard</a> today.</div>
+
+  <section class="box">
+    <h2>1. Already live (shipped, no manual input)</h2>
+    <div class="tablewrap"><table>
+      <tr><th>Capability</th><th>Where</th><th>Detail</th></tr>
+      <tr><td>Live REST polling</td><td><a href="dashboard.html">Dashboard</a></td><td>Watchlist prices every 12 s, open-event discovery every 6 min, order book every 8 s — all automatic while a tab is open.</td></tr>
+      <tr><td>≥ $0.10 swing alerts, two chats</td><td><a href="dashboard.html">Dashboard</a></td><td>Left chat = all in-scope events; right chat = high-ROI screen. Each alert links the official market page, settlement sources, and a labeled news-search lead.</td></tr>
+      <tr><td>Price chart with time windows</td><td><a href="dashboard.html">Dashboard</a></td><td>60 s / 5 m / 15 m / 1 h / 6 h / 24 h; long windows add official 1-minute candlesticks.</td></tr>
+      <tr><td>Per-price liquidity</td><td><a href="dashboard.html">Dashboard</a></td><td>Official order-book ladder: contracts available at each price, depth totals, spread.</td></tr>
+      <tr><td>Resolution tracking (YES / NO)</td><td><a href="dashboard.html">Dashboard</a> · <a href="trades.html">Strategy Lab</a></td><td>Watched markets re-checked every poll; the exchange’s own <code>result</code> is recorded verbatim when it settles.</td></tr>
+      <tr><td>Automated paper strategies</td><td><a href="trades.html">Strategy Lab</a></td><td>Four strategies run on live quotes with official taker fees; P&amp;L categorized by strategy and topic.</td></tr>
+      <tr><td>Verified snapshot refresh</td><td><a href="data.html">Data</a></td><td>GitHub Actions re-verifies the API twice hourly and commits snapshots with a per-request log.</td></tr>
+      <tr><td>Sharp-move jump log with links</td><td><a href="dashboard.html">Dashboard</a> (chart)</td><td>Shipped this session: ▲/▼ markers on the chart plus a per-market jump list with event and source links.</td></tr>
+    </table></div>
+  </section>
+
+  <section class="box">
+    <h2>2. Suggestions backlog</h2>
+    <div class="tablewrap"><table>
+      <tr><th>#</th><th>Suggestion</th><th>Why it helps a trader</th><th>Effort / constraint</th></tr>
+      <tr><td>1</td><td><b>Desktop notifications + sound toggle</b> for ≥ $0.10 alerts</td><td>See swings without staring at the tab; pair with a per-topic mute.</td><td><b>Quick win</b> — pure client-side (Notification API), no new data source.</td></tr>
+      <tr><td>2</td><td><b>Sparklines in the market table</b></td><td>“Simplified graphs”: at-a-glance 5-minute shape per row without opening the chart.</td><td><b>Quick win</b> — data already collected in-session.</td></tr>
+      <tr><td>3</td><td><b>Shareable URL state</b> (<code>?topic=crypto&amp;market=TICKER&amp;win=60s</code>)</td><td>Send a colleague the exact view you are looking at; restores selection on reload.</td><td><b>Quick win</b> — query params only.</td></tr>
+      <tr><td>4</td><td><b>Depth heatmap</b> of the order book</td><td>Read liquidity at a glance instead of scanning the ladder — colors by contracts at each price.</td><td><b>Quick win</b> — order book already polled every 8 s.</td></tr>
+      <tr><td>5</td><td><b>Trade tape panel</b> under the chart</td><td>See the actual prints (price, size, side) that preceded a jump — evidence, not speculation.</td><td><b>Quick win</b> — official <a href="https://docs.kalshi.com/api-reference/market/get-trades" target="_blank" rel="noopener">GET /markets/trades</a> is public.</td></tr>
+      <tr><td>6</td><td><b>Inline headlines next to jumps</b></td><td>Each ≥ $0.10 marker could show RSS/Google News results for the event title. The site already links a news search; headlines would remove a click. Causality must stay labeled unverified.</td><td><b>Medium</b> — needs a news feed source; keep “lead, not cause” labeling.</td></tr>
+      <tr><td>7</td><td><b>Web Push alerts</b> (service worker)</td><td>Alerts arrive with the tab closed — the biggest single jump in “live” feel.</td><td><b>Needs infra</b> — GitHub Pages is static; push needs a small relay or third-party service.</td></tr>
+      <tr><td>8</td><td><b>WebSocket price feed</b></td><td>Sub-second updates instead of 12 s REST polls (REST responses are cached by the exchange — official docs).</td><td><b>Official constraint</b>: the WS handshake requires signed auth headers that browsers cannot attach (<a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">WebSocket quick start</a>) → needs a local proxy or desktop wrapper. Flagged on <a href="flagged.html">Flagged</a>.</td></tr>
+      <tr><td>9</td><td><b>Keyboard-first trader mode</b></td><td><code>j</code>/<code>k</code> move rows, <code>Enter</code> loads the book, <code>b</code>/<code>s</code> mark a paper trade — faster than the mouse during fast markets.</td><td><b>Quick win</b> — local only.</td></tr>
+      <tr><td>10</td><td><b>Close-time calendar per topic</b></td><td>Most ≥ $0.10 moves cluster near settlement windows; a calendar of upcoming closes makes that visible before it happens.</td><td><b>Quick win</b> — <code>close_time</code> is already in every market row.</td></tr>
+      <tr><td>11</td><td><b>Alert-rule tuning</b> (threshold, cooldown, per-topic mute, persisted)</td><td>The brief fixes the rule at ≥ $0.10; a persisted override lets a power user tighten to $0.05 for thin markets without editing code.</td><td><b>Medium</b> — must keep the default rule exactly as documented in <a href="methods.html">Methods</a>.</td></tr>
+      <tr><td>12</td><td><b>Small-multiple topic charts</b></td><td>One simplified chart per topic (gas/elections/culture/crypto/golf) on the landing page — trend of the topic’s most-traded market at a glance.</td><td><b>Medium</b> — reuse the existing chart code.</td></tr>
+      <tr><td>13</td><td><b>Demo-account portfolio panel</b></td><td>Live balance/positions from a Kalshi <b>demo</b> account, next to the paper portfolio for comparison.</td><td><b>Blocked on credentials</b>: needs the owner’s demo API keys as repository secrets (setup in <code>scripts/demo_account/README.md</code> after the demo-account track merges). Never enter keys on the page itself. Details: <a href="flagged.html">Flagged</a>.</td></tr>
+    </table></div>
+    <p class="muted small">Priorities assume a trader watching the dashboard live: 1–5 are pure client-side and can ship without any new dependency; 7–8 are the “feel live” upgrades but carry infrastructure or official-constraint costs; 13 depends on credentials only the repo owner can provide.</p>
+  </section>
+
+  <section class="box">
+    <h2>3. Design principles we will keep</h2>
+    <ul class="small">
+      <li><b>Topics stay separate, events stay together.</b> Five topic pages; within a topic, events are ranked and grouped — never mixed across topics in one table.</li>
+      <li><b>Facts vs opinion.</b> The all-events chat shows observed moves; the model chat shows heuristic picks, always labeled.</li>
+      <li><b>Blank beats invented.</b> Any value that cannot be confirmed from an official source stays blank and is listed on <a href="flagged.html">Flagged for Review</a>.</li>
+      <li><b>Every row links its source.</b> See <a href="data.html">Data</a> and <a href="sources.html">Sources</a>.</li>
+      <li><b>No credentials, no orders.</b> The page never asks for keys and never transmits an order; paper trading is local to the browser.</li>
+    </ul>
+  </section>
+
+  <p class="footer">Suggestions are proposals, not commitments; anything not marked “shipped” is not in the product yet. Sources: <a href="sources.html">official Kalshi documentation</a>. Not financial advice.</p>
+</main>
+</body>
+</html>

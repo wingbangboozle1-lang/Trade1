@@ -77,3 +77,67 @@ in place and summarized at the bottom; they are also published on the site's
 - Snapshot evidence: `data/log.md` (every request logged), `data/cors.json`, `data/meta.json`.
 - Live probes: open any linked endpoint URL from `data.html` or `sources.html` in a browser.
 - Site build: all pages return HTTP 200 from a static server; JS passes `node --check`; model harness passes (see session log in COORDINATION.md).
+
+---
+
+## Final integration — line-by-line verification (session `dacc8b5c`, 2026-11-20 UTC)
+
+Scope: every claim the published root site makes about the Kalshi demo API, re-checked this
+session against official documentation and live demo-endpoint responses (page-fetch from the
+session; the build sandbox itself has no route to `*.kalshi.co`). Each row: claim → official
+source → result. Anything not confirmed is left on [flagged.html](flagged.html), never inferred.
+
+### Sources read this session (official)
+
+| Source | URL |
+|---|---|
+| Demo environment (endpoint table) | https://docs.kalshi.com/getting_started/demo_env |
+| Fee schedule PDF (effective July 7, 2026) | https://kalshi.com/docs/kalshi-fee-schedule.pdf |
+| Orderbook responses (format, ordering, reciprocal asks) | https://docs.kalshi.com/getting_started/orderbook_responses |
+| Market settlement ($1/contract, zero settlement fee) | https://docs.kalshi.com/getting_started/market_settlement |
+| Quick start: market data (public, no auth; UI URL pattern) | https://docs.kalshi.com/getting_started/quick_start_market_data |
+| Get Market (per-row resolved links) | https://docs.kalshi.com/api-reference/market/get-market |
+
+### Live demo-endpoint probes (this session)
+
+| Probe | Result | Confirms |
+|---|---|---|
+| `GET /exchange/status` | 200, `trading_active: true` | demo exchange reachable, demo shards active |
+| `GET /events?status=open&limit=200` | 200 (paged, 19 chunks) | `CFG.eventsLimit = 200` in `assets/app.js` |
+| `GET /events?status=open&limit=1000` | rejected (fetch error) | flagged rule: 1000 → 400, use 200 |
+| `GET /markets?status=open&limit=3&mve_filter=exclude` | 200; fields `status:"active"`, `last_price_dollars`, `previous_price_dollars`, `volume_fp`, `volume_24h_fp`, `open_interest_fp`, `yes_bid/ask_dollars`, `result:""` | field units in Methods; demo `status:"active"` vs documented `open/settled` (flagged) |
+| `GET /series/KXAAAGASM/markets/KXAAAGASM-26NOV30-3.90/candlesticks?start_ts=…&end_ts=…&period_interval=1` | 200, `candlesticks: []` | candlestick path used by `fetchCandles()`; empty-candles flag for KXAAAGASM stands |
+| `GET /markets/KXAAAGASM-26NOV30-3.90/orderbook` | 200, `orderbook_fp: {yes_dollars: [], no_dollars: []}` | documented empty-book behavior; orderbook path correct |
+| `GET /markets/KXNATGAS15M-26NOV201245-45` | 200; `result:"no"`, `status:"finalized"`, `settlement_ts:"2026-11-20T17:45:24.334041Z"` | the resolved-archive row in `data/resolved.json` matches **verbatim**; demo uses `finalized` (flagged vs docs `settled`); per-row source link added to `data.html` |
+| `GET /events?status=open&limit=200` (body sample) | `settlement_sources` containing template entries (`url:"https://kalshi.com/"` for generic names) | placeholder-URL flag confirmed live |
+
+### Claim checks (site → official source → result)
+
+1. **Demo endpoint pair** (recommended `external-api.demo.kalshi.co`, also `demo-api.kalshi.co`, WS pair) — [demo_env](https://docs.kalshi.com/getting_started/demo_env) — **match** (site header, README, `CFG.bases`).
+2. **Taker fee `roundup(M × 0.07 × C × P × (1−P))`, M default 1; maker 0.0175, M default 0; no settlement fee** — [fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (table row: 100 contracts @ $0.50 → $1.75) — **match** with `assets/model.js` fee math and `tests/engine.test.js` (36/36, includes that table row).
+3. **Orderbook: `orderbook_fp.{yes_dollars,no_dollars}` = `[price_dollars, count_fp]`, ascending, best bid last, bids only, YES ask = 1 − NO bid** — [orderbook_responses](https://docs.kalshi.com/getting_started/orderbook_responses) — **match** with `bookViews()` in `assets/app.js`.
+4. **Winning side receives $1 per contract; settlement fee zero for yes/no** — [market_settlement](https://docs.kalshi.com/getting_started/market_settlement) — **match** with paper settlement in `assets/model.js`.
+5. **Public unauthenticated market data; Kalshi UI pattern `kalshi.com/markets/<ticker>`** — [quick start market data](https://docs.kalshi.com/getting_started/quick_start_market_data) — **match** with `kalshiEventUrl()` and the Data-page links.
+6. **Alert rule ≥ $0.10 either direction, integer tolerance 1e-9 for 4-dp fixed-point prices** — official prices are 4-dp strings (observed live: `"0.4500"`) — **match** with `checkAlert()`; exact-$0.10 float trap documented by session f6094c46 and covered by `tests/engine.test.js`.
+7. **Estimated dollar figures labeled estimates** — no official per-market dollar-notional field in live responses (observed field set above) — **match** (labeling present on dashboard, data page, methods).
+8. **No WebSocket in the browser** — WS handshake requires signed auth headers (documented in [WS quick start](https://docs.kalshi.com/getting_started/quick_start_websockets), cited in `assets/app.js` header comment) — **flagged, not a bug**.
+9. **CORS: demo API reflects any browser origin** — `data/cors.json` (GitHub-runner probes with verbatim headers, 2026-11-20) — **recorded evidence**; not re-probeable from this sandbox.
+
+### Validation runs (this session, after the gap-fill)
+
+- `node tools/build.mjs` → **BUILD OK — 33 HTML, 23 JS files validated, 0 broken links** (scope extended to the published root site and `assets/`).
+- `node scripts/check_site.mjs` → **16 HTML, 249 links, 1,250 rows, 801 resolved, 0 failures** (scope extended to dashboard/trades/data/methods/suggestions; new checks: topic-snapshot `source_urls` on the official base, `event_ticker` per row, `resolved.json` result verbatim yes/no).
+- `node scripts/test_lib.mjs` → passed · `node tests/engine.test.js` → **36/36** · `node tests/smoke.test.js` → OK · `node --check assets/app.js assets/model.js` → OK.
+- CI (`.github/workflows/pages.yml`) now runs engine tests + `tools/build.mjs` + `check_site.mjs` on every push/PR.
+
+### Changes made in this session (gap-fill, no other session’s merged work edited)
+
+1. **`suggestions.html`** (new) — the brief’s “make suggestions” deliverable: shipped vs backlog, effort labels, official-source constraints (WS auth, push infra, credentials), linked from all 13 navs.
+2. **Chart sharp-move markers + jump list** (`assets/app.js`, `assets/site.css`) — ▲/▼ markers at ≥ $0.10 moves on the selected market’s chart, plus a per-market jump list with the official market link, settlement-source links, and a labeled news-search lead (link = lead, never claimed cause).
+3. **Per-row source links** (`data.html`) — every resolved row now links the exact official `GET /markets/{ticker}` response for that row (endpoint verified live this session), in addition to the settled-batch URL.
+4. **Verification coverage** (`scripts/check_site.mjs`, `tools/build.mjs`, `.github/workflows/pages.yml`) — the published pages and `assets/` engine are now inside the automated checks (they previously were not).
+5. **`EXECUTIVE_SUMMARY.md`** — corrected the deployment line (root site, not `site/`) and the strategy/page rows to match the deployed build.
+
+### Irregularities (unchanged; all published on flagged.html with sources)
+
+Demo `status:"active"`/`"finalized"` vs documented `open/settled`; placeholder `settlement_sources` URLs; KXAAAGASM empty candles (cause unknown); no official dollar-notional (rankings are estimates); unauthenticated rate limits unpublished; REST cache lag (alerts lag seconds); WebSocket requires signed headers (no browser feed); demo-account portfolio/execution needs owner-provided demo API keys (never requested in chat); maker fees not modeled; ROI screen is a documented heuristic, not verified alpha.

@@ -1,6 +1,8 @@
 # Executive Summary — Kalshi Demo Monitor
 
-**Date:** 2026-11-20 · **Repo:** `wingbangboozle1-lang/Trade1` · **Site:** GitHub Pages (`site/`) · **Data source:** official Kalshi demo REST API `https://external-api.demo.kalshi.co/trade-api/v2` (public endpoints only)
+**Date:** 2026-11-20 · **Repo:** `wingbangboozle1-lang/Trade1` · **Site:** GitHub Pages root — <https://wingbangboozle1-lang.github.io/Trade1/> (canonical deployment; parallel session builds also serve from `/site/`, `/monitor/`, `/trade1/`, `/a2ec5543/`) · **Data source:** official Kalshi demo REST API `https://external-api.demo.kalshi.co/trade-api/v2` (public endpoints only)
+
+> **Final integration note (session `dacc8b5c`, 2026-11-20):** this summary describes the repo’s delivered feature set. The canonical deployed site at the root implements it with the strategy set *momentum / fade / favorite-harvest / 50¢ breakout* (`assets/model.js`) and chart windows 60 s / 5 m / 15 m / 1 h / 6 h / 24 h; each table row below was re-checked against the official sources linked in [sources.html](https://wingbangboozle1-lang.github.io/Trade1/sources.html) and the line-by-line log in [REVIEW.md](REVIEW.md).
 
 ## 1. What was built
 
@@ -12,13 +14,13 @@ A live, interactive monitoring and strategy-testing dashboard for the Kalshi **d
 | Live alerting on swings ≥ $0.10 either direction | Watcher rotates top events every ~2.5 s; alerts fire on (a) moves between consecutive observations and (b) exchange-reported `previous_price → last_price` moves; integer-cent comparison avoids float misses; 45 s per-market cooldown damps oscillation |
 | Two scrolling chats | "All events" feed + "Model likes" feed (heuristic score ≥ 0.62 and fee-adjusted est. ROI ≥ 5%); both auto-scroll with timestamps, direction, topic pills, and links |
 | Track events until resolution, yes/no | Tracked events re-checked against `status=settled` listings; the official `result` field is copied verbatim into an archive (per-topic and global pages); never inferred |
-| Automate simulated trades / strategies | Four paper strategies (Momentum Rider, Fade the Spike, Extreme Value, Liquidity Scalper) run automatically against observed top-of-book; official fee math; per-strategy and per-topic P&L analytics |
+| Automate simulated trades / strategies | Four paper strategies (momentum, fade, favorite-harvest, 50¢ breakout — `assets/model.js`) run automatically against observed top-of-book; official fee math; per-strategy and per-topic P&L analytics |
 | Portfolio performance | Paper equity, cash, mark value, realized P&L, fees, win rates, open positions, closed-trade log, equity curve — local only |
 | Interactive price graphs | Canvas chart, X = time with **60 s / 5 m / 15 m / 1 h / 6 h / 24 h** windows, Y = contract price; short windows use live samples, long windows add official 1-minute candlesticks; alert markers plotted |
 | Liquidity / contracts at price | Official orderbook ladder (`/markets/{ticker}/orderbook`): YES bids and NO bids with contracts at each price, implied opposite-side asks, depth totals, spread, OI |
 | Events + links that may have caused jumps | Every alert links the official API response, the event data, demo.kalshi.co, and a news-search link **labeled unverified** — causation is never asserted |
 | Suggestions for more liveness | Findings page includes a trader's playbook; the site itself is fully auto-running (no manual input) |
-| GitHub Pages site, category subpages, tables with sources | Landing page + 5 topic subpages + strategies/findings/resolved/flagged pages; every committed table row carries the official request URL or doc link that produced it |
+| GitHub Pages site, category subpages, tables with sources | Landing page + live dashboard + Strategy Lab + data/methods/sources/flagged/suggestions pages + 5 topic subpages; every committed table row carries the official request URL or doc link that produced it |
 | Verification policy | Values confirmed from official sources only; unconfirmed values left **blank and flagged**; full log in `docs/VERIFICATION.md` and on the site's Flagged page |
 | Parallel-session coordination | `COORDINATION.md` task board updated (claim, scope, verification, sources, irregularities); single-branch constraint documented |
 | PR → merge → Pages deploy | Executed at the end of this session without waiting for review |

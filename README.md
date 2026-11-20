@@ -15,6 +15,7 @@ elections, culture, crypto, and golf**. Deployed at
 | `trades.html` | Strategy Lab: automated **paper** strategies, portfolio performance, P&L by strategy/topic, equity curve, resolution log |
 | `data.html` | Verified data tables — every row links the official URL it came from |
 | `methods.html` | Full methodology: endpoints, field units, alert rule, ROI formula, strategies, fees, topic mapping |
+| `suggestions.html` | Suggestions: how to make the site more live and interactive (shipped vs backlog, effort and official-source constraints) |
 | `flagged.html` | Flagged for Review — everything unverified, contradictory, or deliberately not implemented |
 | `sources.html` | Official sources used for verification |
 

@@ -24,6 +24,7 @@
     <a href="topics/golf.html">Golf</a>
     <a href="data.html" class="active">Data</a>
     <a href="methods.html">Methods</a>
+    <a href="suggestions.html">Suggestions</a>
     <a href="flagged.html">Flagged</a>
     <a href="sources.html">Sources</a>
   </nav>
@@ -91,10 +92,11 @@ fetch('data/categories.json',{cache:'no-store'}).then(function(r){return r.ok?r.
 fetch('data/resolved.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(d){
   var t=document.getElementById('t-resolved');
   var src=(d&&d.source_urls&&d.source_urls[0])||'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled';
+  var base=String(src).split('/markets?')[0];
   t.innerHTML='<tr><th>Market</th><th>Topic</th><th>Result</th><th>Settlement (UTC)</th><th>Settlement value</th><th>Volume</th><th>Source</th></tr>'+
     (d&&d.markets?d.markets.slice(0,80).map(function(m){return '<tr><td><a target="_blank" rel="noopener" href="'+eventUrl(m.event_ticker)+'">'+esc(m.title||m.ticker)+'</a><br><small class="muted">'+esc(m.ticker)+'</small></td><td>'+esc(m._topic||'')+'</td>'+
     '<td><span class="badge '+(m.result==='yes'?'yes':'no')+'">'+esc(String(m.result||'').toUpperCase())+'</span></td><td>'+esc((m.settlement_ts||'').replace('T',' ').slice(0,19))+'</td><td>'+money(m.settlement_value_dollars)+'</td><td>'+fmt(m.volume_fp)+'</td>'+
-    '<td class="src"><a target="_blank" rel="noopener" href="'+esc(src)+'">settled endpoint</a></td></tr>';}).join('')||'<tr><td colspan="7" class="muted">none in scope</td></tr>':'<tr><td colspan="7" class="muted">unavailable</td></tr>');
+    '<td class="src"><a target="_blank" rel="noopener" href="'+esc(src)+'">settled batch</a> · <a target="_blank" rel="noopener" href="'+esc(base+'/markets/'+encodeURIComponent(m.ticker))+'">this market</a></td></tr>';}).join('')||'<tr><td colspan="7" class="muted">none in scope</td></tr>':'<tr><td colspan="7" class="muted">unavailable</td></tr>');
 });
 
 var TOPICS=['gas-prices','elections','culture','crypto','golf'];

@@ -38,14 +38,18 @@ async function walk(dir) {
 }
 
 /* The site is served from the repo root (GitHub Pages source: branch main, path /).
- * Site HTML = root index.html + pages/*.html + site/*.html (site/ build, session sess-a1-9a0ad587).
- * Site JS = js/*.js + site/js/*.js. Vendored third-party JS (site/vendor) is skipped. */
+ * Published site HTML (session bb8bd1ff line) = root pages: index, dashboard, trades,
+ * data, methods, flagged, sources, suggestions, topics/*. Also validated: pages/*.html
+ * and site/*.html (parallel sessions' trees, still served from the repo).
+ * Site JS = assets/*.js (published engine) + js/*.js + site/js/*.js. */
 const HTML_GLOB = [
-  "index.html", "pages",
+  "index.html", "dashboard.html", "trades.html", "data.html", "methods.html",
+  "flagged.html", "sources.html", "suggestions.html", "topics",
+  "pages", "live.html", "resolved.html", "strategies.html",
   "site/index.html", "site/topics", "site/strategies.html",
   "site/flagged.html", "site/suggestions.html", "site/verification.html",
 ];
-const JS_GLOB = ["js", "site/js"];
+const JS_GLOB = ["assets", "js", "site/js"];
 
 async function checkJsSyntax(file) {
   return new Promise((res) => {
@@ -66,6 +70,8 @@ function extractRefs(html) {
   while ((m = re.exec(html))) {
     const url = m[1];
     if (/^(https?:|mailto:|#|tel:)/i.test(url)) continue;
+    // Skip refs assembled at runtime by inline JS (href="'+fn()+'" …) — not static links.
+    if (/['+()]/.test(url)) continue;
     refs.push(url.split("#")[0].split("?")[0]);
   }
   return refs;
@@ -105,9 +111,12 @@ async function main() {
     }
   }
 
-  // 3. Nav/topic target pages exist
+  // 3. Nav/topic target pages exist (published root site first, then the parallel trees)
   const navTargets = [
-    "index.html",
+    "index.html", "dashboard.html", "trades.html", "data.html", "methods.html",
+    "flagged.html", "sources.html", "suggestions.html",
+    "topics/gas-prices.html", "topics/elections.html", "topics/culture.html",
+    "topics/crypto.html", "topics/golf.html",
     "pages/gas.html", "pages/elections.html", "pages/culture.html",
     "pages/crypto.html", "pages/golf.html",
     "pages/portfolio.html", "pages/flagged.html",
