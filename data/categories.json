@@ -1,0 +1,9 @@
+{
+ "generated_at": "2026-11-20T13:19:05.597977+00:00",
+ "source_urls": [
+  "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=1000"
+ ],
+ "open_event_count": 0,
+ "categories": {},
+ "unclassified_events": 0
+}

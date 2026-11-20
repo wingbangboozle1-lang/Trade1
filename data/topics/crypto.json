@@ -1,0 +1,25 @@
+{
+ "topic": "crypto",
+ "label": "Crypto",
+ "generated_at": "2026-11-20T13:19:05.597977+00:00",
+ "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
+ "source_urls": {
+  "events": [
+   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=1000"
+  ],
+  "markets": [
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwIv--A2AYQ4LPi2AMSK0tYTkZMTU9TVFJTSFlEUy0yNk5PVjIyVEVOREFMLVRFTlRQT0xMQVJEMjA",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgsIvu-A2AYQkISsPxIeS1hQQUxMQURJVU1ILTI2Tk9WMjMxNi1UODkzLjQ5"
+  ]
+ },
+ "definition": {
+  "categories": [
+   "Crypto"
+  ],
+  "title_keywords": "",
+  "series_prefix": "^(KX)?(BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM)"
+ },
+ "event_count": 0,
+ "events": []
+}

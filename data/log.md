@@ -1,0 +1,53 @@
+# Verification & collection log (UTC)
+
+- 13:19:05Z collector start 2026-11-20T13:19:05.597977+00:00 base=https://external-api.demo.kalshi.co/trade-api/v2
+- 13:19:05Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=(none) -> 200; ACAO=None
+- 13:19:05Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=https://wingbangboozle1-lang.github.io -> 200; ACAO='https://wingbangboozle1-lang.github.io'
+- 13:19:05Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=https://example.com -> 200; ACAO='https://example.com'
+- 13:19:06Z CORS GET https://demo-api.kalshi.co/trade-api/v2/exchange/status origin=https://wingbangboozle1-lang.github.io -> 200; ACAO='https://wingbangboozle1-lang.github.io'
+- 13:19:06Z CORS OPTIONS https://external-api.demo.kalshi.co/trade-api/v2/markets origin=https://wingbangboozle1-lang.github.io -> 204; ACAO='https://wingbangboozle1-lang.github.io'
+- 13:19:06Z WROTE data/cors.json (3,093B)
+- 13:19:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status -> 200, 632B in 0.1s (exchange status)
+- 13:19:06Z WROTE data/exchange-status.json (907B)
+- 13:19:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=1000 -> 400 (56B)  body=b'{"error":{"code":"bad_request","message":"bad request"}}'
+- 13:19:06Z open events collected: 0
+- 13:19:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000 -> 200, 2,393,601B in 0.2s 
+- 13:19:06Z   page 1: +1000 items (total 1000); cursor=present
+- 13:19:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwIv--A2AYQ4LPi2AMSK0tYTkZMTU9TVFJTSFlEUy0yNk5PVjIyVEVOREFMLVRFTlRQT0xMQVJEMjA -> 200, 2,038,456B in 0.2s 
+- 13:19:06Z   page 2: +1000 items (total 2000); cursor=present
+- 13:19:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgsIvu-A2AYQkISsPxIeS1hQQUxMQURJVU1ILTI2Tk9WMjMxNi1UODkzLjQ5 -> 200, 2,204,703B in 0.2s 
+- 13:19:06Z   page 3: +1000 items (total 3000); cursor=present
+- 13:19:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwI58WA2AYQ4MjP4gESJUtYTkJBUkVCLTI2Tk9WMjBJTkRDTEUtSU5ESVpVQkFDNDAtMTQ -> 200, 2,188,250B in 0.2s 
+- 13:19:07Z   page 4: +1000 items (total 4000); cursor=present
+- 13:19:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwI5MWA2AYQ8Mbn1QESFEtYQk5CLTI2Tk9WMjEwMS1CNDYy -> 200, 1,814,394B in 0.2s 
+- 13:19:07Z   page 5: +1000 items (total 5000); cursor=present
+- 13:19:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&cursor=CgwI48WA2AYQ4M_E1wESGktYSFlQRUQtMjZOT1YyMTAxLVQ1OC4yNDk5 -> 200, 1,820,549B in 0.2s 
+- 13:19:07Z   page 6: +1000 items (total 6000); cursor=present
+- 13:19:07Z open markets collected: 6000
+- 13:19:07Z market statuses observed: {'active': 6000}
+- 13:19:07Z WROTE data/topics/gas-prices.json (942B)
+- 13:19:07Z WROTE data/topics/elections.json (902B)
+- 13:19:07Z WROTE data/topics/culture.json (945B)
+- 13:19:07Z WROTE data/topics/crypto.json (907B)
+- 13:19:07Z WROTE data/topics/golf.json (890B)
+- 13:19:07Z WROTE data/categories.json (230B)
+- 13:19:07Z categories observed: {}; unclassified events: 0
+- 13:19:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000 -> 200, 2,220,247B in 0.2s 
+- 13:19:07Z   page 1: +1000 items (total 1000); cursor=present
+- 13:19:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000&cursor=CgsI2o2B2AYQgKe0FBIZS1hFVEhELTI2Tk9WMjAwNy1UMTY1NC45OQ -> 200, 1,906,593B in 0.2s 
+- 13:19:08Z   page 2: +1000 items (total 2000); cursor=present
+- 13:19:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000&cursor=CgsI2o2B2AYQsOiZFBIaS1hIWVBFRC0yNk5PVjIwMDgtVDQ5LjI0OTk -> 200, 1,892,213B in 0.2s 
+- 13:19:08Z   page 3: +1000 items (total 3000); cursor=present
+- 13:19:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000&cursor=CgwI2Y2B2AYQ6OKtzQMSGUtYRVRIRC0yNk5PVjIwMDgtVDE5NjkuOTk -> 200, 1,893,438B in 0.2s 
+- 13:19:08Z   page 4: +1000 items (total 4000); cursor=present
+- 13:19:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000&cursor=CgwI2Y2B2AYQ6OHdywMSFUtYRVRILTI2Tk9WMjAwNy1CMjQxNw -> 200, 1,910,262B in 0.2s 
+- 13:19:08Z   page 5: +1000 items (total 5000); cursor=present
+- 13:19:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794921547&limit=1000&cursor=CgwI2Y2B2AYQ6OuzygMSFktYQlRDLTI2Tk9WMjAwNy1CNjc3NTA -> 200, 2,145,000B in 0.2s 
+- 13:19:08Z   page 6: +1000 items (total 6000); cursor=present
+- 13:19:08Z settled markets collected (last 3 days): 6000
+- 13:19:08Z WROTE data/resolved.json (24,105B)
+- 13:19:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets/KXMVECROSSCATEGORY-S20267SSRGOEDWHBX5CEX-3ZIQE7WF5/orderbook -> 200, 51B in 0.1s (orderbook)
+- 13:19:09Z WROTE data/samples/orderbook-sample.json (361B)
+- 13:19:09Z WROTE data/samples/market-open-sample.json (2,597B)
+- 13:19:09Z WROTE data/samples/market-settled-sample.json (2,547B)
+- 13:19:09Z WROTE data/meta.json (1,734B)

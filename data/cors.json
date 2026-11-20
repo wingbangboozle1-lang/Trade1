@@ -1,0 +1,78 @@
+{
+ "probed_at": "2026-11-20T13:19:05.597977+00:00",
+ "endpoints": [
+  "https://external-api.demo.kalshi.co/trade-api/v2",
+  "https://demo-api.kalshi.co/trade-api/v2"
+ ],
+ "probes": [
+  {
+   "label": "GET no-origin",
+   "method": "GET",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
+   "request_origin": "(none)",
+   "http_status": 200,
+   "latency_s": 0.17,
+   "response_headers": {
+    "vary": "Accept-Language"
+   }
+  },
+  {
+   "label": "GET pages-origin",
+   "method": "GET",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
+   "request_origin": "https://wingbangboozle1-lang.github.io",
+   "http_status": 200,
+   "latency_s": 0.08,
+   "response_headers": {
+    "access-control-allow-credentials": "true",
+    "access-control-allow-origin": "https://wingbangboozle1-lang.github.io",
+    "access-control-expose-headers": "X-Csrf-Token,X-Ratelimit-Limit,X-Ratelimit-Remaining,X-Ratelimit-Reset,X-Ratelimit-Cost",
+    "vary": "Origin, Accept-Language"
+   }
+  },
+  {
+   "label": "GET example-origin",
+   "method": "GET",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
+   "request_origin": "https://example.com",
+   "http_status": 200,
+   "latency_s": 0.09,
+   "response_headers": {
+    "access-control-allow-credentials": "true",
+    "access-control-allow-origin": "https://example.com",
+    "access-control-expose-headers": "X-Csrf-Token,X-Ratelimit-Limit,X-Ratelimit-Remaining,X-Ratelimit-Reset,X-Ratelimit-Cost",
+    "vary": "Origin, Accept-Language"
+   }
+  },
+  {
+   "label": "GET alt-host pages-origin",
+   "method": "GET",
+   "url": "https://demo-api.kalshi.co/trade-api/v2/exchange/status",
+   "request_origin": "https://wingbangboozle1-lang.github.io",
+   "http_status": 200,
+   "latency_s": 0.2,
+   "response_headers": {
+    "access-control-allow-credentials": "true",
+    "access-control-allow-origin": "https://wingbangboozle1-lang.github.io",
+    "access-control-expose-headers": "X-Csrf-Token,X-Ratelimit-Limit,X-Ratelimit-Remaining,X-Ratelimit-Reset,X-Ratelimit-Cost",
+    "vary": "Origin,Accept-Language"
+   }
+  },
+  {
+   "label": "OPTIONS preflight pages-origin",
+   "method": "OPTIONS",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets",
+   "request_origin": "https://wingbangboozle1-lang.github.io",
+   "http_status": 204,
+   "latency_s": 0.09,
+   "response_headers": {
+    "access-control-allow-credentials": "true",
+    "access-control-allow-headers": "Origin,Content-Length,Content-Type,Idempotency-Key,X-Csrf-Token,X-Aws-Waf-Token,Traceparent,Tracestate,X-Gclid,X-Msclkid,X-Gbraid,X-Fbclid,X-Fbp,X-Fbc,X-Rdt-Cid,X-Ttclid,X-Ttp,X-Twclid,X-Sc-Cid,X-Idfa,X-Device-Idfv,X-Advertising-Id,X-Firebase-App-Instance-Id,X-Appsflyer-Web-Id,X-Af-Channel,X-Af-Media-Source,X-Appsflyer-Device-Id,X-Att-Status,X-Signature",
+    "access-control-allow-methods": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS",
+    "access-control-allow-origin": "https://wingbangboozle1-lang.github.io",
+    "access-control-max-age": "43200",
+    "vary": "Access-Control-Request-Headers"
+   }
+  }
+ ]
+}
