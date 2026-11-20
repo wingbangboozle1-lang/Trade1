@@ -24,7 +24,7 @@ Other active sessions on separate branches (`08347343`, `455111c5`, `46259c0d`, 
 
 | ID | Task | Status | Owner (session) | File scope |
 |---|---|---|---|---|
-| T-DEMO | Demo account track: authenticated read-only snapshot (balance, positions, fills), signing helper, guarded demo order executor (dry-run by default), scheduled workflow | in progress | 20e3ad14 | `scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**` |
+| T-DEMO | Demo account track: authenticated read-only snapshot (balance, positions), signing helper, guarded demo order executor (dry-run by default), scheduled workflow | needs review (blocked on demo API key secrets) | 20e3ad14 | `scripts/demo_account/**`, `.github/workflows/demo-account.yml`, `data/demo_account/**` |
 
 ### Task T-DEMO: sources used (official)
 - [Authenticated requests quick start](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests) (headers, signing string `timestamp+METHOD+path`, RSA-PSS SHA-256 / Ed25519)
@@ -40,3 +40,23 @@ Other active sessions on separate branches (`08347343`, `455111c5`, `46259c0d`, 
 2. **Order execution unverified against the live demo server** until credentials are available. Orders are dry-run by default.
 3. **Jurisdiction (California).** Third-party sites disagree on Kalshi availability for California residents. Kalshi's official help center was reachable but did not show a state list in the pages checked. Eligibility must be confirmed by the user on Kalshi's official help center: [help.kalshi.com](https://help.kalshi.com/en/). This project uses the demo environment only.
 4. **Demo prices can differ from real markets** per [Kalshi's demo environment docs](https://docs.kalshi.com/getting_started/demo_env).
+
+### T-DEMO log (session 20e3ad14)
+- Claimed 2026-11-20 (claim commit `28459f3`). Code pushed in `9ae3ded` and `88c0a38` on `arena/20e3ad14-trade1`. Status: **needs review**.
+- Built (files in scope only): `scripts/demo_account/{kalshi_auth,order_rules,snapshot,make_plan,execute,selftest}.mjs`, `scripts/demo_account/README.md`, `.github/workflows/demo-account.yml`, and `data/demo_account/` (generated output only).
+- **Verification performed**
+  - `node scripts/demo_account/selftest.mjs`: 16/16 pass. Covers Ed25519 and RSA-PSS signatures checked with Node's independent `crypto.verify`, query-string stripping, price-grid checks, and each guardrail (side=bid only, count cap, price range, active status, run caps).
+  - Workflow `Demo account track` run [44741428538](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44741428538) on this branch (push trigger, `plan` mode, dry-run): **success**. The plan step read 2,000 open markets from the public demo endpoint `GET /markets?status=open` and produced 0 orders (no open market in that scan had a YES spread of $0.01–$0.03 with a resting bid). No order was sent. Credentials were absent, so `status.json` records `configured: false` and no authenticated request was sent.
+  - YAML parsed with `js-yaml`. Workflow triggers: `schedule` (snapshot only, every 6 h), `push` (path-filtered, dry-run plan), `workflow_dispatch` (snapshot / plan / live).
+- **Sources (official)**: [Authenticated requests](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests), [API keys](https://docs.kalshi.com/getting_started/api_keys), [API environments](https://docs.kalshi.com/getting_started/api_environments), [Get Balance](https://docs.kalshi.com/api-reference/portfolio/get-balance), [Get Positions](https://docs.kalshi.com/api-reference/portfolio/get-positions), [Create Order (V2)](https://docs.kalshi.com/api-reference/orders/create-order-v2), [Order direction](https://docs.kalshi.com/getting_started/order_direction), [Market lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle), [Fixed-point representation](https://docs.kalshi.com/getting_started/fixed_point_migration), [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets), [Demo environment](https://docs.kalshi.com/getting_started/demo_env).
+- **Irregularities / flags for review**
+  1. **Blocked: no demo credentials.** The sandbox cannot create a Kalshi demo account or API key. Owner steps are in `scripts/demo_account/README.md`. Until `KALSHI_DEMO_KEY_ID` and `KALSHI_DEMO_PRIVATE_KEY` are set as Actions secrets, no authenticated call runs and no demo orders can be placed. Live server acceptance of signatures is unverified.
+  2. `GET /markets/{ticker}` wrapper (`market` field) is not confirmed in the docs. The code accepts both shapes.
+  3. Order-response fields used in the execution log come from the schema text and are not confirmed against a live response.
+  4. The `join-best-yes-bid` strategy is a test strategy with no performance claim. It places no order when no market passes its filter, which is what happened on the first run.
+  5. Market scan is capped at 2,000 markets (`scan_truncated` is recorded in the plan).
+  6. Fees are not modeled.
+  7. Demo prices may not reflect real markets ([demo environment docs](https://docs.kalshi.com/getting_started/demo_env)).
+  8. **Jurisdiction (California):** third-party sites disagree on Kalshi availability for California. Official confirmation was not found in the Kalshi help-center pages checked. The user must confirm eligibility at [help.kalshi.com](https://help.kalshi.com/en/). This track uses demo only.
+- **Handoff to integration session:** the demo outputs are `data/demo_account/status.json`, `snapshot.json` (balance and positions, raw API objects), `order_plan.json`, and `execution_log.json`. Any site page that shows the demo account should read these files and link each row to the source endpoint above. This session does not edit `index.html` or other site files.
+- Not done by this session: the site, the collector, paper trading, repo review, and the final integration PR. Those are claimed by other sessions (see the board observation above).
