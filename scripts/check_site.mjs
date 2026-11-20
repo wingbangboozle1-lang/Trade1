@@ -21,8 +21,13 @@ async function walk(dir) {
   return out;
 }
 
-// Scope: only the v2 site pages. Other sessions' HTML on the same branch is listed, not checked.
-const V2_PAGES = new Set(['index.html','live.html','resolved.html','strategies.html','sources.html','flagged.html',
+// Scope: the published root site (bb8bd1ff integration build, verified by
+// session 3fa0d383). Other sessions' HTML trees on the same branch
+// (a2ec5543/, monitor/, site/, trade1/, pages/, categories/, live.html,
+// resolved.html, strategies.html) are listed, not checked — they are
+// historical builds, not the Pages deploy. If the deploy ever moves,
+// update this set to match the published pages.
+const V2_PAGES = new Set(['index.html','dashboard.html','trades.html','data.html','methods.html','suggestions.html','flagged.html','sources.html',
   'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html']);
 const allFiles = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
 const files = allFiles.filter(f => V2_PAGES.has(f) || !f.endsWith('.html'));
@@ -34,6 +39,9 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
   const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map(m => m[1]);
   for (const ref of refs) {
     if (/^(https?:|mailto:|#|javascript:)/.test(ref)) continue;
+    /* Skip hrefs built by inline JS (e.g. href="'+esc(url)+'") — those are
+       runtime-built and validated by the page's own render path, not here. */
+    if (/['"$`{}]|\+/.test(ref)) continue;
     const clean = ref.split('#')[0].split('?')[0];
     if (!clean) continue;
     checked.links++;
