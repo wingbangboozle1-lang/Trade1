@@ -1,0 +1,49 @@
+# Demo-account track — line-by-line verification log
+
+Session `935f2113`, 2026-11-20 UTC. Every claim used in code, tables, or UI was checked against an
+official source: **docs.kalshi.com** (official documentation, read via page fetch), the **official
+Kalshi demo API** (`external-api.demo.kalshi.co`), the **official fee schedule PDF**
+(`kalshi.com/docs/kalshi-fee-schedule.pdf`), and official Kalshi code (`github.com/Kalshi`).
+Anything that could not be confirmed is blank/flagged on [flagged.html](flagged.html) — never inferred.
+
+| # | Claim (where used) | Official source | How verified | Status |
+|---|---|---|---|---|
+| V1 | Auth headers `KALSHI-ACCESS-KEY`, `KALSHI-ACCESS-TIMESTAMP` (ms), `KALSHI-ACCESS-SIGNATURE` (base64) (`assets/signer.js`, `scripts/demo_account/kalshi_auth.mjs`) | [Quick Start: Authenticated Requests](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests) | Read the docs page 2026-11-20 (header table + example). Same header names appear on [Create Order (V2)](https://docs.kalshi.com/api-reference/orders/create-order-v2) and [Get Balance](https://docs.kalshi.com/api-reference/portfolio/get-balance). | verified |
+| V2 | Pre-sign text = `timestamp + METHOD + path-from-API-root`, query string stripped (both signers) | [Authenticated quick start](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests) ("Sign the full URL path from the API root, without query parameters") | Read docs; covered by `tests/demo-account.test.mjs` (query stripping + method uppercasing). | verified |
+| V3 | RSA keys: RSA-PSS, SHA-256, MGF1-SHA256, salt length = digest length (32); signature base64 | [Authenticated quick start](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests) (Python sample: `PSS(mgf=MGF1(SHA256()), salt_length=PSS.DIGEST_LENGTH)`) | Read docs; round-trip sign/verify against `node:crypto` in tests; WebCrypto RSA-PSS uses salt = hash length = 32, matching DIGEST_LENGTH. | verified |
+| V4 | Ed25519 keys sign the message directly | [Authenticated quick start](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests) | Read docs; round-trip test with `node:crypto` Ed25519. Browser support flagged (F-DA-3). | verified (browser path flagged) |
+| V5 | Timestamp must be within 30 s of Kalshi's clock | [Authenticated quick start — Common Issues](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests#common-issues) | Read docs. | verified |
+| V6 | Order endpoint `POST /portfolio/events/orders` (Create Order V2); body `ticker`, `client_order_id`, `side`, `count` (fixed-point), `price` (fixed-point dollars), `time_in_force: good_till_canceled`, `self_trade_prevention_type: taker_at_cross`, `post_only`, `cancel_order_on_pause`, `reduce_only`, `subaccount`; response `order_id`, `client_order_id`, `fill_count`, `remaining_count`, `ts_ms` (`scripts/demo_account/execute.mjs`, live order form) | [Create Order (V2)](https://docs.kalshi.com/api-reference/orders/create-order-v2) | Read the docs page 2026-11-20 (cURL example body, response schema, param table). Code fields match one-to-one. | verified |
+| V7 | `side: "bid"` = buy YES, `"ask"` = sell YES (YES-leg quoting) | [Create Order (V2) — side](https://docs.kalshi.com/api-reference/orders/create-order-v2#body-side) | Read the param description verbatim. | verified |
+| V8 | `GET /portfolio/balance` → `balance` (cents), `balance_dollars`, `portfolio_value`, `updated_ts`, `balance_breakdown` | [Get Balance](https://docs.kalshi.com/api-reference/portfolio/get-balance) | Read docs response schema. | verified |
+| V9 | `GET /portfolio/positions` params `cursor`, `limit` (1–1000), `count_filter=position|total_traded`, `settlement_status=unsettled|settled|all`; response `market_positions[]` (`ticker`, `position_fp`, `market_exposure_dollars`, `realized_pnl_dollars`, `fees_paid_dollars`, `total_traded_dollars`, `last_updated_ts`), `event_positions[]`, `cursor` (`scripts/demo_account/snapshot.mjs`, live panel) | [Get Positions](https://docs.kalshi.com/api-reference/portfolio/get-positions) | Read docs (query-parameter and response sections). | verified |
+| V10 | Taker fee = round-up of `M × 0.07 × C × P × (1−P)`; maker fee = round-up of `M × 0.0175 × C × P × (1−P)` (maker multiplier default 0) | [Fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (eff. 2026-07-07) | Read PDF 2026-11-20 (both pages). Implementation reproduces **all 42 cells** of the PDF's General Trading Fees Table in tests (1 and 100 contracts at every listed price). | verified (rounding-wording flag F-DA-5) |
+| V11 | No settlement fee for yes/no markets | [Fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) ("There is no settlement fee") + [Market settlement](https://docs.kalshi.com/getting_started/market_settlement) ("Settlement fees are zero for simple yes/no determinations") | Read both. | verified |
+| V12 | Settlement pays **$1 per contract** to the winning side (paper payout model) | [Market settlement](https://docs.kalshi.com/getting_started/market_settlement) ("Yes/No contract holders receive $1 per contract") | Read docs. | verified |
+| V13 | Series fee multipliers (KXAAAGASM 1/1, KXBTCY 0/0, KXETHY 0/0, …) | [Fee schedule PDF — Non-Standard Fees](https://kalshi.com/docs/kalshi-fee-schedule.pdf) | Transcribed from both PDF pages (2026-11-20 snapshot, eff. 2026-07-07). Live `/series` objects also carry a `fee_multiplier` field (observed 2026-11-20) but its exact semantics (maker vs taker) are undocumented in the pages read — not used in math; flagged F-DA-5. | verified (snapshot date flagged) |
+| V14 | Market fields `last_price_dollars`, `yes_bid_dollars`, `yes_ask_dollars`, `no_bid_dollars`, `no_ask_dollars`, `yes_bid_size_fp`, `volume_24h_fp`, `open_interest_fp`, `notional_value_dollars`, `price_ranges[{start,end,step}]`, `result`, `status: "active"` | Live demo API `GET /markets?status=open` | Fetched live 2026-11-20T19:07Z; every field listed appears in the response; `price_ranges` drives order-grid validation. Field naming follows [fixed-point migration](https://docs.kalshi.com/getting_started/fixed_point_migration). | verified (live) |
+| V15 | `GET /markets?series_ticker=…&status=open&limit=…`, `GET /markets/{ticker}`, `GET /series?limit=…` (fields `ticker`, `title`, `category`, `categories`, `tags`, `fee_multiplier`, `fee_type`, `settlement_sources`) | Live demo API + [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) docs cited in adopted code | `/series` fetched live 2026-11-20T19:14Z (shape confirmed); `/markets?series_ticker=KXBTC…` and `/markets/{ticker}` exercised by the repo's CI collectors and adopted scripts with live responses (sessions bb8bd1ff/f6094c46 logs). | verified (live) |
+| V16 | Demo REST root `https://external-api.demo.kalshi.co/trade-api/v2` (also `https://demo-api.kalshi.co/trade-api/v2`) | [API environments](https://docs.kalshi.com/getting_started/api_environments) + the brief; both hosts appear in every official docs endpoint selector (observed 2026-11-20) | Read docs pages; live response obtained from the recommended host. | verified |
+| V17 | Tradeable market status is `active`; `result` ∈ {`yes`,`no`} marks resolution | Live responses (`status: "active"` on open markets; settled markets observed with `result: "no"`, `status: "finalized"` by session sess-a1-9a0ad587) + [market lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) | Adopted code's guard tested offline (`tests/demo-account.test.mjs` rejects non-`active`). | verified |
+| V18 | Pagination: `cursor` + `limit` on markets/series/positions | [Get Positions](https://docs.kalshi.com/api-reference/portfolio/get-positions) (cursor/limit) + live `/markets` and `/series` responses returning `cursor` | Read docs; live responses include `cursor`. | verified |
+| V19 | Unauthenticated request limits | [Rate limits](https://docs.kalshi.com/getting_started/rate_limits) | Docs say limits exist but do not publish numbers. Poller conservatively capped; flagged F-DA-10. | flagged (numbers unpublished) |
+| V20 | Browser CORS for signed requests (custom `KALSHI-ACCESS-*` headers) | — | Public-endpoint CORS is verified (`data/cors.json`); preflight behaviour for custom headers is not verifiable without a key. Flagged F-DA-2. | flagged |
+| V21 | Auth spec cross-check against official Kalshi code | [Kalshi/kalshi-starter-code-python](https://github.com/Kalshi/kalshi-starter-code-python) (official Kalshi GitHub org) | Repo enumerated via GitHub API 2026-11-20. (The docs samples above are the authoritative check; the starter repo is listed as corroboration.) | corroborating |
+
+## Tests run (2026-11-20)
+
+- `node tests/demo-account.test.mjs` → **89 passed, 0 failed** — official fee table (42 cells),
+  maker-fee example, series multiplier map, topic classification against live series shapes,
+  pre-sign text, RSA-PSS and Ed25519 round-trips, order-plan guard rules, $0.10 integer-cent
+  threshold (including the exact 0.66→0.56 case), paper settlement P&L, analysis grouping.
+- `node --check` on `demo-account/assets/{app,engine,signer}.js` and all `scripts/demo_account/*.mjs` → clean.
+- Adopted self-tests: `node scripts/demo_account/selftest.mjs` (offline; no credentials used).
+- Link check on `demo-account/*.html` (local href/src resolution) → clean.
+
+## Irregularities found in review (published on flagged.html)
+
+- **F-DA-5** — fee PDF prose says "centicent" rounding but its own 42-cell table only matches
+  rounding the total (cost + raw fee) up to the **cent**. Engine follows the table (all cells tested).
+- **F-DA-8** — no official dollar-volume field exists; ranking is by 24h contract volume, labelled as such.
+- **F-DA-1** — strategy/ROI claims: none made. Heuristics only.
+- **F-DA-7** — live demo-account values remain blank without credentials (not faked).

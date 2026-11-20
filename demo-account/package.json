@@ -1,0 +1,6 @@
+{
+  "name": "trade1-demo-account",
+  "private": true,
+  "type": "module",
+  "description": "Makes demo-account/assets/*.js importable as ES modules from Node for tests. Ignored by the browser and by GitHub Pages."
+}

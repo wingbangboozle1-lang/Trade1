@@ -19,6 +19,7 @@
     <a href="dashboard.html">Dashboard</a>
     <a href="trades.html">Strategy Lab</a>
     <a href="portfolio.html">Portfolio</a>
+    <a href="demo-account/">Demo Account</a>
     <a href="topics/gas-prices.html">Gas</a>
     <a href="topics/elections.html">Elections</a>
     <a href="topics/culture.html">Culture</a>
@@ -166,6 +167,12 @@
       differ by up to $0.0099 between the two engines (in the conservative direction) — see §9.</li>
     <li><b>Fills.</b> The ledger fills at the same quoted price as the lab (entry at the ask, exit at the bid) and applies no slippage and no queue model,
       so it inherits the optimism already flagged in <a href="flagged.html">Flagged</a> (item 10).</li>
+    <li><b>Relationship to the demo-account console.</b> <a href="demo-account/"><code>demo-account/</code></a>
+      (merged from PR #39) is a third layer, and the only one that can show <i>account</i> values: it reads
+      <code>GET /portfolio/balance</code> and <code>GET /portfolio/positions</code> with the owner's demo key, and can place guarded
+      demo orders. It stays inert while the secrets are absent. Comparability rule for readers: the lab and this ledger are both
+      quote-driven simulations and may be compared <i>directionally</i> only (see §8 bullets above and <a href="flagged.html">E2, E4</a>);
+      demo-account figures are real (demo) fills and must never be compared to either simulation.</li>
     <li><b>Bootstrap gap.</b> The first cycle of a fresh state seeds prices from the committed snapshot, so the first comparison can span hours. Each alert
       carries <code>gap_minutes</code> (and a <span class="flag">wide gap</span> label above 90 minutes) so a stale-quote delta is never read as a fast move.</li>
   </ul>

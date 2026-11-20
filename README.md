@@ -22,6 +22,7 @@ tracking, and every table row linked to the official API record it came from.
 | [`methods.html`](methods.html) | Every rule the dashboard runs, with its source |
 | [`flagged.html`](flagged.html) | Flagged for Review: unverified values, contradictions, deliberate limitations |
 | [`sources.html`](sources.html) | The official documentation pages used for verification |
+| [`demo-account/`](demo-account/index.html) | Opt-in demo-account console (merged from PR #39): real demo balance/positions and guarded demo orders once the owner's key exists, plus its own paper lab. Inert without credentials — see `scripts/demo_account/README.md` |
 | [`suggestions.html`](suggestions.html) | Ideas for making the site more live and interactive — what is already live, the prioritised backlog (each item naming the official endpoint it would use), and what shipped since |
 | [`resolved.html`](resolved.html) | Resolved markets with their official YES/NO result and settlement timestamp |
 
@@ -43,7 +44,8 @@ tracking, and every table row linked to the official API record it came from.
   the $0.01 balance alignment per [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding)), settles on the
   exchange's YES/NO result, and commits `data/portfolio.json` + `data/portfolio_state.json` to `main` with `[skip ci]`.
   Simulation only: nothing authenticates and no order is ever sent. Its rules and its differences from the browser lab
-  are documented in [methods.html](methods.html) §8–§9.
+  are documented in [methods.html](methods.html) §8–§9. (The account-capable layer is separate: `demo-account.yml` +
+  `scripts/demo_account/**`, which stays inert until the owner adds the demo-key secrets.)
 - **Paper trading**: four strategies in `assets/model.js` fill against official quotes with the
   official taker fee `roundup(0.07 × C × P × (1−P))` from the
   [fee schedule](https://kalshi.com/docs/kalshi-fee-schedule.pdf) and settle at $1 per winning

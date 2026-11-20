@@ -100,9 +100,13 @@ requirements it called "not built", plus the verification this session performed
 - §5's "real resting orders may not fill the same way" is now quantified rather than hand-waved: maker fees are not modelled in
   either engine, and for the in-scope gas series `KXAAAGASM` the published maker multiplier is **1**, i.e. non-zero
   ([Flagged E3](flagged.html)).
-- No demo-account numbers appear anywhere, deliberately: tracking a real demo balance needs the owner's API key and a private key
-  held as repository secrets, which no agent can create. Two guarded implementations sit unmerged as PRs #2 and #39
-  ([Flagged E9](flagged.html)).
+- "No demo-account numbers appear anywhere" is still true, but the reason changed while this addendum was being written: session
+  `935f2113` merged PR #39, so an authenticated, guarded demo-account track now exists on `main`
+  ([`demo-account/`](demo-account/index.html), [`scripts/demo_account/`](scripts/demo_account/README.md), `demo-account.yml`). It reports
+  `configured: false` and sends no authenticated request because the owner's `KALSHI_DEMO_KEY_ID` / `KALSHI_DEMO_PRIVATE_KEY` secrets do
+  not exist — no agent can create them. This session's ledger is deliberately the *simulation* layer, not a second account path; the
+  three layers and their comparability are defined in [Methods §8](methods.html) and [Flagged E9](flagged.html). Draft PR #2 (the same
+  work, superseded by #39) should now be closed rather than merged.
 
 **Quality gates added by this session** (all runnable offline, all green on 2026-11-20):
 `python3 scripts/portfolio_engine.py selftest` → 50/50 · `node tests/portfolio.test.mjs` → 60/60 (34/34 without jsdom) ·

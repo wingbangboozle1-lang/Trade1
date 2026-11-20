@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review — Demo Account &amp; Strategy Lab</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>Flagged for Review</h1>
+  <span class="sub">Demo Account &amp; Strategy Lab · items that are unverified or need an owner decision</span>
+  <nav class="top">
+    <a href="index.html">Back to the lab</a>
+    <a href="../">Site home</a>
+    <a href="VERIFICATION.md">Verification log</a>
+  </nav>
+</header>
+<main>
+<section>
+  <p>Per the project brief, anything that could not be confirmed against an official source is left blank and flagged here
+  rather than filled in. These items <strong>do not block</strong> anything; they are published for post-launch review.</p>
+  <table><thead><tr><th>ID</th><th>Item</th><th>Why it is flagged</th><th>Official sources</th></tr></thead><tbody>
+  <tr id="f-da-1"><td>F-DA-1</td><td>Strategy profitability and the “high-ROI” model</td>
+    <td>The three strategies and the 0–4 high-ROI score are transparent fixed heuristics, not fitted or validated models. Sample sizes from a demo environment are too small to judge ROI. No profitability is claimed.</td>
+    <td><a href="https://docs.kalshi.com/getting_started/demo_env">demo_env</a> (“demo prices may not be reflective of real markets”)</td></tr>
+  <tr id="f-da-2"><td>F-DA-2</td><td>Browser CORS on signed (authenticated) requests</td>
+    <td>Public demo endpoints reflect browser origins (verified in <code>data/cors.json</code>). Whether the demo API also allows browser <em>preflighted</em> requests carrying <code>KALSHI-ACCESS-*</code> headers has not been verified without a key. If blocked, use the CI workflow or <code>scripts/demo_account</code> server-side.</td>
+    <td><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests">quick start (authenticated)</a></td></tr>
+  <tr id="f-da-3"><td>F-DA-3</td><td>Ed25519 signing in the browser</td>
+    <td>WebCrypto Ed25519 support varies by browser. RSA keys (what Kalshi issues in the quick start) work in all current browsers. The Ed25519 path reports a clear error where unsupported.</td>
+    <td><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests">signature algorithms</a></td></tr>
+  <tr id="f-da-4"><td>F-DA-4</td><td>Topic classification is heuristic</td>
+    <td>Gas / elections / culture / crypto / golf grouping uses word-boundary keyword rules plus series category/tags. Markets can be misclassified (for example political markets about golf clubs — golf rules exclude Politics/Elections after session 10000a95's finding). The classification code is auditable in <code>assets/engine.js</code>.</td>
+    <td>— (heuristic; no official topic taxonomy beyond category/tags)</td></tr>
+  <tr id="f-da-5"><td>F-DA-5</td><td>Fee rounding wording vs the fee table</td>
+    <td>The official fee PDF says fees round up such that “fee + positionCost is rounded to a centicent”, but every cell of the PDF's own worked table is reproduced by rounding the total up to the <em>cent</em>. The engine implements the table (verified against all 42 cells) and flags the prose discrepancy. Series multipliers were transcribed from the PDF fetched 2026-11-20 (effective 2026-07-07) and may change.</td>
+    <td><a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">kalshi-fee-schedule.pdf</a></td></tr>
+  <tr id="f-da-6"><td>F-DA-6</td><td>“Cause” links for sharp jumps are search links</td>
+    <td>Charts and alerts attach a context link (web search for the event title + date). This suggests where to look; it does <strong>not</strong> verify that any news caused the move. No causal attribution is claimed.</td>
+    <td>— (by design; see brief note on cause links)</td></tr>
+  <tr id="f-da-7"><td>F-DA-7</td><td>Live demo-account values are blank without credentials</td>
+    <td>Executing trades and reading the demo portfolio require an API key from the account owner (demo.kalshi.co → API Keys). None were provided, so live balance/positions/orders stay blank until a key is connected in the browser panel or added as <code>KALSHI_DEMO_KEY_ID</code>/<code>KALSHI_DEMO_PRIVATE_KEY</code> repository secrets for the CI workflow. Nothing is faked in the meantime.</td>
+    <td><a href="https://docs.kalshi.com/getting_started/api_keys">API keys</a></td></tr>
+  <tr id="f-da-8"><td>F-DA-8</td><td>“Highest dollar amount” ranking is an estimate</td>
+    <td>The demo API has no official per-market dollar-volume field (<code>volume_24h_fp</code> is contract count). The tables rank by 24h <em>contract</em> volume and say so; no dollar volume is invented.</td>
+    <td><a href="https://docs.kalshi.com/getting_started/fixed_point_migration">fixed-point fields</a></td></tr>
+  <tr id="f-da-9"><td>F-DA-9</td><td>Demo environment ≠ production</td>
+    <td>All data and orders are on the demo exchange. Prices may not reflect production; demo keys are separate from production keys.</td>
+    <td><a href="https://docs.kalshi.com/getting_started/demo_env">demo_env</a></td></tr>
+  <tr id="f-da-10"><td>F-DA-10</td><td>Unauthenticated rate-limit numbers unpublished</td>
+    <td>Official docs say unauthenticated requests “are subject to separate limits” without publishing the numbers. The poller is deliberately conservative (≤ ~20 requests/90 s, backoff on 429).</td>
+    <td><a href="https://docs.kalshi.com/getting_started/rate_limits">rate limits</a></td></tr>
+  <tr id="f-da-11"><td>F-DA-11</td><td>Trading eligibility (jurisdiction)</td>
+    <td>Availability varies by location and can change. This project uses the demo environment only; confirm eligibility on Kalshi's official help center before any real-world use.</td>
+    <td><a href="https://help.kalshi.com/en/">help.kalshi.com</a></td></tr>
+  </tbody></table>
+</section>
+</main>
+<footer>Trade1 · unverified items never block deployment; review and request changes any time.</footer>
+</body>
+</html>
