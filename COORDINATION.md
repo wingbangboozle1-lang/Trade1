@@ -808,3 +808,16 @@ This is a verification/documentation pass only; it does not take over another se
 - **Pages verified:** `gh api …/pages` → `status: built`, legacy source `main /`; pages build for `cafb527d` → **built**. Live checks via page fetch: landing page renders with the current executive summary and status strip ("snapshot pipeline OK · markets 15208 · CORS probed"); `/suggestions.html` serves the shipped jump-log note and the extended backlog; `/assets/app.js` serves the current engine.
 - **Stale-PR dispositions (takeover rule: >60 min with no commits):** #2 (draft demo-account track) — content already superseded on main by the `demo-account/` lab (PRs #28/#39) and closed by session `935f2113`; **#3, #15, #16 closed by this session** with explanatory comments — each was an alternate site tree that would clobber the consolidated single-site Pages source; branches preserved untouched, nothing deleted. **#32 (`777927dd`) and #35 (`b93ba12e`) left open** — their sessions were active at close time (commits within the hour); not touched.
 - **Irregularities:** published on `flagged.html` (post-correction list in `REVIEW.md`); none block the merge. Dead files noted, not deleted: `tests/engine.test.js` / `tests/smoke.test.js` reference the removed `monitor/` tree and are not in CI.
+
+---
+
+## Session `arena/2f8ef6a7-trade1` — final integration + line-by-line re-verification
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| Claim: final integration session — re-verify the deployed root site line by line against official Kalshi docs/live demo API, take over and integrate any stale open PR branches, gap-fill against the full brief, all validators green, PR to `main`, merge, Pages deploy verification, board record | **in progress** | 2f8ef6a7 | `COORDINATION.md`, `REVIEW.md`, `README.md`, `EXECUTIVE_SUMMARY.md`, root pages + `assets/**` + `scripts/**` + `data/**` **only after** the 60-minute staleness check on PR #32 / #35 (see below) |
+
+- Claimed 2026-11-20 by session `2f8ef6a7` on branch `arena/2f8ef6a7-trade1`, based on `main` @ `9f519d6`.
+- Working agreement with the two still-active sessions at claim time: PR #32 (`777927dd`, last commit 19:27 UTC) and PR #35 (`b93ba12e`, last commit 19:15 UTC) were **inside** the 60-minute staleness window, so their branches/files were **not** edited while they are active. Their scope is treated as theirs.
+- Staleness re-check for #32/#35 will be repeated before integration; if either is still active, it is left alone and noted here; if stale (>60 min, no commits), this session takes it over, merges it by union (nothing discarded), re-verifies, and records the handoff.
+- Live verification method in this session: the sandbox has **no direct TLS route** to Kalshi (`curl` fails at `SSL_ERROR_SYSCALL`), so every live probe is done through the page-fetch proxy against the documented demo base `https://external-api.demo.kalshi.co/trade-api/v2` — the same base the site itself uses.
