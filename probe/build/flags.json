@@ -1,39 +1,39 @@
 {
- "generated_at": "2026-11-20 14:29 UTC",
+ "generated_at": "2026-11-20 19:05 UTC",
  "flags": [
   {
    "severity": "info",
    "scope": "markets",
    "entity": "series mapping",
-   "message": "16922 open markets could not be mapped to a series ticker and were excluded from topics.",
+   "message": "17609 open markets could not be mapped to a series ticker and were excluded from topics.",
    "source_url": ""
   },
   {
    "severity": "info",
    "scope": "markets",
    "entity": "gas",
-   "message": "Topic has 713 open markets; first 300 written (sorted by est. 24h $).",
+   "message": "Topic has 717 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {
    "severity": "info",
    "scope": "markets",
    "entity": "golf",
-   "message": "Topic has 1986 open markets; first 300 written (sorted by est. 24h $).",
+   "message": "Topic has 1970 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {
    "severity": "info",
    "scope": "markets",
    "entity": "crypto",
-   "message": "Topic has 74604 open markets; first 300 written (sorted by est. 24h $).",
+   "message": "Topic has 65291 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {
    "severity": "info",
    "scope": "markets",
    "entity": "culture",
-   "message": "Topic has 9861 open markets; first 300 written (sorted by est. 24h $).",
+   "message": "Topic has 9783 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {
