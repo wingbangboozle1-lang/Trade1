@@ -1,0 +1,124 @@
+/* Kalshi Demo Dashboard — shared styles */
+/* Clean, dark, simple dashboard UI. Responsive. No external dependencies. */
+:root {
+  color-scheme: dark;
+  --bg: #0b1216;
+  --panel: #131b21;
+  --line: #263238;
+  --muted: #93a3a8;
+  --text: #e8f0ee;
+  --green: #61d6a2;
+  --green-dim: #1b3a29;
+  --amber: #f5bf69;
+  --red: #ff827c;
+  --blue: #7fb3d5;
+  --ink: #0b1216;
+}
+* { box-sizing: border-box }
+html { scroll-behavior: smooth }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+}
+a { color: #8de0bd } a:hover { color: #fff }
+.muted { color: var(--muted) }
+strong { color: #fff }
+button, select, input {
+  font: inherit; color: var(--text); background: var(--panel);
+  border: 1px solid var(--line); padding: 8px 12px; border-radius: 8px;
+}
+button { cursor: pointer }
+button:hover { border-color: var(--green); color: var(--green) }
+input:focus, select:focus { outline: 2px solid var(--green); outline-offset: 1px }
+.pill {
+  display: inline-block; font-size: 12px; padding: 3px 9px; border-radius: 20px;
+  background: var(--green-dim); color: var(--green); border: 1px solid var(--green);
+}
+.tag-verified { color: var(--green) }
+.tag-unverified { color: var(--amber) }
+header {
+  padding: 24px clamp(16px, 5vw, 56px);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  background: #0f171c;
+}
+.brand { display: flex; gap: 12px; align-items: center }
+.mark {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--green);
+  color: #09241b; display: grid; place-items: center; font-weight: 900;
+}
+h1 { font-size: 21px; margin: 0; letter-spacing: -0.3px }
+header p, .sub { color: var(--muted); margin: 3px 0 0 }
+.wrap { max-width: 1300px; margin: auto; padding: 24px clamp(16px, 4vw, 40px) 48px }
+section { margin-bottom: 30px }
+h2 { font-size: 17px; margin: 0 0 12px; color: #fff }
+h3 { font-size: 14px; margin: 14px 0 8px; color: var(--muted) }
+.notice {
+  padding: 12px 16px; border: 1px solid #655035; background: #241e16;
+  color: #f1d6a5; border-radius: 10px; margin-bottom: 18px; font-size: 14px
+}
+.notice b { color: #f5bf69 }
+.grid { display: grid; gap: 12px }
+.cards { grid-template-columns: repeat(4, minmax(0, 1fr)) }
+.card, .box {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px
+}
+.card small { color: var(--muted); font-size: 12px }
+.card strong { display: block; font-size: 22px; margin-top: 8px; color: #fff }
+.toolbar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  justify-content: space-between; margin-bottom: 16px
+}
+.tabs { display: flex; gap: 7px; flex-wrap: wrap }
+.tab {
+  font: inherit; color: var(--text); background: var(--panel);
+  border: 1px solid var(--line); padding: 8px 13px; border-radius: 8px; cursor: pointer
+}
+.tab:hover, .tab.active { border-color: var(--green); color: var(--green) }
+.tab.active { background: #102a1d }
+.tablewrap { overflow: auto; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px }
+table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: 13.5px }
+th, td { text-align: left; padding: 10px 9px; border-bottom: 1px solid var(--line); vertical-align: middle }
+th { font-size: 11px; color: var(--muted); font-weight: 600; background: #0d1519; position: sticky; top: 0; z-index: 2 }
+tbody tr:hover { background: #19242a }
+tr.selected { background: #1b3026; border-left: 3px solid var(--green) }
+.empty { text-align: center; color: var(--muted); padding: 26px }
+.layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); gap: 14px }
+.chat {
+  height: 340px; overflow-y: auto; border: 1px solid var(--line); border-radius: 10px;
+  background: #0d1519; padding: 10px; display: flex; flex-direction: column; gap: 6px;
+}
+.chat .msg {
+  padding: 7px 10px; border-radius: 8px; font-size: 13px; line-height: 1.45;
+  background: var(--panel); border: 1px solid var(--line);
+}
+.chat .msg.all { border-left: 3px solid var(--blue) }
+.chat .msg.like { border-left: 3px solid var(--amber) }
+.chat .time { color: var(--muted); font-size: 11.5px; display: block; margin-top: 3px }
+.chat .move { font-weight: 700 }
+.chat .up { color: var(--green) } .chat .down { color: var(--red) }
+.chat .source a { color: inherit; text-decoration: underline }
+.chart { width: 100%; height: 250px; border: 1px solid var(--line); border-radius: 10px; background: #0d1519 }
+.chart canvas { width: 100%; height: 100%; display: block }
+.sidebox h2 { border-bottom: 1px solid var(--line); padding-bottom: 7px; margin-bottom: 10px }
+.formgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.formgrid label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px }
+.formgrid input, .formgrid select { display: block; width: 100%; margin-bottom: 8px }
+.kv { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; font-size: 13.5px }
+.kv b { color: #fff } .kv .v { color: var(--muted) }
+ul.list { padding-left: 20px; color: var(--muted); gap: 6px; display: flex; flex-direction: column }
+ul.list li { margin-bottom: 6px }
+.footer { margin-top: 26px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px }
+#status, #apiError { color: var(--muted); font-size: 13px }
+#liveState { font-size: 12.5px }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr }
+  .cards { grid-template-columns: repeat(2, 1fr) }
+  .wrap { padding: 20px clamp(12px, 4vw, 24px) 24px }
+  header { flex-direction: column; align-items: flex-start; gap: 10px }
+  .chat { height: 260px }
+}
+@media (max-width: 520px) {
+  .cards { grid-template-columns: 1fr }
+  .formgrid { grid-template-columns: 1fr }
+}
