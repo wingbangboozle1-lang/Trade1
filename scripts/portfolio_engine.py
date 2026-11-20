@@ -207,14 +207,45 @@ def price_str(b):
 FEE_MODEL = Fraction(7, 100)          # general taker rate 0.07 (fee schedule PDF)
 
 FEE_RULE_TEXT = (
-    "taker: fees = roundup(M x 0.07 x C x P x (1-P)) with M=1 "
-    "(https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective 2026-07-07). The model fee is rounded up to "
-    "6 decimals - the official Fee Rounding page states 'trade fee = ceil_6dp(model fee)' - and the resulting "
-    "balance change is then floored to the $0.01 alignment used for non-direct members, with the difference "
-    "booked as the rounding fee (https://docs.kalshi.com/getting_started/fee_rounding). Settlement is free: "
-    "'There is no settlement fee.' Resting-order (maker) fees are not modeled because every simulated fill "
+    "taker: fees = roundup(M x 0.07 x C x P x (1-P)) where M is the per-series fee_multiplier "
+    "published by the demo API on GET /series/{ticker} (official Get Series schema: "
+    "https://docs.kalshi.com/api-reference/market/get-series), cached in series_fees and defaulting "
+    "to 1 when a series record has not been fetched (fee schedule PDF "
+    "https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective 2026-07-07: 'default is 1 unless "
+    "otherwise indicated'). The production PDF's Non-Standard table lists taker M=0 for KXBTCY/KXETHY "
+    "while the demo API publishes fee_multiplier=1 for them - that official-source conflict is "
+    "published on flagged.html and the environment-matched demo value is the one modelled. The model "
+    "fee is rounded up to 6 decimals - the official Fee Rounding page states 'trade fee = "
+    "ceil_6dp(model fee)' - and the resulting balance change is then floored to the $0.01 alignment "
+    "used for non-direct members, with the difference booked as the rounding fee "
+    "(https://docs.kalshi.com/getting_started/fee_rounding). Settlement is free: 'There is no "
+    "settlement fee.' Resting-order (maker) fees are not modeled because every simulated fill "
     "crosses the spread."
 )
+
+
+def series_of(ticker):
+    """Series prefix of a market ticker: 'KXAAAGASM-26NOV30-3.90' -> 'KXAAAGASM'."""
+    t = str(ticker or "")
+    return (t.split("-", 1)[0] or t).upper()
+
+
+def series_multiplier(st, ticker):
+    """Taker multiplier M for a ticker: the cached demo fee_multiplier, else the
+    schedule default 1. Never inferred - only values the API actually published."""
+    rec = ((st or {}).get("series_fees") or {}).get(series_of(ticker))
+    if isinstance(rec, dict) and isinstance(rec.get("fee_multiplier"), (int, float)) \
+            and not isinstance(rec.get("fee_multiplier"), bool):
+        return Fraction(str(rec["fee_multiplier"]))
+    return FEE_MULTIPLIER
+
+
+def trade_multiplier(st, t):
+    """The multiplier recorded on the trade at entry (falls back to the cache)."""
+    v = (t or {}).get("fee_m")
+    if isinstance(v, (int, float)) and not isinstance(v, bool):
+        return Fraction(str(v))
+    return series_multiplier(st, (t or {}).get("ticker"))
 
 
 def taker_fee(contracts_h, price_b, multiplier=FEE_MULTIPLIER):
@@ -237,28 +268,28 @@ def align_down(x):
     return (int(x) // 10000) * 10000
 
 
-def cash_debit(contracts_h, price_b):
+def cash_debit(contracts_h, price_b, multiplier=FEE_MULTIPLIER):
     """What a buyer actually pays: align_down(cost + fee), plus the rounding fee explicitly."""
-    cost, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b)
+    cost, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b, multiplier)
     aligned = align_down(cost + fee)
     return aligned, cost, fee, aligned - cost        # debit, cost, net fee, (fee+rounding)
 
 
-def cash_credit(contracts_h, price_b):
+def cash_credit(contracts_h, price_b, multiplier=FEE_MULTIPLIER):
     """What a seller actually receives: align_down(revenue - fee)."""
-    rev, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b)
+    rev, fee = position_cost(contracts_h, price_b), taker_fee(contracts_h, price_b, multiplier)
     aligned = align_down(rev - fee)
     return aligned, rev, fee, rev - aligned
 
 
-def gross_for_budget(budget, price_b):
+def gross_for_budget(budget, price_b, multiplier=FEE_MULTIPLIER):
     """Largest whole-0.01-contract size whose aligned cost+fee fits the budget (0 if none)."""
     if not price_b or price_b <= 0 or budget <= 0:
         return 0
     lo, hi, best = 1, max(1, int(budget * 100 / price_b) + 1000), 0
     while lo <= hi:
         mid = (lo + hi) // 2
-        if cash_debit(mid, price_b)[0] <= budget:
+        if cash_debit(mid, price_b, multiplier)[0] <= budget:
             best, lo = mid, mid + 1
         else:
             hi = mid - 1
@@ -387,6 +418,37 @@ def fetch_quotes(tickers, log_list):
     return out, sources
 
 
+def fetch_series_fees(st, series_list, log_list, cap=40):
+    """Cache GET /series/{ticker} for the trade universe and read the official
+    per-series fee_multiplier (Get Series schema, required field:
+    https://docs.kalshi.com/api-reference/market/get-series). Only values the
+    API actually publishes are stored - a record without a numeric
+    fee_multiplier is skipped and the schedule default M=1 stays in force
+    (never inferred). Returns the list of request URLs fetched this call."""
+    cache = st.setdefault("series_fees", {})
+    urls = []
+    for s in series_list:
+        key = series_of(s)
+        if not key or key in cache or len(urls) >= cap:
+            continue
+        url = f"{BASE}/series/{urllib.parse.quote(key)}"
+        code, j = http_get(url)
+        urls.append(url)
+        if code == 200 and isinstance(j, dict) and isinstance(j.get("series"), dict):
+            sr = j["series"]
+            mult = sr.get("fee_multiplier")
+            if isinstance(mult, (int, float)) and not isinstance(mult, bool):
+                cache[key] = {"fee_multiplier": mult, "fee_type": sr.get("fee_type"),
+                              "source_url": url, "checked": now_iso()}
+                log_line(log_list, f"GET {url} -> 200 fee_multiplier={mult} fee_type={sr.get('fee_type')}")
+            else:
+                log_line(log_list, f"GET {url} -> 200 but no numeric fee_multiplier (left at default M=1)")
+        else:
+            log_line(log_list, f"GET {url} -> {code} {str(j)[:160]}")
+        time.sleep(REQUEST_SLEEP_S)
+    return urls
+
+
 # --------------------------------------------------------------------------- bookkeeping
 def quote_view(m):
     """Trim one API market object to the fields the ledger consumes (verbatim values)."""
@@ -469,14 +531,15 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
     bid, ask = bid_ask(q, side)
     if ask is None or ask < 500 or ask > 9500:      # unfillable edges, same guard as the browser lab
         return None
+    fee_m = series_multiplier(st, ticker)           # demo fee_multiplier, default 1
     budget = min(st["cash_cc"], PER_TRADE_BITS)
     # whole contracts only: fractional contract sizes are supported only on markets that allow
     # them (https://docs.kalshi.com/getting_started/fixed_point_migration), and the engine does
     # not read that permission per market, so it never requests a fractional size.
-    qty = (gross_for_budget(budget, ask) // 100) * 100
+    qty = (gross_for_budget(budget, ask, fee_m) // 100) * 100
     if qty < 100:
         return None
-    debit, cost, fee, rounding = cash_debit(qty, ask)
+    debit, cost, fee, rounding = cash_debit(qty, ask, fee_m)
     st["cash_cc"] -= debit
     trade = {
         "id": f"{when}:{ticker}:{strategy}:{len(st['trades'])}",
@@ -484,6 +547,7 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
         "title": q.get("title"), "topic": st["watch"][ticker]["topic"], "side": side,
         "qty_c": qty, "entry_bits": ask, "fee_cc": fee, "cost_cc": cost,
         "rounding_cc": rounding,
+        "fee_m": float(fee_m), "series": series_of(ticker),
         "strategy": strategy, "status": "open", "mark_bits": bid, "samples": 0,
         "note": note, "source": sources[0] if sources else None,
     }
@@ -494,7 +558,7 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
 def close(st, t, price_bits, reason, when, source=None):
     if price_bits is None:
         return
-    credit, rev, fee, rounding = cash_credit(t["qty_c"], price_bits)
+    credit, rev, fee, rounding = cash_credit(t["qty_c"], price_bits, trade_multiplier(st, t))
     st["cash_cc"] += credit
     t["status"] = "closed"
     t["exit"] = {"t": when, "price_bits": price_bits, "reason": reason, "fee_cc": fee,
@@ -797,6 +861,7 @@ def write_artifact(st, watch_rows, sources, log_list, status="live", note=""):
                    "max_open_positions": MAX_OPEN_POSITIONS,
                    "alert_threshold_usd": ALERT_THRESHOLD_BITS / 10000,
                    "fee_rule": FEE_RULE_TEXT,
+                   "series_fees_cached": len(st.get("series_fees") or {}),
                    "score_formula": MODEL_SCORE_FORMULA,
                    "min_model_score": float(MIN_MODEL_SCORE),
                    "rules": RULES},
@@ -855,6 +920,7 @@ def write_artifact(st, watch_rows, sources, log_list, status="live", note=""):
                 "market_lifecycle": "https://docs.kalshi.com/getting_started/market_lifecycle",
                 "fixed_point": "https://docs.kalshi.com/getting_started/fixed_point_migration",
                 "fee_schedule": "https://kalshi.com/docs/kalshi-fee-schedule.pdf",
+                "get_series": "https://docs.kalshi.com/api-reference/market/get-series",
                 "rate_limits": "https://docs.kalshi.com/getting_started/rate_limits",
             },
         },
@@ -953,6 +1019,11 @@ def cmd_run(args):
         quotes = {t: m for t, m in raw.items() if t in st["watch"]}
         for t in quotes:
             st["watch"][t]["last_seen"] = now_iso()
+        # Per-series taker multipliers for the trade universe (official demo
+        # fee_multiplier), so entries book the exchange-published M instead of
+        # assuming 1. Cached across runs; cap bounds request volume.
+        universe = sorted({series_of(t) for t in tickers})
+        sources += fetch_series_fees(st, universe, log_list)
 
     when = now_iso()
     events = run_cycle(st, quotes, sources, when, log_list)
@@ -1052,6 +1123,26 @@ def selftest():
     ok("aligned change floors to -$0.06", align_down(-(55_000 + 3_639)) == -60_000)
     ok("rounding fee is $0.001361", (-60_000) - (-(55_000 + 3_639)) == -1361)
 
+    # 2b. per-series fee multiplier (demo GET /series/{ticker} fee_multiplier,
+    #     official Get Series schema; default M=1 when no record is cached)
+    ok("default multiplier is 1 with an empty cache", series_multiplier({}, "KXTEST-1") == 1)
+    ok("default multiplier is 1 when the series was never fetched",
+       series_multiplier({"series_fees": {}}, "KXBTCY-26DEC31-100000") == 1)
+    st_fee = {"series_fees": {"KXBTCY": {"fee_multiplier": 0},
+                              "KXHALF": {"fee_multiplier": 0.5}}}
+    ok("cached demo fee_multiplier=0 means no taker fee", taker_fee(100 * 100, 5000, series_multiplier(st_fee, "KXBTCY-1")) == 0)
+    ok("cached demo fee_multiplier=0.5 halves the fee (100c @ $0.50 -> $0.875)",
+       taker_fee(100 * 100, 5000, series_multiplier(st_fee, "KXHALF-1")) == 875_000,
+       money_str(taker_fee(100 * 100, 5000, series_multiplier(st_fee, "KXHALF-1"))))
+    ok("cash_debit with M=0 books no fee", cash_debit(4800, 5000, Fraction(0))[2] == 0)
+    ok("trade_multiplier prefers the fee_m recorded at entry",
+       trade_multiplier({"series_fees": {"KXTEST": {"fee_multiplier": 0.5}}},
+                        {"ticker": "KXTEST-1", "fee_m": 0}) == 0)
+    ok("trade_multiplier falls back to the cached series record when fee_m is absent",
+       trade_multiplier(st_fee, {"ticker": "KXHALF-1"}) == Fraction(1, 2))
+    ok("bool is not accepted as a multiplier", series_multiplier(
+        {"series_fees": {"KXBAD": {"fee_multiplier": True}}}, "KXBAD-1") == 1)
+
     # 3. the >= $0.10 rule must be exact at the boundary (binary float would fail this)
     ok("float trap: 0.66-0.56 < 0.10 in float", (0.66 - 0.56) < 0.10)
     ok("bit math: $0.66->$0.56 is exactly 1000 bits", abs(bits("0.5600") - bits("0.6600")) == ALERT_THRESHOLD_BITS)
@@ -1096,6 +1187,8 @@ def selftest():
        any(t["strategy"] == "momentum" and t["side"] == "no" for t in st["trades"]), str(ev))
     t0 = st["trades"][0]
     ok("entry at the NO ask 0.45", t0["entry_bits"] == 4500)
+    ok("entry records the series and the fee multiplier used (default M=1)",
+       t0.get("series") == "KXTEST" and t0.get("fee_m") == 1.0, json.dumps({k: t0.get(k) for k in ("series", "fee_m")}))
     ok("cash decreased by the aligned debit (cost+fee floored to the cent grid)",
        st["cash_cc"] == BANKROLL_BITS - cash_debit(t0["qty_c"], t0["entry_bits"])[0],
        money_str(st["cash_cc"]))

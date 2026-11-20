@@ -8,9 +8,16 @@
  * Fees: ON by default and pinned to the official taker formula
  *   fee = roundup(M x 0.07 x C x P x (1 - P))
  * from https://kalshi.com/docs/kalshi-fee-schedule.pdf (effective July 7, 2026;
- * re-read 2026-11-20). Settlement pays $1 per winning contract with no
- * settlement fee (same document). Maker fees are NOT modelled because a paper
- * fill is assumed to be immediately matched (taker).
+ * re-read 2026-11-20). M is the per-series multiplier published by the demo
+ * API on GET /series/{ticker} (`fee_multiplier`, official Get Series schema,
+ * re-read 2026-11-20) and cached in state.seriesFees; it defaults to 1 (the
+ * schedule's "default is 1 unless otherwise indicated") when a series record
+ * has not been seen. The production PDF's Non-Standard table lists taker M=0
+ * for KXBTCY/KXETHY while the demo API publishes fee_multiplier=1 for them —
+ * that official-source conflict is published on flagged.html and the demo
+ * (environment-matched) value is the one modelled here. Settlement pays $1 per
+ * winning contract with no settlement fee (same document). Maker fees are NOT
+ * modelled because a paper fill is assumed to be immediately matched (taker).
  *
  * Topic classification mirrors scripts/topics.json (authoritative for the
  * data/ snapshots). The two MUST be kept in sync — flagged in flagged.html.
@@ -54,7 +61,8 @@ window.KalshiModel = (function () {
     equity: load('equity', []),       // [{t, equity, cash}]
     bot: Object.assign({}, DEFAULT_BOT, load('bot', {})),
     crossed50: load('crossed50', {}), // breakout state per ticker: 'above'|'below'
-    harvestCool: load('harvestCool', {}) // ticker -> last harvest entry ms
+    harvestCool: load('harvestCool', {}), // ticker -> last harvest entry ms
+    seriesFees: load('seriesFees', {}) // SERIES -> {m, fee_type, src, checked} from GET /series/{ticker}
   };
   if (!state.bot.strategies) state.bot.strategies = JSON.parse(JSON.stringify(DEFAULT_BOT.strategies));
 
@@ -110,26 +118,60 @@ window.KalshiModel = (function () {
     return Math.round(s * 1000) / 1000;
   }
 
-  /* ---------- fee (official schedule: taker = roundup(0.07 x C x P x (1-P));
+  /* ---------- fee (official schedule: taker = roundup(M x 0.07 x C x P x (1-P));
    * source: https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026.
+   * M (default 1) is the per-series fee_multiplier published by the demo API —
+   * official Get Series schema: https://docs.kalshi.com/api-reference/market/get-series
+   * ("FeeMultiplier is a floating point multiplier applied to the fee
+   * calculations"); cached via noteSeriesFee() from Series objects the app
+   * already fetches. Unknown series use the schedule's documented default M=1.
    * Maker fees are not modeled — paper fills assume immediately-matched orders.
    *
-   * Computed in integer arithmetic: official prices are 4dp (p4 = P * 10000)
-   * and contract counts are 2dp (c2 = C * 100), so
+   * Computed in integer arithmetic at M=1: official prices are 4dp (p4 = P *
+   * 10000) and contract counts are 2dp (c2 = C * 100), so
    *   fee_dollars = 7 * c2 * p4 * (10000 - p4) / 1e12
    *   fee_cents   = 7 * c2 * p4 * (10000 - p4) / 1e10
    * Every published row of the schedule's General Trading Fees Table is
    * reproduced exactly (see tests/root_engine.test.js). The naive float form
    * ceil(0.07 * 100 * 0.5 * 0.5 * 100) = ceil(175.00000000000003) = 176,
-   * i.e. $1.76 where the official table says $1.75 — hence the integer path. --- */
-  function fee(costPerContract, qty) {
+   * i.e. $1.76 where the official table says $1.75 — hence the integer path.
+   * Non-unit M (a demo-published multiplier such as 0.5) scales the same
+   * expression and keeps the same round-up; M <= 0 means no taker fee. --- */
+  function takerMultiplier(series) {
+    // Accepts a series ticker or a full market ticker ("KXBTCY-26DEC31-100000").
+    var key = seriesOfTicker(series);
+    var rec = key ? state.seriesFees[key] : null;
+    var m = rec ? Number(rec.m) : NaN;
+    return isFinite(m) ? m : 1; // schedule default: "default is 1 unless otherwise indicated"
+  }
+  /* Cache one official Series record's fee fields. Never infers: a record
+   * without a finite fee_multiplier is ignored (left blank + flagged upstream). */
+  function noteSeriesFee(sr, src) {
+    if (!sr || !sr.ticker) return false;
+    var m = Number(sr.fee_multiplier);
+    if (!isFinite(m)) return false;
+    var key = String(sr.ticker).toUpperCase();
+    state.seriesFees[key] = {
+      m: m,
+      fee_type: (sr.fee_type === undefined ? null : sr.fee_type),
+      src: src || null,
+      checked: new Date().toISOString()
+    };
+    save('seriesFees', state.seriesFees);
+    return true;
+  }
+  function feeWithM(costPerContract, qty, M) {
     if (!state.bot.fees) return 0;
+    if (!(M > 0)) return 0; // a published 0 multiplier means no taker fee
     var p4 = Math.round(costPerContract * 10000);   // price in 1/10000 dollars
     var c2 = Math.round(qty * 100);                   // contracts in 1/100
     if (!isFinite(p4) || !isFinite(c2) || c2 <= 0) return 0;
     if (p4 < 0 || p4 > 10000) return 0;
-    var cents = 7 * c2 * p4 * (10000 - p4) / 1e10;
+    var cents = M * 7 * c2 * p4 * (10000 - p4) / 1e10;
     return Math.ceil(cents - 1e-9) / 100;             // round up to the next cent
+  }
+  function fee(costPerContract, qty, series) {
+    return feeWithM(costPerContract, qty, takerMultiplier(series));
   }
 
   /* ---------- alert threshold (>= $0.10, either direction) ----------
@@ -158,6 +200,7 @@ window.KalshiModel = (function () {
     save('cash', cash);
     save('crossed50', state.crossed50);
     save('harvestCool', state.harvestCool);
+    save('seriesFees', state.seriesFees);
   }
 
   function bidAsk(m, side) {
@@ -167,6 +210,14 @@ window.KalshiModel = (function () {
   }
 
   function openPositions() { return state.trades.filter(function (t) { return t.status === 'open'; }); }
+
+  /* Series prefix of a market ticker: "KXAAAGASM-26NOV30-3.90" -> "KXAAAGASM".
+   * Used only as a fallback when the app has not attached m._series. */
+  function seriesOfTicker(ticker) {
+    var s = String(ticker || '');
+    var i = s.indexOf('-');
+    return i === -1 ? s.toUpperCase() : s.slice(0, i).toUpperCase();
+  }
 
   function tryEnter(m, side, strategy, qtyOverride, note) {
     var bot = state.bot;
@@ -180,14 +231,16 @@ window.KalshiModel = (function () {
     var cost = qty * ba.ask;
     if (cost > cash) { qty = Math.floor(cash / ba.ask); cost = qty * ba.ask; }
     if (qty < 1) return false;
-    var fEntry = fee(ba.ask, qty);
+    var series = (m._series || seriesOfTicker(m.ticker));
+    var fEntry = fee(ba.ask, qty, series);
     cash = Math.round((cash - cost - fEntry) * 10000) / 10000;
     state.trades.push({
       id: Date.now() + ':' + Math.random().toString(36).slice(2, 7),
       t: new Date().toISOString(), ticker: m.ticker, event_ticker: m.event_ticker,
       title: m.title, topic: m._topic || null, side: side, qty: qty,
       entry: ba.ask, strategy: strategy, status: 'open', mark: ba.bid,
-      feeEntry: fEntry, note: note || ''
+      feeEntry: fEntry, series: series, feeMul: takerMultiplier(series),
+      note: note || ''
     });
     persistAll();
     return true;
@@ -195,7 +248,12 @@ window.KalshiModel = (function () {
 
   function closeTrade(t, price, reason, when) {
     var proceeds = t.qty * price;
-    var f = fee(price, t.qty);
+    // Exit uses the multiplier recorded at entry (feeMul) so a mid-hold change
+    // to the cached series record cannot rewrite the trade's own economics.
+    var M = (t.feeMul !== undefined && t.feeMul !== null)
+      ? Number(t.feeMul)
+      : takerMultiplier(t.series || seriesOfTicker(t.ticker));
+    var f = feeWithM(price, t.qty, M);
     cash = Math.round((cash + proceeds - f) * 10000) / 10000;
     t.status = 'closed';
     t.exit = { t: when || new Date().toISOString(), price: price, reason: reason, fee: f };
@@ -367,6 +425,8 @@ window.KalshiModel = (function () {
     recordEquity: recordEquity, equity: equity, summary: summary,
     byStrategy: byStrategy, byTopic: byTopic, pushAlert: pushAlert,
     persistAll: persistAll, reset: reset, fee: fee, alertMove: alertMove,
+    takerMultiplier: takerMultiplier, noteSeriesFee: noteSeriesFee,
+    seriesOfTicker: seriesOfTicker,
     topicById: function (id) { return TOPICS.filter(function (t) { return t.id === id; })[0] || null; }
   };
 })();

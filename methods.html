@@ -82,7 +82,7 @@
   </table></div>
   <ul class="small">
     <li>Sizing: target $25 per trade (configurable), max 8 concurrent positions, one position per strategy per market.</li>
-    <li>Fills assume the official quote with <b>no slippage</b> — optimistic; flagged. Fees: taker <code>roundup(0.07 × C × P × (1−P))</code> per the official <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">fee schedule</a> (effective July 7, 2026), applied on paper entries and exits; maker fees not modeled (paper fills assume immediate match) — flagged. Fees can be toggled off in the Strategy Lab.</li>
+    <li>Fills assume the official quote with <b>no slippage</b> — optimistic; flagged. Fees: taker <code>roundup(M × 0.07 × C × P × (1−P))</code> per the official <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">fee schedule</a> (effective July 7, 2026), applied on paper entries and exits, where <b>M is the per-series <code>fee_multiplier</code> the demo API publishes</b> on <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series">GET /series/{ticker}</a> (default 1 until a series record is seen — see §4); maker fees not modeled (paper fills assume immediate match) — flagged. Fees can be toggled off in the Strategy Lab.</li>
     <li>Mark-to-market uses the official bid; settlement pays $1 per winning contract (<a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_settlement">Market Settlement</a>).</li>
     <li>All trades live in <code>localStorage</code> only (export/import/reset in the Strategy Lab).</li>
   </ul>
@@ -96,7 +96,7 @@
     <tr><td>$0.99</td><td>$0.01</td><td>$0.07</td><td class="src"><a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCY">KXBTCY</a></td></tr>
   </table></div>
   <h3 style="margin-top:12px">Per-series fee structure, read from the API</h3>
-  <p class="small muted">Each row was fetched live from the demo API on 2026-11-20. The demo reports <code>fee_type: "quadratic"</code> and <code>fee_multiplier: 1</code> for every in-scope series checked — the general taker rule our model applies. The published PDF’s per-series override table differs for some of these series; those are production values, so we follow what the demo feed reports.</p>
+  <p class="small muted">Each row was fetched live from the demo API on 2026-11-20. The demo reports <code>fee_type: "quadratic"</code> and <code>fee_multiplier: 1</code> for every in-scope series checked — the general taker rule our model applies. The published PDF’s per-series override table differs for some of these series (e.g. KXBTCY/KXETHY taker M=0 in production); those are production values, so we follow what the demo feed reports — that conflict is published on <a href="flagged.html">Flagged</a> (6b). <b>Both engines consume this field at runtime</b> (since 2026-11-20, session <code>9ff00ee3</code>): the browser lab ingests <code>fee_multiplier</code> from the Series objects it already fetches during discovery (plus one deduped <code>GET /series/{s}</code> per event-path series, capped at 60) and records the M used on each trade at entry; the CI ledger fetches <code>GET /series/{s}</code> for its watchlist’s series on each live run (capped at 40, cached across runs in <code>data/portfolio_state.json</code>) and books <code>fee_m</code> per trade. A series record that has not been seen — or one without a numeric <code>fee_multiplier</code> — stays at the schedule default <b>M = 1</b> (“default is 1 unless otherwise indicated”); nothing is inferred when the field is absent.</p>
   <div class="tablewrap"><table>
     <tr><th>Series</th><th>Topic</th><th>fee_type</th><th>fee_multiplier</th><th>Source (official API response)</th></tr>
     <tr><td>KXAAAGASM</td><td>Gas prices</td><td>quadratic</td><td>1</td><td class="src"><a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/series/KXAAAGASM">series response</a></td></tr>
@@ -192,7 +192,10 @@
     binary-float artifact that made the naive form print $1.76 instead of $1.75 cannot happen), while the ledger implements the newer
     <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a> rule
     (<code>ceil_6dp</code> trade fee plus a $0.01-aligned balance change with the remainder as a rounding fee). Both reproduce every row of the published
-    “General Trading Fees Table” at cent display precision; they can differ by less than a cent on a single leg. Maker fees are excluded on both sides —
+    “General Trading Fees Table” at cent display precision; they can differ by less than a cent on a single leg. In <b>both</b> engines the multiplier M
+    is the demo API’s per-series <code>fee_multiplier</code> (§4): the lab records <code>feeMul</code> on the trade at entry and applies it to the exit,
+    and the ledger records <code>fee_m</code> the same way, so a later change to a cached series record never rewrites a trade that already exists.
+    Maker fees are excluded on both sides —
     and they are <i>not</i> zero for the gas series: the fee schedule lists <code>KXAAAGASM</code> with maker multiplier 1 and taker multiplier 1, and
     the demo API independently reports <code>fee_type: "quadratic", fee_multiplier: 1</code> for that series (§4, “Per-series fee structure”), so a
     resting-order strategy would be mis-priced in both simulators.</p>

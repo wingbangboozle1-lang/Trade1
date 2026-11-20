@@ -196,6 +196,24 @@ window.KalshiApp = (function () {
   }
 
   /* ---------- discovery: open events -> in-scope events -> their markets ---------- */
+  /* Per-series taker multiplier cache. The demo API publishes fee_multiplier on
+   * every Series record (official Get Series schema) — the app already fetches
+   * full Series objects in discoverSeries(), so ingesting them here costs no
+   * extra request. For series only seen through the /events path, fetch the
+   * record once (deduped, capped) and cache it the same way. Unknown series
+   * keep the schedule's documented default M=1 (see assets/model.js fee()). */
+  var seriesFeeAsked = {};
+  function ensureSeriesFee(st) {
+    if (!st || S.mode === 'snapshot') return;
+    var key = String(st).toUpperCase();
+    if (M.state.seriesFees[key] || seriesFeeAsked[key]) return;
+    if (Object.keys(seriesFeeAsked).length >= 60) return; // request-volume guard
+    seriesFeeAsked[key] = 1;
+    api('/series/' + encodeURIComponent(st), null, function (err, j, url) {
+      if (!err && j && j.series) M.noteSeriesFee(j.series, url || undefined);
+    });
+  }
+
   function discover() {
     if (!navigator.onLine || S.mode === 'snapshot') return;
     var all = [], page = 0;
@@ -239,6 +257,9 @@ window.KalshiApp = (function () {
           if (!err && j && j.series) {
             j.series.forEach(function (sr) {
               if (!sr.ticker || seen[sr.ticker]) return;
+              /* Official Series records carry fee_multiplier/fee_type (Get
+               * Series schema) — cache them for the paper broker's fee math. */
+              M.noteSeriesFee(sr, CFG.bases[0] + '/series/' + encodeURIComponent(sr.ticker));
               var title = sr.title || '';
               var hay = title + ' ' + sr.ticker;
               // Mirror scripts/topics.json exclude_categories (e.g. golf-club
@@ -264,6 +285,7 @@ window.KalshiApp = (function () {
                                      settlement_sources: sr.settlement_sources || [], _topic: t.id };
                   }
                   m._topic = t.id;
+                  m._series = sr.ticker;
                   if (!S.watch[m.ticker]) { S.watch[m.ticker] = m; S.list.push(m.ticker); }
                   else S.watch[m.ticker] = Object.assign(S.watch[m.ticker], m);
                 });
@@ -287,6 +309,10 @@ window.KalshiApp = (function () {
             if (!m.ticker) return;
             var ev = S.events[m.event_ticker];
             m._topic = ev ? ev._topic : (M.classify(ev && ev.category, m.title, ev && ev.series_ticker) || m._topic || null);
+            if (ev && ev.series_ticker) {
+              m._series = ev.series_ticker;
+              ensureSeriesFee(ev.series_ticker); // cache fee_multiplier for the broker
+            }
             if (!S.watch[m.ticker]) { S.watch[m.ticker] = m; S.list.push(m.ticker); }
             else S.watch[m.ticker] = Object.assign(S.watch[m.ticker], m);
           });
@@ -1111,7 +1137,7 @@ window.KalshiApp = (function () {
       '<div class="row spread"><div class="row"><span class="pill" id="kx-mode">…</span><span class="muted small" id="kx-mode-note"></span></div>' +
       '<div class="row"><button id="kx-bot-toggle">Bot: —</button><button id="kx-export">Export JSON</button>' +
       '<button id="kx-import">Import JSON</button><button id="kx-clear" class="danger">Reset</button></div></div>' +
-      '<p class="notice blue small">Automated <b>paper</b> trading: when the bot is ON it evaluates the documented strategies every poll cycle against live demo quotes and records local-only fills. No orders are sent to Kalshi; nothing here can touch a real or demo account. Fees use the official taker formula <code>roundup(0.07 &times; C &times; P &times; (1&minus;P))</code> from the <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official fee schedule</a> (verified 2026-11-20, effective July 7 2026). Maker fees are not modelled because paper fills assume an immediately-matched order — see <a href="flagged.html">Flagged</a>.</p>' +
+      '<p class="notice blue small">Automated <b>paper</b> trading: when the bot is ON it evaluates the documented strategies every poll cycle against live demo quotes and records local-only fills. No orders are sent to Kalshi; nothing here can touch a real or demo account. Fees use the official taker formula <code>roundup(M &times; 0.07 &times; C &times; P &times; (1&minus;P))</code> from the <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official fee schedule</a> (verified 2026-11-20, effective July 7 2026), where M is the per-series <code>fee_multiplier</code> the demo API publishes on <a href="https://docs.kalshi.com/api-reference/market/get-series" target="_blank" rel="noopener">GET /series/{ticker}</a> (default 1 until a series record is seen; the production-schedule conflict for KXBTCY/KXETHY is published on <a href="flagged.html">Flagged</a>). Maker fees are not modelled because paper fills assume an immediately-matched order — see <a href="flagged.html">Flagged</a>.</p>' +
       '<div class="cards">' +
       '<div class="card"><small>Paper equity</small><strong id="kpi-equity">—</strong></div>' +
       '<div class="card"><small>Cash</small><strong id="kpi-cash">—</strong></div>' +
@@ -1125,7 +1151,7 @@ window.KalshiApp = (function () {
       '<span>Per trade $ <input id="kx-per" type="number" min="1" step="5" value="' + M.state.bot.perTradeDollars + '"></span>' +
       '<span>Max positions <input id="kx-max" type="number" min="1" max="40" value="' + M.state.bot.maxPositions + '"></span>' +
       '<button id="kx-apply">Apply</button></div>' +
-      '<p class="muted small">Fees: <b>' + (M.state.bot.fees ? 'ON (official taker formula)' : 'OFF') + '</b> — toggle below. Fee = roundup(0.07 &times; contracts &times; price &times; (1 &minus; price)) per the <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official schedule</a>; settlement has no fee. Maker fees are not modelled.</p>' +
+      '<p class="muted small">Fees: <b>' + (M.state.bot.fees ? 'ON (official taker formula)' : 'OFF') + '</b> — toggle below. Fee = roundup(M &times; 0.07 &times; contracts &times; price &times; (1 &minus; price)) per the <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official schedule</a>, M = the demo API&rsquo;s per-series <code>fee_multiplier</code> (default 1; ' + Object.keys(M.state.seriesFees).length + ' series cached); settlement has no fee. Maker fees are not modelled.</p>' +
       '<button id="kx-fees">Toggle fees</button>' +
       '<p class="muted small" id="kx-trades-hint"></p>' +
       '<p class="small" id="kx-sum" style="margin-top:8px"></p></div></div>' +
