@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-20 14:38 UTC",
- "generated_epoch": 1795185532,
+ "generated_at": "2026-11-20 14:55 UTC",
+ "generated_epoch": 1795186553,
  "api_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "api_docs": "https://docs.kalshi.com/getting_started/api_environments",
  "refresh_minutes": 30,
@@ -12,11 +12,11 @@
   "culture": 2627,
   "elections": 2709
  },
- "open_markets_fetched": 290352,
+ "open_markets_fetched": 290060,
  "open_by_topic_total": {
   "gas": 713,
   "golf": 1986,
-  "crypto": 74604,
+  "crypto": 74599,
   "culture": 9861,
   "elections": 35341
  },
@@ -29,11 +29,11 @@
  },
  "resolved_window_days": 30,
  "resolved_rows": 300,
- "resolved_yes": 0,
- "resolved_no": 300,
+ "resolved_yes": 9,
+ "resolved_no": 291,
  "detail_markets": 40,
  "moves_threshold_usd": 0.1,
- "moves_count": 158,
+ "moves_count": 81,
  "flags_count": 8,
  "topics": [
   {

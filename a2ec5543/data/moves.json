@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20 14:38 UTC",
+ "generated_at": "2026-11-20 14:55 UTC",
  "threshold_usd": 0.1,
  "moves": [
   {
@@ -7,8 +7,33 @@
    "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
    "topic": "elections",
    "granularity": "1m (last 6h)",
-   "from_t": 1795185360,
-   "to_t": 1795185420,
+   "from_t": 1795186440,
+   "to_t": 1795186500,
+   "from_price": 0.003,
+   "to_price": 0.803,
+   "change": 0.8,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795186380,
+   "to_t": 1795186440,
    "from_price": 0.803,
    "to_price": 0.003,
    "change": -0.8,
@@ -28,8 +53,183 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795186260,
+   "to_t": 1795186320,
+   "from_price": 0.003,
+   "to_price": 0.803,
+   "change": 0.8,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795186200,
+   "to_t": 1795186260,
+   "from_price": 0.803,
+   "to_price": 0.003,
+   "change": -0.8,
+   "direction": "down",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795186140,
+   "to_t": 1795186200,
+   "from_price": 0.003,
+   "to_price": 0.803,
+   "change": 0.8,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795185900,
+   "to_t": 1795185960,
+   "from_price": 0.803,
+   "to_price": 0.003,
+   "change": -0.8,
+   "direction": "down",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795185840,
+   "to_t": 1795185900,
+   "from_price": 0.003,
+   "to_price": 0.803,
+   "change": 0.8,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795185540,
+   "to_t": 1795185600,
+   "from_price": 0.803,
+   "to_price": 0.003,
+   "change": -0.8,
+   "direction": "down",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
+   "topic": "elections",
+   "granularity": "1m (last 6h)",
+   "from_t": 1795185480,
+   "to_t": 1795185540,
+   "from_price": 0.003,
+   "to_price": 0.803,
+   "change": 0.8,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
+   "settlement_sources": [
+    {
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXPRESNOMD-28-AKLO",
+   "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
    "topic": "elections",
    "granularity": "1m (last 6h)",
    "from_t": 1795185360,
@@ -38,12 +238,16 @@
    "to_price": 0.003,
    "change": -0.8,
    "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESNOMD-28-AKLO",
+   "source_terms": "https://assets.kalshi.com/contract_terms/PRESNOM.pdf",
    "settlement_sources": [
     {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
+     "name": "Republican Party",
+     "url": "https://gop.com/"
+    },
+    {
+     "name": "Democratic Party",
+     "url": "https://democrats.org/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -74,27 +278,6 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795185300,
-   "to_t": 1795185360,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
    "ticker": "KXPRESNOMD-28-AKLO",
    "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
    "topic": "elections",
@@ -115,27 +298,6 @@
     {
      "name": "Democratic Party",
      "url": "https://democrats.org/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795185240,
-   "to_t": 1795185300,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -166,27 +328,6 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795185120,
-   "to_t": 1795185180,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
    "ticker": "KXPRESNOMD-28-AKLO",
    "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
    "topic": "elections",
@@ -212,27 +353,6 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795185000,
-   "to_t": 1795185060,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
    "ticker": "KXPRESNOMD-28-AKLO",
    "title": "Will Amy Klobuchar be the nominee for the Presidency for the Democratic party?",
    "topic": "elections",
@@ -253,27 +373,6 @@
     {
      "name": "Democratic Party",
      "url": "https://democrats.org/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795184940,
-   "to_t": 1795185000,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -349,258 +448,6 @@
     {
      "name": "Democratic Party",
      "url": "https://democrats.org/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795184460,
-   "to_t": 1795184520,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795184340,
-   "to_t": 1795184400,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795184280,
-   "to_t": 1795184340,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795184220,
-   "to_t": 1795184280,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795184160,
-   "to_t": 1795184220,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795184100,
-   "to_t": 1795184160,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795183980,
-   "to_t": 1795184040,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795183860,
-   "to_t": 1795183920,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795183680,
-   "to_t": 1795183740,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795183500,
-   "to_t": 1795183560,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795183320,
-   "to_t": 1795183380,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795183200,
-   "to_t": 1795183260,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -683,300 +530,6 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182960,
-   "to_t": 1795183020,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182900,
-   "to_t": 1795182960,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182660,
-   "to_t": 1795182720,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182600,
-   "to_t": 1795182660,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182360,
-   "to_t": 1795182420,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182300,
-   "to_t": 1795182360,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182180,
-   "to_t": 1795182240,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795182120,
-   "to_t": 1795182180,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795181760,
-   "to_t": 1795181820,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795181580,
-   "to_t": 1795181640,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795181400,
-   "to_t": 1795181460,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795181340,
-   "to_t": 1795181400,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795181280,
-   "to_t": 1795181340,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795181220,
-   "to_t": 1795181280,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
    "ticker": "KXGTA6UNITS-01JAN27-T30000000",
    "title": "GTA VI \u00b7 30 million+ sold-in units before Jan 2027?",
    "topic": "culture",
@@ -1049,699 +602,6 @@
     {
      "name": "Reuters",
      "url": "https://www.reuters.com"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180860,
-   "to_t": 1795180920,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180800,
-   "to_t": 1795180860,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180620,
-   "to_t": 1795180680,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180560,
-   "to_t": 1795180620,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180500,
-   "to_t": 1795180560,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180380,
-   "to_t": 1795180440,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180200,
-   "to_t": 1795180260,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795180080,
-   "to_t": 1795180140,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795179660,
-   "to_t": 1795179720,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795179600,
-   "to_t": 1795179660,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1795176000,
-   "to_t": 1795179600,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795179420,
-   "to_t": 1795179480,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795179360,
-   "to_t": 1795179420,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795179120,
-   "to_t": 1795179180,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795179060,
-   "to_t": 1795179120,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795178520,
-   "to_t": 1795178580,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795178460,
-   "to_t": 1795178520,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795178340,
-   "to_t": 1795178400,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795178280,
-   "to_t": 1795178340,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795177980,
-   "to_t": 1795178040,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795177920,
-   "to_t": 1795177980,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795177680,
-   "to_t": 1795177740,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795177320,
-   "to_t": 1795177380,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795177260,
-   "to_t": 1795177320,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795177020,
-   "to_t": 1795177080,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795176780,
-   "to_t": 1795176840,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795176720,
-   "to_t": 1795176780,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795176600,
-   "to_t": 1795176660,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795176540,
-   "to_t": 1795176600,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795176480,
-   "to_t": 1795176540,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795176240,
-   "to_t": 1795176300,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795176180,
-   "to_t": 1795176240,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1795172400,
-   "to_t": 1795176000,
-   "from_price": 0.004,
-   "to_price": 0.803,
-   "change": 0.799,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -1826,321 +686,6 @@
     {
      "name": "Rotten Tomatoes",
      "url": "https://www.rottentomatoes.com/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795175940,
-   "to_t": 1795176000,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795175880,
-   "to_t": 1795175940,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795175820,
-   "to_t": 1795175880,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795175100,
-   "to_t": 1795175160,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795175040,
-   "to_t": 1795175100,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795174920,
-   "to_t": 1795174980,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795174860,
-   "to_t": 1795174920,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795174500,
-   "to_t": 1795174560,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795174440,
-   "to_t": 1795174500,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795173960,
-   "to_t": 1795174020,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795173900,
-   "to_t": 1795173960,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795173720,
-   "to_t": 1795173780,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795173660,
-   "to_t": 1795173720,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795173480,
-   "to_t": 1795173540,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795173420,
-   "to_t": 1795173480,
-   "from_price": 0.004,
-   "to_price": 0.803,
-   "change": 0.799,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -2239,48 +784,6 @@
    "from_price": 0.36,
    "to_price": 0.63,
    "change": 0.27,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXRT-HUN-65",
-   "source_terms": "https://assets.kalshi.com/contract_terms/RT.pdf",
-   "settlement_sources": [
-    {
-     "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXRT-HUN-65",
-   "title": "The Hunger Games: Sunrise on the Reaping Rotten Tomatoes score?",
-   "topic": "culture",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795164840,
-   "to_t": 1795164900,
-   "from_price": 0.53,
-   "to_price": 0.36,
-   "change": -0.17,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXRT-HUN-65",
-   "source_terms": "https://assets.kalshi.com/contract_terms/RT.pdf",
-   "settlement_sources": [
-    {
-     "name": "Rotten Tomatoes",
-     "url": "https://www.rottentomatoes.com/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXRT-HUN-65",
-   "title": "The Hunger Games: Sunrise on the Reaping Rotten Tomatoes score?",
-   "topic": "culture",
-   "granularity": "1m (last 6h)",
-   "from_t": 1795164780,
-   "to_t": 1795164840,
-   "from_price": 0.37,
-   "to_price": 0.53,
-   "change": 0.16,
    "direction": "up",
    "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXRT-HUN-65",
    "source_terms": "https://assets.kalshi.com/contract_terms/RT.pdf",
@@ -2616,6 +1119,27 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
+   "granularity": "1h (last 7d)",
+   "from_t": 1795057200,
+   "to_t": 1795111200,
+   "from_price": 0.72,
+   "to_price": 0.36,
+   "change": -0.36,
+   "direction": "down",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
    "ticker": "KXGTA6UNITS-01JAN27-T30000000",
    "title": "GTA VI \u00b7 30 million+ sold-in units before Jan 2027?",
    "topic": "culture",
@@ -2889,6 +1413,27 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
+   "granularity": "1h (last 7d)",
+   "from_t": 1795046400,
+   "to_t": 1795050000,
+   "from_price": 0.43,
+   "to_price": 0.71,
+   "change": 0.28,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
    "ticker": "KXBTCD-26NOV2017-T61499.99",
    "title": "Bitcoin price on Nov 20, 2026?",
    "topic": "crypto",
@@ -3015,43 +1560,22 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
    "granularity": "1h (last 7d)",
-   "from_t": 1794956400,
-   "to_t": 1794960000,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
+   "from_t": 1795017600,
+   "to_t": 1795021200,
+   "from_price": 0.7,
+   "to_price": 0.41,
+   "change": -0.29,
    "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
    "settlement_sources": [
     {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794952800,
-   "to_t": 1794956400,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -3099,64 +1623,22 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
    "granularity": "1h (last 7d)",
-   "from_t": 1794823200,
+   "from_t": 1794765600,
    "to_t": 1794826800,
-   "from_price": 0.803,
-   "to_price": 0.004,
-   "change": -0.799,
+   "from_price": 0.87,
+   "to_price": 0.68,
+   "change": -0.19,
    "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
    "settlement_sources": [
     {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794819600,
-   "to_t": 1794823200,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794798000,
-   "to_t": 1794801600,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -3178,69 +1660,6 @@
     {
      "name": "Rotten Tomatoes",
      "url": "https://www.rottentomatoes.com/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794794400,
-   "to_t": 1794798000,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794790800,
-   "to_t": 1794794400,
-   "from_price": 0.803,
-   "to_price": 0.003,
-   "change": -0.8,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794783600,
-   "to_t": 1794787200,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -3333,6 +1752,48 @@
     {
      "name": "Democratic Party",
      "url": "https://democrats.org/"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
+   "granularity": "1h (last 7d)",
+   "from_t": 1794754800,
+   "to_t": 1794758400,
+   "from_price": 0.71,
+   "to_price": 0.86,
+   "change": 0.15,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
+   "granularity": "1h (last 7d)",
+   "from_t": 1794751200,
+   "to_t": 1794754800,
+   "from_price": 0.5,
+   "to_price": 0.71,
+   "change": 0.21,
+   "direction": "up",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -3443,6 +1904,27 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
+   "granularity": "1h (last 7d)",
+   "from_t": 1794726000,
+   "to_t": 1794729600,
+   "from_price": 0.69,
+   "to_price": 0.48,
+   "change": -0.21,
+   "direction": "down",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
+   "settlement_sources": [
+    {
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+    }
+   ],
+   "cause": "NOT VERIFIED - no official news attribution is available from the API"
+  },
+  {
    "ticker": "KXBTCD-26NOV2017-T62499.99",
    "title": "Bitcoin price on Nov 20, 2026?",
    "topic": "crypto",
@@ -3464,64 +1946,22 @@
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
   },
   {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
+   "ticker": "KXBTCD-26NOV2017-T63499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topic": "crypto",
    "granularity": "1h (last 7d)",
-   "from_t": 1794661200,
-   "to_t": 1794664800,
-   "from_price": 0.803,
-   "to_price": 0.004,
-   "change": -0.799,
+   "from_t": 1794697200,
+   "to_t": 1794700800,
+   "from_price": 0.86,
+   "to_price": 0.69,
+   "change": -0.17,
    "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2017-T63499.99",
+   "source_terms": "https://assets.kalshi.com/contract_terms/BTC.pdf",
    "settlement_sources": [
     {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794654000,
-   "to_t": 1794657600,
-   "from_price": 0.003,
-   "to_price": 0.803,
-   "change": 0.8,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794643200,
-   "to_t": 1794646800,
-   "from_price": 0.802,
-   "to_price": 0.003,
-   "change": -0.799,
-   "direction": "down",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
+     "name": "CF Benchmarks",
+     "url": "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
@@ -3547,27 +1987,6 @@
     {
      "name": "Democratic Party",
      "url": "https://democrats.org/"
-    }
-   ],
-   "cause": "NOT VERIFIED - no official news attribution is available from the API"
-  },
-  {
-   "ticker": "KXPRESPERSON-28-GABB",
-   "title": "Who will win the next presidential election?",
-   "topic": "elections",
-   "granularity": "1h (last 7d)",
-   "from_t": 1794632400,
-   "to_t": 1794636000,
-   "from_price": 0.003,
-   "to_price": 0.802,
-   "change": 0.799,
-   "direction": "up",
-   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-GABB",
-   "source_terms": "https://assets.kalshi.com/contract_terms/PRESPERSON.pdf",
-   "settlement_sources": [
-    {
-     "name": "Office of the Presidency",
-     "url": "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
     }
    ],
    "cause": "NOT VERIFIED - no official news attribution is available from the API"
