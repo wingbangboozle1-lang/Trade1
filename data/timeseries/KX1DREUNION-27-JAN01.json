@@ -22,9 +22,18 @@
 "last": 0.02,
 "vol": 110.84,
 "oi": 80.8
+},
+{
+"t": 1795182003,
+"bid": 0.03,
+"ask": 0.08,
+"mid": 0.055,
+"last": 0.02,
+"vol": 110.84,
+"oi": 80.8
 }
 ],
 "event_ticker": "KX1DREUNION-27",
 "series_ticker": "KX1DREUNION",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

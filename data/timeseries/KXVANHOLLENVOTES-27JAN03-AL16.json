@@ -28,9 +28,21 @@
 "liq": 9104.84,
 "yes_qty": 2462.63,
 "no_qty": 15320.38
+},
+{
+"t": 1795182003,
+"bid": 0.42,
+"ask": 0.43,
+"mid": 0.425,
+"last": 0.43,
+"vol": 13281.38,
+"oi": 8747.96,
+"liq": 9104.84,
+"yes_qty": 2462.63,
+"no_qty": 15320.38
 }
 ],
 "event_ticker": "KXVANHOLLENVOTES-27JAN03",
 "series_ticker": "KXVANHOLLENVOTES",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

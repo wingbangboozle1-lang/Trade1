@@ -68,7 +68,7 @@ Every figure links back to the page that computes it.</p>
   <div class="card kpi"><span class="label">Live events</span>
 <span class="value"><span class="money">183</span></span><span class="sub">largest: Oscar Winner: Best Picture</span></div>
   <div class="card kpi"><span class="label">Sharp moves</span>
-<span class="value"><span class="money">101</span></span><span class="sub">≥ $0.10 between observations</span></div>
+<span class="value"><span class="money">146</span></span><span class="sub">≥ $0.10 between observations</span></div>
   <div class="card kpi"><span class="label">Resolved</span>
 <span class="value"><span class="money">4</span></span><span class="sub">180 still live</span></div>
 </div>
@@ -77,7 +77,7 @@ Every figure links back to the page that computes it.</p>
 <h2>Findings</h2>
 <ul class="clean">
   <li><strong>Culture, not elections, carries the most money on this exchange today.</strong> The largest
-    live event tracked was Oscar Winner: Best Picture at <span class="money">$13,481,274</span> of traded volume, with
+    live event tracked was Oscar Winner: Best Picture at <span class="money">$13,481,283</span> of traded volume, with
     <span class="money">6</span> culture events inside the top ten. Elections are second and crypto has the most individual markets but a long
     tail of short-dated strikes.</li>
   <li><strong>Kalshi's demo environment is not a copy of production.</strong> Its open market list is
@@ -92,14 +92,14 @@ Every figure links back to the page that computes it.</p>
     per-event budget split evenly across the five topics, which is why all five are populated.</li>
   <li><strong>"Highest dollar amount" is reported two honest ways</strong>: traded dollar volume and
     resting liquidity dollars. Kalshi publishes no single "money at stake" figure, so none is invented.
-    Liquidity is concentrated: the deepest books tracked rest around <span class="money">$61,063</span>.</li>
-  <li><strong>Sharp moves are detected, causes are not asserted.</strong> <span class="money">101</span> moves of at
+    Liquidity is concentrated: the deepest books tracked rest around <span class="money">$110,069</span>.</li>
+  <li><strong>Sharp moves are detected, causes are not asserted.</strong> <span class="money">146</span> moves of at
     least $0.10 were recorded. A move is a fact from two observations; a news explanation needs a source,
     and unattributed moves stay labelled unverified.</li>
   <li><strong>Strategy results are simulated and reproducible</strong>, and they are not flattering. The
     mean-reversion and event-driven rules have not closed a trade yet, the statistical rule is losing
-    (<span class="money">-$47.37</span> over <span class="money">19</span> closed), and the only positive contributor so far is the
-    thesis rule at <span class="money">$5.08</span>. Fees are small (<span class="money">$12.34</span>) precisely because most
+    (<span class="money">-$95.08</span> over <span class="money">37</span> closed), and the only positive contributor so far is the
+    thesis rule at <span class="money">$5.08</span>. Fees are small (<span class="money">$23.86</span>) precisely because most
     positions are still open.</li>
   <li><strong>The fee model is verified, not assumed.</strong> The engine reproduces all 21 published rows of
     Kalshi's fee schedule, and the test suite fails the build if it ever stops.</li>

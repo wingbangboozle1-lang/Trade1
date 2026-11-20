@@ -28,9 +28,21 @@
 "liq": 13699.08,
 "yes_qty": 10040.59,
 "no_qty": 108381.53
+},
+{
+"t": 1795182003,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.02,
+"vol": 488709.63,
+"oi": 393367.59,
+"liq": 13699.08,
+"yes_qty": 10040.59,
+"no_qty": 108381.53
 }
 ],
 "event_ticker": "KXOSCARPIC-27",
 "series_ticker": "KXOSCARPIC",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

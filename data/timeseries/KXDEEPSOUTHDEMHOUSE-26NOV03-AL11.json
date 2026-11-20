@@ -22,9 +22,18 @@
 "last": 0.4,
 "vol": 24.38,
 "oi": 24.38
+},
+{
+"t": 1795182003,
+"bid": 0.95,
+"ask": 1.0,
+"mid": 0.975,
+"last": 0.4,
+"vol": 24.38,
+"oi": 24.38
 }
 ],
 "event_ticker": "KXDEEPSOUTHDEMHOUSE-26NOV03",
 "series_ticker": "KXDEEPSOUTHDEMHOUSE",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

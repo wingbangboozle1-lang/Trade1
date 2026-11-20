@@ -22,9 +22,18 @@
 "last": 0.71,
 "vol": 349.14,
 "oi": 200.0
+},
+{
+"t": 1795182003,
+"bid": 0.7,
+"ask": 0.71,
+"mid": 0.705,
+"last": 0.71,
+"vol": 349.14,
+"oi": 200.0
 }
 ],
 "event_ticker": "KXPRESDEBATECANDD-28FEB29",
 "series_ticker": "KXPRESDEBATECANDD",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

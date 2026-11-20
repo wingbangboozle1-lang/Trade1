@@ -22,9 +22,18 @@
 "last": 0.01,
 "vol": 14669.6,
 "oi": 14531.92
+},
+{
+"t": 1795182003,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 14669.6,
+"oi": 14531.92
 }
 ],
 "event_ticker": "KXOSCARPIC-27",
 "series_ticker": "KXOSCARPIC",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

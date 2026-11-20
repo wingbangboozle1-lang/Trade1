@@ -13,9 +13,18 @@
 "last": 0.3,
 "vol": 3320.05,
 "oi": 2361.12
+},
+{
+"t": 1795182003,
+"bid": 0.06,
+"ask": 0.063,
+"mid": 0.0615,
+"last": 0.063,
+"vol": 14872.6,
+"oi": 8355.9
 }
 ],
 "event_ticker": "KXNEAR15M-26NOV200845",
 "series_ticker": "KXNEAR15M",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

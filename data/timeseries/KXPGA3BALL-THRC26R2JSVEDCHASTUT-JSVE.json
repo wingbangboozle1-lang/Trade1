@@ -22,9 +22,18 @@
 "last": 0.42,
 "vol": 227.0,
 "oi": 227.0
+},
+{
+"t": 1795182003,
+"bid": 0.39,
+"ask": 0.41,
+"mid": 0.4,
+"last": 0.42,
+"vol": 227.0,
+"oi": 227.0
 }
 ],
 "event_ticker": "KXPGA3BALL-THRC26R2JSVEDCHASTUT",
 "series_ticker": "KXPGA3BALL",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

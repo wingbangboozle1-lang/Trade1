@@ -40,9 +40,18 @@
 "last": 0.13,
 "vol": 892.01,
 "oi": 287.01
+},
+{
+"t": 1795182003,
+"bid": 0.08,
+"ask": 0.09,
+"mid": 0.085,
+"last": 0.13,
+"vol": 892.01,
+"oi": 287.01
 }
 ],
 "event_ticker": "KXXRP-26NOV2009",
 "series_ticker": "KXXRP",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

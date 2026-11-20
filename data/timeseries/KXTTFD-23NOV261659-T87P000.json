@@ -58,9 +58,18 @@
 "last": 0.0,
 "vol": 0.0,
 "oi": 0.0
+},
+{
+"t": 1795182003,
+"bid": 0.83,
+"ask": 0.91,
+"mid": 0.87,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
 }
 ],
 "event_ticker": "KXTTFD-23NOV261659",
 "series_ticker": "KXTTFD",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

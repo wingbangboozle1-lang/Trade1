@@ -22,9 +22,18 @@
 "last": 0.0,
 "vol": 0.0,
 "oi": 0.0
+},
+{
+"t": 1795182003,
+"bid": 0.01,
+"ask": 0.73,
+"mid": 0.37,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
 }
 ],
 "event_ticker": "KXLPGAR2LEAD-CMEGTC26",
 "series_ticker": "KXLPGAR2LEAD",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

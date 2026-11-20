@@ -22,9 +22,18 @@
 "last": 0.05,
 "vol": 1716.55,
 "oi": 1372.08
+},
+{
+"t": 1795182003,
+"bid": 0.04,
+"ask": 0.07,
+"mid": 0.055,
+"last": 0.05,
+"vol": 1716.55,
+"oi": 1372.08
 }
 ],
 "event_ticker": "KXOSCARINTLFILM-27",
 "series_ticker": "KXOSCARINTLFILM",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

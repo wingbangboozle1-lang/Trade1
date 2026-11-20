@@ -22,9 +22,18 @@
 "last": 0.23,
 "vol": 13419.21,
 "oi": 8908.94
+},
+{
+"t": 1795182003,
+"bid": 0.22,
+"ask": 0.23,
+"mid": 0.225,
+"last": 0.23,
+"vol": 13419.21,
+"oi": 8908.94
 }
 ],
 "event_ticker": "KXVANHOLLENVOTES-27JAN03",
 "series_ticker": "KXVANHOLLENVOTES",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

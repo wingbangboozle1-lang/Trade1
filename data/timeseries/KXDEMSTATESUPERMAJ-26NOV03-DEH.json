@@ -22,9 +22,18 @@
 "last": 0.99,
 "vol": 3356.99,
 "oi": 1319.0
+},
+{
+"t": 1795182003,
+"bid": 0.0,
+"ask": 1.0,
+"mid": 0.5,
+"last": 0.99,
+"vol": 3356.99,
+"oi": 1319.0
 }
 ],
 "event_ticker": "KXDEMSTATESUPERMAJ-26NOV03",
 "series_ticker": "KXDEMSTATESUPERMAJ",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

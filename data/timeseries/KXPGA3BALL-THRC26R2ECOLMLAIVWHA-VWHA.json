@@ -22,9 +22,18 @@
 "last": 0.0,
 "vol": 0.0,
 "oi": 0.0
+},
+{
+"t": 1795182003,
+"bid": 0.25,
+"ask": 0.27,
+"mid": 0.26,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
 }
 ],
 "event_ticker": "KXPGA3BALL-THRC26R2ECOLMLAIVWHA",
 "series_ticker": "KXPGA3BALL",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

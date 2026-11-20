@@ -22,9 +22,18 @@
 "last": 0.01,
 "vol": 16578.09,
 "oi": 9205.76
+},
+{
+"t": 1795182003,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 16578.09,
+"oi": 9205.76
 }
 ],
 "event_ticker": "KXRHOUSEWON-26NOV03",
 "series_ticker": "KXRHOUSEWON",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

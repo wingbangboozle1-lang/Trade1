@@ -22,9 +22,18 @@
 "last": 0.08,
 "vol": 3034.31,
 "oi": 891.53
+},
+{
+"t": 1795182003,
+"bid": 0.08,
+"ask": 0.1,
+"mid": 0.09,
+"last": 0.08,
+"vol": 3034.31,
+"oi": 891.53
 }
 ],
 "event_ticker": "KX1ALBUM-26DEC",
 "series_ticker": "KX1ALBUM",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

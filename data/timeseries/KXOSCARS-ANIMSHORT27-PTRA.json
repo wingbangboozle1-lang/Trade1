@@ -22,9 +22,18 @@
 "last": 0.15,
 "vol": 650.34,
 "oi": 250.34
+},
+{
+"t": 1795182003,
+"bid": 0.14,
+"ask": 0.19,
+"mid": 0.165,
+"last": 0.15,
+"vol": 650.34,
+"oi": 250.34
 }
 ],
 "event_ticker": "KXOSCARS-ANIMSHORT27",
 "series_ticker": "KXOSCARS",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

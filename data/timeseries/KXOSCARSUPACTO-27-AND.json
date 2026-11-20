@@ -22,9 +22,18 @@
 "last": 0.31,
 "vol": 22642.58,
 "oi": 15024.15
+},
+{
+"t": 1795182003,
+"bid": 0.3,
+"ask": 0.32,
+"mid": 0.31,
+"last": 0.31,
+"vol": 22642.58,
+"oi": 15024.15
 }
 ],
 "event_ticker": "KXOSCARSUPACTO-27",
 "series_ticker": "KXOSCARSUPACTO",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

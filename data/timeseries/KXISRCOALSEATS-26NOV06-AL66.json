@@ -22,9 +22,18 @@
 "last": 0.18,
 "vol": 6.01,
 "oi": 6.01
+},
+{
+"t": 1795182003,
+"bid": 0.16,
+"ask": 0.24,
+"mid": 0.2,
+"last": 0.18,
+"vol": 6.01,
+"oi": 6.01
 }
 ],
 "event_ticker": "KXISRCOALSEATS-26NOV06",
 "series_ticker": "KXISRCOALSEATS",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

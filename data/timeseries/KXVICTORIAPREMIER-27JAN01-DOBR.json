@@ -22,9 +22,18 @@
 "last": 0.05,
 "vol": 1535.5,
 "oi": 1418.0
+},
+{
+"t": 1795182003,
+"bid": 0.01,
+"ask": 0.05,
+"mid": 0.03,
+"last": 0.05,
+"vol": 1535.5,
+"oi": 1418.0
 }
 ],
 "event_ticker": "KXVICTORIAPREMIER-27JAN01",
 "series_ticker": "KXVICTORIAPREMIER",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

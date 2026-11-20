@@ -424,9 +424,21 @@
 "liq": 59693.23,
 "yes_qty": 62626.04,
 "no_qty": 5617.48
+},
+{
+"t": 1795182003,
+"bid": 0.062,
+"ask": 0.075,
+"mid": 0.0685,
+"last": 0.076,
+"vol": 1157591.9,
+"oi": 394883.33,
+"liq": 59693.23,
+"yes_qty": 62626.04,
+"no_qty": 5617.48
 }
 ],
-"history_backfilled_at": "2026-11-20T13:34:17Z",
+"history_backfilled_at": "2026-11-20T13:40:06Z",
 "history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
 "title": "Will the Democratic margin of victory in the 2026 U.S. House of Representatives national popular vote be between 12 and 14%?",
 "topics": [
@@ -434,5 +446,5 @@
 ],
 "event_ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03",
 "series_ticker": "KXHOUSEPOPVOTEMARGIN",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

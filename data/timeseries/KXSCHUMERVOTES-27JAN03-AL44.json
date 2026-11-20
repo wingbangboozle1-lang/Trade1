@@ -22,9 +22,18 @@
 "last": 0.27,
 "vol": 833.56,
 "oi": 818.56
+},
+{
+"t": 1795182003,
+"bid": 0.25,
+"ask": 0.27,
+"mid": 0.26,
+"last": 0.27,
+"vol": 833.56,
+"oi": 818.56
 }
 ],
 "event_ticker": "KXSCHUMERVOTES-27JAN03",
 "series_ticker": "KXSCHUMERVOTES",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

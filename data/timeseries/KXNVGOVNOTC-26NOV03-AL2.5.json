@@ -40,9 +40,18 @@
 "last": 0.54,
 "vol": 320.02,
 "oi": 320.02
+},
+{
+"t": 1795182003,
+"bid": 0.0,
+"ask": 0.05,
+"mid": 0.025,
+"last": 0.54,
+"vol": 320.02,
+"oi": 320.02
 }
 ],
 "event_ticker": "KXNVGOVNOTC-26NOV03",
 "series_ticker": "KXNVGOVNOTC",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

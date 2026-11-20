@@ -22,9 +22,18 @@
 "last": 0.35,
 "vol": 1082.35,
 "oi": 1026.35
+},
+{
+"t": 1795182003,
+"bid": 0.34,
+"ask": 0.35,
+"mid": 0.345,
+"last": 0.35,
+"vol": 1082.35,
+"oi": 1026.35
 }
 ],
 "event_ticker": "KXISRGOVTYPE-26NOV06",
 "series_ticker": "KXISRGOVTYPE",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

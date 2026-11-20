@@ -22,9 +22,18 @@
 "last": 0.01,
 "vol": 1513.24,
 "oi": 1394.11
+},
+{
+"t": 1795182003,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.01,
+"vol": 1513.24,
+"oi": 1394.11
 }
 ],
 "event_ticker": "KXOSCARANIMATED-27",
 "series_ticker": "KXOSCARANIMATED",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

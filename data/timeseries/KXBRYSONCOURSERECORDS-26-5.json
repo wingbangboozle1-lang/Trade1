@@ -22,9 +22,18 @@
 "last": 0.01,
 "vol": 58931.48,
 "oi": 19871.51
+},
+{
+"t": 1795182003,
+"bid": 0.01,
+"ask": 0.03,
+"mid": 0.02,
+"last": 0.01,
+"vol": 58931.48,
+"oi": 19871.51
 }
 ],
 "event_ticker": "KXBRYSONCOURSERECORDS-26",
 "series_ticker": "KXBRYSONCOURSERECORDS",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

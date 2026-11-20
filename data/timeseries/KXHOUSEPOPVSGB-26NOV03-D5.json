@@ -22,9 +22,18 @@
 "last": 0.9,
 "vol": 122.08,
 "oi": 36.08
+},
+{
+"t": 1795182003,
+"bid": 0.02,
+"ask": 0.91,
+"mid": 0.465,
+"last": 0.9,
+"vol": 122.08,
+"oi": 36.08
 }
 ],
 "event_ticker": "KXHOUSEPOPVSGB-26NOV03",
 "series_ticker": "KXHOUSEPOPVSGB",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

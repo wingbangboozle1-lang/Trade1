@@ -22,9 +22,18 @@
 "last": 0.62,
 "vol": 18905.02,
 "oi": 8614.6
+},
+{
+"t": 1795182003,
+"bid": 0.59,
+"ask": 0.65,
+"mid": 0.62,
+"last": 0.62,
+"vol": 18905.02,
+"oi": 8614.6
 }
 ],
 "event_ticker": "KXOSCARSPLAY-27",
 "series_ticker": "KXOSCARSPLAY",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

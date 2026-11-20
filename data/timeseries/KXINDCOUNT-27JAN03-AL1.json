@@ -22,9 +22,18 @@
 "last": 0.02,
 "vol": 943.34,
 "oi": 606.9
+},
+{
+"t": 1795182003,
+"bid": 0.0,
+"ask": 0.05,
+"mid": 0.025,
+"last": 0.02,
+"vol": 943.34,
+"oi": 606.9
 }
 ],
 "event_ticker": "KXINDCOUNT-27JAN03",
 "series_ticker": "KXINDCOUNT",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

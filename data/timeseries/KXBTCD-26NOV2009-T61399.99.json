@@ -40,11 +40,20 @@
 "last": 0.43,
 "vol": 83461.34,
 "oi": 31871.45
+},
+{
+"t": 1795182003,
+"bid": 0.38,
+"ask": 0.39,
+"mid": 0.385,
+"last": 0.41,
+"vol": 95592.6,
+"oi": 32776.42
 }
 ],
 "event_ticker": "KXBTCD-26NOV2009",
 "series_ticker": "KXBTCD",
-"updated_at": "2026-11-20T13:34:19Z",
-"history_backfilled_at": "2026-11-20T13:34:18Z",
+"updated_at": "2026-11-20T13:40:09Z",
+"history_backfilled_at": "2026-11-20T13:40:07Z",
 "history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks"
 }

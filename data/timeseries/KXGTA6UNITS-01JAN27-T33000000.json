@@ -28,9 +28,21 @@
 "liq": 4469.96,
 "yes_qty": 4062.82,
 "no_qty": 4047.81
+},
+{
+"t": 1795182003,
+"bid": 0.46,
+"ask": 0.47,
+"mid": 0.465,
+"last": 0.47,
+"vol": 61583.9,
+"oi": 37174.53,
+"liq": 5259.76,
+"yes_qty": 5056.87,
+"no_qty": 3975.98
 }
 ],
 "event_ticker": "KXGTA6UNITS-01JAN27",
 "series_ticker": "KXGTA6UNITS",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

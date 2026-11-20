@@ -13,9 +13,18 @@
 "last": 0.44,
 "vol": 4847.33,
 "oi": 2510.23
+},
+{
+"t": 1795182003,
+"bid": 0.28,
+"ask": 0.3,
+"mid": 0.29,
+"last": 0.3,
+"vol": 9936.61,
+"oi": 3961.25
 }
 ],
 "event_ticker": "KXHYPE15M-26NOV200845",
 "series_ticker": "KXHYPE15M",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

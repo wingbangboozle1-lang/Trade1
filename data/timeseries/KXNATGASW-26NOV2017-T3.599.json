@@ -46,9 +46,18 @@
 "last": 0.68,
 "vol": 1047.32,
 "oi": 263.3
+},
+{
+"t": 1795182003,
+"bid": 0.72,
+"ask": 0.74,
+"mid": 0.73,
+"last": 0.68,
+"vol": 1047.32,
+"oi": 263.3
 }
 ],
 "event_ticker": "KXNATGASW-26NOV2017",
 "series_ticker": "KXNATGASW",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

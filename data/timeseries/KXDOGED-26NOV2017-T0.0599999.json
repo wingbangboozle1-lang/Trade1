@@ -40,9 +40,18 @@
 "last": 0.39,
 "vol": 2939.53,
 "oi": 2904.36
+},
+{
+"t": 1795182003,
+"bid": 0.0,
+"ask": 0.06,
+"mid": 0.03,
+"last": 0.39,
+"vol": 2939.53,
+"oi": 2904.36
 }
 ],
 "event_ticker": "KXDOGED-26NOV2017",
 "series_ticker": "KXDOGED",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

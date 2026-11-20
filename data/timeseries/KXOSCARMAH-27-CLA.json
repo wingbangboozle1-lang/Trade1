@@ -22,9 +22,18 @@
 "last": 0.06,
 "vol": 1628.43,
 "oi": 1462.43
+},
+{
+"t": 1795182003,
+"bid": 0.01,
+"ask": 0.04,
+"mid": 0.025,
+"last": 0.06,
+"vol": 1628.43,
+"oi": 1462.43
 }
 ],
 "event_ticker": "KXOSCARMAH-27",
 "series_ticker": "KXOSCARMAH",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

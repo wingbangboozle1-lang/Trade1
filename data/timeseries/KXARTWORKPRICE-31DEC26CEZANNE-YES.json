@@ -22,9 +22,18 @@
 "last": 0.01,
 "vol": 53.0,
 "oi": 52.0
+},
+{
+"t": 1795182003,
+"bid": 0.0,
+"ask": 0.05,
+"mid": 0.025,
+"last": 0.01,
+"vol": 53.0,
+"oi": 52.0
 }
 ],
 "event_ticker": "KXARTWORKPRICE-31DEC26CEZANNE",
 "series_ticker": "KXARTWORKPRICE",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

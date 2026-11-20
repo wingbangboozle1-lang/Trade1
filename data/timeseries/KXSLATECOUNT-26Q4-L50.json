@@ -22,9 +22,18 @@
 "last": 0.97,
 "vol": 10451.08,
 "oi": 2684.19
+},
+{
+"t": 1795182003,
+"bid": 0.91,
+"ask": 0.97,
+"mid": 0.94,
+"last": 0.97,
+"vol": 10451.08,
+"oi": 2684.19
 }
 ],
 "event_ticker": "KXSLATECOUNT-26Q4",
 "series_ticker": "KXSLATECOUNT",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

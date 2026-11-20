@@ -22,9 +22,18 @@
 "last": 0.12,
 "vol": 200.0,
 "oi": 200.0
+},
+{
+"t": 1795182003,
+"bid": 0.08,
+"ask": 0.15,
+"mid": 0.115,
+"last": 0.12,
+"vol": 200.0,
+"oi": 200.0
 }
 ],
 "event_ticker": "KXSPEAKER120VOTE-27FEB01",
 "series_ticker": "KXSPEAKER120VOTE",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:10Z"
 }

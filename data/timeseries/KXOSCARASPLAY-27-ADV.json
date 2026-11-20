@@ -22,9 +22,18 @@
 "last": 0.24,
 "vol": 2435.73,
 "oi": 1455.73
+},
+{
+"t": 1795182003,
+"bid": 0.01,
+"ask": 0.04,
+"mid": 0.025,
+"last": 0.24,
+"vol": 2435.73,
+"oi": 1455.73
 }
 ],
 "event_ticker": "KXOSCARASPLAY-27",
 "series_ticker": "KXOSCARASPLAY",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }

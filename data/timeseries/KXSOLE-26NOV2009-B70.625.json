@@ -40,9 +40,18 @@
 "last": 0.27,
 "vol": 301.99,
 "oi": 301.99
+},
+{
+"t": 1795182003,
+"bid": 0.36,
+"ask": 0.38,
+"mid": 0.37,
+"last": 0.27,
+"vol": 301.99,
+"oi": 301.99
 }
 ],
 "event_ticker": "KXSOLE-26NOV2009",
 "series_ticker": "KXSOLE",
-"updated_at": "2026-11-20T13:34:20Z"
+"updated_at": "2026-11-20T13:40:09Z"
 }

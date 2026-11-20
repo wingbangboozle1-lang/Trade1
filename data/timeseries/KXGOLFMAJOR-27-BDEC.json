@@ -22,9 +22,18 @@
 "last": 0.29,
 "vol": 197.26,
 "oi": 55.26
+},
+{
+"t": 1795182003,
+"bid": 0.16,
+"ask": 0.28,
+"mid": 0.22,
+"last": 0.29,
+"vol": 197.26,
+"oi": 55.26
 }
 ],
 "event_ticker": "KXGOLFMAJOR-27",
 "series_ticker": "KXGOLFMAJOR",
-"updated_at": "2026-11-20T13:34:19Z"
+"updated_at": "2026-11-20T13:40:08Z"
 }
