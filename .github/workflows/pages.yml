@@ -1,4 +1,4 @@
-name: Deploy static dashboard to GitHub Pages
+name: Deploy Kalshi demo monitor site to GitHub Pages
 on:
   push:
     branches: [main]
@@ -21,6 +21,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: site
       - id: deployment
         uses: actions/deploy-pages@v4
