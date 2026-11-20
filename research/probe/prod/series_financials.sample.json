@@ -9,22 +9,24 @@
         "Financials"
       ],
       "category": "Financials",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/GOLD.pdf",
-      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/GOLD.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/INDEXVALUEMINMAX.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/INDEXVALUEMINMAX.pdf",
       "exchange_index": 0,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
       "frequency": "annual",
-      "last_updated_ts": "2026-10-15T08:02:28.792359Z",
+      "last_updated_ts": "2026-10-23T17:58:14.770734Z",
       "settlement_sources": [
         {
-          "name": "ICE",
-          "url": "https://www.theice.com/index"
+          "name": "Trading View",
+          "url": "https://www.tradingview.com/symbols/NSE-NIFTY/"
         }
       ],
-      "tags": null,
-      "ticker": "KXGOLDY",
-      "title": "Price of Gold at year-end?"
+      "tags": [
+        "Indices"
+      ],
+      "ticker": "KXNIFTYH",
+      "title": "Nifty 50 annual high"
     },
     {
       "additional_prohibitions": [
@@ -35,57 +37,89 @@
         "Financials"
       ],
       "category": "Financials",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CARBONARC.pdf",
-      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/CARBONARC.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONSTAT.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/ECONSTAT.pdf",
       "exchange_index": 0,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
       "frequency": "one_off",
-      "last_updated_ts": "2026-11-19T18:46:14.672033Z",
+      "last_updated_ts": "2026-11-14T21:06:12.775252Z",
       "settlement_sources": [
         {
-          "name": "Carbon Arc",
-          "url": "https://www.carbonarc.ai/prisms?prism=069134cd-4854-4ba3-9986-1a7a5a331f04&entity=Video%20Games"
+          "name": "U.S. Department of the Treasury",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
         }
       ],
       "tags": [
-        "Advertising Spend",
+        "Interest Rates"
+      ],
+      "ticker": "KXUST2AM",
+      "title": "UST 2 Year Monthly"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ACQANNOUNCE.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/ACQANNOUNCE.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-10-29T22:31:51.969685Z",
+      "settlement_sources": [
+        {
+          "name": "ABC",
+          "url": "https://abcnews.go.com/"
+        },
+        {
+          "name": "Securities and Exchange Commission",
+          "url": "https://www.sec.gov/"
+        },
+        {
+          "name": "The Wall Street Journal",
+          "url": "https://www.wsj.com/"
+        },
+        {
+          "name": "The Guardian",
+          "url": "https://www.theguardian.com"
+        },
+        {
+          "name": "CNBC",
+          "url": "https://www.cnbc.com"
+        },
+        {
+          "name": "Bloomberg",
+          "url": "https://www.bloomberg.com"
+        },
+        {
+          "name": "BBC",
+          "url": "https://www.bbc.co.uk"
+        },
+        {
+          "name": "Financial Times",
+          "url": "https://www.ft.com"
+        },
+        {
+          "name": "Reuters",
+          "url": "https://www.reuters.com"
+        },
+        {
+          "name": "the New York Times",
+          "url": "https://www.nytimes.com"
+        }
+      ],
+      "tags": [
+        "M&A",
         "Companies"
       ],
-      "ticker": "KXVIDEOGAMESADS",
-      "title": "Video Games Ad Spend"
-    },
-    {
-      "additional_prohibitions": [
-        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
-        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
-      ],
-      "categories": [
-        "Financials"
-      ],
-      "category": "Financials",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/INDEXSECTOR.pdf",
-      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/INDEXSECTOR.pdf",
-      "exchange_index": 0,
-      "fee_multiplier": 1,
-      "fee_type": "quadratic",
-      "frequency": "one_off",
-      "last_updated_ts": "2026-11-13T00:57:14.785134Z",
-      "settlement_sources": [
-        {
-          "name": "S&P Global",
-          "url": "https://www.spglobal.com/en"
-        }
-      ],
-      "tags": [
-        "AI",
-        "IPOs",
-        "Indices",
-        "S&P 500",
-        "Stock Market"
-      ],
-      "ticker": "KXOPENAISECTOR",
-      "title": "OPENAI Sector in S&P"
+      "ticker": "KXACQUANNOUNCEDH",
+      "title": "Delivery Hero Acquisition"
     }
   ]
 }

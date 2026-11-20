@@ -9,24 +9,24 @@
         "Economics"
       ],
       "category": "Economics",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONTWEETS.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/ECONTWEETS.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/NGDP.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/NGDP.pdf",
       "exchange_index": 0,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
-      "frequency": "weekly",
-      "last_updated_ts": "2026-11-20T11:35:01.648757Z",
+      "frequency": "annual",
+      "last_updated_ts": "2026-11-20T11:48:02.516676Z",
       "settlement_sources": [
         {
-          "name": "X",
-          "url": "https://x.com/wef"
+          "name": "Federal Reserve",
+          "url": "https://fred.stlouisfed.org/series/GDP"
         }
       ],
       "tags": [
-        "Econ Weekly"
+        "GDP"
       ],
-      "ticker": "KXWEFTWEETS",
-      "title": "WEF tweets"
+      "ticker": "KXNGDP",
+      "title": "Annual NGDP growth"
     },
     {
       "additional_prohibitions": [
@@ -37,24 +37,24 @@
         "Economics"
       ],
       "category": "Economics",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONSTATE.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/ECONSTATE.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/LARGECUT.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/LARGECUT.pdf",
       "exchange_index": 0,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
-      "frequency": "annual",
-      "last_updated_ts": "2026-11-20T11:34:33.550072Z",
+      "frequency": "custom",
+      "last_updated_ts": "2026-11-20T11:33:29.432065Z",
       "settlement_sources": [
         {
-          "name": "Federal Reserve Bank of New York",
-          "url": "https://www.newyorkfed.org/markets/reference-rates/sofr"
+          "name": "Federal Reserve",
+          "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"
         }
       ],
       "tags": [
-        "Jobs & Economy"
+        "Fed"
       ],
-      "ticker": "KXNYSECEEMP",
-      "title": "New York securities-industry employment"
+      "ticker": "KXLARGECUT",
+      "title": "Large cuts"
     },
     {
       "additional_prohibitions": [
@@ -65,24 +65,22 @@
         "Economics"
       ],
       "category": "Economics",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONSTATB.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/ECONSTATB.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/NDEBTSHRINK.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/NDEBTSHRINK.pdf",
       "exchange_index": 0,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
-      "frequency": "annual",
-      "last_updated_ts": "2026-10-26T14:00:18.138018Z",
+      "frequency": "custom",
+      "last_updated_ts": "2026-11-20T11:42:30.970607Z",
       "settlement_sources": [
         {
-          "name": "Green Street",
-          "url": "https://www.greenstreet.com/resources/pricing-index/"
+          "name": "U.S. Department of the Treasury",
+          "url": "https://home.treasury.gov/"
         }
       ],
-      "tags": [
-        "Housing"
-      ],
-      "ticker": "KXCREYOY",
-      "title": "US commercial real estate prices YoY"
+      "tags": null,
+      "ticker": "KXNDEBTSHRINK",
+      "title": "national debt shrinking"
     }
   ]
 }

@@ -1,0 +1,41 @@
+{
+  "cursor": "EhIKEAcmEAuasYejkB0c",
+  "trades": [
+    {
+      "count_fp": "1.24",
+      "created_time": "2026-11-20T13:03:45.13284Z",
+      "is_block_trade": false,
+      "no_price_dollars": "0.9950",
+      "taker_book_side": "bid",
+      "taker_outcome_side": "yes",
+      "taker_side": "yes",
+      "ticker": "KXPRESNOMD-28-BOBA",
+      "trade_id": "0726116e-f3f9-be1b-ac35-c12c3a7f56ec",
+      "yes_price_dollars": "0.0050"
+    },
+    {
+      "count_fp": "0.93",
+      "created_time": "2026-11-20T13:03:45.062028Z",
+      "is_block_trade": false,
+      "no_price_dollars": "0.9970",
+      "taker_book_side": "bid",
+      "taker_outcome_side": "yes",
+      "taker_side": "yes",
+      "ticker": "KXPRESNOMD-28-CMUR",
+      "trade_id": "07261d37-2239-9f36-4504-d90c6e5d8c89",
+      "yes_price_dollars": "0.0030"
+    },
+    {
+      "count_fp": "0.77",
+      "created_time": "2026-11-20T13:03:45.059238Z",
+      "is_block_trade": false,
+      "no_price_dollars": "0.9960",
+      "taker_book_side": "bid",
+      "taker_outcome_side": "yes",
+      "taker_side": "yes",
+      "ticker": "KXPRESNOMD-28-BORO",
+      "trade_id": "0726100b-3699-9910-d690-fb245aaf5dbf",
+      "yes_price_dollars": "0.0040"
+    }
+  ]
+}

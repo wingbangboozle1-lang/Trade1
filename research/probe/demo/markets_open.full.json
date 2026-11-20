@@ -1,6 +1,456 @@
 {
-  "cursor": "CgwIzO-A2AYQgKT4ywISHktYSU5EU0xTUFJFQUQtMjZOT1YyMEVCU0NELUVCNA",
+  "cursor": "CgwI0--A2AYQqO2EngISMktYTVZFQ1JPU1NDQVRFR09SWS1TMjAyNllCSDdKQjVDTVpUWFFQTkwtNlREQzZCVjU0",
   "markets": [
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-23T20:30:00Z",
+      "created_time": "2026-11-20T13:03:24.410036Z",
+      "custom_strike": {
+        "Associated Events": "KXNCAAFGAME-26NOV21CORCLMB,KXNCAAFGAME-26NOV21ODUCONN",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXNCAAFGAME-26NOV21CORCLMB-CLMB,KXNCAAFGAME-26NOV21ODUCONN-CONN",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S20265T3PZNEOZ5RJ42EA"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S20265T3PZNEOZ5RJ42EA",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-22T02:30:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-23T20:30:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXNCAAFGAME-26NOV21CORCLMB",
+          "market_ticker": "KXNCAAFGAME-26NOV21CORCLMB-CLMB",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAFGAME-26NOV21ODUCONN",
+          "market_ticker": "KXNCAAFGAME-26NOV21ODUCONN-CONN",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes Columbia,yes UConn",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:03:24Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S20265T3PZNEOZ5RJ42EA-7IXQ7742G",
+      "title": "yes Columbia,yes UConn",
+      "updated_time": "2026-11-20T13:03:25.360216Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes Columbia,yes UConn"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-23T00:00:00Z",
+      "created_time": "2026-11-20T13:03:21.448852Z",
+      "custom_strike": {
+        "Associated Events": "KXEKSTRAKLASAGAME-26NOV20PGLKOR,KXNCAAMBGAME-26NOV20MONMPRIN",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXEKSTRAKLASAGAME-26NOV20PGLKOR-PGL,KXNCAAMBGAME-26NOV20MONMPRIN-PRIN",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S20262HX3ANIZIWROD5A7"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S20262HX3ANIZIWROD5A7",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-21T06:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-23T00:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXEKSTRAKLASAGAME-26NOV20PGLKOR",
+          "market_ticker": "KXEKSTRAKLASAGAME-26NOV20PGLKOR-PGL",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV20MONMPRIN",
+          "market_ticker": "KXNCAAMBGAME-26NOV20MONMPRIN-PRIN",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes Gliwice,yes Princeton",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:03:21Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S20262HX3ANIZIWROD5A7-J35ZKVR5A",
+      "title": "yes Gliwice,yes Princeton",
+      "updated_time": "2026-11-20T13:03:22.359903Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes Gliwice,yes Princeton"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-24T23:00:00Z",
+      "created_time": "2026-11-20T13:02:48.823921Z",
+      "custom_strike": {
+        "Associated Events": "KXDOTA2GAME-26NOV201200LEGPARI,KXNCAAMBGAME-26NOV22UTAHMINN",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXDOTA2GAME-26NOV201200LEGPARI-LEG,KXNCAAMBGAME-26NOV22UTAHMINN-MINN",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026LDJ3AVZ7RLHL7G6Z"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026LDJ3AVZ7RLHL7G6Z",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-23T05:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-24T23:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXDOTA2GAME-26NOV201200LEGPARI",
+          "market_ticker": "KXDOTA2GAME-26NOV201200LEGPARI-LEG",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV22UTAHMINN",
+          "market_ticker": "KXNCAAMBGAME-26NOV22UTAHMINN-MINN",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes LEGION,yes Minnesota",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:02:48Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026LDJ3AVZ7RLHL7G6Z-UVKALF3PD",
+      "title": "yes LEGION,yes Minnesota",
+      "updated_time": "2026-11-20T13:02:49.359853Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes LEGION,yes Minnesota"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-24T18:00:00Z",
+      "created_time": "2026-11-20T13:02:46.186842Z",
+      "custom_strike": {
+        "Associated Events": "KXNCAAMBGAME-26NOV21UNMWICH,KXNCAAWBGAME-26NOV22JOESPSU",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXNCAAMBGAME-26NOV21UNMWICH-UNM,KXNCAAWBGAME-26NOV22JOESPSU-PSU",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026RJ4GHIW7JX5E7CR3"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026RJ4GHIW7JX5E7CR3",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-23T00:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-24T18:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV21UNMWICH",
+          "market_ticker": "KXNCAAMBGAME-26NOV21UNMWICH-UNM",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAWBGAME-26NOV22JOESPSU",
+          "market_ticker": "KXNCAAWBGAME-26NOV22JOESPSU-PSU",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes New Mexico,yes Penn St.",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:02:46Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026RJ4GHIW7JX5E7CR3-TIRTOS3Y3",
+      "title": "yes New Mexico,yes Penn St.",
+      "updated_time": "2026-11-20T13:02:47.360154Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes New Mexico,yes Penn St."
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-23T22:00:00Z",
+      "created_time": "2026-11-20T13:02:13.505108Z",
+      "custom_strike": {
+        "Associated Events": "KXNCAAMBGAME-26NOV21AFAUTSA,KXNCAAWBGAME-26NOV21UMESMONM",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXNCAAMBGAME-26NOV21AFAUTSA-AFA,KXNCAAWBGAME-26NOV21UMESMONM-UMES",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026NEMTWCWUHPTLFGFV"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026NEMTWCWUHPTLFGFV",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-22T04:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-23T22:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV21AFAUTSA",
+          "market_ticker": "KXNCAAMBGAME-26NOV21AFAUTSA-AFA",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAWBGAME-26NOV21UMESMONM",
+          "market_ticker": "KXNCAAWBGAME-26NOV21UMESMONM-UMES",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes Air Force,yes Maryland-Eastern Shore",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:02:13Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026NEMTWCWUHPTLFGFV-XBFTWLBSY",
+      "title": "yes Air Force,yes Maryland-Eastern Shore",
+      "updated_time": "2026-11-20T13:02:14.359686Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes Air Force,yes Maryland-Eastern Shore"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-26T00:30:00Z",
+      "created_time": "2026-11-20T13:02:11.926813Z",
+      "custom_strike": {
+        "Associated Events": "KXNCAAMBGAME-26NOV22NICHTROY,KXNCAAMBGAME-26NOV23AMCCWICH",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXNCAAMBGAME-26NOV22NICHTROY-NICH,KXNCAAMBGAME-26NOV23AMCCWICH-AMCC",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026NILAYS5WA7D27YEL"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026NILAYS5WA7D27YEL",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-24T06:30:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-26T00:30:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV22NICHTROY",
+          "market_ticker": "KXNCAAMBGAME-26NOV22NICHTROY-NICH",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV23AMCCWICH",
+          "market_ticker": "KXNCAAMBGAME-26NOV23AMCCWICH-AMCC",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes Nicholls St.,yes Texas A&M-Corpus Christi",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:02:11Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026NILAYS5WA7D27YEL-KX37QHSI3",
+      "title": "yes Nicholls St.,yes Texas A&M-Corpus Christi",
+      "updated_time": "2026-11-20T13:02:12.360309Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes Nicholls St.,yes Texas A&M-Corpus Christi"
+    },
     {
       "can_close_early": true,
       "close_time": "2026-11-26T03:00:00Z",
@@ -15,8 +465,7 @@
       "exchange_index": 1,
       "expected_expiration_time": "2026-11-24T09:00:00Z",
       "expiration_value": "",
-      "is_provisional": true,
-      "last_price_dollars": "0.0000",
+      "last_price_dollars": "0.4500",
       "latest_expiration_time": "2026-11-26T03:00:00Z",
       "market_type": "binary",
       "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
@@ -33,10 +482,10 @@
         }
       ],
       "no_ask_dollars": "1.0000",
-      "no_bid_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
       "no_sub_title": "yes Utah,yes Utah",
       "notional_value_dollars": "1.0000",
-      "open_interest_fp": "0.00",
+      "open_interest_fp": "100.00",
       "open_time": "2026-11-20T13:01:36Z",
       "previous_price_dollars": "0.0000",
       "previous_yes_ask_dollars": "0.0000",
@@ -70,8 +519,8 @@
       "title": "yes Utah,yes Utah",
       "updated_time": "2026-11-20T13:01:37.360039Z",
       "volume_24h_fp": "0.00",
-      "volume_fp": "0.00",
-      "yes_ask_dollars": "0.0000",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
       "yes_ask_size_fp": "0.00",
       "yes_bid_dollars": "0.0000",
       "yes_bid_size_fp": "0.00",
@@ -535,14 +984,14 @@
       "event_ticker": "KXDEMOFUTHOURLY-26NOV20H14",
       "exchange_index": 0,
       "expiration_value": "",
-      "last_price_dollars": "0.3500",
+      "last_price_dollars": "0.5500",
       "latest_expiration_time": "2026-11-20T14:05:00Z",
       "market_type": "binary",
-      "no_ask_dollars": "1.0000",
+      "no_ask_dollars": "0.9900",
       "no_bid_dollars": "0.0000",
       "no_sub_title": "Below reference",
       "notional_value_dollars": "1.0000",
-      "open_interest_fp": "45.00",
+      "open_interest_fp": "30.00",
       "open_time": "2026-11-20T13:00:12.654045Z",
       "previous_price_dollars": "0.0000",
       "previous_yes_ask_dollars": "0.0000",
@@ -565,11 +1014,11 @@
       "title": "Demo BTC at or above 61498.92 USD",
       "updated_time": "2026-11-20T13:00:03.248622Z",
       "volume_24h_fp": "0.00",
-      "volume_fp": "225.00",
+      "volume_fp": "500.00",
       "yes_ask_dollars": "1.0000",
       "yes_ask_size_fp": "0.00",
-      "yes_bid_dollars": "0.0000",
-      "yes_bid_size_fp": "0.00",
+      "yes_bid_dollars": "0.0100",
+      "yes_bid_size_fp": "11.00",
       "yes_sub_title": "At or above reference"
     },
     {
@@ -14621,312 +15070,6 @@
       "yes_bid_dollars": "0.0000",
       "yes_bid_size_fp": "0.00",
       "yes_sub_title": "yes Atlanta,yes Cleveland,yes Orlando,yes Christian Braun: 10+,yes Jamal Murray: 20+,yes Ivica Zubac: 10+,yes Tristan da Silva: 10+,yes Keegan Murray: 10+,yes John Collins: 10+,yes Jakob Poeltl: 10+"
-    },
-    {
-      "can_close_early": true,
-      "close_time": "2026-11-22T12:15:00Z",
-      "created_time": "2026-11-20T12:06:36.91005Z",
-      "custom_strike": {
-        "table_tennis_competitor": "65a37df1-aa40-5e9f-af43-93f5dce02753"
-      },
-      "early_close_condition": "This market will close and expire after a winner is declared.",
-      "event_ticker": "KXLIGAPROMATCH-26NOV200715BAIKON",
-      "exchange_index": 0,
-      "expected_expiration_time": "2026-11-20T18:15:00Z",
-      "expiration_value": "",
-      "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-22T12:15:00Z",
-      "market_type": "binary",
-      "no_ask_dollars": "0.9900",
-      "no_bid_dollars": "0.0000",
-      "no_sub_title": "Kononenko Taras",
-      "notional_value_dollars": "1.0000",
-      "occurrence_datetime": "2026-11-20T15:15:00Z",
-      "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T12:34:20Z",
-      "previous_price_dollars": "0.0000",
-      "previous_yes_ask_dollars": "0.0000",
-      "previous_yes_bid_dollars": "0.0000",
-      "price_level_structure": "linear_cent",
-      "price_ranges": [
-        {
-          "end": "1.0000",
-          "start": "0.0000",
-          "step": "0.0100"
-        }
-      ],
-      "result": "",
-      "rules_primary": "If Kononenko Taras wins the Baibakov Vitalii vs Kononenko Taras men's professional Russia Liga Pro table tennis match originally scheduled for Nov 20, 2026 at 7:15 AM EST, then the market resolves to Yes.",
-      "rules_secondary": "If the match is postponed but begins within 48 hours of its originally scheduled start time, the market will remain open and resolve based on the official final result. If the match is cancelled or postponed more than 48 hours from its originally scheduled start, both markets will resolve to $0.50.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
-      "settlement_bounds_type": "default",
-      "settlement_timer_seconds": 180,
-      "status": "active",
-      "strike_type": "structured",
-      "ticker": "KXLIGAPROMATCH-26NOV200715BAIKON-KON",
-      "title": "Kononenko Taras wins",
-      "updated_time": "2026-11-20T12:34:20.4992Z",
-      "volume_24h_fp": "0.00",
-      "volume_fp": "0.00",
-      "yes_ask_dollars": "1.0000",
-      "yes_ask_size_fp": "0.00",
-      "yes_bid_dollars": "0.0100",
-      "yes_bid_size_fp": "440.00",
-      "yes_sub_title": "Kononenko Taras"
-    },
-    {
-      "can_close_early": true,
-      "close_time": "2026-11-22T12:15:00Z",
-      "created_time": "2026-11-20T12:06:36.91005Z",
-      "custom_strike": {
-        "table_tennis_competitor": "58376515-74f5-5c6f-937c-3f80adcb1186"
-      },
-      "early_close_condition": "This market will close and expire after a winner is declared.",
-      "event_ticker": "KXLIGAPROMATCH-26NOV200715BAIKON",
-      "exchange_index": 0,
-      "expected_expiration_time": "2026-11-20T18:15:00Z",
-      "expiration_value": "",
-      "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-22T12:15:00Z",
-      "market_type": "binary",
-      "no_ask_dollars": "0.9900",
-      "no_bid_dollars": "0.0000",
-      "no_sub_title": "Baibakov Vitalii",
-      "notional_value_dollars": "1.0000",
-      "occurrence_datetime": "2026-11-20T15:15:00Z",
-      "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T12:34:20Z",
-      "previous_price_dollars": "0.0000",
-      "previous_yes_ask_dollars": "0.0000",
-      "previous_yes_bid_dollars": "0.0000",
-      "price_level_structure": "linear_cent",
-      "price_ranges": [
-        {
-          "end": "1.0000",
-          "start": "0.0000",
-          "step": "0.0100"
-        }
-      ],
-      "result": "",
-      "rules_primary": "If Baibakov Vitalii wins the Baibakov Vitalii vs Kononenko Taras men's professional Russia Liga Pro table tennis match originally scheduled for Nov 20, 2026 at 7:15 AM EST, then the market resolves to Yes.",
-      "rules_secondary": "If the match is postponed but begins within 48 hours of its originally scheduled start time, the market will remain open and resolve based on the official final result. If the match is cancelled or postponed more than 48 hours from its originally scheduled start, both markets will resolve to $0.50.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
-      "settlement_bounds_type": "default",
-      "settlement_timer_seconds": 180,
-      "status": "active",
-      "strike_type": "structured",
-      "ticker": "KXLIGAPROMATCH-26NOV200715BAIKON-BAI",
-      "title": "Baibakov Vitalii wins",
-      "updated_time": "2026-11-20T12:34:20.4992Z",
-      "volume_24h_fp": "0.00",
-      "volume_fp": "0.00",
-      "yes_ask_dollars": "1.0000",
-      "yes_ask_size_fp": "0.00",
-      "yes_bid_dollars": "0.0100",
-      "yes_bid_size_fp": "440.00",
-      "yes_sub_title": "Baibakov Vitalii"
-    },
-    {
-      "can_close_early": true,
-      "close_time": "2026-11-22T12:15:00Z",
-      "created_time": "2026-11-20T12:06:36.900348Z",
-      "custom_strike": {
-        "table_tennis_competitor": "36a90897-47cd-5ec8-acd5-68fffbf080b2"
-      },
-      "early_close_condition": "This market will close and expire after a winner is declared.",
-      "event_ticker": "KXLIGAPROMATCH-26NOV200715ZELBES",
-      "exchange_index": 0,
-      "expected_expiration_time": "2026-11-20T18:15:00Z",
-      "expiration_value": "",
-      "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-22T12:15:00Z",
-      "market_type": "binary",
-      "no_ask_dollars": "0.9900",
-      "no_bid_dollars": "0.0000",
-      "no_sub_title": "Zelenskii Roman",
-      "notional_value_dollars": "1.0000",
-      "occurrence_datetime": "2026-11-20T15:15:00Z",
-      "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T12:34:20Z",
-      "previous_price_dollars": "0.0000",
-      "previous_yes_ask_dollars": "0.0000",
-      "previous_yes_bid_dollars": "0.0000",
-      "price_level_structure": "linear_cent",
-      "price_ranges": [
-        {
-          "end": "1.0000",
-          "start": "0.0000",
-          "step": "0.0100"
-        }
-      ],
-      "result": "",
-      "rules_primary": "If Zelenskii Roman wins the Zelenskii Roman vs Bespalov Nikita men's professional Russia Liga Pro table tennis match originally scheduled for Nov 20, 2026 at 7:15 AM EST, then the market resolves to Yes.",
-      "rules_secondary": "If the match is postponed but begins within 48 hours of its originally scheduled start time, the market will remain open and resolve based on the official final result. If the match is cancelled or postponed more than 48 hours from its originally scheduled start, both markets will resolve to $0.50.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
-      "settlement_bounds_type": "default",
-      "settlement_timer_seconds": 180,
-      "status": "active",
-      "strike_type": "structured",
-      "ticker": "KXLIGAPROMATCH-26NOV200715ZELBES-ZEL",
-      "title": "Zelenskii Roman wins",
-      "updated_time": "2026-11-20T12:34:20.4992Z",
-      "volume_24h_fp": "0.00",
-      "volume_fp": "0.00",
-      "yes_ask_dollars": "1.0000",
-      "yes_ask_size_fp": "0.00",
-      "yes_bid_dollars": "0.0100",
-      "yes_bid_size_fp": "440.00",
-      "yes_sub_title": "Zelenskii Roman"
-    },
-    {
-      "can_close_early": true,
-      "close_time": "2026-11-22T12:15:00Z",
-      "created_time": "2026-11-20T12:06:36.900348Z",
-      "custom_strike": {
-        "table_tennis_competitor": "1c8388ac-127f-50e6-8eac-91f65eac5917"
-      },
-      "early_close_condition": "This market will close and expire after a winner is declared.",
-      "event_ticker": "KXLIGAPROMATCH-26NOV200715ZELBES",
-      "exchange_index": 0,
-      "expected_expiration_time": "2026-11-20T18:15:00Z",
-      "expiration_value": "",
-      "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-22T12:15:00Z",
-      "market_type": "binary",
-      "no_ask_dollars": "0.9900",
-      "no_bid_dollars": "0.0000",
-      "no_sub_title": "Bespalov Nikita",
-      "notional_value_dollars": "1.0000",
-      "occurrence_datetime": "2026-11-20T15:15:00Z",
-      "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T12:34:20Z",
-      "previous_price_dollars": "0.0000",
-      "previous_yes_ask_dollars": "0.0000",
-      "previous_yes_bid_dollars": "0.0000",
-      "price_level_structure": "linear_cent",
-      "price_ranges": [
-        {
-          "end": "1.0000",
-          "start": "0.0000",
-          "step": "0.0100"
-        }
-      ],
-      "result": "",
-      "rules_primary": "If Bespalov Nikita wins the Zelenskii Roman vs Bespalov Nikita men's professional Russia Liga Pro table tennis match originally scheduled for Nov 20, 2026 at 7:15 AM EST, then the market resolves to Yes.",
-      "rules_secondary": "If the match is postponed but begins within 48 hours of its originally scheduled start time, the market will remain open and resolve based on the official final result. If the match is cancelled or postponed more than 48 hours from its originally scheduled start, both markets will resolve to $0.50.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
-      "settlement_bounds_type": "default",
-      "settlement_timer_seconds": 180,
-      "status": "active",
-      "strike_type": "structured",
-      "ticker": "KXLIGAPROMATCH-26NOV200715ZELBES-BES",
-      "title": "Bespalov Nikita wins",
-      "updated_time": "2026-11-20T12:34:20.4992Z",
-      "volume_24h_fp": "0.00",
-      "volume_fp": "0.00",
-      "yes_ask_dollars": "1.0000",
-      "yes_ask_size_fp": "0.00",
-      "yes_bid_dollars": "0.0100",
-      "yes_bid_size_fp": "440.00",
-      "yes_sub_title": "Bespalov Nikita"
-    },
-    {
-      "can_close_early": true,
-      "close_time": "2026-11-22T11:30:00Z",
-      "created_time": "2026-11-20T12:06:36.698889Z",
-      "custom_strike": {
-        "soccer_team": "3c49c03e-208f-4d62-8c5b-da675bb47a3a"
-      },
-      "early_close_condition": "This market will close and expire after a winner is declared.",
-      "event_ticker": "KXSGPPLSPREAD-26NOV20ALBBAL",
-      "exchange_index": 0,
-      "expected_expiration_time": "2026-11-20T17:30:00Z",
-      "expiration_value": "",
-      "floor_strike": 3.5,
-      "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-22T11:30:00Z",
-      "market_type": "binary",
-      "no_ask_dollars": "0.9900",
-      "no_bid_dollars": "0.0000",
-      "no_sub_title": "Albirex Niigata (S) wins by more than 3.5 goals",
-      "notional_value_dollars": "1.0000",
-      "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T12:34:20Z",
-      "previous_price_dollars": "0.0000",
-      "previous_yes_ask_dollars": "0.0000",
-      "previous_yes_bid_dollars": "0.0000",
-      "price_level_structure": "linear_cent",
-      "price_ranges": [
-        {
-          "end": "1.0000",
-          "start": "0.0000",
-          "step": "0.0100"
-        }
-      ],
-      "result": "",
-      "rules_primary": "If Albirex Niigata (S) wins by more than 3.5 goals in the Albirex Niigata (S) vs Balestier Khalsa professional Singapore Premier League soccer game originally scheduled for Nov 20, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties), then the market resolves to Yes.",
-      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
-      "settlement_bounds_type": "default",
-      "settlement_timer_seconds": 30,
-      "status": "active",
-      "strike_type": "greater",
-      "ticker": "KXSGPPLSPREAD-26NOV20ALBBAL-ALB4",
-      "title": "Albirex Niigata (S) wins by more than 3.5 goals?",
-      "updated_time": "2026-11-20T12:34:21.171073Z",
-      "volume_24h_fp": "0.00",
-      "volume_fp": "0.00",
-      "yes_ask_dollars": "1.0000",
-      "yes_ask_size_fp": "0.00",
-      "yes_bid_dollars": "0.0100",
-      "yes_bid_size_fp": "440.00",
-      "yes_sub_title": "Albirex Niigata (S) wins by more than 3.5 goals"
-    },
-    {
-      "can_close_early": true,
-      "close_time": "2026-11-22T11:30:00Z",
-      "created_time": "2026-11-20T12:06:36.696128Z",
-      "custom_strike": {
-        "soccer_team": "977e7cf8-1efe-40c0-8ca7-5953a09c1d12"
-      },
-      "early_close_condition": "This market will close and expire after a winner is declared.",
-      "event_ticker": "KXINDSLSPREAD-26NOV20EBSCD",
-      "exchange_index": 0,
-      "expected_expiration_time": "2026-11-20T17:30:00Z",
-      "expiration_value": "",
-      "floor_strike": 3.5,
-      "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-22T11:30:00Z",
-      "market_type": "binary",
-      "no_ask_dollars": "0.9900",
-      "no_bid_dollars": "0.0000",
-      "no_sub_title": "East Bengal wins by more than 3.5 goals",
-      "notional_value_dollars": "1.0000",
-      "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T12:34:20Z",
-      "previous_price_dollars": "0.0000",
-      "previous_yes_ask_dollars": "0.0000",
-      "previous_yes_bid_dollars": "0.0000",
-      "price_level_structure": "linear_cent",
-      "price_ranges": [
-        {
-          "end": "1.0000",
-          "start": "0.0000",
-          "step": "0.0100"
-        }
-      ],
-      "result": "",
-      "rules_primary": "If East Bengal wins by more than 3.5 goals in the East Bengal vs SC Delhi professional Indian Super League soccer game originally scheduled for Nov 20, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties), then the market resolves to Yes.",
-      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
-      "settlement_bounds_type": "default",
-      "settlement_timer_seconds": 30,
-      "status": "active",
-      "strike_type": "greater",
-      "ticker": "KXINDSLSPREAD-26NOV20EBSCD-EB4",
-      "title": "East Bengal wins by more than 3.5 goals?",
-      "updated_time": "2026-11-20T12:34:20.4992Z",
-      "volume_24h_fp": "0.00",
-      "volume_fp": "0.00",
-      "yes_ask_dollars": "1.0000",
-      "yes_ask_size_fp": "0.00",
-      "yes_bid_dollars": "0.0100",
-      "yes_bid_size_fp": "440.00",
-      "yes_sub_title": "East Bengal wins by more than 3.5 goals"
     }
   ]
 }

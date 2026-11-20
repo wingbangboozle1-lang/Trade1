@@ -9,140 +9,76 @@
         "Crypto"
       ],
       "category": "Crypto",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CRYPTOY.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/CRYPTOY.pdf",
-      "exchange_index": 2,
-      "fee_multiplier": 1,
-      "fee_type": "quadratic",
-      "frequency": "annual",
-      "last_updated_ts": "2026-11-20T10:55:26.766719Z",
-      "settlement_sources": [
-        {
-          "name": "CF Benchmarks",
-          "url": "https://www.cfbenchmarks.com/"
-        }
-      ],
-      "tags": [
-        "Crypto",
-        "Hourly",
-        "NEAR Protocol"
-      ],
-      "ticker": "KXNEARY",
-      "title": "NEAR Yearly"
-    },
-    {
-      "additional_prohibitions": [
-        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
-        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
-      ],
-      "categories": [
-        "Crypto"
-      ],
-      "category": "Crypto",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CRYPTOY.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/CRYPTOY.pdf",
-      "exchange_index": 2,
-      "fee_multiplier": 1,
-      "fee_type": "quadratic",
-      "frequency": "annual",
-      "last_updated_ts": "2026-11-20T10:55:26.783547Z",
-      "settlement_sources": [
-        {
-          "name": "CF Benchmarks",
-          "url": "https://www.cfbenchmarks.com/"
-        }
-      ],
-      "tags": [
-        "Crypto",
-        "Hourly",
-        "Zcash"
-      ],
-      "ticker": "KXZECY",
-      "title": "ZEC Yearly"
-    },
-    {
-      "additional_prohibitions": [
-        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
-        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
-      ],
-      "categories": [
-        "Crypto"
-      ],
-      "category": "Crypto",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/NEWCOINLAUNCH.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/NEWCOINLAUNCH.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/NEXTCOIN.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/NEXTCOIN.pdf",
       "exchange_index": 2,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
       "frequency": "custom",
-      "last_updated_ts": "2026-11-20T11:43:16.842971Z",
+      "last_updated_ts": "2026-11-20T13:01:33.015868Z",
       "settlement_sources": [
         {
-          "name": "ABC",
-          "url": "https://abcnews.go.com/"
+          "name": "Robinhood",
+          "url": "https://robinhood.com/us/en/about/crypto/"
         },
         {
-          "name": "Fox News",
-          "url": "https://www.foxnews.com/"
+          "name": "Binance",
+          "url": "https://www.binance.com/en"
         },
         {
-          "name": "MSNBC",
-          "url": "https://www.msnbc.com/"
-        },
-        {
-          "name": "The Wall Street Journal",
-          "url": "https://www.wsj.com/"
-        },
-        {
-          "name": "Semafor",
-          "url": "https://www.semafor.com/"
-        },
-        {
-          "name": "The Information",
-          "url": "https://www.theinformation.com/"
-        },
-        {
-          "name": "Bloomberg",
-          "url": "https://www.bloomberg.com/"
-        },
-        {
-          "name": "NBC",
-          "url": "https://www.nbcnews.com/"
-        },
-        {
-          "name": "The Washington Post",
-          "url": "https://www.washingtonpost.com/"
-        },
-        {
-          "name": "AP",
-          "url": "https://apnews.com/"
-        },
-        {
-          "name": "Axios",
-          "url": "https://www.axios.com/"
-        },
-        {
-          "name": "CNN",
-          "url": "https://www.cnn.com/"
-        },
-        {
-          "name": "Reuters",
-          "url": "https://www.reuters.com/"
-        },
-        {
-          "name": "The New York Times",
-          "url": "https://www.nytimes.com/"
-        },
-        {
-          "name": "Politico",
-          "url": "https://www.politico.com/"
+          "name": "Coinbase",
+          "url": "https://x.com/coinbaseassets?lang=en"
         }
       ],
       "tags": [
         "Crypto"
       ],
-      "ticker": "KXNEWCOINLAUNCH",
-      "title": "New coin launch"
+      "ticker": "KXNEXTCOINBI",
+      "title": "Next coin"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Crypto"
+      ],
+      "category": "Crypto",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/LINK.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/LINK.pdf",
+      "exchange_index": 2,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "daily",
+      "last_updated_ts": "2026-11-20T11:34:26.867437Z",
+      "settlement_sources": [
+        {
+          "name": "CF Benchmarks",
+          "url": "https://www.cfbenchmarks.com/data/indices/LINKUSD_RTI"
+        }
+      ],
+      "tags": null,
+      "ticker": "KXLINK",
+      "title": "Chainlink range"
+    },
+    {
+      "additional_prohibitions": null,
+      "categories": [
+        "Crypto"
+      ],
+      "category": "Crypto",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/.pdf",
+      "contract_url": "",
+      "exchange_index": 2,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "often",
+      "last_updated_ts": "2026-11-20T12:00:59.076138Z",
+      "settlement_sources": null,
+      "tags": null,
+      "ticker": "KXBCHPERP",
+      "title": "0.01 BCH"
     }
   ]
 }

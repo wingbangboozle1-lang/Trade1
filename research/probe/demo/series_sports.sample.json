@@ -1,0 +1,132 @@
+{
+  "series": [
+    {
+      "additional_prohibitions": [
+        "Current players, coaches, and staff of the league, association, or organization(s) governing the event. For college leagues/associations specifically, or where otherwise appropriate (as identified by the Exchange), this applies to current players/coaches/staff of the specific sport in <event> rather than the league/association as a whole (e.g., if the Division I Gonzaga Men\u2019s Basketball Team is playing in <event>, this prohibition will restrict trades by current players/coaches/staff on NCAA Basketball, rather than all current players/coaches/staff in any NCAA sport).",
+        "Paid employees of the league and league participants",
+        "Owners of teams and the league",
+        "and household members and immediate family of all above",
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Sports"
+      ],
+      "category": "Sports",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/FOOTBALLENTITYSTAT.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/FOOTBALLENTITYSTAT.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "custom",
+      "last_updated_ts": "2026-11-20T11:10:45.660952Z",
+      "settlement_sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com"
+        },
+        {
+          "name": "Fox Sports",
+          "url": "https://www.foxsports.com"
+        },
+        {
+          "name": "the Governing League",
+          "url": "https://www.nfl.com/"
+        }
+      ],
+      "tags": [
+        "Football"
+      ],
+      "ticker": "KXNFLTDPROT",
+      "title": "NFL Anytime Touchdowns (Protected)"
+    },
+    {
+      "additional_prohibitions": [
+        "Current players, coaches, and staff of the league, association, or organization(s) governing the event. For college leagues/associations specifically, or where otherwise appropriate (as identified by the Exchange), this applies to current players/coaches/staff of the specific sport in <event> rather than the league/association as a whole (e.g., if the Division I Gonzaga Men\u2019s Basketball Team is playing in <event>, this prohibition will restrict trades by current players/coaches/staff on NCAA Basketball, rather than all current players/coaches/staff in any NCAA sport).",
+        "Paid employees of the league and league participants",
+        "Owners of teams and the league",
+        "and household members and immediate family of all above",
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Sports"
+      ],
+      "category": "Sports",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CRICKETTESTMATCHWIN.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/CRICKETTESTMATCHWIN.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "custom",
+      "last_updated_ts": "2026-10-13T18:26:35.309038Z",
+      "settlement_sources": [
+        {
+          "name": "Cricbuzz",
+          "url": "https://www.cricbuzz.com/"
+        },
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com"
+        },
+        {
+          "name": "ESPNcricinfo",
+          "url": "https://www.espncricinfo.com"
+        },
+        {
+          "name": "IPL",
+          "url": "https://www.ipl.com/"
+        },
+        {
+          "name": "ICC",
+          "url": "https://www.icc-cricket.com/fixtures-results"
+        },
+        {
+          "name": "BBC Sport",
+          "url": "https://www.bbc.co.uk/sport"
+        }
+      ],
+      "tags": [
+        "Cricket"
+      ],
+      "ticker": "KXWTESTMATCH",
+      "title": "Women's Test Cricket Match"
+    },
+    {
+      "additional_prohibitions": [
+        "Current players, coaches, and staff of the league, association, or organization(s) governing the event. For college leagues/associations specifically, or where otherwise appropriate (as identified by the Exchange), this applies to current players/coaches/staff of the specific sport in <event> rather than the league/association as a whole (e.g., if the Division I Gonzaga Men\u2019s Basketball Team is playing in <event>, this prohibition will restrict trades by current players/coaches/staff on NCAA Basketball, rather than all current players/coaches/staff in any NCAA sport).",
+        "Paid employees of the league and league participants",
+        "Owners of teams and the league",
+        "and household members and immediate family of all above",
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Sports"
+      ],
+      "category": "Sports",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/SOCCERHTOTAL.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/SOCCERHTOTAL.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "custom",
+      "last_updated_ts": "2026-11-19T20:28:00.949341Z",
+      "settlement_sources": [
+        {
+          "name": "Fox Sports",
+          "url": "https://www.foxsports.com"
+        },
+        {
+          "name": "ESPN",
+          "url": "https://espn.com"
+        }
+      ],
+      "tags": [
+        "Soccer"
+      ],
+      "ticker": "KXMLS1HTOTAL",
+      "title": "1st Half Total"
+    }
+  ]
+}

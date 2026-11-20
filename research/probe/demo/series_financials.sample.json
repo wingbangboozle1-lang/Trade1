@@ -9,78 +9,120 @@
         "Financials"
       ],
       "category": "Financials",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/TNOTE.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/TNOTE.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ACQANNOUNCEANY.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/ACQANNOUNCEANY.pdf",
       "exchange_index": 0,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
-      "frequency": "monthly",
-      "last_updated_ts": "2026-11-20T12:23:46.28372Z",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-11-20T12:41:39.755073Z",
       "settlement_sources": [
         {
-          "name": "U.S. Department of the Treasury",
-          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
-        }
-      ],
-      "tags": [
-        "Interest Rates"
-      ],
-      "ticker": "KXNOTE10",
-      "title": "Will the 10Y US Treasury Yield end the month above 4.35%"
-    },
-    {
-      "additional_prohibitions": [
-        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
-        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
-      ],
-      "categories": [
-        "Financials"
-      ],
-      "category": "Financials",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/2YRRATE.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/2YRRATE.pdf",
-      "exchange_index": 0,
-      "fee_multiplier": 1,
-      "fee_type": "quadratic",
-      "frequency": "fifteen_min",
-      "last_updated_ts": "2026-10-13T18:23:05.472783Z",
-      "settlement_sources": [
+          "name": "ABC",
+          "url": "https://abcnews.go.com/"
+        },
         {
-          "name": "Pyth - 2Y UST",
-          "url": "https://app.pyth.com/explore/InterestRate.US2Y"
+          "name": "Securities and Exchange Commission",
+          "url": "https://www.sec.gov/"
+        },
+        {
+          "name": "The Wall Street Journal",
+          "url": "https://www.wsj.com/"
+        },
+        {
+          "name": "The Guardian",
+          "url": "https://www.theguardian.com"
+        },
+        {
+          "name": "CNBC",
+          "url": "https://www.cnbc.com"
+        },
+        {
+          "name": "Bloomberg",
+          "url": "https://www.bloomberg.com"
+        },
+        {
+          "name": "BBC",
+          "url": "https://www.bbc.co.uk"
+        },
+        {
+          "name": "Financial Times",
+          "url": "https://www.ft.com"
+        },
+        {
+          "name": "Reuters",
+          "url": "https://www.reuters.com"
+        },
+        {
+          "name": "the New York Times",
+          "url": "https://www.nytimes.com"
         }
       ],
       "tags": null,
-      "ticker": "KX2YRRATE15M",
-      "title": "2-year Treasury yield 15-minute"
+      "ticker": "KXACQUIREAXIOM",
+      "title": "Will any company acquire axiom"
     },
     {
       "additional_prohibitions": [
         "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
-        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract.",
+        "Any employee, officer, director, or contractor of Pyth Network, or of any data provider contributing price feeds to Pyth Network's AUD/USD aggregate price.",
+        "Any individual or entity with the ability to directly influence, manipulate, or alter the Source Agency's published AUD/USD price, including node operators, data publishers contributing to the Pyth aggregate, or personnel with administrative access to the feed's publication infrastructure.",
+        "Any employee or official of the U.S. Federal Reserve, the Reserve Bank of Australia, or other monetary authority who has non-public knowledge of imminent monetary policy decisions, interventions, or actions reasonably likely to materially affect the AUD/USD exchange rate, during the period in which such information remains non-public.",
+        "Any Member identified as a Politically Engaged Person, or as a family member or close associate of a Politically Engaged Person, whose role or relationships could reasonably be expected to provide advance knowledge of market-moving fiscal or monetary policy actions affecting AUD/USD.",
+        "Any Member engaging in wash trading, spoofing, or coordinated trading activity designed to influence the Source Agency's published price, or other conduct prohibited under Chapter 5 of the Rulebook.",
+        "Any individual or entity subject to sanctions, watchlist designation, or other legal restriction that would prohibit their participation in derivatives trading under applicable law."
       ],
       "categories": [
         "Financials"
       ],
       "category": "Financials",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/FXNZDUSD.pdf",
-      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/FXNZDUSD.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/AUDUSDEVENT.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/FXAUDUSD.pdf",
       "exchange_index": 0,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
-      "frequency": "weekly",
-      "last_updated_ts": "2026-10-13T18:34:01.879891Z",
+      "frequency": "custom",
+      "last_updated_ts": "2026-11-18T18:16:25.451733Z",
       "settlement_sources": [
         {
-          "name": "Pyth - NZDUSD",
-          "url": "https://app.pyth.com/explore/FX.NZD%2FUSD?returnUrl=%2Fexplore%3Fsearch%3Dnzdusd%26state%3Dstable"
+          "name": "Pyth - AUDUSD",
+          "url": "https://app.pyth.com/explore/FX.AUD%2FUSD?returnUrl=%2Fexplore%3Fsearch%3Daudusd%26state%3Dstable"
         }
       ],
       "tags": [
         "Foreign Exchange"
       ],
-      "ticker": "KXNZDUSDAW",
-      "title": "NZDUSD Weekly"
+      "ticker": "KXAUDUSDEVENT",
+      "title": "AUD/USD after economic events"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CARBONARC.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/CARBONARC.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-10-13T18:34:01.879891Z",
+      "settlement_sources": [
+        {
+          "name": "Carbon Arc",
+          "url": "https://www.carbonarc.co/prisms?prism=574c82dc-180f-4a4b-af63-ff122ccc35fb&entity=Max%3A%20Stream%20HBO%2C%20TV%2C%20%26%20Movies"
+        }
+      ],
+      "tags": [
+        "App Downloads"
+      ],
+      "ticker": "KXMAXAPP",
+      "title": "Max: Stream HBO, TV, & Movies app downloads"
     }
   ]
 }

@@ -1,108 +1,163 @@
 {
-  "cursor": "CgwIqYmB2AYQgOuD-wES",
+  "cursor": "CgwIjYqB2AYQ-OW91gES",
   "markets": [
     {
       "can_close_early": true,
-      "close_time": "2026-11-23T20:00:00Z",
-      "created_time": "2026-11-20T13:01:31.609733Z",
+      "close_time": "2026-12-04T15:00:00Z",
+      "created_time": "2026-11-20T13:03:11.591516Z",
       "custom_strike": {
-        "Associated Events": "KXEPL1HTOTAL-26NOV21CFCLEE,KXEPL1HTOTAL-26NOV21MCIFUL,KXEPLGAME-26NOV21BOUNFO,KXEPLGAME-26NOV21MCIFUL,KXEPLGAME-26NOV21TOTIPS,KXEPLTOTAL-26NOV21AVLSUN,KXEPLTOTAL-26NOV21BOUNFO,KXEPLTOTAL-26NOV21CFCLEE,KXEPLTOTAL-26NOV21MCIFUL,KXLALIGA1HTOTAL-26NOV20ATHESP,KXLALIGA1HTOTAL-26NOV21ALADEP,KXLALIGA1HTOTAL-26NOV21RMARCC,KXLALIGA1HTOTAL-26NOV21SEVRBB,KXLALIGATOTAL-26NOV21RMARCC,KXLALIGATOTAL-26NOV21SEVRBB",
-        "Associated Market Sides": "no,yes,yes,yes,no,yes,yes,yes,yes,no,no,yes,no,yes,yes",
-        "Associated Markets": "KXEPL1HTOTAL-26NOV21CFCLEE-3,KXEPL1HTOTAL-26NOV21MCIFUL-1,KXEPLGAME-26NOV21BOUNFO-BOU,KXEPLGAME-26NOV21MCIFUL-MCI,KXEPLGAME-26NOV21TOTIPS-IPS,KXEPLTOTAL-26NOV21AVLSUN-1,KXEPLTOTAL-26NOV21BOUNFO-2,KXEPLTOTAL-26NOV21CFCLEE-1,KXEPLTOTAL-26NOV21MCIFUL-2,KXLALIGA1HTOTAL-26NOV20ATHESP-3,KXLALIGA1HTOTAL-26NOV21ALADEP-3,KXLALIGA1HTOTAL-26NOV21RMARCC-1,KXLALIGA1HTOTAL-26NOV21SEVRBB-3,KXLALIGATOTAL-26NOV21RMARCC-2,KXLALIGATOTAL-26NOV21SEVRBB-1",
-        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026IMVMA4JETWDP7X7Z"
+        "Associated Events": "KXBUNDESLIGA2GAME-26NOV20ARMFCM,KXBUNDESLIGA2GAME-26NOV20D98FCH,KXBUNDESLIGATOTAL-26NOV20BMUKOE,KXECULPGAME-26NOV20INDMAC,KXELITESERIENGAME-26NOV20MFKBOG,KXITFDOUBLES-26NOV18CHAVANBENDEY,KXITFDOUBLES-26NOV18GARPLAGARPAL,KXITFDOUBLES-26NOV20BAUCERFUKOKA,KXITFDOUBLES-26NOV20COLPERELAVAN,KXITFDOUBLES-26NOV20PORTAZDEFDOM,KXITFMATCH-26NOV17GONCOL,KXITFMATCH-26NOV18KONKOH,KXITFMATCH-26NOV19CORZAP,KXITFMATCH-26NOV19EDESAN,KXITFMATCH-26NOV19SEGANS,KXITFMATCH-26NOV20ESTBRU,KXITFMATCH-26NOV20HERPLA,KXITFMATCH-26NOV20REXDEL,KXITFMATCH-26NOV20YAZMAD,KXLALIGATOTAL-26NOV20ATHESP,KXLIGUE1TOTAL-26NOV20ESTHAC,KXSAUDIPLTOTAL-26NOV20AASALN,KXTFF1LIGGAME-26NOV20IGDUMR,KXURYPDGAME-26NOV20CERNAC,KXURYPDGAME-26NOV20LIVWAN,KXURYPDGAME-26NOV20RCMESP",
+        "Associated Market Sides": "yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes",
+        "Associated Markets": "KXBUNDESLIGA2GAME-26NOV20ARMFCM-ARM,KXBUNDESLIGA2GAME-26NOV20D98FCH-FCH,KXBUNDESLIGATOTAL-26NOV20BMUKOE-2,KXECULPGAME-26NOV20INDMAC-IND,KXELITESERIENGAME-26NOV20MFKBOG-BOG,KXITFDOUBLES-26NOV18CHAVANBENDEY-CHAVAN,KXITFDOUBLES-26NOV18GARPLAGARPAL-GARPLA,KXITFDOUBLES-26NOV20BAUCERFUKOKA-BAUCER,KXITFDOUBLES-26NOV20COLPERELAVAN-COLPER,KXITFDOUBLES-26NOV20PORTAZDEFDOM-DEFDOM,KXITFMATCH-26NOV17GONCOL-GON,KXITFMATCH-26NOV18KONKOH-KOH,KXITFMATCH-26NOV19CORZAP-COR,KXITFMATCH-26NOV19EDESAN-EDE,KXITFMATCH-26NOV19SEGANS-ANS,KXITFMATCH-26NOV20ESTBRU-EST,KXITFMATCH-26NOV20HERPLA-HER,KXITFMATCH-26NOV20REXDEL-DEL,KXITFMATCH-26NOV20YAZMAD-MAD,KXLALIGATOTAL-26NOV20ATHESP-2,KXLIGUE1TOTAL-26NOV20ESTHAC-2,KXSAUDIPLTOTAL-26NOV20AASALN-2,KXTFF1LIGGAME-26NOV20IGDUMR-IGD,KXURYPDGAME-26NOV20CERNAC-NAC,KXURYPDGAME-26NOV20LIVWAN-LIV,KXURYPDGAME-26NOV20RCMESP-RCM",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026ERXL7DKNXTCHRAUF"
       },
-      "event_ticker": "KXMVECROSSCATEGORY-S2026IMVMA4JETWDP7X7Z",
+      "event_ticker": "KXMVECROSSCATEGORY-S2026ERXL7DKNXTCHRAUF",
       "exchange_index": 1,
-      "expected_expiration_time": "2026-11-22T02:00:00Z",
+      "expected_expiration_time": "2026-11-21T02:00:00Z",
       "expiration_value": "",
       "is_provisional": true,
       "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-23T20:00:00Z",
+      "latest_expiration_time": "2026-12-04T15:00:00Z",
       "market_type": "binary",
       "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
       "mve_selected_legs": [
         {
-          "event_ticker": "KXEPL1HTOTAL-26NOV21CFCLEE",
-          "market_ticker": "KXEPL1HTOTAL-26NOV21CFCLEE-3",
-          "side": "no"
-        },
-        {
-          "event_ticker": "KXEPL1HTOTAL-26NOV21MCIFUL",
-          "market_ticker": "KXEPL1HTOTAL-26NOV21MCIFUL-1",
+          "event_ticker": "KXBUNDESLIGA2GAME-26NOV20ARMFCM",
+          "market_ticker": "KXBUNDESLIGA2GAME-26NOV20ARMFCM-ARM",
           "side": "yes"
         },
         {
-          "event_ticker": "KXEPLGAME-26NOV21BOUNFO",
-          "market_ticker": "KXEPLGAME-26NOV21BOUNFO-BOU",
+          "event_ticker": "KXBUNDESLIGA2GAME-26NOV20D98FCH",
+          "market_ticker": "KXBUNDESLIGA2GAME-26NOV20D98FCH-FCH",
           "side": "yes"
         },
         {
-          "event_ticker": "KXEPLGAME-26NOV21MCIFUL",
-          "market_ticker": "KXEPLGAME-26NOV21MCIFUL-MCI",
+          "event_ticker": "KXBUNDESLIGATOTAL-26NOV20BMUKOE",
+          "market_ticker": "KXBUNDESLIGATOTAL-26NOV20BMUKOE-2",
           "side": "yes"
         },
         {
-          "event_ticker": "KXEPLGAME-26NOV21TOTIPS",
-          "market_ticker": "KXEPLGAME-26NOV21TOTIPS-IPS",
-          "side": "no"
-        },
-        {
-          "event_ticker": "KXEPLTOTAL-26NOV21AVLSUN",
-          "market_ticker": "KXEPLTOTAL-26NOV21AVLSUN-1",
+          "event_ticker": "KXECULPGAME-26NOV20INDMAC",
+          "market_ticker": "KXECULPGAME-26NOV20INDMAC-IND",
           "side": "yes"
         },
         {
-          "event_ticker": "KXEPLTOTAL-26NOV21BOUNFO",
-          "market_ticker": "KXEPLTOTAL-26NOV21BOUNFO-2",
+          "event_ticker": "KXELITESERIENGAME-26NOV20MFKBOG",
+          "market_ticker": "KXELITESERIENGAME-26NOV20MFKBOG-BOG",
           "side": "yes"
         },
         {
-          "event_ticker": "KXEPLTOTAL-26NOV21CFCLEE",
-          "market_ticker": "KXEPLTOTAL-26NOV21CFCLEE-1",
+          "event_ticker": "KXITFDOUBLES-26NOV18CHAVANBENDEY",
+          "market_ticker": "KXITFDOUBLES-26NOV18CHAVANBENDEY-CHAVAN",
           "side": "yes"
         },
         {
-          "event_ticker": "KXEPLTOTAL-26NOV21MCIFUL",
-          "market_ticker": "KXEPLTOTAL-26NOV21MCIFUL-2",
+          "event_ticker": "KXITFDOUBLES-26NOV18GARPLAGARPAL",
+          "market_ticker": "KXITFDOUBLES-26NOV18GARPLAGARPAL-GARPLA",
           "side": "yes"
         },
         {
-          "event_ticker": "KXLALIGA1HTOTAL-26NOV20ATHESP",
-          "market_ticker": "KXLALIGA1HTOTAL-26NOV20ATHESP-3",
-          "side": "no"
-        },
-        {
-          "event_ticker": "KXLALIGA1HTOTAL-26NOV21ALADEP",
-          "market_ticker": "KXLALIGA1HTOTAL-26NOV21ALADEP-3",
-          "side": "no"
-        },
-        {
-          "event_ticker": "KXLALIGA1HTOTAL-26NOV21RMARCC",
-          "market_ticker": "KXLALIGA1HTOTAL-26NOV21RMARCC-1",
+          "event_ticker": "KXITFDOUBLES-26NOV20BAUCERFUKOKA",
+          "market_ticker": "KXITFDOUBLES-26NOV20BAUCERFUKOKA-BAUCER",
           "side": "yes"
         },
         {
-          "event_ticker": "KXLALIGA1HTOTAL-26NOV21SEVRBB",
-          "market_ticker": "KXLALIGA1HTOTAL-26NOV21SEVRBB-3",
-          "side": "no"
-        },
-        {
-          "event_ticker": "KXLALIGATOTAL-26NOV21RMARCC",
-          "market_ticker": "KXLALIGATOTAL-26NOV21RMARCC-2",
+          "event_ticker": "KXITFDOUBLES-26NOV20COLPERELAVAN",
+          "market_ticker": "KXITFDOUBLES-26NOV20COLPERELAVAN-COLPER",
           "side": "yes"
         },
         {
-          "event_ticker": "KXLALIGATOTAL-26NOV21SEVRBB",
-          "market_ticker": "KXLALIGATOTAL-26NOV21SEVRBB-1",
+          "event_ticker": "KXITFDOUBLES-26NOV20PORTAZDEFDOM",
+          "market_ticker": "KXITFDOUBLES-26NOV20PORTAZDEFDOM-DEFDOM",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV17GONCOL",
+          "market_ticker": "KXITFMATCH-26NOV17GONCOL-GON",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV18KONKOH",
+          "market_ticker": "KXITFMATCH-26NOV18KONKOH-KOH",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV19CORZAP",
+          "market_ticker": "KXITFMATCH-26NOV19CORZAP-COR",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV19EDESAN",
+          "market_ticker": "KXITFMATCH-26NOV19EDESAN-EDE",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV19SEGANS",
+          "market_ticker": "KXITFMATCH-26NOV19SEGANS-ANS",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV20ESTBRU",
+          "market_ticker": "KXITFMATCH-26NOV20ESTBRU-EST",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV20HERPLA",
+          "market_ticker": "KXITFMATCH-26NOV20HERPLA-HER",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV20REXDEL",
+          "market_ticker": "KXITFMATCH-26NOV20REXDEL-DEL",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXITFMATCH-26NOV20YAZMAD",
+          "market_ticker": "KXITFMATCH-26NOV20YAZMAD-MAD",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXLALIGATOTAL-26NOV20ATHESP",
+          "market_ticker": "KXLALIGATOTAL-26NOV20ATHESP-2",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXLIGUE1TOTAL-26NOV20ESTHAC",
+          "market_ticker": "KXLIGUE1TOTAL-26NOV20ESTHAC-2",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXSAUDIPLTOTAL-26NOV20AASALN",
+          "market_ticker": "KXSAUDIPLTOTAL-26NOV20AASALN-2",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXTFF1LIGGAME-26NOV20IGDUMR",
+          "market_ticker": "KXTFF1LIGGAME-26NOV20IGDUMR-IGD",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXURYPDGAME-26NOV20CERNAC",
+          "market_ticker": "KXURYPDGAME-26NOV20CERNAC-NAC",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXURYPDGAME-26NOV20LIVWAN",
+          "market_ticker": "KXURYPDGAME-26NOV20LIVWAN-LIV",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXURYPDGAME-26NOV20RCMESP",
+          "market_ticker": "KXURYPDGAME-26NOV20RCMESP-RCM",
           "side": "yes"
         }
       ],
       "no_ask_dollars": "1.0000",
       "no_bid_dollars": "1.0000",
-      "no_sub_title": "no Over 2.5 1H goals scored,yes Over 0.5 1H goals scored,yes Bournemouth,yes Manchester City,no Ipswich Town,yes Over 0.5 goals scored,yes Over 1.5 goals scored,yes Over 0.5 goals scored,yes Over 1.5 goals scored,no Over 2.5 1H goals scored,no Over 2.5 1H goals scored,yes Over 0.5 1H goals scored,no Over 2.5 1H goals scored,yes Over 1.5 goals scored,yes Over 0.5 goals scored",
+      "no_sub_title": "yes Bielefeld,yes Heidenheim,yes Over 1.5 goals scored,yes Ind. del Valle,yes Bodoe/Glimt,yes Chayka / Van Assendelft,yes Garcia Carbajal / Planella Hernandez,yes Baum / Cerny,yes Colombo / Perego,yes De Felipe Garcia / Dominguez Alonso,yes Joao Vitor Goncalves Ceolin,yes Enzo Kohlmann de Freitas,yes Felix Corwin,yes Kevin Edengren,yes Justin Riley Anson,yes Juan Estevez,yes Carles Hernandez,yes Mateo Del Pino,yes Dragos Nicolae Madaras,yes Over 1.5 goals scored,yes Over 1.5 goals scored,yes Over 1.5 goals scored,yes Igdir,yes Nacional,yes Liverpool M,yes Racing Club",
       "notional_value_dollars": "1.0000",
       "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T13:01:31Z",
+      "open_time": "2026-11-20T13:03:11Z",
       "previous_price_dollars": "0.0000",
       "previous_yes_ask_dollars": "0.0000",
       "previous_yes_bid_dollars": "0.0000",
@@ -131,69 +186,69 @@
       "settlement_timer_seconds": 5,
       "status": "active",
       "strike_type": "custom",
-      "ticker": "KXMVECROSSCATEGORY-S2026IMVMA4JETWDP7X7Z-6FNJ7FH7L",
-      "title": "no Over 2.5 1H goals scored,yes Over 0.5 1H goals scored,yes Bournemouth,yes Manchester City,no Ipswich Town,yes Over 0.5 goals scored,yes Over 1.5 goals scored,yes Over 0.5 goals scored,yes Over 1.5 goals scored,no Over 2.5 1H goals scored,no Over 2.5 1H goals scored,yes Over 0.5 1H goals scored,no Over 2.5 1H goals scored,yes Over 1.5 goals scored,yes Over 0.5 goals scored",
-      "updated_time": "2026-11-20T13:01:32.152833Z",
+      "ticker": "KXMVECROSSCATEGORY-S2026ERXL7DKNXTCHRAUF-ESYKDTXLC",
+      "title": "yes Bielefeld,yes Heidenheim,yes Over 1.5 goals scored,yes Ind. del Valle,yes Bodoe/Glimt,yes Chayka / Van Assendelft,yes Garcia Carbajal / Planella Hernandez,yes Baum / Cerny,yes Colombo / Perego,yes De Felipe Garcia / Dominguez Alonso,yes Joao Vitor Goncalves Ceolin,yes Enzo Kohlmann de Freitas,yes Felix Corwin,yes Kevin Edengren,yes Justin Riley Anson,yes Juan Estevez,yes Carles Hernandez,yes Mateo Del Pino,yes Dragos Nicolae Madaras,yes Over 1.5 goals scored,yes Over 1.5 goals scored,yes Over 1.5 goals scored,yes Igdir,yes Nacional,yes Liverpool M,yes Racing Club",
+      "updated_time": "2026-11-20T13:03:12.179917Z",
       "volume_24h_fp": "0.00",
       "volume_fp": "0.00",
       "yes_ask_dollars": "0.0000",
       "yes_ask_size_fp": "0.00",
       "yes_bid_dollars": "0.0000",
       "yes_bid_size_fp": "0.00",
-      "yes_sub_title": "no Over 2.5 1H goals scored,yes Over 0.5 1H goals scored,yes Bournemouth,yes Manchester City,no Ipswich Town,yes Over 0.5 goals scored,yes Over 1.5 goals scored,yes Over 0.5 goals scored,yes Over 1.5 goals scored,no Over 2.5 1H goals scored,no Over 2.5 1H goals scored,yes Over 0.5 1H goals scored,no Over 2.5 1H goals scored,yes Over 1.5 goals scored,yes Over 0.5 goals scored"
+      "yes_sub_title": "yes Bielefeld,yes Heidenheim,yes Over 1.5 goals scored,yes Ind. del Valle,yes Bodoe/Glimt,yes Chayka / Van Assendelft,yes Garcia Carbajal / Planella Hernandez,yes Baum / Cerny,yes Colombo / Perego,yes De Felipe Garcia / Dominguez Alonso,yes Joao Vitor Goncalves Ceolin,yes Enzo Kohlmann de Freitas,yes Felix Corwin,yes Kevin Edengren,yes Justin Riley Anson,yes Juan Estevez,yes Carles Hernandez,yes Mateo Del Pino,yes Dragos Nicolae Madaras,yes Over 1.5 goals scored,yes Over 1.5 goals scored,yes Over 1.5 goals scored,yes Igdir,yes Nacional,yes Liverpool M,yes Racing Club"
     },
     {
       "can_close_early": true,
-      "close_time": "2026-12-04T21:00:00Z",
-      "created_time": "2026-11-20T13:01:31.607988Z",
+      "close_time": "2026-12-04T12:30:00Z",
+      "created_time": "2026-11-20T13:03:11.590331Z",
       "custom_strike": {
-        "Associated Events": "KXATPCHALLENGERMATCH-26NOV20BUTBAS,KXATPCHALLENGERMATCH-26NOV20DIECHA,KXATPCHALLENGERMATCH-26NOV20GULSAM,KXATPCHALLENGERMATCH-26NOV20KOZCHI,KXATPCHALLENGERMATCH-26NOV20ROCSEY",
+        "Associated Events": "KXATPCHALLENGERMATCH-26NOV20GULSAM,KXATPCHALLENGERMATCH-26NOV20KWONPRI,KXNBASPREAD-26NOV20TORDET,KXNFLGAME-26NOV22NOCHI,KXUFCFIGHT-26NOV21PROSTI",
         "Associated Market Sides": "yes,yes,yes,yes,yes",
-        "Associated Markets": "KXATPCHALLENGERMATCH-26NOV20BUTBAS-BAS,KXATPCHALLENGERMATCH-26NOV20DIECHA-DIE,KXATPCHALLENGERMATCH-26NOV20GULSAM-SAM,KXATPCHALLENGERMATCH-26NOV20KOZCHI-CHI,KXATPCHALLENGERMATCH-26NOV20ROCSEY-SEY",
-        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S202657MEIHG6ZIFFUWAK"
+        "Associated Markets": "KXATPCHALLENGERMATCH-26NOV20GULSAM-SAM,KXATPCHALLENGERMATCH-26NOV20KWONPRI-PRI,KXNBASPREAD-26NOV20TORDET-DET5,KXNFLGAME-26NOV22NOCHI-CHI,KXUFCFIGHT-26NOV21PROSTI-STI",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026FSMZLY4N2362YNY7"
       },
-      "event_ticker": "KXMVECROSSCATEGORY-S202657MEIHG6ZIFFUWAK",
+      "event_ticker": "KXMVECROSSCATEGORY-S2026FSMZLY4N2362YNY7",
       "exchange_index": 1,
-      "expected_expiration_time": "2026-11-21T03:00:00Z",
+      "expected_expiration_time": "2026-11-23T00:00:00Z",
       "expiration_value": "",
       "is_provisional": true,
       "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-12-04T21:00:00Z",
+      "latest_expiration_time": "2026-12-04T12:30:00Z",
       "market_type": "binary",
       "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
       "mve_selected_legs": [
-        {
-          "event_ticker": "KXATPCHALLENGERMATCH-26NOV20BUTBAS",
-          "market_ticker": "KXATPCHALLENGERMATCH-26NOV20BUTBAS-BAS",
-          "side": "yes"
-        },
-        {
-          "event_ticker": "KXATPCHALLENGERMATCH-26NOV20DIECHA",
-          "market_ticker": "KXATPCHALLENGERMATCH-26NOV20DIECHA-DIE",
-          "side": "yes"
-        },
         {
           "event_ticker": "KXATPCHALLENGERMATCH-26NOV20GULSAM",
           "market_ticker": "KXATPCHALLENGERMATCH-26NOV20GULSAM-SAM",
           "side": "yes"
         },
         {
-          "event_ticker": "KXATPCHALLENGERMATCH-26NOV20KOZCHI",
-          "market_ticker": "KXATPCHALLENGERMATCH-26NOV20KOZCHI-CHI",
+          "event_ticker": "KXATPCHALLENGERMATCH-26NOV20KWONPRI",
+          "market_ticker": "KXATPCHALLENGERMATCH-26NOV20KWONPRI-PRI",
           "side": "yes"
         },
         {
-          "event_ticker": "KXATPCHALLENGERMATCH-26NOV20ROCSEY",
-          "market_ticker": "KXATPCHALLENGERMATCH-26NOV20ROCSEY-SEY",
+          "event_ticker": "KXNBASPREAD-26NOV20TORDET",
+          "market_ticker": "KXNBASPREAD-26NOV20TORDET-DET5",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNFLGAME-26NOV22NOCHI",
+          "market_ticker": "KXNFLGAME-26NOV22NOCHI-CHI",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXUFCFIGHT-26NOV21PROSTI",
+          "market_ticker": "KXUFCFIGHT-26NOV21PROSTI-STI",
           "side": "yes"
         }
       ],
       "no_ask_dollars": "1.0000",
       "no_bid_dollars": "1.0000",
-      "no_sub_title": "yes Nishesh Basavareddy,yes Dylan Dietrich,yes Toby Samuel,yes Clement Chidekh,yes Thiago Seyboth Wild",
+      "no_sub_title": "yes Toby Samuel,yes Dino Prizmic,yes Detroit wins by over 4.5 points,yes Chicago,yes Navajo Stirling",
       "notional_value_dollars": "1.0000",
       "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T13:01:31Z",
+      "open_time": "2026-11-20T13:03:11Z",
       "previous_price_dollars": "0.0000",
       "previous_yes_ask_dollars": "0.0000",
       "previous_yes_bid_dollars": "0.0000",
@@ -222,74 +277,289 @@
       "settlement_timer_seconds": 5,
       "status": "active",
       "strike_type": "custom",
-      "ticker": "KXMVECROSSCATEGORY-S202657MEIHG6ZIFFUWAK-NXSHMXXSU",
-      "title": "yes Nishesh Basavareddy,yes Dylan Dietrich,yes Toby Samuel,yes Clement Chidekh,yes Thiago Seyboth Wild",
-      "updated_time": "2026-11-20T13:01:32.152833Z",
+      "ticker": "KXMVECROSSCATEGORY-S2026FSMZLY4N2362YNY7-PPLBPTKLB",
+      "title": "yes Toby Samuel,yes Dino Prizmic,yes Detroit wins by over 4.5 points,yes Chicago,yes Navajo Stirling",
+      "updated_time": "2026-11-20T13:03:12.179917Z",
       "volume_24h_fp": "0.00",
       "volume_fp": "0.00",
       "yes_ask_dollars": "0.0000",
       "yes_ask_size_fp": "0.00",
       "yes_bid_dollars": "0.0000",
       "yes_bid_size_fp": "0.00",
-      "yes_sub_title": "yes Nishesh Basavareddy,yes Dylan Dietrich,yes Toby Samuel,yes Clement Chidekh,yes Thiago Seyboth Wild"
+      "yes_sub_title": "yes Toby Samuel,yes Dino Prizmic,yes Detroit wins by over 4.5 points,yes Chicago,yes Navajo Stirling"
     },
     {
       "can_close_early": true,
-      "close_time": "2026-11-24T21:25:00Z",
-      "created_time": "2026-11-20T13:01:31.571511Z",
+      "close_time": "2026-11-23T03:00:00Z",
+      "created_time": "2026-11-20T13:03:11.560419Z",
       "custom_strike": {
-        "Associated Events": "KXNCAAFSPREAD-26NOV20OREMSU,KXNCAAFSPREAD-26NOV21UGASCAR,KXNFLGAME-26NOV22TBDET,KXNFLSPREAD-26NOV22ARIKC,KXNFLSPREAD-26NOV22LVDEN,KXNFLSPREAD-26NOV22NOCHI",
-        "Associated Market Sides": "yes,yes,yes,yes,yes,yes",
-        "Associated Markets": "KXNCAAFSPREAD-26NOV20OREMSU-ORE7,KXNCAAFSPREAD-26NOV21UGASCAR-UGA7,KXNFLGAME-26NOV22TBDET-DET,KXNFLSPREAD-26NOV22ARIKC-KC3,KXNFLSPREAD-26NOV22LVDEN-DEN3,KXNFLSPREAD-26NOV22NOCHI-CHI3",
-        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026YWMFWHYHX73VL6M3"
+        "Associated Events": "KXNBA3PT-26NOV20CHAATL,KXNBA3PT-26NOV20CHAATL,KXNBA3PT-26NOV20CHAATL,KXNBA3PT-26NOV20INDCLE,KXNBA3PT-26NOV20INDCLE,KXNBA3PT-26NOV20NOPOKC,KXNBA3PT-26NOV20ORLBKN,KXNBA3PT-26NOV20ORLBKN,KXNBA3PT-26NOV20ORLBKN,KXNBAAST-26NOV20CHAATL,KXNBAAST-26NOV20HOUDEN,KXNBAAST-26NOV20SACLAL,KXNBAAST-26NOV20SACLAL,KXNBAAST-26NOV20TORDET,KXNBAAST-26NOV20WASCHI,KXNBAPTS-26NOV20CHAATL,KXNBAPTS-26NOV20CHAATL,KXNBAPTS-26NOV20CHAATL,KXNBAPTS-26NOV20HOUDEN,KXNBAPTS-26NOV20HOUDEN,KXNBAPTS-26NOV20HOUDEN,KXNBAPTS-26NOV20HOUDEN,KXNBAPTS-26NOV20INDCLE,KXNBAPTS-26NOV20NOPOKC,KXNBAPTS-26NOV20PHXUTA,KXNBAPTS-26NOV20SACLAL,KXNBAPTS-26NOV20SACLAL,KXNBAPTS-26NOV20TORDET,KXNBAPTS-26NOV20WASCHI,KXNBAPTS-26NOV20WASCHI,KXNBAREB-26NOV20CHAATL,KXNBAREB-26NOV20CHAATL,KXNBAREB-26NOV20INDCLE,KXNBAREB-26NOV20NOPOKC,KXNBAREB-26NOV20TORDET,KXNBAREB-26NOV20WASCHI,KXNCAAMBGAME-26NOV20TLSAMSST,KXNCAAMBGAME-26NOV20UGAGT,KXNCAAMBSPREAD-26NOV20CCARTENN,KXNCAAMBSPREAD-26NOV20GBFSU,KXNCAAMBSPREAD-26NOV20LMDUVA,KXNCAAMBSPREAD-26NOV20MANMIA,KXNCAAMBSPREAD-26NOV20MRSHUNC,KXNCAAMBSPREAD-26NOV20MVSUARK,KXNCAAMBSPREAD-26NOV20NWVT,KXNCAAMBSPREAD-26NOV20OAKPUR,KXNCAAMBSPREAD-26NOV20OKSTMINN,KXNCAAMBSPREAD-26NOV20UCFVAN,KXNCAAMBSPREAD-26NOV20UKIND",
+        "Associated Market Sides": "no,no,yes,yes,yes,yes,no,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,yes,no",
+        "Associated Markets": "KXNBA3PT-26NOV20CHAATL-ATLAWIGGINS2-5,KXNBA3PT-26NOV20CHAATL-ATLNALEXANDERWALKER7-6,KXNBA3PT-26NOV20CHAATL-CHABMILLER24-1,KXNBA3PT-26NOV20INDCLE-CLEDMITCHELL45-1,KXNBA3PT-26NOV20INDCLE-CLEJHARDEN1-1,KXNBA3PT-26NOV20NOPOKC-OKCJMCCAIN3-1,KXNBA3PT-26NOV20ORLBKN-BKNMPORTER17-5,KXNBA3PT-26NOV20ORLBKN-ORLDBANE3-2,KXNBA3PT-26NOV20ORLBKN-ORLTDASILVA23-1,KXNBAAST-26NOV20CHAATL-ATLJJOHNSON1-4,KXNBAAST-26NOV20HOUDEN-DENNJOKIC15-4,KXNBAAST-26NOV20SACLAL-LALLDONCIC77-4,KXNBAAST-26NOV20SACLAL-SACDACUFF5-4,KXNBAAST-26NOV20TORDET-DETCCUNNINGHAM2-4,KXNBAAST-26NOV20WASCHI-WASTYOUNG3-6,KXNBAPTS-26NOV20CHAATL-ATLNALEXANDERWALKER7-15,KXNBAPTS-26NOV20CHAATL-CHABMILLER24-30,KXNBAPTS-26NOV20CHAATL-CHANREID0-30,KXNBAPTS-26NOV20HOUDEN-DENJMURRAY27-15,KXNBAPTS-26NOV20HOUDEN-DENNJOKIC15-15,KXNBAPTS-26NOV20HOUDEN-HOUASENGUN28-10,KXNBAPTS-26NOV20HOUDEN-HOUKDURANT7-15,KXNBAPTS-26NOV20INDCLE-INDPSIAKAM43-15,KXNBAPTS-26NOV20NOPOKC-OKCSGILGEOUSALEXANDER2-25,KXNBAPTS-26NOV20PHXUTA-PHXDBOOKER15-20,KXNBAPTS-26NOV20SACLAL-SACDACUFF5-15,KXNBAPTS-26NOV20SACLAL-SACZLAVINE8-10,KXNBAPTS-26NOV20TORDET-TORSBARNES4-15,KXNBAPTS-26NOV20WASCHI-CHINPOWELL24-15,KXNBAPTS-26NOV20WASCHI-WASADAVIS23-15,KXNBAREB-26NOV20CHAATL-ATLJJOHNSON1-6,KXNBAREB-26NOV20CHAATL-CHAMDIABATE14-6,KXNBAREB-26NOV20INDCLE-CLEJALLEN31-6,KXNBAREB-26NOV20NOPOKC-OKCIHARTENSTEIN55-6,KXNBAREB-26NOV20TORDET-DETATHOMPSON9-4,KXNBAREB-26NOV20WASCHI-WASADAVIS23-6,KXNCAAMBGAME-26NOV20TLSAMSST-MSST,KXNCAAMBGAME-26NOV20UGAGT-UGA,KXNCAAMBSPREAD-26NOV20CCARTENN-TENN17,KXNCAAMBSPREAD-26NOV20GBFSU-FSU12,KXNCAAMBSPREAD-26NOV20LMDUVA-UVA27,KXNCAAMBSPREAD-26NOV20MANMIA-MIA23,KXNCAAMBSPREAD-26NOV20MRSHUNC-UNC9,KXNCAAMBSPREAD-26NOV20MVSUARK-ARK27,KXNCAAMBSPREAD-26NOV20NWVT-VT3,KXNCAAMBSPREAD-26NOV20OAKPUR-PUR12,KXNCAAMBSPREAD-26NOV20OKSTMINN-MINN11,KXNCAAMBSPREAD-26NOV20UCFVAN-VAN10,KXNCAAMBSPREAD-26NOV20UKIND-IND16",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026WU3H6NDOI6KMGUKQ"
       },
-      "event_ticker": "KXMVECROSSCATEGORY-S2026YWMFWHYHX73VL6M3",
+      "event_ticker": "KXMVECROSSCATEGORY-S2026WU3H6NDOI6KMGUKQ",
       "exchange_index": 1,
-      "expected_expiration_time": "2026-11-23T03:25:00Z",
+      "expected_expiration_time": "2026-11-21T09:00:00Z",
       "expiration_value": "",
       "is_provisional": true,
       "last_price_dollars": "0.0000",
-      "latest_expiration_time": "2026-11-24T21:25:00Z",
+      "latest_expiration_time": "2026-11-23T03:00:00Z",
       "market_type": "binary",
       "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
       "mve_selected_legs": [
         {
-          "event_ticker": "KXNCAAFSPREAD-26NOV20OREMSU",
-          "market_ticker": "KXNCAAFSPREAD-26NOV20OREMSU-ORE7",
+          "event_ticker": "KXNBA3PT-26NOV20CHAATL",
+          "market_ticker": "KXNBA3PT-26NOV20CHAATL-ATLAWIGGINS2-5",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXNBA3PT-26NOV20CHAATL",
+          "market_ticker": "KXNBA3PT-26NOV20CHAATL-ATLNALEXANDERWALKER7-6",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXNBA3PT-26NOV20CHAATL",
+          "market_ticker": "KXNBA3PT-26NOV20CHAATL-CHABMILLER24-1",
           "side": "yes"
         },
         {
-          "event_ticker": "KXNCAAFSPREAD-26NOV21UGASCAR",
-          "market_ticker": "KXNCAAFSPREAD-26NOV21UGASCAR-UGA7",
+          "event_ticker": "KXNBA3PT-26NOV20INDCLE",
+          "market_ticker": "KXNBA3PT-26NOV20INDCLE-CLEDMITCHELL45-1",
           "side": "yes"
         },
         {
-          "event_ticker": "KXNFLGAME-26NOV22TBDET",
-          "market_ticker": "KXNFLGAME-26NOV22TBDET-DET",
+          "event_ticker": "KXNBA3PT-26NOV20INDCLE",
+          "market_ticker": "KXNBA3PT-26NOV20INDCLE-CLEJHARDEN1-1",
           "side": "yes"
         },
         {
-          "event_ticker": "KXNFLSPREAD-26NOV22ARIKC",
-          "market_ticker": "KXNFLSPREAD-26NOV22ARIKC-KC3",
+          "event_ticker": "KXNBA3PT-26NOV20NOPOKC",
+          "market_ticker": "KXNBA3PT-26NOV20NOPOKC-OKCJMCCAIN3-1",
           "side": "yes"
         },
         {
-          "event_ticker": "KXNFLSPREAD-26NOV22LVDEN",
-          "market_ticker": "KXNFLSPREAD-26NOV22LVDEN-DEN3",
+          "event_ticker": "KXNBA3PT-26NOV20ORLBKN",
+          "market_ticker": "KXNBA3PT-26NOV20ORLBKN-BKNMPORTER17-5",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXNBA3PT-26NOV20ORLBKN",
+          "market_ticker": "KXNBA3PT-26NOV20ORLBKN-ORLDBANE3-2",
           "side": "yes"
         },
         {
-          "event_ticker": "KXNFLSPREAD-26NOV22NOCHI",
-          "market_ticker": "KXNFLSPREAD-26NOV22NOCHI-CHI3",
+          "event_ticker": "KXNBA3PT-26NOV20ORLBKN",
+          "market_ticker": "KXNBA3PT-26NOV20ORLBKN-ORLTDASILVA23-1",
           "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAAST-26NOV20CHAATL",
+          "market_ticker": "KXNBAAST-26NOV20CHAATL-ATLJJOHNSON1-4",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAAST-26NOV20HOUDEN",
+          "market_ticker": "KXNBAAST-26NOV20HOUDEN-DENNJOKIC15-4",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAAST-26NOV20SACLAL",
+          "market_ticker": "KXNBAAST-26NOV20SACLAL-LALLDONCIC77-4",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAAST-26NOV20SACLAL",
+          "market_ticker": "KXNBAAST-26NOV20SACLAL-SACDACUFF5-4",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAAST-26NOV20TORDET",
+          "market_ticker": "KXNBAAST-26NOV20TORDET-DETCCUNNINGHAM2-4",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAAST-26NOV20WASCHI",
+          "market_ticker": "KXNBAAST-26NOV20WASCHI-WASTYOUNG3-6",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20CHAATL",
+          "market_ticker": "KXNBAPTS-26NOV20CHAATL-ATLNALEXANDERWALKER7-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20CHAATL",
+          "market_ticker": "KXNBAPTS-26NOV20CHAATL-CHABMILLER24-30",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20CHAATL",
+          "market_ticker": "KXNBAPTS-26NOV20CHAATL-CHANREID0-30",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20HOUDEN",
+          "market_ticker": "KXNBAPTS-26NOV20HOUDEN-DENJMURRAY27-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20HOUDEN",
+          "market_ticker": "KXNBAPTS-26NOV20HOUDEN-DENNJOKIC15-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20HOUDEN",
+          "market_ticker": "KXNBAPTS-26NOV20HOUDEN-HOUASENGUN28-10",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20HOUDEN",
+          "market_ticker": "KXNBAPTS-26NOV20HOUDEN-HOUKDURANT7-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20INDCLE",
+          "market_ticker": "KXNBAPTS-26NOV20INDCLE-INDPSIAKAM43-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20NOPOKC",
+          "market_ticker": "KXNBAPTS-26NOV20NOPOKC-OKCSGILGEOUSALEXANDER2-25",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20PHXUTA",
+          "market_ticker": "KXNBAPTS-26NOV20PHXUTA-PHXDBOOKER15-20",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20SACLAL",
+          "market_ticker": "KXNBAPTS-26NOV20SACLAL-SACDACUFF5-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20SACLAL",
+          "market_ticker": "KXNBAPTS-26NOV20SACLAL-SACZLAVINE8-10",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20TORDET",
+          "market_ticker": "KXNBAPTS-26NOV20TORDET-TORSBARNES4-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20WASCHI",
+          "market_ticker": "KXNBAPTS-26NOV20WASCHI-CHINPOWELL24-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAPTS-26NOV20WASCHI",
+          "market_ticker": "KXNBAPTS-26NOV20WASCHI-WASADAVIS23-15",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAREB-26NOV20CHAATL",
+          "market_ticker": "KXNBAREB-26NOV20CHAATL-ATLJJOHNSON1-6",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAREB-26NOV20CHAATL",
+          "market_ticker": "KXNBAREB-26NOV20CHAATL-CHAMDIABATE14-6",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAREB-26NOV20INDCLE",
+          "market_ticker": "KXNBAREB-26NOV20INDCLE-CLEJALLEN31-6",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAREB-26NOV20NOPOKC",
+          "market_ticker": "KXNBAREB-26NOV20NOPOKC-OKCIHARTENSTEIN55-6",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAREB-26NOV20TORDET",
+          "market_ticker": "KXNBAREB-26NOV20TORDET-DETATHOMPSON9-4",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNBAREB-26NOV20WASCHI",
+          "market_ticker": "KXNBAREB-26NOV20WASCHI-WASADAVIS23-6",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV20TLSAMSST",
+          "market_ticker": "KXNCAAMBGAME-26NOV20TLSAMSST-MSST",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV20UGAGT",
+          "market_ticker": "KXNCAAMBGAME-26NOV20UGAGT-UGA",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20CCARTENN",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20CCARTENN-TENN17",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20GBFSU",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20GBFSU-FSU12",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20LMDUVA",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20LMDUVA-UVA27",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20MANMIA",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20MANMIA-MIA23",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20MRSHUNC",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20MRSHUNC-UNC9",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20MVSUARK",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20MVSUARK-ARK27",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20NWVT",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20NWVT-VT3",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20OAKPUR",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20OAKPUR-PUR12",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20OKSTMINN",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20OKSTMINN-MINN11",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20UCFVAN",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20UCFVAN-VAN10",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBSPREAD-26NOV20UKIND",
+          "market_ticker": "KXNCAAMBSPREAD-26NOV20UKIND-IND16",
+          "side": "no"
         }
       ],
       "no_ask_dollars": "1.0000",
       "no_bid_dollars": "1.0000",
-      "no_sub_title": "yes Oregon wins by over 6.5 points,yes Georgia wins by over 6.5 points,yes Detroit,yes Kansas City wins by over 2.5 points,yes Denver wins by over 2.5 points,yes Chicago wins by over 2.5 points",
+      "no_sub_title": "no Aaron Wiggins: 5+,no Nickeil Alexander-Walker: 6+,yes Brandon Miller: 1+,yes Donovan Mitchell: 1+,yes James Harden: 1+,yes Jared McCain: 1+,no Michael Porter Jr.: 5+,yes Desmond Bane: 2+,yes Tristan da Silva: 1+,yes Jalen Johnson: 4+,yes Nikola Joki\u0107: 4+,yes Luka Don\u010di\u0107: 4+,yes Darius Acuff Jr.: 4+,yes Cade Cunningham: 4+,yes Trae Young: 6+,yes Nickeil Alexander-Walker: 15+,no Brandon Miller: 30+,no Naz Reid: 30+,yes Jamal Murray: 15+,yes Nikola Joki\u0107: 15+,yes Alperen Sengun: 10+,yes Kevin Durant: 15+,yes Pascal Siakam: 15+,yes Shai Gilgeous-Alexander: 25+,yes Devin Booker: 20+,yes Darius Acuff Jr.: 15+,yes Zach LaVine: 10+,yes Scottie Barnes: 15+,yes Norman Powell: 15+,yes Anthony Davis: 15+,yes Jalen Johnson: 6+,yes Moussa Diabat\u00e9: 6+,yes Jarrett Allen: 6+,yes Isaiah Hartenstein: 6+,yes Ausar Thompson: 4+,yes Anthony Davis: 6+,yes Mississippi St.,yes Georgia,yes Tennessee wins by over 16.5 points,yes Florida St. wins by over 11.5 points,yes Virginia wins by over 26.5 points,yes Miami (FL) wins by over 22.5 points,yes North Carolina wins by over 8.5 points,yes Arkansas wins by over 26.5 points,yes Virginia Tech wins by over 2.5 points,yes Purdue wins by over 11.5 points,no Minnesota wins by over 10.5 points,yes Vanderbilt wins by over 9.5 points,no Indiana wins by over 15.5 points",
       "notional_value_dollars": "1.0000",
       "open_interest_fp": "0.00",
-      "open_time": "2026-11-20T13:01:31Z",
+      "open_time": "2026-11-20T13:03:11Z",
       "previous_price_dollars": "0.0000",
       "previous_yes_ask_dollars": "0.0000",
       "previous_yes_bid_dollars": "0.0000",
@@ -318,16 +588,16 @@
       "settlement_timer_seconds": 5,
       "status": "active",
       "strike_type": "custom",
-      "ticker": "KXMVECROSSCATEGORY-S2026YWMFWHYHX73VL6M3-IVP4COZ24",
-      "title": "yes Oregon wins by over 6.5 points,yes Georgia wins by over 6.5 points,yes Detroit,yes Kansas City wins by over 2.5 points,yes Denver wins by over 2.5 points,yes Chicago wins by over 2.5 points",
-      "updated_time": "2026-11-20T13:01:32.152833Z",
+      "ticker": "KXMVECROSSCATEGORY-S2026WU3H6NDOI6KMGUKQ-MPUSC37ER",
+      "title": "no Aaron Wiggins: 5+,no Nickeil Alexander-Walker: 6+,yes Brandon Miller: 1+,yes Donovan Mitchell: 1+,yes James Harden: 1+,yes Jared McCain: 1+,no Michael Porter Jr.: 5+,yes Desmond Bane: 2+,yes Tristan da Silva: 1+,yes Jalen Johnson: 4+,yes Nikola Joki\u0107: 4+,yes Luka Don\u010di\u0107: 4+,yes Darius Acuff Jr.: 4+,yes Cade Cunningham: 4+,yes Trae Young: 6+,yes Nickeil Alexander-Walker: 15+,no Brandon Miller: 30+,no Naz Reid: 30+,yes Jamal Murray: 15+,yes Nikola Joki\u0107: 15+,yes Alperen Sengun: 10+,yes Kevin Durant: 15+,yes Pascal Siakam: 15+,yes Shai Gilgeous-Alexander: 25+,yes Devin Booker: 20+,yes Darius Acuff Jr.: 15+,yes Zach LaVine: 10+,yes Scottie Barnes: 15+,yes Norman Powell: 15+,yes Anthony Davis: 15+,yes Jalen Johnson: 6+,yes Moussa Diabat\u00e9: 6+,yes Jarrett Allen: 6+,yes Isaiah Hartenstein: 6+,yes Ausar Thompson: 4+,yes Anthony Davis: 6+,yes Mississippi St.,yes Georgia,yes Tennessee wins by over 16.5 points,yes Florida St. wins by over 11.5 points,yes Virginia wins by over 26.5 points,yes Miami (FL) wins by over 22.5 points,yes North Carolina wins by over 8.5 points,yes Arkansas wins by over 26.5 points,yes Virginia Tech wins by over 2.5 points,yes Purdue wins by over 11.5 points,no Minnesota wins by over 10.5 points,yes Vanderbilt wins by over 9.5 points,no Indiana wins by over 15.5 points",
+      "updated_time": "2026-11-20T13:03:12.179917Z",
       "volume_24h_fp": "0.00",
       "volume_fp": "0.00",
       "yes_ask_dollars": "0.0000",
       "yes_ask_size_fp": "0.00",
       "yes_bid_dollars": "0.0000",
       "yes_bid_size_fp": "0.00",
-      "yes_sub_title": "yes Oregon wins by over 6.5 points,yes Georgia wins by over 6.5 points,yes Detroit,yes Kansas City wins by over 2.5 points,yes Denver wins by over 2.5 points,yes Chicago wins by over 2.5 points"
+      "yes_sub_title": "no Aaron Wiggins: 5+,no Nickeil Alexander-Walker: 6+,yes Brandon Miller: 1+,yes Donovan Mitchell: 1+,yes James Harden: 1+,yes Jared McCain: 1+,no Michael Porter Jr.: 5+,yes Desmond Bane: 2+,yes Tristan da Silva: 1+,yes Jalen Johnson: 4+,yes Nikola Joki\u0107: 4+,yes Luka Don\u010di\u0107: 4+,yes Darius Acuff Jr.: 4+,yes Cade Cunningham: 4+,yes Trae Young: 6+,yes Nickeil Alexander-Walker: 15+,no Brandon Miller: 30+,no Naz Reid: 30+,yes Jamal Murray: 15+,yes Nikola Joki\u0107: 15+,yes Alperen Sengun: 10+,yes Kevin Durant: 15+,yes Pascal Siakam: 15+,yes Shai Gilgeous-Alexander: 25+,yes Devin Booker: 20+,yes Darius Acuff Jr.: 15+,yes Zach LaVine: 10+,yes Scottie Barnes: 15+,yes Norman Powell: 15+,yes Anthony Davis: 15+,yes Jalen Johnson: 6+,yes Moussa Diabat\u00e9: 6+,yes Jarrett Allen: 6+,yes Isaiah Hartenstein: 6+,yes Ausar Thompson: 4+,yes Anthony Davis: 6+,yes Mississippi St.,yes Georgia,yes Tennessee wins by over 16.5 points,yes Florida St. wins by over 11.5 points,yes Virginia wins by over 26.5 points,yes Miami (FL) wins by over 22.5 points,yes North Carolina wins by over 8.5 points,yes Arkansas wins by over 26.5 points,yes Virginia Tech wins by over 2.5 points,yes Purdue wins by over 11.5 points,no Minnesota wins by over 10.5 points,yes Vanderbilt wins by over 9.5 points,no Indiana wins by over 15.5 points"
     }
   ]
 }

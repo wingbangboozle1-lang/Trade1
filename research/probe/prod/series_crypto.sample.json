@@ -9,22 +9,22 @@
         "Crypto"
       ],
       "category": "Crypto",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/LINK.pdf",
-      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LINK.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CRYPTOMINMAXMONTHLY.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/CRYPTOMINMAXMONTHLY.pdf",
       "exchange_index": 2,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
-      "frequency": "daily",
-      "last_updated_ts": "2026-10-15T08:02:28.792359Z",
+      "frequency": "monthly",
+      "last_updated_ts": "2026-10-21T18:32:34.304064Z",
       "settlement_sources": [
         {
           "name": "CF Benchmarks",
-          "url": "https://www.cfbenchmarks.com/data/indices/LINKUSD_RTI"
+          "url": "https://www.cfbenchmarks.com/"
         }
       ],
       "tags": null,
-      "ticker": "KXLINK",
-      "title": "Chainlink range"
+      "ticker": "KXNEARMINMON",
+      "title": "NEAR Min Monthly"
     },
     {
       "additional_prohibitions": [
@@ -35,13 +35,114 @@
         "Crypto"
       ],
       "category": "Crypto",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf",
-      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/CRYPTOMINMAX.pdf",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/AIRDROP.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/AIRDROP.pdf",
       "exchange_index": 2,
       "fee_multiplier": 1,
       "fee_type": "quadratic",
-      "frequency": "annual",
-      "last_updated_ts": "2026-11-19T22:08:52.043016Z",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-10-15T08:00:30.718899Z",
+      "settlement_sources": [
+        {
+          "name": "Arbiscan",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "Axios",
+          "url": "https://www.axios.com"
+        },
+        {
+          "name": "Base Explorer",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "Bloomberg News",
+          "url": "https://www.bloomberg.com/news"
+        },
+        {
+          "name": "CoinDesk",
+          "url": "https://www.coindesk.com/"
+        },
+        {
+          "name": "CoinTelegraph",
+          "url": "https://bitchat.free/"
+        },
+        {
+          "name": "Decrypt",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "DeFi Llama",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "Etherscan",
+          "url": "https://counterparty.io/"
+        },
+        {
+          "name": "official blockchain explorers for the relevant network",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "Polygonscan",
+          "url": "https://polygon.technology/"
+        },
+        {
+          "name": "project",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/"
+        },
+        {
+          "name": "Solscan",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "the Associated Press",
+          "url": "https://apnews.com/"
+        },
+        {
+          "name": "The Block",
+          "url": "https://kalshi.com/"
+        },
+        {
+          "name": "The Information",
+          "url": "https://www.theinformation.com/"
+        },
+        {
+          "name": "The New York Times",
+          "url": "https://www.nytimes.com"
+        },
+        {
+          "name": "The Wall Street Journal",
+          "url": "https://www.wsj.com/"
+        }
+      ],
+      "tags": [
+        "Crypto",
+        "Pre-Market"
+      ],
+      "ticker": "KXAIRDROPMONAD",
+      "title": "Monad airdrop"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Crypto"
+      ],
+      "category": "Crypto",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ETHMINMAX.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/ETHMINMAX.pdf",
+      "exchange_index": 2,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-11-09T18:42:46.236069Z",
       "settlement_sources": [
         {
           "name": "CF Benchmarks",
@@ -50,40 +151,11 @@
       ],
       "tags": [
         "Crypto",
-        "XRP"
+        "Ethereum",
+        "ETH"
       ],
-      "ticker": "KXXRPMINY",
-      "title": "XRP Min"
-    },
-    {
-      "additional_prohibitions": [
-        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
-        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
-      ],
-      "categories": [
-        "Crypto"
-      ],
-      "category": "Crypto",
-      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CRYPTOHIT.pdf",
-      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/CRYPTOHIT.pdf",
-      "exchange_index": 2,
-      "fee_multiplier": 1,
-      "fee_type": "quadratic",
-      "frequency": "custom",
-      "last_updated_ts": "2026-10-23T17:01:05.569227Z",
-      "settlement_sources": [
-        {
-          "name": "CF Benchmarks",
-          "url": "https://www.cfbenchmarks.com/data/indices/DOTUSD_RTI"
-        }
-      ],
-      "tags": [
-        "Crypto",
-        "BTC",
-        "Bitcoin"
-      ],
-      "ticker": "KXBTC60VS100",
-      "title": "Will BTC fall below 60k before hitting 100k?"
+      "ticker": "KXETHATH",
+      "title": "ETH ATH"
     }
   ]
 }
