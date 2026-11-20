@@ -558,8 +558,9 @@ def build_resolutions(res_summary, snap):
 <span class="tk">{esc(r["ticker"])}</span></td>
 <td>{chip}</td>
 <td class="num nowrap">{when(r.get("close_ts"))}</td>
-<td class="num nowrap">{when(r.get("resolved_ts"))}</td>
-<td class="num">{esc(r.get("expiration_value") or "—")}</td>
+<td class="num nowrap">{when(r.get("settlement_ts") or r.get("resolved_ts"))}</td>
+<td class="num">{esc(r.get("settlement_value_dollars") or "—")}</td>
+<td class="num">{esc(r.get("status_raw") or "—")}</td>
 <td><a href="{esc(r.get("source_url"))}" target="_blank" rel="noopener">API</a></td></tr>''')
 
     body = f"""
@@ -578,7 +579,8 @@ recorded exactly as the API reports it: YES or NO.</p>
 <code>result</code> field from <code>GET /markets/{{ticker}}</code>. Empty results are shown as pending and
 never inferred from the last traded price.</p>
 {table([("Market", False, "market"), ("Result", False, "result"), ("Closed", False, "close"),
-        ("Recorded", False, "recorded"), ("Expiration value", True, "exp"), ("Source", False, "src")],
+        ("Settled", False, "settled"), ("Settlement value", True, "value"),
+        ("Exchange status", False, "status"), ("Source", False, "src")],
        "".join(rows), empty="No tracked market has settled yet. Outcomes appear here automatically once the "
        "exchange reports a result.")}
 </div>

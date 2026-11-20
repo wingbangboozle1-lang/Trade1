@@ -25,6 +25,10 @@ from collector.kalshi_client import PROD, KalshiClient
 from collector.util import DATA, iso, now_ts, parse_ts, read_json, write_json
 
 VALID_RESULTS = {"yes", "no"}
+# A market can report a result while still finalizing; both states are terminal for trading and both
+# carry the exchange's own result. Verified against GET /markets/KX10SONG-26-KAR, which returned
+# status="finalized", result="yes", settlement_value_dollars="1.0000", settlement_ts set.
+SETTLED_STATUSES = {"settled", "finalized"}
 
 
 def tracked_tickers() -> list[str]:
@@ -49,7 +53,9 @@ def update(base: str = PROD, limit_checks: int = 60) -> dict:
     client = KalshiClient(base)
     store_path = os.path.join(DATA, "resolutions.json")
     store = read_json(store_path, {}) or {}
-    todo = [t for t in tracked_tickers() if (store.get(t) or {}).get("result") not in VALID_RESULTS]
+    todo = [t for t in tracked_tickers()
+            if (store.get(t) or {}).get("result") not in VALID_RESULTS
+            or not (store.get(t) or {}).get("status_raw")]
 
     checked = 0
     for ticker in todo[:limit_checks]:
@@ -68,7 +74,10 @@ def update(base: str = PROD, limit_checks: int = 60) -> dict:
             "status": m.get("status"),
             "result": result if result in VALID_RESULTS else "",
             "result_raw": m.get("result") or "",
-            "settled": m.get("status") == "settled",
+            "settled": m.get("status") in SETTLED_STATUSES,
+            "status_raw": m.get("status") or "",
+            "settlement_ts": parse_ts(m.get("settlement_ts")),
+            "settlement_value_dollars": m.get("settlement_value_dollars"),
             "close_time": m.get("close_time"),
             "close_ts": parse_ts(m.get("close_time")),
             "expiration_value": m.get("expiration_value"),
