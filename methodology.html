@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology · Trade1 Kalshi dashboard</title>
+<meta name="description" content="Sources, endpoints, formulas and verification rules.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html">Live markets</a>
+<a href="events.html">Events by dollars</a>
+<a href="jumps.html">Sharp moves</a>
+<a href="resolutions.html">Resolved</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html">Executive summary</a>
+<a href="methodology.html" aria-current="page">Methodology</a>
+<a href="flagged.html">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Methodology &amp; sources</h1>
+<p class="lede">Every number on this site comes from a documented endpoint or a documented formula.
+This page states which, so any value can be re-derived or challenged.</p>
+
+<div class="card">
+<h2>Data sources</h2>
+<div class="tablewrap"><table><thead><tr><th>Source</th><th>What it is used for</th></tr></thead>
+<tbody><tr><td><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">Kalshi docs — Test In The Demo Environment</a></td><td class="mut" style="font-size:12.5px">Demo environment exists with mock funds; recommended demo REST root is https://external-api.demo.kalshi.co/trade-api/v2 and demo WebSocket is wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2.</td></tr><tr><td><a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">Kalshi docs — API Environments and Endpoints</a></td><td class="mut" style="font-size:12.5px">Full production and demo REST/WebSocket endpoint list.</td></tr><tr><td><a href="https://docs.kalshi.com/getting_started/terms" target="_blank" rel="noopener">Kalshi docs — Glossary (series / event / market, category, tags)</a></td><td class="mut" style="font-size:12.5px">A series has exactly one primary `category` and a `categories` list; `tags` are subcategories; an event is the basic unit members interact with.</td></tr><tr><td><a href="https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories" target="_blank" rel="noopener">Kalshi API — Get Tags for Series Categories</a></td><td class="mut" style="font-size:12.5px">Authoritative category-to-tag map used to build topic membership.</td></tr><tr><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Kalshi API — Get Markets</a></td><td class="mut" style="font-size:12.5px">Filtering, cursor paging, and the documented caveat that responses are cached and can lag the exchange by several seconds.</td></tr><tr><td><a href="https://docs.kalshi.com/api-reference/events/get-events" target="_blank" rel="noopener">Kalshi API — Get Events</a></td><td class="mut" style="font-size:12.5px">Events expose event_ticker, series_ticker, title, category and status; supports status filter and min_close_ts.</td></tr><tr><td><a href="https://docs.kalshi.com/api-reference/market/get-series-list" target="_blank" rel="noopener">Kalshi API — Get Series List</a></td><td class="mut" style="font-size:12.5px">Series list with category filter; returns category, categories, tags and settlement_sources.</td></tr><tr><td><a href="https://docs.kalshi.com/api-reference/market/get-market-orderbook" target="_blank" rel="noopener">Kalshi API — Get Market Orderbook</a></td><td class="mut" style="font-size:12.5px">Returns yes and no bids only (no asks); levels are [price, quantity] ascending so the best bid is last; a YES bid at X equals a NO ask at 1-X.</td></tr><tr><td><a href="https://docs.kalshi.com/api-reference/market/get-trades" target="_blank" rel="noopener">Kalshi API — Get Trades</a></td><td class="mut" style="font-size:12.5px">Path is /markets/trades; each trade carries count_fp, yes_price_dollars, no_price_dollars and created_time.</td></tr><tr><td><a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">Kalshi API — Get Market Candlesticks</a></td><td class="mut" style="font-size:12.5px">period_interval accepts 1, 60 or 1440 minutes; at most 5,000 periods per request; the newest candles can trail live quotes by a few seconds.</td></tr><tr><td><a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">Kalshi docs — Rate Limits and Tiers</a></td><td class="mut" style="font-size:12.5px">Token-bucket limits; unauthenticated public requests have separate limits and clients should back off on HTTP 429.</td></tr><tr><td><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Kalshi docs — Quick Start: Authenticated Requests</a></td><td class="mut" style="font-size:12.5px">Signed requests use KALSHI-ACCESS-KEY / -TIMESTAMP / -SIGNATURE over timestamp+METHOD+path, RSA-PSS SHA-256 for RSA keys or Ed25519.</td></tr><tr><td><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">Kalshi docs — Quick Start: WebSockets</a></td><td class="mut" style="font-size:12.5px">WebSocket connections require authentication during the handshake, even for public market-data channels such as `ticker`.</td></tr><tr><td><a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener">Kalshi docs — Market Settlement</a></td><td class="mut" style="font-size:12.5px">YES outcome pays YES holders $1 per contract, NO outcome pays NO holders $1; settlement fees are zero for simple yes/no determinations.</td></tr><tr><td><a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">Kalshi — Fee Schedule (effective July 7, 2026)</a></td><td class="mut" style="font-size:12.5px">Taker fee = round_up(M x 0.07 x C x P x (1-P)); maker fee = round_up(M x 0.0175 x C x P x (1-P)) with M defaulting to 0; no settlement fee; per-series multipliers table.</td></tr><tr><td><a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Kalshi docs — Market Lifecycle</a></td><td class="mut" style="font-size:12.5px">Markets move through unopened, open, closed and settled states.</td></tr></tbody></table></div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>Endpoints actually called</h2>
+<dl class="meta">
+  <dt>Live prices</dt><dd><code>GET https://api.elections.kalshi.com/trade-api/v2/markets?status=open&mve_filter=exclude</code></dd>
+  <dt>Events</dt><dd><code>GET …/events?status=open</code></dd>
+  <dt>Topics</dt><dd><code>GET …/series?category=…</code> and <code>GET …/search/tags_by_categories</code></dd>
+  <dt>Liquidity</dt><dd><code>GET …/markets/{ticker}/orderbook?depth=10</code></dd>
+  <dt>History</dt><dd><code>GET …/series/{series}/markets/{ticker}/candlesticks</code> (1/60/1440-minute bars)</dd>
+  <dt>Resolutions</dt><dd><code>GET …/markets/{ticker}</code> → <code>result</code></dd>
+  <dt>Demo account</dt><dd><code>GET https://external-api.demo.kalshi.co/trade-api/v2/portfolio/balance</code> (signed)</dd>
+</dl>
+<p class="faint" style="font-size:12.5px;margin-top:8px">The demo account is read through the recommended
+demo root from Kalshi's documentation. Public reads use the production shared endpoint because the demo
+market list is not a mirror of production prices.</p>
+</div>
+
+<div class="card" style="margin-top:14px" id="suggestions">
+<h2>Suggestions to make the site more live and interactive</h2>
+<ul class="clean">
+  <li><strong>Push updates instead of polling.</strong> Kalshi's WebSocket <code>ticker</code> channel
+    would cut the delay from 15 minutes to under a second. It requires a signed handshake, so it becomes
+    possible the moment demo credentials exist; until then polling is the honest option.</li>
+  <li><strong>Alert on the move, not on the clock.</strong> Fire the ≥ $0.10 rule as soon as it happens and
+    put it in the browser tab title, so the dashboard can be left open in the background.</li>
+  <li><strong>One-line "why" column.</strong> Add a manual attribution entry (with a source link) next to
+    each jump. The page already renders confirmed causes; the next step is a review queue.</li>
+  <li><strong>Compare strategies on one axis.</strong> Overlay equity curves per strategy so the
+    underperformer is obvious without reading tables.</li>
+  <li><strong>Settlement countdown.</strong> Sort the markets page by time-to-close with a countdown, since
+    most trader decisions are driven by expiry, not by volume.</li>
+  <li><strong>Keep the charts boring.</strong> One price line, one liquidity bar set, no dual axes. The
+    zoom presets (1m → 7d) already cover the useful ranges.</li>
+</ul>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>Fee model verification</h2>
+<p class="faint" style="font-size:12.5px">Recomputed from
+<a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">Kalshi's published schedule</a> using
+<code>round_up(M × 0.07 × C × P × (1−P))</code>. All 21 published rows must match or the build fails.</p>
+<div class="tablewrap short"><table><thead><tr><th class="num">price</th><th class="num">published / 100</th>
+<th class="num">model / 100</th><th>check</th></tr></thead><tbody><tr><td class="num">$0.01</td><td class="num">$0.07</td><td class="num">$0.07</td><td>match</td></tr><tr><td class="num">$0.05</td><td class="num">$0.34</td><td class="num">$0.34</td><td>match</td></tr><tr><td class="num">$0.10</td><td class="num">$0.63</td><td class="num">$0.63</td><td>match</td></tr><tr><td class="num">$0.15</td><td class="num">$0.90</td><td class="num">$0.90</td><td>match</td></tr><tr><td class="num">$0.20</td><td class="num">$1.12</td><td class="num">$1.12</td><td>match</td></tr><tr><td class="num">$0.25</td><td class="num">$1.32</td><td class="num">$1.32</td><td>match</td></tr><tr><td class="num">$0.30</td><td class="num">$1.47</td><td class="num">$1.47</td><td>match</td></tr><tr><td class="num">$0.35</td><td class="num">$1.60</td><td class="num">$1.60</td><td>match</td></tr><tr><td class="num">$0.40</td><td class="num">$1.68</td><td class="num">$1.68</td><td>match</td></tr><tr><td class="num">$0.45</td><td class="num">$1.74</td><td class="num">$1.74</td><td>match</td></tr><tr><td class="num">$0.50</td><td class="num">$1.75</td><td class="num">$1.75</td><td>match</td></tr><tr><td class="num">$0.55</td><td class="num">$1.74</td><td class="num">$1.74</td><td>match</td></tr><tr><td class="num">$0.60</td><td class="num">$1.68</td><td class="num">$1.68</td><td>match</td></tr><tr><td class="num">$0.65</td><td class="num">$1.60</td><td class="num">$1.60</td><td>match</td></tr><tr><td class="num">$0.70</td><td class="num">$1.47</td><td class="num">$1.47</td><td>match</td></tr><tr><td class="num">$0.75</td><td class="num">$1.32</td><td class="num">$1.32</td><td>match</td></tr><tr><td class="num">$0.80</td><td class="num">$1.12</td><td class="num">$1.12</td><td>match</td></tr><tr><td class="num">$0.85</td><td class="num">$0.90</td><td class="num">$0.90</td><td>match</td></tr><tr><td class="num">$0.90</td><td class="num">$0.63</td><td class="num">$0.63</td><td>match</td></tr><tr><td class="num">$0.95</td><td class="num">$0.34</td><td class="num">$0.34</td><td>match</td></tr><tr><td class="num">$0.99</td><td class="num">$0.07</td><td class="num">$0.07</td><td>match</td></tr></tbody></table></div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>Verification rules applied to this site</h2>
+<ul class="clean">
+  <li>Every value is copied from an API response or computed from copied values with a stated formula.</li>
+  <li>Missing values render as an em dash and appear on <a href="flagged.html">Flagged for review</a>.
+    Nothing is interpolated, back-filled or inferred.</li>
+  <li>Topic membership uses Kalshi's published fields only. The one editorial addition (requiring "gas" in
+    a gas-price series title) is disclosed as a rule on the flagged page.</li>
+  <li>Each market row links to its API object and its Kalshi site page.</li>
+</ul>
+<p class="faint" style="font-size:12.5px">Open irregularities: 10. They are
+listed with sources on <a href="flagged.html">Flagged for review</a>.</p>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

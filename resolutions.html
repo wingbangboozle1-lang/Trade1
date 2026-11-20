@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resolved · Trade1 Kalshi dashboard</title>
+<meta name="description" content="How tracked Kalshi events resolved: YES or NO, from the exchange.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html">Live markets</a>
+<a href="events.html">Events by dollars</a>
+<a href="jumps.html">Sharp moves</a>
+<a href="resolutions.html" aria-current="page">Resolved</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html">Executive summary</a>
+<a href="methodology.html">Methodology</a>
+<a href="flagged.html">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Resolution outcomes</h1>
+<p class="lede">Tracked markets stay on this page until the exchange settles them, then the outcome is
+recorded exactly as the API reports it: YES or NO.</p>
+<div class="grid cols-4" style="margin-bottom:14px">
+  <div class="card kpi"><span class="label">Tracked</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">every market the collector has seen</span></div>
+  <div class="card kpi"><span class="label">Resolved YES</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">from exchange result field</span></div>
+  <div class="card kpi"><span class="label">Resolved NO</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">from exchange result field</span></div>
+  <div class="card kpi"><span class="label">Pending</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">not yet settled</span></div>
+</div>
+<div class="card">
+<h2>Resolved outcomes</h2>
+<p class="faint" style="font-size:12.5px;margin:0 0 10px">Source of every result: the market object's
+<code>result</code> field from <code>GET /markets/{ticker}</code>. Empty results are shown as pending and
+never inferred from the last traded price.</p>
+<div class="tablewrap "><table id="" class="sortable">
+<thead><tr><th class="" data-key="market"><button type="button">Market</button></th><th class="" data-key="result"><button type="button">Result</button></th><th class="" data-key="close"><button type="button">Closed</button></th><th class="" data-key="recorded"><button type="button">Recorded</button></th><th class="num" data-key="exp"><button type="button">Expiration value</button></th><th class="" data-key="src"><button type="button">Source</button></th></tr></thead>
+<tbody><tr><td class="empty" colspan="6">No tracked market has settled yet. Outcomes appear here automatically once the exchange reports a result.</td></tr></tbody></table></div>
+</div>
+<div class="card" style="margin-top:14px">
+  <h2>How a Kalshi market resolves</h2>
+  <ul class="clean">
+    <li><strong>YES</strong> pays YES holders $1.00 per contract; <strong>NO</strong> pays NO holders
+      $1.00 per contract.</li>
+    <li>Markets move through unopened → open → closed → settled.</li>
+    <li>Simple yes/no settlements carry no settlement fee.</li>
+    <li>Source: <a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener">Kalshi docs — Market
+      Settlement ↗</a>, <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market
+      Lifecycle ↗</a>.</li>
+  </ul>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

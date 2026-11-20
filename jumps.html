@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sharp moves · Trade1 Kalshi dashboard</title>
+<meta name="description" content="Kalshi contract moves of $0.10 or more with source links.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html">Live markets</a>
+<a href="events.html">Events by dollars</a>
+<a href="jumps.html" aria-current="page">Sharp moves</a>
+<a href="resolutions.html">Resolved</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html">Executive summary</a>
+<a href="methodology.html">Methodology</a>
+<a href="flagged.html">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Sharp moves ≥ $0.10</h1>
+<p class="lede">Every observed contract-price change of at least ten cents, in either direction, with the
+market it happened in. This is the alert level requested for the dashboard.</p>
+<div class="notice"><strong>On causes.</strong> A price jump is a fact; the news story behind it is a
+claim. This page shows the exchange data, the market's official rules and its settlement sources, and
+labels the cause <em>unverified</em> unless a reviewer has filed a source link. No story is ever invented
+to fill the gap.</div>
+<div class="grid cols-3" style="margin-bottom:14px">
+  <div class="card kpi"><span class="label">Moves recorded</span>
+<span class="value"><span class="money">0</span></span><span class="sub">threshold $0.10</span></div>
+  <div class="card kpi"><span class="label">Up moves</span>
+<span class="value"><span class="money">0</span></span><span class="sub">price rose</span></div>
+  <div class="card kpi"><span class="label">Down moves</span>
+<span class="value"><span class="money">0</span></span><span class="sub">price fell</span></div>
+</div>
+<div class="card">
+<h2>All recorded moves</h2>
+<div class="tablewrap "><table id="jumpTable" class="sortable">
+<thead><tr><th class="" data-key="when"><button type="button">When</button></th><th class="" data-key="market"><button type="button">Market</button></th><th class="" data-key="topic"><button type="button">Topic</button></th><th class="num" data-key="from"><button type="button">From</button></th><th class="num" data-key="to"><button type="button">To</button></th><th class="num" data-key="delta"><button type="button">Δ</button></th><th class="num" data-key="liq"><button type="button">Liquidity</button></th><th class="" data-key="cause"><button type="button">Cause</button></th></tr></thead>
+<tbody><tr><td class="empty" colspan="8">No qualifying move yet.</td></tr></tbody></table></div>
+<p class="faint" style="margin-top:10px;font-size:12.5px">How to submit a cause for review: add an entry
+keyed <code>ticker@unix_timestamp</code> with <code>cause</code>, <code>source_url</code> and
+<code>reviewer</code> to <code>data/attributions.json</code>. The page renders it only when a source URL
+is present. See <a href="methodology.html">Methodology</a>.</p>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

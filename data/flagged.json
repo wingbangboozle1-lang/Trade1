@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T13:14:10Z",
+ "generated_at": "2026-11-20T13:14:36Z",
  "items": [
   {
    "id": "demo-credentials-missing",
@@ -92,6 +92,16 @@
    "impact": "Charts get richer over time; early windows can be sparse.",
    "sources": [
     "https://docs.kalshi.com/api-reference/market/get-market-candlesticks"
+   ]
+  },
+  {
+   "id": "no-snapshot-yet",
+   "severity": "unverified",
+   "title": "No collected market data in this build",
+   "detail": "The data files were empty when this page was generated, so market tables and the portfolio are blank. The pipeline fills them on its next run.",
+   "impact": "All market-derived tables are empty and marked as such.",
+   "sources": [
+    "https://docs.kalshi.com/api-reference/market/get-markets"
    ]
   }
  ]

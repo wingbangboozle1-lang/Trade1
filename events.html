@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Events by dollars · Trade1 Kalshi dashboard</title>
+<meta name="description" content="Live Kalshi events ranked by traded dollar volume, grouped by topic.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html">Live markets</a>
+<a href="events.html" aria-current="page">Events by dollars</a>
+<a href="jumps.html">Sharp moves</a>
+<a href="resolutions.html">Resolved</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html">Executive summary</a>
+<a href="methodology.html">Methodology</a>
+<a href="flagged.html">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Events by dollar amount</h1>
+<p class="lede">Kalshi's basic trading unit is the event, not the individual contract, so this is the page
+that answers "which live event has the most money on it". Each topic is listed separately and events
+within a topic stay grouped together.</p>
+<div class="notice"><strong>Dollar volume</strong> sums <code>volume_fp × notional</code> for the event's
+markets. It measures how much has traded, not how much is available; use the liquidity column for that.</div>
+<div class="card">
+<h2>Gas prices <span class="hint">0 live events · ranked by dollar volume</span></h2>
+<p class="faint" style="font-size:12.5px;margin:0 0 10px">Kalshi series tags Oil and energy / Oil &amp; Gas (official tags_by_categories map)</p>
+<div class="tablewrap short"><table><thead><tr><th>#</th><th>Event</th><th class="num">$ volume</th>
+<th class="num">24h $</th><th class="num">open interest $</th><th class="num">liquidity $</th>
+<th class="num">markets</th><th class="num">top YES</th><th class="num">closes</th></tr></thead>
+<tbody><tr><td class="empty" colspan="9">No live events in this topic right now.</td></tr></tbody></table></div>
+</div><div class="card">
+<h2>Elections <span class="hint">0 live events · ranked by dollar volume</span></h2>
+<p class="faint" style="font-size:12.5px;margin:0 0 10px">Kalshi category Elections</p>
+<div class="tablewrap short"><table><thead><tr><th>#</th><th>Event</th><th class="num">$ volume</th>
+<th class="num">24h $</th><th class="num">open interest $</th><th class="num">liquidity $</th>
+<th class="num">markets</th><th class="num">top YES</th><th class="num">closes</th></tr></thead>
+<tbody><tr><td class="empty" colspan="9">No live events in this topic right now.</td></tr></tbody></table></div>
+</div><div class="card">
+<h2>Culture <span class="hint">0 live events · ranked by dollar volume</span></h2>
+<p class="faint" style="font-size:12.5px;margin:0 0 10px">Kalshi categories Culture + Entertainment + Social</p>
+<div class="tablewrap short"><table><thead><tr><th>#</th><th>Event</th><th class="num">$ volume</th>
+<th class="num">24h $</th><th class="num">open interest $</th><th class="num">liquidity $</th>
+<th class="num">markets</th><th class="num">top YES</th><th class="num">closes</th></tr></thead>
+<tbody><tr><td class="empty" colspan="9">No live events in this topic right now.</td></tr></tbody></table></div>
+</div><div class="card">
+<h2>Crypto <span class="hint">0 live events · ranked by dollar volume</span></h2>
+<p class="faint" style="font-size:12.5px;margin:0 0 10px">Kalshi category Crypto</p>
+<div class="tablewrap short"><table><thead><tr><th>#</th><th>Event</th><th class="num">$ volume</th>
+<th class="num">24h $</th><th class="num">open interest $</th><th class="num">liquidity $</th>
+<th class="num">markets</th><th class="num">top YES</th><th class="num">closes</th></tr></thead>
+<tbody><tr><td class="empty" colspan="9">No live events in this topic right now.</td></tr></tbody></table></div>
+</div><div class="card">
+<h2>Golf <span class="hint">0 live events · ranked by dollar volume</span></h2>
+<p class="faint" style="font-size:12.5px;margin:0 0 10px">Kalshi Sports category + Golf tag</p>
+<div class="tablewrap short"><table><thead><tr><th>#</th><th>Event</th><th class="num">$ volume</th>
+<th class="num">24h $</th><th class="num">open interest $</th><th class="num">liquidity $</th>
+<th class="num">markets</th><th class="num">top YES</th><th class="num">closes</th></tr></thead>
+<tbody><tr><td class="empty" colspan="9">No live events in this topic right now.</td></tr></tbody></table></div>
+</div>
+<div class="card" style="margin-top:14px">
+  <h2>What "highest dollar amount" can and cannot mean here</h2>
+  <ul class="clean">
+    <li><strong>Computed:</strong> traded dollar volume per event, open-interest dollars, and resting
+      liquidity dollars.</li>
+    <li><strong>Not computed:</strong> a live "total money at stake" figure. Kalshi's public API exposes
+      volume and open interest, not a pool of committed capital, so this dashboard never claims one.</li>
+  </ul>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

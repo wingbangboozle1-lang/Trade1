@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio · Trade1 Kalshi dashboard</title>
+<meta name="description" content="Simulated portfolio performance and demo-account status.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html">Live markets</a>
+<a href="events.html">Events by dollars</a>
+<a href="jumps.html">Sharp moves</a>
+<a href="resolutions.html">Resolved</a>
+<a href="portfolio.html" aria-current="page">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html">Executive summary</a>
+<a href="methodology.html">Methodology</a>
+<a href="flagged.html">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Portfolio</h1>
+<p class="lede">Two ledgers, deliberately kept apart: a <b>simulated</b> portfolio that trades every
+signal on observed quotes (always available), and the <b>Kalshi demo account</b> (only when credentials
+exist). The simulated ledger is what makes strategy comparison possible without risking or requiring an
+account.</p>
+<div class="notice info"><strong>Live demo account: no orders placed.</strong> The portfolio below is simulated from observed quotes.</div>
+<div class="grid cols-4" style="margin-bottom:14px">
+  <div class="card kpi"><span class="label">Equity</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">cash <span class="faint">—</span></span></div>
+  <div class="card kpi"><span class="label">Total return</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">start <span class="faint">—</span></span></div>
+  <div class="card kpi"><span class="label">Closed trades</span>
+<span class="value"><span class="faint">—</span></span><span class="sub"><span class="faint">—</span> open</span></div>
+  <div class="card kpi"><span class="label">Realized / fees</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">fees paid <span class="faint">—</span></span></div>
+</div>
+<div class="card">
+  <h2>Equity curve <span class="hint">simulated · mark-to-market</span></h2>
+  <div class="controls"><div class="seg" id="eqSeg">
+    <button type="button" data-range="3600" aria-pressed="false">1h</button>
+    <button type="button" data-range="21600" aria-pressed="false">6h</button>
+    <button type="button" data-range="86400" aria-pressed="false">24h</button>
+    <button type="button" data-range="604800" aria-pressed="false">7d</button>
+    <button type="button" data-range="0" aria-pressed="true">all</button>
+  </div></div>
+  <canvas class="chart" id="equityChart"></canvas>
+</div>
+<div class="card" style="margin-top:14px">
+  <h2>Performance by strategy</h2>
+  <p class="faint" style="font-size:12.5px;margin:0 0 10px">Trades are grouped by the strategy that
+  produced them, which is the category system used throughout. ROI is realized P&amp;L over entry notional.</p>
+  <div class="tablewrap"><table><thead><tr><th>Strategy</th><th class="num">closed</th><th class="num">win rate</th>
+  <th class="num">realized</th><th class="num">ROI</th><th class="num">fees</th><th class="num">open</th>
+  <th class="num">unrealized</th></tr></thead>
+  <tbody><tr><td class="empty" colspan="8">No simulated trades yet.</td></tr></tbody></table></div>
+</div>
+<div class="grid cols-2" style="margin-top:14px">
+  <div class="card">
+    <h2>Open positions <span class="hint">0</span></h2>
+    <div class="tablewrap short"><table><thead><tr><th>Market</th><th>Side</th><th class="num">qty</th>
+    <th class="num">entry</th><th class="num">mark</th><th class="num">unrealized</th><th>strategy</th>
+    <th class="num">opened</th></tr></thead>
+    <tbody><tr><td class="empty" colspan="8">No open positions.</td></tr></tbody></table></div>
+  </div>
+  <div class="card">
+    <h2>Recently closed</h2>
+    <div class="tablewrap short"><table><thead><tr><th>Market</th><th>Side</th><th class="num">qty</th>
+    <th class="num">entry</th><th class="num">exit</th><th class="num">P&amp;L</th><th>strategy</th><th>why</th></tr></thead>
+    <tbody><tr><td class="empty" colspan="8">Nothing closed yet.</td></tr></tbody></table></div>
+  </div>
+</div>
+<div class="card" style="margin-top:14px">
+  <h2>What the numbers do and do not include</h2>
+  <ul class="clean">
+    <li><strong>Included:</strong> entry and exit at the quoted touch, the official taker fee, and $1
+      settlement payouts when a market resolves on your side.</li>
+    <li><strong>Not included:</strong> queue position, partial fills beyond the quoted size, borrowing
+      costs, taxes. There is no exchange account behind these numbers.</li>
+    <li><strong>Fees</strong> use the published formula round_up(M × 0.07 × C × P × (1−P)),
+      verified against all 21 rows of Kalshi's schedule — see
+      <a href="methodology.html">Methodology</a>.</li>
+  </ul>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for review · Trade1 Kalshi dashboard</title>
+<meta name="description" content="Unverified items, irregularities and blockers, with sources.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html">Live markets</a>
+<a href="events.html">Events by dollars</a>
+<a href="jumps.html">Sharp moves</a>
+<a href="resolutions.html">Resolved</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html">Executive summary</a>
+<a href="methodology.html">Methodology</a>
+<a href="flagged.html" aria-current="page">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Flagged for review</h1>
+<p class="lede">Everything that could not be verified, is irregular, or is blocked — with sources, so each
+item can be checked by hand and challenged. Nothing here blocks the deploy; it exists so the gaps are
+visible instead of hidden.</p>
+<div class="grid cols-4" style="margin-bottom:14px">
+  <div class="card kpi"><span class="label">Blockers</span>
+<span class="value"><span class="money">1</span></span><span class="sub">needed for a requested feature</span></div>
+  <div class="card kpi"><span class="label">Irregularities</span>
+<span class="value"><span class="money">2</span></span><span class="sub">surprising but documented</span></div>
+  <div class="card kpi"><span class="label">Unverified</span>
+<span class="value"><span class="money">3</span></span><span class="sub">blank on the site rather than guessed</span></div>
+  <div class="card kpi"><span class="label">Notes</span>
+<span class="value"><span class="money">4</span></span><span class="sub">disclosures and editorial rules</span></div>
+</div>
+<div class="card">
+<h2>Review queue</h2>
+<div class="tablewrap"><table><thead><tr><th>Severity</th><th>Item</th><th>Detail</th>
+<th>Impact</th><th>Sources</th></tr></thead><tbody><tr id="demo-credentials-missing">
+<td><span class="chip flag">blocker</span></td>
+<td><b>Demo-account trading has never executed</b><span class="tk">demo-credentials-missing</span></td>
+<td style="max-width:520px">The brief asks for trades executed on the Kalshi demo account. No demo API key exists in this environment and one cannot be self-provisioned: a demo account is created by a person at demo.kalshi.co and the private key is downloadable only once. collector/live_trading.py is implemented, self-tested, refuses to run without credentials, and is wired into the pipeline via KALSHI_DEMO_API_KEY_ID / KALSHI_DEMO_PRIVATE_KEY_PATH secrets.</td>
+<td class="mut" style="font-size:12.5px">Portfolio numbers on the site are simulated, not demo-account results.</td>
+<td><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">source</a></td></tr><tr id="culture-category-gap">
+<td><span class="chip flag">irregularity</span></td>
+<td><b>Kalshi&#39;s Culture category is nearly empty</b><span class="tk">culture-category-gap</span></td>
+<td style="max-width:520px">The live API returns only two series under category=Culture, so this dashboard defines Culture as Culture + Entertainment + Social. Awards, music, TV and movie markets live under Entertainment; the mapping is shown on each page that uses it.</td>
+<td class="mut" style="font-size:12.5px">Culture numbers are broader than the literal category name.</td>
+<td><a href="https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories" target="_blank" rel="noopener">source</a></td></tr><tr id="demo-not-production">
+<td><span class="chip flag">irregularity</span></td>
+<td><b>Demo market data is not representative</b><span class="tk">demo-not-production</span></td>
+<td style="max-width:520px">Kalshi states demo markets &#39;may not be reflective of those in real markets&#39;. A probe of the demo endpoint returned 200 open markets of which 193 were multivariate combination markets with zero volume. Live prices therefore come from the public production read endpoint; the demo environment is reserved for order execution.</td>
+<td class="mut" style="font-size:12.5px">Rankings reflect production markets, while executions target demo markets.</td>
+<td><a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">source</a></td></tr><tr id="jump-causes-unattributed">
+<td><span class="chip flag">unverified</span></td>
+<td><b>Causes of ≥ $0.10 moves are unattributed</b><span class="tk">jump-causes-unattributed</span></td>
+<td style="max-width:520px">Moves are detected from exchange prices. Naming a news cause would be a claim needing a source, so every move is labelled unverified until a reviewer files a source URL in data/attributions.json.</td>
+<td class="mut" style="font-size:12.5px">The sharp-move page shows facts and links, not explanations.</td>
+<td><a href="https://kalshi.com/markets" target="_blank" rel="noopener">source</a></td></tr><tr id="no-snapshot-yet">
+<td><span class="chip flag">unverified</span></td>
+<td><b>No collected market data in this build</b><span class="tk">no-snapshot-yet</span></td>
+<td style="max-width:520px">The data files were empty when this page was generated, so market tables and the portfolio are blank. The pipeline fills them on its next run.</td>
+<td class="mut" style="font-size:12.5px">All market-derived tables are empty and marked as such.</td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">source</a></td></tr><tr id="no-websocket-without-keys">
+<td><span class="chip flag">unverified</span></td>
+<td><b>Live push (WebSocket) not enabled</b><span class="tk">no-websocket-without-keys</span></td>
+<td style="max-width:520px">Kalshi&#39;s WebSocket requires an authenticated handshake even for public market-data channels, so a signature needs credentials. The site polls REST every 15 minutes instead. This is a documented API constraint, not an omission.</td>
+<td class="mut" style="font-size:12.5px">Updates are as fresh as the last pipeline run (timestamp shown on every page).</td>
+<td><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">source</a></td></tr><tr id="fees-series-table-partial">
+<td><span class="chip flag">note</span></td>
+<td><b>Per-series fee multipliers are only partly transcribed</b><span class="tk">fees-series-table-partial</span></td>
+<td style="max-width:520px">Kalshi&#39;s fee schedule lists per-series multipliers in a table whose PDF text layer is partly garbled. Only rows that could be read unambiguously are encoded; all other series use the schedule defaults (taker M=1, maker M=0). Series with a non-standard multiplier outside that subset would be fee-mispriced in simulation.</td>
+<td class="mut" style="font-size:12.5px">Simulated fees may differ from exchange fees for unusual series.</td>
+<td><a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">source</a></td></tr><tr id="gas-title-rule">
+<td><span class="chip flag">note</span></td>
+<td><b>One editorial rule in the gas topic</b><span class="tk">gas-title-rule</span></td>
+<td style="max-width:520px">Gas-price membership requires a Kalshi &#39;Oil and energy&#39; / &#39;Oil &amp; Gas&#39; tag AND the word &#39;gas&#39; in the series title. Without the title test, oil-inventory series would be counted as gasoline price markets. This is the only editorial test in the topic config and it is declared here rather than hidden in code.</td>
+<td class="mut" style="font-size:12.5px">Possibly excludes a gas series whose title omits the word &#39;gas&#39;.</td>
+<td><a href="https://docs.kalshi.com/getting_started/terms" target="_blank" rel="noopener">source</a> <a href="https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories" target="_blank" rel="noopener">source</a></td></tr><tr id="history-starts-now">
+<td><span class="chip flag">note</span></td>
+<td><b>Price history begins with the first collector run</b><span class="tk">history-starts-now</span></td>
+<td style="max-width:520px">Chart series are built from observations this repo has collected. They are not exchange history and are not back-filled; the candlestick endpoint is used only where a real exchange history exists for the requested window.</td>
+<td class="mut" style="font-size:12.5px">Charts get richer over time; early windows can be sparse.</td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">source</a></td></tr><tr id="no-money-at-stake">
+<td><span class="chip flag">note</span></td>
+<td><b>No single &#39;total money at stake&#39; figure exists</b><span class="tk">no-money-at-stake</span></td>
+<td style="max-width:520px">Kalshi&#39;s public API exposes per-market volume and open interest, not a committed capital pool. The dashboard reports traded dollar volume, open-interest dollars and resting liquidity instead, and never presents a made-up aggregate.</td>
+<td class="mut" style="font-size:12.5px">Rankings use traded dollars, which can differ from capital currently at risk.</td>
+<td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">source</a></td></tr></tbody></table></div>
+</div>
+<div class="card" style="margin-top:14px">
+  <h2>How to clear an item</h2>
+  <ol class="clean">
+    <li>Provide the missing input (for example demo API credentials), or</li>
+    <li>file a source URL that settles the question in <code>data/attributions.json</code> or the
+      corresponding data file, then</li>
+    <li>re-run the pipeline; the item disappears from <code>data/flagged.json</code> on the next build.</li>
+  </ol>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

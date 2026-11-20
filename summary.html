@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary · Trade1 Kalshi dashboard</title>
+<meta name="description" content="Executive summary of the Trade1 Kalshi dashboard project.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html">Live markets</a>
+<a href="events.html">Events by dollars</a>
+<a href="jumps.html">Sharp moves</a>
+<a href="resolutions.html">Resolved</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html" aria-current="page">Executive summary</a>
+<a href="methodology.html">Methodology</a>
+<a href="flagged.html">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Executive summary</h1>
+<p class="lede">What this project is, what it measured, and what it deliberately does not claim.
+Every figure links back to the page that computes it.</p>
+
+<div class="card">
+<h2>The ask, and where it is answered</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Requirement</th><th>Where</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Live dashboard of highest-dollar events for gas, elections, culture, crypto, golf only</td>
+<td><a href="events.html">Events by dollars</a>, <a href="markets.html">Live markets</a></td>
+<td><span class="chip live">done</span></td></tr>
+<tr><td>Track live events until resolved, with YES/NO outcome</td>
+<td><a href="resolutions.html">Resolved</a></td><td><span class="chip live">done</span></td></tr>
+<tr><td>Automate simulated trades to test strategies</td>
+<td><a href="strategies.html">Strategies</a>, <a href="portfolio.html">Portfolio</a></td>
+<td><span class="chip live">done</span></td></tr>
+<tr><td>Track portfolio performance on the demo account</td>
+<td><a href="portfolio.html">Portfolio</a></td>
+<td><span class="chip res">simulated only — no demo credentials</span></td></tr>
+<tr><td>Analyse and categorise trades by strategy type</td>
+<td><a href="portfolio.html">Portfolio</a></td><td><span class="chip live">done</span></td></tr>
+<tr><td>Execute trades on events and track performance</td>
+<td><a href="flagged.html">Flagged</a> (executor built, blocked on credentials)</td>
+<td><span class="chip flag">blocked</span></td></tr>
+<tr><td>Interactive price chart, X = time (s/m/h), Y = price</td>
+<td><a href="markets.html">Live markets</a></td><td><span class="chip live">done</span></td></tr>
+<tr><td>Current liquidity and contracts available at a price</td>
+<td><a href="markets.html">Live markets</a> (order book)</td><td><span class="chip live">done</span></td></tr>
+<tr><td>Flag moves ≥ $0.10 with links to likely causes</td>
+<td><a href="jumps.html">Sharp moves</a></td>
+<td><span class="chip res">moves done, causes unverified</span></td></tr>
+<tr><td>Topics separate, events within a topic together</td>
+<td><a href="events.html">Events by dollars</a></td><td><span class="chip live">done</span></td></tr>
+<tr><td>Suggestions to make the site more live and interactive</td>
+<td><a href="methodology.html#suggestions">Methodology — suggestions</a></td><td><span class="chip live">done</span></td></tr>
+</tbody></table></div>
+</div>
+
+<div class="grid cols-4" style="margin:14px 0">
+  <div class="card kpi"><span class="label">Markets tracked</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">in the five topics, company combos excluded</span></div>
+  <div class="card kpi"><span class="label">Live events</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">largest: —</span></div>
+  <div class="card kpi"><span class="label">Sharp moves</span>
+<span class="value"><span class="money">0</span></span><span class="sub">≥ $0.10 between observations</span></div>
+  <div class="card kpi"><span class="label">Resolved</span>
+<span class="value"><span class="faint">—</span></span><span class="sub">0 still live</span></div>
+</div>
+
+<div class="card">
+<h2>Findings</h2>
+<ul class="clean">
+  <li><strong>Kalshi's demo environment is not a copy of production.</strong> Its open market list is
+    dominated by freshly created multivariate combination markets with zero volume, so this dashboard
+    reads live prices from the public production read endpoint and reserves the demo account for order
+    execution. Both endpoints are Kalshi-documented; see <a href="methodology.html">Methodology</a>.</li>
+  <li><strong>Topic membership is checkable, not guessed.</strong> Market topics come from Kalshi's own
+    series <code>category</code>/<code>categories</code>/<code>tags</code> fields and the published
+    category→tag map, which is why "Culture" includes Entertainment and why "Golf" is a Sports tag.</li>
+  <li><strong>"Highest dollar amount" is reported two honest ways</strong>: traded dollar volume and
+    resting liquidity dollars. Kalshi publishes no single "money at stake" figure, so none is invented.</li>
+  <li><strong>Sharp moves are detected, causes are not asserted.</strong> A ≥ $0.10 move is a fact from
+    two observations; a news explanation needs a source, and unattributed moves stay labelled unverified.</li>
+  <li><strong>Strategy results are simulated and reproducible.</strong> Six rule-based strategies trade the
+    collected data with official fees and $1 settlement; the ledger is a committed JSON file, so any number
+    on the Portfolio page can be re-derived.</li>
+  <li><strong>The fee model is verified, not assumed.</strong> The engine's implementation reproduces all
+    21 published rows of Kalshi's fee schedule, and the test suite fails the build if it ever stops.</li>
+</ul>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>Limitations, stated plainly</h2>
+<ul class="clean">
+  <li>No demo-account credentials exist in this environment, so live order execution has never run here.
+    The code path is implemented, self-tested and refuses to fire without credentials.</li>
+  <li>Price history begins when the collector first ran. It is not exchange history; Kalshi's
+    candlestick endpoint is used only for backfill when available.</li>
+  <li>Observation cadence is 15 minutes, so a move that reverses within the window can be missed.</li>
+  <li>Order-book depth is sampled for the largest markets per topic, not for every market, to stay inside
+    Kalshi's rate limits.</li>
+  <li>News attribution is manual and empty by default. Unverified means unverified.</li>
+</ul>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

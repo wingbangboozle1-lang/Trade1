@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live markets · Trade1 Kalshi dashboard</title>
+<meta name="description" content="Live Kalshi market prices, dollar volume and order-book liquidity.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">T1</span><div>Trade1<small>Kalshi markets, tracked and simulated</small></div></div>
+  <nav class="main"><a href="index.html">Overview</a>
+<a href="markets.html" aria-current="page">Live markets</a>
+<a href="events.html">Events by dollars</a>
+<a href="jumps.html">Sharp moves</a>
+<a href="resolutions.html">Resolved</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="strategies.html">Strategies</a>
+<a href="summary.html">Executive summary</a>
+<a href="methodology.html">Methodology</a>
+<a href="flagged.html">Flagged for review</a></nav>
+</header>
+<main>
+
+<h1>Live markets</h1>
+<p class="lede">Every open market in the five topics, with price, dollar volume and live liquidity.
+Click a row to chart it; the chart window switches between seconds, minutes, hours and days.</p>
+<div class="notice info"><strong>Sorting matters.</strong> The default order is dollar volume, which is the
+size of the market. Switch to liquidity to see where an order would actually fill.</div>
+<div class="controls">
+  <div class="seg" id="topicSeg"><button type="button" data-topic="all" aria-pressed="true">All</button><button type="button" data-topic="gas" aria-pressed="false">Gas prices</button><button type="button" data-topic="elections" aria-pressed="false">Elections</button><button type="button" data-topic="culture" aria-pressed="false">Culture</button><button type="button" data-topic="crypto" aria-pressed="false">Crypto</button><button type="button" data-topic="golf" aria-pressed="false">Golf</button></div>
+  <label class="inline">Sort
+    <select id="marketSort">
+      <option value="volume">$ volume</option>
+      <option value="volume24">24h $ volume</option>
+      <option value="liquidity">liquidity</option>
+      <option value="price">YES price</option>
+      <option value="close">close time</option>
+    </select>
+  </label>
+  <input type="search" id="marketFilter" placeholder="Filter ticker or title…" style="min-width:220px">
+  <span class="faint" id="marketCount">0 markets</span>
+</div>
+<div class="grid cols-2">
+  <div class="card">
+    <h2>Markets <span class="hint">click a row to chart</span></h2>
+    <div class="tablewrap"><table id="marketTable" class="sortable">
+      <thead><tr>
+        <th><button type="button">Market</button></th>
+        <th class="num"><button type="button">YES bid</button></th>
+        <th class="num"><button type="button">YES ask</button></th>
+        <th class="num"><button type="button">$ volume</button></th>
+        <th class="num"><button type="button">24h $</button></th>
+        <th class="num"><button type="button">liquidity</button></th>
+        <th class="num"><button type="button">contracts</button></th>
+        <th><button type="button">topic</button></th>
+        <th class="num"><button type="button">closes</button></th>
+      </tr></thead>
+      <tbody><tr><td class="empty" colspan="9">No live markets collected yet. The collector runs every 15 minutes.</td></tr></tbody>
+    </table></div>
+  </div>
+  <div>
+    <div class="card">
+      <h2><span id="chartTitle">Contract price</span> <span class="hint" id="chartTicker">select a market</span></h2>
+      <div class="controls">
+        <div class="seg" id="rangeSeg">
+          <button type="button" data-range="60" aria-pressed="false">1m</button>
+          <button type="button" data-range="300" aria-pressed="true">5m</button>
+          <button type="button" data-range="3600" aria-pressed="false">1h</button>
+          <button type="button" data-range="21600" aria-pressed="false">6h</button>
+          <button type="button" data-range="86400" aria-pressed="false">24h</button>
+          <button type="button" data-range="604800" aria-pressed="false">7d</button>
+        </div>
+        <label class="inline"><input type="checkbox" id="zoomY" checked> zoom Y</label>
+      </div>
+      <canvas class="chart" id="priceChart"></canvas>
+      <div class="legend">
+        <span><span class="swatch" style="background:#4aa8ff"></span>YES bid</span>
+        <span><span class="swatch" style="background:#f7c260"></span>YES ask</span>
+        <span><span class="swatch" style="background:#3ddc97"></span>mid</span>
+        <span class="faint">dashed vertical lines = moves ≥ $0.10</span>
+      </div>
+      <p class="faint" style="font-size:12px;margin-top:8px">X axis: time · Y axis: contract price in dollars.
+      Points are observations written by the collector; hover for exact values.</p>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>Order book <span class="hint">contracts resting at each price</span></h2>
+      <canvas class="chart short" id="depthChart"></canvas>
+      <div class="grid cols-2" style="margin-top:10px">
+        <div class="kpi"><span class="label">Liquidity to buy YES</span><span class="value money" id="liqYes">—</span>
+          <span class="sub">dollars resting against you</span></div>
+        <div class="kpi"><span class="label">Liquidity to buy NO</span><span class="value money" id="liqNo">—</span>
+          <span class="sub">dollars resting against you</span></div>
+      </div>
+      <details style="margin-top:10px"><summary>Official rules &amp; links</summary>
+        <p class="faint" id="marketRules" style="font-size:12.5px"></p>
+        <p style="font-size:12.5px" id="marketLinks"></p>
+      </details>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer class="foot">
+  <div class="footer-links">
+    <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API docs ↗</a>
+    <a href="https://external-api.demo.kalshi.co/trade-api/v2/exchange/status" target="_blank" rel="noopener">Demo exchange status ↗</a>
+    <a href="https://kalshi.com/markets" target="_blank" rel="noopener">Kalshi market site ↗</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged.html">Flagged for review</a>
+  </div>
+  Market data © Kalshi. Trade1 is an independent research dashboard. Simulated trades are not
+  exchange trades and this is not investment advice. Values shown are copied from API responses;
+  anything unconfirmed is left blank and flagged.
+</footer>
+<script src="assets/chart.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
