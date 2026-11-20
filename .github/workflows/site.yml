@@ -24,6 +24,7 @@ jobs:
       contents: write
       pages: write
       id-token: write
+      pull-requests: write
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -33,6 +34,10 @@ jobs:
           python-version: "3.11"
       - name: Install renderer dependency
         run: python3 -m pip install --quiet markdown
+      - name: Diagnostic - reach official demo API from runner
+        run: |
+          curl -sS -m 20 -o /tmp/status.json -w "HTTP %{http_code}\n" https://external-api.demo.kalshi.co/trade-api/v2/exchange/status || true
+          head -c 300 /tmp/status.json || true; echo
       - name: Build site from official Kalshi API data
         shell: bash
         run: |
@@ -45,6 +50,13 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+      - name: Post build log as PR comment (diagnostic, non-main)
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          { echo "### Build log (CI, commit ${GITHUB_SHA:0:7})"; echo '```'; tail -c 30000 probe/build/build.log 2>/dev/null || echo "(no log)"; echo '```'; } > /tmp/comment.md
+          gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/comment.md || echo "comment failed"
       - name: Save build report to the branch (non-main, skip-ci commit)
         if: always() && github.event_name != 'push' && github.ref != 'refs/heads/main'
         env:
