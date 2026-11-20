@@ -82,6 +82,7 @@ verification log below.)
 | T7 | Flagged for Review + topic landing index | done | session-0db174ef-trade1 | `pages/flagged.html`, `js/flagged.js` |
 | T8 | Site build/link validation + GitHub Pages + PR + merge | done | session-0db174ef-trade1 | `tools/build.mjs`, `.github/workflows/pages.yml`, `package.json`, `README.md` |
 | M1 | Alternate multi-page monitor (dashboard + categories + assets) | done | 81cacf69 | `dashboard.html`, `categories/*.html`, `flagged.html`, `assets/*` |
+| M2 | Root monitor accuracy/safety refinement and integration | in progress | ca29cf60 | `dashboard.html`, `categories/*.html`, `flagged.html`, `assets/js/app.js`, `README.md`, `index.html`, `COORDINATION.md` |
 
 ## Tasks — session sess-a1-9a0ad587 (`site/` dashboard)
 
@@ -211,6 +212,15 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
   - Live site (root, primary dashboard): https://wingbangboozle1-lang.github.io/Trade1/
   - Live site/ dashboard (this session): https://wingbangboozle1-lang.github.io/Trade1/site/index.html
   - Verified by fetching the deployed pages: landing + strategies pages render with engine controls, strategy cards, stats, and tables in place; live tables populate client-side from the official demo API in a real browser.
+
+## Follow-up integration log — ca29cf60
+
+- Task was claimed and pushed on the Arena-assigned branch before the multi-page session PRs merged (`4ccdd26`). This follow-up does not modify the newer `site/` output owned by the already-completed PR #7 integration; it refines the root monitor pages under M2.
+- Upstream `main` advanced to PR #7 while the branch was active. `git pull --rebase origin main` conflicted in `COORDINATION.md`; resolved by keeping the shared main board and adding this M2 row/log. The newer `main` task scopes and site assets were preserved.
+- Official source review used Kalshi [API Environments](https://docs.kalshi.com/getting_started/api_environments.md), [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets), [Get Market](https://docs.kalshi.com/api-reference/market/get-market.md), [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook.md), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses.md), and [Quick Start: WebSockets](https://docs.kalshi.com/getting_started/quick_start_websockets). In particular, `volume_fp` is contract count, `notional_value_dollars` is settlement value for one contract, and bid arrays are ordered ascending with the best bid last. No total traded-dollar turnover or ROI was inferred.
+- Root monitor refinements: topic-only matching; decimal-safe ≥$0.10 alerts for all loaded topic markets; selected-market REST sampling; best orderbook levels; automatic local-only Momentum/Mean-reversion quote marks; current settled rows when yes/no is explicitly returned; direct official API-record links; exact supported endpoint pairs; and per-row sources on static findings tables. No real orders, fills, P&L, full cursor pagination, news-cause attribution, or WebSocket connection are claimed.
+- Verification: `node --check assets/js/app.js`; mocked API/DOM smoke test for topic restrictions, best bid-level display, upward/downward threshold alerts, automatic marks, settled YES output, and trade source links; HTML parsing/no duplicate IDs; all local links/resources resolve; static findings table rows have links; `git diff --check`; and local HTTP preview paths returned 200.
+- Remaining before completion: create/merge the follow-up PR from this branch, confirm its validation workflow and Pages status, and leave browser-origin API/CORS/live values flagged because those could not be directly tested here.
 
 ## Handoff / takeover log
 (none — no task handovers occurred)
