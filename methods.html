@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Methods</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Methods &amp; model documentation</h1>
+    <p>Every rule the dashboard runs, with its source</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html" class="active">Methods</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+
+<section class="box">
+  <h2>1. Endpoints used (all public, unauthenticated)</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Call</th><th>Used for</th><th>Cadence</th><th>Official reference</th></tr>
+    <tr><td><code>GET /events?status=open&amp;limit=200</code> (paged)</td><td>Topic discovery, settlement-source links</td><td>~6 min</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-events">Get Events</a></td></tr>
+    <tr><td><code>GET /markets?tickers=…</code> (≤200 per call)</td><td>Watchlist prices + settlement detection</td><td>~12 s</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
+    <tr><td><code>GET /markets?event_ticker=X</code></td><td>Full market set for a newly found event</td><td>on discovery</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
+    <tr><td><code>GET /markets/{ticker}/orderbook</code></td><td>Depth panel + computed liquidity</td><td>~8 s (selected)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-order-book">Get Market Orderbook</a></td></tr>
+    <tr><td><code>GET /series/{s}/markets/{t}/candlesticks?period_interval=1|60</code></td><td>Chart windows ≥ 1 hour</td><td>~60 s (visible)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a></td></tr>
+    <tr><td><code>GET /markets?status=settled&amp;min_settled_ts=…</code></td><td>Actions snapshot of recent resolutions</td><td>2×/hour (runner)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
+    <tr><td><code>GET /series?category=X&amp;include_volume=true</code></td><td>Authoritative per-topic series discovery (covers hourly crypto / daily AAA-gas series that /events paging misses)</td><td>~6 min (client) + per runner run</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series-list">Get Series List</a></td></tr>
+  </table></div>
+  <p class="muted small">Verified live: <code>limit=1000</code> on <code>/events</code> is rejected (400); <code>tickers=</code> returns every matching market with an empty cursor; demo responses use <code>status</code> values <code>active</code> (open) and <code>finalized</code> (settled) although the docs enumerate <code>open/settled</code> — flagged; <code>/series?category=…</code> is case-sensitive and does not document a <code>status</code> parameter (none is sent). Evidence: <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md" target="_blank" rel="noopener">data/log.md</a>.</p>
+</section>
+
+<section class="box" style="margin-top:14px">
+  <h2>2. Field units &amp; semantics</h2>
+  <ul class="small">
+    <li>Prices: fixed-point <b>dollar strings</b> (<code>"0.4500"</code>) with up to 4 dp; quantities: <code>_fp</code> strings with 2 dp — per <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fixed_point_migration">Fixed-Point Representation</a>. This site displays them as $ and ¢ without inventing precision.</li>
+    <li>Order book: bids only (<code>orderbook_fp.yes_dollars / no_dollars</code> = <code>[price_dollars, count_fp]</code>, ascending, best bid <b>last</b>). YES ask ≡ 1 − best NO bid (official reciprocal rule) — per <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/orderbook_responses">Orderbook Responses</a>.</li>
+    <li>Liquidity shown is <b>computed</b> bid-side notional (Σ price × contracts over both sides) — the demo responses observed do not include the legacy <code>liquidity</code> field; where absent we leave it blank elsewhere.</li>
+    <li>“Est. traded $” = contracts × last price. The API publishes contract volume but no per-market dollar-notional field in demo responses; this is our estimate, always labeled.</li>
+    <li>REST market responses are cached by the exchange for a short time — prices lag the tape by seconds — per <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> and <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_market_data">Market Data Quick Start</a>.</li>
+  </ul>
+</section>
+
+<section class="box" style="margin-top:14px">
+  <h2>3. Alert rule (the two chats)</h2>
+  <p class="small">On every watchlist poll (~12 s) each market's sampled price (last trade, falling back to best YES bid when no trade) is compared with the previous sample. If the change is <b>≥ $0.10 in either direction</b>, an alert is posted to the <b>all-events chat</b>. Only sampled deltas are used: we do not claim causality, and we do not infer moves that happened between polls (REST lag — flagged).</p>
+  <p class="small"><b>Model chat (high-ROI screen)</b> — an alert is also posted when the score below clears the threshold (default 0.45):</p>
+  <pre style="background:#0d1416;padding:12px;border-radius:8px;overflow:auto">score = 0.30·min(vol24h / 2000, 1)
+      + 0.25·min(volume  / 10000, 1)
+      + 0.20·max(0, 1 − spread/0.15)
+      + 0.25·min(|Δ| / 0.25, 1)</pre>
+  <p class="muted small">Inputs are exchange-reported fields (contracts volume, quotes). The weights are engineering choices documented here — <b>not</b> verified predictive alpha (flagged). Implemented in <code>assets/model.js → score()</code>.</p>
+</section>
+
+<section class="box" style="margin-top:14px">
+  <h2>4. Paper strategies (automated)</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Strategy</th><th>Entry (paper)</th><th>Exit</th></tr>
+    <tr><td><b>momentum</b></td><td>On a ≥10¢ alert with score ≥ 0.45 and spread ≤ 6¢: buy the move direction at the ask (blocked outside 5¢–95¢)</td><td>15 min, +15¢, or −10¢ at the bid</td></tr>
+    <tr><td><b>fade</b></td><td>On an alert with score &lt; 0.45, spread ≤ 4¢, 24h volume ≥ 100: buy the opposite side at the ask</td><td>10 min, +8¢, or −8¢</td></tr>
+    <tr><td><b>harvest</b></td><td>YES ≥ 90¢, spread ≤ 3¢, closing within 72h: buy YES and hold</td><td>Settlement (YES pays $1)</td></tr>
+    <tr><td><b>breakout</b></td><td>First 50¢ cross with 24h volume ≥ 500 and spread ≤ 5¢: follow the cross</td><td>30 min, +12¢, or −10¢</td></tr>
+  </table></div>
+  <ul class="small">
+    <li>Sizing: target $25 per trade (configurable), max 8 concurrent positions, one position per strategy per market.</li>
+    <li>Fills assume the official quote with <b>no slippage</b> — optimistic; flagged. Fees: taker <code>roundup(0.07 × C × P × (1−P))</code> per the official <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">fee schedule</a> (verified this session), applied on paper entries and exits; maker fees not modeled (paper fills assume immediate match) — flagged. Fees can be toggled off in the Strategy Lab.</li>
+    <li>Mark-to-market uses the official bid; settlement pays $1 per winning contract (<a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_settlement">Market Settlement</a>).</li>
+    <li>All trades live in <code>localStorage</code> only (export/import/reset in the Strategy Lab).</li>
+  </ul>
+</section>
+
+<section class="box" style="margin-top:14px">
+  <h2>5. Topic mapping (categories observed on the demo API)</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Topic</th><th>Category match</th><th>Keyword / series guards</th></tr>
+    <tr><td>Gas prices</td><td>Economics, Energy</td><td>title: gasoline | gas price | average gas | fuel price | petrol; <b>excludes</b> natural gas / natgas / propane; series prefix (AAA)?GAS | FUEL (matches <code>KXAAAGASD</code> and <code>KXGAS…</code>)</td></tr>
+    <tr><td>Elections</td><td>Elections</td><td>series prefix ELECT|SEN|HOUSE|GOV|PRES|MAYOR</td></tr>
+    <tr><td>Culture</td><td>Culture, Entertainment, Mentions, Music, Movies, TV, Pop Culture</td><td>—</td></tr>
+    <tr><td>Crypto</td><td>Crypto</td><td>series prefix BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT (DEMOFUT = demo-synthetic BTC futures; flagged)</td></tr>
+    <tr><td>Golf</td><td>Sports</td><td>title: golf; series prefix GOLF|PGA|LPGA|RYDER|DPWORLD</td></tr>
+  </table></div>
+  <p class="muted small">Authoritative copy: <code>scripts/topics.json</code> (used by the Actions collector); the browser mirrors it in <code>assets/model.js → TOPICS</code>. Keeping both in sync is manual — flagged. Match reasons are logged per event in the topic snapshots (<code>_match_reason</code>).</p>
+</section>
+
+<section class="box" style="margin-top:14px">
+  <h2>6. Chart windows</h2>
+  <ul class="small">
+    <li><b>Seconds</b> (60 s, 5 m, 15 m): live session samples from REST polling (one point per poll ≈ 12 s).</li>
+    <li><b>Minutes/hours</b> (1 h): exchange 1-minute candlesticks (trade-price close) merged with the live tail.</li>
+    <li><b>Hours</b> (6 h, 24 h): exchange 60-minute candlesticks merged with the live tail.</li>
+    <li>Y axis: contract price $0.00–$1.00 (probability). X axis: time. Candlesticks are “a few seconds behind” per <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">official docs</a>.</li>
+  </ul>
+</section>
+
+<section class="box" style="margin-top:14px">
+  <h2>7. Rate-limit care</h2>
+  <p class="small">Unauthenticated public requests have their own (undocumented) limits; the client backs off exponentially on HTTP 429, polls while the tab is visible only, batches tickers ≤200 per request, and pauses polling when hidden. See <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a>.</p>
+</section>
+
+<p class="footer">Questions about any value: check <a href="data.html">Data</a> (row-level source links) and <a href="flagged.html">Flagged</a> (what we could not verify).</p>
+</main>
+</body>
+</html>

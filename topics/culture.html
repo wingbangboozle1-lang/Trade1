@@ -1,47 +1,38 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Culture · Kalshi Demo Monitor</title><link rel="stylesheet" href="../assets/site.css">
-</head><body data-root="../" data-topic="culture">
-<header class="top" id="nav"></header>
-<main>
-<h1>Culture</h1><p class="sub">Topic page · live markets, price chart, liquidity, and swing alerts for culture events.</p><div class="notice"><b>Topic rule:</b> Official category “Entertainment”, or keywords such as movie, box office, Oscar, Grammy, Emmy, album, Spotify, Netflix, music. The mapping is a judgment call and is flagged.</div><div data-live></div>
-<div class="notice"><b>Demo &amp; simulation only.</b> Reads public market data from the Kalshi Trade API. No account is connected, no orders are placed, and simulated trades are recorded only in this browser. Alerts show what moved, not why; causes are not verified.</div>
-<div class="toolbar">
-  <span class="pill" id="statusPill">Connecting…</span>
-  <span class="muted" id="statusMsg"></span>
-  <span class="muted" id="lastTrade"></span>
-  <span style="flex:1"></span>
-  <label class="muted">API <select id="apiBase" aria-label="API environment"><option value="demo">Demo (recommended)</option><option value="prod">Production (public, read-only)</option></select></label>
-  <label class="muted">Sort <select id="sortBy" aria-label="Sort markets"><option value="oi">Open interest $ (derived)</option><option value="vol">Contracts traded</option><option value="move">Largest recent trade move</option></select></label>
-  <button id="refresh">Refresh now</button>
-</div>
-<section class="grid g4" style="margin-bottom:14px">
-  <div class="card kpi"><small>Matching markets</small><strong id="cMarkets">—</strong></div>
-  <div class="card kpi"><small>Open interest $ (derived)</small><strong id="cOI">—</strong></div>
-  <div class="card kpi"><small>Swing alerts (≥ $0.10 / 5 min)</small><strong id="cAlerts">—</strong></div>
-  <div class="card kpi"><small>Last updated</small><strong id="cUpdated" style="font-size:16px">—</strong></div>
-</section>
-<div class="grid g2" style="grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)">
-  <section class="box">
-    <div class="toolbar" style="justify-content:space-between"><h2>Markets <span class="muted" id="tableCount"></span></h2><span class="muted">Click a row to chart it</span></div>
-    <div class="tablewrap"><table><thead><tr><th>Market</th><th>Topic</th><th>YES bid</th><th>YES ask</th><th>Last price</th><th>Contracts traded</th><th>OI $ (derived)</th><th>Status</th><th>Source</th></tr></thead><tbody id="marketBody"></tbody></table></div>
-    <p class="muted">Each row links to its official API endpoint (verification). Open interest $ = open interest contracts × notional value per contract, a derived figure, not an official dollar-volume field. “Contracts traded” is the official volume_fp field.</p>
-  </section>
-  <section class="box">
-    <div class="toolbar" style="justify-content:space-between"><h2 id="selTitle">Select a market</h2><a id="selLink" href="#" target="_blank" rel="noopener">API ↗</a></div>
-    <div class="toolbar"><label class="muted">Time window <select id="range" aria-label="Chart time window"></select></label></div>
-    <canvas id="chart" aria-label="YES trade price against time"></canvas>
-    <p class="muted" id="chartNote">X axis: time (window selectable from seconds to hours). Y axis: YES price in dollars ($0–$1). Points are official trade prints.</p>
-    <h3>Liquidity at each price</h3>
-    <div class="two"><table id="bookYes"></table><table id="bookNo"></table></div>
-    <p class="muted" id="bookNote">Resting bid contracts by price, from the official orderbook endpoint.</p>
-  </section>
-</div>
-<div class="grid g2" style="margin-top:14px">
-  <section class="box"><div class="toolbar" style="justify-content:space-between"><h2>All swings <span class="muted">(<span id="alertCount">0</span>)</span></h2><button id="clearAlerts">Clear list</button></div><div class="chat" id="chatAll" aria-live="polite"></div><p class="muted">Live chat: every market move of $0.10 or more in the last 5 minutes, newest at bottom.</p></section>
-  <section class="box"><h2>High-ROI screen (placeholder rule)</h2><div class="chat" id="chatScreen" aria-live="polite"></div><p class="muted">Filtered chat: alerts that pass a rule-based placeholder screen (not a validated model). See <a href="../flagged.html">Flagged for Review</a>.</p></section>
-</div>
-<section class="box" style="margin-top:14px"><h2>Simulated trades (this browser)</h2><div id="simSummary" class="muted">Loading…</div><p class="muted">Simulated trades: <span id="simCount">0</span>. Open the <a href="../strategies.html">Strategies</a> page for the full breakdown. <a href="../resolved.html">Resolved markets</a>: <span id="resolvedCount">0</span> loaded.</p></section>
-<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="../flagged.html">Flagged for Review</a> · <a href="../sources.html">Sources</a></footer>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo · Culture</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Kalshi Demo · Culture</h1>
+    <p>Topic-focused live view · alerts, chart, order book, paper trading</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="../index.html">Home</a>
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../trades.html">Strategy Lab</a>
+    <a href="gas-prices.html">Gas</a>
+    <a href="elections.html">Elections</a>
+    <a href="culture.html">Culture</a>
+    <a href="crypto.html">Crypto</a>
+    <a href="golf.html">Golf</a>
+    <a href="../data.html">Data</a>
+    <a href="../methods.html">Methods</a>
+    <a href="../flagged.html">Flagged</a>
+    <a href="../sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="notice"><b>Demo &amp; simulation only.</b> Public read-only demo market data; paper trades stay in this browser.</div>
+  <div id="kalshi-app" data-page="dashboard" data-topic="culture" data-root="../"></div>
 </main>
-<script type="module" src="../assets/app.mjs"></script>
-</body></html>
+<script src="../assets/model.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

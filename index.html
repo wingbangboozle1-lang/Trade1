@@ -1,50 +1,104 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Home · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
-</head><body data-root="./">
-<header class="top" id="nav"></header>
-<main>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Demo Monitor · Trade1</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Kalshi Demo Monitor</h1>
+    <p>Live dashboard, alerting, and strategy lab on the official Kalshi demo Trade API</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html" class="active">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
 
-<h1>Kalshi Demo Monitor</h1>
-<p class="sub">Live, read-only view of Kalshi <b>demo</b> markets for gas prices, elections, culture, crypto and golf. Built from official Kalshi API documentation and endpoints.</p>
-<div class="notice"><b>Read this first.</b> Kalshi’s demo environment is a separate test environment with its own markets, prices and play money. Demo prices are not production Kalshi prices. The site does not connect to any account, place orders, or prove why prices moved.</div>
+  <div class="row spread" style="margin-bottom:16px">
+    <div class="row">
+      <span class="pill" id="home-mode">checking…</span>
+      <span class="muted small" id="home-snap"></span>
+    </div>
+    <a class="button primary" style="padding:9px 16px;border-radius:8px;background:#1c4534;border-color:#2f6e52" href="dashboard.html">Open live dashboard →</a>
+  </div>
 
-<section class="box" style="margin-bottom:14px">
-<h2>Executive summary</h2>
-<ul class="clean">
-<li><b>What it does:</b> lists open markets in five topics, charts recent official trade prints, shows resting bid liquidity by price, flags swings of $0.10 or more within 5 minutes, and tracks simulated strategies and resolved outcomes.</li>
-<li><b>Where data comes from:</b> the official Kalshi Trade API (demo base <code>external-api.demo.kalshi.co/trade-api/v2</code>, documented at <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">API environments</a>). Every table row links to its own API endpoint.</li>
-<li><b>Ranking:</b> by open interest × notional value (a derived dollar figure) or by contracts traded (official volume). Kalshi does not publish a per-event dollar-volume field, so no official “dollar amount” ranking exists here.</li>
-<li><b>Causes of moves:</b> not verified. Alerts link to Kalshi’s official settlement sources for the event as context only.</li>
-<li><b>Not done:</b> demo-account portfolio tracking and order execution need demo API credentials, which were not provided. No trades were placed on Kalshi. Simulated trades are only in this browser.</li>
-<li><b>Open items:</b> see <a href="flagged.html">Flagged for Review</a> (keyword topic rules, demo-vs-production data, unverified browser access to the API, CORS, and repo findings).</li>
-</ul>
-</section>
+  <section class="box">
+    <h2>Executive summary</h2>
+    <p><b>What this is.</b> A static, read-only web dashboard over the <a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">official Kalshi demo Trade API (v2)</a>. It watches live markets in five topics — gas prices, elections, culture, crypto, and golf — posts a chat alert whenever a market's sampled price moves <b>$0.10 or more in either direction</b>, shows interactive price charts (seconds / minutes / hours windows) with per-price contract depth from the official order book, and runs an automated <b>paper-trading</b> lab that tests documented strategies and tracks a simulated portfolio until events resolve YES or NO.</p>
+    <ul>
+      <li><b>Live data, no credentials.</b> All market data comes from public, unauthenticated demo endpoints (verified: <a href="sources.html">source list</a>). CORS was probed from a GitHub runner on 2026-11-20 — the demo API reflects any browser origin (<code>data/cors.json</code>), so the page polls the API directly.</li>
+      <li><b>Two scrolling alert chats.</b> Left: every ≥ $0.10 move across in-scope events. Right: the same feed filtered by a documented ROI screen (momentum magnitude, 24h volume, spread) — formula in <a href="methods.html">Methods</a>. Each alert links the official Kalshi market page, the event's official settlement sources, and a news-search lead. Causality is never claimed.</li>
+      <li><b>Resolution tracking.</b> Watched markets are re-checked on every poll; when the exchange settles them, the outcome (YES/NO, settlement time, settlement value) is recorded, and paper positions settle at $1 per winning contract.</li>
+      <li><b>Strategy lab.</b> Four automated paper strategies (momentum, fade, favorite-harvest, 50¢ breakout) run on live quotes; performance is categorized by strategy and topic with equity, win rate, and ROI tables. Trades persist in the browser (export/import available).</li>
+      <li><b>Verified snapshots.</b> A GitHub Actions pipeline (<code>scripts/collect.py</code>) re-verifies the API and refreshes <code>data/</code> snapshots twice hourly after deploy, with a per-request log (<code>data/log.md</code>) — every table row on the <a href="data.html">Data page</a> links the exact official URL it came from.</li>
+      <li><b>Fees modeled from the official schedule.</b> Paper P&amp;L applies the official taker fee <code>roundup(0.07 × C × P × (1−P))</code> from <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">kalshi.com/docs/kalshi-fee-schedule.pdf</a> (verified this session; maker fees not modeled — flagged).</li>
+      <li><b>Not implemented on purpose.</b> No account login, no order placement, no WebSocket (browsers cannot attach Kalshi's required signed handshake headers), no dollar figures presented as exchange-published (traded-notional values are labeled estimates). Full list on <a href="flagged.html">Flagged for Review</a>.</li>
+    </ul>
+    <p class="muted small">Scope: demo environment only (play money). Demo prices and behavior may not match production markets — treat all analysis as methodology, not trading advice. Nothing on this site is financial advice.</p>
+  </section>
 
-<section class="grid g4" style="margin-bottom:14px">
-<div class="card kpi"><small>Gas prices</small><strong data-count="gas-prices">—</strong><br><a href="topics/gas-prices.html">Open topic →</a></div>
-<div class="card kpi"><small>Elections</small><strong data-count="elections">—</strong><br><a href="topics/elections.html">Open topic →</a></div>
-<div class="card kpi"><small>Culture</small><strong data-count="culture">—</strong><br><a href="topics/culture.html">Open topic →</a></div>
-<div class="card kpi"><small>Crypto</small><strong data-count="crypto">—</strong><br><a href="topics/crypto.html">Open topic →</a></div>
-<div class="card kpi"><small>Golf</small><strong data-count="golf">—</strong><br><a href="topics/golf.html">Open topic →</a></div>
-<div class="card kpi"><small>Live dashboard</small><strong style="font-size:16px">All topics</strong><br><a href="live.html">Open live view →</a></div>
-<div class="card kpi"><small>Resolved outcomes</small><strong data-count="resolved">—</strong><br><a href="resolved.html">Open resolved →</a></div>
-<div class="card kpi"><small>Strategies</small><strong style="font-size:16px">Simulated only</strong><br><a href="strategies.html">Open strategies →</a></div>
-</section>
+  <div class="grid3" style="margin-top:14px">
+    <div class="box">
+      <h3>📌 Live dashboard</h3>
+      <p class="small muted">Ranked in-scope markets, ≥10¢ alert chats (all events + model picks), price chart with seconds/minutes/hours windows, order-book depth and computed liquidity.</p>
+      <a href="dashboard.html">Open dashboard →</a>
+    </div>
+    <div class="box">
+      <h3>🧪 Strategy Lab</h3>
+      <p class="small muted">Automated paper strategies, open positions marked at the official bid, P&amp;L by strategy and topic, equity curve, resolved-events log.</p>
+      <a href="trades.html">Open Strategy Lab →</a>
+    </div>
+    <div class="box">
+      <h3>🗂 Data &amp; verification</h3>
+      <p class="small muted">Per-topic snapshot tables (every row linked to its official source URL), CORS probe results, collection log, and the Flagged-for-Review page.</p>
+      <a href="data.html">Data tables →</a> · <a href="flagged.html">Flagged →</a>
+    </div>
+  </div>
 
-<section class="box">
-<h2>Snapshot status</h2>
-<p id="snapInfo" class="muted">Loading snapshot…</p>
-<p class="muted">Counts above come from <code>data/snapshot.json</code>, generated by <code>scripts/build_snapshot.mjs</code> in CI from public demo endpoints. The live pages refresh from the same endpoints in your browser.</p>
-</section>
-<script>
-fetch('data/snapshot.json',{cache:'no-store'}).then(r=>r.json()).then(s=>{
-  for(const [k,v] of Object.entries(s.topics||{})){const el=document.querySelector('[data-count="'+k+'"]');if(el)el.textContent=v.markets;}
-  const res=document.querySelector('[data-count="resolved"]'); if(res) res.textContent=(s.resolved||[]).length;
-  const c=s.coverage||{};
-  const trunc=['open','closed','settled'].filter(k=>c[k]&&c[k].truncated);document.getElementById('snapInfo').textContent='Built '+s.generated_at+' from '+s.api_base+' · events scanned '+(c.events_total_unique??'?')+' · pages truncated at cap: '+(trunc.length?trunc.join(', '):'none');
-}).catch(()=>{document.getElementById('snapInfo').textContent='Snapshot not available yet.';});
-</script>
-<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
+  <section class="box" style="margin-top:14px">
+    <h2>How the live pipeline works</h2>
+    <ol class="small">
+      <li><b>Bootstrap</b> — the page loads the latest Actions-verified snapshot (<code>data/topics/*.json</code>) so tables are populated instantly.</li>
+      <li><b>Discovery</b> — every ~6 min it pages <code>GET /events?status=open&amp;limit=200</code> (the verified page size; 1000 is rejected) and classifies events into the five topics using categories + reviewed keyword rules.</li>
+      <li><b>Polling</b> — every ~12 s it batch-fetches the watchlist via <code>GET /markets?tickers=…</code> (verified single-response behavior), updates prices, samples, charts, and detects settlements directly from the response.</li>
+      <li><b>Alerts</b> — any sampled move ≥ $0.10 posts to the all-events chat; the ROI screen decides what also posts to the model chat; the paper bot reacts per strategy rules.</li>
+      <li><b>Detail views</b> — the selected market's order book is polled every ~8 s (bids only, asks derived by the official reciprocal rule) and candlesticks (1-min / 60-min) feed the longer chart windows.</li>
+    </ol>
+    <p class="muted small">REST responses are cached by the exchange for a short time (official docs), so everything lags the tape by a few seconds; sub-second swings are not observable over REST. See <a href="methods.html">Methods</a> for every parameter and <a href="flagged.html">Flagged</a> for every limitation.</p>
+  </section>
+
+  <p class="footer">Built from the official <a href="https://docs.kalshi.com/" target="_blank" rel="noopener">Kalshi API documentation</a> and live demo-endpoint probes. Educational tool — not financial advice. Unverified items are left blank and listed on <a href="flagged.html">Flagged for Review</a>.</p>
 </main>
-<script type="module" src="./assets/app.mjs"></script>
-</body></html>
+<script src="assets/model.js"></script>
+<script src="assets/app.js"></script>
+<script>
+// landing page status strip (no engine mount)
+fetch('data/meta.json', {cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(m){
+  var pill=document.getElementById('home-mode'), note=document.getElementById('home-snap');
+  if(!pill) return;
+  if(m && m.generated_at){
+    pill.className='pill'; pill.textContent='snapshot pipeline OK';
+    note.textContent='last Actions verification '+m.generated_at.replace('T',' ').slice(0,19)+'Z · markets '+
+      (m.findings && m.findings.markets_open_count !== undefined ? m.findings.markets_open_count : '?')+
+      ' · CORS '+((window.fetch&&'probed')||'?');
+  } else { pill.className='pill warn'; pill.textContent='snapshot unavailable'; }
+});
+</script>
+</body>
+</html>
