@@ -45,6 +45,8 @@ their own verification notes stay in-tree for review.
   table says **$1.75**. The fee function now computes in integer arithmetic (price in 1/10000 $, count in 1/100)
   and reproduces **all 21 published price rows × {1, 100} contracts** of the General Trading Fees Table.
 - Maker fees are deliberately not modeled (paper fills assume an immediate match) — flagged.
+- **Per-series fee structure read from the API** ([Get Series List](https://docs.kalshi.com/api-reference/market/get-series-list)): every in-scope series checked reports `fee_type: "quadratic"`, `fee_multiplier: 1` — the general taker rule the model applies. The published PDF's per-series override table differs for some of these series (production values), which is flagged as item 6b.
+- **Price grid and status:** a market's own `price_ranges` field is the exchange's price grid (e.g. `0.0000 → 1.0000`, step `0.0100`); `GET /exchange/status` reports the demo exchange and trading session as active — a cheap liveness probe.
 - P&L, thresholds and rounding are covered by `tests/root_engine.test.js` (40 assertions, runs in CI).
 - Earlier floating-point defects found and fixed by earlier sessions are preserved here: `0.57 − 0.42 = 0.1499…` once missed a +15¢ take-profit (all P&L deltas are now rounded to 4 dp before threshold comparisons), and an undefined reference in the alert path.
 
