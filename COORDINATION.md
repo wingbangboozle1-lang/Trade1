@@ -26,18 +26,18 @@ claim unclaimed items below on its own branch.
 
 | # | Task | Owner | Files touched | Status |
 |---|---|---|---|---|
-| 1 | Coordination board setup | sess-a1-9a0ad587 | `COORDINATION.md` | in progress |
-| 2 | Kalshi demo API verification (endpoints, fields, rate limits, fees) from official sources | sess-a1-9a0ad587 | `docs/API_NOTES.md`, `docs/SOURCES.md` | in progress |
-| 3 | Executive summary | sess-a1-9a0ad587 | `docs/EXECUTIVE_SUMMARY.md`, `site/index.html` | in progress |
-| 4 | Dashboard site framework (landing + topic subpages: gas, elections, culture, crypto, golf) | sess-a1-9a0ad587 | `site/**` | in progress |
-| 5 | Live price/liquidity tracking + charts (sec/min/hour granularity, orderbook depth) | sess-a1-9a0ad587 | `site/js/**`, `site/topics/*.html` | in progress |
-| 6 | Jump detector (≥ $0.10 moves) with cause/news links | sess-a1-9a0ad587 | `site/js/jumps.js` | in progress |
-| 7 | Paper strategy engine + portfolio performance tracking | sess-a1-9a0ad587 | `site/js/engine.js`, `site/strategies.html` | in progress |
-| 8 | Resolution tracker (live events until resolved yes/no) | sess-a1-9a0ad587 | `site/js/engine.js`, `site/js/store.js` | in progress |
-| 9 | Flagged-for-review page + irregularity log | sess-a1-9a0ad587 | `docs/FLAGGED.md`, `site/flagged.html` | in progress |
-| 10 | Suggestions page (making the site more live/interactive) | sess-a1-9a0ad587 | `site/suggestions.html` | in progress |
+| 1 | Coordination board setup | sess-a1-9a0ad587 | `COORDINATION.md` | done |
+| 2 | Kalshi demo API verification (endpoints, fields, rate limits, fees) from official sources | sess-a1-9a0ad587 | `docs/API_NOTES.md`, `docs/SOURCES.md` | done |
+| 3 | Executive summary | sess-a1-9a0ad587 | `docs/EXECUTIVE_SUMMARY.md`, `site/index.html` | done |
+| 4 | Dashboard site framework (landing + topic subpages: gas, elections, culture, crypto, golf) | sess-a1-9a0ad587 | `site/**` | done |
+| 5 | Live price/liquidity tracking + charts (sec/min/hour granularity, orderbook depth) | sess-a1-9a0ad587 | `site/js/**`, `site/topics/*.html` | done |
+| 6 | Jump detector (≥ $0.10 moves) with cause/news links | sess-a1-9a0ad587 | `site/js/engine.js` (T1Track), `site/js/topic.js`, `site/js/dashboard.js` | done (file scope changed during build; jump logic lives in engine.js) |
+| 7 | Paper strategy engine + portfolio performance tracking | sess-a1-9a0ad587 | `site/js/engine.js`, `site/js/strategies.html` | done |
+| 8 | Resolution tracker (live events until resolved yes/no) | sess-a1-9a0ad587 | `site/js/engine.js`, `site/js/store.js` | done |
+| 9 | Flagged-for-review page + irregularity log | sess-a1-9a0ad587 | `docs/FLAGGED.md`, `site/flagged.html` | done (12 items F1–F12) |
+| 10 | Suggestions page (making the site more live/interactive) | sess-a1-9a0ad587 | `site/suggestions.html` | done |
 | 11 | GitHub Pages workflow + PR to main + merge + deploy verification (final integration) | sess-a1-9a0ad587 | `.github/workflows/deploy-pages.yml`, PR to `main` | in progress |
-| 12 | README (repo overview, quick links) | sess-a1-9a0ad587 | `README.md` | in progress |
+| 12 | README (repo overview, quick links) | sess-a1-9a0ad587 | `README.md` | done |
 
 ## Environment constraints discovered (affects all sessions)
 
@@ -72,7 +72,7 @@ Live demo API probes (fetched this session, official Kalshi demo host):
 - `GET /markets?series_ticker=KXBTC&status=settled` → settled market shows `result: "no"`, `status: "finalized"`, `settlement_ts`, `settlement_value_dollars`.
 
 ### Task 11 — Integration log
-(append PR number, merge result, Pages URL when done)
+(in progress — PR creation and Pages deploy next)
 
 ## Handoff / takeover log
 (none yet)
