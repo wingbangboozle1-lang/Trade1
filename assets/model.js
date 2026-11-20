@@ -5,12 +5,14 @@
  * at the official bid/ask quotes with no slippage; see methods.html for the
  * documented assumptions and flagged.html for limitations.
  *
- * Fees: ON by default and pinned to the official taker formula
- *   fee = roundup(M x 0.07 x C x P x (1 - P))
- * from https://kalshi.com/docs/kalshi-fee-schedule.pdf (effective July 7, 2026;
- * re-read 2026-11-20). Settlement pays $1 per winning contract with no
- * settlement fee (same document). Maker fees are NOT modelled because a paper
- * fill is assumed to be immediately matched (taker).
+ * Fees: ON by default and follow the official Kalshi fee schedule
+ * (https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026):
+ *   taker = round up(M x 0.07 x C x P x (1 - P))
+ *   maker = round up(M x 0.0175 x C x P x (1 - P))
+ * where M is the per-series multiplier from the schedule's "Non-Standard Fees"
+ * table (taker default 1). Settlement pays $1 per winning contract and there
+ * is no settlement fee (same document). Maker fees are NOT modelled because a
+ * paper fill is assumed to be immediately matched (taker).
  *
  * Topic classification mirrors scripts/topics.json (authoritative for the
  * data/ snapshots). The two MUST be kept in sync — flagged in flagged.html.
@@ -110,25 +112,58 @@ window.KalshiModel = (function () {
     return Math.round(s * 1000) / 1000;
   }
 
-  /* ---------- fee (official schedule: taker = roundup(0.07 x C x P x (1-P));
+  /* ---------- fee (official schedule: taker = roundup(M x 0.07 x C x P x (1-P));
    * source: https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026.
-   * Maker fees are not modeled — paper fills assume immediately-matched orders.
+  /* ---------- fee (official schedule: taker = round up(M x 0.07 x C x P x (1-P));
+   * source: https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026.
+   * M is the per-series TAKE multiplier from the schedule's "Non-Standard Fees"
+   * table (default 1); series with M = 0 (for example KXBTCY, KXETHY) pay no
+   * taker fee. Maker fees are not modeled - paper fills assume immediately-matched
+   * orders. There is no settlement fee ("There is no settlement fee.").
    *
    * Computed in integer arithmetic: official prices are 4dp (p4 = P * 10000)
    * and contract counts are 2dp (c2 = C * 100), so
-   *   fee_dollars = 7 * c2 * p4 * (10000 - p4) / 1e12
-   *   fee_cents   = 7 * c2 * p4 * (10000 - p4) / 1e10
+   *   fee_dollars = M * 7 * c2 * p4 * (10000 - p4) / 1e12
+   *   fee_cents   = M * 7 * c2 * p4 * (10000 - p4) / 1e10
    * Every published row of the schedule's General Trading Fees Table is
-   * reproduced exactly (see tests/root_engine.test.js). The naive float form
-   * ceil(0.07 * 100 * 0.5 * 0.5 * 100) = ceil(175.00000000000003) = 176,
-   * i.e. $1.76 where the official table says $1.75 — hence the integer path. --- */
-  function fee(costPerContract, qty) {
+   * reproduced exactly (see tests/root_engine.test.js and scripts/test_fees.mjs).
+   * The naive float form ceil(0.07 * 100 * 0.5 * 0.5 * 100) = ceil(175.00000000000003)
+   * = 176, i.e. $1.76 where the official table says $1.75 - hence the integer path.
+   * The transcribed per-series table is published for review in
+   * data/fee_schedule_series.json; rows that could not be read unambiguously are
+   * listed there as not transcribed and fall back to M = 1. --- */
+  var NONSTANDARD_TAKER_MULTIPLIER = {
+    KXBTCY: 0,         // BTC price range EOY          - published "no fees"
+    KXCITRINI: 0,      // Will the Citrini scenario... - published "no fees"
+    KXDOED: 0,         // DOE eliminated               - published "no fees"
+    KXELECTIRAN: 0,    // Iran presidential election   - published "no fees"
+    KXETHY: 0,         // ETH price EOY                - published "no fees"
+    KXGAMBLINGREPEAL: 0,
+    KXGREENLAND: 0,
+    KXIRANDEMOCRACY: 0,
+    KXLAYOFFSYINFO: 0,
+    KXPAHLAVIHEAD: 0   // Will Pahlavi lead Iran?      - published "no fees"
+  };
+  /* Series ticker = the part of a market ticker before the first "-"
+   * (verified against GET /events/{event}: event.series_ticker). */
+  function seriesOf(ticker) {
+    var s = String(ticker || '');
+    var i = s.indexOf('-');
+    return i === -1 ? s : s.slice(0, i);
+  }
+  function takerMultiplier(series) {
+    var m = NONSTANDARD_TAKER_MULTIPLIER[String(series || '').toUpperCase()];
+    return m === undefined ? 1 : m;
+  }
+  function fee(costPerContract, qty, series) {
     if (!state.bot.fees) return 0;
     var p4 = Math.round(costPerContract * 10000);   // price in 1/10000 dollars
     var c2 = Math.round(qty * 100);                   // contracts in 1/100
     if (!isFinite(p4) || !isFinite(c2) || c2 <= 0) return 0;
     if (p4 < 0 || p4 > 10000) return 0;
-    var cents = 7 * c2 * p4 * (10000 - p4) / 1e10;
+    var M = takerMultiplier(seriesOf(series));
+    if (M === 0) return 0;                            // published: no taker fee
+    var cents = M * 7 * c2 * p4 * (10000 - p4) / 1e10;
     return Math.ceil(cents - 1e-9) / 100;             // round up to the next cent
   }
 
@@ -180,11 +215,12 @@ window.KalshiModel = (function () {
     var cost = qty * ba.ask;
     if (cost > cash) { qty = Math.floor(cash / ba.ask); cost = qty * ba.ask; }
     if (qty < 1) return false;
-    var fEntry = fee(ba.ask, qty);
+    var fEntry = fee(ba.ask, qty, m.ticker);
     cash = Math.round((cash - cost - fEntry) * 10000) / 10000;
     state.trades.push({
       id: Date.now() + ':' + Math.random().toString(36).slice(2, 7),
       t: new Date().toISOString(), ticker: m.ticker, event_ticker: m.event_ticker,
+      series_ticker: seriesOf(m.ticker),
       title: m.title, topic: m._topic || null, side: side, qty: qty,
       entry: ba.ask, strategy: strategy, status: 'open', mark: ba.bid,
       feeEntry: fEntry, note: note || ''
@@ -195,7 +231,7 @@ window.KalshiModel = (function () {
 
   function closeTrade(t, price, reason, when) {
     var proceeds = t.qty * price;
-    var f = fee(price, t.qty);
+    var f = fee(price, t.qty, t.ticker);
     cash = Math.round((cash + proceeds - f) * 10000) / 10000;
     t.status = 'closed';
     t.exit = { t: when || new Date().toISOString(), price: price, reason: reason, fee: f };
@@ -363,10 +399,11 @@ window.KalshiModel = (function () {
 
   return {
     state: state, TOPICS: TOPICS, classify: classify, score: score,
+    fee: fee, seriesOf: seriesOf, takerMultiplier: takerMultiplier,
     runStrategies: runStrategies, manage: manage, applyResolutions: applyResolutions,
     recordEquity: recordEquity, equity: equity, summary: summary,
     byStrategy: byStrategy, byTopic: byTopic, pushAlert: pushAlert,
-    persistAll: persistAll, reset: reset, fee: fee, alertMove: alertMove,
+    persistAll: persistAll, reset: reset, alertMove: alertMove,
     topicById: function (id) { return TOPICS.filter(function (t) { return t.id === id; })[0] || null; }
   };
 })();
