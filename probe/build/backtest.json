@@ -1,0 +1,55 @@
+{
+ "generated_epoch": 1795181039,
+ "method": "Simulated only. No fees, no slippage beyond quoted candle ask/bid, 1 contract per trade, no position sizing.",
+ "markets_considered": 250,
+ "markets_with_candles": 250,
+ "markets_skipped": 0,
+ "strategies": {
+  "S0_BUY_YES_FIRST_QUOTE": "Baseline: buy YES at the first quoted candle, hold to settlement.",
+  "S1_LONGSHOT_YES": "Buy YES when last price first closes <= $0.10; hold to settlement.",
+  "S2_FAVOURITE_NO": "Buy NO when last price first closes >= $0.90; hold to settlement.",
+  "S3_MOMENTUM_1H_YES": "After a candle-to-candle rise of >= $0.10, buy YES; exit at next candle's YES bid.",
+  "S4_FADE_1H_YES": "After a candle-to-candle fall of >= $0.10, buy YES; exit at next candle's YES bid."
+ },
+ "summary": [
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "topic": "gas",
+   "trades": 1,
+   "win_rate": 0.0,
+   "avg_pnl_per_contract": -0.54,
+   "total_pnl_per_contract": -0.54,
+   "sample_flag": "insufficient sample (<30 trades)"
+  }
+ ],
+ "by_band": [
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "band": "$0.10-$0.49",
+   "trades": 1,
+   "win_rate": 0.0,
+   "avg_pnl_per_contract": -0.54,
+   "sample_flag": "insufficient sample (<30 trades)"
+  }
+ ],
+ "trade_count": 1,
+ "trades": [
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "ticker": "KXAAAGASD-26NOV20-3.6900",
+   "topic": "gas",
+   "title": "Will average **gas prices** be above $3.6900?",
+   "side": "YES",
+   "entry_t": 1795136400,
+   "entry_price": 0.54,
+   "exit_t": "2026-11-20T13:14:49.617968Z",
+   "exit_kind": "settlement",
+   "exit_value": 0.0,
+   "pnl_per_contract": -0.54,
+   "outcome": "no",
+   "band": "$0.10-$0.49",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXAAAGASD-26NOV20-3.6900",
+   "source_terms": "https://assets.kalshi.com/contract_terms/AAAGAS.pdf"
+  }
+ ]
+}
