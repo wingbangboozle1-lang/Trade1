@@ -1,0 +1,91 @@
+{
+  "series": [
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/GOLD.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/GOLD.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "annual",
+      "last_updated_ts": "2026-10-15T08:02:28.792359Z",
+      "settlement_sources": [
+        {
+          "name": "ICE",
+          "url": "https://www.theice.com/index"
+        }
+      ],
+      "tags": null,
+      "ticker": "KXGOLDY",
+      "title": "Price of Gold at year-end?"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/CARBONARC.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/CARBONARC.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-11-19T18:46:14.672033Z",
+      "settlement_sources": [
+        {
+          "name": "Carbon Arc",
+          "url": "https://www.carbonarc.ai/prisms?prism=069134cd-4854-4ba3-9986-1a7a5a331f04&entity=Video%20Games"
+        }
+      ],
+      "tags": [
+        "Advertising Spend",
+        "Companies"
+      ],
+      "ticker": "KXVIDEOGAMESADS",
+      "title": "Video Games Ad Spend"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/INDEXSECTOR.pdf",
+      "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/INDEXSECTOR.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-11-13T00:57:14.785134Z",
+      "settlement_sources": [
+        {
+          "name": "S&P Global",
+          "url": "https://www.spglobal.com/en"
+        }
+      ],
+      "tags": [
+        "AI",
+        "IPOs",
+        "Indices",
+        "S&P 500",
+        "Stock Market"
+      ],
+      "ticker": "KXOPENAISECTOR",
+      "title": "OPENAI Sector in S&P"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "series": [
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Economics"
+      ],
+      "category": "Economics",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONTWEETS.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/ECONTWEETS.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "weekly",
+      "last_updated_ts": "2026-11-20T11:35:01.648757Z",
+      "settlement_sources": [
+        {
+          "name": "X",
+          "url": "https://x.com/wef"
+        }
+      ],
+      "tags": [
+        "Econ Weekly"
+      ],
+      "ticker": "KXWEFTWEETS",
+      "title": "WEF tweets"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Economics"
+      ],
+      "category": "Economics",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONSTATE.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/ECONSTATE.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "annual",
+      "last_updated_ts": "2026-11-20T11:34:33.550072Z",
+      "settlement_sources": [
+        {
+          "name": "Federal Reserve Bank of New York",
+          "url": "https://www.newyorkfed.org/markets/reference-rates/sofr"
+        }
+      ],
+      "tags": [
+        "Jobs & Economy"
+      ],
+      "ticker": "KXNYSECEEMP",
+      "title": "New York securities-industry employment"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Economics"
+      ],
+      "category": "Economics",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONSTATB.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/ECONSTATB.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "annual",
+      "last_updated_ts": "2026-10-26T14:00:18.138018Z",
+      "settlement_sources": [
+        {
+          "name": "Green Street",
+          "url": "https://www.greenstreet.com/resources/pricing-index/"
+        }
+      ],
+      "tags": [
+        "Housing"
+      ],
+      "ticker": "KXCREYOY",
+      "title": "US commercial real estate prices YoY"
+    }
+  ]
+}

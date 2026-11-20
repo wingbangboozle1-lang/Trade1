@@ -1,0 +1,86 @@
+{
+  "series": [
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/TNOTE.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/TNOTE.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "monthly",
+      "last_updated_ts": "2026-11-20T12:23:46.28372Z",
+      "settlement_sources": [
+        {
+          "name": "U.S. Department of the Treasury",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        }
+      ],
+      "tags": [
+        "Interest Rates"
+      ],
+      "ticker": "KXNOTE10",
+      "title": "Will the 10Y US Treasury Yield end the month above 4.35%"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/2YRRATE.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/2YRRATE.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "fifteen_min",
+      "last_updated_ts": "2026-10-13T18:23:05.472783Z",
+      "settlement_sources": [
+        {
+          "name": "Pyth - 2Y UST",
+          "url": "https://app.pyth.com/explore/InterestRate.US2Y"
+        }
+      ],
+      "tags": null,
+      "ticker": "KX2YRRATE15M",
+      "title": "2-year Treasury yield 15-minute"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Financials"
+      ],
+      "category": "Financials",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/FXNZDUSD.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/FXNZDUSD.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "weekly",
+      "last_updated_ts": "2026-10-13T18:34:01.879891Z",
+      "settlement_sources": [
+        {
+          "name": "Pyth - NZDUSD",
+          "url": "https://app.pyth.com/explore/FX.NZD%2FUSD?returnUrl=%2Fexplore%3Fsearch%3Dnzdusd%26state%3Dstable"
+        }
+      ],
+      "tags": [
+        "Foreign Exchange"
+      ],
+      "ticker": "KXNZDUSDAW",
+      "title": "NZDUSD Weekly"
+    }
+  ]
+}

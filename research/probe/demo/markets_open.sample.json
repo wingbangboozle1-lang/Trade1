@@ -1,0 +1,231 @@
+{
+  "cursor": "CgwIzO-A2AYQgKT4ywIS",
+  "markets": [
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-26T03:00:00Z",
+      "created_time": "2026-11-20T13:01:36.739167Z",
+      "custom_strike": {
+        "Associated Events": "KXNBAGAME-26NOV23UTALAL,KXNCAAWBGAME-26NOV20UVUUTAH",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXNBAGAME-26NOV23UTALAL-UTA,KXNCAAWBGAME-26NOV20UVUUTAH-UTAH",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026MOZ7Z2IZ6UDNXUBO"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026MOZ7Z2IZ6UDNXUBO",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-24T09:00:00Z",
+      "expiration_value": "",
+      "is_provisional": true,
+      "last_price_dollars": "0.0000",
+      "latest_expiration_time": "2026-11-26T03:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXNBAGAME-26NOV23UTALAL",
+          "market_ticker": "KXNBAGAME-26NOV23UTALAL-UTA",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAWBGAME-26NOV20UVUUTAH",
+          "market_ticker": "KXNCAAWBGAME-26NOV20UVUUTAH-UTAH",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "1.0000",
+      "no_sub_title": "yes Utah,yes Utah",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "0.00",
+      "open_time": "2026-11-20T13:01:36Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026MOZ7Z2IZ6UDNXUBO-BXULURAML",
+      "title": "yes Utah,yes Utah",
+      "updated_time": "2026-11-20T13:01:37.360039Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "0.00",
+      "yes_ask_dollars": "0.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes Utah,yes Utah"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-29T21:30:00Z",
+      "created_time": "2026-11-20T13:01:35.962359Z",
+      "custom_strike": {
+        "Associated Events": "KXLALIGAGAME-26NOV21SEVRBB,KXNCAAFGAME-26NOV27AFAUNM",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXLALIGAGAME-26NOV21SEVRBB-RBB,KXNCAAFGAME-26NOV27AFAUNM-UNM",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S20263PDNPCGMJ73YRJ6B"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S20263PDNPCGMJ73YRJ6B",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-28T03:30:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-29T21:30:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXLALIGAGAME-26NOV21SEVRBB",
+          "market_ticker": "KXLALIGAGAME-26NOV21SEVRBB-RBB",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAFGAME-26NOV27AFAUNM",
+          "market_ticker": "KXNCAAFGAME-26NOV27AFAUNM-UNM",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes Real Betis,yes New Mexico",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:01:35Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S20263PDNPCGMJ73YRJ6B-NGKIKDXME",
+      "title": "yes Real Betis,yes New Mexico",
+      "updated_time": "2026-11-20T13:01:36.360128Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes Real Betis,yes New Mexico"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-25T21:00:00Z",
+      "created_time": "2026-11-20T13:01:03.754165Z",
+      "custom_strike": {
+        "Associated Events": "KXNCAAFGAME-26NOV21ECUARMY,KXNCAAMBGAME-26NOV23TULNGAST",
+        "Associated Market Sides": "yes,yes",
+        "Associated Markets": "KXNCAAFGAME-26NOV21ECUARMY-ARMY,KXNCAAMBGAME-26NOV23TULNGAST-TULN",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S20263QHQZOT36TSEDGUQ"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S20263QHQZOT36TSEDGUQ",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-24T03:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.4500",
+      "latest_expiration_time": "2026-11-25T21:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXNCAAFGAME-26NOV21ECUARMY",
+          "market_ticker": "KXNCAAFGAME-26NOV21ECUARMY-ARMY",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNCAAMBGAME-26NOV23TULNGAST",
+          "market_ticker": "KXNCAAMBGAME-26NOV23TULNGAST-TULN",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "yes Army,yes Tulane",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "100.00",
+      "open_time": "2026-11-20T13:01:03Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "status": "active",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S20263QHQZOT36TSEDGUQ-SVYQ5CR7A",
+      "title": "yes Army,yes Tulane",
+      "updated_time": "2026-11-20T13:01:04.359713Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "100.00",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "yes Army,yes Tulane"
+    }
+  ]
+}

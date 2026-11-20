@@ -1,0 +1,376 @@
+{
+  "cursor": "CgwIyoeB2AYQqLjvnwES",
+  "markets": [
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-20T13:00:00Z",
+      "created_time": "2026-11-20T12:59:44.661187Z",
+      "custom_strike": {
+        "Associated Events": "KXCOPPER15M-26NOV200800,KXGOLD15M-26NOV200800,KXNATGAS15M-26NOV200800,KXPALLADIUM15M-26NOV200800,KXPLATINUM15M-26NOV200800,KXSILVER15M-26NOV200800,KXWTI15M-26NOV200800",
+        "Associated Market Sides": "no,yes,yes,yes,yes,yes,yes",
+        "Associated Markets": "KXCOPPER15M-26NOV200800-00,KXGOLD15M-26NOV200800-00,KXNATGAS15M-26NOV200800-00,KXPALLADIUM15M-26NOV200800-00,KXPLATINUM15M-26NOV200800-00,KXSILVER15M-26NOV200800-00,KXWTI15M-26NOV200800-00",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026SFQ6JH27MKFK62YG"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026SFQ6JH27MKFK62YG",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-20T13:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.5680",
+      "latest_expiration_time": "2026-11-20T13:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXCOPPER15M-26NOV200800",
+          "market_ticker": "KXCOPPER15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXGOLD15M-26NOV200800",
+          "market_ticker": "KXGOLD15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNATGAS15M-26NOV200800",
+          "market_ticker": "KXNATGAS15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXPALLADIUM15M-26NOV200800",
+          "market_ticker": "KXPALLADIUM15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXPLATINUM15M-26NOV200800",
+          "market_ticker": "KXPLATINUM15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXSILVER15M-26NOV200800",
+          "market_ticker": "KXSILVER15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXWTI15M-26NOV200800",
+          "market_ticker": "KXWTI15M-26NOV200800-00",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "no Target Price: $5.62325,yes Target Price: $3,571.55,yes Target Price: $3.58231,yes Target Price: $912.075,yes Target Price: $1,312.710,yes Target Price: $42.270,yes Target Price: $82.37",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "16.74",
+      "open_time": "2026-11-20T12:59:44Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "yes",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "settlement_ts": "2026-11-20T13:00:49.113779Z",
+      "settlement_value_dollars": "1.0000",
+      "status": "finalized",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026SFQ6JH27MKFK62YG-ZE63MSYUJ",
+      "title": "no Target Price: $5.62325,yes Target Price: $3,571.55,yes Target Price: $3.58231,yes Target Price: $912.075,yes Target Price: $1,312.710,yes Target Price: $42.270,yes Target Price: $82.37",
+      "updated_time": "2026-11-20T13:00:49.16426Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "16.74",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "no Target Price: $5.62325,yes Target Price: $3,571.55,yes Target Price: $3.58231,yes Target Price: $912.075,yes Target Price: $1,312.710,yes Target Price: $42.270,yes Target Price: $82.37"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-20T13:00:00Z",
+      "created_time": "2026-11-20T12:59:42.199854Z",
+      "custom_strike": {
+        "Associated Events": "KXAUDUSD15M-26NOV200800,KXBNB15M-26NOV200800,KXBTC15M-26NOV200800,KXCOPPER15M-26NOV200800,KXETH15M-26NOV200800,KXGOLD15M-26NOV200800,KXHYPE15M-26NOV200800,KXPALLADIUM15M-26NOV200800,KXPLATINUM15M-26NOV200800,KXSILVER15M-26NOV200800,KXSOL15M-26NOV200800,KXUSDCAD15M-26NOV200800,KXUSDJPY15M-26NOV200800,KXWTI15M-26NOV200800,KXXRP15M-26NOV200800,KXZEC15M-26NOV200800",
+        "Associated Market Sides": "no,no,no,yes,no,no,no,yes,yes,no,yes,no,yes,yes,no,no",
+        "Associated Markets": "KXAUDUSD15M-26NOV200800-30,KXBNB15M-26NOV200800-00,KXBTC15M-26NOV200800-00,KXCOPPER15M-26NOV200800-00,KXETH15M-26NOV200800-00,KXGOLD15M-26NOV200800-00,KXHYPE15M-26NOV200800-00,KXPALLADIUM15M-26NOV200800-00,KXPLATINUM15M-26NOV200800-00,KXSILVER15M-26NOV200800-00,KXSOL15M-26NOV200800-00,KXUSDCAD15M-26NOV200800-30,KXUSDJPY15M-26NOV200800-30,KXWTI15M-26NOV200800-00,KXXRP15M-26NOV200800-00,KXZEC15M-26NOV200800-00",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026H335FSDGF6LIHKFN"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026H335FSDGF6LIHKFN",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-20T13:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.0008",
+      "latest_expiration_time": "2026-11-20T13:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXAUDUSD15M-26NOV200800",
+          "market_ticker": "KXAUDUSD15M-26NOV200800-30",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXBNB15M-26NOV200800",
+          "market_ticker": "KXBNB15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXBTC15M-26NOV200800",
+          "market_ticker": "KXBTC15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXCOPPER15M-26NOV200800",
+          "market_ticker": "KXCOPPER15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXETH15M-26NOV200800",
+          "market_ticker": "KXETH15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXGOLD15M-26NOV200800",
+          "market_ticker": "KXGOLD15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXHYPE15M-26NOV200800",
+          "market_ticker": "KXHYPE15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXPALLADIUM15M-26NOV200800",
+          "market_ticker": "KXPALLADIUM15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXPLATINUM15M-26NOV200800",
+          "market_ticker": "KXPLATINUM15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXSILVER15M-26NOV200800",
+          "market_ticker": "KXSILVER15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXSOL15M-26NOV200800",
+          "market_ticker": "KXSOL15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXUSDCAD15M-26NOV200800",
+          "market_ticker": "KXUSDCAD15M-26NOV200800-30",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXUSDJPY15M-26NOV200800",
+          "market_ticker": "KXUSDJPY15M-26NOV200800-30",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXWTI15M-26NOV200800",
+          "market_ticker": "KXWTI15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXXRP15M-26NOV200800",
+          "market_ticker": "KXXRP15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXZEC15M-26NOV200800",
+          "market_ticker": "KXZEC15M-26NOV200800-00",
+          "side": "no"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "no Target price: 0.66658,no Target Price: $567.82,no Target Price: $61,527.00,yes Target Price: $5.62325,no Target Price: $1,739.05,no Target Price: $3,571.55,no Target Price: $63.4699,yes Target Price: $912.075,yes Target Price: $1,312.710,no Target Price: $42.270,yes Target Price: $71.0785,no Target price: 1.43081,yes Target price: 158.760,yes Target Price: $82.37,no Target Price: $0.9460,no Target Price: $810.7035",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "1111.11",
+      "open_time": "2026-11-20T12:59:42Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "no",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "settlement_ts": "2026-11-20T13:00:49.113632Z",
+      "settlement_value_dollars": "0.0000",
+      "status": "finalized",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026H335FSDGF6LIHKFN-OCC23A2E6",
+      "title": "no Target price: 0.66658,no Target Price: $567.82,no Target Price: $61,527.00,yes Target Price: $5.62325,no Target Price: $1,739.05,no Target Price: $3,571.55,no Target Price: $63.4699,yes Target Price: $912.075,yes Target Price: $1,312.710,no Target Price: $42.270,yes Target Price: $71.0785,no Target price: 1.43081,yes Target price: 158.760,yes Target Price: $82.37,no Target Price: $0.9460,no Target Price: $810.7035",
+      "updated_time": "2026-11-20T13:00:49.16426Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "1111.11",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "no Target price: 0.66658,no Target Price: $567.82,no Target Price: $61,527.00,yes Target Price: $5.62325,no Target Price: $1,739.05,no Target Price: $3,571.55,no Target Price: $63.4699,yes Target Price: $912.075,yes Target Price: $1,312.710,no Target Price: $42.270,yes Target Price: $71.0785,no Target price: 1.43081,yes Target price: 158.760,yes Target Price: $82.37,no Target Price: $0.9460,no Target Price: $810.7035"
+    },
+    {
+      "can_close_early": true,
+      "close_time": "2026-11-20T13:00:00Z",
+      "created_time": "2026-11-20T12:59:30.918641Z",
+      "custom_strike": {
+        "Associated Events": "KXAUDUSD15M-26NOV200800,KXDOGE15M-26NOV200800,KXEURUSD15M-26NOV200800,KXGBPUSD15M-26NOV200800,KXHYPE15M-26NOV200800,KXNATGAS15M-26NOV200800,KXNEAR15M-26NOV200800,KXPALLADIUM15M-26NOV200800,KXPLATINUM15M-26NOV200800,KXSOL15M-26NOV200800,KXWTI15M-26NOV200800",
+        "Associated Market Sides": "no,yes,no,yes,no,yes,yes,yes,yes,yes,yes",
+        "Associated Markets": "KXAUDUSD15M-26NOV200800-30,KXDOGE15M-26NOV200800-00,KXEURUSD15M-26NOV200800-30,KXGBPUSD15M-26NOV200800-30,KXHYPE15M-26NOV200800-00,KXNATGAS15M-26NOV200800-00,KXNEAR15M-26NOV200800-00,KXPALLADIUM15M-26NOV200800-00,KXPLATINUM15M-26NOV200800-00,KXSOL15M-26NOV200800-00,KXWTI15M-26NOV200800-00",
+        "Multivariate Event Ticker": "KXMVECROSSCATEGORY-S2026TWXRVNF6H3PP225G"
+      },
+      "event_ticker": "KXMVECROSSCATEGORY-S2026TWXRVNF6H3PP225G",
+      "exchange_index": 1,
+      "expected_expiration_time": "2026-11-20T13:00:00Z",
+      "expiration_value": "",
+      "last_price_dollars": "0.6850",
+      "latest_expiration_time": "2026-11-20T13:00:00Z",
+      "market_type": "binary",
+      "mve_collection_ticker": "KXMVECROSSCATEGORY-R",
+      "mve_selected_legs": [
+        {
+          "event_ticker": "KXAUDUSD15M-26NOV200800",
+          "market_ticker": "KXAUDUSD15M-26NOV200800-30",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXDOGE15M-26NOV200800",
+          "market_ticker": "KXDOGE15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXEURUSD15M-26NOV200800",
+          "market_ticker": "KXEURUSD15M-26NOV200800-30",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXGBPUSD15M-26NOV200800",
+          "market_ticker": "KXGBPUSD15M-26NOV200800-30",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXHYPE15M-26NOV200800",
+          "market_ticker": "KXHYPE15M-26NOV200800-00",
+          "side": "no"
+        },
+        {
+          "event_ticker": "KXNATGAS15M-26NOV200800",
+          "market_ticker": "KXNATGAS15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXNEAR15M-26NOV200800",
+          "market_ticker": "KXNEAR15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXPALLADIUM15M-26NOV200800",
+          "market_ticker": "KXPALLADIUM15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXPLATINUM15M-26NOV200800",
+          "market_ticker": "KXPLATINUM15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXSOL15M-26NOV200800",
+          "market_ticker": "KXSOL15M-26NOV200800-00",
+          "side": "yes"
+        },
+        {
+          "event_ticker": "KXWTI15M-26NOV200800",
+          "market_ticker": "KXWTI15M-26NOV200800-00",
+          "side": "yes"
+        }
+      ],
+      "no_ask_dollars": "1.0000",
+      "no_bid_dollars": "0.0000",
+      "no_sub_title": "no Target price: 0.66658,yes Target Price: $0.0564715,no Target price: 1.09827,yes Target price: 1.31064,no Target Price: $63.4699,yes Target Price: $3.58231,yes Target Price: $2.9455,yes Target Price: $912.075,yes Target Price: $1,312.710,yes Target Price: $71.0785,yes Target Price: $82.37",
+      "notional_value_dollars": "1.0000",
+      "open_interest_fp": "7.14",
+      "open_time": "2026-11-20T12:59:30Z",
+      "previous_price_dollars": "0.0000",
+      "previous_yes_ask_dollars": "0.0000",
+      "previous_yes_bid_dollars": "0.0000",
+      "price_level_structure": "center_deci_edge_centi_cent",
+      "price_ranges": [
+        {
+          "end": "0.0100",
+          "start": "0.0000",
+          "step": "0.0001"
+        },
+        {
+          "end": "0.9900",
+          "start": "0.0100",
+          "step": "0.0010"
+        },
+        {
+          "end": "1.0000",
+          "start": "0.9900",
+          "step": "0.0001"
+        }
+      ],
+      "result": "yes",
+      "rules_primary": "",
+      "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+      "settlement_bounds_type": "default",
+      "settlement_timer_seconds": 5,
+      "settlement_ts": "2026-11-20T13:00:49.11374Z",
+      "settlement_value_dollars": "1.0000",
+      "status": "finalized",
+      "strike_type": "custom",
+      "ticker": "KXMVECROSSCATEGORY-S2026TWXRVNF6H3PP225G-WCSAFFH3T",
+      "title": "no Target price: 0.66658,yes Target Price: $0.0564715,no Target price: 1.09827,yes Target price: 1.31064,no Target Price: $63.4699,yes Target Price: $3.58231,yes Target Price: $2.9455,yes Target Price: $912.075,yes Target Price: $1,312.710,yes Target Price: $71.0785,yes Target Price: $82.37",
+      "updated_time": "2026-11-20T13:00:49.16426Z",
+      "volume_24h_fp": "0.00",
+      "volume_fp": "7.14",
+      "yes_ask_dollars": "1.0000",
+      "yes_ask_size_fp": "0.00",
+      "yes_bid_dollars": "0.0000",
+      "yes_bid_size_fp": "0.00",
+      "yes_sub_title": "no Target price: 0.66658,yes Target Price: $0.0564715,no Target price: 1.09827,yes Target price: 1.31064,no Target Price: $63.4699,yes Target Price: $3.58231,yes Target Price: $2.9455,yes Target Price: $912.075,yes Target Price: $1,312.710,yes Target Price: $71.0785,yes Target Price: $82.37"
+    }
+  ]
+}

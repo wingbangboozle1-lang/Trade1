@@ -1,0 +1,234 @@
+{
+  "series": [
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Culture"
+      ],
+      "category": "Culture",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/XBANNED.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/XBANNED.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-11-20T12:36:12.3971Z",
+      "settlement_sources": [
+        {
+          "name": "ABC",
+          "url": "https://abcnews.go.com/"
+        },
+        {
+          "name": "account holder of ",
+          "url": "https://www.google.com/search?q=account+holder+of+<account>"
+        },
+        {
+          "name": "Fox News",
+          "url": "https://www.foxnews.com/"
+        },
+        {
+          "name": "MSNBC",
+          "url": "https://www.msnbc.com/"
+        },
+        {
+          "name": "The Wall Street Journal",
+          "url": "https://www.wsj.com/"
+        },
+        {
+          "name": "Semafor",
+          "url": "https://www.semafor.com/"
+        },
+        {
+          "name": "Barchart",
+          "url": "https://www.barchart.com/stocks/quotes/$INX/overview"
+        },
+        {
+          "name": "Ars Technica",
+          "url": "https://www.google.com/search?q=Ars+Technica"
+        },
+        {
+          "name": "New York Times",
+          "url": "https://www.nytimes.com/"
+        },
+        {
+          "name": "CBS",
+          "url": "https://www.cbsnews.com/"
+        },
+        {
+          "name": "The Washington Post",
+          "url": "https://www.washingtonpost.com/"
+        },
+        {
+          "name": "Axios",
+          "url": "https://www.axios.com/"
+        },
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/"
+        },
+        {
+          "name": "Engadget",
+          "url": "https://www.google.com/search?q=Engadget"
+        },
+        {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/"
+        },
+        {
+          "name": "Mashable",
+          "url": "https://www.google.com/search?q=Mashable"
+        },
+        {
+          "name": "Bloomberg News",
+          "url": "https://www.bloomberg.com"
+        },
+        {
+          "name": "Elon Musk",
+          "url": "https://x.com/elonmusk"
+        },
+        {
+          "name": "the Associated Press",
+          "url": "https://apnews.com/"
+        },
+        {
+          "name": "Energy Information Administration",
+          "url": "https://www.eia.gov/totalenergy/data/monthly/index.php"
+        },
+        {
+          "name": "Politico",
+          "url": "https://www.politico.com/"
+        },
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/"
+        },
+        {
+          "name": "Verge",
+          "url": "https://www.google.com/search?q=Verge"
+        }
+      ],
+      "tags": [
+        "AI"
+      ],
+      "ticker": "KXXBANNEDGROK",
+      "title": "Will Grok be banned this year"
+    },
+    {
+      "additional_prohibitions": [
+        "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+        "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+      ],
+      "categories": [
+        "Culture"
+      ],
+      "category": "Culture",
+      "contract_terms_url": "https://assets.kalshi.com/contract_terms/XBANNED.pdf",
+      "contract_url": "https://kalshi-public-docs-staging.s3.us-east-1.amazonaws.com/regulatory/product-certifications/XBANNED.pdf",
+      "exchange_index": 0,
+      "fee_multiplier": 1,
+      "fee_type": "quadratic",
+      "frequency": "one_off",
+      "last_updated_ts": "2026-11-20T12:36:12.387293Z",
+      "settlement_sources": [
+        {
+          "name": "ABC",
+          "url": "https://abcnews.go.com/"
+        },
+        {
+          "name": "account holder of ",
+          "url": "https://www.google.com/search?q=account+holder+of+<account>"
+        },
+        {
+          "name": "Fox News",
+          "url": "https://www.foxnews.com/"
+        },
+        {
+          "name": "MSNBC",
+          "url": "https://www.msnbc.com/"
+        },
+        {
+          "name": "The Wall Street Journal",
+          "url": "https://www.wsj.com/"
+        },
+        {
+          "name": "Semafor",
+          "url": "https://www.semafor.com/"
+        },
+        {
+          "name": "Barchart",
+          "url": "https://www.barchart.com/stocks/quotes/$INX/overview"
+        },
+        {
+          "name": "Ars Technica",
+          "url": "https://www.google.com/search?q=Ars+Technica"
+        },
+        {
+          "name": "New York Times",
+          "url": "https://www.nytimes.com/"
+        },
+        {
+          "name": "CBS",
+          "url": "https://www.cbsnews.com/"
+        },
+        {
+          "name": "The Washington Post",
+          "url": "https://www.washingtonpost.com/"
+        },
+        {
+          "name": "Axios",
+          "url": "https://www.axios.com/"
+        },
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/"
+        },
+        {
+          "name": "Engadget",
+          "url": "https://www.google.com/search?q=Engadget"
+        },
+        {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/"
+        },
+        {
+          "name": "Mashable",
+          "url": "https://www.google.com/search?q=Mashable"
+        },
+        {
+          "name": "Bloomberg News",
+          "url": "https://www.bloomberg.com"
+        },
+        {
+          "name": "Elon Musk",
+          "url": "https://x.com/elonmusk"
+        },
+        {
+          "name": "the Associated Press",
+          "url": "https://apnews.com/"
+        },
+        {
+          "name": "Energy Information Administration",
+          "url": "https://www.eia.gov/totalenergy/data/monthly/index.php"
+        },
+        {
+          "name": "Politico",
+          "url": "https://www.politico.com/"
+        },
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/"
+        },
+        {
+          "name": "Verge",
+          "url": "https://www.google.com/search?q=Verge"
+        }
+      ],
+      "tags": null,
+      "ticker": "KXXBANNEDMURRAYHILLGUY1",
+      "title": "Will @MurrayHillGuy1 get banned from X this year?"
+    }
+  ]
+}
