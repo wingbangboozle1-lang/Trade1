@@ -56,7 +56,7 @@ tracking, and every table row linked to the official API record it came from.
 ```bash
 npm install --no-audit --no-fund jsdom   # test dependency only
 npm run build    # JS syntax + internal links + nav targets
-npm run test     # 25 assertions: real engine in jsdom over every page, alert math, sources
+npm run test     # 23 jsdom/page-engine assertions plus offline library tests
 node scripts/check_site.mjs   # every snapshot row carries an official source URL
 
 # the CI ledger's own checks (all offline, no credentials, no network needed)
@@ -70,7 +70,7 @@ CI (`.github/workflows/pages.yml`) runs all three on every push and pull request
 ## Safety & scope
 
 - Demo environment only (play money); demo prices may not match production.
-- Public read-only market data. No authentication, no API keys, no orders, no account endpoints.
+- The dashboard and paper engines use public read-only market data without authentication; paper trades never submit orders or call account endpoints. The separate opt-in [`demo-account/`](demo-account/index.html) console can read a real demo balance/positions and submit guarded demo orders only after the account owner supplies a demo API key ID and private key. No credentials are bundled, no live account request is sent by default, and the optional connection is not required for the automatic paper dashboard.
 - Dollar figures are computed estimates (contracts × price) and labelled as such; the API publishes
   no per-market dollar-notional field.
 - WebSocket is not used: the official docs require signed `KALSHI-ACCESS-*` headers **during the

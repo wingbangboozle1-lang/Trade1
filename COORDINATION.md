@@ -4,6 +4,10 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
+| Current deployed-site audit: rerun tests/build, confirm official-source evidence and GitHub Pages deployment, correct verified stale safety/review statements, record findings | in progress | a53ab816 (`arena/a53ab816-trade1`) | `COORDINATION.md`, `reports/VERIFICATION_a53ab816.md`, `flagged.html`, `README.md` |
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
 | Kalshi demo dashboard, source research, site, verification, and deployment setup (prototype, PR #1) | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Kalshi demo monitor v2: live dashboard, topic subpages, alerts, simulated strategies, resolved tracker, sources, flagged page, Pages build | in progress | cedad5c4 | `**`, `scripts/**`, `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `COORDINATION.md` (removes prototype `index.html`) |
 | a2ec5543 · T1 | Repo review (line-by-line vs official sources, irregularities) | done (published, `review.html`; R1–R20) | a2ec5543 | `reports/REPO_REVIEW.md` |
