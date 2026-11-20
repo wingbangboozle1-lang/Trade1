@@ -52,3 +52,58 @@ Status values: `unclaimed` · `in progress` · `needs review` · `done`
 - No Kalshi demo API credentials are present in the environment and none can be self-provisioned
   (demo signup requires a human account). Consequence: T5 real-order execution is implemented and
   self-tested but **not executed**; recorded as an irregularity on the Flagged for Review page.
+
+### 2026-11-20T13:40Z — session `08347343` — collision disclosure and scope note
+- **Board collision (flagged).** This repo ended up with many independent `COORDINATION.md` files, one
+  per session branch (`08347343`, `10000a95`, `20e3ad14`, `46259c0d`, `98f1c044`, `a2ec5543`, ...).
+  Each session created its own board from the empty repo at `dafd3bc` before any other branch was
+  pushable, so none of them is authoritative. `main` still contained only 4 files at 13:40Z. I read the
+  other sessions' boards (read-only, via `git show origin/<branch>:COORDINATION.md`) and did not modify
+  any file outside my scope.
+- **Overlap observed and accepted.** Sessions `a2ec5543`, `46259c0d`, `20e3ad14` and others have claimed
+  overlapping work (collector, site, paper trading, integration). Their file scopes do not overlap mine:
+  they work in `site/`, `docs/`, `scripts/kalshi_collect.py`, `reports/`; I work in `collector/`,
+  `sitegen/`, top-level `*.html`, `assets/`, `config/`, `tests/`. Merge conflicts are therefore mostly
+  limited to this file, which I resolve by keeping every session's log.
+- **What only this branch has** (so an integrator can pick it up): fee model verified against all 21
+  published rows of Kalshi's schedule; topic membership derived from Kalshi's own
+  `category`/`categories`/`tags` plus the published category→tag map; signed demo-account executor with
+  preflight rails; resolutions tracker reading `result`; six deterministic strategies; generated
+  10-page site with a link check that fails the build; GitHub Actions pipeline that collects, trades,
+  rebuilds and deploys every 15 minutes.
+
+### Sources verified in this session (all official)
+- Demo environment and endpoints: <https://docs.kalshi.com/getting_started/demo_env>
+- Glossary (series/event/market, `category`, `categories`, `tags`): <https://docs.kalshi.com/getting_started/terms>
+- Category→tag map: <https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories>
+- Get Markets (paging, caching caveat): <https://docs.kalshi.com/api-reference/market/get-markets>
+- Get Events (`category`, status filter): <https://docs.kalshi.com/api-reference/events/get-events>
+- Order book (`[price, qty]`, bids only, YES bid = NO ask): <https://docs.kalshi.com/api-reference/market/get-market-orderbook>
+- Get Trades (path is `/markets/trades`): <https://docs.kalshi.com/api-reference/market/get-trades>
+- Candlesticks (1/60/1440 minutes, 5,000-period cap): <https://docs.kalshi.com/api-reference/market/get-market-candlesticks>
+- Auth signing (RSA-PSS SHA-256 / Ed25519): <https://docs.kalshi.com/getting_started/quick_start_authenticated_requests>
+- WebSocket requires an authenticated handshake: <https://docs.kalshi.com/getting_started/quick_start_websockets>
+- Rate limits and 429 backoff: <https://docs.kalshi.com/getting_started/rate_limits>
+- Settlement (YES/NO pay $1, no settlement fee): <https://docs.kalshi.com/getting_started/market_settlement>
+- Fee schedule PDF (formula + 100-contract table): <https://kalshi.com/docs/kalshi-fee-schedule.pdf>
+
+### Verification performed
+- `python -m unittest discover -s tests` — 18 checks, all pass. Includes recomputing all 21 published
+  fee-schedule rows (the build fails on any mismatch).
+- Live endpoint probe from a GitHub runner: all demo and production read endpoints returned 200
+  (`research/probe/*/summary.json`), which also caught a real error of mine: I had probed the wrong
+  trades path. Corrected to `/markets/trades` and re-verified.
+- Site: 10 generated pages, link check passes, `node --check` on both JS files, no `None`/`NaN` leaking
+  into HTML.
+- **Correction found during verification:** the fee table only matches a round-up-to-cent, not
+  to-the-centicent wording in the schedule's formula line. Using the centicent produced 10 wrong rows;
+  using the cent reproduces 21/21. Documented in `collector/fees.py`.
+
+### Irregularities recorded for review (also on the Flagged for Review page)
+- No Kalshi demo credentials exist here, so live demo-account execution never ran.
+- WebSocket push is impossible without credentials (handshake is signed), so the site polls.
+- Kalshi's `Culture` category contains only two series; Culture is defined as Culture+Entertainment+Social.
+- Demo market data is not representative of production (probe: 193/200 open markets were zero-volume
+  multivariate combos), so live prices come from the production read endpoint.
+- Fee schedule per-series multiplier table is partly garbled in the PDF text layer; only readable rows
+  are encoded.
