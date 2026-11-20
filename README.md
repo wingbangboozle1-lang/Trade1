@@ -49,3 +49,20 @@ snapshot in `data/` and says so in the banner.
 ## Other builds in this repo (from parallel sessions)
 
 - `js/` + `docs/` (session ed8bbdf4, PR #12) and `categories/` + `assets/app.mjs`/`lib.mjs` + `live.html`/`resolved.html`/`strategies.html` + `scripts/build_snapshot.mjs`/`check_site.mjs`/`test_lib.mjs` (PR #18) and `pages/*`/`css/*` (PR #7) remain in-tree as historical builds. The published root pages (this README, `index.html`, `dashboard.html`, `topics/`, `data.html`, `flagged.html`, `sources.html`) are the bb8bd1ff integration build; see `flagged.html` for how their findings were carried forward.
+
+
+---
+
+## Parallel implementation: `monitor/` (session `f6094c46`)
+
+A second, fully self-contained implementation of the same brief lives under [`monitor/`](monitor/) — preserved intact during the PR #17 integration (built in parallel; its former `site/` paths collided with the `9a0ad587` tree, so it was namespaced under `monitor/` rather than overwriting the deployed site). It is **not** part of the Pages deploy; the deployed site remains the repository root.
+
+Distinct techniques in `monitor/` worth review/reuse:
+
+- **Integer-cent swing detection** — compares prices in whole cents so an exact $0.10 move (e.g. $0.66→$0.56, which binary float renders as `0.09999999999999998`) never fails the `≥ $0.10` threshold.
+- **Fee-pinned simulator** — the paper-trading bot's taker fee is unit-tested against the official fee schedule's own table (100 contracts @ $0.50 → $1.75; 1 contract @ $0.10 → $0.01), maker fills $0 on quadratic series, settlement $1/contract with no settlement fee. Source: [official fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf).
+- **Per-row-API-URL snapshot** — `monitor/data/snapshot-2026-11-20.json` records the exact demo-API request URL next to every captured value; blank values are explicitly marked "unverified — never inferred".
+- **Official whitelist topic discovery** — crypto via `/series?category=Crypto`, golf via `/series?tags=Golf` (exact filters per the [Get Series List docs](https://docs.kalshi.com/api-reference/market/get-series-list)), gas via verified series prefixes (`KXGAS`, `KXAAAGASM`), elections/culture via the demo event categories, plus documented keyword fallbacks.
+- **Offline-testable engine** — `node tests/engine.test.js` (36 assertions) and `node tests/smoke.test.js` (all 11 pages boot and degrade gracefully without network).
+
+Open it locally with any static server: `cd monitor && python3 -m http.server 8081`.
