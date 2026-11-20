@@ -18,6 +18,8 @@
     <a href="executive-summary.html">Summary</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="demo-account/">Demo Account</a>
     <a href="topics/gas-prices.html">Gas</a>
     <a href="topics/elections.html">Elections</a>
     <a href="topics/culture.html">Culture</a>
@@ -72,6 +74,65 @@
       <tr><td>18</td><td><b>Optional demo-account read</b> (user's own demo keys, stored only in their browser)</td><td>Real demo balance/positions alongside the paper portfolio, for users who want it.</td><td><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Authenticated Requests</a> — the site deliberately never asks for keys; this would be opt-in and local-only.</td><td>Large</td></tr>
     </table></div>
     <p class="muted small">Simplified-graph rule for all future charts: one line per market, Y always $0.00–$1.00, X always time with an explicit window label, alert markers always linked. No dual axes, no hidden smoothing.</p>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>2b. Shipped since this page was written — and what is still open</h2>
+    <p class="small muted">Added by session <code>e82d36a3</code> (2026-11-20). Everything below is either live on this repository's
+      <code>main</code> or is a concrete next step with the exact official call it needs. No item here claims a performance result.</p>
+    <div class="tablewrap"><table>
+      <tr><th>Status</th><th>Item</th><th>What it does / what it needs</th><th>Official API</th></tr>
+      <tr><td><b>live</b></td><td>Backlog #8 — server-side capture</td>
+        <td>Implemented as an always-on paper ledger, not just an alert history: <code>scripts/portfolio_engine.py</code> runs in
+          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/portfolio.yml"><code>portfolio.yml</code></a>
+          twice an hour, books fills at the official quotes with the official taker fee, settles on the exchange's YES/NO result, and commits
+          <a href="data/portfolio.json" target="_blank"><code>data/portfolio.json</code></a>, which <a href="portfolio.html">Portfolio</a> renders
+          (equity curve, trade ledger by strategy and topic, ≥10¢ alert feed, resolutions, per-row sources). Because it lives in the repository
+          it survives a reload and every visitor sees the same record; the browser <a href="trades.html">Strategy Lab</a> stays per-device and per-browser.</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> (quotes + settlement, one batched <code>?tickers=</code> call)</td></tr>
+      <tr><td><b>live</b></td><td>Backlog #14 — jump annotations on the chart</td>
+        <td>≥ $0.10 jumps are drawn on the price chart for the selected market inside the chosen window, with the newest jump and its links
+          rendered under the chart: the official Kalshi market page, the event's published settlement sources, and a labelled news
+          <i>search</i> lead. Causality is never asserted, and the alert cooldown that can suppress a second in-window move is disclosed.</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades</a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events (<code>settlement_sources</code>)</a></td></tr>
+      <tr><td>B1</td><td><b>Rank by measured traded dollars instead of an estimate</b></td>
+        <td>Sum <code>count_fp × yes_price_dollars</code> over a market's own tape for the last 24 h (<code>?ticker=…&amp;min_ts=…</code>,
+          limit ≤ 1000 per page, cursor until <code>min_ts</code> is passed) and label any window that stopped early as partial. Until then every
+          dollar ranking on this site stays marked “est.”. Constraint recorded on <a href="flagged.html">Flagged E7</a>: the endpoint documents no
+          ordering guarantee, and an unknown ticker returns an empty page rather than a 404.</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades</a></td></tr>
+      <tr><td>B2</td><td><b>One batched order-book call for the whole watchlist</b></td>
+        <td>Depth is currently fetched per selected market. <code>GET /markets/orderbooks?tickers=…</code> takes up to 100 tickers in one request and
+          returns books in request order — enough to put a spread/depth column on every ranked row for one request per cycle. Two caveats from the docs:
+          it returns <b>yes bids and no bids only</b> (asks stay derived), and level order counts are not returned, so "liquidity" must be stated as
+          contracts-at-price, not number of orders.</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-multiple-market-orderbooks">Get Multiple Market Orderbooks</a></td></tr>
+      <tr><td>B3</td><td><b>Show the valid price grid on the depth ladder and in the lab's order mock</b></td>
+        <td>Every price a trader can actually quote comes from the market's own <code>price_ranges</code> (<code>minimum_tick</code> per
+          <code>price_level_structure</code>), which is the documented source of truth — the grid can differ between $0.01–$0.10, $0.10–$0.50 and
+          $0.50–$0.99 on the same market. Rendering only legal levels makes an "improve by a tick" action verifiable instead of assumed.</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fixed_point_migration">Fixed-Point Representation</a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets (<code>price_ranges</code>)</a></td></tr>
+      <tr><td>B4</td><td><b>Exchange-state banner</b></td>
+        <td><code>GET /exchange/status</code> reports <code>exchange_active</code>, <code>trading_active</code> and per-shard
+          <code>exchange_index_statuses[]</code>. A paused shard explains an otherwise baffling flat tape — the demo shard this site reads has been
+          observed with <code>trading_active: false</code> while markets still returned quotes (see <a href="data/exchange-status.json" target="_blank">the
+          captured response</a>). A one-line banner turns "no moves" into "trading paused on shard 0".</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/exchange/get-exchange-status">Get Exchange Status</a></td></tr>
+      <tr><td>B5</td><td><b>Replayable alert history + adaptive polling</b></td>
+        <td>Two small liveness wins: keep the alert stream in the committed ledger so a visitor can scrub jumps from an earlier hour instead of only
+          the current session, and stretch the poll interval for markets whose <code>updated_time</code> has not moved so the watchlist budget goes to
+          markets that are actually trading. Both are client-side on the existing responses; neither invents a value.</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a> (no published public limit ⇒ pacing is a choice)</td></tr>
+      <tr><td>B6</td><td><b>WebSocket streaming, behind a signing bridge</b></td>
+        <td>Blocked by the platform, not by the API: the demo WS handshake <b>requires</b> <code>KALSHI-ACCESS-KEY</code> /
+          <code>KALSHI-ACCESS-SIGNATURE</code> / <code>KALSHI-ACCESS-TIMESTAMP</code> (signature over <code>timestamp + "GET" + "/trade-api/ws/v2"</code>)
+          even for the public channels, and browsers cannot set WebSocket headers. Needs a deployed proxy plus a private key held by the owner, which this
+          repository deliberately does not have. Until then the honest ceiling is REST polling with the documented cache lag.</td>
+        <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_websockets">Quick Start: WebSockets</a></td></tr>
+    </table></div>
+    <p class="small muted">Also recorded: the CI checker coverage recommendation and the maker-fee caveat live on
+      <a href="flagged.html">Flagged</a> (E2, E3, E8), and the ledger's rule-by-rule differences from the browser lab in
+      <a href="methods.html">Methods §8–§9</a>.</p>
   </section>
 
   <section class="box" style="margin-top:14px">

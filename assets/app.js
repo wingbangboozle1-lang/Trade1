@@ -897,6 +897,7 @@ window.KalshiApp = (function () {
   /* ---------- mount: dashboard ---------- */
   var NAV = [
     ['index.html', 'Home'], ['dashboard.html', 'Dashboard'], ['trades.html', 'Strategy lab'],
+    ['demo-account/', 'Demo Account'], ['portfolio.html', 'Portfolio'],
     ['topics/gas-prices.html', 'Gas'], ['topics/elections.html', 'Elections'], ['topics/culture.html', 'Culture'],
     ['topics/crypto.html', 'Crypto'], ['topics/golf.html', 'Golf'],
     ['data.html', 'Data'], ['methods.html', 'Methods'], ['suggestions.html', 'Ideas'],

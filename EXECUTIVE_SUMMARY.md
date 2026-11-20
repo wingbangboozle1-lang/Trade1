@@ -69,3 +69,49 @@ A live, interactive monitoring and paper-trading dashboard for the Kalshi **demo
 - Simulated fills assume execution at observed quotes with no slippage; real resting orders may not fill the same way.
 - Demo behavior need not match production (per Kalshi's official documentation).
 - Everything here is educational; **nothing is financial advice**. Demo environment only (play money).
+
+---
+
+## Addendum — session `e82d36a3` (2026-11-20): what changed after this summary was written
+
+The sections above are session `f6094c46`'s text, left intact. This addendum records what the repo looks like now for the
+requirements it called "not built", plus the verification this session performed line by line against the official sources.
+
+| Requirement in the brief | Status after this session | Where it is published |
+|---|---|---|
+| Executive summary | already present, refreshed by later sessions | [`executive-summary.html`](executive-summary.html), this file |
+| Dashboard ranked by dollar volume, five topics only | present; ranking stays an explicitly labelled estimate (`volume_24h_fp × last_price_dollars`) — no official per-market dollar-notional field exists | [`dashboard.html`](dashboard.html), [`topics/*.html`](topics/golf.html) |
+| Two alert chats ≥ $0.10, one "model likes" | present; the ≥ $0.10 test is done in integer 1e-4-dollar units so a $0.66→$0.56 print cannot be lost to float error, plus a `previous_price_dollars` swing case for round-trips inside one poll | [`dashboard.html`](dashboard.html) · [Methods §3](methods.html) |
+| Resolution tracking with YES/NO | present, live-detected from the same poll response | [`dashboard.html`](dashboard.html), [`resolved.html`](resolved.html) |
+| **Automated simulated trades + portfolio performance + trade categorisation + strategy derivation** | **now also persistent**: a CI ledger runs the same rules twice an hour and commits its trade ledger, so the record survives a reload and every visitor sees identical numbers — with P&L and counts broken out by strategy and by topic, which is how the "what strategy does this data imply" question gets answered from data rather than assertion | [`portfolio.html`](portfolio.html), [`data/portfolio.json`](data/portfolio.json), [`scripts/portfolio_engine.py`](scripts/portfolio_engine.py) |
+| Interactive price chart (x = selectable s/min/h, y = contract price) + liquidity per price | present; Y is scaled to the printed range and a hover crosshair reports the exact official value; depth shows contracts at each price | [`dashboard.html`](dashboard.html) · [Methods §6](methods.html) |
+| Suggestions for more live/interactive | present and extended — the backlog's server-side-capture item (#8) and the jump-annotation item (#14) are now shipped, and six new sourced items were added | [`suggestions.html`](suggestions.html) §2b |
+| Jumps ≥ $0.10 annotated with the websites that may have caused them | present: markers on the chart plus a link strip (official market page, published settlement sources, labelled news *search* lead); causality is never asserted, and the 45 s per-market cooldown that can suppress a second in-window move is disclosed | [`dashboard.html`](dashboard.html) · [Flagged #7, #17](flagged.html) |
+| No manual user input, autonomous to completion | held throughout: no credentials, no forms, nothing requested from a visitor | [Flagged #12, #14, E9](flagged.html) |
+| Line-by-line verification against official sources, with links | this session re-checked 18 claims (V1–V18) and 9 code/repo items (R1–R9); where the merged build had already corrected something, its version was kept and the correction was re-verified rather than re-flagged | [`reports/VERIFICATION_e82d36a3.md`](reports/VERIFICATION_e82d36a3.md), [Sources](sources.html) |
+| Irregularities flagged, values never inferred | 10 items published as E1–E10 on [Flagged](flagged.html); duplicates of existing items were dropped rather than restated | [`flagged.html`](flagged.html) |
+
+**Corrections to the text above**
+
+- §5 says "no server-side capture yet — backlog item #8 on the Ideas page". That is now out of date: `portfolio.yml` samples the
+  market list from a GitHub Actions runner twice an hour and commits the result, so alert history, trade history and portfolio
+  performance accumulate with no browser open. What remains true: sampling is ~30-minute spaced, so it is a slower clock than the
+  browser lab and cannot see intrabar moves ([Methods §8](methods.html), [Flagged E4](flagged.html)).
+- §5's "real resting orders may not fill the same way" is now quantified rather than hand-waved: maker fees are not modelled in
+  either engine, and for the in-scope gas series `KXAAAGASM` the published maker multiplier is **1**, i.e. non-zero
+  ([Flagged E3](flagged.html)).
+- "No demo-account numbers appear anywhere" is still true, but the reason changed while this addendum was being written: session
+  `935f2113` merged PR #39, so an authenticated, guarded demo-account track now exists on `main`
+  ([`demo-account/`](demo-account/index.html), [`scripts/demo_account/`](scripts/demo_account/README.md), `demo-account.yml`). It reports
+  `configured: false` and sends no authenticated request because the owner's `KALSHI_DEMO_KEY_ID` / `KALSHI_DEMO_PRIVATE_KEY` secrets do
+  not exist — no agent can create them. This session's ledger is deliberately the *simulation* layer, not a second account path; the
+  three layers and their comparability are defined in [Methods §8](methods.html) and [Flagged E9](flagged.html). Draft PR #2 (the same
+  work, superseded by #39) should now be closed rather than merged.
+
+**Quality gates added by this session** (all runnable offline, all green on 2026-11-20):
+`python3 scripts/portfolio_engine.py selftest` → 50/50 · `node tests/portfolio.test.mjs` → 60/60 (34/34 without jsdom) ·
+`node scripts/check_links.mjs` → 16 published pages, 329 local links, 168 external links, 0 failures · and the pre-existing
+suites re-run after the merge: `check_site.mjs` 16 pages / 0 failures, `tests/engine.test.mjs` 23/23,
+`tests/root_engine.test.js` 40 passed / 0 failed, `scripts/test_lib.mjs` passed, `tools/build.mjs` BUILD OK.
+One live cycle of the ledger ran on a GitHub runner ([workflow run `44801621609`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44801621609),
+both jobs success) — this sandbox has no route to `*.demo.kalshi.co`, which is itself verified and recorded rather than assumed.

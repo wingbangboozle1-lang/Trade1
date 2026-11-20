@@ -25,7 +25,7 @@ async function walk(dir) {
 // shipped their own HTML tree on the same branch and this check was scoped to avoid
 // failing on theirs; there is now one site, so every page is verified.
 const PUBLISHED = new Set(['index.html','executive-summary.html','dashboard.html','trades.html',
-  'data.html','methods.html','flagged.html','sources.html','suggestions.html','resolved.html',
+  'data.html','methods.html','flagged.html','sources.html','suggestions.html','resolved.html','portfolio.html',
   'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html',
   'demo-account/index.html','demo-account/flagged.html']);
 const allFiles = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));

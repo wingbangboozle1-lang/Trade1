@@ -18,6 +18,8 @@
     <a href="executive-summary.html">Summary</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="demo-account/">Demo Account</a>
     <a href="topics/gas-prices.html">Gas</a>
     <a href="topics/elections.html">Elections</a>
     <a href="topics/culture.html">Culture</a>
@@ -133,6 +135,67 @@
 <section class="box" style="margin-top:14px">
   <h2>7. Rate-limit care</h2>
   <p class="small">Unauthenticated public requests have their own (undocumented) limits; the client backs off exponentially on HTTP 429, polls while the tab is visible only, batches tickers ≤200 per request, and pauses polling when hidden. See <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a>.</p>
+</section>
+
+
+<section class="box" style="margin-top:14px">
+  <h2>8. The always-on CI ledger (<a href="portfolio.html">portfolio.html</a>) — how it differs from the browser lab</h2>
+  <p class="small">The same four strategies run twice an hour inside GitHub Actions
+    (<code>scripts/portfolio_engine.py</code>, workflow <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/portfolio.yml"><code>portfolio.yml</code></a>),
+    and their ledger is committed to <code>data/portfolio.json</code> instead of <code>localStorage</code>, so the record survives a reload and every visitor
+    sees the same numbers. Consequences a reader should know:</p>
+  <ul class="small">
+    <li><b>Sampling.</b> A move is detected by comparing one priced cycle with the next (~30 min apart), not consecutive ~12 s polls. A fast
+      round-trip that returns to its start is invisible to it; a slow drift is caught. Time-based exits are therefore expressed as a maximum
+      holding time counted in cycles, so the results are a slower-clock test of the same rules and are <b>not</b> comparable trade-for-trade
+      with the lab.</li>
+    <li><b>Quotes.</b> Only <code>GET /markets?tickers=…</code> is called per cycle (plus nothing else); settlement is read from the same response
+      (<code>status</code>, <code>result</code>, <code>settlement_ts</code> copied verbatim), per
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a>. A tickers-only query returns
+      every matching market in one response with an empty cursor — documented behaviour this engine depends on.</li>
+    <li><b>Units.</b> Prices are held as integers in 1e-4 USD (the official 4-decimal price precision), sizes in 1e-2 contracts, cash in micro-dollars.
+      The ≥ $0.10 test is therefore exact at the boundary (see §4 and
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fixed_point_migration">Fixed-Point Representation</a>).</li>
+    <li><b>Sizing.</b> Whole contracts only, sized so that cost + entry fee fits $25.00, capped by remaining cash. Fractional contract sizes exist
+      (0.01 granularity) but are only supported on markets that allow them, and the engine does not read that permission per market, so it never
+      requests a fractional size.</li>
+    <li><b>Fees.</b> Taker per the published schedule with the rounding described in
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a>: model fee rounded up to 6 decimals,
+      then the balance change floored to the $0.01 alignment for non-direct members with the remainder booked as the rounding fee. Settlement is free
+      (“There is no settlement fee.”). Maker fees are not modeled — every simulated fill crosses the spread. The browser lab in
+      <a href="#fee-verification">the Fee verification subsection of §4</a> rounds the same model fee up to a whole cent instead, so an individual leg can
+      differ by up to $0.0099 between the two engines (in the conservative direction) — see §9.</li>
+    <li><b>Fills.</b> The ledger fills at the same quoted price as the lab (entry at the ask, exit at the bid) and applies no slippage and no queue model,
+      so it inherits the optimism already flagged in <a href="flagged.html">Flagged</a> (item 10).</li>
+    <li><b>Relationship to the demo-account console.</b> <a href="demo-account/"><code>demo-account/</code></a>
+      (merged from PR #39) is a third layer, and the only one that can show <i>account</i> values: it reads
+      <code>GET /portfolio/balance</code> and <code>GET /portfolio/positions</code> with the owner's demo key, and can place guarded
+      demo orders. It stays inert while the secrets are absent. Comparability rule for readers: the lab and this ledger are both
+      quote-driven simulations and may be compared <i>directionally</i> only (see §8 bullets above and <a href="flagged.html">E2, E4</a>);
+      demo-account figures are real (demo) fills and must never be compared to either simulation.</li>
+    <li><b>Bootstrap gap.</b> The first cycle of a fresh state seeds prices from the committed snapshot, so the first comparison can span hours. Each alert
+      carries <code>gap_minutes</code> (and a <span class="flag">wide gap</span> label above 90 minutes) so a stale-quote delta is never read as a fast move.</li>
+  </ul>
+</section>
+
+<section class="box" style="margin-top:14px">
+  <h2 id="fee-clarification">9. Fee application — precise statement (clarifies §4, “Sizing / Fees” bullet)</h2>
+  <p class="small">§4 above says the taker fee is “applied on paper entries and exits”. Precisely, in both engines: a fee is charged on a
+    <b>buy at the ask</b> (entry) and on a <b>sell at the bid</b> (take-profit, stop-loss or max-hold exit). A position that ends at
+    <b>settlement</b> — which is how most lab trades end — pays out $1.00 per winning contract with <b>no</b> fee, because the published schedule states
+    there is no settlement fee. So “entries and exits” means “entries and sale exits”, not “every trade closes with a second fee”.
+    Source: <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">kalshi.com/docs/kalshi-fee-schedule.pdf</a>
+    (effective 2026-07-07), and the code paths <code>assets/model.js → settle()</code> and
+    <code>scripts/portfolio_engine.py → settle()</code>.</p>
+  <p class="small">Two rounding details, stated so the two engines are never compared digit-for-digit: the lab's
+    <code>fee()</code> rounds the model fee <b>up to a whole cent</b> (<code>Math.ceil(cents − 1e-9)/100</code> on integer price/count inputs, so the
+    binary-float artifact that made the naive form print $1.76 instead of $1.75 cannot happen), while the ledger implements the newer
+    <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a> rule
+    (<code>ceil_6dp</code> trade fee plus a $0.01-aligned balance change with the remainder as a rounding fee). Both reproduce every row of the published
+    “General Trading Fees Table” at cent display precision; they can differ by less than a cent on a single leg. Maker fees are excluded on both sides —
+    and they are <i>not</i> zero for the gas series: the fee schedule lists <code>KXAAAGASM</code> with maker multiplier 1 and taker multiplier 1, and
+    the demo API independently reports <code>fee_type: "quadratic", fee_multiplier: 1</code> for that series (§4, “Per-series fee structure”), so a
+    resting-order strategy would be mis-priced in both simulators.</p>
 </section>
 
 <p class="footer">Questions about any value: check <a href="data.html">Data</a> (row-level source links) and <a href="flagged.html">Flagged</a> (what we could not verify).</p>

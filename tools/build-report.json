@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-20T19:36:13.160Z",
-  "files": 22,
+  "checkedAt": "2026-11-20T19:38:14.910Z",
+  "files": 23,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
@@ -25,6 +25,7 @@
   "jsFiles": [
     "assets/app.js",
     "assets/model.js",
+    "assets/portfolio.js",
     "demo-account/assets/app.js",
     "demo-account/assets/engine.js",
     "demo-account/assets/signer.js"
