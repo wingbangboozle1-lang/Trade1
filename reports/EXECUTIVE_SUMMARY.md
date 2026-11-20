@@ -30,10 +30,10 @@ Published page: `https://wingbangboozle1-lang.github.io/Trade1/monitor/` (after 
 
 ## Results so far
 
-- **Coverage (CI run `44743945798`):** about 291,000 open markets (excluding multivariate combos) were read. Per topic: gas 713, golf 1,986, crypto 76,500, culture 9,861, elections 35,341. The site writes the top 300 per topic.
-- **Sharp moves:** the run found moves of at least $0.10 in candles of the top 40 markets. The count is in the site's Moves page.
-- **Resolved sample:** 21 YES and 4,979 NO in the capped sample. Reported as data. No conclusion is drawn.
-- **Backtest:** 250 settled markets were considered, and only 1 simulated trade was produced. **Not enough data to judge any strategy.**
+- **Coverage (CI run `44746820363`, branch build):** about 291,200 open markets (excluding multivariate combos) were read. 16,876 of them could not be mapped to a series and are excluded (Flagged F18). Per topic: gas 713, golf 1,986, crypto 76,495, culture 9,861, elections 35,341. The site writes the top 300 per topic.
+- **Sharp moves:** the run found 50 moves of at least $0.10 between consecutive 60-minute candles of the top 40 markets. The list is on the Moves page.
+- **Resolved sample:** 1 YES and 299 NO (300 rows shown). Reported as data. No conclusion is drawn.
+- **Backtest:** 250 settled markets were considered and 6 simulated trades were produced. **Not enough data to judge any strategy** (every group is below the 30-trade threshold).
 
 ## What is not done, and why
 

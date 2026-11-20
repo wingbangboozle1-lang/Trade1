@@ -40,7 +40,7 @@ These are rule-based strategies replayed over settled-market candles. **They are
 
 Results are grouped by strategy, topic, and price band (`<$0.10`, `$0.10–$0.49`, `$0.50–$0.89`, `≥$0.90`). A group with fewer than 30 trades is marked "insufficient sample".
 
-**Current result (CI run `44743945798`):** 250 settled markets were considered, 250 had candle responses, and **only 1 trade** was produced (strategy S0, gas, 1 contract, outcome NO, pnl −0.54). The sample is too small to support any conclusion. The likely cause is that most candle responses have no usable ask or bid. This is **not** explained yet; see FLAGGED_FOR_REVIEW.
+**Current result (CI run `44746820363`):** 250 settled markets were considered, 250 had candle responses, and **6 trades** were produced. Every strategy and band group is below the 30-trade threshold, so no conclusion is drawn. Why only 6 of 250 markets produced a trade is **not explained yet**; see FLAGGED_FOR_REVIEW (F7).
 
 Trade categorisation: every simulated trade is labelled with its strategy, topic, and price band, and carries `source_api` and `source_terms`.
 
