@@ -39,6 +39,10 @@ npm test
 
 Tests use Node's built-in test runner and Python's standard library only. They cover topic matching, numeric missing-value handling, the $0.10 threshold in both directions, the candidate screen, orderbook depth ordering, paper P&L, source links, and local HTML links/fragments. No live API response is used as test fixture data.
 
+## Separate published `/trade1/` site
+
+PR #18 added a distinct dashboard under [`trade1/`](https://wingbangboozle1-lang.github.io/Trade1/trade1/), with its own topic pages, public-data collector, checks, and six-hour refresh workflow. It is a separate integrated site, not a dependency of this Market Lens root dashboard. Its sources and limitations are recorded in `COORDINATION.md` and `trade1/flagged/`.
+
 ## Separate standalone paper engine
 
 The repository also preserves `scripts/paper_engine.py` from an earlier integration. It is a separate, dependency-free simulation script and is not used by this browser dashboard. Its output is hypothetical only; it does not connect to an account or place orders.

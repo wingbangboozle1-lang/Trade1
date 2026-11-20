@@ -276,12 +276,38 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - The merged v2 site remains the live, CI-passing deliverable; this session's contributions are the
   standalone automation script and the integration log.
 
+---
+
+## Session `arena/10000a95-trade1` — Trade1 site at `/trade1/` (additive, no existing file changed)
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| Repo review: line-by-line irregularities, sources | done | 10000a95 | `trade1/data/flags.json` (Flagged page) |
+| Public-API collector (topics, top-market detail, candles, ≥$0.10 jumps, resolution tracking) | done | 10000a95 | `scripts/trade1_collect.py` |
+| Static site at `/trade1/`: landing, 5 topic pages, jumps & resolutions, Flagged for Review | done | 10000a95 | `trade1/**` |
+| Checks: links, source link per row, flagged blanks, JS syntax | done | 10000a95 | `scripts/trade1_check.py` |
+| Refresh workflow (every 6h, commits data only when changed, `[skip ci]`) | done | 10000a95 | `.github/workflows/trade1.yml`, `.gitignore` (added `__pycache__/`) |
+| Simulated trades / backtests / demo-account portfolio | not built (blocked) | — | needs Kalshi API key pair as a secret; not requested |
+| Executive summary | not in this session's scope | — | — |
+
+**Coexistence:** `main` already has the v2 dashboard at the root (`index.html`, `pages.yml`, `data/snapshot.json`, PR #12/#14). This branch did not replace or edit any existing file. It adds `trade1/`, two scripts, one workflow, and appends to this file and README. Owner decision needed: keep both sites or make one canonical.
+
+**Sources (official):** Kalshi docs — [Get Events](https://docs.kalshi.com/api-reference/events/get-events.md) (status enum; deprecated event `category`), [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md) (periods 1/60/1440; price fields), [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook.md) (bids only; ascending), [Market Settlement](https://docs.kalshi.com/getting_started/market_settlement.md), [Demo environment](https://docs.kalshi.com/getting_started/demo_env.md), [docs index](https://docs.kalshi.com/llms.txt). Series categories: `https://api.elections.kalshi.com/trade-api/v2/series?category=Crypto`.
+
+**Verification:** live collector runs on this branch (GitHub Actions, dispatch): 44741797350 ok; 44745684193 ok; 44746265519 ok (collect + checks). Counts in that run: golf 345, gas-prices 995, crypto 4,388, elections 36,642, culture 10,387; 60 jumps; 30 tracked; 0 resolved. Page rendering tested in jsdom with a synthetic fixture (code paths only). Not verified: settled-market `result` enum; resolution tracking until a market settles.
+
+**Irregularities:** see the Flagged for Review page at `/trade1/flagged/` (section A repo findings with links; section B unverified items from each run).
+
+**Log**
+- Backup of the pre-integration commit: `685f608` (reflog only; a temporary branch was created and deleted in this session, against policy).
+- Rebased onto `main` @ `710726a`; the first integration (PR #1 state) is superseded by this additive layout.
+
 ### Final Market Lens integration — session `e3c4e789`
 
-- Claimed on Arena-assigned branch `arena/e3c4e789-trade1`, based on `main` at `73ba253`. Scope: a new root dashboard shell, five generated topic pages, browser-side logic, source review page, tests, and documentation.
-- `main` advanced while this branch was active. Latest upstream `710726a` includes merged PRs #12 and #14. The branch merges that history and preserves all other files, including the already-published v2 assets and `scripts/paper_engine.py`.
-- Shared root integration retains GitHub Pages' configured legacy source (`main` / repository root), confirmed by the Pages API (`build_type: legacy`, `status: built`). `.github/workflows/pages.yml` retains that publish path and adds the dashboard test suite to existing CI.
-- Overlap log: PR #12 (branch `arena/ed8bbdf4-trade1`) has merged; no work was done on its branch. Open PR #15 (`arena/08347343-trade1`) changes `index.html`, shared README/coordination and workflow files and includes large captured data; open PR #17 (`arena/f6094c46-trade1`) adds a separate `site/` tree plus shared README/coordination/workflow changes. Neither branch has been edited here; resolve shared-output ownership through integration.
-- This dashboard uses public demo REST market data, five text-matched topic filters, event grouping ranked by the highest fresh market-level 24-hour contract volume, sampled ±$0.10 YES-bid alerts, a separately labeled experimental spread/liquidity screen, selected-market charts, selectable bid depth, local paper strategies/performance, resolution tracking, and title-based news-search links labeled as context only.
-- Explicit limits: event-level dollar turnover is unverified and left blank; candidate ROI is not validated; account portfolio/order execution is not implemented; the historical archive is browser-local; no authenticated WebSocket or verified news attribution is claimed; browser-origin CORS/live data behavior remains unverified.
-- Local verification before PR refresh: `node --check app.js`, `node --check logic.js`, `npm test` (7 Node tests, generator synchronization, 7-page static audit), `node scripts/test_lib.mjs`, `node scripts/check_site.mjs` (1,154 snapshot rows, 625 resolved, 0 failures), `node tools/build.mjs` (18 HTML, 20 JS, 0 broken links), and `git diff --check` passed. PR/merge and this branch's post-merge Pages confirmation remain pending.
+- Claimed on Arena-assigned branch `arena/e3c4e789-trade1`, based on `main` at `73ba253`. Scope: the root Market Lens dashboard, five generated topic pages, browser-side logic, source review page, tests, documentation, and their CI validation.
+- Upstream `main` advanced during this work. Latest integrated commit at this update is `89c6e7f` (PR #18); the branch preserves the prior root v2 site history, the separate `/trade1/` site and its collector workflow, and `scripts/paper_engine.py`.
+- GitHub Pages remains configured as legacy source `main` / `/` (Pages API: `build_type: legacy`, `status: built`). The existing `pages.yml` keeps that source and adds `npm test`; this branch does not alter the separate `trade1.yml` workflow.
+- Overlap log: PR #12 and #18 have merged; no work was done on their branches. Open PR #15 (`arena/08347343-trade1`) overlaps `index.html`, README/coordination/workflow and contains large captured datasets; open PR #17 (`arena/f6094c46-trade1`) adds a separate `site/` tree plus shared documentation/workflow changes. No files on either branch were edited here.
+- Root dashboard features: public demo REST polling, five heuristic topic filters, event grouping ranked by the highest fresh market-level 24-hour contract volume, sampled ±$0.10 YES-bid alert feeds plus a separate experimental liquidity/spread screen, selected-market charts, selectable bid depth, local paper-strategy performance, resolution tracking, and explicitly contextual title-based news-search links.
+- Limits remain explicit: event-level dollar turnover is unverified and blank; ROI is not validated; account portfolio/order execution is not implemented; history is browser-local; no authenticated WebSocket, verified news attribution, or browser-origin CORS claim is made.
+- Local checks passed: `node --check app.js`, `node --check logic.js`, `npm test` (7 Node tests, topic synchronization, static link/source audit), `node scripts/test_lib.mjs`, `node scripts/check_site.mjs` (11 HTML, 125 links, 1,154 snapshot rows, 625 resolved, 0 failures), `node tools/build.mjs` (18 HTML, 20 JS, 0 broken links), and `git diff --check`. Pull request checks, merge and this branch's final Pages build are still pending.
