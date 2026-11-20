@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1216">
+<title>Elections | Kalshi Demo Monitor</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>window.category = 'Elections';</script>
+</head><body>
+<header>
+  <div class="brand"><div class="mark" style="background:var(--blue);color:#0b1e33">E</div><div>
+    <h1>Elections</h1>
+    <p>Political contracts — presidential, Senate, House, governor contests</p>
+  </div></div>
+  <a href="../dashboard.html" style="color:var(--muted);text-decoration:underline">→ Dashboard</a> · <a href="../index.html" style="color:var(--muted);text-decoration:underline">Landing</a>
+  <span class="pill" id="liveState">Checking API…</span>
+</header>
+
+<main class="wrap">
+  <div class="notice">
+    <b>Topic page: elections.</b> Markets below are filtered from the public demo market list by title/category keyword matching (election, president, senate, governor, congress, vote, electoral).
+    Matching is a heuristic — not an official Kalshi classification — so relevant markets may be missing or unrelated ones included. When connected, market rows come from the official demo API; check the status badge. This sandbox could not validate published-browser CORS.
+  </div>
+
+  <div class="toolbar" style="justify:flex-start;gap:12px">
+    <div class="controls"><button id="refresh">Refresh now</button></div>
+  </div>
+
+  <div class="cards">
+    <div class="card"><small>Open matching markets</small><strong id="marketCount">—</strong></div>
+    <div class="card"><small>Top displayed YES bid</small><strong id="topPrice">—</strong></div>
+    <div class="card"><small>Highest listed volume (contracts, first page)</small><strong id="topVolume">—</strong></div>
+    <div class="card"><small>Last updated</small><strong id="updated" style="font-size:16px">—</strong></div>
+  </div>
+
+  <div class="box">
+    <h2 id="tableTitle">Election markets</h2>
+    <span id="status" style="color:var(--muted)">Fetching open markets…</span>
+    <p class="muted" style="font-size:12.5px">Sorted by API-reported contract volume from the first market-list page (up to 1,000 records). Market rows link to official Kalshi API records; findings rows link to official references. Runtime values are unverified until the deployed browser can reach the API.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Market / event</th><th>YES bid</th><th>YES ask</th><th>Volume (contracts)</th><th>Best YES bid/ask sizes (contracts)</th><th>Status</th><th>Outcome</th></tr></thead>
+        <tbody id="markets"></tbody>
+      </table>
+    </div>
+    <p class="muted">The table shows best YES bid/ask prices and sizes. The selected market order book shows published YES/NO bid levels by price. Blank means unavailable — not zero.</p>
+  </div>
+
+  <div class="box">
+    <h2>Findings &amp; analysis — elections</h2>
+    <p class="muted" style="font-size:12.5px">Finding values remain blank when no event-specific official value has been verified. Every findings-table row links to an official Kalshi API endpoint or documentation reference.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Entry</th><th>Observation / value</th><th>Source</th><th>Verification status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Topic scope</td><td></td><td><a href="https://external-api.demo.kalshi.co/trade-api/v2" target="_blank" rel="noopener">Demo REST API</a></td><td class="tag-unverified">Unverified — live values not reachable from this session</td>
+          </tr>
+          <tr>
+            <td>Highest dollar-amount election event</td><td></td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets reference</a></td><td class="tag-unverified">Unverified — no total traded-dollar value computed; per-contract settlement value is not turnover</td>
+          </tr>
+          <tr>
+            <td>Sharp move ≥ $0.10 (last session)</td><td></td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets reference</a></td><td class="tag-unverified">Unverified — no live samples captured</td>
+          </tr>
+          <tr>
+            <td>Resolution outcome (yes/no)</td><td></td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Official Get Markets reference</a></td><td class="tag-unverified">Unverified — settled results are not archived; blank until an explicit yes/no result is returned</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Entries within this topic stay together on this page. Use the dashboard for live alerts and the contract-price chart.</p>
+  </div>
+</main>
+
+<script src="../assets/js/app.js"></script>
+</body></html>

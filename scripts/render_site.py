@@ -136,11 +136,23 @@ def render_topic_pages(out, topics):
         (out / f"{t['id']}.html").write_text(doc)
 
 
+REPORT_PAGE_MAP = {
+    "EXECUTIVE_SUMMARY.md": "summary.html",
+    "REPO_REVIEW.md": "review.html",
+    "API_VERIFICATION.md": "review_api.html",
+    "METHODOLOGY.md": "methodology.html",
+    "FLAGGED_FOR_REVIEW.md": "flagged_notes.html",
+}
+
+
 def render_markdown(root, out, src_rel, target, title, active):
     src = root / src_rel
     if not src.exists():
         return
     text = src.read_text()
+    # Report-to-report links point at .md files; map them to the rendered page names.
+    for md_name, page_name in REPORT_PAGE_MAP.items():
+        text = text.replace(f"({md_name})", f"({page_name})")
     if md is not None:
         body = md.markdown(text, extensions=["tables", "fenced_code", "toc"])
     else:

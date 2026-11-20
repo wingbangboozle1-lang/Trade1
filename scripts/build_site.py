@@ -27,7 +27,7 @@ NOW = int(time.time())
 GENERATED_AT = dt.datetime.fromtimestamp(NOW, dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 TOP_N_DETAIL = 40          # markets that get orderbook + candlestick detail
 RESOLVED_DAYS = 30
-MAX_ROWS_PER_TOPIC = 5000
+MAX_ROWS_PER_TOPIC = 300   # keeps the committed snapshot small (monitor/ is committed to main)
 MOVE_THRESHOLD = 0.10      # brief: sharp jump >= $0.10 in either direction
 
 FLAGS = []

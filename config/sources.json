@@ -121,7 +121,8 @@
       "url": "https://assets.kalshi.com/contract_terms/AAAGAS.pdf",
       "checked": "2026-11-20",
       "verified": "Contract-terms URL taken from the official series metadata (field contract_terms_url of GET /series). The PDF itself was NOT opened in this run.",
-      "notes": "URL pattern verified from API data only; PDF content not verified."
+      "notes": "URL pattern verified from API data only; PDF content not verified.",
+      "note": "Read 2026-11-20 (fetch returned the rendered text). Terms: Source Agency is AAA; Underlying is the average regular-gas price for the area on the date; Settlement Value $1.00; Minimum Tick $0.01; Expiration time 10:15 AM, 11:00 AM or 3:00 PM ET; if no data on the Expiration Date, resolves on the last available day's data. AAAGASNEW.pdf and AAAGASMINMAX.pdf (other gas series) were NOT opened."
     },
     {
       "id": "S16",
@@ -129,7 +130,8 @@
       "url": "https://kalshi.com/developer-agreement",
       "checked": "2026-11-20",
       "verified": "Linked from the API documentation landing page as the agreement that applies to API use.",
-      "notes": "Not read in full in this run. Flagged for manual review."
+      "notes": "Not read in full in this run. Flagged for manual review.",
+      "note": "NOT READ. Fetch of https://kalshi.com/developer-agreement returned only a PDF viewer placeholder ('Extracting text from PDF...'); no clauses were verified."
     }
   ]
 }
