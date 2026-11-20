@@ -13,6 +13,12 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 | a2ec5543 · T5 | Simulated strategies + trade categorisation | needs review (6 trades; sample too small to judge, F7) | a2ec5543 | `scripts/backtest.py`, `reports/METHODOLOGY.md` |
 | a2ec5543 · T6 | Executive summary + Flagged for Review | done (published; F1–F19) | a2ec5543 | `reports/EXECUTIVE_SUMMARY.md`, `reports/FLAGGED_FOR_REVIEW.md` |
 | a2ec5543 · T7 | Integration: PR to `main`, build check, publish, Pages verification | done (PR #4 `bbb3def`, PR #25 `ac067df`, PR #26 `5d0280a` merged; publish verified) | a2ec5543 | `COORDINATION.md` (this section) |
+| e82d36a3 · T1 | Chart annotations: mark ≥$0.10 jumps on the live chart + in-window jump/links strip | claimed 2026-11-20T19:0X in progress | e82d36a3 | `assets/app.js` |
+| e82d36a3 · T2 | Persistent CI paper-trading ledger (portfolio performance tracked on the site across runs, not just per browser) | claimed 2026-11-20 | e82d36a3 | `scripts/portfolio_engine.py`, `.github/workflows/portfolio.yml`, `data/portfolio.json`, `data/portfolio_state.json`, `portfolio.html`, `assets/portfolio.js` |
+| e82d36a3 · T3 | "More live & interactive" suggestions page + site nav wiring | claimed 2026-11-20 | e82d36a3 | `suggestions.html`, nav block of `index.html`, `dashboard.html`, `trades.html`, `data.html`, `methods.html`, `sources.html`, `flagged.html`, `topics/*.html`, `assets/app.js` (navHere) |
+| e82d36a3 · T4 | Line-by-line re-verification of root-site claims vs official Kalshi sources; flagged updates | claimed 2026-11-20 | e82d36a3 | `README.md`, `EXECUTIVE_SUMMARY.md`, `flagged.html`, `reports/VERIFICATION_e82d36a3.md` |
+| e82d36a3 · T5 | Disposition review of the 4 open PRs (#16, #15, #3, #2) — no edits to other sessions' files | claimed 2026-11-20 | e82d36a3 | `COORDINATION.md` (this section only) |
+| e82d36a3 · T6 | Integration: PR to `main`, checks, Pages verification | claimed 2026-11-20 | e82d36a3 | `COORDINATION.md` |
 
 | Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Full live dashboard v2: alerts, charts, orderbook, sim trading, resolutions, data pipeline, CORS verification, topic subpages, integration + PR + Pages | in progress | bb8bd1ff (branch `arena/bb8bd1ff-trade1`) | COORDINATION.md, README.md, index.html (takeover, see log), dashboard.html, trades.html, data.html, methods.html, flagged.html, sources.html, topics/*.html, assets/**, data/**, scripts/**, .github/workflows/verify-and-collect.yml |
@@ -396,3 +402,37 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
 - a2ec5543 — **merge record (T7).** PR #4 (`arena/a2ec5543-trade1` → `main`) merged as `bbb3def` (2026-11-20T14:10:57Z). PR #25 (publish-path fix) merged as `ac067df` (2026-11-20T14:38:42Z). Both merges were after the PR build passed on the head commit (site build, link check, and `checks` validator). **Publish verified:** the `main` run `44755444379` published `a2ec5543/` (commit `520ea52`). `monitor/` (session `f6094c46`) is intact on `main` (14 entries). Live check (page fetch): `https://wingbangboozle1-lang.github.io/Trade1/a2ec5543/` loads with the topic tables and source links; `gas.html` loads with 300 rows. The sandbox cannot reach `github.io` directly, so the check used the page fetcher.
 - a2ec5543 — live counts change with every snapshot. Reports cite the CI run they used (`44746820363`). The live landing page shows the latest run (`44755444379`): 122,505 open markets across the five topics; 300 settled in the last 30 days; 0 YES / 300 NO in that sample; 158 sharp moves; 8 automated flags.
 - a2ec5543 — **open items (not blocking, all flagged):** demo account tracking and execution (no credentials); S16 Developer Agreement not read; gas PDFs other than AAAGAS not opened; KXAAAGASM-26OCT31-4.18 empty candles (cause unknown); 16,876 open markets not mapped to a series (F18); backtest has too few trades to judge (F7); markdown asterisks in API titles (F19).
+
+---
+
+## Session e82d36a3 (claimed 2026-11-20T19:00Z, branch `arena/e82d36a3-trade1`, base `main` @ `069a1db`)
+
+Acting as the active integration session for the deployed root site (Pages source: `main` `/`, verified
+via `gh api repos/.../pages` → `build_type: legacy`, `status: built`).
+
+**Stale-claim handoff (logged per protocol):** the rows for `cedad5c4` (`**` in progress) and `bb8bd1ff`
+(root pages, `assets/**`, `scripts/**`, `data/**`) are more than 60 minutes old with no commits from those
+branches, and their work is already merged into `main` (PRs #17–#27 per the records above). `bb8bd1ff`'s row
+is marked `done` on the board. I therefore treat those claims as superseded and work additively on `main`:
+**no other session's file is deleted or rewritten** — legacy trees (`js/`, `css/`, `pages/`, `categories/`,
+`docs/`, `site/`, `monitor/`, `trade1/`, `a2ec5543/`, `probe/`) are left exactly as they are.
+
+**Tasks and file scope** (rows added to the board table above):
+- T1 — ≥$0.10 jump markers drawn on the live price chart + an in-window "jumps & links" strip (the brief asks
+  the chart itself to carry the event/news links that may explain a sharp move). Scope: `assets/app.js`.
+- T2 — persistent, CI-written paper-trading ledger so portfolio performance survives a browser change and
+  builds a real sample over time: `scripts/portfolio_engine.py` (stdlib only) mirrors the documented
+  `assets/model.js` rules and fee schedule, runs on a schedule, appends fills/settlements and writes
+  `data/portfolio.json`; page `portfolio.html` + `assets/portfolio.js` render equity curve, open positions,
+  categorized trade ledger and per-strategy/per-topic performance. Scope: new files + generated `data/portfolio*.json`.
+- T3 — `suggestions.html`: prioritized "make it more live and interactive" roadmap, each item tied to an
+  official capability (with links) and marked implemented / proposed / blocked; nav wiring on the root pages.
+- T4 — re-verify the root site's factual claims line by line against official Kalshi docs and the live demo
+  API (from a GitHub Actions runner / page fetcher; this sandbox has no route to `*.demo.kalshi.co` — verified
+  `SSL_ERROR_SYSCALL` at 18:58Z); record in `reports/VERIFICATION_e82d36a3.md`, publish gaps in `flagged.html`.
+- T5 — disposition review of open PRs #16, #15, #3, #2 (results below). No edits to those branches.
+- T6 — PR + merge + Pages verification + this record.
+
+**Out of scope by design:** real demo-account order execution (needs the owner's demo API key + RSA/Ed25519
+private key; session `20e3ad14`'s PR #2 keeps that implementation in `scripts/demo_account/**` and is left for
+the owner). Nothing on this branch requests, stores, or accepts credentials.
