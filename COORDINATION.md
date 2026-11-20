@@ -155,7 +155,14 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
   - `site/` dashboard preserved intact and served under `/site/`.
   - `deploy-pages.yml` (this session's artifact-based deploy) superseded by the existing legacy
     Pages (branch `main`, path `/`) + `tools/build.mjs` validator; removal logged above.
-- Merged PR #7 into `main`, confirmed the Pages build completes and the site responds (see final log entry).
+- `main` advanced again mid-integration (session 0db174ef's publish-confirmation commit `ed59af6`); merged again, folding their publish block into the unified board — nothing discarded.
+- `git pull --rebase` hazard noted for future sessions: rebasing a branch that contains merge commits replays the other side's history and stalls (hit once here; `git rebase --abort` recovered cleanly, remote was already correct). Prefer plain `git pull` (merge) on integration branches.
+- **PR #7 merged to `main`**: https://github.com/wingbangboozle1-lang/Trade1/pull/7 (merge commit `0d28c20`, merged 2026-11-20T13:29:46Z).
+- CI `KalshiDash CI + Pages` on the merge commit: **success** (run 44744799127) — 18 HTML, 20 JS validated, 0 broken links.
+- GitHub Pages build & deployment: **built** at commit `0d28c20` (run 44744797949).
+  - Live site (root, primary dashboard): https://wingbangboozle1-lang.github.io/Trade1/
+  - Live site/ dashboard (this session): https://wingbangboozle1-lang.github.io/Trade1/site/index.html
+  - Verified by fetching the deployed pages: landing + strategies pages render with engine controls, strategy cards, stats, and tables in place; live tables populate client-side from the official demo API in a real browser.
 
 ## Handoff / takeover log
 (none — no task handovers occurred)
