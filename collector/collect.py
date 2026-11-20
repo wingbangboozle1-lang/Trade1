@@ -236,8 +236,8 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
             "close_time": m.get("close_time"),
             "close_ts": parse_ts(m.get("close_time")),
             "open_time": m.get("open_time"),
-            "rules_primary": (m.get("rules_primary") or "")[:2000],
-            "rules_secondary": (m.get("rules_secondary") or "")[:2000],
+            "rules_primary": (m.get("rules_primary") or "")[:1200],
+            "rules_secondary": (m.get("rules_secondary") or "")[:400],
             "price_ranges": m.get("price_ranges") or [],
             "exchange_index": m.get("exchange_index"),
             "sources": {
@@ -248,6 +248,12 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
                 "site": f"https://kalshi.com/markets/{series_ticker.lower()}",
             },
         })
+
+    # Keep full rule text only for markets that will actually be read in the UI; the rest link out.
+    # (2,000 chars x ~5,000 markets was ~10 MB of every commit for text nobody scrolls to.)
+    for m in sorted(rows, key=lambda r: (-(r["dollar_volume"] or 0), r["ticker"]))[160:]:
+        m["rules_primary"] = ""
+        m["rules_secondary"] = ""
 
     # Liquidity: orderbooks for the biggest markets per topic (rate-limit friendly).
     by_topic = defaultdict(list)

@@ -175,6 +175,13 @@ def table(headers, rows, table_id="", wrap_class="", empty="No rows."):
 <tbody>{body}</tbody></table></div>'''
 
 
+def rank_key(m: dict):
+    """Ranking used for every 'what matters most' list: resting liquidity first (where an order could
+    actually fill), then traded dollars."""
+    liq = (m.get("book") or {}).get("total_liquidity_usd") or 0
+    return (-liq, -(m.get("dollar_volume") or 0))
+
+
 def load(name, default=None):
     return read_json(os.path.join(DATA, name), default)
 
@@ -320,8 +327,12 @@ def build_markets(snap, universe, jumps):
     for j in (jumps or {}).get("jumps") or []:
         jump_by_ticker[j["ticker"]].append(j)
 
+    # Chart payload only for the rendered slice; every entry carries its own sparkline.
+    charted = {m["ticker"] for m in sorted(markets, key=rank_key)[:ROW_LIMIT]}
     payload = {}
     for m in markets:
+        if m["ticker"] not in charted:
+            continue
         hist = load(os.path.join("timeseries", f'{m["ticker"].replace("/", "_")}.json'), {}) or {}
         points = hist.get("points") or m.get("spark") or []
         payload[m["ticker"]] = {
@@ -352,16 +363,10 @@ def build_markets(snap, universe, jumps):
         "b": m["yes_bid"], "a": m["yes_ask"], "dv": m["dollar_volume"],
         "d24": m["dollar_volume_24h"], "l": (m.get("book") or {}).get("total_liquidity_usd"),
         "q": (m.get("book") or {}).get("yes_bid_qty_total"),
-        "ct": m.get("close_time"), "u": (m.get("sources") or {}).get("site"),
+
     } for m in markets]
     write_json(os.path.join(OUT, "data", "market_index.json"),
                {"generated_at": (snap or {}).get("generated_at"), "markets": index_rows}, indent=0)
-
-    # Server-rendered rows are a starting view only. Ranking is by resting liquidity first (where an
-    # order could actually fill) then traded dollars, because a page of illiquid markets is useless.
-    def rank_key(m):
-        liq = (m.get("book") or {}).get("total_liquidity_usd") or 0
-        return (-liq, -(m.get("dollar_volume") or 0))
 
     shown = sorted(markets, key=rank_key)[:ROW_LIMIT]
     rows = []
