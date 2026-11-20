@@ -272,9 +272,12 @@ async function loadSeriesSets() {
   }
 }
 async function fetchEventsPages(maxPages) {
+  // Verified 2026-11-20: /events rejects limit=1000 (HTTP error) and accepts
+  // limit=200 (matching the deployed site's pipeline finding). Markets DO
+  // accept limit=1000 (verified live).
   let cursor = '', pages = 0, total = 0;
   do {
-    const d = await api('/events', { status: 'open', limit: 1000, cursor: cursor || undefined });
+    const d = await api('/events', { status: 'open', limit: 200, cursor: cursor || undefined });
     for (const ev of d.events || []) { S.events.set(ev.event_ticker, ev); total++; }
     cursor = d.cursor || ''; pages++;
   } while (cursor && pages < maxPages);
@@ -305,10 +308,10 @@ async function bootstrap() {
       return;
     }
     S.boot = { phase: 'loading', progress: 'fetching open events…' }; renderBoot();
-    const ne = await fetchEventsPages(5);
+    const ne = await fetchEventsPages(12);
     for (const ev of S.events.values()) ev._topic = topicOf(ev);
     S.boot = { phase: 'loading', progress: `fetched ${ne} open events · fetching open markets…` }; renderBoot();
-    const nm = await fetchMarketsPages(6);
+    const nm = await fetchMarketsPages(15);
     classifyMarkets(); aggregate();
     lsSet(LS.catalog, { at: Date.now(), events: [...S.events.values()], markets: [...S.markets.values()].map(stripRaw) });
     S.boot = { phase: 'live', progress: `${ne} events · ${nm} open markets scanned` };
@@ -322,9 +325,9 @@ function stripRaw(m) { const c = Object.assign({}, m); delete c._raw; return c; 
 function classifyMarkets() { for (const m of S.markets.values()) m._topic = (S.events.get(m.event_ticker) || {})._topic ?? null; }
 async function refreshCatalog(background) {
   try {
-    await fetchEventsPages(3);
+    await fetchEventsPages(4);
     for (const ev of S.events.values()) if (ev._topic == null) ev._topic = topicOf(ev);
-    await fetchMarketsPages(4);
+    await fetchMarketsPages(5);
     classifyMarkets(); aggregate();
     lsSet(LS.catalog, { at: Date.now(), events: [...S.events.values()], markets: [...S.markets.values()].map(stripRaw) });
     detectNewOpens();
