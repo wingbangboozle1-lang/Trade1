@@ -1,26 +1,57 @@
-name: Deploy static dashboard to GitHub Pages
+name: Build and deploy Kalshi Demo Monitor
+
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'   # refresh the build snapshot every 30 minutes (deploys from main only)
+
 permissions:
   contents: read
-  pages: write
-  id-token: write
+
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build snapshot from the official Kalshi demo API (public, read-only)
+        run: node scripts/build_snapshot.mjs --base demo --out site/data/snapshot.json
+      - name: Record CORS check for the GitHub Pages origin
+        run: |
+          {
+            echo "checked_at_utc: $(date -u +%FT%TZ)"
+            echo "origin: https://wingbangboozle1-lang.github.io"
+            echo "endpoint: https://external-api.demo.kalshi.co/trade-api/v2/markets?limit=1"
+            curl -sS -D - -o /dev/null -H "Origin: https://wingbangboozle1-lang.github.io" "https://external-api.demo.kalshi.co/trade-api/v2/markets?limit=1" \
+              | grep -i '^\(HTTP\|access-control-allow-origin\)' || echo "no access-control-allow-origin header returned"
+          } | tee site/data/cors_check.txt
+        continue-on-error: true
+      - name: Check links and source links
+        run: node scripts/check_site.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: site
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4

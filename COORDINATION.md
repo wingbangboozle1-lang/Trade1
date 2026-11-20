@@ -1,16 +1,27 @@
 # Coordination
 
+Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in progress`, `done`, `needs review` (published on the Flagged for Review page; does not block anything).
+
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
+| Kalshi demo dashboard, source research, site, verification, and deployment setup (prototype, PR #1) | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
+| Kalshi demo monitor v2: live dashboard, topic subpages, alerts, simulated strategies, resolved tracker, sources, flagged page, Pages build | in progress | cedad5c4 | `site/**`, `scripts/**`, `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `COORDINATION.md` (removes prototype `index.html`) |
+
+## Branch policy and overlaps
+
+- Session `cedad5c4` works only on its assigned branch `arena/cedad5c4-trade1`, branched from `main` at `73ba253`. The platform does not allow switching or pushing to other branches, so the `session-<id>/<task>` naming in the brief is not used.
+- The remote has about 12 other `arena/*` branches from other sessions (for example `arena/08347343-trade1`, `arena/a2ec5543-trade1`, `arena/10000a95-trade1`, `arena/46259c0d-trade1`). Several of them claim the same files (`index.html`, `.github/workflows/pages.yml`, `site/`). **None of them were merged or edited by this session.** Their claim tables live on their own branches, not on `main`. See Flagged item R9. The owner needs to choose which branch becomes the integration target. Pull and merge decisions are not made by this session.
 
 ## Task log
 
-### Kalshi demo dashboard
-- Claimed 2026-11-20 by session `ee533bdf`. Work stays on Arena-assigned branch `arena/ee533bdf-trade1`; branch policy prohibits switching/creating task branches.
-- Claim commit `b9425b3` pushed to the current branch. Initial `git pull --rebase origin arena/ee533bdf-trade1` failed because the remote branch did not yet exist; the current branch was then pushed with upstream tracking.
-- Implemented static dashboard with topic filters (keyword heuristic), open-market REST polling, market rows linked to Kalshi, selected-market YES-bid sampling and chart, orderbook bid quantity summary, $0.10 sampled jump notice, local-only paper-trade log categorized by strategy, official-reference links, executive summary, and explicit scope/safety flags.
-- Sources consulted (official Kalshi docs): [market data quick start](https://docs.kalshi.com/getting_started/quick_start_market_data), [WebSocket quick start](https://docs.kalshi.com/getting_started/quick_start_websockets), [authenticated request guide](https://docs.kalshi.com/getting_started/quick_start_authenticated_requests), [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets), [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-order-book). Endpoint URLs presented in the user brief match the demo endpoint pair documented by Kalshi in its documentation search result.
-- Verification performed: extracted embedded JavaScript and ran `node --check`; ran `git diff --check`. No live endpoint/browser CORS test was possible here; endpoint data are not represented as verified live values.
-- Flagged / not implemented: authenticated demo account, actual order execution/automation, account performance/settlement history, resolved-market outcome archive, official dollar-notional ranking (volume is shown without claiming dollar value), persistent WebSocket feed, verified news-cause attribution, and confirmation of Pages deployment. App deliberately stores no credentials and paper trades are not exchange trades. The topic filter is heuristic and needs review; dynamic rows are only present when API requests work.
-- Pages workflow deploys on `main`; GitHub repository Pages setting and successful deployed workflow remain unverified from this branch.
+### Kalshi demo dashboard (prototype, `ee533bdf`)
+- Claimed 2026-11-20 by session `ee533bdf`; merged to `main` via PR #1 (merge `73ba253`). Status: needs review.
+
+### Kalshi demo monitor v2 (`cedad5c4`)
+- Claimed 2026-11-20 by session `cedad5c4` on branch `arena/cedad5c4-trade1`, base `main` @ `73ba253`.
+- Scope: rebuild the static site as landing + five topic subpages + live dashboard + resolved + strategies + sources + Flagged for Review. Data are read only from the official Kalshi Trade API. Snapshot built in CI (`scripts/build_snapshot.mjs`). Checks in `scripts/check_site.mjs` and `scripts/test_lib.mjs`.
+- Sources consulted (official Kalshi docs, read 2026-11-20 UTC): API environments; market lifecycle; Get Markets; pagination; Get Trades; orderbook responses; rate limits; historical data; quick start market data; candlesticks; `llms.txt` index. Live responses observed from the demo REST endpoints (`/markets`, `/events`, `/series`) via the page fetcher. The sandbox itself has no route to Kalshi.
+- Verification performed: each referenced field name was checked against the official docs or an observed live response; `node --check` on all modules; `node scripts/test_lib.mjs` (offline fixtures for topic rules, swings, screen, orderbook, pagination); CI check `scripts/check_site.mjs` (every local link resolves; every snapshot and resolved row has a `source_url` on the configured API base).
+- Not done (blocked): demo account portfolio tracking and order execution need demo API credentials, which were not provided. Not built, not faked.
+- Irregularities: see Flagged for Review (`site/flagged.html`), items F1–F10 and R1–R9.
+- Deployment: Pages build type changed from legacy (branch `main`, path `/`) to GitHub Actions. The deploy step runs only on `main`. Deployment record and the PR/merge result are below once complete.

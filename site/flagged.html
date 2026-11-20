@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flagged for Review · Kalshi Demo Monitor</title><link rel="stylesheet" href="./assets/site.css">
+</head><body data-root="./">
+<header class="top" id="nav"></header>
+<main>
+<h1>Flagged for Review</h1>
+<p class="sub">Items the reviewer should check. These do not block publishing. Each item lists its source link or states that no verified source exists yet.</p>
+
+<section class="box" style="margin-bottom:14px">
+<h2>A · Data and method flags</h2>
+<div class="tablewrap"><table><thead><tr><th>#</th><th>Item</th><th>Detail</th><th>Source / check</th></tr></thead><tbody>
+<tr><td>F1</td><td>Demo ≠ production</td><td>The brief specifies the demo endpoint. Kalshi documents demo as a separate environment with separate credentials. Demo markets include test-style entries (for example custom strikes labelled “demo strike”). Demo prices may not reflect real Kalshi markets. A production read-only option is available on the dashboard (public endpoints).</td><td><a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">API environments</a></td></tr>
+<tr><td>F2</td><td>Topic rules are heuristics</td><td>Topics come from the official event <code>category</code> (only “Elections” and “Crypto” are mapped directly; “Entertainment” is mapped to Culture) and keyword regexes. Known risks: “gas” matches natural-gas contracts; “president” can match non-election text; “Masters” can match non-golf text; Entertainment includes non-culture events. Rules are listed on each topic page and in the snapshot file.</td><td>Rules in <code>site/assets/lib.mjs</code>; categories listed in the snapshot (<code>categories_seen</code>)</td></tr>
+<tr><td>F3</td><td>“Highest dollar amount” is derived</td><td>Kalshi does not publish an official per-event dollar-volume field in the market object. The dashboard ranks by open interest × notional value per contract (derived, labelled) or by contracts traded (official <code>volume_fp</code>). Contracts are not dollars.</td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a> (field list)</td></tr>
+<tr><td>F4</td><td>Cause of price swings not verified</td><td>Alerts show the move and the event’s official settlement sources as context. No news item has been matched to any move. Those links are not causes.</td><td>Leave blank until a verified source exists</td></tr>
+<tr><td>F5</td><td>Browser access to the API is not verified</td><td>The build sandbox has no route to Kalshi. The live pages call the API from the visitor’s browser, which needs CORS to allow the GitHub Pages origin. The CI build records a CORS check (see <code>site/data/cors_check.txt</code> after deploy). If blocked, pages fall back to the build snapshot and say so.</td><td>CORS behaviour is not described on the Kalshi pages checked; verification is by CI check only</td></tr>
+<tr><td>F6</td><td>Trade-history gaps</td><td>Trades before the historical cutoff move to <code>/historical/trades</code>; the chart uses the live endpoint only. Longer windows (1–6 hours) can be incomplete.</td><td><a href="https://docs.kalshi.com/getting_started/historical_data" target="_blank" rel="noopener">Historical data</a></td></tr>
+<tr><td>F7</td><td>Resolved history is incomplete</td><td>Resolved rows come from the first pages of <code>/events?status=settled</code> plus the build snapshot. Older settled markets are in historical endpoints not queried here.</td><td><a href="https://docs.kalshi.com/getting_started/historical_data" target="_blank" rel="noopener">Historical data</a>; <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market lifecycle</a></td></tr>
+<tr><td>F8</td><td>Rate limits unknown for public calls</td><td>The docs say unauthenticated requests have separate limits without stating numbers. Polling is paced and backs off on HTTP 429. No numeric limit is claimed.</td><td><a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">Rate limits</a></td></tr>
+<tr><td>F9</td><td>Simulated P&amp;L excludes fees and spreads</td><td>The series object lists <code>fee_type: quadratic</code> and <code>fee_multiplier: 1</code> for the series observed. Fees are not applied. Entries use the last trade price, not an executable ask.</td><td><a href="https://docs.kalshi.com/getting_started/orderbook_responses" target="_blank" rel="noopener">Orderbook responses</a> (spread); fee fields observed on <code>/series</code> (demo)</td></tr>
+<tr><td>F10</td><td>Small sample</td><td>Strategy results come from alerts observed in one browser. Win rates and averages are not statistically meaningful yet.</td><td>Internal method</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="box" style="margin-bottom:14px">
+<h2>B · Not done / blocked (needs your input)</h2>
+<div class="tablewrap"><table><thead><tr><th>#</th><th>Requested item</th><th>Status</th><th>Why</th></tr></thead><tbody>
+<tr><td>N1</td><td>Track the Kalshi <b>demo account</b> portfolio on the site</td><td>Not built. Left blank.</td><td>Account endpoints need an API key pair. Kalshi says demo keys work only with demo endpoints. No credentials were provided and none are stored.</td></tr>
+<tr><td>N2</td><td>Automated <b>order execution</b> on demo</td><td>Not built. No orders have been placed.</td><td>Same credential requirement. Order endpoints are authenticated.</td></tr>
+<tr><td>N3</td><td>Verified reasons for price swings (news/links)</td><td>Not built. Blank.</td><td>No verifiable source links to specific moves were available in this session.</td></tr>
+<tr><td>N4</td><td>Historical candlestick (OHLC) charts</td><td>Not built.</td><td>Needs series ticker per market; planned for a later pass.</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="box" style="margin-bottom:14px">
+<h2>C · Repository review findings (main branch, commit 73ba253)</h2>
+<div class="tablewrap"><table><thead><tr><th>#</th><th>Finding</th><th>Verification</th><th>Action in this branch</th></tr></thead><tbody>
+<tr><td>R1</td><td>Prototype labelled rows “open” while the API reports <code>active</code> (filter <code>status=open</code> is correct).</td><td><a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market lifecycle</a> (filter-to-status map); live response observed on demo <code>/events</code></td><td>Rows show API status values.</td></tr>
+<tr><td>R2</td><td>Prototype fetched only the first page (<code>limit=1000</code>, no cursor loop).</td><td><a href="https://docs.kalshi.com/getting_started/pagination" target="_blank" rel="noopener">Pagination</a></td><td>Cursor loop with page cap; truncation shown.</td></tr>
+<tr><td>R3</td><td>Prototype displayed <code>volume_fp</code> without units in a “Highest listed volume” card.</td><td><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a></td><td>Labelled as contracts; dollar figure is derived and labelled.</td></tr>
+<tr><td>R4</td><td>Repo Pages setting was a legacy build from <code>main</code> root, not a GitHub Actions build, which does not match the prototype’s <code>deploy-pages</code> workflow.</td><td>GitHub API: <code>repos/wingbangboozle1-lang/Trade1/pages</code> (build_type legacy, source main /)</td><td>Pages build type changed to GitHub Actions (see COORDINATION.md for the record).</td></tr>
+<tr><td>R5</td><td>Prototype workflow used <code>path: .</code>, which would publish the whole repository (including <code>.git</code>, the coordination file, and the workflow) to the site.</td><td>Workflow file on main</td><td>Only <code>site/</code> is uploaded.</td></tr>
+<tr><td>R6</td><td>GitHub Actions are pinned to major tags (e.g. <code>actions/checkout@v4</code>), not commit SHAs.</td><td>Workflow file on main</td><td>Not changed; flagged for review.</td></tr>
+<tr><td>R7</td><td>No LICENSE file and no <code>.gitignore</code> in the repository.</td><td><code>ls</code> of repo root on main</td><td>Not added (owner decision).</td></tr>
+<tr><td>R8</td><td>Prototype claimed CORS-dependent live data in the README without a check.</td><td>README on main</td><td>CI records a CORS check (F5).</td></tr>
+<tr><td>R9</td><td>About 12 other agent branches on the remote (e.g. <code>arena/08347343-trade1</code>, <code>arena/a2ec5543-trade1</code>) implement overlapping dashboards and claim the same files (<code>index.html</code>, <code>pages.yml</code>).</td><td><code>git ls-remote --heads origin</code></td><td>Not merged. Needs owner decision on which branch becomes the integration target.</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="box">
+<h2>D · Suggestions to make the site more live and interactive</h2>
+<ul class="clean">
+<li>Switch price updates from 15-second polling to the documented WebSocket feed (demo: <code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code>). <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">Source</a></li>
+<li>Keep a time series between builds (CI artifact or data branch) so charts can exceed the 6-hour browser window. <a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">Candlesticks endpoint</a> for official OHLC history.</li>
+<li>Add sparklines in the market table and a depth chart from the orderbook.</li>
+<li>Add sound or desktop alerts, a pause button and per-topic alert thresholds.</li>
+<li>Show the event’s official rules text next to each alert, so reviewers can read resolution criteria. <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Lifecycle</a></li>
+</ul>
+</section>
+<footer>Kalshi Demo Monitor · public, unauthenticated market data · educational, not financial advice · Kalshi is not affiliated with this site. <a href="./flagged.html">Flagged for Review</a> · <a href="./sources.html">Sources</a></footer>
+</main>
+<script type="module" src="./assets/app.mjs"></script>
+</body></html>
