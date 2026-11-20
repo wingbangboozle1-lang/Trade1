@@ -15,6 +15,7 @@ on:
       - "scripts/**"
       - "site/**"
       - "config/**"
+      - "reports/**"
       - ".github/workflows/site.yml"
   pull_request:
     branches: [main]
