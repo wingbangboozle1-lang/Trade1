@@ -19,7 +19,8 @@ on:
       - "scripts/**"
       - "config/**"
       - "assets/**"
-      - "docs/**"
+      - "sitegen/**"
+      - "data/**"
       - ".github/workflows/pipeline.yml"
 
 permissions:
@@ -109,6 +110,9 @@ jobs:
           path: .
 
   deploy:
+    # Pages publishes from main only. Branches still collect and commit data, so a PR can be
+    # reviewed with real data in it without touching the live site.
+    if: github.ref == 'refs/heads/main'
     needs: cycle
     runs-on: ubuntu-latest
     environment:
