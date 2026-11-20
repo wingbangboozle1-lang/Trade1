@@ -5,19 +5,21 @@
  * at the official bid/ask quotes with no slippage; see methods.html for the
  * documented assumptions and flagged.html for limitations.
  *
- * Fees: ON by default and pinned to the official taker formula
- *   fee = roundup(M x 0.07 x C x P x (1 - P))
- * from https://kalshi.com/docs/kalshi-fee-schedule.pdf (effective July 7, 2026;
- * re-read 2026-11-20). M is the per-series multiplier published by the demo
- * API on GET /series/{ticker} (`fee_multiplier`, official Get Series schema,
- * re-read 2026-11-20) and cached in state.seriesFees; it defaults to 1 (the
- * schedule's "default is 1 unless otherwise indicated") when a series record
- * has not been seen. The production PDF's Non-Standard table lists taker M=0
- * for KXBTCY/KXETHY while the demo API publishes fee_multiplier=1 for them —
- * that official-source conflict is published on flagged.html and the demo
- * (environment-matched) value is the one modelled here. Settlement pays $1 per
- * winning contract with no settlement fee (same document). Maker fees are NOT
- * modelled because a paper fill is assumed to be immediately matched (taker).
+ * Fees: ON by default and follow the official Kalshi fee schedule
+ * (https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026):
+ *   taker = round up(M x 0.07 x C x P x (1 - P))
+ *   maker = round up(M x 0.0175 x C x P x (1 - P))   [NOT modelled here]
+ * where M is the per-series multiplier. M resolution (see fee() below):
+ * the demo API's per-series fee_multiplier when a Series record has been seen
+ * (GET /series/{ticker}, official Get Series schema), else the schedule's
+ * "Non-Standard Fees" table (transcribed in data/fee_schedule_series.json;
+ * taker default 1), else the documented default 1. The production table lists
+ * taker M=0 for KXBTCY/KXETHY while the demo API publishes fee_multiplier=1
+ * for them — that official-source conflict is published on flagged.html 6b
+ * and the environment-matched demo value wins when the demo has published one.
+ * Settlement pays $1 per winning contract with no settlement fee (same
+ * document). Maker fees are NOT modelled because a paper fill is assumed to
+ * be immediately matched (taker).
  *
  * Topic classification mirrors scripts/topics.json (authoritative for the
  * data/ snapshots). The two MUST be kept in sync — flagged in flagged.html.
@@ -120,29 +122,64 @@ window.KalshiModel = (function () {
 
   /* ---------- fee (official schedule: taker = roundup(M x 0.07 x C x P x (1-P));
    * source: https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective July 7, 2026.
-   * M (default 1) is the per-series fee_multiplier published by the demo API —
-   * official Get Series schema: https://docs.kalshi.com/api-reference/market/get-series
-   * ("FeeMultiplier is a floating point multiplier applied to the fee
-   * calculations"); cached via noteSeriesFee() from Series objects the app
-   * already fetches. Unknown series use the schedule's documented default M=1.
-   * Maker fees are not modeled — paper fills assume immediately-matched orders.
+   * Maker formula (NOT modelled - paper fills assume an immediately-matched
+   * taker fill): roundup(M x 0.0175 x C x P x (1-P)). There is no settlement
+   * fee ("There is no settlement fee.").
    *
+   * M resolution order (two official sources; their conflict for KXBTCY/KXETHY
+   * is published on flagged.html item 6b and neither is silently dropped):
+   *   1. the DEMO API's per-series fee_multiplier when a Series record has been
+   *      seen - official Get Series schema (https://docs.kalshi.com/api-reference/market/get-series):
+   *      "FeeMultiplier is a floating point multiplier applied to the fee
+   *      calculations" - cached via noteSeriesFee() from Series objects the app
+   *      already fetches. Environment-matched: this broker papers demo fills.
+   *   2. else the schedule's "Non-Standard Fees" table, transcribed for review
+   *      in data/fee_schedule_series.json (series published as "no fees" have
+   *      M = 0, e.g. KXBTCY, KXETHY in production).
+   *   3. else the documented default M = 1 ("default is 1 unless otherwise
+   *      indicated").
    * Computed in integer arithmetic at M=1: official prices are 4dp (p4 = P *
    * 10000) and contract counts are 2dp (c2 = C * 100), so
-   *   fee_dollars = 7 * c2 * p4 * (10000 - p4) / 1e12
-   *   fee_cents   = 7 * c2 * p4 * (10000 - p4) / 1e10
+   *   fee_dollars = M * 7 * c2 * p4 * (10000 - p4) / 1e12
+   *   fee_cents   = M * 7 * c2 * p4 * (10000 - p4) / 1e10
    * Every published row of the schedule's General Trading Fees Table is
-   * reproduced exactly (see tests/root_engine.test.js). The naive float form
+   * reproduced exactly (tests/root_engine.test.js, scripts/test_fees.mjs,
+   * tests/model.test.js). The naive float form
    * ceil(0.07 * 100 * 0.5 * 0.5 * 100) = ceil(175.00000000000003) = 176,
-   * i.e. $1.76 where the official table says $1.75 — hence the integer path.
+   * i.e. $1.76 where the official table says $1.75 - hence the integer path.
    * Non-unit M (a demo-published multiplier such as 0.5) scales the same
    * expression and keeps the same round-up; M <= 0 means no taker fee. --- */
+  var NONSTANDARD_TAKER_MULTIPLIER = {
+    KXBTCY: 0,         // BTC price range EOY          - published "no fees"
+    KXCITRINI: 0,      // Will the Citrini scenario... - published "no fees"
+    KXDOED: 0,         // DOE eliminated               - published "no fees"
+    KXELECTIRAN: 0,    // Iran presidential election   - published "no fees"
+    KXETHY: 0,         // ETH price EOY                - published "no fees"
+    KXGAMBLINGREPEAL: 0,
+    KXGREENLAND: 0,
+    KXIRANDEMOCRACY: 0,
+    KXLAYOFFSYINFO: 0,
+    KXPAHLAVIHEAD: 0   // Will Pahlavi lead Iran?      - published "no fees"
+  };
+  /* Series ticker = the part of a market ticker before the first "-"
+   * (verified against GET /events/{event}: event.series_ticker). */
+  function seriesOf(ticker) {
+    var s = String(ticker || '');
+    var i = s.indexOf('-');
+    return i === -1 ? s : s.slice(0, i);
+  }
+  /* Upper-cased series key; accepts a series ticker or a full market ticker. */
+  function seriesOfTicker(ticker) {
+    return String(seriesOf(ticker) || '').toUpperCase();
+  }
   function takerMultiplier(series) {
-    // Accepts a series ticker or a full market ticker ("KXBTCY-26DEC31-100000").
     var key = seriesOfTicker(series);
-    var rec = key ? state.seriesFees[key] : null;
+    var rec = key ? state.seriesFees[key] : null;   // 1. demo-published (live, environment-matched)
     var m = rec ? Number(rec.m) : NaN;
-    return isFinite(m) ? m : 1; // schedule default: "default is 1 unless otherwise indicated"
+    if (isFinite(m)) return m;
+    var pm = NONSTANDARD_TAKER_MULTIPLIER[key];     // 2. published schedule (data/fee_schedule_series.json)
+    if (pm !== undefined) return pm;
+    return 1;                                       // 3. documented default
   }
   /* Cache one official Series record's fee fields. Never infers: a record
    * without a finite fee_multiplier is ignored (left blank + flagged upstream). */
@@ -237,6 +274,7 @@ window.KalshiModel = (function () {
     state.trades.push({
       id: Date.now() + ':' + Math.random().toString(36).slice(2, 7),
       t: new Date().toISOString(), ticker: m.ticker, event_ticker: m.event_ticker,
+      series_ticker: series,
       title: m.title, topic: m._topic || null, side: side, qty: qty,
       entry: ba.ask, strategy: strategy, status: 'open', mark: ba.bid,
       feeEntry: fEntry, series: series, feeMul: takerMultiplier(series),
@@ -249,10 +287,10 @@ window.KalshiModel = (function () {
   function closeTrade(t, price, reason, when) {
     var proceeds = t.qty * price;
     // Exit uses the multiplier recorded at entry (feeMul) so a mid-hold change
-    // to the cached series record cannot rewrite the trade's own economics.
+    // to a cached series record cannot rewrite the trade's own economics.
     var M = (t.feeMul !== undefined && t.feeMul !== null)
       ? Number(t.feeMul)
-      : takerMultiplier(t.series || seriesOfTicker(t.ticker));
+      : takerMultiplier(t.series || t.series_ticker || t.ticker);
     var f = feeWithM(price, t.qty, M);
     cash = Math.round((cash + proceeds - f) * 10000) / 10000;
     t.status = 'closed';
@@ -421,12 +459,12 @@ window.KalshiModel = (function () {
 
   return {
     state: state, TOPICS: TOPICS, classify: classify, score: score,
+    fee: fee, seriesOf: seriesOf, takerMultiplier: takerMultiplier,
     runStrategies: runStrategies, manage: manage, applyResolutions: applyResolutions,
     recordEquity: recordEquity, equity: equity, summary: summary,
     byStrategy: byStrategy, byTopic: byTopic, pushAlert: pushAlert,
-    persistAll: persistAll, reset: reset, fee: fee, alertMove: alertMove,
-    takerMultiplier: takerMultiplier, noteSeriesFee: noteSeriesFee,
-    seriesOfTicker: seriesOfTicker,
+    persistAll: persistAll, reset: reset, alertMove: alertMove,
+    noteSeriesFee: noteSeriesFee, seriesOfTicker: seriesOfTicker,
     topicById: function (id) { return TOPICS.filter(function (t) { return t.id === id; })[0] || null; }
   };
 })();

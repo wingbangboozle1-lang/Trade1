@@ -34,7 +34,7 @@ tracking, and every table row linked to the official API record it came from.
   data collector — see `data/cors.json`). Discovery via `GET /events?status=open&limit=200`
   (200 is the documented maximum), batched prices via `GET /markets?tickers=…`, depth via
   `GET /markets/{ticker}/orderbook`, seconds-windows via `GET /markets/trades`, longer windows via
-  `GET /series/{s}/markets/{t}/candlesticks` (`period_interval` 1 or 60 only).
+  `GET /series/{s}/markets/{t}/candlesticks` (`period_interval` accepts 1, 60 or 1440 minutes; the chart uses 1 and 60).
 - **Snapshots**: `.github/workflows/pages.yml` runs `scripts/collect.py` on a schedule from GitHub
   Actions (the runner can reach Kalshi; the build sandbox cannot), refreshes `data/` and commits it
   with a per-request log in `data/log.md`.
@@ -47,16 +47,20 @@ tracking, and every table row linked to the official API record it came from.
   are documented in [methods.html](methods.html) §8–§9. (The account-capable layer is separate: `demo-account.yml` +
   `scripts/demo_account/**`, which stays inert until the owner adds the demo-key secrets.)
 - **Paper trading**: four strategies in `assets/model.js` fill against official quotes with the
-  official taker fee `roundup(0.07 × C × P × (1−P))` from the
-  [fee schedule](https://kalshi.com/docs/kalshi-fee-schedule.pdf) and settle at $1 per winning
-  contract. `localStorage` only — no orders, no credentials.
+  official taker fee `roundup(M × 0.07 × C × P × (1−P))` from the
+  [fee schedule](https://kalshi.com/docs/kalshi-fee-schedule.pdf), where `M` is the per-series
+  taker multiplier from the schedule's Non-Standard Fees table (default 1; e.g. `KXBTCY`/`KXETHY`
+  are published as *no fees*, so `M = 0`). The transcribed table is published for review at
+  [`data/fee_schedule_series.json`](data/fee_schedule_series.json); rows that could not be read
+  unambiguously are listed there as not transcribed and fall back to `M = 1`. Paper trades settle
+  at $1 per winning contract. `localStorage` only — no orders, no credentials.
 
 ## Checks
 
 ```bash
 npm install --no-audit --no-fund jsdom   # test dependency only
 npm run build    # JS syntax + internal links + nav targets
-npm run test     # 25 assertions: real engine in jsdom over every page, alert math, sources
+npm run test     # 23 jsdom/page-engine assertions plus offline library tests
 node scripts/check_site.mjs   # every snapshot row carries an official source URL
 
 # the CI ledger's own checks (all offline, no credentials, no network needed)
@@ -70,7 +74,7 @@ CI (`.github/workflows/pages.yml`) runs all three on every push and pull request
 ## Safety & scope
 
 - Demo environment only (play money); demo prices may not match production.
-- Public read-only market data. No authentication, no API keys, no orders, no account endpoints.
+- The dashboard and paper engines use public read-only market data without authentication; paper trades never submit orders or call account endpoints. The separate opt-in [`demo-account/`](demo-account/index.html) console can read a real demo balance/positions and submit guarded demo orders only after the account owner supplies a demo API key ID and private key. No credentials are bundled, no live account request is sent by default, and the optional connection is not required for the automatic paper dashboard.
 - Dollar figures are computed estimates (contracts × price) and labelled as such; the API publishes
   no per-market dollar-notional field.
 - WebSocket is not used: the official docs require signed `KALSHI-ACCESS-*` headers **during the
