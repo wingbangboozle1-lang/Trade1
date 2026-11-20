@@ -1,0 +1,12 @@
+<!-- title: Resolved markets -->
+<section class="hero"><h1>Resolved markets (last 30 days)</h1>
+<p class="muted">Settled markets in the five topics, with the official result field. "YES" or "NO" comes from Kalshi's result value. Blank or scalar results are shown as-is and flagged.</p></section>
+<p class="small" id="rsum"></p>
+<div class="toolbar">
+  <input id="rsearch" type="search" placeholder="Search title or ticker…" aria-label="Search resolved">
+  <select id="rtopic" aria-label="Topic"></select>
+  <span class="small muted" id="rnote"></span>
+</div>
+<section class="box tablewrap">
+<table class="grid"><thead><tr><th>Market</th><th>Ticker</th><th>Topic</th><th>Result</th><th>Settled (UTC)</th><th class="num">Last YES</th><th class="num">Volume (contracts)</th><th>Source</th></tr></thead>
+<tbody id="rrows"></tbody></table></section>

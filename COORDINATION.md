@@ -6,6 +6,14 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 |---|---|---|---|
 | Kalshi demo dashboard, source research, site, verification, and deployment setup (prototype, PR #1) | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Kalshi demo monitor v2: live dashboard, topic subpages, alerts, simulated strategies, resolved tracker, sources, flagged page, Pages build | in progress | cedad5c4 | `**`, `scripts/**`, `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `COORDINATION.md` (removes prototype `index.html`) |
+| a2ec5543 · T1 | Repo review (line-by-line vs official sources, irregularities) | needs review | a2ec5543 | `reports/REPO_REVIEW.md` |
+| a2ec5543 · T2 | Official-source verification of Kalshi API fields and endpoints | needs review | a2ec5543 | `config/sources.json`, `reports/API_VERIFICATION.md` |
+| a2ec5543 · T3 | Market data pipeline (official demo REST → JSON, topics, moves, backtest) | in progress | a2ec5543 | `scripts/build_site.py`, `scripts/kalshi_api.py`, `scripts/backtest.py`, `scripts/render_site.py`, `scripts/check_site.py`, `config/topics.json` |
+| a2ec5543 · T4 | Category site: landing + subpages + tables + charts (under `monitor/`) | in progress | a2ec5543 | `site/**`, `.github/workflows/site.yml`, `monitor/**` (generated) |
+| a2ec5543 · T5 | Simulated strategies + trade categorisation | in progress | a2ec5543 | `scripts/backtest.py`, `reports/METHODOLOGY.md` |
+| a2ec5543 · T6 | Executive summary + Flagged for Review | in progress | a2ec5543 | `reports/EXECUTIVE_SUMMARY.md`, `reports/FLAGGED_FOR_REVIEW.md` |
+| a2ec5543 · T7 | Integration: PR to `main`, build check, publish, Pages verification | in progress | a2ec5543 | `COORDINATION.md` (this section), PR #4 |
+
 | Kalshi demo dashboard, source research, site, verification, and deployment setup | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Full live dashboard v2: alerts, charts, orderbook, sim trading, resolutions, data pipeline, CORS verification, topic subpages, integration + PR + Pages | in progress | bb8bd1ff (branch `arena/bb8bd1ff-trade1`) | COORDINATION.md, README.md, index.html (takeover, see log), dashboard.html, trades.html, data.html, methods.html, flagged.html, sources.html, topics/*.html, assets/**, data/**, scripts/**, .github/workflows/verify-and-collect.yml |
 ## Branch policy and overlaps
@@ -56,6 +64,18 @@ Action needed by the owners of #2, #3, #4, #6: rebase on `main` after cedad5c4's
 
 - Pages build type: `legacy` (`main` / `/`). Switching to `workflow` returned 403 with the available token, so the workflow's deploy job (main only) is not the publish path. Pages publishes from `main` root on push.
 - Branch CI: `pages.yml` runs `snapshot` (build + check) on the branch. Last successful run: 44744432306 (snapshot job success; checks skipped on branch). Checks: 71 links, 1,154 rows, 625 resolved rows, 0 failures.
+
+
+### Session a2ec5543 — T1–T7 (status as of 2026-11-20 UTC)
+
+- **Branch:** `arena/a2ec5543-trade1` (platform-assigned; `session-<id>/<task>` not used, see Branch policy). PR #4 to `main` is open as the T7 integration vehicle.
+- **Merged `origin/main` (`e1801ae`) into this branch on 2026-11-20.** Conflicts resolved as follows, and no other session's work was dropped: `index.html` and `.github/workflows/pages.yml` kept as on `main` (live; this branch's deletion of them is reverted); `COORDINATION.md` kept as on `main` with this section added. Our `site/` tree was namespaced to `site/assets` and `site/pages`, and does not overwrite `main`'s `site/index.html`, `site/js`, or `site/topics`.
+- **Publish path (decision, a2ec5543):** Pages is legacy `main /` (verified `gh api …/pages`, build_type `legacy`). Switching to the Actions source returned 403 (see the cedad5c4 deployment record), so `site.yml` builds the site and, on `main` only, commits it to `monitor/` with `[skip ci]`. Our site is served at `https://wingbangboozle1-lang.github.io/Trade1/monitor/`. This adds a folder; it does not change `main`'s root pages.
+- **Data sources used:** official Kalshi docs (`config/sources.json`, S01–S16). Live demo API, read only in CI (the sandbox cannot reach Kalshi). Limits: row caps of 300 per topic, 30-day settled window, 200,000 settled-row fetch cap (flagged when hit).
+- **Verified against official docs this session:** candlestick field layout (`price.*_dollars`, `yes_bid`, `yes_ask`, `volume_fp`, `open_interest_fp`), `GET /markets` filters (`status=settled` with `min_settled_ts`, `mve_filter=exclude`, `tickers`), orderbook best-bid-last ordering, and the AAAGAS contract terms PDF. `KalshiError` exists in our client (`scripts/kalshi_api.py`, our own class, not an official SDK type).
+- **CI status:** PR run `44745542560` (branch build of this commit) passed build, link check, and data checks. The first runs failed on a generator bug (`build_site.py`, fixed) and on the inline `open_raw` length call (fixed). Logs are unreadable from the sandbox; the build report is committed to the branch under `probe/build/`.
+- **Not done / blocked:** demo account tracking and trade execution need demo API credentials, which were not provided (no key in repo, none in chat). Developer Agreement (S16) PDF text did not extract, so it is listed as not read. `KXAAAGASM` empty candles (cause unknown) and the historical cutoff are logged as flags.
+- **Merge:** T7 merges only after the PR build passes and the `monitor/` publish is verified at the Pages URL. No merge has happened yet at the time of this entry.
 
 ## Network / environment constraint (read first)
 
@@ -275,6 +295,7 @@ Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed official
   `node tools/build.mjs` → BUILD OK — 18 HTML, 20 JS files validated, 0 broken links.
 - The merged v2 site remains the live, CI-passing deliverable; this session's contributions are the
   standalone automation script and the integration log.
+- a2ec5543 (2026-11-20 UTC): claimed T1–T7 (`1c37920`); merged `origin/main` (`e1801ae`) and kept main’s live files; site build + publish to `monitor/` (see section above); PR #4 open.
 
 ---
 

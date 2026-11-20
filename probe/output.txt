@@ -1,0 +1,812 @@
+BASE https://external-api.demo.kalshi.co/trade-api/v2
+exchange status: {"exchange_active": true, "exchange_index_statuses": [{"description": "Default", "exchange_active": true, "exchange_index": 0, "intra_exchange_transfers_active": true, "trading_active": true}, {"description": "Demo shard 1", "exchange_active": true, "exchange_index": 1, "intra_exchange_transfers_active": true, "trading_active": true}, {"description": "Demo shard 2", "exchange_active": true, "exchange_index": 2, "intra_exchange_transfers_active": true, "trading_active": true}, {"description": "", "exchange_active": true, "exchange_index": 3, "intra_exchange_transfers_active": true, "trading_active": true}], "intra_exchange_transfers_active": true, "trading_active": true}
+open events fetched: 12000
+CATEGORIES (open events): {'World': 3, 'Elections': 8471, 'Climate and Weather': 37, 'Science and Technology': 64, 'Politics': 627, 'Sports': 1352, 'Financials': 435, 'Entertainment': 413, 'Economics': 327, 'Companies': 74, 'Social': 5, 'Crypto': 71, 'Test': 1, 'Business': 1, 'AI': 4, 'Health': 1, 'Commodities': 2, '': 1, 'harrison-test': 9, 'Science & Technology': 1, 'Mentions': 101}
+MARKET STATUSES (open events): {'active': 89375, 'finalized': 1984, 'closed': 8}
+EVENT HITS: 8930
+SAMPLE MARKET KEYS: ['can_close_early', 'close_time', 'created_time', 'early_close_condition', 'event_ticker', 'exchange_index', 'expected_expiration_time', 'expiration_value', 'last_price_dollars', 'latest_expiration_time', 'market_type', 'no_ask_dollars', 'no_bid_dollars', 'no_sub_title', 'notional_value_dollars', 'open_interest_fp', 'open_time', 'previous_price_dollars', 'previous_yes_ask_dollars', 'previous_yes_bid_dollars', 'price_level_structure', 'price_ranges', 'result', 'rules_primary', 'rules_secondary', 'settlement_bounds_type', 'settlement_timer_seconds', 'status', 'ticker', 'title', 'updated_time', 'volume_24h_fp', 'volume_fp', 'yes_ask_dollars', 'yes_ask_size_fp', 'yes_bid_dollars', 'yes_bid_size_fp', 'yes_sub_title']
+EVENT KEYS: ['category', 'collateral_return_type', 'event_ticker', 'exchange_index', 'last_updated_ts', 'markets', 'mutually_exclusive', 'series_ticker', 'settlement_sources', 'strike_period', 'sub_title', 'title']
+   ('Climate and Weather', 'KXPRIMEENGCONSUMPTION', 'KXPRIMEENGCONSUMPTION-30', 'What will be the largest source of global primary energy consumption in 2030?')
+   ('Crypto', 'KXBTC', 'KXBTC-28APR0406', 'Bitcoin price range on Apr 4, 2029 at 6am EDT?')
+   ('Crypto', 'KXBTC', 'KXBTC-27MAY2410', 'BTC price range on May 24, 2027 at 10am EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-33MAY2100', 'BTC price on May 21, 2033 at 12am EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-33APR0610', 'Bitcoin price on Apr 6, 2033 at 10am EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28DEC1017', 'Bitcoin price on Dec 10, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28DEC0917', 'Bitcoin price on Dec 9, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28DEC0817', 'Bitcoin price on Dec 8, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28DEC0717', 'Bitcoin price on Dec 7, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28DEC0617', 'Bitcoin price on Dec 6, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28DEC0517', 'Bitcoin price on Dec 5, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28DEC0417', 'Bitcoin price on Dec 4, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1521', 'BTC price on Aug 15, 2028 at 9pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1520', 'BTC price on Aug 15, 2028 at 8pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1519', 'BTC price on Aug 15, 2028 at 7pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1518', 'BTC price on Aug 15, 2028 at 6pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1517', 'BTC price on Aug 15, 2028 at 5pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1516', 'BTC price on Aug 15, 2028 at 4pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1515', 'BTC price on Aug 15, 2028 at 3pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1514', 'BTC price on Aug 15, 2028 at 2pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1513', 'BTC price on Aug 15, 2028 at 1pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28AUG1512', 'BTC price on Aug 15, 2028 at 12pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JUL0421', 'BTC price on Jul 4, 2028 at 9pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JUL0419', 'BTC price on Jul 4, 2028 at 7pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JUL0418', 'BTC price on Jul 4, 2028 at 6pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JUL0417', 'BTC price on Jul 4, 2028 at 5pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JUL0416', 'BTC price on Jul 4, 2028 at 4pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JUL0415', 'BTC price on Jul 4, 2028 at 3pm EDT?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1902', 'Bitcoin price on Jan 19, 2028 at 2am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1901', 'Bitcoin price on Jan 19, 2028 at 1am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1900', 'Bitcoin price on Jan 19, 2028 at 12am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1823', 'Bitcoin price on Jan 18, 2028 at 11pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1822', 'Bitcoin price on Jan 18, 2028 at 10pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1821', 'Bitcoin price on Jan 18, 2028 at 9pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1820', 'Bitcoin price on Jan 18, 2028 at 8pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1819', 'Bitcoin price on Jan 18, 2028 at 7pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1818', 'Bitcoin price on Jan 18, 2028 at 6pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1817', 'Bitcoin price on Jan 18, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1617', 'Bitcoin price on Jan 16, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1302', 'Bitcoin price on Jan 13, 2028 at 2am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1301', 'Bitcoin price on Jan 13, 2028 at 1am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1300', 'Bitcoin price on Jan 13, 2028 at 12am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1223', 'Bitcoin price on Jan 12, 2028 at 11pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1222', 'Bitcoin price on Jan 12, 2028 at 10pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1220', 'Bitcoin price on Jan 12, 2028 at 8pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1219', 'Bitcoin price on Jan 12, 2028 at 7pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1218', 'Bitcoin price on Jan 12, 2028 at 6pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1102', 'Bitcoin price on Jan 11, 2028 at 2am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1100', 'Bitcoin price on Jan 11, 2028 at 12am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1023', 'Bitcoin price on Jan 10, 2028 at 11pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN1021', 'Bitcoin price on Jan 10, 2028 at 9pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0202', 'Bitcoin price on Jan 2, 2028 at 2am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0200', 'Bitcoin price on Jan 2, 2028 at 12am EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0123', 'Bitcoin price on Jan 1, 2028 at 11pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0122', 'Bitcoin price on Jan 1, 2028 at 10pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0121', 'Bitcoin price on Jan 1, 2028 at 9pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0120', 'Bitcoin price on Jan 1, 2028 at 8pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0119', 'Bitcoin price on Jan 1, 2028 at 7pm EST?')
+   ('Crypto', 'KXBTCD', 'KXBTCD-28JAN0117', 'Bitcoin price on Jan 1, 2028 at 5pm EST?')
+   ('Crypto', 'KXBTCDIFFICULTY', 'KXBTCDIFFICULTY-31DEC27', 'Will Bitcoin mining difficulty exceed these levels in 2027?')
+   ('Crypto', 'KXBTCPRICE', 'KXBTCPRICE-130000', 'When will Bitcoin cross $130k?')
+   ('Crypto', 'KXBTCPRICE', 'KXBTCPRICE-85000', 'When will Bitcoin cross $85k again?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2419', 'BTC price on Dec 24, 2027 at 7pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2418', 'BTC price on Dec 24, 2027 at 6pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2417', 'BTC price on Dec 24, 2027 at 5pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2416', 'BTC price on Dec 24, 2027 at 4pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2415', 'BTC price on Dec 24, 2027 at 3pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2414', 'BTC price on Dec 24, 2027 at 2pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2413', 'BTC price on Dec 24, 2027 at 1pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2412', 'BTC price on Dec 24, 2027 at 12pm EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2411', 'BTC price on Dec 24, 2027 at 11am EST?')
+   ('Crypto', 'KXMAXSHARDINGTEST', 'KXMAXSHARDINGTEST-27DEC2410', 'BTC price on Dec 24, 2027 at 10am EST?')
+   ('Economics', 'KXAAAGASD', 'KXAAAGASD-28SEP16', 'US Gas prices in at the end of in Sep 2028?')
+   ('Economics', 'KXEIAGASINVM', 'KXEIAGASINVM-27JAN29', 'US gasoline inventories at the end of November')
+   ('Economics', 'KXIAETHANOL', 'KXIAETHANOL-27JAN31', 'Iowa ethanol production this year')
+   ('Economics', 'KXINEQUALITY', 'KXINEQUALITY-28', 'Will Trump reduce inequality in the US?')
+   ('Economics', 'KXLAOILGASEMP', 'KXLAOILGASEMP-27APR30', 'Will Louisiana oil & gas extraction jobs rise YoY?')
+   ('Economics', 'KXMARCELLUSGAS', 'KXMARCELLUSGAS-27MAR31', 'Marcellus formation natural gas production this year')
+   ('Economics', 'KXPAGAS', 'KXPAGAS-27FEB26', 'Will Pennsylvania natural-gas production rise YoY?')
+   ('Economics', 'KXUTHOMEPRICE', 'KXUTHOMEPRICE-27FEB28', "Will Utah's House Price Index exceed 722.63 next quarter?")
+   ('Elections', 'CONTROLH', 'CONTROLH-2028', '2028 House winner')
+   ('Elections', 'CONTROLS', 'CONTROLS-2028', '2028 Senate winner')
+   ('Elections', 'GOVPARTYDE', 'GOVPARTYDE-28', 'Delaware governor winner? (2028)')
+   ('Elections', 'GOVPARTYIN', 'GOVPARTYIN-28', 'Indiana Governor winner? (2028)')
+   ('Elections', 'GOVPARTYLA', 'GOVPARTYLA-27', 'Louisiana governor winner? (2027)')
+   ('Elections', 'GOVPARTYMO', 'GOVPARTYMO-28', 'Missouri governor winner? (2028)')
+   ('Elections', 'GOVPARTYMS', 'GOVPARTYMS-27', 'Mississippi Governor winner? (2027)')
+   ('Elections', 'GOVPARTYMT', 'GOVPARTYMT-28', 'Montana governor winner? (2028)')
+   ('Elections', 'GOVPARTYNC', 'GOVPARTYNC-28', 'North Carolina governor winner? (2028)')
+   ('Elections', 'GOVPARTYND', 'GOVPARTYND-28', 'North Dakota governor winner? (2028)')
+   ('Elections', 'GOVPARTYUT', 'GOVPARTYUT-28', 'Utah governor winner? (2028)')
+   ('Elections', 'GOVPARTYVT', 'GOVPARTYVT-28', 'Vermont Governor Winner? (2028)')
+   ('Elections', 'GOVPARTYWV', 'GOVPARTYWV-28', 'West Virginia governor winner? (2028)')
+   ('Elections', 'HOUSENH2', 'HOUSENH2-26', 'Which party will win the House race for NH-02?')
+   ('Elections', 'KXADAMAWAGOV', 'KXADAMAWAGOV-27FEB06', 'Adamawa State Governor winner?')
+   ('Elections', 'KXADELAIDEMAYOR', 'KXADELAIDEMAYOR-27APR07', 'Adelaide Lord Mayor election winner?')
+   ('Elections', 'KXAGCOMMRACE', 'KXAGCOMMRACE-WV-28', 'West Virginia Agriculture Commissioner winner? (2028)')
+   ('Elections', 'KXAGCOMMRACE', 'KXAGCOMMRACE-NC-28', 'North Carolina Agriculture Commissioner winner? (2028)')
+   ('Elections', 'KXAGCOMMRACE', 'KXAGCOMMRACE-MS-27', 'Mississippi Agriculture Commissioner winner? (2027)')
+   ('Elections', 'KXAGCOMMRACE', 'KXAGCOMMRACE-LA-27', 'Louisiana Agriculture Commissioner winner? (2027)')
+   ('Elections', 'KXAGCOMMRACE', 'KXAGCOMMRACE-KY-27', 'Kentucky Agriculture Commissioner winner? (2027)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-WV-28', 'West Virginia Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-WA-28', 'Washington Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-VT-28', 'Vermont Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-UT-28', 'Utah Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-PA-28', 'Pennsylvania Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-OR-28', 'Oregon Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-NC-28', 'North Carolina Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-MT-28', 'Montana Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-MO-28', 'Missouri Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-IN-28', 'Indiana Attorney General winner? (2028)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-MS-27', 'Mississippi Attorney General winner? (2027)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-LA-27', 'Louisiana Attorney General winner? (2027)')
+   ('Elections', 'KXAGRACE', 'KXAGRACE-KY-27', 'Kentucky Attorney General winner? (2027)')
+   ('Elections', 'KXAGUASCALIENTESGOV', 'KXAGUASCALIENTESGOV-27JUN06', 'Aguascalientes Governor winner?')
+   ('Elections', 'KXAKMOV', 'KXAKMOV-AKSENATE26NOV03', 'Alaska Senate election margin of victory')
+   ('Elections', 'KXAKSTATELEG', 'KXAKSTATELEG-28SEN', 'Alaska State Senate winner? (2028)')
+   ('Elections', 'KXAKSTATELEG', 'KXAKSTATELEG-28HOUSE', 'Alaska State House winner? (2028)')
+   ('Elections', 'KXAKWAIBOMGOV', 'KXAKWAIBOMGOV-27FEB06', 'Akwa Ibom State Governor winner?')
+   ('Elections', 'KXALBERTAREFYES', 'KXALBERTAREFYES-29', 'Will Alberta vote to secede from Canada?')
+   ('Elections', 'KXALSTATELEG', 'KXALSTATELEG-30SEN', 'Alabama State Senate winner? (2030)')
+   ('Elections', 'KXALSTATELEG', 'KXALSTATELEG-30HOUSE', 'Alabama State House winner? (2030)')
+   ('Elections', 'KXAMEND22', 'KXAMEND22-29', 'Will Trump be allowed to run for a 3rd term?')
+   ('Elections', 'KXAMERICAPARTY2028', 'KXAMERICAPARTY2028-28SEP01', 'Will the America Party contest the 2028 U.S. presidential election?')
+   ('Elections', 'KXANDORRAPARLI', 'KXANDORRAPARLI-27MAY09', 'Andorran parliamentary election winner?')
+   ('Elections', 'KXAOCFIRSTRUN', 'KXAOCFIRSTRUN-28', 'Which office will Ocasio-Cortez run for first in 2028?')
+   ('Elections', 'KXAOCMAMDANICOMBO', 'KXAOCMAMDANICOMBO-28MAR', 'AOC 2028 run × Mamdani endorsement')
+   ('Elections', 'KXAOCRUN', 'KXAOCRUN-28', 'When will AOC announce her presidential candidacy?')
+   ('Elections', 'KXAREQUIPAGOV', 'KXAREQUIPAGOV-26NOV29', 'Arequipa Governor winner?')
+   ('Elections', 'KXARGENTINAPERONISTNOM', 'KXARGENTINAPERONISTNOM-27AUG08', "Who will be Argentina's Peronist presidential nominee?")
+   ('Elections', 'KXARGENTINAPRES', 'KXARGENTINAPRES-27', 'Who will win the next Argentine presidential election?')
+   ('Elections', 'KXARGENTINAPRES1R', 'KXARGENTINAPRES1R-27OCT24', 'Argentina presidential election: first round winner?')
+   ('Elections', 'KXARSTATELEG', 'KXARSTATELEG-28SEN', 'Arkansas State Senate winner? (2028)')
+   ('Elections', 'KXARSTATELEG', 'KXARSTATELEG-28HOUSE', 'Arkansas State House winner? (2028)')
+   ('Elections', 'KXASTURIAS', 'KXASTURIAS-27MAY23', 'Asturias regional election winner?')
+   ('Elections', 'KXATTYGENOH', 'KXATTYGENOH-26', 'Ohio Attorney General winner?')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-WV-28', 'West Virginia State Auditor winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-WA-28', 'Washington State Auditor winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-VT-28', 'Vermont Auditor of Accounts winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-UT-28', 'Utah State Auditor winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-PA-28', 'Pennsylvania Auditor General winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-ND-28', 'North Dakota State Auditor winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-NC-28', 'North Carolina State Auditor winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-MT-28', 'Montana State Auditor winner? (2028)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-MS-27', 'Mississippi State Auditor winner? (2027)')
+   ('Elections', 'KXAUDITORRACE', 'KXAUDITORRACE-KY-27', 'Kentucky Auditor winner? (2027)')
+   ('Elections', 'KXAUSTPM', 'KXAUSTPM-28SEP23', 'Prime Minister of Australia after the next election? ')
+   ('Elections', 'KXAUSTRALIAHOUSE', 'KXAUSTRALIAHOUSE-28', 'Who will win the next Australian House election?')
+   ('Elections', 'KXAUSTRALIASENATE', 'KXAUSTRALIASENATE-28', 'Who will win the next Australian Senate election?')
+   ('Elections', 'KXAZSTATELEG', 'KXAZSTATELEG-28SEN', 'Arizona State Senate winner? (2028)')
+   ('Elections', 'KXAZSTATELEG', 'KXAZSTATELEG-28HOUSE', 'Arizona State House winner? (2028)')
+   ('Elections', 'KXBAJAGOV', 'KXBAJAGOV-27JUN06', 'Baja California Governor winner?')
+   ('Elections', 'KXBALANCEPOWERCOMBO', 'KXBALANCEPOWERCOMBO-29FEB', '2028 Elections: Congress Balance of Power?')
+   ('Elections', 'KXBALEARIC', 'KXBALEARIC-27MAY23', 'Balearic Islands regional election winner?')
+   ('Elections', 'KXBARCELONACOUNCIL', 'KXBARCELONACOUNCIL-27MAY23', 'Barcelona municipal election winner?')
+   ('Elections', 'KXBAUCHIGOV', 'KXBAUCHIGOV-27FEB06', 'Bauchi State Governor winner?')
+   ('Elections', 'KXBCCONLEAD', 'KXBCCONLEAD-28JAN01', 'Who will be the next leader of the Conservative Party of British Columbia?')
+   ('Elections', 'KXBCNDPLEAD', 'KXBCNDPLEAD-28JAN01', 'Who will be the next leader of the New Democratic Party of British Columbia?')
+   ('Elections', 'KXBCSGOV', 'KXBCSGOV-27JUN06', 'Baja California Sur Governor winner?')
+   ('Elections', 'KXBEDFORDMAYOR', 'KXBEDFORDMAYOR-27MAY06', 'Bedford mayoral election winner?')
+   ('Elections', 'KXBELIZECITYMAYOR', 'KXBELIZECITYMAYOR-27MAR03', 'Belize City mayoral election winner?')
+   ('Elections', 'KXBENITOJUAREZMAYOR', 'KXBENITOJUAREZMAYOR-27JUN06', 'Benito Juárez, Mexico City mayoral election winner?')
+   ('Elections', 'KXBENUEGOV', 'KXBENUEGOV-27FEB06', 'Benue State Governor winner?')
+   ('Elections', 'KXBERGENCOUNCIL', 'KXBERGENCOUNCIL-27SEP13', 'Bergen City Council election winner?')
+   ('Elections', 'KXBERLINGOVMAYOR', 'KXBERLINGOVMAYOR-26OCT01', 'Next Governing Mayor of Berlin?')
+   ('Elections', 'KXBESHEARRUN', 'KXBESHEARRUN-28', 'Will Andy Beshear announce a presidential run?')
+   ('Elections', 'KXBLUETRICKLECOMBO', 'KXBLUETRICKLECOMBO-27FEB', 'Midterms: Blue trickle?')
+   ('Elections', 'KXBLUEWAVE08COMBO', 'KXBLUEWAVE08COMBO-27FEB', 'Midterms: Biggest blue wave since 2008?')
+   ('Elections', 'KXBOOKERRUN', 'KXBOOKERRUN-28', 'Will Cory Booker announce a presidential run?')
+   ('Elections', 'KXBRANTFORDBY', 'KXBRANTFORDBY-27MAY03', 'Brantford-Brant South by-election winner?')
+   ('Elections', 'KXBRAZILPRES', 'KXBRAZILPRES-30OCT27', '2030 Brazil Presidential election winner?')
+   ('Elections', 'KXBRAZILPRESPARTY', 'KXBRAZILPRESPARTY-30OCT27', '2030 Brazil Presidential election winner? (Party)')
+   ('Elections', 'KXBRCHAMBERPRES', 'KXBRCHAMBERPRES-27FEB01', "Who will be elected Brazil's Chamber of Deputies President?")
+   ('Elections', 'KXBRDEFMIN', 'KXBRDEFMIN-26OCT25', 'Who will be Brazilian defense minister after the election?')
+   ('Elections', 'KXBREMEN', 'KXBREMEN-27MAY30', 'Bremen state election winner?')
+   ('Elections', 'KXBRFINMIN', 'KXBRFINMIN-26OCT25', 'Who will be Brazilian finance minister after the election?')
+   ('Elections', 'KXBRFORMIN', 'KXBRFORMIN-26OCT25', 'Who will be Brazilian foreign minister after the election?')
+   ('Elections', 'KXBRISRAELSENCOMBO', 'KXBRISRAELSENCOMBO-27OCT', 'Brazil President, Israel PM & U.S. Senate combo')
+   ('Elections', 'KXBRSENATEPRES', 'KXBRSENATEPRES-27FEB01', "Who will be elected Brazil's Senate President?")
+   ('Elections', 'KXBRUVSEAT', 'KXBRUVSEAT-35', "Will Andrew Tate's party win a seat in the next UK election?")
+   ('Elections', 'KXBUTTIGIEGRUN', 'KXBUTTIGIEGRUN-28', 'When will Pete Buttigieg announce his presidential candidacy?')
+   ('Elections', 'KXCABALLOTMEASURES', 'KXCABALLOTMEASURES-26NOV03', 'Which ballot measures will pass in California?')
+   ('Elections', 'KXCAMPECHEGOV', 'KXCAMPECHEGOV-27JUN06', 'Campeche Governor winner?')
+   ('Elections', 'KXCANARIAS', 'KXCANARIAS-27MAY23', 'Canary Islands regional election winner?')
+   ('Elections', 'KXCANELECTION', 'KXCANELECTION-29OCT15', 'Next Canadian federal election winner?')
+   ('Elections', 'KXCANSNAP', 'KXCANSNAP-28JUL01', 'When will Canada announce a snap election?')
+   ('Elections', 'KXCANSNAPPROV', 'KXCANSNAPPROV-28', 'Which Canadian provinces will call a snap election before 2028?')
+   ('Elections', 'KXCASECESSION', 'KXCASECESSION-30', 'Will a ballot initiative on California secession qualify for a vote before 2030?')
+   ('Elections', 'KXCASTATELEG', 'KXCASTATELEG-28SEN', 'California State Senate winner? (2028)')
+   ('Elections', 'KXCASTATELEG', 'KXCASTATELEG-28ASM', 'California State Assembly winner? (2028)')
+   ('Elections', 'KXCAWEALTHTAXMOVD', 'KXCAWEALTHTAXMOVD-CAWEALTHTAX26NO', 'California Proposition 40 election margin of victory? (No)')
+   ('Elections', 'KXCHENNAICORP', 'KXCHENNAICORP-27FEB28', 'Who will win the next Greater Chennai Corporation election?')
+   ('Elections', 'KXCHESHIREMAYOR', 'KXCHESHIREMAYOR-27MAY06', 'Cheshire and Warrington mayoral election winner?')
+   ('Elections', 'KXCHICAGOMAYOR', 'KXCHICAGOMAYOR-27', 'Who will win the Chicago mayoral election?')
+   ('Elections', 'KXCHIHUAHUAGOV', 'KXCHIHUAHUAGOV-27JUN06', 'Chihuahua Governor winner?')
+   ('Elections', 'KXCHIMAYORADVANCE', 'KXCHIMAYORADVANCE-27MAR17', '2027 Chicago mayoral election: who will advance?')
+   ('Elections', 'KXCHRISTIERUN', 'KXCHRISTIERUN-28', 'Will Chris Christie announce a presidential run?')
+   ('Elections', 'KXCITRINI', 'KXCITRINI-28JUL01', 'Will the Citrini scenario happen?')
+   ('Elections', 'KXCLMPSOEMAJ', 'KXCLMPSOEMAJ-27MAY23', 'PSOE majority in the Cortes of Castilla-La Mancha?')
+   ('Elections', 'KXCLOSESTGOVERNOR', 'KXCLOSESTGOVERNOR-27JAN20', 'Closest Governor race in 2026?')
+   ('Elections', 'KXCOLIMAGOV', 'KXCOLIMAGOV-27JUN06', 'Colima Governor winner?')
+   ('Elections', 'KXCOLORADOSPRINGSMAYOR', 'KXCOLORADOSPRINGSMAYOR-27', 'Colorado Springs Mayor winner?')
+   ('Elections', 'KXCOMMGIFTS', 'KXCOMMGIFTS-26SEP30', 'FY2026 Commerce Department gifts and bequests (including Gold Card receipts)')
+   ('Elections', 'KXCONTROLH', 'KXCONTROLH-2030', '2030 U.S. House winner?')
+   ('Elections', 'KXCONTROLS', 'KXCONTROLS-2030', '2030 U.S. Senate winner?')
+   ('Elections', 'KXCORDOBAGOV', 'KXCORDOBAGOV-27OCT10', 'Córdoba Province Governor winner?')
+   ('Elections', 'KXCOSTATELEG', 'KXCOSTATELEG-28SEN', 'Colorado State Senate winner? (2028)')
+   ('Elections', 'KXCOSTATELEG', 'KXCOSTATELEG-28HOUSE', 'Colorado State House winner? (2028)')
+   ('Elections', 'KXCPCSIZE', 'KXCPCSIZE-27FEB01', 'Congressional Progressive Caucus size after the midterms?')
+   ('Elections', 'KXCPIPARTYCOMBO', 'KXCPIPARTYCOMBO-30MAR', '2029 inflation × 2028 winner')
+   ('Elections', 'KXCRUZRUN', 'KXCRUZRUN-28', 'Will Ted Cruz announce a presidential run?')
+   ('Elections', 'KXCTSTATELEG', 'KXCTSTATELEG-28SEN', 'Connecticut State Senate winner? (2028)')
+   ('Elections', 'KXCTSTATELEG', 'KXCTSTATELEG-28HOUSE', 'Connecticut State House winner? (2028)')
+   ('Elections', 'KXCUAUHTEMOCMAYOR', 'KXCUAUHTEMOCMAYOR-27JUN06', 'Cuauhtémoc, Mexico City mayoral election winner?')
+   ('Elections', 'KXCUMBRIAMAYOR', 'KXCUMBRIAMAYOR-27MAY06', 'Cumbria mayoral election winner?')
+   ('Elections', 'KXDARKHORSENOMD', 'KXDARKHORSENOMD-28', 'Will a dark horse win the 2028 Democratic nomination?')
+   ('Elections', 'KXDARKHORSENOMR', 'KXDARKHORSENOMR-28', 'Will a dark horse win the 2028 Republican nomination?')
+   ('Elections', 'KXDARKHORSEPRES', 'KXDARKHORSEPRES-28', 'Will a dark horse win the 2028 presidential election?')
+   ('Elections', 'KXDATACENTERMEASURES', 'KXDATACENTERMEASURES-26NOV03', 'Which data center ballot measures will pass?')
+   ('Elections', 'KXDECLAREPRESFIRSTD', 'KXDECLAREPRESFIRSTD-28NOV07', 'Who will be the first Democrat listed to announce a presidential run?')
+   ('Elections', 'KXDECLAREPRESFIRSTD', 'KXDECLAREPRESFIRSTD-28NOV01', 'Who will be the first Democrat listed to announce a presidential run? (More strikes)')
+   ('Elections', 'KXDECLAREPRESFIRSTR', 'KXDECLAREPRESFIRSTR-28NOV07', 'Who will be the first Republican listed to announce a presidential run?')
+   ('Elections', 'KXDEEPSOUTHDEMHOUSE', 'KXDEEPSOUTHDEMHOUSE-26NOV03', 'How many Deep South House seats will Democrats win this year?')
+   ('Elections', 'KXDELTASTATEGOV', 'KXDELTASTATEGOV-27FEB06', 'Delta State Governor winner?')
+   ('Elections', 'KXDEMDELMAJ', 'KXDEMDELMAJ-28SEP01', 'When will a Democrat win a 2028 pledged delegate majority?')
+   ('Elections', 'KXDEMFIRSTWINNOM', 'KXDEMFIRSTWINNOM-28', 'Will the first Democratic contest winner be the nominee?')
+   ('Elections', 'KXDEMSTATESUPERMAJ', 'KXDEMSTATESUPERMAJ-26NOV03', 'Where will Democrats win state legislative supermajorities in 2026?')
+   ('Elections', 'KXDEMSTATESWEEP', 'KXDEMSTATESWEEP-28DEC05', 'Which states will Democrats sweep statewide in 2028?')
+   ('Elections', 'KXDENVERMAYOR', 'KXDENVERMAYOR-27', 'Denver Mayor winner?')
+   ('Elections', 'KXDESTATELEG', 'KXDESTATELEG-28SEN', 'Delaware State Senate winner? (2028)')
+   ('Elections', 'KXDESTATELEG', 'KXDESTATELEG-28HOUSE', 'Delaware State House winner? (2028)')
+   ('Elections', 'KXDHOUSESEATS', 'KXDHOUSESEATS-27', 'How many House seats will Democrats hold after the Midterms?')
+   ('Elections', 'KXDHOUSESEATSDIR', 'KXDHOUSESEATSDIR-27', 'How many House seats will Democrats hold after the Midterms? (Directional)')
+   ('Elections', 'KXDOMINICANREPUBLICDEPUTIES', 'KXDOMINICANREPUBLICDEPUTIES-28', 'Who will win the next Dominican Republic Chamber of Deputies election?')
+   ('Elections', 'KXDOMINICANREPUBLICSENATE', 'KXDOMINICANREPUBLICSENATE-28', 'Who will win the next Dominican Republic Senate election?')
+   ('Elections', 'KXDPRESFRACTURED', 'KXDPRESFRACTURED-28AUG31', 'Will the 2028 Democratic presidential primary be fractured?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28WY', '2028 Wyoming Democratic caucus winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28WV', '2028 West Virginia Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28WI', '2028 Wisconsin Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28WA', '2028 Washington Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28VT', '2028 Vermont Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28VA', '2028 Virginia Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28UT', '2028 Utah Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28TX', '2028 Texas Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28TN', '2028 Tennessee Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28SD', '2028 South Dakota Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28RI', '2028 Rhode Island Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28PA', '2028 Pennsylvania Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28OR', '2028 Oregon Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28OK', '2028 Oklahoma Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28OH', '2028 Ohio Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28NY', '2028 New York Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28NV', '2028 Nevada Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28NM', '2028 New Mexico Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28NJ', '2028 New Jersey Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28NH', '2028 New Hampshire Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28NE', '2028 Nebraska Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28ND', '2028 North Dakota Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28NC', '2028 North Carolina Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28MT', '2028 Montana Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28MS', '2028 Mississippi Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28MO', '2028 Missouri Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28MN', '2028 Minnesota Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28MI', '2028 Michigan Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28ME', '2028 Maine Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28MD', '2028 Maryland Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28MA', '2028 Massachusetts Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28LA', '2028 Louisiana Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28KY', '2028 Kentucky Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28KS', '2028 Kansas Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28IN', '2028 Indiana Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28IL', '2028 Illinois Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28ID', '2028 Idaho Democratic caucus winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28IA', '2028 Iowa Democratic caucus winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28HI', '2028 Hawaii Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28GA', '2028 Georgia Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28FL', '2028 Florida Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28DE', '2028 Delaware Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28DC', '2028 District of Columbia Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28CT', '2028 Connecticut Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28CO', '2028 Colorado Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28CA', '2028 California Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28AZ', '2028 Arizona Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28AR', '2028 Arkansas Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28AL', '2028 Alabama Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28AK', '2028 Alaska Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMARY', 'KXDPRESPRIMARY-28SC', '2028 South Carolina Democratic primary winner?')
+   ('Elections', 'KXDPRESPRIMWIN', 'KXDPRESPRIMWIN-28ANY', 'Who will win a state in the 2028 Democratic primaries?')
+   ('Elections', 'KXDPRESSWEEP', 'KXDPRESSWEEP-28SEP01', 'Will anyone win every 2028 Democratic primary and caucus?')
+   ('Elections', 'KXDPRESWINCOUNT', 'KXDPRESWINCOUNT-28AUG31', 'How many candidates will win a 2028 Democratic primary?')
+   ('Elections', 'KXDSAENDORSE28', 'KXDSAENDORSE28-28MAR01', 'Who will DSA endorse in the 2028 presidential election?')
+   ('Elections', 'KXDSENATESEATS', 'KXDSENATESEATS-29', 'Democratic Senate Seat Count (2028)')
+   ('Elections', 'KXDSENATESEATSH', 'KXDSENATESEATSH-27', 'How many Senate seats will Democrats hold after the Midterms? (Higher strikes)')
+   ('Elections', 'KXDTICKET', 'KXDTICKET-28NOV07', '2028 Democratic Presidential ticket')
+   ('Elections', 'KXECCOMPACT', 'KXECCOMPACT-30', 'Will the National Popular Vote Interstate Compact reach 270 electoral votes before 2030?')
+   ('Elections', 'KXEDINBURGHCOUNCIL', 'KXEDINBURGHCOUNCIL-27MAY06', 'City of Edinburgh Council election winner?')
+   ('Elections', 'KXELECTUKRAINE', 'KXELECTUKRAINE-30JAN01', 'When will Ukraine hold a presidential election?')
+   ('Elections', 'KXEMANUELRUN', 'KXEMANUELRUN-28', 'Will Rahm Emanuel announce a presidential run?')
+   ('Elections', 'KXENGLANDLOCAL', 'KXENGLANDLOCAL-27MAY06', 'English Local Elections winner?')
+   ('Elections', 'KXESTONIAPARLI', 'KXESTONIAPARLI-27MAR07', 'Estonia parliamentary election winner?')
+   ('Elections', 'KXESTONIAPM', 'KXESTONIAPM-27MAR07', 'Prime Minister of Estonia after the 2027 election?')
+   ('Elections', 'KXEUEXITCOUNTRY', 'KXEUEXITCOUNTRY-30', 'Which countries will vote to leave the EU before 2030?')
+   ('Elections', 'KXEUPARLIAMENT', 'KXEUPARLIAMENT-29JUN10', 'European Parliament election winner?')
+   ('Elections', 'KXEUREF', 'KXEUREF-30', 'What countries will hold referenda on leaving the EU?')
+   ('Elections', 'KXFIJIPM', 'KXFIJIPM-27FEB06', 'Prime Minister of Fiji after the next election?')
+   ('Elections', 'KXFIJIREF', 'KXFIJIREF-26DEC09', 'Will the 2026 Fijian constitutional referendum pass?')
+   ('Elections', 'KXFINLANDPARLI', 'KXFINLANDPARLI-27', 'Who will win the next Finnish general election?')
+   ('Elections', 'KXFINLANDPM', 'KXFINLANDPM-27APR18', 'Prime Minister of Finland after the 2027 election?')
+   ('Elections', 'KXFIRSTENDORSENOMD', 'KXFIRSTENDORSENOMD-28', "Which groups' first 2028 endorsement will be the Democratic nominee?")
+   ('Elections', 'KXFLSTATELEG', 'KXFLSTATELEG-28SEN', 'Florida State Senate winner? (2028)')
+   ('Elections', 'KXFLSTATELEG', 'KXFLSTATELEG-28HOUSE', 'Florida State House winner? (2028)')
+   ('Elections', 'KXFRENCHPRES', 'KXFRENCHPRES-27', 'Who will win the 2027 French presidential election?')
+   ('Elections', 'KXFRENCHPRES1R', 'KXFRENCHPRES1R-27APR18', 'Will anyone win the next French presidential election in the first round?')
+   ('Elections', 'KXFRPRES1R1ST', 'KXFRPRES1R1ST-27-1', 'Next French presidential election: 1st place (1st round)')
+   ('Elections', 'KXFRPRES1R2ND', 'KXFRPRES1R2ND-27-2', 'Next French presidential election: 2nd place (1st round)')
+   ('Elections', 'KXFRPRES1R3RD', 'KXFRPRES1R3RD-27-3', 'Next French presidential election: 3rd place (1st round)')
+   ('Elections', 'KXFRPRESADVANCE', 'KXFRPRESADVANCE-26APR18', 'French presidential election: who will advance?')
+   ('Elections', 'KXFRPRESBALLOT', 'KXFRPRESBALLOT-27JUN30', '2027 French Presidential Election: who will be on the ballot?')
+   ('Elections', 'KXFRPRESCANDCOUNT', 'KXFRPRESCANDCOUNT-27APR17', 'How many candidates will be on the 2027 French presidential first-round ballot?')
+   ('Elections', 'KXGAMBIAPARLI', 'KXGAMBIAPARLI-27APR10', 'Gambian parliamentary election winner?')
+   ('Elections', 'KXGANGNEUNGBY', 'KXGANGNEUNGBY-27APR07', 'Gangneung National Assembly by-election winner?')
+   ('Elections', 'KXGASTATELEG', 'KXGASTATELEG-28SEN', 'Georgia State Senate winner? (2028)')
+   ('Elections', 'KXGASTATELEG', 'KXGASTATELEG-28HOUSE', 'Georgia State House winner? (2028)')
+   ('Elections', 'KXGDPPARTYCOMBO', 'KXGDPPARTYCOMBO-30MAR', '2029 GDP growth × 2028 winner')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATETX-26', 'Texas Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATEOHS-26', 'Ohio Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATENC-26', 'North Carolina Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATEMI-26', 'Michigan Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATEME-26', 'Maine Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATEKS-26', 'Kansas Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATEIA-26', 'Iowa Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-SENATEGA-26', 'Georgia Senate: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-GOVPARTYTX-26', 'Texas Governor: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-GOVPARTYOH-26', 'Ohio Governor: margin of victory')
+   ('Elections', 'KXGENERALMOV', 'KXGENERALMOV-GOVPARTYIA-26', 'Iowa Governor: margin of victory')
+   ('Elections', 'KXGEORGIAPARLI', 'KXGEORGIAPARLI-28', 'Who will win the next Georgian parliamentary election?')
+   ('Elections', 'KXGERELECTION', 'KXGERELECTION-29MAR25', 'Next German federal election winner?')
+   ('Elections', 'KXGERPRES', 'KXGERPRES-27JAN30', 'German presidential election winner?')
+   ('Elections', 'KXGHANAPARLI', 'KXGHANAPARLI-28', 'Who will win the next Ghanian parliamentary election?')
+   ('Elections', 'KXGHANAPRES', 'KXGHANAPRES-28', 'Who will win the next Ghanian presidential election?')
+   ('Elections', 'KXGLASGOWCOUNCIL', 'KXGLASGOWCOUNCIL-27MAY06', 'Glasgow City Council election winner?')
+   ('Elections', 'KXGOAASSEMBLY', 'KXGOAASSEMBLY-27MAR14', 'Who will win the next Goa Assembly election?')
+   ('Elections', 'KXGOMBEGOV', 'KXGOMBEGOV-27FEB06', 'Gombe State Governor winner?')
+   ('Elections', 'KXGOPDELMAJ', 'KXGOPDELMAJ-28SEP01', 'When will a Republican win a 2028 delegate majority?')
+   ('Elections', 'KXGOPFIRSTWINNOM', 'KXGOPFIRSTWINNOM-28', 'Will the first Republican contest winner be the nominee?')
+   ('Elections', 'KXGOPSTATESUPERMAJ', 'KXGOPSTATESUPERMAJ-26NOV03', 'Where will Republicans win state legislative supermajorities in 2026?')
+   ('Elections', 'KXGOPSTATESWEEP', 'KXGOPSTATESWEEP-28DEC05', 'Which states will Republicans sweep statewide in 2028?')
+   ('Elections', 'KXGOVKYNOMD', 'KXGOVKYNOMD-27', 'Kentucky Democratic Governor nominee?')
+   ('Elections', 'KXGOVKYNOMR', 'KXGOVKYNOMR-27', 'Kentucky Republican Governor nominee?')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-DER-28', 'Delaware Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-DED-28', 'Delaware Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-VTR-28', 'Vermont Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-VTD-28', 'Vermont Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-MOR-28', 'Missouri Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-MOD-28', 'Missouri Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-UTR-28', 'Utah Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-UTD-28', 'Utah Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-NHR-28', 'New Hampshire Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-NHD-28', 'New Hampshire Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-NDR-28', 'North Dakota Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-NDD-28', 'North Dakota Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-MTR-28', 'Montana Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-MTD-28', 'Montana Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-NCR-28', 'North Carolina Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-NCD-28', 'North Carolina Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-WVR-28', 'West Virginia Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-WVD-28', 'West Virginia Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-INR-28', 'Indiana Republican Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-IND-28', 'Indiana Democratic Governor nominee? (2028)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-MSR-27', 'Mississippi Republican Governor nominee? (2027)')
+   ('Elections', 'KXGOVNOM', 'KXGOVNOM-MSD-27', 'Mississippi Democratic Governor nominee? (2027)')
+   ('Elections', 'KXGOVRACE', 'KXGOVRACE-TX-30', 'Texas Governor winner? (2030)')
+   ('Elections', 'KXGOVRACE', 'KXGOVRACE-VA-29', 'Virginia Governor winner? (2029)')
+   ('Elections', 'KXGOVRACE', 'KXGOVRACE-NJ-29', 'New Jersey Governor winner? (2029)')
+   ('Elections', 'KXGOVRACE', 'KXGOVRACE-NH-28', 'New Hampshire Governor winner? (2028)')
+   ('Elections', 'KXGREECEPARLI', 'KXGREECEPARLI-27', 'Who will win the next Greek general election?')
+   ('Elections', 'KXGREEKPM', 'KXGREEKPM-27JUL25', 'Prime Minister of Greece after the next election?')
+   ('Elections', 'KXGREENLANDSNAP', 'KXGREENLANDSNAP-28', 'When will Greenland call a snap election?')
+   ('Elections', 'KXGUADALAJARAMAYOR', 'KXGUADALAJARAMAYOR-27JUN06', 'Guadalajara, Jalisco mayoral election winner?')
+   ('Elections', 'KXGUATEMALACITYMAYOR', 'KXGUATEMALACITYMAYOR-27JUN27', 'Guatemala City mayoral election winner?')
+   ('Elections', 'KXGUATEMALACONGRESS', 'KXGUATEMALACONGRESS-27', 'Who will win the next Guatemalan Congressional election?')
+   ('Elections', 'KXGUATEMALAPRES', 'KXGUATEMALAPRES-27JUN27', 'Guatemalan presidential election winner?')
+   ('Elections', 'KXGUERREROGOV', 'KXGUERREROGOV-27JUN06', 'Guerrero Governor winner?')
+   ('Elections', 'KXHASANRUN', 'KXHASANRUN-AR', 'When will Hasan Piker announce a run for public office?')
+   ('Elections', 'KXHENNEPINCOUNTYATTORNEY', 'KXHENNEPINCOUNTYATTORNEY-26', 'Hennepin County Attorney winner?')
+   ('Elections', 'KXHFCCHAIR', 'KXHFCCHAIR-26DEC01', '120th Congress: Who will be House Freedom Caucus Chair?')
+   ('Elections', 'KXHISTATELEG', 'KXHISTATELEG-28SEN', 'Hawaii State Senate winner? (2028)')
+   ('Elections', 'KXHISTATELEG', 'KXHISTATELEG-28HOUSE', 'Hawaii State House winner? (2028)')
+   ('Elections', 'KXHOKKAIDOGOV', 'KXHOKKAIDOGOV-27APR11', 'Hokkaido gubernatorial election winner?')
+   ('Elections', 'KXHOUSEPOPVOTEMARGIND', 'KXHOUSEPOPVOTEMARGIND-26NOV03', '2026 Midterms: House popular vote margin of victory? (Directional)')
+   ('Elections', 'KXHOUSEPOPVSGB', 'KXHOUSEPOPVSGB-26NOV03', '2026 Midterms: House popular vote vs. generic ballot?')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WYAL-28', 'WY-AL House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WV02-28', 'WV-02 House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WV01-28', 'WV-01 House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WI08-28', 'WI-08 House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WI07-28', 'WI-07 House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WI06-28', 'WI-06 House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WI05-28', 'WI-05 House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WI04-28', 'WI-04 House winner? (2028)')
+   ('Elections', 'KXHOUSERACE', 'KXHOUSERACE-WI03-28', 'WI-03 House winner? (2028)')
+series fetched: 16643
+SERIES CATEGORIES: {'Economics': 937, 'Sports': 4238, 'Entertainment': 2625, 'Politics': 2415, 'Science and Technology': 393, 'Climate and Weather': 538, 'Elections': 2709, 'Commodities': 115, 'Companies': 193, 'World': 139, 'Financials': 1189, 'Mentions': 503, 'Crypto': 320, 'Health': 95, 'other': 26, '': 80, 'Social': 50, 'Transportation': 36, 'Test': 8, 'Exotics': 14, 'AI': 6, 'Culture': 2, 'harrison-test': 6, 'test': 1, 'Business': 1, 'Finance': 2, 'Education': 1, 'Other': 1}
+SERIES HITS: 5131
+   Politics | KXMODIOUT | Narendra Modi out as Prime Minister of India? | ['International'] | https://assets.kalshi.com/contract_terms/EFFECTIVELEAVE.pdf
+   Elections | GOVPARTYNC | North Carolina Governor | ['Governor'] | https://assets.kalshi.com/contract_terms/GOVPARTY.pdf
+   Elections | KXDEMDELMAJ | Democratic pledged delegate majority | ['2028', 'Nomination race', 'US Elections'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Entertainment | KXBILLBOARDPEAK | x | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/BILLBOARDPEAK.pdf
+   Entertainment | KXSONGCHART | How many spots will media occupy on chart | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/SONGSONCHART.pdf
+   Elections | KXMOBILEMAYOR | Mobile mayor winner | None | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXSENATESCR | SCR | ['Primaries'] | https://assets.kalshi.com/contract_terms/SENATEPARTYNOM.pdf
+   Financials | PRESINDEXD | Presidential index performance | None | https://assets.kalshi.com/contract_terms/PRESINDEX.pdf
+   Sports | KXTGLMATCH | TGL Golf Match | ['Golf'] | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+   Elections | KXTERREBONNE | Who will win the Terrebonne by-election? | None | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Politics | KXWHPRESSBANCOURT | White House Press Ban Court Relief | ['SCOTUS & courts'] | https://assets.kalshi.com/contract_terms/JUDGEMENT.pdf
+   Entertainment | KXRTDESPICABLEME4 | Despicable Me 4 Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Elections | KXVOTESWEDEN | Swedish general election party vote share | ['International elections', 'International'] | https://assets.kalshi.com/contract_terms/VOTEPERCENT.pdf
+   Elections | KXAPCALLAKSEN | When will AP call the Alaska U.S. Senate election? | ['Senate', 'US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONTIMECALL.pdf
+   Entertainment | KXTOPSHOWPV | What will be the top show by hours watched on platform this week? | ['Movies', 'Television'] | https://assets.kalshi.com/contract_terms/RANKLIST.pdf
+   Entertainment | KXTOURJOJI | Will joji announce a tour this year? | ['Music'] | https://assets.kalshi.com/contract_terms/TOUR.pdf
+   Entertainment | KXMUSICREPORT | music report | ['Music charts', 'Music', 'Music Industry'] | https://assets.kalshi.com/contract_terms/RANKLISTMUSICINDUSTRY.pdf
+   Entertainment | KXALBUMRELEASETRAVYE | WILL KANYE WEST AND TRAVIS SCOTT RELEASE AN ALBUM TOGETHER | ['Music'] | https://assets.kalshi.com/contract_terms/ALBUMRELEASE.pdf
+   Economics | KXAAAGASM | US gas price | ['Oil & Gas', 'Oil and energy'] | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+   Politics | KXDANAWHITEWHVISIT | Will Dana White visit the White House? | ['Trump'] | https://assets.kalshi.com/contract_terms/VISITAREA.pdf
+   Politics | KXZACHARIANEXTBRIEF | Zacharia's next White House briefing | ['Trump'] | https://assets.kalshi.com/contract_terms/EVENTCONFIRMED.pdf
+   Elections | KXELECTIONMOVNJGOVD | Mikie Sherill MOV | None | https://assets.kalshi.com/contract_terms/ELECTIONMOV.pdf
+   Entertainment | KXSPOTIFY3D | Daily US Spotify chart #3 | ['Music charts'] | https://assets.kalshi.com/contract_terms/SPOTIFYCHARTRANK.pdf
+   Financials | KXFALLOUTRELEASE | Will Bethesda announce a new Fallout game before the middle of 2026? | ['Video games'] | https://assets.kalshi.com/contract_terms/NEWPRODUCTRELEASE.pdf
+   Politics | KXHOUSEMINORITY | House Minority Leader | None | https://assets.kalshi.com/contract_terms/LEADERSHIP.pdf
+   Entertainment | KXROCKANDROLLHALLOFFAME | ROCK AND ROLL HALL OF FAME  | ['Music', 'Awards'] | https://assets.kalshi.com/contract_terms/HALLOFFAME.pdf
+   Entertainment | KXTOPALBUMTHEROMANTIC | WILL THE ROMANTIC BY BRUNO MARS BE NUMBER 1 | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUM.pdf
+   Elections | KXSAXANHMP | Next Minister-President of Saxony-Anhalt | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXMNSENGOVCOMBO | Minnesota Senate-Governor Combo | ['Senate', 'Mixed Combos', 'US Elections', 'Governor', 'Election Combos'] | https://assets.kalshi.com/contract_terms/POLITICALECONOMICEVENTS.pdf
+   Politics | KXFINANCECEONEXT | Next Finance CEO the President meets | None | https://assets.kalshi.com/contract_terms/CEONEXT.pdf
+   Entertainment | KXGRAMMYNOMBRA | Grammy Award for Best Rap Album | ['Music', 'Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMYNOM.pdf
+   Elections | KXBERLINANYSEAT | Which parties will win a seat in the Berlin state election? | ['International elections', 'International'] | https://assets.kalshi.com/contract_terms/SEATCOUNT.pdf
+   Elections | SENATEMI | Michigan Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Entertainment | ACMAVMOTY | x | ['Awards', 'Music'] | https://assets.kalshi.com/contract_terms/ACMA.pdf
+   Elections | KXBARMMCM | Bangsamoro Chief Minister election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | RTREAGAN | Reagan Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Entertainment | KXDONDA2 | Donda 2 release | ['Music'] | https://assets.kalshi.com/contract_terms/DONDA2.pdf
+   Elections | KXTHAILANDPM | Who will be the next Prime Minister of Thailand? | ['Foreign Elections'] | https://assets.kalshi.com/contract_terms/GOVHEAD.pdf
+   Elections | KXBEXARDA | Bexar County District Attorney winner | ['Local', 'US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Crypto | KXBTCMAXMON | Bitcoin monthly one touch | ['Bitcoin', 'Crypto'] | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+   Sports | KXLIVCOMPETE | Golfers to Compete in a LIV Event | ['Golf'] | https://assets.kalshi.com/contract_terms/ATHLETEEVENT.pdf
+   Entertainment | TOPALBUMSABRINA | SABRINA Carpenter Top Album | ['Music', 'Music charts', 'Taylor Swift'] | https://assets.kalshi.com/contract_terms/TOPALBUM.pdf
+   Crypto | KXZECMINMON | Z cash min monthly | ['Crypto', 'Zcash'] | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+   Entertainment | KXTOUR | WHO WILL ANNOUNCE A TOUR THIS YEAR? | ['Music'] | https://assets.kalshi.com/contract_terms/TOUR.pdf
+   Elections | KXLEBANONPARLI | Lebanon parliament | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXLATINGRAMMYBNA | LATING GRAMMY BEST NEW ARTIST | None | https://assets.kalshi.com/contract_terms/LATINGRAMMY.pdf
+   Entertainment | KXLEASTSTREAMEDSONGTLOASG | What will be the least streamed song on taylor swifts the life of a showgirl | ['Music'] | https://assets.kalshi.com/contract_terms/LEASTSTREAMED.pdf
+   Entertainment | KXRTMOANA2 | MOANA 2 Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Entertainment | KXGRAMBROS | Best Rock Song  | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Entertainment | KXYTVIEWSD | daily view count | ['Views', 'Daily Views', 'Music'] | https://assets.kalshi.com/contract_terms/PERIODMEDIACONSUMPTION.pdf
+   Elections | KXSPAINTURNOUT | Spain General Election Voter Turnout | ['International elections'] | https://assets.kalshi.com/contract_terms/VOTECOUNT.pdf
+   Economics | KXAAAGASCDOH | Ohio gas price | ['Oil and energy', 'Econ Daily'] | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+   Entertainment | KXRTTHEHOUSEMAID | THE HOUSEMAID ROTTEN TOMATOES SCORE | ['Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Entertainment | KXSPOTIFYSONGSPPROMEO | Romeo | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGS.pdf
+   Elections | KXSECSTATEIN | Indiana Secretary of State winner? | ['US Elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXSAGAWARDCASTCOMEDY | SAG Award Best Cast in a COMEDY Series | ['Awards', 'Movies'] | https://assets.kalshi.com/contract_terms/SAGAWARDS.pdf
+   Entertainment | KXFEATURETYLERTHECREATOR | Who will be on tyler the creators album | ['Music'] | https://assets.kalshi.com/contract_terms/FEATURE.pdf
+   Sports | KXBRASILEIROMOV | Method of Victory | ['Soccer'] | https://assets.kalshi.com/contract_terms/SOCCERADVANCEMETHOD.pdf
+   Entertainment | KXGRAMMYCOUNTLAD | AWARD | None | https://assets.kalshi.com/contract_terms/AWARDSCOUNT.pdf
+   Elections | CONTROLH | House winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/CONTROL.pdf
+   Entertainment | KXSONGSONCHARTTSWIFT6 | TAYLOR SWIFT HOLDS ALL TOP 12 SONGS ON BILLBOARD HOT 100 CHART | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/SONGSONCHART.pdf
+   Entertainment | KX1SONGTYLA | Tyla top song | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/1SONG.pdf
+   Elections | KXSHERRILLCOUNTIES | Mikie Sherrill Counties won | ['US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Entertainment | KXTOPALBUMBYFRANKOCEAN | FRANK OCEAN #1 Album | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMBY.pdf
+   Entertainment | KX1SONG-KDOT | Kendrick top song | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/1SONG.pdf
+   Politics | KXHJUDICIARYRM | House Judiciary ranking member | ['Congress', 'Leadership & committees'] | https://assets.kalshi.com/contract_terms/CONGRESSCHAIR.pdf
+   Entertainment | OSCARPROD | Oscar for Best Production Design | ['Awards', 'Movies', 'Oscars'] | https://assets.kalshi.com/contract_terms/OSCARS.pdf
+   Elections | KXGASEN1R | Will a candidate win outright in the Georgia Senate election? | None | https://assets.kalshi.com/contract_terms/WINR1.pdf
+   Politics | KXISRHEALTHMIN | Who will be Israeli health minister after the election? | ['International', 'Israel & Middle East'] | https://assets.kalshi.com/contract_terms/CABINETFORM.pdf
+   Elections | KXSADIQKHANRUN | Will Sadiq Khan seek a fourth term as Mayor of London? | ['International elections', 'UK & Ireland'] | https://assets.kalshi.com/contract_terms/EVENTCONFIRMED.pdf
+   Elections | KXOHHAWKINS | OH Supreme Court: Hawkins seat winner? | ['US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Entertainment | KXTOP20 | Billboard Top 20 artists | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOP20.pdf
+   Politics | KXSPEAKER | Speaker of the House | None | https://assets.kalshi.com/contract_terms/LEADERSHIP.pdf
+   Entertainment | KXPERFORMROLEBPANTHER | next player black panther | ['Movies'] | https://assets.kalshi.com/contract_terms/ROLEINPRODUCTIONCHARACTER.pdf
+   Elections | KXVIRGINIAHOUSEDEMS | Virginia House of Delegates Dems seats | ['US Elections', 'Other US Elections', 'Election Combos'] | https://assets.kalshi.com/contract_terms/SEATCOUNT.pdf
+   Entertainment | KXGRAMBNA | Grammy for Best New Artist | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Elections | KXSTATELEGFL | Florida Legislature race winner? | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONWINFL.pdf
+   Sports | KXPGATOP20 | PGA Top 20 Finisher | ['Golf'] | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+   Elections | KXHUNGARYPRES | Next President of Hungary | ['International elections'] | https://assets.kalshi.com/contract_terms/NEXTROLE.pdf
+   Economics | KXAAAGASCDGA | Georgia gas price | ['Oil and energy', 'Econ Daily'] | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+   Elections | KXOSHAWAMAYOR | Oshawa, Ontario mayoral election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Politics | KXPCSAHOUSEVOTE | Will the House vote on the Protect College Sports Act? | ['Congress'] | https://assets.kalshi.com/contract_terms/CONGRESSVOTES.pdf
+   Elections | KXTNPRIMARY | Tennessee Primary Winners | ['Primaries'] | https://assets.kalshi.com/contract_terms/HOUSEPARTYNOM.pdf
+   Elections | KXPRESLEAVEFR | FRENCH President leaving | None | https://assets.kalshi.com/contract_terms/PRESLEAVE.pdf
+   Elections | KXFARRERBYELECTION | Farrer by-election winner? | ['International elections', 'Foreign Elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Politics | KXMINWAGEHOUSE | House passage of a federal minimum wage increase | ['Economy', 'Congress', 'Taxes & spending', 'Health & social bills'] | https://assets.kalshi.com/contract_terms/BILL.pdf
+   Elections | KXMONGOLIAPRES | Mongolia Presidency | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Politics | KXFULLLIDBEFORE8PM | Will the White House Press Office call a full lid before 8PM? | ['Recurring'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Elections | KXMISENATE | Michigan Senate winner? (Person) | ['US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Economics | KXAAAGASDCA | California gas price | ['Oil and energy', 'Econ Daily'] | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+   Elections | KXBRPRES2ABROAD | Brazil presidential runoff: vote abroad winner | ['International elections', 'Brazil'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Politics | KX538APPROVE | President 538 approval rating this week | None | https://assets.kalshi.com/contract_terms/538APPROVE.pdf
+   Sports | KXPGA5BALL | PGA 5-Ball | ['Golf'] | https://assets.kalshi.com/contract_terms/GOLF5BALL.pdf
+   Elections | KXCA32D | CA 32 Democratic primary | ['Primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/HOUSEPARTYNOM.pdf
+   Politics | KXMIRANCOUNT | Miran Senate yeas | ['Congress'] | https://assets.kalshi.com/contract_terms/CONFCOUNT.pdf
+   Entertainment | KXGRAMBCMSEP | Best Chamber Music/Small Ensemble Performance | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Elections | PRESPARTYWI | Wisconsin presidential winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/PRESPARTYSTATE.pdf
+   Economics | AAAGASMAX | US highest gas price yearly | ['Oil and energy'] | https://assets.kalshi.com/contract_terms/AAAGASMINMAX.pdf
+   Elections | KXSCOTSNAP | Scotland snap election | ['International'] | https://assets.kalshi.com/contract_terms/REPORTTOPIC.pdf
+   Elections | PRESPARTYIA | Iowa presidential winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/PRESPARTYSTATE.pdf
+   Elections | KXLAMAYORPRIMARYEXACT | LA Mayor: Exact place | ['Primaries', 'Other US Elections'] | https://assets.kalshi.com/contract_terms/POLITICALECONOMICEVENTS.pdf
+   Entertainment | KXRTINSIDIOUS | INSIDIOUS Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Elections | KXUTTARAKHANDASSEMBLY | Uttarakhand Legislative Assembly election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXRANKLISTIFPIARTIST | IFPI OFFICIAL SELING GLOBAL ARTIST OF THE YEAR | ['Music Industry'] | https://assets.kalshi.com/contract_terms/RANKLISTSONG.pdf
+   Entertainment | KXPOSTMALONE | da | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/1SONG.pdf
+   Elections | KXHOWMANYUKPM | How many prime ministers will the UK have? | ['International elections'] | https://assets.kalshi.com/contract_terms/HOWMANYROLE.pdf
+   Elections | PRESPARTYSD | South Dakota presidential winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/PRESPARTYSTATE.pdf
+   Entertainment | TOPSONG | Billboard Hot 100 #1 | ['Music', 'Music charts'] | https://assets.kalshi.com/contract_terms/TOPSONG.pdf
+   Elections | KXLOMBARDOJACKSON | Larger margin: Lombardo vs. Jackson | ['US Elections', 'Governor'] | https://assets.kalshi.com/contract_terms/POLITICALSTATVALUECOMPARISON.pdf
+   Elections | PRESPARTYID | Idaho presidential winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/PRESPARTYSTATE.pdf
+   Climate and Weather | KXWEEKHTLAS | Weekly high temperature Las Vegas | None | https://assets.kalshi.com/contract_terms/GLOBALTEMPERATURE.pdf
+   Politics | KXTARIFFSENATE | Senate votes to disapprove tariffs | ['Congress'] | https://assets.kalshi.com/contract_terms/BILL.pdf
+   Elections | KXSERBIATURNOUT | Serbian Parliamentary Election Voter Turnout | ['International elections'] | https://assets.kalshi.com/contract_terms/VOTECOUNT.pdf
+   Economics | KXAAAGASDKS | Kansas gas price | ['Oil and energy', 'Econ Daily'] | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+   Elections | KXCANPROVSNAP | Canadian provincial snap elections | ['International elections', 'International'] | https://assets.kalshi.com/contract_terms/REPORTTOPIC.pdf
+   Elections | PRESPARTYMO | Missouri presidential winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/PRESPARTYSTATE.pdf
+   Elections | KXMARSEILLEMAYOR | Who will win the Marseille mayoral election? | ['International elections', 'Foreign Elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXTOPALBUMRECORDGNXS | Album record | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMRECORD.pdf
+   Entertainment | KXTOPALBUMY | WHO WILL HAVE A #1 ALBUM THIS YEAR  | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMY.pdf
+   Elections | KXSCRSENS1REXACT | South Carolina Senate special primary: exact place | ['Primaries'] | https://assets.kalshi.com/contract_terms/POLITICALECONOMICEVENTS.pdf
+   Entertainment | KXAVATARS2 | Avatar season two annnouncement | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMBY.pdf
+   Politics | KXVOTEOMAREXPEL | Will the House vote on a resolution to expel Ilhan Omar? | ['Impeachment', 'Congress'] | https://assets.kalshi.com/contract_terms/CONGRESSVOTES.pdf
+   Entertainment | KXACTORBONDGIRL | Who will be the next Bond girl | ['Movies', 'Television'] | https://assets.kalshi.com/contract_terms/ACTOR.pdf
+   Elections | KXPARAGUAYNEXT | Next President of Paraguay | ['International elections'] | https://assets.kalshi.com/contract_terms/NEXTROLE.pdf
+   Crypto | KXRANKLISTBONK50 | BONK TOP 50? | ['Crypto'] | https://assets.kalshi.com/contract_terms/RANKLISTCRYPTO.pdf
+   Entertainment | KXAWARDSCMAMVOTY | Music Video of the Year | ['CMA Awards'] | https://assets.kalshi.com/contract_terms/AWARDSCMA.pdf
+   Entertainment | KXSPOTIFYSONGSROMEO | How many total streams will Romeo get? | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGSMAY.pdf
+   Entertainment | KXOSCARNOMSBANIMATEDF | OSCAR NOM FOR BEST ANIMATED FEATURE | ['Oscars'] | https://assets.kalshi.com/contract_terms/OSCARNOMS.pdf
+   Sports | KXPGAGOLFERSCORE | Golf Round Strokes | ['Golf'] | https://assets.kalshi.com/contract_terms/GOLFSCORE.pdf
+   Entertainment | KXYTDAILYTOPVIDEO | DAILY TOP YOUTUBE VIDEO | ['Views', 'Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/RANKLIST.pdf
+   Elections | HOUSE | US House of Representatives Control | None | https://assets.kalshi.com/contract_terms/ROCKET.pdf
+   Politics | KXSMILLERANNOUNCEOUT | Stephen Miller out as White House Chief of Staff? | ['Cabinet & staff', 'Trump', 'Trump administration', 'Departures'] | https://assets.kalshi.com/contract_terms/EFFECTIVELEAVE.pdf
+   Entertainment | KXMINECRAFTMOVIEDELAY | MINECRAFT MOVIE DELAY | None | https://assets.kalshi.com/contract_terms/MOVIEDELAY.pdf
+   Elections | GOVPARTYNM | New Mexico Governor | ['Governor'] | https://assets.kalshi.com/contract_terms/GOVPARTY.pdf
+    | FL | Florida Senate Race | None | https://assets.kalshi.com/contract_terms/.pdf
+   Entertainment | KXGRAMBSWFVM | Best Song Written For Visual Media | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Crypto | KXBNBMINMON | BNB Min Monthly | ['BNB', 'Crypto'] | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+   Politics | KXNJGOLFVISITCOUNT | NJ golf visits | ['Recurring'] | https://assets.kalshi.com/contract_terms/VISITCOUNT.pdf
+   Crypto | KXSOLANAATH | Solana ATH | ['Crypto', 'Solana'] | https://assets.kalshi.com/contract_terms/SOLMINMAX.pdf
+   Crypto | KXBCHMINY | BCH min | ['Crypto', 'Bitcoin Cash'] | https://assets.kalshi.com/contract_terms/BCHMINMAX.pdf
+   Entertainment | ACMANMAOTY | x | ['Awards', 'Music'] | https://assets.kalshi.com/contract_terms/ACMA.pdf
+   Entertainment | TOPSONGRECORDIHSH | I had some help Top song length | ['Music', 'Music charts', 'Taylor Swift'] | https://assets.kalshi.com/contract_terms/TOPSONGRECORD.pdf
+   Elections | KXSHANAHANGOV | Will Nicole Shanahan announce she is running for CA governor before November | ['US Elections'] | https://assets.kalshi.com/contract_terms/RUN.pdf
+   Elections | KXCOLOMBIAPRESR1 | Who will win the first round of the Colombian presidential election? | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXGA14SPECIALSECOND | Who will finish 2nd in the GA-14 Special election? | ['US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONPLACE.pdf
+   Politics | KXWILLIAMSNYFEDOUT | John Williams out as New York Fed President? | ['Economy', 'Federal Reserve', 'Trump', 'Trump administration', 'Departures'] | https://assets.kalshi.com/contract_terms/EFFECTIVELEAVE.pdf
+   Elections | KXHARRISSTATEGOP | Republican Senate and Governor wins in Harris 2024 states | ['Senate', 'US Elections', 'Governor'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Elections | KXLTGOVOK | Lt. Gov in Oklahoma | ['US Elections'] | https://assets.kalshi.com/contract_terms/LTGOVPARTY.pdf
+   Companies | BRAZILXBAN | Brazil bans X | ['Culture war', 'Elon Musk', 'International politics'] | https://assets.kalshi.com/contract_terms/BRAZILX.pdf
+   Sports | KXDPWORLDTOURR1LEAD | DP World Tour R1 Leader | ['Golf'] | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+   Entertainment | KXDRIVERS | Drivers License #1 most-listened song | ['Music'] | https://assets.kalshi.com/contract_terms/DRIVERS.pdf
+   Entertainment | KXNEWTAYLOR-TS | New taylor | ['Music'] | https://assets.kalshi.com/contract_terms/NEWTAYLOR.pdf
+   Elections | KXWA4PRIMARY | WA 4 Primary | ['Primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Elections | SENATECO | Colorado Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Sports | KXCOPPAITALIAMOV | Method of Victory | ['Soccer'] | https://assets.kalshi.com/contract_terms/SOCCERADVANCEMETHOD.pdf
+   Elections | KXMEXGOVCOUNT | How many governorships will Morena-led coalitions win in Mexico? | ['International elections', 'Mexico'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Crypto | KXMAXTPSAVAX | Max TPS Avalanche | ['Crypto'] | https://assets.kalshi.com/contract_terms/MAXTPS.pdf
+   Entertainment | KXMOSTWINSEMMYS | Who will win the most awards at the emmys | None | https://assets.kalshi.com/contract_terms/MOSTWINS.pdf
+   Elections | KXPOPVOTEMOVD | Democratic presidential popular vote margin (Directional) | ['2028', 'Presidential winner'] | https://assets.kalshi.com/contract_terms/POPVOTEMOV.pdf
+   Sports | KXLIVTOP5 | Liv Top 5 Finisher | ['Golf'] | https://assets.kalshi.com/contract_terms/GOLFFINISH.pdf
+   Elections | KXPRESDEBATECANDR | How many Republicans will be in the first 2028 primary debate? | ['2028', 'Republican primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Elections | KXNVSTATELEG | Nevada State Legislature control | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/NVSTATELEG.pdf
+   Entertainment | OSCARACTR | Oscar for Best Actress | ['Awards', 'Movies', 'Oscars'] | https://assets.kalshi.com/contract_terms/OSCARS.pdf
+   Financials | KXINXE | S&P election day | ['S&P 500', 'Stock Market', 'Markets', 'Indices'] | https://assets.kalshi.com/contract_terms/INX.pdf
+   Elections | SENATEIL | Illinois Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Financials | KXWHOACQTIKTOK | Who will Acquire Tiktok | ['M&A', 'Companies'] | https://assets.kalshi.com/contract_terms/ACQANNOUNCE.pdf
+   Elections | KXDSENATESEATSH | Democratic Senate seats (higher strikes) | ['Senate', 'Senate Combos', 'Election Combos'] | https://assets.kalshi.com/contract_terms/SEATSCONGRESS.pdf
+   Elections | KXPRESDISTRICT | Presidential election winner by district? | ['2028', 'US Elections', 'President by state'] | https://assets.kalshi.com/contract_terms/PRESPARTYDISTRICT.pdf
+   Elections | KXLANGLEY | Langley Township—Fraser Heights | ['Foreign Elections'] | https://assets.kalshi.com/contract_terms/CANADARIDING.pdf
+   Entertainment | KXARTISTSTREAMSY | Artist Yearly Streams | ['Music Streams'] | https://assets.kalshi.com/contract_terms/PERIODMEDIACONSUMPTION.pdf
+   Elections | KXTX21R | TX 21 Republican primary | ['Primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/HOUSEPARTYNOM.pdf
+   Elections | KXNLDTHIRD | Netherlands 3rd place | None | https://assets.kalshi.com/contract_terms/ELECTIONPLACE.pdf
+   Entertainment | KXMJACKSON | Michael Jackson total stream count | ['Music'] | https://assets.kalshi.com/contract_terms/PERIODMEDIACONSUMPTIONARTIST.pdf
+   Elections | KXNVPRIMARY | Nevada Primary Winners | ['Primaries'] | https://assets.kalshi.com/contract_terms/HOUSEPARTYNOM.pdf
+   Elections | KXSTATELEGNJ | New Jersey Legislature race winner? | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONWINNJ.pdf
+   Entertainment | KXALBUMLENGTH | HOW LONG WILL ALBUM BE  | ['Music'] | https://assets.kalshi.com/contract_terms/MEDIALENGTH.pdf
+   Sports | KXDFBPOKALMOF | Method of Finish | ['Soccer'] | https://assets.kalshi.com/contract_terms/SOCCERFINISHMETHOD.pdf
+   Elections | KXPRESNOMR | Republican Primary winner | ['2028', 'US Elections'] | https://assets.kalshi.com/contract_terms/PRESNOM.pdf
+   Entertainment | KXTOPALBUMRECORDVIE | ALBUM RECORD | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMRECORD.pdf
+   Elections | KXSENATERID | KXSENATERID | ['Primaries'] | https://assets.kalshi.com/contract_terms/SENATEPARTYNOM.pdf
+   Entertainment | KXBILLBOARDPEAKFRIENDOFMINE | Friend of Mine Billboard peak | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/BILLBOARDPEAK.pdf
+   Economics | AAAGASMAXTX | Texas highest gas price yearly | ['Oil and energy'] | https://assets.kalshi.com/contract_terms/AAAGASMINMAX.pdf
+   Entertainment | KXGGMCOMFILMACTR | Golden Globe for Best Actress in a Musical or Comedy film | ['Awards'] | https://assets.kalshi.com/contract_terms/GLOBES.pdf
+   Entertainment | KXFEATURETHEKIDLAROI | Will Tate mcrae be featured on the Kid larois album | ['Music'] | https://assets.kalshi.com/contract_terms/FEATURE.pdf
+   Commodities | KXCOFFEE15M | Coffee 15-minute | ['15 min', 'Agriculture'] | https://assets.kalshi.com/contract_terms/COFFEEAG.pdf
+   Elections | KXMILLSDROPOUT | Janet Mills drop out | ['US Elections'] | https://assets.kalshi.com/contract_terms/DROPOUT.pdf
+   Elections | KXATTYGENIN | AG race IN | ['US Elections', 'Other US Elections'] | https://assets.kalshi.com/contract_terms/ATTYGEN.pdf
+   Elections | KXMAYORATLANTA | Atlanta mayoral election | None | https://assets.kalshi.com/contract_terms/MAYORCITY.pdf
+   Economics | KXNGASMIN | Natural gas yearly low | ['Oil & Gas', 'Oil and energy'] | https://assets.kalshi.com/contract_terms/NGAS.pdf
+   Politics | KXAIADSHOUSE | House passage of an AI political ads bill | ['AI', 'Congress'] | https://assets.kalshi.com/contract_terms/BILL.pdf
+   Entertainment | KXGRAMBCIA | Best Contemporary Instrumental Album | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Entertainment | KXPUBLICTRUDEAUPERRY | Will Justin Trudeau and Katy Perry be seen together in public | None | https://assets.kalshi.com/contract_terms/PERSONPUBLIC.pdf
+   Entertainment | KXGRAMBGA | Best Gospel Album | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Entertainment | KXSPOTIFYSONGSHALFTHEPLOT | HOw many streams wil lil teccas half the plot get in it first week streams on spotiy | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGSJUNE.pdf
+   Entertainment | KXGRAMBRRMA | Best Regional Roots Music Album | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Entertainment | KXBILLBOARDPEAKPMAD | POUR ME A DRINK Billboard Peak | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/BILLBOARDPEAK.pdf
+   Elections | KXGOPCONFCHAIR120 | House Republican Conference Chair (120th Congress) | ['House'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXISRAELTHRESH | Israeli legislative election vote share below the electoral threshold | ['International elections'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Sports | KXLPGATOUR | PGA Tour | ['Golf'] | https://assets.kalshi.com/contract_terms/PGATOUR.pdf
+   Elections | KXSECSTATEAR | Arkansas Secretary of State winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXTOPALBUMBYICESPICE | ICE SPICE #1 album | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMBY.pdf
+   Elections | SENATEPARTYWA | Washington Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Entertainment | KX1SONGLILWAYNE | Lil Wayne #1 song | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/1SONG.pdf
+   Politics | USTESTSMATH | US Test scores in Math | ['Culture war', 'Education'] | https://assets.kalshi.com/contract_terms/USTESTS.pdf
+   Elections | KXATTYGENVT | AG race VT | ['US Elections', 'Other US Elections'] | https://assets.kalshi.com/contract_terms/ATTYGEN.pdf
+   Politics | KXSCOMMERCECHAIR | Senate Commerce chair | ['Congress', 'Leadership & committees'] | https://assets.kalshi.com/contract_terms/CONGRESSCHAIR.pdf
+   Crypto | KXBTXMINW | How low will Bitcoin get this week? | None | https://assets.kalshi.com/contract_terms/CRYPTOMINMAX.pdf
+   Entertainment | KXAMAALBOTY | Album of the Year | None | https://assets.kalshi.com/contract_terms/AMAS.pdf
+   Elections | KXSENATEIDR | IDR | ['Primaries'] | https://assets.kalshi.com/contract_terms/SENATEPARTYNOM.pdf
+   Mentions | KXBTCMENTIONULBRICHT | Ross | None | https://assets.kalshi.com/contract_terms/KXBTCMENTION.pdf
+   Entertainment | KXSPOTIFYSONGSMANOFTHEYEAR | TOTAL SPOTIFY STREAMS FOR LORDES MAN OF THE YEAR | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGSMAY.pdf
+   Politics | KXNCAABACKPAYWOMEN | Will women get a bigger share of House settlement back pay? | ['SCOTUS & courts'] | https://assets.kalshi.com/contract_terms/HOUSEWOMEN.pdf
+   Elections | KXKITCHENER | Kitchener South—Hespeler | ['Foreign Elections'] | https://assets.kalshi.com/contract_terms/CANADARIDING.pdf
+   Crypto | KXSHIBAMAXY | Shiba max | ['Crypto', 'Shiba Inu'] | https://assets.kalshi.com/contract_terms/SHIBAMINMAX.pdf
+   Elections | KXKENYAPRES | Kenya Presidency | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXSTATELEGAZ | Arizona Legislature race winner? | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONWINAZ.pdf
+   Elections | KXDEMPROGRESSIVESENATESWEEP | Progressives sweep Dem Senate Primaries? | ['Primaries'] | https://assets.kalshi.com/contract_terms/MULTIELECTION.pdf
+   Elections | HOUSEME2 | House Maine 2nd | ['House'] | https://assets.kalshi.com/contract_terms/HOUSEPARTY.pdf
+   Elections | KXHASANELSAYED | Hasan Piker campaigns with Abdul El-Sayed | ['US Elections'] | https://assets.kalshi.com/contract_terms/REPORTTOPIC.pdf
+   Entertainment | KXKPOPDHWEEKSNUM1 | How many weeks will Kpop demon hunters be number 1  | ['Music charts'] | https://assets.kalshi.com/contract_terms/ARTISTWEEKSNUM1.pdf
+   Politics | KXMAMDANIWHVISIT | When will Mamdani visit the White House? | ['NYC', 'Trump'] | https://assets.kalshi.com/contract_terms/VISITAREA.pdf
+   Entertainment | KXALBUMPEAKSWAG2 | Will Swag 2 by Justin Bieber reach #1 | ['Music'] | https://assets.kalshi.com/contract_terms/SONGPEAK.pdf
+   Entertainment | KXGRAMMYCOUNTKENDRICK | KENDRICK LAMAR Grammy wins | ['Music'] | https://assets.kalshi.com/contract_terms/GRAMMYCOUNT.pdf
+   Elections | KXISENATEWON | Independent Senate seats won (media calls) | ['US Elections'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Elections | KXUKCOALITION | Next UK coalition | ['International elections'] | https://assets.kalshi.com/contract_terms/COALITION.pdf
+   Entertainment | KXFOREVER | Forever Is a Feeling review | ['Music'] | https://assets.kalshi.com/contract_terms/PITCHFORKALBUM.pdf
+   Elections | KXPERSONPRESFUENTES | Nick Fuentes Becoming President | None | https://assets.kalshi.com/contract_terms/PERSONPRES.pdf
+   Entertainment | KXNATGASD | Natural Gas Daily | ['Oil & Gas'] | https://assets.kalshi.com/contract_terms/ROLEATEVENT.pdf
+   Sports | KXSVNCUPGAME | Slovenian Cup Game | ['Soccer'] | https://assets.kalshi.com/contract_terms/SOCCERGAME.pdf
+   Entertainment | KXSPOTIFYALBUM-TTPD-W | TTPB week 1 | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYALBUM.pdf
+   Elections | KXDEMPRIMARYSTATE | First Dem state | None | https://assets.kalshi.com/contract_terms/DEMPRIMARYSTATE.pdf
+   Elections | KXGA14SPECIAL1ROUND | Will anyone win the GA-14 Special election outright? | ['US Elections'] | https://assets.kalshi.com/contract_terms/WINR1.pdf
+   Elections | KXSPEAKER120VOTE | Who will get a vote for Speaker? | ['House', 'US Elections', 'Leadership races'] | https://assets.kalshi.com/contract_terms/EVENTCONFIRMED.pdf
+   Entertainment | KXMOVIESITP | Will “The Summer I Turned Pretty” release a movie  | None | https://assets.kalshi.com/contract_terms/MOVIE.pdf
+   Entertainment | KXTOPALBUMBYDOJACAT | Will Doja Cat have a #1 Album this year? | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMBY.pdf
+   Economics | KXUSGASCPI | US gasoline CPI in [month] | ['Inflation'] | https://assets.kalshi.com/contract_terms/ECONSTAT.pdf
+   Elections | KXHUONMAYOR | Huon Valley mayoral election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXBKLYNDEMCHAIR | Will a court invalidate Nikki Lucas's Brooklyn Democratic chair election? | ['NYC', 'SCOTUS & courts'] | https://assets.kalshi.com/contract_terms/JUDGEMENT.pdf
+   Economics | KXNHHOMEPRICE | New Hampshire House Price Index | ['Housing'] | https://assets.kalshi.com/contract_terms/ECONSTATE.pdf
+   Elections | KXUKELECTIONCALL | New UK election called | None | https://assets.kalshi.com/contract_terms/UKELECTIONCALL.pdf
+   Elections | KXVANCERUBIORUN | Will Vance and Rubio run for President? | ['2028'] | https://assets.kalshi.com/contract_terms/POLITICALECONOMICEVENTS.pdf
+   Elections | KXENDORSEAOC | Who will AOC endorse? | ['US Elections'] | https://assets.kalshi.com/contract_terms/ENDORSE.pdf
+   Crypto | KXFDVFOGO | FOGO FDV | ['Crypto', 'Pre-Market'] | https://assets.kalshi.com/contract_terms/CRYPTOFDV.pdf
+   Elections | KXBREMEN | Bremen state election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXSPOTIFYARTIST | Daily US Spotify artist chart | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYCHART.pdf
+   Entertainment | KXRANKLISTSONGBBH100 | WHICH SONGS WILL ENTER THE BILLBOARD HOT 100 | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/RANKLISTSONG.pdf
+   Entertainment | KXGGGNOMMCOMFILMACTO |  Best Actor in a Motion Picture – Musical or Comedy | ['Golden Globes', 'Awards'] | https://assets.kalshi.com/contract_terms/GOLDENGLOBESNOM.pdf
+   Elections | KXARBROATHBY | Arbroath & Broughty Ferry by-election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXNEWALBUMDAVEMATTHEWS | Dave Matthews Band new album | ['Music'] | https://assets.kalshi.com/contract_terms/NEWALBUM.pdf
+   Elections | KXZACATECASGOV | Zacatecas Governor winner | ['International elections', 'Mexico'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Politics | KXBTCRESERVESTATES | BTC state reserves | ['Crypto', 'Bitcoin'] | https://assets.kalshi.com/contract_terms/BTCRESERVESTATES.pdf
+   Sports | KXPGARYDERMATCH | PGA Ryder Cup Matchups | ['Golf'] | https://assets.kalshi.com/contract_terms/PGARYDERMATCH.pdf
+   Financials | KXBTCVSGOLD | BTC vs Gold | ['Crypto', 'Match Ups', 'Metals', 'Precious Metals', 'Gold', 'Bitcoin', 'Markets'] | https://assets.kalshi.com/contract_terms/BTCVSGOLD.pdf
+   Entertainment | TOPALBUMBYICESPICE | ICE SPICE #1 album | ['Music', 'Music charts'] | https://assets.kalshi.com/contract_terms/TOPALBUMBY.pdf
+   Elections | PRESPARTYUT | Utah presidential winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/PRESPARTYSTATE.pdf
+   Entertainment | KXTOPSONGRUNNERUPUSA | 2nd USA SONG | ['Music'] | https://assets.kalshi.com/contract_terms/STREAMRANK.pdf
+   Elections | KXWASTATELEG | Washington State Legislature control | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/WASTATELEG.pdf
+   Entertainment | KXMWJUSTINCASE | Just In Case total streams | ['Music Streams', 'Morgan Wallen'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGS.pdf
+   Elections | GOVPARTYKY | Kentucky Governor | ['Governor'] | https://assets.kalshi.com/contract_terms/GOVPARTY.pdf
+   Elections | KXORSTATELEG | Oregon State Legislature control | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/ORSTATELEG.pdf
+   Entertainment | KXNEWALBUMKDOT | Kendrick Lamar new album | ['Music'] | https://assets.kalshi.com/contract_terms/NEWALBUM.pdf
+   Entertainment | KXSPOTIFYSONGSMRELECTRICBLUE | TOTAL STREAMS FOR BENSON BOONES MR ELECTRIC BLUE ON SPOTIFY, AMERICAN HEART ALBUM | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGSJUNE.pdf
+   Elections | KXSANDERSPRES | Bernie Sanders Run For President | ['US Elections'] | https://assets.kalshi.com/contract_terms/RUN.pdf
+   Elections | SENATEMN | Minnesota Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Entertainment | KXSPOTIFYSONGSBOYCRAZY | How many total streams boy crazy | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGSMAY.pdf
+   Elections | KXLARSENMOV | Louisiana Republican Senate primary: margin of victory | ['Primaries'] | https://assets.kalshi.com/contract_terms/ELECTIONMOV.pdf
+   Sports | KXTRUMPGOLF | Trump US gold championship | None | https://assets.kalshi.com/contract_terms/TRUMPGOLF.pdf
+   Elections | HOUSECA21 | CA-21 | ['House'] | https://assets.kalshi.com/contract_terms/HOUSEPARTY.pdf
+   Elections | KXSQ832 | Oklahoma SQ 832 Minimum Wage Initiative | ['US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Entertainment | KXEMMYCSERIES | Emmys Award for Comedy Series | ['Emmys', 'Awards', 'Television'] | https://assets.kalshi.com/contract_terms/EMMYS.pdf
+   Elections | KXTAMPAMAYOR | Who will win the Tampa, Florida mayoral election? | ['Mayors & local', 'US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Elections | KXNORWAY25 | Norwegian Parliamentary election in 2025 | None | https://assets.kalshi.com/contract_terms/SEATCOUNT.pdf
+   Elections | KXTXSENCOMBO | Texas Senate matchup | ['Primaries'] | https://assets.kalshi.com/contract_terms/POLITICALECONOMICEVENTS.pdf
+   Elections | KXREVELSTOKEMAYOR | Revelstoke mayoral election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Politics | KXFL1MOV | FL1 MOV | ['US Elections'] | https://assets.kalshi.com/contract_terms/HOUSEMOV.pdf
+   Elections | KXCHANCELLOR | German Chancellorship | ['Foreign Elections'] | https://assets.kalshi.com/contract_terms/CHANCELLOR.pdf
+   Politics | KXBRFORMIN | Who will be Brazilian foreign minister after the election? | ['International', 'Latin America'] | https://assets.kalshi.com/contract_terms/CABINETFORM.pdf
+   Elections | KXNASHVILLEMAYOR | Who will win the Nashville Mayoral Election? | ['Mayors & local', 'US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Elections | KXATTYGENCO | AG race CO | ['US Elections', 'Other US Elections'] | https://assets.kalshi.com/contract_terms/ATTYGEN.pdf
+   Elections | KXISRAELBLOCMOST | Which bloc will win the most seats in the Israeli legislative election? | ['International elections', 'International'] | https://assets.kalshi.com/contract_terms/TOTALSEATRANK.pdf
+   Entertainment | KXTOP10BILLBOARDSPOTSTEDDYS | How many Spots on the Billboard hot 100 will Teddy swims have for the wekk of  | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOP10BILLBOARDSPOTS.pdf
+   Entertainment | KXGGMCOMFILMACTO | Golden Globe for Best Actor in a Musical or Comedy film | ['Awards'] | https://assets.kalshi.com/contract_terms/GLOBES.pdf
+   Politics | KXSENATEDEMVOTES | Senate Democratic votes | ['Congress'] | https://assets.kalshi.com/contract_terms/MEMBERVOTECOUNT.pdf
+   Elections | KXCA32PRIMARY | CA 32 primary | ['Primaries'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Elections | KXSENATEOKR | Oklahoma Republican Senate nominee? | ['Primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/SENATEPARTYNOM.pdf
+   Entertainment | GRAMROTY | Grammy for Record of the Year | ['Awards', 'Grammys', 'Music'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Entertainment | KXTOPSHOW | Top Show across platforms | ['TV Charts', 'Movies', 'Television'] | https://assets.kalshi.com/contract_terms/RANKLIST.pdf
+   Entertainment | RTCIVILWAR | Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Elections | KXBRANTFORDBY | Who will win the Brantford-Brant South by-election? | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXCOOPERWHATLEYDEBATE | Cooper and Whatley debate | ['Senate', 'US Elections'] | https://assets.kalshi.com/contract_terms/DEBATEPEOPLE.pdf
+   Entertainment | KX1SONGSOMBR | SOMBR HAVE #1 HIT THIS YEAR | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/1SONG.pdf
+   Politics | KXTIKTOKEXTENSION | TikTok extension | None | https://assets.kalshi.com/contract_terms/TIKTOKEXTENSION.pdf
+   Elections | KXTAIPEIMAYORCOMBO | Taipei & New Taipei mayoral combo | ['International elections', 'East Asia'] | https://assets.kalshi.com/contract_terms/MULTIELECTION.pdf
+   Elections | KXUSELECTIONTEXAS18 | Which Party will win the Special Election for Texas's 18th? | ['US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Elections | KXSALOCAL | South African Local Elections: Most Seats Won | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXINDIANPM | Who will be the Prime Minister of India after their election? | ['International elections'] | https://assets.kalshi.com/contract_terms/GOVHEAD.pdf
+   Elections | KXBRDEP | Brazil Chamber of Deputies Election: Most Seats Won | ['International elections', 'Brazil'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Economics | KXAAAGASCDNC | North Carolina gas price | ['Oil and energy', 'Econ Daily'] | https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf
+   Elections | KXNUEVOLEONGOV | Nuevo León Governor winner | ['International elections', 'International'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | RTGODZILLAXKONG | Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Elections | KXOHSENGOVCOMBO | Ohio Senate-Governor Combo | ['Senate', 'Mixed Combos', 'US Elections', 'Governor', 'Election Combos'] | https://assets.kalshi.com/contract_terms/POLITICALECONOMICEVENTS.pdf
+   Entertainment | KXSAGNOMACTOLIM | Outstanding Performance by a Male Actor in a Television Movie or Limited Series | ['Awards'] | https://assets.kalshi.com/contract_terms/ACTORAWARDSNOM.pdf
+   Politics | KXCRYPTORESERVE | Crypto reserve assets | ['SOL'] | https://assets.kalshi.com/contract_terms/CRYPTORESERVE.pdf
+   Elections | SENATEAL | Alabama | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Entertainment | KXCANNESJURYPRIZE | Cannes Jury Prize | ['Cannes', 'Awards', 'Movies'] | https://assets.kalshi.com/contract_terms/CANNES.pdf
+   Economics | KXAAAGASD | US gas price up | ['Oil & Gas', 'Oil and energy', 'Econ Daily'] | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+   Entertainment | KXMWWHEREDTHATGIRLGO | Where’d That Girl Go total streams | ['Music Streams', 'Morgan Wallen'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGS.pdf
+   Elections | KXPARTYWINNL | Netherlands election | None | https://assets.kalshi.com/contract_terms/PARTYWIN.pdf
+   Entertainment | KXRTIF | If Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Entertainment | KX1SONGBADBUNNY | Will bad bunny have a #1 song this year? | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/1SONG.pdf
+   Entertainment | KXSPOTIFY100MILLION | WIill song have 100 million streams | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYMILESTONES.pdf
+   Elections | KXGOVCAPRIMARYPARTY | Who will advance from the CA Governor primary? (Party) | ['Primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Commodities | KXWTIE | WTI oil election day | ['Oil & Gas'] | https://assets.kalshi.com/contract_terms/WTIOIL.pdf
+   Elections | KXISRAELGOVT | Who will be in the next Israeli government? | ['International elections'] | https://assets.kalshi.com/contract_terms/COALITION.pdf
+   Climate and Weather | KXRAINLVM | Rain in Las Vegas | ['Snow and rain'] | https://assets.kalshi.com/contract_terms/RAINM.pdf
+   Elections | GOVPARTYAR | Arkansas Governor | ['Governor'] | https://assets.kalshi.com/contract_terms/GOVPARTY.pdf
+   Elections | KXADAMSDROPOUT | eric adams drop out | ['US Elections'] | https://assets.kalshi.com/contract_terms/DROPOUT.pdf
+   Elections | KXDESANTISRUN | Ron DeSantis announces presidential run by...? | ['US Elections'] | https://assets.kalshi.com/contract_terms/RUN.pdf
+   Economics | KXDIESELELECT | Diesel prices on Election Day | ['Oil and energy'] | https://assets.kalshi.com/contract_terms/AAADIESEL.pdf
+   Entertainment | KXRTMICKEY17 | Mickey 17 Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Sports | KXLIVH2H | LIV Head-to-Head Matchups | ['Golf'] | https://assets.kalshi.com/contract_terms/GOLFH2H.pdf
+   Sports | KXBUNDESLIGASPREAD | Bundesliga Spread | ['Soccer'] | https://assets.kalshi.com/contract_terms/SOCCERSPREAD.pdf
+   Crypto | KXBTCVSETH | BTC vs. ETH | ['Crypto', 'Ethereum', 'Bitcoin'] | https://assets.kalshi.com/contract_terms/CRYPTORETURNCOMP.pdf
+   Politics | KXINJS | Injunctions Senate | ['Congress'] | https://assets.kalshi.com/contract_terms/BILL.pdf
+   Entertainment | KXSPOTIFYSONGTAYLORSWIFT | WILL TAYLOR SWIFT RELEASE ANOTHER NEW SONG? | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONG.pdf
+   Elections | KXHONOLULUQ4 | Honolulu Charter Question 4 | ['Local', 'US Elections'] | https://assets.kalshi.com/contract_terms/REFERENDUMPASS.pdf
+   Elections | KXGALABOR | Georgia Labor Commissioner winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXSECSTATENC | NC Sec State | ['US Elections', 'Other US Elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXGREENMAYOR | Will Green Party win a mayorship in the 2026 United Kingdom local elections | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXTOPALBUMYEARTS | Wil taylor swift have the album of the year | ['Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMYEAR.pdf
+   Elections | KXSCHUMERVOICE | Will Chuck Schumer be reelected Democratic leader by voice vote? | ['Senate', 'US Elections', 'Leadership races'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Entertainment | RTIF | If Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Elections | KXMOREDISTREF | Missouri congressional redistricting referendum | ['US Elections'] | https://assets.kalshi.com/contract_terms/REFERENDUM.pdf
+   Elections | KXVANHOLLENVOTES | Van Hollen first-ballot votes for Senate Democratic leader | ['US Elections', 'Leadership races'] | https://assets.kalshi.com/contract_terms/POLITICALSTAT.pdf
+   Sports | KXDPWORLDTOURR2LEAD | DP World Tour R2 Leader | ['Golf'] | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+   Elections | KXSTATELEGUT | Utah Legislature race winner? | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONWINUT.pdf
+   Entertainment | KXALBVS | will album have more streams | ['Head to Head'] | https://assets.kalshi.com/contract_terms/ARTISTVS.pdf
+   Elections | KXBEITEINUCOUNT | Israeli legislative election: how many seats will Yisrael Beiteinu win? | ['International elections', 'International'] | https://assets.kalshi.com/contract_terms/SEATCOUNT.pdf
+   Elections | KXMINLEAD120 | House Minority Leader (120th Congress) | ['House', 'Congress'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXPAPPASSUNUNUDEBATE | Pappas and Sununu debate | ['Senate', 'US Elections'] | https://assets.kalshi.com/contract_terms/DEBATEPEOPLE.pdf
+   Entertainment | KXRTWAROFTHEROHIRRIM | LOTR WAR OF THE ROHIRRIM Rotten Tomatoes score | ['Movies', 'Rotten Tomatoes'] | https://assets.kalshi.com/contract_terms/RT.pdf
+   Elections | SENATEPARTYND | North Dakota Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Economics | KXAAAGASDLA | Louisiana gas price | ['Oil and energy', 'Econ Daily'] | https://assets.kalshi.com/contract_terms/AAAGAS.pdf
+   Elections | KXSCARBOROSWBY | Scarborough Southwest by-election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Crypto | KXCRYPTOPERFORMY | Crypto performance | ['Crypto'] | https://assets.kalshi.com/contract_terms/CRYPTOPERFORM.pdf
+   Entertainment | KXSPOTIFY2BILLION | What song will hit 2 billion streams? | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYMILESTONES.pdf
+   Entertainment | KXRANKLISTSONGDEFYGRAV | Will Defying Gravity re-enter the Billboard Hot 100 for the week of December __? | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/RANKLISTSONG.pdf
+   Crypto | KXBNBD | BNB Directional | ['BNB', 'Crypto'] | https://assets.kalshi.com/contract_terms/CRYPTO.pdf
+   Politics | KXSENCONVICTHEGSETH | Will the Senate convict Pete Hegseth? | ['Impeachment', 'Congress'] | https://assets.kalshi.com/contract_terms/EVENTCONFIRMED.pdf
+   Elections | KXIAAGSEC | Iowa Agriculture Secretary winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXOSCARNOMSONG | MUSIC (ORIGINAL SONG) | ['Oscars'] | https://assets.kalshi.com/contract_terms/OSCARNOMS.pdf
+   Elections | HOUSENV3 | House NV 3 | ['House'] | https://assets.kalshi.com/contract_terms/HOUSEPARTY.pdf
+   Entertainment | KXTOPALBUMTHIRD | THIRD BEST ALBUM | ['Music'] | https://assets.kalshi.com/contract_terms/STREAMRANK.pdf
+   Entertainment | KXSPOTIFYSONGSPPSTATESIDE | Stateside | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGS.pdf
+   Elections | KXPEIGENERAL | Prince Edward Island general election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | SENATEPARTYIN | Indiana Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Elections | KXSCHOLTENROGERS | Will Hillary Scholten endorse Mike Rogers? | ['Senate'] | https://assets.kalshi.com/contract_terms/ENDORSE.pdf
+   Financials | KXACQUANNOUNCETIKTOK | Tiktok be acquired | ['M&A', 'Companies'] | https://assets.kalshi.com/contract_terms/ACQANNOUNCE.pdf
+   Politics | KXHEGSETH | Hegseth Senate Yeas | ['Congress'] | https://assets.kalshi.com/contract_terms/CONFCOUNT.pdf
+   Elections | HOUSETX15 | House TX 15 | ['House'] | https://assets.kalshi.com/contract_terms/HOUSEPARTY.pdf
+   Commodities | KXWTIMAX | WTI oil high | ['Oil & Gas'] | https://assets.kalshi.com/contract_terms/WTIMINMAX.pdf
+   Elections | KXCAGOVPRIMARY1ST | Who will finish first in the California Governor primary? | ['Primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONPLACE.pdf
+   Entertainment | KXTOPARTISTTHIRD | THIRD RANK ARTIST ON SPOTIFY  | ['Music'] | https://assets.kalshi.com/contract_terms/STREAMRANK.pdf
+   Entertainment | KXNEWALBUMKATYPERRY | Katy Perry new album | ['Music'] | https://assets.kalshi.com/contract_terms/NEWALBUM.pdf
+   Crypto | KXAIRDROPHYPE | HYPE airdrop | ['Crypto', 'HYPE', 'Pre-Market'] | https://assets.kalshi.com/contract_terms/AIRDROP.pdf
+   Entertainment | KXYTVIEWS | will artist have X streams this month? | ['Views', 'Music'] | https://assets.kalshi.com/contract_terms/YTVIEWS.pdf
+   Commodities | KXLCATTLED | Live cattle Daily | ['Agriculture'] | https://assets.kalshi.com/contract_terms/LIVECATTLEAG.pdf
+   Elections | KXSTATELEGOK | Oklahoma Legislature race winner? | ['State legislatures', 'US Elections'] | https://assets.kalshi.com/contract_terms/ELECTIONWINOK.pdf
+   Entertainment | KXTOPALBUMKANYE | Ye #1 Album | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUMBY.pdf
+   Politics | KXCONGRESSTARIFFPASS | Cantwell-Grassley Trade Review Act of 2025 pass senate | ['Congress'] | https://assets.kalshi.com/contract_terms/BILL.pdf
+   Entertainment | KXGRAMNAAOCA | Best New Age, Ambient, or Chant Album | ['Awards', 'Grammys'] | https://assets.kalshi.com/contract_terms/GRAMMY.pdf
+   Elections | KXNEWPOPE | New Pope | ['International elections'] | https://assets.kalshi.com/contract_terms/NEWPOPE.pdf
+   Elections | KXPUEBLAMAYOR | Puebla mayoral election winner | ['International elections', 'Local'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXSPOTIFYSONGSLOVESONG | HOw many total streams will justin biebers love song have on spotify | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGSJULY.pdf
+   Politics | KXHJUDICIARYCHAIR | House Judiciary chair | ['Congress'] | https://assets.kalshi.com/contract_terms/CONGRESSCHAIR.pdf
+   Entertainment | KXATTENDGRAMMYS | WHO WILL ATTEND THE GRAMMYS | None | https://assets.kalshi.com/contract_terms/ATTEND.pdf
+   Elections | KXDFGOV | Brazil Federal District Governor winner | ['International elections', 'Brazil', 'Governor'] | https://assets.kalshi.com/contract_terms/BRGOV.pdf
+   Elections | KXBOSTONMAYORMOV | bnoston mayor wu mov | None | https://assets.kalshi.com/contract_terms/ELECTIONMOV.pdf
+   Elections | KXSINALOAGOV | Sinaloa Governor winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXSPOTIFYSONGSMANOFTHEYEARLORDE | Total streams for Lordes man of the year | ['Music'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGSMAY.pdf
+   Politics | KXVOTERECNCS | Senate reconciliation | ['Congress'] | https://assets.kalshi.com/contract_terms/BILLVOTE.pdf
+   Elections | KXHYDESMITHCONCEDE | Cindy Hyde-Smith concede | ['US Elections'] | https://assets.kalshi.com/contract_terms/CONCEDE.pdf
+   Elections | KXOH9DR | x | ['Primaries', 'US Elections'] | https://assets.kalshi.com/contract_terms/HOUSEPARTYNOM.pdf
+   Elections | SENATEND | North Dakota Senate race | ['Senate'] | https://assets.kalshi.com/contract_terms/SENATEPARTY.pdf
+   Elections | KXBERLINSTATE | Berlin State Election | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Entertainment | KXOSCARNOMPIC | Oscar nominations for Best Picture | ['Oscars'] | https://assets.kalshi.com/contract_terms/OSCARNOMS.pdf
+   Elections | KXCA11PERSON | CA-11 House winner? (Person) | ['US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Elections | KXQUERETAROGOV | Querétaro gubernatorial election | ['International elections', 'Governor'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+   Elections | KXHIPRIMARY | Hawaii Primary Winners | ['Primaries'] | https://assets.kalshi.com/contract_terms/HOUSEPARTYNOM.pdf
+   Sports | KXGENESISINVITATIONAL | Genesis Invitational Winner? | ['Golf'] | https://assets.kalshi.com/contract_terms/ACHIEVEMENTS.pdf
+   Elections | PRESPARTYMT | Montana presidential winner | ['US Elections'] | https://assets.kalshi.com/contract_terms/PRESPARTYSTATE.pdf
+   Elections | KXDEMTRIFECTA2026 | 2026 Democratic state trifectas combo | ['US Elections', 'Election Combos'] | https://assets.kalshi.com/contract_terms/POLITICALOUTCOMESINSET.pdf
+   Entertainment | KXTOPALBUMSTYLES | WILL HARRY STYLES NEW ALBUM BE #1 | ['Music charts', 'Music'] | https://assets.kalshi.com/contract_terms/TOPALBUM.pdf
+   Elections | KXDSAENDORSE28 | Who will DSA endorse for president? | ['2028', 'US Elections'] | https://assets.kalshi.com/contract_terms/ENDORSE.pdf
+   Entertainment | KXEMMYTVMOVIE | Emmy Award for TV Movie  | ['Emmys', 'Awards', 'Television'] | https://assets.kalshi.com/contract_terms/EMMYS.pdf
+   Elections | KXPASEN | Who will win the Pennsylvania State Senate? | ['Other US Elections'] | https://assets.kalshi.com/contract_terms/USELECTION.pdf
+   Elections | KXSENATEFLR | Florida Republican Senate nominee | ['Primaries'] | https://assets.kalshi.com/contract_terms/SENATEPARTYNOM.pdf
+   Politics | KXSARMEDSERVICESCHAIR | Senate Armed Services chair | ['Congress'] | https://assets.kalshi.com/contract_terms/CONGRESSCHAIR.pdf
+   Entertainment | KXMWTWENTYCIGS | 20 Cigarettes total streams | ['Music Streams', 'Morgan Wallen'] | https://assets.kalshi.com/contract_terms/SPOTIFYSONGS.pdf
+   Elections | KXBRATISLAVAMAYOR | Bratislava mayoral election winner | ['International elections'] | https://assets.kalshi.com/contract_terms/ELECTION.pdf
+exit=0

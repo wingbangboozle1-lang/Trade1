@@ -1,0 +1,75 @@
+name: Build Kalshi demo monitor
+
+# Builds the category site from the official Kalshi demo API and checks it.
+# Publishing: GitHub Pages is configured as legacy (branch main, path /), and the
+# Actions source is not available to this repo (see COORDINATION.md). So on main
+# the built site is committed to the monitor/ folder with [skip ci]. Branch and
+# PR runs only build and check.
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "site/**"
+      - "config/**"
+      - ".github/workflows/site.yml"
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monitor-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install renderer dependency
+        run: python3 -m pip install --quiet markdown
+      - name: Build site from official Kalshi API data
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p probe/build
+          python3 scripts/build_site.py --out _site 2>&1 | tee probe/build/build.log
+      - name: Check internal links and data files
+        run: python3 scripts/check_site.py _site
+      - name: Publish to monitor/ on main (legacy Pages serves main root)
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          rm -rf monitor && mkdir -p monitor && cp -r _site/. monitor/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A monitor
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -m "monitor: publish snapshot from official Kalshi demo API [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Save build report to the branch (PR runs only, skip-ci commit)
+        if: github.event_name == 'pull_request'
+        env:
+          BR: ${{ github.head_ref }}
+        run: |
+          mkdir -p /tmp/report && cp _site/data/meta.json _site/data/flags.json /tmp/report/ 2>/dev/null || true
+          cp _site/data/backtest.json /tmp/report/ 2>/dev/null || true
+          cp probe/build/build.log /tmp/report/ 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$BR"
+          git checkout -q -B "$BR" "origin/$BR"
+          mkdir -p probe/build && cp /tmp/report/* probe/build/ 2>/dev/null || true
+          git add -f probe/build
+          git commit -q -m "build report from CI [skip ci]" || echo "nothing to commit"
+          git push origin "HEAD:$BR" || echo "PUSH FAILED"
