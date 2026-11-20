@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestions — Making the Dashboard More Live & Interactive</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><a href="index.html">Trade<span>1</span> · Kalshi Demo</a></div>
+    <nav class="main">
+      <a href="index.html">Overview</a>
+      <a href="topics/gas-prices.html">⛽ Gas</a>
+      <a href="topics/elections.html">🗳️ Elections</a>
+      <a href="topics/culture.html">🎬 Culture</a>
+      <a href="topics/crypto.html">₿ Crypto</a>
+      <a href="topics/golf.html">⛳ Golf</a>
+      <a href="strategies.html">Strategies</a>
+      <a href="suggestions.html" class="active">Suggestions</a>
+      <a href="flagged.html">Flagged</a>
+      <a href="verification.html">Verification</a>
+    </nav>
+    <div class="spacer"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <h1>💡 Suggestions — how to make the site even more live &amp; interactive</h1>
+    <p class="blurb">The current build already does: live polling, seconds/minutes/hours charts, orderbook depth,
+      ≥ $0.10 jump feed, YES/NO resolution tracking, and automated paper strategies. Ranked suggestions below —
+      each notes the official capability it relies on.</p>
+  </section>
+
+  <section class="card">
+    <h2>High impact</h2>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>#</th><th>Suggestion</th><th>Why</th><th>What it needs</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><b>WebSocket streaming</b> (ticker, orderbook_delta, trade channels)</td>
+          <td>Removes REST polling lag entirely; sub-second updates on price and depth; matches how pros watch markets.</td>
+          <td>Demo API keys — official WS requires signed auth
+            (<a href="https://docs.kalshi.com/getting_started/quick_start_websockets.md" target="_blank" rel="noopener">docs</a>); demo WS endpoint already pinned in config.</td></tr>
+        <tr><td>2</td><td><b>Browser notifications + sound on ≥ $0.10 jumps</b></td>
+          <td>Traders can watch other pages while the site listens; jump alerts become actionable instantly.</td>
+          <td>Notifications API (no backend needed) — the jump detector already exists.</td></tr>
+        <tr><td>3</td><td><b>Sparklines in every table row</b></td>
+          <td>A 60-second shape per market makes ranking tables scannable without clicking through.</td>
+          <td>Chart.js mini-canvases fed from the same local price history.</td></tr>
+        <tr><td>4</td><td><b>Strategy backtesting on candlestick history</b></td>
+          <td>Test parameter tweaks against weeks of official 1-min/1-h candles before running live-in-paper.</td>
+          <td>GET candlesticks already integrated (≤5,000 periods/request
+            (<a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md" target="_blank" rel="noopener">docs</a>)).</td></tr>
+        <tr><td>5</td><td><b>Real demo-account execution</b> (paper → real fills)</td>
+          <td>Closes the loop: strategies place genuine demo orders; portfolio page shows the true demo balance/P&L.</td>
+          <td>Demo account + API key (human step), then sign
+            POST /portfolio/orders per <a href="https://docs.kalshi.com/getting_started/quick_start_create_order.md" target="_blank" rel="noopener">Quick Start: Create your first order</a>. Currently flagged F2/F11.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>Medium impact</h2>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>#</th><th>Suggestion</th><th>Why</th><th>What it needs</th></tr></thead>
+      <tbody>
+        <tr><td>6</td><td><b>Jump→news matching feed</b></td>
+          <td>Replace labeled news *searches* with auto-fetched headlines per jump (RSS aggregation, no API key).</td>
+          <td>A small serverless proxy (e.g., GitHub Action → committed JSON) since browsers can't fetch arbitrary RSS cross-origin.</td></tr>
+        <tr><td>7</td><td><b>Cross-market arbitrage scanner</b></td>
+          <td>Within an event, YES+NO asks &lt; $1.00 = risk-free pair; multi-candidate events sometimes misprice. Traders love a scanner panel.</td>
+          <td>Already-fetched orderbooks; add a math pass per event group.</td></tr>
+        <tr><td>8</td><td><b>Trade velocity + large-trade highlights</b></td>
+          <td>Trades/min and whale-trade flags explain jumps better than price alone.</td>
+          <td>GET /markets/trades already integrated; aggregate client-side.</td></tr>
+        <tr><td>9</td><td><b>PWA + offline cache</b></td>
+          <td>Installable mobile dashboard; last snapshot viewable offline (clearly timestamped).</td>
+          <td>Service worker + manifest; static site makes this trivial.</td></tr>
+        <tr><td>10</td><td><b>Keyboard command palette</b></td>
+          <td>Press "/" to jump to any market; number keys to switch topics — power-trader ergonomics.</td>
+          <td>Pure front-end.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>Organization &amp; simplification (continuous)</h2>
+    <ul>
+      <li><b>Keep topics separate</b> — one subpage per topic (done: gas / elections / culture / crypto / golf); never mix events across topics.</li>
+      <li><b>One-click triage</b> — the landing page ranks the highest-dollar markets so a trader decides in seconds where to look; topic pages hold the depth.</li>
+      <li><b>Simplified charts</b> — single price line by default, OHLC on hover only (done); depth chart collapses to best-12 levels (done).</li>
+      <li><b>Everything sourced</b> — every table row links the exact API call + official Kalshi page (done), so review never blocks trading flow.</li>
+      <li><b>Flagged items stay visible</b> — persistent "Flagged" nav entry so unverified values are always one click away (done).</li>
+    </ul>
+  </section>
+
+  <footer><a href="index.html">← Back to dashboard</a></footer>
+</div>
+</body>
+</html>

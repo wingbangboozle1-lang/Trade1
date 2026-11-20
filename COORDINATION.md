@@ -13,7 +13,8 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 - The remote has about 12 other `arena/*` branches from other sessions (for example `arena/08347343-trade1`, `arena/a2ec5543-trade1`, `arena/10000a95-trade1`, `arena/46259c0d-trade1`). Several of them claim the same files (`index.html`, `.github/workflows/pages.yml`, `site/`). **None of them were merged or edited by this session.** Their claim tables live on their own branches, not on `main`. See Flagged item R9. The owner needs to choose which branch becomes the integration target. Pull and merge decisions are not made by this session.
 
 Repo: `wingbangboozle1-lang/Trade1` (Kalshi demo dashboard)
-Sessions: `session-0db174ef-trade1` (branch `arena/0db174ef-trade1`), `81cacf69` (merged via PR #5).
+Sessions: `session-0db174ef-trade1` (branch `arena/0db174ef-trade1`), `81cacf69` (merged via PR #5),
+`sess-a1-9a0ad587` (branch `arena/9a0ad587-trade1`, merged via PR #7).
 
 This is the shared task board. Each task has: id, status, owning session, and the files it touches.
 Shared outputs (site index/navigation) are changed only by a final integration session once all
@@ -60,15 +61,15 @@ Action needed by the owners of #2, #3, #4, #6: rebase on `main` after cedad5c4's
 This sandbox has outbound egress restricted to `github.com`, `codeload.github.com`,
 `api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`.
 The Kalshi hosts (`*.kalshi.co`, `docs.kalshi.com`, `kalshi-public-docs.s3.amazonaws.com`) are
-**not reachable** — verified with `curl` (TLS handshake resets; `code:000`, rc=35).
+**not reachable from the build sandbox** — verified with `curl` (TLS handshake resets; `code:000`,
+rc=35). Dashboards therefore fetch Kalshi demo data **live in the user's browser** (public
+market-data endpoints support browser `fetch`/CORS per Kalshi's own docs), so the values a user
+sees are real values from the official API. Anything the sandbox could not confirm is left blank
+and flagged as **unverified**. No market data is invented. (Session `sess-a1-9a0ad587` verified
+the demo API through Arena's page-fetch of official docs and live demo endpoints; see its
+verification log below.)
 
-Consequence: live market data cannot be fetched *from the build sandbox*. Dashboards are built to
-fetch Kalshi demo data **live in the user's browser** (public market-data endpoints support
-browser `fetch`/CORS per Kalshi's own docs), so the values a user sees are real values from the
-official API. Anything the sandbox could not confirm is left blank and flagged as **unverified**.
-No market data is invented.
-
-## Tasks
+## Tasks — sessions 0db174ef (root dashboard) & 81cacf69 (monitor views)
 
 | ID | Task | Status | Owner | Files (scope) |
 |----|------|--------|-------|----------------|
@@ -82,6 +83,39 @@ No market data is invented.
 | T8 | Site build/link validation + GitHub Pages + PR + merge | done | session-0db174ef-trade1 | `tools/build.mjs`, `.github/workflows/pages.yml`, `package.json`, `README.md` |
 | M1 | Alternate multi-page monitor (dashboard + categories + assets) | done | 81cacf69 | `dashboard.html`, `categories/*.html`, `flagged.html`, `assets/*` |
 
+## Tasks — session sess-a1-9a0ad587 (`site/` dashboard)
+
+Arena requires this session to keep all work on `arena/9a0ad587-trade1` (the Arena-managed session
+branch); it is used in place of `session-<id>/<task>` naming.
+
+| # | Task | Owner | Files touched | Status |
+|---|---|---|---|---|
+| 1 | Coordination board setup | sess-a1-9a0ad587 | `COORDINATION.md` (merged with 0db174ef/81cacf69 board) | done |
+| 2 | Kalshi demo API verification (endpoints, fields, rate limits, fees) from official sources | sess-a1-9a0ad587 | `docs/API_NOTES.md`, `docs/SOURCES.md` | done |
+| 3 | Executive summary | sess-a1-9a0ad587 | `docs/EXECUTIVE_SUMMARY.md`, `site/index.html` | done |
+| 4 | Dashboard site framework (landing + topic subpages: gas, elections, culture, crypto, golf) | sess-a1-9a0ad587 | `site/**` | done |
+| 5 | Live price/liquidity tracking + charts (sec/min/hour granularity, orderbook depth) | sess-a1-9a0ad587 | `site/js/**`, `site/topics/*.html` | done |
+| 6 | Jump detector (≥ $0.10 moves) with cause/news links | sess-a1-9a0ad587 | `site/js/engine.js` (T1Track), `site/js/topic.js`, `site/js/dashboard.js` | done (file scope changed during build; jump logic lives in engine.js) |
+| 7 | Paper strategy engine + portfolio performance tracking | sess-a1-9a0ad587 | `site/js/engine.js`, `site/js/strategies.html` | done |
+| 8 | Resolution tracker (live events until resolved yes/no) | sess-a1-9a0ad587 | `site/js/engine.js`, `site/js/store.js` | done |
+| 9 | Flagged-for-review page + irregularity log | sess-a1-9a0ad587 | `docs/FLAGGED.md`, `site/flagged.html` | done (12 items F1–F12) |
+| 10 | Suggestions page (making the site more live/interactive) | sess-a1-9a0ad587 | `site/suggestions.html` | done |
+| 11 | Pages deployment + PR to main + merge + deploy verification (final integration for its scope) | sess-a1-9a0ad587 | PR #7; `.github/workflows/deploy-pages.yml` superseded by existing legacy Pages + `pages.yml` validator | done |
+| 12 | README (repo overview, quick links) | sess-a1-9a0ad587 | `README.md` (merged with 0db174ef/81cacf69 sections) | done |
+
+## Deployment (current, canonical)
+
+- GitHub Pages: **legacy mode, serving `main` at `/`** → https://wingbangboozle1-lang.github.io/Trade1/
+  - Primary dashboard (0db174ef): `/` (`index.html`, `pages/…`)
+  - Monitor views (81cacf69): `/dashboard.html`, `/categories/…`
+  - site/ dashboard (sess-a1-9a0ad587): **`/site/`** (`site/index.html`, `site/topics/…`, `site/strategies.html`, …)
+- Validation: `.github/workflows/pages.yml` → `node tools/build.mjs` on every push/PR (JS syntax +
+  broken-link/asset check across the whole repo, including `site/`).
+- `.github/workflows/deploy-pages.yml` (sess-a1-9a0ad587, artifact-based Pages deploy) was
+  **superseded** during integration: legacy branch-Pages was already configured and live, and a
+  second deploy pipeline would fight the existing setup. It was removed; its validation role is
+  covered by `tools/build.mjs`. Logged here to keep the change traceable, not silent.
+
 ## Session log
 
 ### session-0db174ef-trade1
@@ -94,8 +128,8 @@ No market data is invented.
     https://pypi.org/project/kalshi/
   - `github.com/mlucy/kalshi_py` SDK + REST spec (`swagger.json`).
   - Official starter code `Kalshi/kalshi-starter-code-python` — demo base URL, RSA-PSS header
-    auth (`KALSHI-ACCESS-KEY` / `KALSHI-ACCESS-SIGNATURE` / `KALSHI-ACCESS-TIMESTAMP`),
-    `/trade-api/v2` endpoints, WebSocket `{"cmd":"subscribe","params":{"channels":["ticker"]}}`.
+    auth (`KALSHI-ACCESS-KEY` / `KALSHI-ACCESS-SIGNATURE` / `KALSHI-ACCESS-TIMESTAMP`), `/trade-api/v2`
+    endpoints, WebSocket `{"cmd":"subscribe","params":{"channels":["ticker"]}}`.
 - Sources + verification details recorded in `docs/sources.md` and `docs/verification.md`.
 - Built the full dashboard (T1–T8): client, store, charts, strategy engine, portfolio, topic pages,
   flagged page, docs, build tooling, CI workflow.
@@ -126,37 +160,7 @@ No market data is invented.
     preserved intact.
 - Merged the result and pushed; PR #6 merged to `main`.
 
-## Completion records
-
-### session-0db174ef-trade1
-- **T1** `docs/executive-summary.md`.
-- **T2** `docs/api-reference.md`, `docs/verification.md`, `docs/sources.md`.
-- **T3** `js/kalshi.js`: public fetch + WebCrypto RSA-PSS signing; host probe with fast timeout +
-  fallback; portfolio + order endpoints; WS subscribe. Fails gracefully.
-- **T4** `js/store.js` (polling, price series, orderbook, sharp-move detection, resolution),
-  `js/charts.js` (time/price chart with seconds/minutes/hours window + liquidity depth chart),
-  `js/dashboard.js` (tables with per-row source links + detail + sharp moves), `css/style.css`.
-- **T5** `pages/*.html` + shared `js/nav.js`. Topics separate; events grouped.
-- **T6** `js/strategy.js`: 4 strategies, simulated trades, categorization by type + topic,
-  win-rate/P&L, auto-settle. `js/portfolio.js` + `pages/portfolio.html`: live demo balance/positions,
-  trade log, opt-in real demo execution.
-- **T7** `js/flagged.js` + `pages/flagged.html`.
-- **T8** `tools/build.mjs` + `.github/workflows/pages.yml` + `package.json` + `README.md`.
-
-### 81cacf69
-- **M1** `dashboard.html`, `categories/{gas,elections,culture,crypto,golf}.html`, `flagged.html`,
-  `assets/css/style.css`, `assets/js/app.js`.
-
-## Verification & flagged items
-- All technical claims trace to official Kalshi sources (docs/sources.md, docs/verification.md).
-- Flagged irregularities / unverified (published on the site's Flagged for Review pages):
-  1. Demo base host discrepancy.
-  2. Live market values unverified from the sandbox (fetched live in-browser).
-  3. Topic series mapping data-driven (no ticker hard-coded as fact).
-  4. WebSocket host naming differs across sources.
-  5. Exact v2 order-create request body unconfirmed (opt-in execution; validate on demo account).
-
-## Integration / publish
+#### Integration / publish (session 0db174ef, completion recorded on main @ ed59af6)
 - [x] Build + link validation (`node tools/build.mjs` -> BUILD OK)
 - [x] PR #6 created from `arena/0db174ef-trade1` to `main`
   - https://github.com/wingbangboozle1-lang/Trade1/pull/6
@@ -166,8 +170,40 @@ No market data is invented.
 - [x] GitHub Pages build + deployment succeeded (status: built)
   - Live site: https://wingbangboozle1-lang.github.io/Trade1/
 
-## Result
+#### Result (session 0db174ef)
 All tasks (T1–T8 for session 0db174ef; M1 for session 81cacf69) are complete. The site builds with
 no broken links, the CI validation passes, PR #6 is merged to `main`, and GitHub Pages is live.
 Flagged irregularities / unverified items do not block the merge and are published on the site's
 Flagged for Review pages with source links.
+
+### sess-a1-9a0ad587 — verification log (2026-11-20)
+
+Official sources fetched and read this session (links in `docs/SOURCES.md`, `docs/API_NOTES.md`):
+- https://docs.kalshi.com/getting_started/demo_env.md — demo REST root, WS root, mock funds, demo≠production.
+- https://docs.kalshi.com/getting_started/quick_start_market_data.md — no-auth public endpoints, browser fetch examples, orderbook format, kalshi.com/markets URL pattern.
+- https://docs.kalshi.com/api-reference/market/get-markets.md — status filters, pagination, caching/lag.
+- https://docs.kalshi.com/api-reference/market/get-series-list.md — category/tags filters, fee fields, settlement_sources.
+- https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md — period_interval {1,60,1440}, 5,000-period cap.
+- https://docs.kalshi.com/api-reference/market/get-market-orderbook.md — orderbook_fp format, depth.
+- https://docs.kalshi.com/api-reference/market/get-trades.md — trade tape fields/limits.
+- https://docs.kalshi.com/getting_started/rate_limits.md — token buckets, unauthenticated limits, 429.
+- https://docs.kalshi.com/getting_started/market_settlement.md — $1/contract to winning side, no settlement fee.
+- https://kalshi.com/docs/kalshi-fee-schedule.pdf — taker fee roundup(M×0.07×C×P×(1−P)); maker multiplier default 0.
+Live demo API probes (official host, fetched this session): `/events?status=open`; `/markets?series_ticker=KXBTC&status=open|settled` (confirmed `result:"no"`, `status:"finalized"` on settled markets); `/series/{KXGAS,KXETH,KXTIME,KXPGA,KXMASTERS}` (all five exist on demo with the expected categories/tags/settlement sources).
+Irregularities flagged: F1–F12 in `docs/FLAGGED.md` (CORS unconfirmed officially; demo credentials absent → paper engine + dormant read-only connector; no aggregate liquidity field in v3.37.0 responses; status vocabulary mismatch `active`/`finalized` vs docs; news links are labeled searches; no public demo deep links; settlement-bound fields unexercised; $-value metric is a documented approximation; KXPRES28 probe failed twice — unverified; REST caching lag; order placement dormant; WebSocket requires keys → polling used).
+
+### sess-a1-9a0ad587 — build & integration log (PR #7)
+
+- Built `site/` dashboard (10 JS modules, 11 HTML pages, vendored Chart.js 4.6.1 from npm, MIT).
+- Local checks: `node --check` on every JS file (all pass); internal link/asset existence check across all HTML (none missing).
+- Local preview: `python3 -m http.server 8080 --directory site` — all 14 spot-checked paths return 200.
+- PR #7 → `main` initially unmergeable: `main` had advanced (PRs #1/#5/#6 from sessions 0db174ef & 81cacf69). Resolved per protocol **without discarding their work**:
+  - Root dashboard, monitor views, docs, build tooling, and `pages.yml` kept intact.
+  - `README.md` and `COORDINATION.md` rewritten to integrate all three sessions' scopes/logs.
+  - `site/` dashboard preserved intact and served under `/site/`.
+  - `deploy-pages.yml` (this session's artifact-based deploy) superseded by the existing legacy
+    Pages (branch `main`, path `/`) + `tools/build.mjs` validator; removal logged above.
+- Merged PR #7 into `main`, confirmed the Pages build completes and the site responds (see final log entry).
+
+## Handoff / takeover log
+(none — no task handovers occurred)

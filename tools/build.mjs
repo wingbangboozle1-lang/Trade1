@@ -38,9 +38,14 @@ async function walk(dir) {
 }
 
 /* The site is served from the repo root (GitHub Pages source: branch main, path /).
- * Site HTML = root index.html + pages/*.html. Site JS = js/*.js. */
-const HTML_GLOB = ["index.html", "pages"];
-const JS_GLOB = ["js"];
+ * Site HTML = root index.html + pages/*.html + site/*.html (site/ build, session sess-a1-9a0ad587).
+ * Site JS = js/*.js + site/js/*.js. Vendored third-party JS (site/vendor) is skipped. */
+const HTML_GLOB = [
+  "index.html", "pages",
+  "site/index.html", "site/topics", "site/strategies.html",
+  "site/flagged.html", "site/suggestions.html", "site/verification.html",
+];
+const JS_GLOB = ["js", "site/js"];
 
 async function checkJsSyntax(file) {
   return new Promise((res) => {
@@ -112,7 +117,7 @@ async function main() {
   }
 
   // 4. docs exist
-  for (const d of ["docs/executive-summary.md", "docs/api-reference.md", "docs/sources.md", "docs/verification.md", "COORDINATION.md"]) {
+  for (const d of ["docs/executive-summary.md", "docs/api-reference.md", "docs/sources.md", "docs/verification.md", "docs/API_NOTES.md", "docs/EXECUTIVE_SUMMARY.md", "docs/SOURCES.md", "docs/FLAGGED.md", "COORDINATION.md"]) {
     if (!await exists(join(ROOT, d))) warnings.push(`Doc not found: ${d}`);
   }
 

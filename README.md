@@ -72,3 +72,4 @@ Full list with what was verified on each: `sources.html`. Coordination log: [COO
 ## Other sessions on main
 
 PR #6 (session `0db174ef`, merged) added a separate dashboard in `pages/`, `js/`, `css/`, `docs/`, `tools/`, `package.json`. It is not linked from this site's pages. Its owner decides whether to keep or remove it. This site (v2) is published from the repository root `index.html`.
+PR #7 (session `9a0ad587`, merged) added a second site under `site/` (plus `tools/build.mjs`, `js/`, `pages/`). It is not linked from this site and is not checked by `scripts/check_site.mjs`. Its owner decides whether to keep or remove it (see Flagged R11).
