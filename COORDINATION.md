@@ -4,7 +4,7 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Current deployed-site audit: rerun tests/build, confirm official-source evidence and GitHub Pages deployment, correct verified stale review-page statements, record findings | in progress | a53ab816 (`arena/a53ab816-trade1`) | `COORDINATION.md`, `reports/VERIFICATION_a53ab816.md`, `flagged.html` |
+| Current deployed-site audit: rerun tests/build, confirm official-source evidence and GitHub Pages deployment, correct verified stale safety/review statements, record findings | in progress | a53ab816 (`arena/a53ab816-trade1`) | `COORDINATION.md`, `reports/VERIFICATION_a53ab816.md`, `flagged.html`, `README.md` |
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
