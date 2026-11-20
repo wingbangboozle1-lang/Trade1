@@ -1,0 +1,77 @@
+name: Collect Kalshi demo data and publish site
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["docs/**", "scripts/**", "tests/**", ".github/workflows/pages.yml"]
+  schedule:
+    - cron: "*/30 * * * *"   # scheduled runs only execute from the default branch (main)
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Unit tests (synthetic fixtures)
+        run: python -m unittest discover -s tests -v
+
+      - name: Collect official Kalshi demo data and build _site
+        env:
+          KALSHI_BASE: https://external-api.demo.kalshi.co/trade-api/v2
+        run: python scripts/kalshi_collect.py
+
+      - name: Check site links and data files
+        run: |
+          test -f _site/index.html
+          test -f _site/data/data.json
+          test -f _site/data/state.json
+          python - <<'PY'
+          import json, pathlib, re, sys
+          site = pathlib.Path("_site")
+          bad = []
+          for html in site.glob("*.html"):
+              for href in re.findall(r'href="([^"#]+)"', html.read_text()):
+                  if href.startswith("http"):
+                      continue
+                  if not (site / href).exists():
+                      bad.append(f"{html.name} -> {href}")
+          for src in re.findall(r'(?:src|href)="(assets/[^"]+)"', (site / "index.html").read_text()):
+              if not (site / src).exists():
+                  bad.append(f"index.html -> {src}")
+          for name in set(re.findall(r'"([a-z]+\.html)"', (site / "assets/app.js").read_text())):
+              if not (site / name).exists():
+                  bad.append(f"assets/app.js -> {name}")
+          json.loads((site / "data/data.json").read_text())
+          print("internal links checked; broken:", bad or "none")
+          sys.exit(1 if bad else 0)
+          PY
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
