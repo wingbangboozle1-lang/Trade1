@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-20T19:28:07.993Z",
-  "files": 17,
+  "checkedAt": "2026-11-20T19:36:13.160Z",
+  "files": 22,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
@@ -18,10 +18,15 @@
     "topics/culture.html",
     "topics/elections.html",
     "topics/gas-prices.html",
-    "topics/golf.html"
+    "topics/golf.html",
+    "demo-account/flagged.html",
+    "demo-account/index.html"
   ],
   "jsFiles": [
     "assets/app.js",
-    "assets/model.js"
+    "assets/model.js",
+    "demo-account/assets/app.js",
+    "demo-account/assets/engine.js",
+    "demo-account/assets/signer.js"
   ]
 }

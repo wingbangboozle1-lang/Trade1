@@ -41,6 +41,8 @@ jobs:
         run: node scripts/test_lib.mjs
       - name: Unit checks — engine math (fees, alert threshold, classifier)
         run: node tests/root_engine.test.js
+      - name: Unit checks — demo-account track (official fee table, signing, paper portfolio)
+        run: node tests/demo-account.test.mjs
       - name: JS syntax, internal links, nav targets
         run: node tools/build.mjs
       - name: Every page link resolves and every snapshot row has an official source URL
