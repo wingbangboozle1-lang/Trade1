@@ -1,5 +1,5 @@
 {
- "probed_at": "2026-11-20T17:57:11.093940+00:00",
+ "probed_at": "2026-11-20T19:12:41.608488+00:00",
  "endpoints": [
   "https://external-api.demo.kalshi.co/trade-api/v2",
   "https://demo-api.kalshi.co/trade-api/v2"
@@ -11,7 +11,7 @@
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "(none)",
    "http_status": 200,
-   "latency_s": 0.32,
+   "latency_s": 0.31,
    "response_headers": {
     "vary": "Accept-Language"
    }
@@ -22,7 +22,7 @@
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "https://wingbangboozle1-lang.github.io",
    "http_status": 200,
-   "latency_s": 0.23,
+   "latency_s": 0.26,
    "response_headers": {
     "access-control-allow-credentials": "true",
     "access-control-allow-origin": "https://wingbangboozle1-lang.github.io",
@@ -36,7 +36,7 @@
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "https://example.com",
    "http_status": 200,
-   "latency_s": 0.26,
+   "latency_s": 0.27,
    "response_headers": {
     "access-control-allow-credentials": "true",
     "access-control-allow-origin": "https://example.com",
@@ -50,7 +50,7 @@
    "url": "https://demo-api.kalshi.co/trade-api/v2/exchange/status",
    "request_origin": "https://wingbangboozle1-lang.github.io",
    "http_status": 200,
-   "latency_s": 0.3,
+   "latency_s": 0.2,
    "response_headers": {
     "access-control-allow-credentials": "true",
     "access-control-allow-origin": "https://wingbangboozle1-lang.github.io",

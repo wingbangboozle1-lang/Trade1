@@ -1,7 +1,7 @@
 {
  "topic": "culture",
  "label": "Culture",
- "generated_at": "2026-11-20T17:57:11.093940+00:00",
+ "generated_at": "2026-11-20T19:12:41.608488+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -11,8 +11,8 @@
   ],
   "markets": [
    "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIkO6B2AYQoJyRyAISHEtYU1JCU0xUT1RBTC0yNk5PVjIxT0JFTlBBLTU",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIg8SB2AYQ2O2XiwESIEtYVFdFRURFRElWVE9UQUwtMjZOT1YyMUFDSUlKUy0x"
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIvpiC2AYQ2JGQ1wMSF0tYV1RJSC0yNk5PVjIzMjMtVDgyLjk5",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIu5iC2AYQyMXZzwISH0tYNVlSUkFURUVWRU5ULTA0REVDMjYxMDE1LVQ0NTM"
   ],
   "event_markets_example": [
    "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASM-26NOV30",
@@ -50,8 +50,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 3481074.09,
-   "_volume_contracts": 31477068.75,
+   "_est_dollar_volume": 3481074.24,
+   "_volume_contracts": 31477069.51,
    "_market_count": 41,
    "_markets": [
     {
@@ -97,7 +97,7 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.4900",
-     "previous_price_dollars": "0.1200",
+     "previous_price_dollars": "0.5100",
      "previous_yes_bid_dollars": "0.0100",
      "yes_bid_dollars": "0.0100",
      "yes_ask_dollars": "1.0000",
@@ -106,7 +106,7 @@
      "yes_bid_size_fp": "20.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "2035929.23",
-     "volume_24h_fp": "0.57",
+     "volume_24h_fp": "0.21",
      "open_interest_fp": "1398527.76",
      "open_time": "2026-05-27T16:45:53Z",
      "close_time": "2027-12-31T15:00:00Z",
@@ -116,7 +116,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 997605.32,
-     "_est_dollar_volume_24h": 0.28
+     "_est_dollar_volume_24h": 0.1
     },
     {
      "ticker": "KXOSCARPIC-27-YOU",
@@ -135,10 +135,10 @@
      "yes_ask_dollars": "0.2100",
      "no_bid_dollars": "0.7900",
      "no_ask_dollars": "0.8000",
-     "yes_bid_size_fp": "1665.53",
+     "yes_bid_size_fp": "1665.90",
      "yes_ask_size_fp": "1587.30",
-     "volume_fp": "1365995.81",
-     "volume_24h_fp": "129.53",
+     "volume_fp": "1365996.57",
+     "volume_24h_fp": "130.29",
      "open_interest_fp": "924333.76",
      "open_time": "2026-09-09T00:04:04Z",
      "close_time": "2027-12-31T15:00:00Z",
@@ -147,8 +147,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 273199.16,
-     "_est_dollar_volume_24h": 25.91
+     "_est_dollar_volume": 273199.31,
+     "_est_dollar_volume_24h": 26.06
     },
     {
      "ticker": "KXOSCARPIC-27-DUN",
@@ -331,8 +331,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 1608975.43,
-   "_volume_contracts": 12937700.82,
+   "_est_dollar_volume": 1608975.77,
+   "_volume_contracts": 12937702.5,
    "_market_count": 16,
    "_markets": [
     {
@@ -345,8 +345,8 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.5100",
-     "previous_price_dollars": "0.5700",
-     "previous_yes_bid_dollars": "0.5500",
+     "previous_price_dollars": "0.5400",
+     "previous_yes_bid_dollars": "0.5300",
      "yes_bid_dollars": "0.5000",
      "yes_ask_dollars": "0.5100",
      "no_bid_dollars": "0.4900",
@@ -354,7 +354,7 @@
      "yes_bid_size_fp": "333.33",
      "yes_ask_size_fp": "317.32",
      "volume_fp": "847947.59",
-     "volume_24h_fp": "2807.56",
+     "volume_24h_fp": "972.55",
      "open_interest_fp": "301036.24",
      "open_time": "2026-09-02T17:33:26Z",
      "close_time": "2027-01-07T15:00:00Z",
@@ -364,7 +364,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 432453.27,
-     "_est_dollar_volume_24h": 1431.86
+     "_est_dollar_volume_24h": 496.0
     },
     {
      "ticker": "KXDANCINGWITHTHESTARS-26DEC31-AGLE",
@@ -384,9 +384,9 @@
      "no_ask_dollars": "0.8000",
      "yes_bid_size_fp": "1664.98",
      "yes_ask_size_fp": "1587.30",
-     "volume_fp": "1322519.82",
-     "volume_24h_fp": "1.68",
-     "open_interest_fp": "910288.84",
+     "volume_fp": "1322521.50",
+     "volume_24h_fp": "3.36",
+     "open_interest_fp": "910287.16",
      "open_time": "2026-09-02T17:33:26Z",
      "close_time": "2027-01-07T15:00:00Z",
      "expected_expiration_time": "2026-12-31T15:00:00Z",
@@ -394,8 +394,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 264503.96,
-     "_est_dollar_volume_24h": 0.34
+     "_est_dollar_volume": 264504.3,
+     "_est_dollar_volume_24h": 0.67
     },
     {
      "ticker": "KXDANCINGWITHTHESTARS-26DEC31-HSHU",
@@ -500,8 +500,8 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.0600",
-     "previous_price_dollars": "0.0500",
-     "previous_yes_bid_dollars": "0.0400",
+     "previous_price_dollars": "0.0600",
+     "previous_yes_bid_dollars": "0.0600",
      "yes_bid_dollars": "0.0500",
      "yes_ask_dollars": "0.0600",
      "no_bid_dollars": "0.9400",
@@ -509,7 +509,7 @@
      "yes_bid_size_fp": "6666.66",
      "yes_ask_size_fp": "2777.77",
      "volume_fp": "1708698.83",
-     "volume_24h_fp": "21111.07",
+     "volume_24h_fp": "2777.77",
      "open_interest_fp": "563582.53",
      "open_time": "2026-09-02T17:33:26Z",
      "close_time": "2027-01-07T15:00:00Z",
@@ -519,7 +519,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 102521.93,
-     "_est_dollar_volume_24h": 1266.66
+     "_est_dollar_volume_24h": 166.67
     },
     {
      "ticker": "KXDANCINGWITHTHESTARS-26DEC31-GROD",
@@ -600,8 +600,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 181064.92,
-   "_volume_contracts": 2702045.52,
+   "_est_dollar_volume": 181064.98,
+   "_volume_contracts": 2702046.53,
    "_market_count": 48,
    "_markets": [
     {
@@ -679,16 +679,16 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.2400",
-     "previous_price_dollars": "0.2800",
-     "previous_yes_bid_dollars": "0.2600",
+     "previous_price_dollars": "0.2500",
+     "previous_yes_bid_dollars": "0.2400",
      "yes_bid_dollars": "0.2300",
      "yes_ask_dollars": "0.2400",
      "no_bid_dollars": "0.7600",
      "no_ask_dollars": "0.7700",
-     "yes_bid_size_fp": "2173.89",
+     "yes_bid_size_fp": "1449.26",
      "yes_ask_size_fp": "177.56",
      "volume_fp": "34166.91",
-     "volume_24h_fp": "6303.29",
+     "volume_24h_fp": "3687.93",
      "open_interest_fp": "24551.92",
      "open_time": "2026-02-19T20:03:26Z",
      "close_time": "2027-01-01T04:59:00Z",
@@ -698,7 +698,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 8200.06,
-     "_est_dollar_volume_24h": 1512.79
+     "_est_dollar_volume_24h": 885.1
     },
     {
      "ticker": "KXTIME-26-JOS",
@@ -711,16 +711,16 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.1700",
-     "previous_price_dollars": "0.1500",
-     "previous_yes_bid_dollars": "0.1200",
+     "previous_price_dollars": "0.1600",
+     "previous_yes_bid_dollars": "0.1600",
      "yes_bid_dollars": "0.1600",
      "yes_ask_dollars": "0.1700",
      "no_bid_dollars": "0.8300",
      "no_ask_dollars": "0.8400",
-     "yes_bid_size_fp": "1113.93",
+     "yes_bid_size_fp": "1041.66",
      "yes_ask_size_fp": "472.39",
      "volume_fp": "45990.58",
-     "volume_24h_fp": "4248.44",
+     "volume_24h_fp": "2237.39",
      "open_interest_fp": "34860.52",
      "open_time": "2026-11-05T20:34:44Z",
      "close_time": "2027-01-01T04:59:00Z",
@@ -730,7 +730,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 7818.4,
-     "_est_dollar_volume_24h": 722.23
+     "_est_dollar_volume_24h": 380.36
     },
     {
      "ticker": "KXTIME-26-JAME",
@@ -775,7 +775,7 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.0300",
-     "previous_price_dollars": "0.0200",
+     "previous_price_dollars": "0.0300",
      "previous_yes_bid_dollars": "0.0100",
      "yes_bid_dollars": "0.0200",
      "yes_ask_dollars": "0.0300",
@@ -784,7 +784,7 @@
      "yes_bid_size_fp": "8333.33",
      "yes_ask_size_fp": "5555.55",
      "volume_fp": "209666.33",
-     "volume_24h_fp": "27529.79",
+     "volume_24h_fp": "14369.33",
      "open_interest_fp": "109800.18",
      "open_time": "2026-09-09T23:34:28Z",
      "close_time": "2027-01-01T04:59:00Z",
@@ -794,7 +794,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 6289.99,
-     "_est_dollar_volume_24h": 825.89
+     "_est_dollar_volume_24h": 431.08
     },
     {
      "ticker": "KXTIME-26-ABD",
@@ -813,8 +813,8 @@
      "yes_ask_dollars": "0.2000",
      "no_bid_dollars": "0.8000",
      "no_ask_dollars": "0.8200",
-     "yes_bid_size_fp": "1851.84",
-     "yes_ask_size_fp": "1501.72",
+     "yes_bid_size_fp": "925.92",
+     "yes_ask_size_fp": "833.33",
      "volume_fp": "27035.71",
      "volume_24h_fp": "2287.99",
      "open_interest_fp": "18344.31",
@@ -1173,8 +1173,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 42365.72,
-   "_volume_contracts": 180635.31,
+   "_est_dollar_volume": 41945.08,
+   "_volume_contracts": 180747.81,
    "_market_count": 13,
    "_markets": [
     {
@@ -1187,17 +1187,17 @@
      "no_sub_title": "Above 65",
      "status": "active",
      "result": "",
-     "last_price_dollars": "0.5300",
-     "previous_price_dollars": "0.9900",
-     "previous_yes_bid_dollars": "0.9600",
+     "last_price_dollars": "0.5100",
+     "previous_price_dollars": "0.8100",
+     "previous_yes_bid_dollars": "0.7400",
      "yes_bid_dollars": "0.5100",
      "yes_ask_dollars": "0.5300",
      "no_bid_dollars": "0.4700",
      "no_ask_dollars": "0.4900",
-     "yes_bid_size_fp": "326.79",
+     "yes_bid_size_fp": "325.29",
      "yes_ask_size_fp": "216.67",
-     "volume_fp": "21236.74",
-     "volume_24h_fp": "8442.95",
+     "volume_fp": "21238.24",
+     "volume_24h_fp": "7440.77",
      "open_interest_fp": "18426.94",
      "open_time": "2026-09-15T18:51:08Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -1206,8 +1206,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 11255.47,
-     "_est_dollar_volume_24h": 4474.76
+     "_est_dollar_volume": 10831.5,
+     "_est_dollar_volume_24h": 3794.79
     },
     {
      "ticker": "KXRT-HUN-60",
@@ -1220,8 +1220,8 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.9900",
-     "previous_price_dollars": "0.9800",
-     "previous_yes_bid_dollars": "0.9700",
+     "previous_price_dollars": "0.9700",
+     "previous_yes_bid_dollars": "0.9600",
      "yes_bid_dollars": "0.9700",
      "yes_ask_dollars": "1.0000",
      "no_bid_dollars": "0.0000",
@@ -1229,7 +1229,7 @@
      "yes_bid_size_fp": "82.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "8426.32",
-     "volume_24h_fp": "891.50",
+     "volume_24h_fp": "605.82",
      "open_interest_fp": "6836.95",
      "open_time": "2026-09-15T18:51:08Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -1239,7 +1239,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 8342.06,
-     "_est_dollar_volume_24h": 882.59
+     "_est_dollar_volume_24h": 599.76
     },
     {
      "ticker": "KXRT-HUN-82",
@@ -1357,7 +1357,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "24753.74",
-     "volume_24h_fp": "5484.77",
+     "volume_24h_fp": "5163.65",
      "open_interest_fp": "21129.69",
      "open_time": "2026-10-29T00:34:19Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -1367,7 +1367,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 2970.45,
-     "_est_dollar_volume_24h": 658.17
+     "_est_dollar_volume_24h": 619.64
     },
     {
      "ticker": "KXRT-HUN-70",
@@ -1380,8 +1380,8 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.1400",
-     "previous_price_dollars": "0.8000",
-     "previous_yes_bid_dollars": "0.6200",
+     "previous_price_dollars": "0.1500",
+     "previous_yes_bid_dollars": "0.1300",
      "yes_bid_dollars": "0.1400",
      "yes_ask_dollars": "1.0000",
      "no_bid_dollars": "0.0000",
@@ -1389,7 +1389,7 @@
      "yes_bid_size_fp": "313.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "16714.34",
-     "volume_24h_fp": "4312.99",
+     "volume_24h_fp": "3126.06",
      "open_interest_fp": "13471.41",
      "open_time": "2026-09-15T18:51:08Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -1399,7 +1399,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 2340.01,
-     "_est_dollar_volume_24h": 603.82
+     "_est_dollar_volume_24h": 437.65
     },
     {
      "ticker": "KXRT-HUN-72",
@@ -1412,16 +1412,16 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.0300",
-     "previous_price_dollars": "0.6400",
+     "previous_price_dollars": "0.6500",
      "previous_yes_bid_dollars": "0.5800",
-     "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "1.0000",
-     "no_bid_dollars": "0.0000",
-     "no_ask_dollars": "1.0000",
-     "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "0.00",
-     "volume_fp": "24615.53",
-     "volume_24h_fp": "6944.12",
+     "yes_bid_dollars": "0.0200",
+     "yes_ask_dollars": "0.0300",
+     "no_bid_dollars": "0.9700",
+     "no_ask_dollars": "0.9800",
+     "yes_bid_size_fp": "8335.33",
+     "yes_ask_size_fp": "5555.55",
+     "volume_fp": "24726.53",
+     "volume_24h_fp": "6701.05",
      "open_interest_fp": "18494.94",
      "open_time": "2026-10-29T00:34:19Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -1430,8 +1430,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 738.47,
-     "_est_dollar_volume_24h": 208.32
+     "_est_dollar_volume": 741.8,
+     "_est_dollar_volume_24h": 201.03
     }
    ]
   },
@@ -2468,11 +2468,11 @@
      "previous_price_dollars": "0.7400",
      "previous_yes_bid_dollars": "0.7500",
      "yes_bid_dollars": "0.7400",
-     "yes_ask_dollars": "0.7600",
-     "no_bid_dollars": "0.2400",
+     "yes_ask_dollars": "0.7500",
+     "no_bid_dollars": "0.2500",
      "no_ask_dollars": "0.2600",
      "yes_bid_size_fp": "16.00",
-     "yes_ask_size_fp": "28.04",
+     "yes_ask_size_fp": "11.98",
      "volume_fp": "1753.97",
      "volume_24h_fp": "234.94",
      "open_interest_fp": "1752.99",
@@ -2599,8 +2599,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 12611.46,
-   "_volume_contracts": 43598.01,
+   "_est_dollar_volume": 12905.87,
+   "_volume_contracts": 43598.45,
    "_market_count": 10,
    "_markets": [
     {
@@ -2613,17 +2613,17 @@
      "no_sub_title": "Above 85",
      "status": "active",
      "result": "",
-     "last_price_dollars": "0.1400",
+     "last_price_dollars": "0.1500",
      "previous_price_dollars": "0.4300",
-     "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.1400",
+     "previous_yes_bid_dollars": "0.0500",
+     "yes_bid_dollars": "0.1500",
      "yes_ask_dollars": "0.1700",
      "no_bid_dollars": "0.8300",
-     "no_ask_dollars": "0.8600",
-     "yes_bid_size_fp": "49.40",
-     "yes_ask_size_fp": "513.39",
-     "volume_fp": "29434.79",
-     "volume_24h_fp": "25641.91",
+     "no_ask_dollars": "0.8500",
+     "yes_bid_size_fp": "0.56",
+     "yes_ask_size_fp": "523.39",
+     "volume_fp": "29435.23",
+     "volume_24h_fp": "25642.35",
      "open_interest_fp": "24823.67",
      "open_time": "2026-11-09T22:04:17Z",
      "close_time": "2026-11-30T15:00:00Z",
@@ -2632,8 +2632,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4120.87,
-     "_est_dollar_volume_24h": 3589.87
+     "_est_dollar_volume": 4415.28,
+     "_est_dollar_volume_24h": 3846.35
     },
     {
      "ticker": "KXRT-FUR-70",
@@ -2679,7 +2679,7 @@
      "result": "",
      "last_price_dollars": "0.9500",
      "previous_price_dollars": "0.9400",
-     "previous_yes_bid_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.9000",
      "yes_bid_dollars": "0.9300",
      "yes_ask_dollars": "0.9500",
      "no_bid_dollars": "0.0500",
@@ -2711,7 +2711,7 @@
      "result": "",
      "last_price_dollars": "0.5900",
      "previous_price_dollars": "0.7500",
-     "previous_yes_bid_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.5200",
      "yes_bid_dollars": "0.5200",
      "yes_ask_dollars": "1.0000",
      "no_bid_dollars": "0.0000",
@@ -3308,8 +3308,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 5700.01,
-   "_volume_contracts": 26209.03,
+   "_est_dollar_volume": 5710.81,
+   "_volume_contracts": 26569.03,
    "_market_count": 13,
    "_markets": [
     {
@@ -3332,7 +3332,7 @@
      "yes_bid_size_fp": "11.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "2454.65",
-     "volume_24h_fp": "626.75",
+     "volume_24h_fp": "546.81",
      "open_interest_fp": "1269.82",
      "open_time": "2026-09-14T22:16:50Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -3342,7 +3342,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 2111.0,
-     "_est_dollar_volume_24h": 539.0
+     "_est_dollar_volume_24h": 470.26
     },
     {
      "ticker": "KXRT-IPL-82",
@@ -3427,8 +3427,8 @@
      "no_ask_dollars": "0.9800",
      "yes_bid_size_fp": "16676.66",
      "yes_ask_size_fp": "5555.55",
-     "volume_fp": "20694.43",
-     "volume_24h_fp": "6765.55",
+     "volume_fp": "21054.43",
+     "volume_24h_fp": "7135.55",
      "open_interest_fp": "13968.88",
      "open_time": "2026-09-14T22:16:50Z",
      "close_time": "2026-11-23T15:00:00Z",
@@ -3437,8 +3437,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 620.83,
-     "_est_dollar_volume_24h": 202.97
+     "_est_dollar_volume": 631.63,
+     "_est_dollar_volume_24h": 214.07
     },
     {
      "ticker": "KXRT-IPL-77",
@@ -3670,7 +3670,7 @@
      "yes_ask_dollars": "0.9300",
      "no_bid_dollars": "0.0700",
      "no_ask_dollars": "0.0800",
-     "yes_bid_size_fp": "362.29",
+     "yes_bid_size_fp": "364.30",
      "yes_ask_size_fp": "358.41",
      "volume_fp": "248.39",
      "volume_24h_fp": "0.02",
@@ -4745,16 +4745,16 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.7100",
-     "previous_price_dollars": "0.3000",
+     "previous_price_dollars": "0.3100",
      "previous_yes_bid_dollars": "0.3000",
      "yes_bid_dollars": "0.3000",
-     "yes_ask_dollars": "0.7100",
-     "no_bid_dollars": "0.2900",
+     "yes_ask_dollars": "0.6800",
+     "no_bid_dollars": "0.3200",
      "no_ask_dollars": "0.7000",
      "yes_bid_size_fp": "6.75",
-     "yes_ask_size_fp": "8.86",
+     "yes_ask_size_fp": "0.01",
      "volume_fp": "117.42",
-     "volume_24h_fp": "0.88",
+     "volume_24h_fp": "0.01",
      "open_interest_fp": "113.00",
      "open_time": "2026-06-11T19:43:28Z",
      "close_time": "2027-12-31T15:00:00Z",
@@ -4763,7 +4763,7 @@
      "can_close_early": true,
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 83.37,
-     "_est_dollar_volume_24h": 0.62
+     "_est_dollar_volume_24h": 0.01
     },
     {
      "ticker": "KXOSCARSUPACTO-27-JAM",
@@ -4776,7 +4776,7 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.3000",
-     "previous_price_dollars": "0.3100",
+     "previous_price_dollars": "0.3000",
      "previous_yes_bid_dollars": "0.3000",
      "yes_bid_dollars": "0.3000",
      "yes_ask_dollars": "0.7000",
@@ -4785,7 +4785,7 @@
      "yes_bid_size_fp": "7.09",
      "yes_ask_size_fp": "7.98",
      "volume_fp": "107.00",
-     "volume_24h_fp": "0.80",
+     "volume_24h_fp": "0.41",
      "open_interest_fp": "102.91",
      "open_time": "2026-07-22T19:36:01Z",
      "close_time": "2027-12-31T15:00:00Z",
@@ -4795,7 +4795,7 @@
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 32.1,
-     "_est_dollar_volume_24h": 0.24
+     "_est_dollar_volume_24h": 0.12
     },
     {
      "ticker": "KXOSCARSUPACTO-27-PAU",

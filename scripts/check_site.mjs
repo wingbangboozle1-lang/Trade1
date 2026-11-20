@@ -21,24 +21,28 @@ async function walk(dir) {
   return out;
 }
 
-// Scope: the published site (root pages served by GitHub Pages) plus the v2 pages.
-// Other sessions' HTML on the same branch is listed, not checked.
-const V2_PAGES = new Set(['index.html','live.html','resolved.html','strategies.html','sources.html','flagged.html',
-  'dashboard.html','trades.html','data.html','methods.html','suggestions.html',
+// Scope: every published page. Before consolidation several parallel sessions each
+// shipped their own HTML tree on the same branch and this check was scoped to avoid
+// failing on theirs; there is now one site, so every page is verified.
+const PUBLISHED = new Set(['index.html','executive-summary.html','dashboard.html','live.html','trades.html',
+  'data.html','methods.html','flagged.html','sources.html','suggestions.html','strategies.html','resolved.html',
   'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html']);
 const allFiles = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
-const files = allFiles.filter(f => V2_PAGES.has(f) || !f.endsWith('.html'));
-const notChecked = allFiles.filter(f => f.endsWith('.html') && !V2_PAGES.has(f));
-if (notChecked.length) console.log('not checked (other sessions\' pages): ' + notChecked.join(', '));
+const files = allFiles.filter(f => PUBLISHED.has(f) || !f.endsWith('.html'));
+const unknown = allFiles.filter(f => f.endsWith('.html') && !PUBLISHED.has(f));
+if (unknown.length) { console.log('FAIL unpublished page not in the check list: ' + unknown.join(', ')); process.exit(1); }
 for (const f of files.filter(f => f.endsWith('.html'))) {
   checked.html++;
-  const html = await readFile(f, 'utf8');
+  // Inline scripts build URLs by concatenation (`href="'+esc(u)+'"`), which is not a
+  // static link; strip <script> bodies before scanning or every template produces
+  // false "broken link" failures.
+  const html = (await readFile(f, 'utf8')).replace(/<script\b[\s\S]*?<\/script>/gi, '');
   const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map(m => m[1]);
   for (const ref of refs) {
     if (/^(https?:|mailto:|#|javascript:)/.test(ref)) continue;
-    // Skip refs built at runtime by inline JS (e.g. href="'+esc(url)+'"): they are not
-    // static links. Their inputs are validated separately (source_urls / per-row checks).
-    if (/['+()]/.test(ref)) continue;
+    /* Skip hrefs built by inline JS (e.g. href="'+esc(url)+'") — those are
+       runtime-built and validated by the page's own render path, not here. */
+    if (/['"$`{}]|\+/.test(ref)) continue;
     const clean = ref.split('#')[0].split('?')[0];
     if (!clean) continue;
     checked.links++;
