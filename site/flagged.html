@@ -1,58 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kalshi Demo Monitor — Flagged for Review</title>
-<link rel="stylesheet" href="assets/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review — Kalshi Demo Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body data-page="flagged">
-<header class="top">
-  <div class="brand"><div class="mark">K</div><div><h1>Flagged for Review</h1><p>Irregularities, assumptions, and unverified items — nothing here was silently smoothed over</p></div></div>
-  <nav class="mainnav" id="mainnav"></nav>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><a href="index.html">Trade<span>1</span> · Kalshi Demo</a></div>
+    <nav class="main">
+      <a href="index.html">Overview</a>
+      <a href="topics/gas-prices.html">⛽ Gas</a>
+      <a href="topics/elections.html">🗳️ Elections</a>
+      <a href="topics/culture.html">🎬 Culture</a>
+      <a href="topics/crypto.html">₿ Crypto</a>
+      <a href="topics/golf.html">⛳ Golf</a>
+      <a href="strategies.html">Strategies</a>
+      <a href="suggestions.html">Suggestions</a>
+      <a href="flagged.html" class="active">Flagged</a>
+      <a href="verification.html">Verification</a>
+    </nav>
+    <div class="spacer"></div>
+  </div>
 </header>
-<main class="wrap">
-  <div class="notice"><b>Policy.</b> Values that cannot be confirmed from an official source are left blank and flagged — never inferred. Irregularities do not block the release; they are published here with source links so they can be reviewed and corrected after go-live.</div>
-  <div class="notice hidden" id="apiNotice"></div>
 
-  <div class="panel">
-    <h2>Verified irregularities & assumptions (each with its official source)</h2>
-    <div id="irregTable"></div>
-  </div>
+<div class="wrap">
+  <section class="hero">
+    <h1>🚩 Flagged for Review</h1>
+    <p class="blurb">Rule: if a value can't be confirmed from an official source, it is left blank and flagged — never inferred.
+      These items do not block the site; they are published for post-launch review, with source links.</p>
+  </section>
 
-  <div class="dashlayout">
-    <div class="panel">
-      <h2>Build-environment limitations (transparency)</h2>
-      <ul class="list">
-        <li><b>Sandbox egress.</b> The build environment only permits github.com / npm / pypi traffic, so Kalshi endpoints were verified through server-side page fetches (official API responses, quoted verbatim in the snapshot), not through a live browser. Browser CORS behavior is therefore unverified at build time; the site degrades gracefully to the verified snapshot and prints a manual <code>curl</code> CORS check in the banner.</li>
-        <li><b>WebSocket.</b> Kalshi's WS requires authentication headers at handshake; a static page cannot set them without user credentials. REST polling is used instead (documented as having separate unauthenticated limits). Source: <a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">official WS quick start ↗</a>.</li>
-        <li><b>Demo account connection.</b> Real demo-account portfolio/order endpoints require demo API keys. None exist in this build, so account tracking is implemented as the simulated engine and the limitation is disclosed rather than faked. Source: <a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">official demo docs ↗</a>.</li>
-        <li><b>News attribution.</b> Alerts link a news search for the event title, labeled unverified. No claim about causation is made anywhere in the app.</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h2>Deliberate design choices (not irregularities, but visible)</h2>
-      <ul class="list">
-        <li><b>Est. dollar columns</b> are labeled estimates everywhere (volume × last price; OI × mid) because the API publishes contracts, not dollars.</li>
-        <li><b>Single-topic assignment</b> — an event appears in exactly one topic tab (first-match-wins) to keep topics separate per the project brief; "All" views aggregate the five.</li>
-        <li><b>Model & bot parameters</b> (thresholds, sizing, exits) are constants documented on the Strategies page rather than hidden magic.</li>
-        <li><b>Local persistence only</b> — alerts, picks, resolutions, and paper trades live in your browser's localStorage; nothing is transmitted anywhere except read-only calls to the official API.</li>
-      </ul>
-    </div>
-  </div>
+  <section class="card">
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>#</th><th>Item</th><th>Status</th><th>Detail &amp; mitigation</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">F1</td><td><b>CORS behavior of the demo API is not confirmed by an official statement</b></td>
+          <td><span class="chip chip-other">unverified (behavioral)</span></td>
+          <td>Official docs publish browser-JS <code>fetch()</code> examples against the API
+            (<a href="https://docs.kalshi.com/getting_started/quick_start_market_data.md" target="_blank" rel="noopener">Quick Start: Market Data</a>),
+            implying browser-origin requests are expected to work, but no doc states <code>Access-Control-Allow-Origin</code>. The build sandbox cannot reach <code>kalshi.co</code> to test headers.
+            <b>Mitigation:</b> the site detects failed fetches, shows a banner linking the exact API URL, and never fakes live data.</td></tr>
+        <tr><td class="mono">F2</td><td><b>Demo API credentials do not exist in this session</b></td>
+          <td><span class="chip chip-no">blocked by design</span></td>
+          <td>Authenticated endpoints (orders, portfolio, WebSocket) require a demo API key
+            (<a href="https://docs.kalshi.com/getting_started/api_keys.md" target="_blank" rel="noopener">API Keys</a>); creating the demo account is an interactive human step
+            (<a href="https://help.kalshi.com/en/articles/13823775-creating-and-using-a-demo-account" target="_blank" rel="noopener">official tutorial</a>) that cannot be done autonomously.
+            <b>Mitigation:</b> fully automated paper engine on live demo data (official fee formula, $10,000 simulated bankroll); a read-only signed connector is built-in and dormant until keys are supplied locally in the browser.</td></tr>
+        <tr><td class="mono">F3</td><td><b>Aggregate "liquidity" field missing from current market responses</b></td>
+          <td><span class="chip chip-other">irregularity</span></td>
+          <td>Market objects returned by the demo API (spec v3.37.0, verified live 2026-11-20) have bid/ask prices + sizes but no aggregate liquidity field.
+            <b>Mitigation:</b> liquidity is computed from the orderbook (contracts within $0.10 of the best bid per side) and labeled as computed, with the raw orderbook API linked.</td></tr>
+        <tr><td class="mono">F4</td><td><b>Status vocabulary differs between filter docs and live field values</b></td>
+          <td><span class="chip chip-other">irregularity</span></td>
+          <td>GET /markets filter docs allow <code>unopened|open|closed|settled</code>
+            (<a href="https://docs.kalshi.com/api-reference/market/get-markets.md" target="_blank" rel="noopener">Get Markets</a>) but live <code>status</code> fields show <code>active</code>/<code>finalized</code> (verified 2026-11-20).
+            <b>Mitigation:</b> app treats <code>active</code>≈open, <code>finalized</code>≈settled and tolerates both vocabularies.</td></tr>
+        <tr><td class="mono">F5</td><td><b>News links for price jumps are searches, not verified causes</b></td>
+          <td><span class="chip chip-other">partially verifiable</span></td>
+          <td>The requirement asks for links that "may have caused" a ≥ $0.10 jump. Without a news API key, attribution cannot be verified.
+            <b>Mitigation:</b> each jump links (a) the official market page/API call, (b) the event's official settlement sources (from the API), (c) a clearly-labeled Google News query.</td></tr>
+        <tr><td class="mono">F6</td><td><b>Demo site has no public market webpage for deep links</b></td>
+          <td><span class="chip chip-other">irregularity</span></td>
+          <td>Demo markets live behind <a href="https://demo.kalshi.co/" target="_blank" rel="noopener">demo.kalshi.co</a> (login); public kalshi.com pages document the production contracts of the same series.
+            <b>Mitigation:</b> row links point to (1) the exact demo REST URL that produced the value and (2) the official kalshi.com series page
+            (<a href="https://docs.kalshi.com/getting_started/quick_start_market_data.md" target="_blank" rel="noopener">URL pattern from official docs</a>).</td></tr>
+        <tr><td class="mono">F7</td><td><b>Sub-cent/settlement-bound fields not exercised live</b></td>
+          <td><span class="chip chip-other">unverified at runtime</span></td>
+          <td><code>settlement_bounds_type</code>, <code>collateral_return_type</code> values beyond defaults were not observed in live probes. These fields are displayed only when present, never inferred.</td></tr>
+        <tr><td class="mono">F8</td><td><b>"Highest dollar amount" ranking metric is a defined approximation</b></td>
+          <td><span class="chip chip-other">methodology (documented)</span></td>
+          <td>No official "dollar amount per event" metric exists. The site ranks by <b>Open Interest × mid-quote (USD)</b> and also shows 24h $ volume (volume_24h × last price). Raw contract counts are always shown alongside; the formula is printed next to each ranking.</td></tr>
+        <tr><td class="mono">F9</td><td><b>KXPRES28 probe failed (fetch-tool error; not API-verified)</b></td>
+          <td><span class="chip chip-other">unverified</span></td>
+          <td>Two direct probes of <code>GET /series/KXPRES28</code> errored at the fetch-tool level; the 2028 presidential series is therefore <b>not claimed as verified</b> for demo. Elections coverage uses the verified category <i>Elections</i> + live discovery instead.</td></tr>
+        <tr><td class="mono">F10</td><td><b>Client polling can lag the exchange by several seconds</b></td>
+          <td><span class="chip chip-other">documented limitation</span></td>
+          <td>Official docs state market-data responses are cached briefly and can lag the exchange by seconds
+            (<a href="https://docs.kalshi.com/api-reference/market/get-markets.md" target="_blank" rel="noopener">Get Markets</a>,
+            <a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md" target="_blank" rel="noopener">Candlesticks</a>).
+            The site shows a "updated HH:MM:SS" stamp per panel and labels all prices with fetch time.</td></tr>
+        <tr><td class="mono">F11</td><td><b>Automated order placement on the real demo account is intentionally dormant</b></td>
+          <td><span class="chip chip-no">unverifiable without credentials</span></td>
+          <td>Placing orders requires signed demo credentials (F2). Shipping untested order-placement code would violate the no-hallucination rule.
+            <b>Mitigation:</b> the paper engine fulfills simulated-trade requirements; the read-only connector (balance/positions) is live once keys are provided; order placement should be enabled only after credential-based testing.</td></tr>
+        <tr><td class="mono">F12</td><td><b>WebSocket streaming not used for live updates</b></td>
+          <td><span class="chip chip-other">documented limitation</span></td>
+          <td>All WebSocket connections require signed API-key auth
+            (<a href="https://docs.kalshi.com/getting_started/quick_start_websockets.md" target="_blank" rel="noopener">Quick Start: WebSockets</a>).
+            REST polling is used instead; WS is the top upgrade path once demo keys exist (see <a href="suggestions.html">Suggestions</a>).</td></tr>
+      </tbody>
+    </table></div>
+  </section>
 
-  <div class="panel">
-    <h2>Manual verification commands (for review after go-live)</h2>
-    <ul class="list mono">
-      <li>CORS preflight: <code>curl -sS -X OPTIONS "https://external-api.demo.kalshi.co/trade-api/v2/markets" -H "Origin: https://&lt;this-site&gt;" -H "Access-Control-Request-Method: GET" -D - -o /dev/null | grep -i access-control</code></li>
-      <li>Live markets: <code>curl -sS "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=2"</code></li>
-      <li>Gas series: <code>curl -sS "https://external-api.demo.kalshi.co/trade-api/v2/series/KXGAS"</code></li>
-      <li>Golf whitelist: <code>curl -sS "https://external-api.demo.kalshi.co/trade-api/v2/series?tags=Golf"</code></li>
-      <li>Fee schedule: <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">kalshi.com/docs/kalshi-fee-schedule.pdf ↗</a></li>
-    </ul>
-  </div>
-</main>
-<footer>Data: official Kalshi demo REST API, public endpoints only — no credentials requested or stored. Paper trades are simulated in your browser and are never sent to the exchange. Educational tool, not financial advice.</footer>
-<script src="assets/app.js"></script>
+  <footer>
+    Mirrors <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/FLAGGED.md" target="_blank" rel="noopener">docs/FLAGGED.md</a>.
+  </footer>
+</div>
 </body>
 </html>

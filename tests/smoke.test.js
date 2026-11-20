@@ -38,7 +38,7 @@ function bootFor(page, topic) {
     throw new TypeError('Failed to fetch (network disabled)');
   };
   global.AbortController = class { constructor(){ this.signal = {}; } abort(){} };
-  const src = fs.readFileSync(path.join(__dirname, '..', 'site', 'assets', 'app.js'), 'utf8');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'monitor', 'assets', 'app.js'), 'utf8');
   eval(src);
   (listeners['d:DOMContentLoaded'] || []).forEach(fn => fn());
   return { wait: (ms) => new Promise(r => setTimeout(r, ms)), elements };

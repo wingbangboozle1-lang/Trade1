@@ -42,7 +42,7 @@ global.fetch = async () => { throw new Error('network disabled in tests'); };
 global.AbortController = class { constructor(){ this.signal = {}; } abort(){} };
 
 /* ---- load engine ---- */
-const src = fs.readFileSync(path.join(__dirname, '..', 'site', 'assets', 'app.js'), 'utf8');
+const src = fs.readFileSync(path.join(__dirname, '..', 'monitor', 'assets', 'app.js'), 'utf8');
 global.URL = URL; global.Blob = class {}; setTimeout(() => {}, 0);
 eval(src);
 const K = global.window.__KDM__;
