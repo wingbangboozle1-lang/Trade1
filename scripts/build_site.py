@@ -166,8 +166,8 @@ def fetch_series_map():
 
 
 def fetch_open_markets():
-    return k.paginate("/markets", "markets", {"status": "open", "mve_filter": "exclude"},
-                      limit=1000, max_pages=400, pause=0.1)
+    return list(k.paginate("/markets", "markets", {"status": "open", "mve_filter": "exclude"},
+                      limit=1000, max_pages=400, pause=0.1))
 
 
 def fetch_settled_markets(min_settled_ts):
