@@ -114,7 +114,7 @@ def execute(doc: dict, sig: stratmod.Signal, market: dict, ts: int, taker: bool 
         if pos is None:
             pos = {
                 "ticker": sig.ticker, "side": side, "contracts": 0, "avg_price": 0.0,
-                "cost": 0.0, "fees": 0.0, "opened_ts": ts, "strategy": sig.name,
+                "cost": 0.0, "fees": 0.0, "opened_ts": ts, "strategy": sig.strategy,
                 "family": sig.family, "title": market.get("title"),
                 "topics": market.get("topics") or [], "event_ticker": market.get("event_ticker"),
                 "reason": sig.reason, "mark": price, "unrealized": 0.0,
@@ -130,7 +130,7 @@ def execute(doc: dict, sig: stratmod.Signal, market: dict, ts: int, taker: bool 
         fill = {
             "ts": ts, "at": iso(), "ticker": sig.ticker, "side": side, "action": "buy",
             "contracts": contracts, "price": round(price, 4), "fee": round(fee, 6),
-            "cost": round(cost, 6), "strategy": sig.name, "family": sig.family,
+            "cost": round(cost, 6), "strategy": sig.strategy, "family": sig.family,
             "reason": sig.reason, "topics": market.get("topics") or [],
         }
         doc["fills"].append(fill)
