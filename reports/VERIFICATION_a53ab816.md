@@ -33,17 +33,20 @@ The account console UI and implementation were inspected locally: `demo-account/
 2. `flagged.html` #14 previously said no order placement is implemented anywhere. It now limits that claim to the root paper engines and discloses the separate guarded demo-order console.
 3. `flagged.html` #19 had the wrong also-supported WebSocket hostname (`demo-api-ws.demo.kalshi.co`). It now matches the official docs' `demo-api.kalshi.co` host and explicitly records the earlier typo.
 4. `flagged.html` #6c made an overbroad “paper fees are never lower than the exchange” statement and conflated two implementations. It now documents the different lab-vs-ledger rounding paths and does not claim a cent-for-cent account fee replica.
-5. The review page's introductory notice and section heading now distinguish resolved historical corrections from active unverified items and observed data-quality issues.
+5. Historical E9/E10 notes in the review page were refreshed: the checked-in CI status is identified with its timestamp and distinguished from browser-local account connections; the open-PR count was corrected to the two PRs returned by GitHub's API during this audit. The build count is stated as the current 18 HTML files.
+6. The review page's introductory notice and section heading now distinguish resolved historical corrections from active unverified items and observed data-quality issues.
+7. `README.md` now distinguishes the no-key, public-read/paper-only default from the optional authenticated demo-account console; its documented jsdom assertion count was updated to 23 to match the current suite.
 
 ## Verification performed on this checkout
 
 - `npm ci --no-audit --no-fund` — installed locked test dependencies.
 - `npm test` — **23/23** page/engine assertions passed; library tests passed.
-- `npm run check` — build passed (**18 HTML**, 6 JS, 0 broken links); source checker passed (**1,250 market rows**, 825 resolved rows, 0 failures).
+- `npm run check` — build passed (**18 HTML**, 6 JS, 0 broken links); source checker passed (**1,250 market rows**, 825 resolved rows, 374 checked links, 0 failures).
 - `node tests/root_engine.test.js` — **40/40** assertions passed (including exact ±$0.10 thresholds).
 - `node tests/demo-account.test.mjs` — **89/89** passed.
 - `node tests/portfolio.test.mjs` — **60/60** passed.
-- `node scripts/check_links.mjs` — 16 published pages, 354 local links, 169 external links, 0 failures; two warnings explicitly identify legacy pages outside published navigation.
+- `python3 scripts/portfolio_engine.py selftest` — **50/50** passed.
+- `node scripts/check_links.mjs` — 16 published pages, 360 local links, 175 external links, 0 failures; two warnings explicitly identify legacy pages outside published navigation (`executive-summary.html`, `resolved.html`).
 - GitHub API: Pages reports `status: built`, public, HTTPS enforced, legacy source `main /`. Latest build ID `1388030462` reports `built` for commit `9f519d6f710bfccfd1a241803a0742a89822dc2a`. The site's CI checks and Pages deploy Actions runs for that commit both completed successfully (runs `44806283895` and `44806282975`).
 
 ## Limits and remaining review items
