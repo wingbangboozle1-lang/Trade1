@@ -1,21 +1,12 @@
 {
- "market_ticker": "KXNEXTSPEAKER-31-APRE",
- "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXNEXTSPEAKER-31-APRE/orderbook",
+ "market_ticker": "KXECCOMPACT-30",
+ "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXECCOMPACT-30/orderbook",
  "orderbook_keys": [
   "no_dollars",
   "yes_dollars"
  ],
  "orderbook_fp_capped_to_40_levels_per_side": {
   "no_dollars": [],
-  "yes_dollars": [
-   [
-    "0.0010",
-    "166666.66"
-   ],
-   [
-    "0.0020",
-    "83333.33"
-   ]
-  ]
+  "yes_dollars": []
  }
 }
