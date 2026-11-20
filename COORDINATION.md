@@ -883,6 +883,22 @@ remains `M = 1` (PDF: "default is 1 unless otherwise indicated"; every demo seri
   825 resolved, 0 failures; 16 pages, 394 local + 222 external links, 0 failures);
   `portfolio_engine.py selftest` 68/68; `render_test.mjs` 16 pages 0 JS errors.
 
+### 9ff00ee3 — completion record (PR #59 merged, Pages built, 2026-11-20)
+
+- **PR:** [#59](https://github.com/wingbangboozle1-lang/Trade1/pull/59) `arena/9ff00ee3-trade1` → `main`,
+  merged without waiting for review (merge commit **`caeccbbb`**, state MERGED, 2026-11-20T20:54:59Z).
+- **CI on the merge commit:** “Site checks + data refresh” **success** (run 44814332913) ·
+  “pages build and deployment” **success** (run 44814331355).
+- **Pages verified:** `gh api …/pages` → `status: built` after the merge. Live checks via page fetch:
+  `methods.html` serves the reconciled M-precedence text and the API-vs-schedule side-by-side table;
+  `flagged.html` serves corrected items **6b** (title “two official sources disagree; both are
+  published”, precedence stated, Get Series definition cited) and **691-1**.
+- **Deliverables:** `reports/VERIFICATION_9ff00ee3.md` (12 claims re-verified with links, 6 live fee
+  probes, defect + fix, merge/disposition table, validator results); fee fix in `assets/model.js`,
+  `assets/app.js`, `scripts/portfolio_engine.py`; docs on `flagged.html` 6b/691-1 and
+  `methods.html` §2/§4/§9; polish pass on 6b wording in this closing PR.
+- **Task status: done.** Flagged items remain published and non-blocking (6b/691-1 open by design).
+
 ## Session `arena/6916270f-trade1` — final integration, line-by-line re-verification, PR + Pages
 
 | Task | Status | Owner session | Files in scope |
