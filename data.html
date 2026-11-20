@@ -27,6 +27,7 @@
     <a href="methods.html">Methods</a>
     <a href="suggestions.html">Ideas</a>
     <a href="flagged.html">Flagged</a>
+    <a href="live.html">Live (alt)</a>
     <a href="sources.html">Sources</a>
   </nav>
 </header>
@@ -67,12 +68,16 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){retur
 function money(v){return (v===''||v==null||!isFinite(Number(v)))?'':'$'+Number(v).toFixed(2);}
 function fmt(v){var n=Number(v);return isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:2}):'';}
 var API='https://external-api.demo.kalshi.co/trade-api/v2';
-/* Official per-row sources. The market page pattern in the official Quick Start
- * guide is https://kalshi.com/markets/{series_ticker}; building it from a bare
- * event ticker does not resolve, so rows link the official API record instead
- * (every value on this page is verbatim from that record). */
+/* Official per-row sources. The market page pattern is
+ * https://kalshi.com/markets/{series_ticker} - VERIFIED 2026-11-20 against
+ * kxpgatour, kxoscarpic, kxaaagasm, kxbtcd, kxpresnomd; the /markets/{event_ticker}
+ * form does not resolve, so it is never built. Title links go to the public
+ * series page; the "market record" column links the exact official API response
+ * that produced the row, so every value stays checkable. */
 function marketApiUrl(t){return API+'/markets/'+encodeURIComponent(String(t||''));}
 function eventApiUrl(et){return API+'/events/'+encodeURIComponent(String(et||''));}
+function eventUrl(et,series){var s=String(series||et||'').split('-')[0].toLowerCase();
+  return s?('https://kalshi.com/markets/'+encodeURIComponent(s)):'https://kalshi.com/markets';}
 
 fetch('data/meta.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(meta){
   var line=document.getElementById('meta-line');
@@ -100,7 +105,7 @@ fetch('data/resolved.json',{cache:'no-store'}).then(function(r){return r.ok?r.js
   var t=document.getElementById('t-resolved');
   var src=(d&&d.source_urls&&d.source_urls[0])||'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled';
   t.innerHTML='<tr><th>Market</th><th>Topic</th><th>Result</th><th>Settlement (UTC)</th><th>Settlement value</th><th>Volume</th><th>Source</th></tr>'+
-    (d&&d.markets?d.markets.slice(0,80).map(function(m){return '<tr><td><a target="_blank" rel="noopener" href="'+marketApiUrl(m.ticker)+'">'+esc(m.title||m.ticker)+'</a><br><small class="muted">'+esc(m.ticker)+'</small></td><td>'+esc(m._topic||'')+'</td>'+
+    (d&&d.markets?d.markets.slice(0,80).map(function(m){return '<tr><td><a target="_blank" rel="noopener" href="'+marketApiUrl(m.ticker)+'">'+esc(m.title||m.ticker)+'</a> <a target="_blank" rel="noopener" href="'+eventUrl(m.event_ticker,m.series_ticker||m.ticker)+'" title="Kalshi series page">series&nbsp;&#8599;</a><br><small class="muted">'+esc(m.ticker)+'</small></td><td>'+esc(m._topic||'')+'</td>'+
     '<td><span class="badge '+(m.result==='yes'?'yes':'no')+'">'+esc(String(m.result||'').toUpperCase())+'</span></td><td>'+esc((m.settlement_ts||'').replace('T',' ').slice(0,19))+'</td><td>'+money(m.settlement_value_dollars)+'</td><td>'+fmt(m.volume_fp)+'</td>'+
     '<td class="src"><a target="_blank" rel="noopener" href="'+marketApiUrl(m.ticker)+'">market record</a> · <a target="_blank" rel="noopener" href="'+esc(src)+'">settled endpoint</a></td></tr>';}).join('')||'<tr><td colspan="7" class="muted">none in scope</td></tr>':'<tr><td colspan="7" class="muted">unavailable</td></tr>');
 });
@@ -118,7 +123,7 @@ TOPICS.forEach(function(id){
         var m=(ev._markets&&ev._markets[0])||{};
         var dv=(ev._est_dollar_volume!=null)?('$'+Number(ev._est_dollar_volume).toLocaleString(undefined,{maximumFractionDigits:0})):'';
         rows+='<tr><td>'+(i+1)+'</td>'+
-          '<td><a target="_blank" rel="noopener" href="'+eventApiUrl(ev.event_ticker)+'">'+esc(ev.title)+'</a><br><small class="muted">'+esc(ev.event_ticker)+' · '+esc(ev.category||'')+' · '+esc(ev._match_reason||'')+'</small></td>'+
+          '<td><a target="_blank" rel="noopener" href="'+eventApiUrl(ev.event_ticker)+'">'+esc(ev.title)+'</a> <a target="_blank" rel="noopener" href="'+eventUrl(ev.event_ticker,ev.series_ticker)+'">series&nbsp;&#8599;</a><br><small class="muted">'+esc(ev.event_ticker)+' · '+esc(ev.category||'')+' · '+esc(ev._match_reason||'')+'</small></td>'+
           '<td>'+esc(m.yes_bid_dollars!=null?money(m.yes_bid_dollars):'')+'</td>'+
           '<td>'+esc(m.yes_ask_dollars!=null?money(m.yes_ask_dollars):'')+'</td>'+
           '<td>'+fmt(ev._volume_contracts)+'</td><td>'+esc(dv)+'</td>'+

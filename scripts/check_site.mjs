@@ -8,7 +8,8 @@ import path from 'node:path';
 import { API_BASES } from '../assets/lib.mjs';
 
 const SITE = '.';
-const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts']);
+// .render-cache/ holds HTML dumped by tools/render_test.mjs — not published pages.
+const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts', '.render-cache']);
 const failures = [];
 const checked = { html: 0, links: 0, rows: 0, resolved: 0 };
 

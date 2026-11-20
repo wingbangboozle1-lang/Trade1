@@ -42,6 +42,44 @@ for (const status of ['open', 'closed', 'settled']) {
   log(`  ${status}: ${items.length} events, ${pages} pages, truncated=${truncated}`);
 }
 
+// ---------------------------------------------------------------------------
+// Series-based discovery (added 2026-11-20, session 777927dd).
+// WHY: /events paging only walks newest-first, so low-volume or long-dated
+// topics can be absent from the sweep — the gas topic showed 0 rows on the
+// published site while the official event API returned 26 open KXAAAGASM
+// markets. Series discovery asks the API for events of each series that the
+// topic rules name explicitly (GET /events?series_ticker=..., documented) and
+// adds them with their nested markets. It is bounded and logged so the cost is
+// visible. A topic with no configured series (gas, golf) is left to the
+// keyword rules plus the /events sweep.
+// ---------------------------------------------------------------------------
+const SERIES_TO_FETCH = [
+  { topic: 'gas-prices', series: ['KXAAAGASM', 'KXAAAGASW', 'KXAAAGASD'] }, // US gas: month / week / day
+];
+const seriesReport = [];
+for (const { topic, series } of SERIES_TO_FETCH) {
+  for (const sTick of series) {
+    const url = `${base}/events?series_ticker=${encodeURIComponent(sTick)}&with_nested_markets=true&limit=200`;
+    try {
+      const { items, pages } = await fetchPaged(url, 'events', { maxPages: 2, pageDelayMs: 200, log });
+      let added = 0;
+      for (const ev of items) {
+        if (allEvents.has(ev.event_ticker)) continue;
+        ev.series_ticker = ev.series_ticker || sTick;
+        allEvents.set(ev.event_ticker, ev);
+        statusOfEvent.set(ev.event_ticker, 'open');
+        added += 1;
+      }
+      seriesReport.push({ topic, series: sTick, url, fetched: items.length, added_new_events: added, pages });
+      log(`series ${sTick} (${topic}): ${items.length} events, ${added} new`);
+    } catch (e) {
+      // Recorded, never silently ignored: a failed series fetch is visible in the snapshot.
+      seriesReport.push({ topic, series: sTick, url, error: String(e.message || e) });
+      log(`series ${sTick} (${topic}) FAILED: ${e.message || e}`);
+    }
+  }
+}
+
 const events = [...allEvents.values()];
 const rows = rowsFromEvents(events, base);
 
@@ -89,7 +127,7 @@ const snapshot = {
     orderbook_format: 'https://docs.kalshi.com/getting_started/orderbook_responses',
     trades: 'https://docs.kalshi.com/api-reference/market/get-trades',
   },
-  coverage: { ...coverage, events_total_unique: events.length, events_matching_topics: new Set(rows.map(r => r.event_ticker)).size },
+  coverage: { ...coverage, series_discovery: seriesReport, events_total_unique: events.length, events_matching_topics: new Set(rows.map(r => r.event_ticker)).size },
   topics: perTopic,
   topic_rules: TOPICS.map(t => ({ id: t.id, label: t.label, official_categories: t.categories, keyword_patterns: t.keywords.map(k => k.source) })),
   categories_seen: [...new Set(events.map(e => e.category).filter(Boolean))].sort(),

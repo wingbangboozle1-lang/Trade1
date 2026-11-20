@@ -159,3 +159,31 @@ Changes verified line by line:
   `node scripts/test_lib.mjs`, `node tests/engine.test.js`, `node tests/smoke.test.js`,
   `node scripts/check_site.mjs` — all run in CI on every push and pull request.
 - **Session history and task board:** [COORDINATION.md](COORDINATION.md).
+
+---
+
+## Re-verification pass — session `777927dd` (2026-11-20, independent of the notes above)
+
+Checked the **published** site (repository root, GitHub Pages) claim by claim against official Kalshi sources and live demo responses. Defects are published with links on `flagged.html` §17–21.
+
+### Confirmed against official sources
+| Claim | Source | Result |
+|---|---|---|
+| Demo REST bases | [API Environments](https://docs.kalshi.com/getting_started/api_environments) | Matches |
+| REST rows `active`/`finalized`; status *filter* values | [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) | Matches |
+| `/events` ≤ 200/page, `/markets` ≤ 1000/page | [Pagination](https://docs.kalshi.com/getting_started/pagination) | Matches — documented, flag 2 retired |
+| Order book shape and `1 − bid` asks | [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) | Matches |
+| Candlestick path and schema | [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks) | Matches; legacy `/markets/{ticker}/candlesticks` fails live |
+| Fee formula and table | [Fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) | Matches after the fix below |
+| WS handshake requires signed headers | [Quick Start: WebSockets](https://docs.kalshi.com/getting_started/quick_start_websockets) | Matches |
+| Unauthenticated limits unpublished | [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) | Matches |
+
+### Defects fixed in this pass
+1. `assets/model.js` — fee rounding was wrong in 7 of the 42 published table rows ($1.76 vs $1.75 at 100 × $0.50). The integer-cent implementation now in the file reproduces every row; pinned by `scripts/test_fees.mjs` in CI.
+2. `assets/app.js` — candles with no trade carry `price.close_dollars: null`, so long windows could render empty; the chart now falls back to the YES bid close, then the YES ask close.
+3. `assets/app.js` / `data.html` — links used `kalshi.com/markets/<event_ticker>`, which does not resolve; all links now use the series page (verified on five live series).
+4. `scripts/check_site.mjs` — silently skipped `dashboard.html`, `data.html`, `trades.html`, `methods.html` (and later `suggestions.html`); it now checks every published root page, fails on an unlisted root page, ignores JS-built hrefs inside inline scripts, and validates ES-module named imports.
+5. Navigation now cross-links the two dashboard builds (`Live (alt)` / `Main dashboard`).
+
+### Still open (not blocking)
+No real demo-account portfolio or execution (needs credentials, excluded by the brief); maker fees and per-series multipliers unmodelled; dollar notional is an estimate; alerts sampled at ~12 s over a cached REST API; ROI score is a heuristic.

@@ -546,7 +546,7 @@ window.KalshiApp = (function () {
     var rect = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
     if (rect.width < 10) return;
     box.width = rect.width * dpr; box.height = rect.height * dpr;
-    var x = box.getContext('2d'); x.scale(dpr, dpr);
+    var x = box.getContext && box.getContext('2d'); if (!x) return; x.scale(dpr, dpr);
     var W = rect.width, H = rect.height, L = 44, R = 8, T = 10, B = 24;
     x.clearRect(0, 0, W, H);
     var css = getComputedStyle(document.documentElement);
@@ -1013,7 +1013,7 @@ window.KalshiApp = (function () {
     var d = M.state.equity;
     var rect = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
     box.width = rect.width * dpr; box.height = rect.height * dpr;
-    var x = box.getContext('2d'); x.scale(dpr, dpr);
+    var x = box.getContext && box.getContext('2d'); if (!x) return; x.scale(dpr, dpr);
     var W = rect.width, H = rect.height;
     x.clearRect(0, 0, W, H);
     x.strokeStyle = '#2a383b'; x.fillStyle = '#91a3a4'; x.font = '11px system-ui';

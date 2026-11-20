@@ -27,6 +27,7 @@
     <a href="methods.html" class="active">Methods</a>
     <a href="suggestions.html">Ideas</a>
     <a href="flagged.html">Flagged</a>
+    <a href="live.html">Live (alt)</a>
     <a href="sources.html">Sources</a>
   </nav>
 </header>
@@ -44,7 +45,7 @@
     <tr><td><code>GET /markets?status=settled&amp;min_settled_ts=…</code></td><td>Actions snapshot of recent resolutions</td><td>2×/hour (runner)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
     <tr><td><code>GET /series?category=X&amp;include_volume=true</code></td><td>Authoritative per-topic series discovery (covers hourly crypto / daily AAA-gas series that /events paging misses)</td><td>~6 min (client) + per runner run</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series-list">Get Series List</a></td></tr>
   </table></div>
-  <p class="muted small">Verified live: <code>limit=1000</code> on <code>/events</code> is rejected (400); <code>tickers=</code> returns every matching market with an empty cursor; demo responses use <code>status</code> values <code>active</code> (open) and <code>finalized</code> (settled) although the docs enumerate <code>open/settled</code> — flagged; <code>/series?category=…</code> is case-sensitive and does not document a <code>status</code> parameter (none is sent). Evidence: <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md" target="_blank" rel="noopener">data/log.md</a>.</p>
+  <p class="muted small">Verified against the official docs and live: <code>/events</code> allows at most <code>limit=200</code> (documented in the <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/pagination">pagination guide</a>; <code>limit=1000</code> returns 400), while <code>/markets</code> allows up to 1000; <code>tickers=</code> returns every matching market with an empty cursor; demo responses use <code>status</code> values <code>active</code> (open) and <code>finalized</code> (settled) although the docs enumerate <code>open/settled</code> — flagged; <code>/series?category=…</code> is case-sensitive and does not document a <code>status</code> parameter (none is sent). Evidence: <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md" target="_blank" rel="noopener">data/log.md</a>.</p>
 </section>
 
 <section class="box" style="margin-top:14px">

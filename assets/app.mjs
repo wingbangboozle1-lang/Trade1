@@ -47,7 +47,7 @@ const hms = ts => new Date(ts * 1000).toLocaleTimeString();
 const inTopic = row => topicFilter === 'all' || row.topics.includes(topicFilter);
 
 // ---------- navigation ----------
-const NAV = [['index.html', 'Home'], ['live.html', 'Live dashboard'], ['topics/gas-prices.html', 'Gas prices'], ['topics/elections.html', 'Elections'], ['topics/culture.html', 'Culture'], ['topics/crypto.html', 'Crypto'], ['topics/golf.html', 'Golf'], ['resolved.html', 'Resolved'], ['strategies.html', 'Strategies'], ['sources.html', 'Sources'], ['flagged.html', 'Flagged for Review']];
+const NAV = [['dashboard.html', 'Main dashboard'], ['index.html', 'Home'], ['live.html', 'Live dashboard'], ['topics/gas-prices.html', 'Gas prices'], ['topics/elections.html', 'Elections'], ['topics/culture.html', 'Culture'], ['topics/crypto.html', 'Crypto'], ['topics/golf.html', 'Golf'], ['resolved.html', 'Resolved'], ['strategies.html', 'Strategies'], ['sources.html', 'Sources'], ['flagged.html', 'Flagged for Review']];
 function renderNav() {
   const nav = $('#nav');
   if (!nav) return;

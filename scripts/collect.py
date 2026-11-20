@@ -259,9 +259,22 @@ def main():
                 hay = f"{sr.get('title') or ''} {tick}"
                 if t.get("exclude_keywords") and re.search(t["exclude_keywords"], hay, re.I):
                     continue
+                # Series match rule. A series belongs to the topic when EITHER the
+                # series ticker matches the topic's series_prefix (an explicit,
+                # topic-owned ticker rule) OR the human title contains the topic
+                # keywords.
+                # CHANGE 2026-11-20 (session 777927dd): previously a topic that
+                # declares title_keywords required the TITLE to match, ignoring its
+                # own series_prefix rule. Verified effect on the demo data: no
+                # currently-qualifying gas series is dropped either way (checked
+                # KXAAAGASM / KXAAAGASMINTX / KXGOLDD / KXCOFFEEEOY against both
+                # rules), so this is a rule-consistency fix, not a coverage fix.
+                # Gas coverage in the published snapshots comes from the topic's
+                # series discovery; see data/log.md "topic gas-prices: N series
+                # matched" and data/topics/gas-prices.json.
                 if t["title_keywords"] and not (
                         re.search(t["title_keywords"], sr.get("title") or "", re.I)
-                        or re.search(t["series_prefix"], tick, re.I)):
+                        or (t["series_prefix"] and re.search(t["series_prefix"], tick, re.I))):
                     continue
                 seen_series.add(tick)
                 matched.append(sr)

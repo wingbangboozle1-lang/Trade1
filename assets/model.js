@@ -367,6 +367,9 @@ window.KalshiModel = (function () {
     recordEquity: recordEquity, equity: equity, summary: summary,
     byStrategy: byStrategy, byTopic: byTopic, pushAlert: pushAlert,
     persistAll: persistAll, reset: reset, fee: fee, alertMove: alertMove,
+    // Alias used by scripts/test_fees.mjs so the fee model can be pinned to the
+    // official schedule table in CI (same function as fee()).
+    fee_forTest: fee,
     topicById: function (id) { return TOPICS.filter(function (t) { return t.id === id; })[0] || null; }
   };
 })();

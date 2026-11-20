@@ -69,3 +69,22 @@ A live, interactive monitoring and paper-trading dashboard for the Kalshi **demo
 - Simulated fills assume execution at observed quotes with no slippage; real resting orders may not fill the same way.
 - Demo behavior need not match production (per Kalshi's official documentation).
 - Everything here is educational; **nothing is financial advice**. Demo environment only (play money).
+
+---
+
+## Addendum — independent re-verification (session `777927dd`, 2026-11-20)
+
+**Scope:** the published site only (repository root as served by GitHub Pages). Every claim was checked against an official Kalshi source or a live demo response; defects are listed with links on `flagged.html` §17–21 and in `REVIEW.md`.
+
+**Live check.** All pages were booted in a headless DOM (`tools/render_test.mjs`, jsdom) against the demo API: `index`; `dashboard` (121 ranked rows, chart canvas, live `/markets?tickers=…` and `/events` calls); `data` (178 rows, 396 official source links); and the rest — with **zero JavaScript errors**. Pages built on ES modules (`live.html`, `resolved.html`, `strategies.html`) cannot run in that harness, so their import graph is verified statically in CI.
+
+**Fixed in this pass**
+1. Paper fees disagreed with the official fee table in 7 of 42 published rows (float ceiling: $1.76 vs $1.75 at 100 contracts × $0.50). Every row is now asserted in CI by `scripts/test_fees.mjs`.
+2. Long chart windows could render empty because candles with no trades carry `price.close_dollars: null`; the chart now falls back to the official YES bid, then YES ask, close.
+3. Kalshi deep links used a URL shape that does not resolve; links now use the series page and are labelled as such.
+4. The link checker skipped the main pages (and the new `suggestions.html`); it now covers every published root page, fails on an unlisted one, and validates ES-module imports.
+5. The dashboard builds had no link between them; navigation now cross-links.
+
+**Corrected claim.** The 200-item `/events` cap is documented in the pagination guide; Flag 2 now says so.
+
+**Unchanged open items.** No real demo-account portfolio or order execution (requires credentials, excluded by the brief); maker fees and per-series multipliers unmodelled; dollar figures are estimates; alerts sampled at ~12 s over a cached REST API; ROI score is a heuristic, not alpha.

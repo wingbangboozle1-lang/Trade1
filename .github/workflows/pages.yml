@@ -45,6 +45,20 @@ jobs:
         run: node tools/build.mjs
       - name: Every page link resolves and every snapshot row has an official source URL
         run: node scripts/check_site.mjs
+      - name: Fee model vs the official fee schedule table
+        run: node scripts/test_fees.mjs
+      - name: Dashboard model checks (alert threshold, classifier, screen, settlement)
+        run: node scripts/test_model.mjs
+      - name: Render every published page in jsdom (empty-render / JS-error gate)
+        # jsdom cannot execute ES-module pages; those are covered statically by
+        # scripts/check_site.mjs. Every classic-script page must render content
+        # with zero JS errors — this is what caught the blank topics/* pages.
+        run: |
+          node tools/render_test.mjs --wait=9000 \
+            index.html dashboard.html trades.html data.html methods.html \
+            flagged.html sources.html suggestions.html \
+            topics/gas-prices.html topics/elections.html topics/culture.html \
+            topics/crypto.html topics/golf.html
 
   snapshot:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

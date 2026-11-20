@@ -4,6 +4,7 @@ Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in prog
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
+| 777927dd · V1 | Independent line-by-line re-verification of the published site against official Kalshi docs + live demo API; fix verified defects; consolidate build/check/test; PR + merge + Pages verification | in progress | 777927dd (branch `arena/777927dd-trade1`) | `assets/model.js`, `assets/app.js`, `scripts/check_site.mjs`, `tools/render_test.mjs`, `flagged.html`, `index.html`, `data.html`, `methods.html`, `README.md`, `REVIEW.md`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md`, `.github/workflows/pages.yml` |
 | Kalshi demo dashboard, source research, site, verification, and deployment setup (prototype, PR #1) | needs review | ee533bdf | COORDINATION.md, README.md, index.html, .github/workflows/pages.yml |
 | Kalshi demo monitor v2: live dashboard, topic subpages, alerts, simulated strategies, resolved tracker, sources, flagged page, Pages build | in progress | cedad5c4 | `**`, `scripts/**`, `.github/workflows/pages.yml`, `.gitignore`, `README.md`, `COORDINATION.md` (removes prototype `index.html`) |
 | a2ec5543 · T1 | Repo review (line-by-line vs official sources, irregularities) | done (published, `review.html`; R1–R20) | a2ec5543 | `reports/REPO_REVIEW.md` |
