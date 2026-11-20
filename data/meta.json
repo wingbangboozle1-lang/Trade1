@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-20T15:57:19.284085+00:00",
- "finished_at": "2026-11-20T16:00:25.572639+00:00",
+ "generated_at": "2026-11-20T16:58:26.773617+00:00",
+ "finished_at": "2026-11-20T16:59:54.542317+00:00",
  "base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "alt_base": "https://demo-api.kalshi.co/trade-api/v2",
  "pages_origin": "https://wingbangboozle1-lang.github.io",
@@ -11,7 +11,7 @@
    "active": 6000
   },
   "events_open_count": 2400,
-  "markets_open_count": 15336,
+  "markets_open_count": 14844,
   "settled_count_recent": 6000,
   "event_metadata_and_market_fetches": 261,
   "series_discovered_per_topic": {
@@ -38,15 +38,15 @@
    "KXPGATOP10": 146,
    "KXPGATOP5": 146,
    "KXPGAMAKECUT": 146,
-   "KXPGAR3TOP10": 145,
    "KXPGAR2TOP10": 145,
    "KXPGA3BALL": 141,
-   "KXFEATURE": 130,
    "KXRT": 128,
    "KXYTVIEWSHIGH": 108,
    "KXMAXSHARDINGTEST": 87,
    "KXPRESNOMD": 62,
-   "KXLPGATOUR": 60
+   "KXLPGATOUR": 60,
+   "KXLPGAR3LEAD": 60,
+   "KXPRESNOMR": 56
   },
   "orderbook_ok": true,
   "candlesticks_ok": true

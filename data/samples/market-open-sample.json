@@ -17,9 +17,9 @@
   "no_bid_dollars": "0.1890",
   "no_ask_dollars": "0.9980",
   "yes_bid_size_fp": "83333.33",
-  "yes_ask_size_fp": "1406.06",
-  "volume_fp": "537224345.99",
-  "volume_24h_fp": "62375.79",
+  "yes_ask_size_fp": "1054.10",
+  "volume_fp": "537224697.95",
+  "volume_24h_fp": "62443.13",
   "open_interest_fp": "140195139.02",
   "open_time": "2025-08-24T19:10:03Z",
   "close_time": "2028-11-07T15:00:00Z",
@@ -28,7 +28,7 @@
   "can_close_early": true,
   "strike_type": "custom",
   "price_level_structure": "deci_cent",
-  "_est_dollar_volume": 435688944.6,
-  "_est_dollar_volume_24h": 50586.77
+  "_est_dollar_volume": 435689230.04,
+  "_est_dollar_volume_24h": 50641.38
  }
 }
