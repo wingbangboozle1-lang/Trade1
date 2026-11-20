@@ -40,7 +40,7 @@ The public landing page was fetched after deploy and displayed the current 2026-
 
 ## Corrections in this audit
 
-`EXECUTIVE_SUMMARY.md` previously named `site/` as the published Pages source and described CORS as untested. The current GitHub Pages setting publishes from `main` at `/`; the runner probe is recorded in `data/cors.json` and `data/log.md`. The summary now states both facts with the limits of the evidence, without upgrading a runner probe into a guarantee or end-to-end browser verification.
+The earlier executive summary named `site/` as the published Pages source and described CORS as untested. During this audit, mainline integration updated `EXECUTIVE_SUMMARY.md` with the repository-root Pages source and the runner-probe status; this branch preserved that newer mainline version rather than overwriting parallel-session changes. The current summary's CORS caveat and the evidence in `data/cors.json` and `data/log.md` distinguish a measured probe from a guarantee or end-to-end browser verification.
 
 ## Manual review links
 
