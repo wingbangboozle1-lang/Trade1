@@ -2,26 +2,25 @@
 
 **Checked:** 2026-11-20 UTC  
 **Branch:** `arena/1db0a677-trade1`  
-**Audited base:** `069a1db6026f573f7b1227115c04e5cf481a9ed3` (same as `origin/main` at audit start)
+**Audited base:** `069a1db6026f573f7b1227115c04e5cf481a9ed3` (same as `origin/main` at audit start); final integration also includes later mainline PRs #29–#38.
 
 ## Result
 
-The canonical GitHub Pages site is already integrated at the repository root and published from `main` (`/`). This audit did not rebuild or replace the site. It re-ran the existing checks, verified Pages configuration and successful deploy through GitHub's API, corrected two stale statements in the executive summary, and recorded remaining scope limits below.
+The canonical GitHub Pages site is already integrated at the repository root and published from `main` (`/`). This audit did not rebuild or replace the site. It re-ran the existing checks, verified Pages configuration and successful deploy through GitHub's API, preserved the latest mainline summary corrections after checking them against the current deployment, and recorded remaining scope limits below.
 
 ## Verification performed
 
-- `npm run build` — pass: 18 HTML pages and 20 JavaScript files checked; 0 broken links. Build command: [`tools/build.mjs`](../tools/build.mjs).
-- `node tests/engine.test.js` — pass: 36 assertions, 0 failures, including alert threshold behavior, topic classification, and paper P&L. Fee fixtures are cross-checked against Kalshi's [official fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf).
-- `node tests/smoke.test.js` — pass: all 11 tested pages boot and show a graceful network-error state with network access disabled.
-- `node scripts/test_lib.mjs` — pass.
-- `node scripts/check_site.mjs` — pass: 11 audited HTML pages, 146 links, 1,118 data rows, 601 resolved entries, 0 failures. The checker explicitly reports that it does not check pages from other sessions. Checker: [`scripts/check_site.mjs`](../scripts/check_site.mjs).
+- `npm run build` — pass on the updated mainline: 15 HTML pages and 2 JavaScript files checked; 0 broken links. Build command: [`tools/build.mjs`](../tools/build.mjs).
+- `npm test` — pass: 23/23 DOM/engine assertions and `scripts/test_lib.mjs` passed.
+- `node tests/root_engine.test.js` — pass: 40 assertions, including exact ±$0.10 alert boundaries, classification, and paper-broker behavior. Fee fixtures are cross-checked against Kalshi's [official fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf).
+- `npm run check` — pass: build plus site validation; 15 HTML pages, 274 links, 1,118 snapshot rows, 625 resolved entries, 0 failures. Checker: [`scripts/check_site.mjs`](../scripts/check_site.mjs).
 - GitHub Pages API reports `status: built`, public, HTTPS enforced, legacy source `main` at `/`: [Pages API](https://api.github.com/repos/wingbangboozle1-lang/Trade1/pages).
-- Previous completed Pages build observed: [run 44788580268](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44788580268), success at 2026-11-20 18:00:31 UTC.
-- Scheduled verification/collection [run 44797727149](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44797727149) completed successfully at 2026-11-20 19:00:04 UTC. Its verification, collection, snapshot-commit, and artifact-upload steps all passed.
-- The deployment triggered by that snapshot [run 44798003426](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44798003426) also completed successfully, including build and deploy jobs.
-- GitHub Actions emitted a maintenance warning: `actions/checkout@v4` and/or `actions/upload-artifact@v4` target Node.js 20 and are being forced to run on Node.js 24; see GitHub's [Node 20 deprecation notice](https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/). This is not a failed check, but action versions/runtime policy should be reviewed.
+- Latest completed Pages deployment after the current integration, [run 44802648997](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44802648997), succeeded on 2026-11-20 at the current `main` site build.
+- The matching `Site checks + data refresh` run [44802649528](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44802649528) completed successfully.
+- Scheduled official API verification/collection [run 44797727149](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44797727149) also passed its verification, collection, snapshot-commit, and artifact-upload steps.
+- GitHub Actions emitted a maintenance warning in recent runs: `actions/checkout@v4` and/or `actions/upload-artifact@v4` target Node.js 20 and are being forced to run on Node.js 24; see GitHub's [Node 20 deprecation notice](https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/). This is not a failed check, but action versions/runtime policy should be reviewed.
 
-The public landing page was fetched after deploy and displayed the current 2026-11-20 18:58:14 UTC snapshot time and 14,941 open markets; its linked live dashboard, Flagged page, and Sources page are presented for review. This was a page fetch, not an independent end-user browser session. Build/test success does not prove live market polling from every user's browser/network.
+The public landing page was fetched after deploy and displayed the current 2026-11-20 19:12:41 UTC snapshot time and 15,208 open markets; the Ideas page and live dashboard links also rendered. This was a page fetch, not an independent end-user browser session. Build/test success does not prove live market polling from every user's browser/network.
 
 ## Source and claim checks
 
@@ -35,7 +34,7 @@ The public landing page was fetched after deploy and displayed the current 2026-
 ## Scope limits and irregularities
 
 1. **Real demo-account portfolio and order execution are not implemented.** The strategy lab is local paper simulation; no account is connected, and no exchange orders are submitted. Real account use would require user-owned demo credentials and a security-reviewed authenticated integration; no credentials were requested or added.
-2. **Historical/alternate builds remain in the repository.** Files under `monitor/`, `site/`, `pages/`, and other historical paths contain earlier build-specific statements, including older CORS-unverified wording. `README.md` identifies `monitor/` as not part of the Pages deploy; canonical deployed pages are at the repository root. These historical trees were not edited in this audit to avoid deleting or rewriting parallel-session work.
+2. **Historical findings remain, but alternate site trees were removed by the latest integration.** Earlier build-specific statements and review results remain in `docs/` and `reports/`; prior duplicate site trees were removed from the current mainline. The canonical Pages site is the repository root. This audit preserved the latest integration cleanup and did not restore superseded pages.
 3. **Evidence has limits.** A passing link checker establishes local link resolution and required source URLs in checked data; it does not prove every evolving market value is economically accurate, establish profitability, or verify a news cause.
 
 ## Corrections in this audit
