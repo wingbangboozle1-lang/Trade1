@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20 14:06 UTC",
+ "generated_at": "2026-11-20 14:29 UTC",
  "flags": [
   {
    "severity": "info",
@@ -26,7 +26,7 @@
    "severity": "info",
    "scope": "markets",
    "entity": "crypto",
-   "message": "Topic has 74614 open markets; first 300 written (sorted by est. 24h $).",
+   "message": "Topic has 74604 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {

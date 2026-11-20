@@ -1,5 +1,5 @@
 {
- "generated_epoch": 1795183591,
+ "generated_epoch": 1795184944,
  "method": "Simulated only. No fees, no slippage beyond quoted candle ask/bid, 1 contract per trade, no position sizing.",
  "markets_considered": 250,
  "markets_with_candles": 250,

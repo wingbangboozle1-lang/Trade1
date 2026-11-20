@@ -3,7 +3,7 @@ name: Build Kalshi demo monitor
 # Builds the category site from the official Kalshi demo API and checks it.
 # Publishing: GitHub Pages is configured as legacy (branch main, path /), and the
 # Actions source is not available to this repo (see COORDINATION.md). So on main
-# the built site is committed to the monitor/ folder with [skip ci]. Branch and
+# the built site is committed to the a2ec5543/ folder with [skip ci]. Branch and
 # PR runs only build and check.
 
 on:
@@ -42,20 +42,20 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          mkdir -p probe/build
-          python3 scripts/build_site.py --out _site 2>&1 | tee probe/build/build.log
+          python3 scripts/build_site.py --out _site 2>&1 | tee "$RUNNER_TEMP/build.log"
       - name: Check internal links and data files
         run: python3 scripts/check_site.py _site
-      - name: Publish to monitor/ on main (legacy Pages serves main root)
+      - name: Publish to a2ec5543/ on main (legacy Pages serves main root)
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
-          rm -rf monitor && mkdir -p monitor && cp -r _site/. monitor/
+          # Own folder only. monitor/ belongs to another session and must not be touched.
+          rm -rf a2ec5543 && mkdir -p a2ec5543 && cp -r _site/. a2ec5543/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A monitor
+          git add -A a2ec5543
           if git diff --cached --quiet; then echo "no change"; exit 0; fi
-          git commit -m "monitor: publish snapshot from official Kalshi demo API [skip ci]"
-          git pull --rebase origin main
+          git commit -m "a2ec5543: publish category site snapshot from official Kalshi demo API [skip ci]"
+          git pull --rebase --autostash origin main
           git push origin HEAD:main
       - name: Save build report to the branch (PR runs only, skip-ci commit)
         if: github.event_name == 'pull_request'
@@ -64,7 +64,7 @@ jobs:
         run: |
           mkdir -p /tmp/report && cp _site/data/meta.json _site/data/flags.json /tmp/report/ 2>/dev/null || true
           cp _site/data/backtest.json /tmp/report/ 2>/dev/null || true
-          cp probe/build/build.log /tmp/report/ 2>/dev/null || true
+          cp "$RUNNER_TEMP/build.log" /tmp/report/ 2>/dev/null || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin "$BR"
