@@ -1,0 +1,21 @@
+{
+"ticker": "KXSOLD-26NOV2009-T70.7499",
+"title": "SOL price on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.73,
+"ask": 0.76,
+"mid": 0.745,
+"last": 0.76,
+"vol": 906.0,
+"oi": 677.1
+}
+],
+"event_ticker": "KXSOLD-26NOV2009",
+"series_ticker": "KXSOLD",
+"updated_at": "2026-11-20T13:22:55Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXDOGED-26NOV2017-T0.0599999",
+"title": "Dogecoin price on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.01,
+"ask": 0.08,
+"mid": 0.045,
+"last": 0.39,
+"vol": 2939.53,
+"oi": 2904.36
+}
+],
+"event_ticker": "KXDOGED-26NOV2017",
+"series_ticker": "KXDOGED",
+"updated_at": "2026-11-20T13:22:55Z"
+}

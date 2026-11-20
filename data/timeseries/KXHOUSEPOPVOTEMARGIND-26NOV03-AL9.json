@@ -1,0 +1,24 @@
+{
+"ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL9",
+"title": "Will Democrats win the 2026 national House popular vote by at least 9 percentage points?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.98,
+"ask": 1.0,
+"mid": 0.99,
+"last": 0.99,
+"vol": 6869.07,
+"oi": 4997.66,
+"liq": 171.45,
+"yes_qty": 6672.35,
+"no_qty": 0
+}
+],
+"event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
+"series_ticker": "KXHOUSEPOPVOTEMARGIND",
+"updated_at": "2026-11-20T13:22:55Z"
+}

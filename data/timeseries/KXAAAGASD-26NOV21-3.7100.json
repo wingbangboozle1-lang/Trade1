@@ -24,6 +24,15 @@
 "liq": 166.24,
 "yes_qty": 0,
 "no_qty": 12164.0
+},
+{
+"t": 1795180970,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
 }
 ],
 "history_backfilled_at": "2026-11-20T13:19:11Z",
@@ -34,5 +43,5 @@
 ],
 "event_ticker": "KXAAAGASD-26NOV21",
 "series_ticker": "KXAAAGASD",
-"updated_at": "2026-11-20T13:19:13Z"
+"updated_at": "2026-11-20T13:22:55Z"
 }

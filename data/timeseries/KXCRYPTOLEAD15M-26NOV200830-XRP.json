@@ -1,0 +1,21 @@
+{
+"ticker": "KXCRYPTOLEAD15M-26NOV200830-XRP",
+"title": "Which of these cryptocurrencies will have the highest return from Nov 20 - 8:15AM EST to 8:30AM EST?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.01,
+"ask": 0.12,
+"mid": 0.065,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"event_ticker": "KXCRYPTOLEAD15M-26NOV200830",
+"series_ticker": "KXCRYPTOLEAD15M",
+"updated_at": "2026-11-20T13:22:55Z"
+}

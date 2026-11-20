@@ -1,0 +1,26 @@
+{
+"ticker": "KXBTC15M-26NOV200830-30",
+"points": [
+{
+"t": 1795180970,
+"bid": 0.65,
+"ask": 0.66,
+"mid": 0.655,
+"last": 0.66,
+"vol": 892061.32,
+"oi": 342508.81,
+"liq": 39855.6,
+"yes_qty": 39273.31,
+"no_qty": 31087.05
+}
+],
+"history_backfilled_at": "2026-11-20T13:22:51Z",
+"history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+"title": "BTC price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"event_ticker": "KXBTC15M-26NOV200830",
+"series_ticker": "KXBTC15M",
+"updated_at": "2026-11-20T13:22:55Z"
+}

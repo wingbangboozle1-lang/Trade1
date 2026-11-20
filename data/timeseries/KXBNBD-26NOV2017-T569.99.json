@@ -1,0 +1,21 @@
+{
+"ticker": "KXBNBD-26NOV2017-T569.99",
+"title": "BNB price on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.31,
+"ask": 0.35,
+"mid": 0.33,
+"last": 0.64,
+"vol": 5.0,
+"oi": 2.0
+}
+],
+"event_ticker": "KXBNBD-26NOV2017",
+"series_ticker": "KXBNBD",
+"updated_at": "2026-11-20T13:22:55Z"
+}

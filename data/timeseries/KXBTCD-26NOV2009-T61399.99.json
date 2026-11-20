@@ -1,0 +1,21 @@
+{
+"ticker": "KXBTCD-26NOV2009-T61399.99",
+"title": "Bitcoin price on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.64,
+"ask": 0.65,
+"mid": 0.645,
+"last": 0.68,
+"vol": 32134.65,
+"oi": 21337.99
+}
+],
+"event_ticker": "KXBTCD-26NOV2009",
+"series_ticker": "KXBTCD",
+"updated_at": "2026-11-20T13:22:55Z"
+}

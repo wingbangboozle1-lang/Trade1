@@ -1,0 +1,21 @@
+{
+"ticker": "KXAAAGASCDRI-26NOV21-SD",
+"title": "Will gas prices show a small decrease?",
+"topics": [
+"gas"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.04,
+"ask": 0.08,
+"mid": 0.06,
+"last": 0.08,
+"vol": 20.0,
+"oi": 20.0
+}
+],
+"event_ticker": "KXAAAGASCDRI-26NOV21",
+"series_ticker": "KXAAAGASCDRI",
+"updated_at": "2026-11-20T13:22:55Z"
+}

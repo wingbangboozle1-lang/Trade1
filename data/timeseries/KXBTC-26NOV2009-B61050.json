@@ -1,0 +1,21 @@
+{
+"ticker": "KXBTC-26NOV2009-B61050",
+"title": "Bitcoin price range on Nov 20, 2026?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795180970,
+"bid": 0.02,
+"ask": 0.04,
+"mid": 0.03,
+"last": 0.05,
+"vol": 1.28,
+"oi": 1.28
+}
+],
+"event_ticker": "KXBTC-26NOV2009",
+"series_ticker": "KXBTC",
+"updated_at": "2026-11-20T13:22:55Z"
+}
