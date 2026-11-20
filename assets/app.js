@@ -1142,6 +1142,16 @@ window.KalshiApp = (function () {
       var q = location.search.match(/[?&]topic=([a-z-]+)/);
       if (q && M.topicById(q[1])) topic = q[1];
     }
+    // data-topic on the page wins; otherwise ?topic=…; otherwise no filter.
+    // Normalise through TOPICS so an unknown id degrades to "all topics"
+    // instead of crashing the mount (M.topicById(...).label was null-guarded
+    // in some places and not others).
+    var topicAttr = node.getAttribute('data-topic') || '';
+    if (!topicAttr) {
+      var m = location.search.match(/[?&]topic=([a-z0-9-]+)/);
+      topicAttr = m ? m[1] : '';
+    }
+    var topic = (topicAttr && M.topicById(topicAttr)) ? topicAttr : '';
     if (page === 'trades') mountTrades(node);
     else mountDashboard(node, { topic: topic, compact: !!node.getAttribute('data-topic'), root: node.getAttribute('data-root') || '' });
   }

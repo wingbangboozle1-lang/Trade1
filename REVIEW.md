@@ -184,6 +184,8 @@ Checked the **published** site (repository root, GitHub Pages) claim by claim ag
 3. `assets/app.js` / `data.html` — links used `kalshi.com/markets/<event_ticker>`, which does not resolve; all links now use the series page (verified on five live series).
 4. `scripts/check_site.mjs` — silently skipped `dashboard.html`, `data.html`, `trades.html`, `methods.html` (and later `suggestions.html`); it now checks every published root page, fails on an unlisted root page, ignores JS-built hrefs inside inline scripts, and validates ES-module named imports.
 5. Navigation now cross-links the two dashboard builds (`Live (alt)` / `Main dashboard`).
+6. `assets/app.js` — **all five `topics/*.html` pages rendered blank.** The boot code read the page's `data-topic` through a `location.search` match group, so `"golf"[1]` became `"o"`; `topicById("o")` is `null` and `mountDashboard` threw on `.label`. The attribute is now read directly and normalised through `TOPICS`; the topic pages render 81–121 rows each in the jsdom render test, which now gates CI.
+
 
 ### Still open (not blocking)
 No real demo-account portfolio or execution (needs credentials, excluded by the brief); maker fees and per-series multipliers unmodelled; dollar notional is an estimate; alerts sampled at ~12 s over a cached REST API; ROI score is a heuristic.

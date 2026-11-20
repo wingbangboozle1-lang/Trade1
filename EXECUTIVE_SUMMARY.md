@@ -84,6 +84,8 @@ A live, interactive monitoring and paper-trading dashboard for the Kalshi **demo
 3. Kalshi deep links used a URL shape that does not resolve; links now use the series page and are labelled as such.
 4. The link checker skipped the main pages (and the new `suggestions.html`); it now covers every published root page, fails on an unlisted one, and validates ES-module imports.
 5. The dashboard builds had no link between them; navigation now cross-links.
+6. All five topic pages rendered blank: the topic id was read through a `location.search` match group, so `"golf"` became `"o"` and the dashboard mount threw. The id is now read directly and normalised; every topic page renders 81–121 rows in the render test that now gates CI.
+
 
 **Corrected claim.** The 200-item `/events` cap is documented in the pagination guide; Flag 2 now says so.
 
