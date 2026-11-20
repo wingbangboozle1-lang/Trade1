@@ -50,7 +50,7 @@
    }
   }
  },
- "generated_at": "2026-11-20T19:21:26Z",
+ "generated_at": "2026-11-20T19:25:54Z",
  "status": "baseline",
  "note": "watchlist baseline: quotes taken once, no swings compared yet",
  "watchlist_size": 80,
@@ -93,7 +93,7 @@
    "result": "",
    "close_time": "2026-11-21T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550"
   },
@@ -109,7 +109,7 @@
    "result": "",
    "close_time": "2026-11-21T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6600"
   },
@@ -125,7 +125,7 @@
    "result": "",
    "close_time": "2026-12-31T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26DEC31-3.30"
   },
@@ -141,7 +141,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.40"
   },
@@ -157,7 +157,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.50"
   },
@@ -173,7 +173,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.70"
   },
@@ -189,7 +189,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.80"
   },
@@ -205,7 +205,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.90"
   },
@@ -221,7 +221,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-4.40"
   },
@@ -237,7 +237,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-4.60"
   },
@@ -253,7 +253,7 @@
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-4.80"
   },
@@ -269,7 +269,7 @@
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.5800"
   },
@@ -285,7 +285,7 @@
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6000"
   },
@@ -301,7 +301,7 @@
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6200"
   },
@@ -317,7 +317,7 @@
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6400"
   },
@@ -333,7 +333,7 @@
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6600"
   },
@@ -349,7 +349,7 @@
    "result": "",
    "close_time": "2026-11-20T19:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTC15M-26NOV201400-00"
   },
@@ -365,7 +365,7 @@
    "result": "",
    "close_time": "2027-01-01T04:59:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTC50VS100-BTC-26DEC31"
   },
@@ -381,7 +381,7 @@
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINY-27JAN01-50000.00"
   },
@@ -397,7 +397,7 @@
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINY-27JAN01-55000.00"
   },
@@ -413,7 +413,7 @@
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B117500"
   },
@@ -429,7 +429,7 @@
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B52500"
   },
@@ -445,7 +445,7 @@
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B57500"
   },
@@ -461,7 +461,7 @@
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B62500"
   },
@@ -477,7 +477,7 @@
    "result": "",
    "close_time": "2027-01-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDANCINGWITHTHESTARS-26DEC31-CWOO"
   },
@@ -493,7 +493,7 @@
    "result": "",
    "close_time": "2027-01-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDANCINGWITHTHESTARS-26DEC31-EFRE"
   },
@@ -509,7 +509,7 @@
    "result": "",
    "close_time": "2027-01-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDANCINGWITHTHESTARS-26DEC31-MHIG"
   },
@@ -525,7 +525,7 @@
    "result": "",
    "close_time": "2026-11-20T19:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDEMOFUTHOURLY-26NOV20H19-UP"
   },
@@ -541,7 +541,7 @@
    "result": "",
    "close_time": "2026-11-20T19:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1614.99"
   },
@@ -557,7 +557,7 @@
    "result": "",
    "close_time": "2026-11-20T19:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1619.99"
   },
@@ -573,7 +573,7 @@
    "result": "",
    "close_time": "2026-11-20T19:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1634.99"
   },
@@ -589,7 +589,7 @@
    "result": "",
    "close_time": "2026-11-20T19:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1639.99"
   },
@@ -605,7 +605,7 @@
    "result": "",
    "close_time": "2026-11-20T19:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1644.99"
   },
@@ -621,7 +621,7 @@
    "result": "",
    "close_time": "2026-11-20T22:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2017-T1579.99"
   },
@@ -637,7 +637,7 @@
    "result": "",
    "close_time": "2026-11-20T22:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2017-T1779.99"
   },
@@ -653,7 +653,7 @@
    "result": "",
    "close_time": "2028-05-30T14:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXFRENCHPRES-27-BRET"
   },
@@ -669,7 +669,7 @@
    "result": "",
    "close_time": "2028-05-30T14:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXFRENCHPRES-27-MLEP"
   },
@@ -685,7 +685,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-ALIKIM"
   },
@@ -701,7 +701,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-CHAHUL"
   },
@@ -717,7 +717,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-NELKOR"
   },
@@ -733,7 +733,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-PATTAV"
   },
@@ -749,7 +749,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-ROSZHA"
   },
@@ -765,7 +765,7 @@
    "result": "",
    "close_time": "2027-12-31T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXOSCARPIC-27-ODY"
   },
@@ -781,7 +781,7 @@
    "result": "",
    "close_time": "2027-12-31T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXOSCARPIC-27-WIL"
   },
@@ -797,7 +797,7 @@
    "result": "",
    "close_time": "2026-11-21T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGAR2LEAD-THRC26-HLEB"
   },
@@ -813,7 +813,7 @@
    "result": "",
    "close_time": "2026-11-30T19:20:01Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOP20-THRC26-PCOO"
   },
@@ -829,7 +829,7 @@
    "result": "",
    "close_time": "2026-11-30T19:20:01Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOP20-THRC26-RCAM"
   },
@@ -845,7 +845,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-JSVE"
   },
@@ -861,7 +861,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-KMIT"
   },
@@ -877,7 +877,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-LHOD"
   },
@@ -893,7 +893,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-MGRE"
   },
@@ -909,7 +909,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-MTHO"
   },
@@ -925,7 +925,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-RCAS"
   },
@@ -941,7 +941,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-SSTR"
   },
@@ -957,7 +957,7 @@
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-TMOO"
   },
@@ -973,7 +973,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-AKLO"
   },
@@ -989,7 +989,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-AOC"
   },
@@ -1005,7 +1005,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-HBID"
   },
@@ -1021,7 +1021,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-JOSS"
   },
@@ -1037,7 +1037,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-JP"
   },
@@ -1053,7 +1053,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-GY"
   },
@@ -1069,7 +1069,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-JDV"
   },
@@ -1085,7 +1085,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-MR"
   },
@@ -1101,7 +1101,7 @@
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-RDS"
   },
@@ -1117,7 +1117,7 @@
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-GNEWS"
   },
@@ -1133,7 +1133,7 @@
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-JOSS"
   },
@@ -1149,7 +1149,7 @@
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-JVAN"
   },
@@ -1165,7 +1165,7 @@
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-KHAR"
   },
@@ -1181,7 +1181,7 @@
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-VRAM"
   },
@@ -1197,7 +1197,7 @@
    "result": "",
    "close_time": "2026-11-30T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FOC-50"
   },
@@ -1213,7 +1213,7 @@
    "result": "",
    "close_time": "2026-11-30T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FUR-70"
   },
@@ -1229,7 +1229,7 @@
    "result": "",
    "close_time": "2026-11-30T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FUR-75"
   },
@@ -1245,7 +1245,7 @@
    "result": "",
    "close_time": "2026-11-30T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FUR-85"
   },
@@ -1261,7 +1261,7 @@
    "result": "",
    "close_time": "2026-11-23T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-HUN-60"
   },
@@ -1277,7 +1277,7 @@
    "result": "",
    "close_time": "2026-11-23T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-HUN-65"
   },
@@ -1293,7 +1293,7 @@
    "result": "",
    "close_time": "2026-11-23T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-HUN-70"
   },
@@ -1309,7 +1309,7 @@
    "result": "",
    "close_time": "2026-11-23T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-HUN-72"
   },
@@ -1325,7 +1325,7 @@
    "result": "",
    "close_time": "2026-11-23T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-HUN-77"
   },
@@ -1341,7 +1341,7 @@
    "result": "",
    "close_time": "2026-11-23T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-IPL-85"
   },
@@ -1357,28 +1357,28 @@
    "result": "",
    "close_time": "2026-11-23T15:00:00Z",
    "samples": 1,
-   "first_seen": "2026-11-20T19:21:26Z",
+   "first_seen": "2026-11-20T19:25:54Z",
    "last_seen": null,
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-IPL-90"
   }
  ],
  "runs": [
   {
-   "t": "2026-11-20T19:21:26Z",
+   "t": "2026-11-20T19:25:54Z",
    "mode": "seed",
    "watchlist": 80,
    "requests": 0,
    "log": [
-    "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-ALIKIM topic=golf last=$0.0490",
-    "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-PATTAV topic=golf last=$0.01",
-    "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-CHAHUL topic=golf last=$0.0490",
-    "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-NELKOR topic=golf last=$0.0690",
-    "- 19:21:26Z SEED KXPGATOP20-THRC26-RCAM topic=golf last=$0.03",
-    "- 19:21:26Z SEED KXPGATOP20-THRC26-PCOO topic=golf last=$0.24",
-    "- 19:21:26Z SEED KXPGATOUR-THRC26-JSVE topic=golf last=$0.0380",
-    "- 19:21:26Z SEED KXPGATOUR-THRC26-RCAS topic=golf last=$0.0220",
-    "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-ROSZHA topic=golf last=$0.0030",
-    "- 19:21:26Z SEED KXPGAR2LEAD-THRC26-HLEB topic=golf last=$0.99"
+    "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-ALIKIM topic=golf last=$0.0490",
+    "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-PATTAV topic=golf last=$0.01",
+    "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-CHAHUL topic=golf last=$0.0490",
+    "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-NELKOR topic=golf last=$0.0690",
+    "- 19:25:54Z SEED KXPGATOP20-THRC26-RCAM topic=golf last=$0.03",
+    "- 19:25:54Z SEED KXPGATOP20-THRC26-PCOO topic=golf last=$0.24",
+    "- 19:25:54Z SEED KXPGATOUR-THRC26-JSVE topic=golf last=$0.0380",
+    "- 19:25:54Z SEED KXPGATOUR-THRC26-RCAS topic=golf last=$0.0220",
+    "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-ROSZHA topic=golf last=$0.0030",
+    "- 19:25:54Z SEED KXPGAR2LEAD-THRC26-HLEB topic=golf last=$0.99"
    ]
   }
  ],
@@ -1408,45 +1408,45 @@
  },
  "disclaimer": "Simulation only. No orders are placed and no account is contacted. Demo prices may not reflect real markets (official demo-environment note). Real demo-account tracking requires the owner's own demo API key — see flagged.html.",
  "log": [
-  "- 19:21:26Z SEED KXDANCINGWITHTHESTARS-26DEC31-EFRE topic=culture last=$0.51",
-  "- 19:21:26Z SEED KXRT-HUN-70 topic=culture last=$0.14",
-  "- 19:21:26Z SEED KXOSCARPIC-27-WIL topic=culture last=$0.03",
-  "- 19:21:26Z SEED KXRT-IPL-90 topic=culture last=$0.03",
-  "- 19:21:26Z SEED KXRT-HUN-72 topic=culture last=$0.03",
-  "- 19:21:26Z SEED KXRT-FOC-50 topic=culture last=$0.76",
-  "- 19:21:26Z SEED KXDANCINGWITHTHESTARS-26DEC31-MHIG topic=culture last=$0.06",
-  "- 19:21:26Z SEED KXOSCARPIC-27-ODY topic=culture last=$0.99",
-  "- 19:21:26Z SEED KXBTC50VS100-BTC-26DEC31 topic=crypto last=$0.63",
-  "- 19:21:26Z SEED KXDEMOFUTHOURLY-26NOV20H19-UP topic=crypto last=$0.65",
-  "- 19:21:26Z SEED KXBTCMINY-27JAN01-55000.00 topic=crypto last=$0.40",
-  "- 19:21:26Z SEED KXBTCY-27JAN0100-B117500 topic=crypto last=$0.03",
-  "- 19:21:26Z SEED KXBTCY-27JAN0100-B62500 topic=crypto last=$0.24",
-  "- 19:21:26Z SEED KXBTCY-27JAN0100-B57500 topic=crypto last=$0.16",
-  "- 19:21:26Z SEED KXBTC15M-26NOV201400-00 topic=crypto last=$0.0290",
-  "- 19:21:26Z SEED KXETHD-26NOV2014-T1614.99 topic=crypto last=$0.90",
-  "- 19:21:26Z SEED KXETHD-26NOV2017-T1579.99 topic=crypto last=$0.87",
-  "- 19:21:26Z SEED KXBTCY-27JAN0100-B52500 topic=crypto last=$0.09",
-  "- 19:21:26Z SEED KXETHD-26NOV2014-T1619.99 topic=crypto last=$0.61",
-  "- 19:21:26Z SEED KXBTCMINY-27JAN01-50000.00 topic=crypto last=$0.24",
-  "- 19:21:26Z SEED KXETHD-26NOV2014-T1639.99 topic=crypto last=$0.31",
-  "- 19:21:26Z SEED KXETHD-26NOV2014-T1634.99 topic=crypto last=$0.29",
-  "- 19:21:26Z SEED KXETHD-26NOV2014-T1644.99 topic=crypto last=$0.26",
-  "- 19:21:26Z SEED KXETHD-26NOV2017-T1779.99 topic=crypto last=$0.30",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-SSTR topic=golf last=$0.0250",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-MTHO topic=golf last=$0.13",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-MGRE topic=golf last=$0.0480",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-LHOD topic=golf last=$0.0230",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-KMIT topic=golf last=$0.0790",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-TMOO topic=golf last=$0.0050",
-  "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-ALIKIM topic=golf last=$0.0490",
-  "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-PATTAV topic=golf last=$0.01",
-  "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-CHAHUL topic=golf last=$0.0490",
-  "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-NELKOR topic=golf last=$0.0690",
-  "- 19:21:26Z SEED KXPGATOP20-THRC26-RCAM topic=golf last=$0.03",
-  "- 19:21:26Z SEED KXPGATOP20-THRC26-PCOO topic=golf last=$0.24",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-JSVE topic=golf last=$0.0380",
-  "- 19:21:26Z SEED KXPGATOUR-THRC26-RCAS topic=golf last=$0.0220",
-  "- 19:21:26Z SEED KXLPGATOUR-CMEGTC26-ROSZHA topic=golf last=$0.0030",
-  "- 19:21:26Z SEED KXPGAR2LEAD-THRC26-HLEB topic=golf last=$0.99"
+  "- 19:25:54Z SEED KXDANCINGWITHTHESTARS-26DEC31-EFRE topic=culture last=$0.51",
+  "- 19:25:54Z SEED KXRT-HUN-70 topic=culture last=$0.14",
+  "- 19:25:54Z SEED KXOSCARPIC-27-WIL topic=culture last=$0.03",
+  "- 19:25:54Z SEED KXRT-IPL-90 topic=culture last=$0.03",
+  "- 19:25:54Z SEED KXRT-HUN-72 topic=culture last=$0.03",
+  "- 19:25:54Z SEED KXRT-FOC-50 topic=culture last=$0.76",
+  "- 19:25:54Z SEED KXDANCINGWITHTHESTARS-26DEC31-MHIG topic=culture last=$0.06",
+  "- 19:25:54Z SEED KXOSCARPIC-27-ODY topic=culture last=$0.99",
+  "- 19:25:54Z SEED KXBTC50VS100-BTC-26DEC31 topic=crypto last=$0.63",
+  "- 19:25:54Z SEED KXDEMOFUTHOURLY-26NOV20H19-UP topic=crypto last=$0.65",
+  "- 19:25:54Z SEED KXBTCMINY-27JAN01-55000.00 topic=crypto last=$0.40",
+  "- 19:25:54Z SEED KXBTCY-27JAN0100-B117500 topic=crypto last=$0.03",
+  "- 19:25:54Z SEED KXBTCY-27JAN0100-B62500 topic=crypto last=$0.24",
+  "- 19:25:54Z SEED KXBTCY-27JAN0100-B57500 topic=crypto last=$0.16",
+  "- 19:25:54Z SEED KXBTC15M-26NOV201400-00 topic=crypto last=$0.0290",
+  "- 19:25:54Z SEED KXETHD-26NOV2014-T1614.99 topic=crypto last=$0.90",
+  "- 19:25:54Z SEED KXETHD-26NOV2017-T1579.99 topic=crypto last=$0.87",
+  "- 19:25:54Z SEED KXBTCY-27JAN0100-B52500 topic=crypto last=$0.09",
+  "- 19:25:54Z SEED KXETHD-26NOV2014-T1619.99 topic=crypto last=$0.61",
+  "- 19:25:54Z SEED KXBTCMINY-27JAN01-50000.00 topic=crypto last=$0.24",
+  "- 19:25:54Z SEED KXETHD-26NOV2014-T1639.99 topic=crypto last=$0.31",
+  "- 19:25:54Z SEED KXETHD-26NOV2014-T1634.99 topic=crypto last=$0.29",
+  "- 19:25:54Z SEED KXETHD-26NOV2014-T1644.99 topic=crypto last=$0.26",
+  "- 19:25:54Z SEED KXETHD-26NOV2017-T1779.99 topic=crypto last=$0.30",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-SSTR topic=golf last=$0.0250",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-MTHO topic=golf last=$0.13",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-MGRE topic=golf last=$0.0480",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-LHOD topic=golf last=$0.0230",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-KMIT topic=golf last=$0.0790",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-TMOO topic=golf last=$0.0050",
+  "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-ALIKIM topic=golf last=$0.0490",
+  "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-PATTAV topic=golf last=$0.01",
+  "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-CHAHUL topic=golf last=$0.0490",
+  "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-NELKOR topic=golf last=$0.0690",
+  "- 19:25:54Z SEED KXPGATOP20-THRC26-RCAM topic=golf last=$0.03",
+  "- 19:25:54Z SEED KXPGATOP20-THRC26-PCOO topic=golf last=$0.24",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-JSVE topic=golf last=$0.0380",
+  "- 19:25:54Z SEED KXPGATOUR-THRC26-RCAS topic=golf last=$0.0220",
+  "- 19:25:54Z SEED KXLPGATOUR-CMEGTC26-ROSZHA topic=golf last=$0.0030",
+  "- 19:25:54Z SEED KXPGAR2LEAD-THRC26-HLEB topic=golf last=$0.99"
  ]
 }

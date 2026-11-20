@@ -53,3 +53,58 @@ A live, interactive monitoring and strategy-testing dashboard for the Kalshi **d
 - Simulated fills assume execution at observed quotes; real resting orders may not fill the same way.
 - Demo behavior need not match production (per Kalshi's official documentation).
 - Everything here is educational; nothing is financial advice.
+
+---
+
+# Addendum — session `e82d36a3`, 2026-11-20 (deployed root site)
+
+**Scope of this addendum.** The section above was written by session `f6094c46` about its `monitor/` build. This addendum
+describes the **published root site** (`https://wingbangboozle1-lang.github.io/Trade1/`, Pages source = `main` `/`) as of
+2026-11-20 and what this session changed. Nothing above was deleted or rewritten.
+
+## What is live now
+
+| Brief requirement | State on the published site |
+|---|---|
+| Highest-dollar live events, five topics | Landing + `dashboard.html` + five `topics/*.html` pages, ranked by estimated 24 h traded dollars; the estimate is labelled as such (no per-market dollar field is published) |
+| Alerting on ≥ $0.10 swings, both directions | Two auto-scrolling chats (all events / ROI-screen picks) sampled every ~12 s while a tab is open; the ≥ $0.10 test is done on integer 1e-4 USD units, so an exact $0.66→$0.56 move cannot be lost to binary float |
+| Chart shows the jumps and the links | **New this session:** each ≥ $0.10 jump for the selected market is drawn on the price chart inside the chosen window, with a jump/link strip underneath (official market page, the event's published settlement sources, a news-search lead — labelled leads, never causes) |
+| Track events until resolution (YES/NO) | Watched markets are re-quoted each cycle; `status`/`result`/`settlement_ts` are copied verbatim into the resolution tables; open paper positions settle at $1.00 per winner |
+| Automated simulated trades | **New this session:** `scripts/portfolio_engine.py` runs the four documented strategies in GitHub Actions every ~30 min and commits its ledger (`data/portfolio.json`), so the track record accumulates without a browser open and every visitor sees the same numbers (`portfolio.html`) |
+| Portfolio performance / categorised analysis | `portfolio.html`: equity curve, open positions marked at the official bid, P&L by strategy, by topic and by exit reason, ROI and win-rate tables, per-row source links. The browser Strategy Lab (`trades.html`) keeps its own per-browser book for fast sampling |
+| Live interactive charts, liquidity, depth per price | `dashboard.html`: time-window picker (seconds → hours), order-book ladder with contract counts at each price level |
+| Suggestions for more liveness | **New this session:** `suggestions.html` — 10 static-site quick wins, 3 items that need a small server, 2 that need the owner's demo key, each tied to the published endpoint or doc page that makes it possible |
+| No manual input | Everything above runs from schedules and public endpoints; no credentials, no forms, no key entry |
+
+## Important details a trader should know
+
+1. **The demo environment is explicitly not representative.** Kalshi's own wording: "The price and behavior of markets in the
+   demo environment may not be reflective of those in real markets"
+   ([docs.kalshi.com/getting_started/demo_env](https://docs.kalshi.com/getting_started/demo_env)). All analysis here is methodology, not edge.
+2. **REST polling lags by design.** Responses are cached by the exchange for a short time, so prices, sizes and `status` can lag by
+   seconds and filtered listings can lag longer ([Get Markets](https://docs.kalshi.com/api-reference/market/get-markets)). Sub-second
+   swings are not observable; that is a platform limit, not a bug in the dashboard.
+3. **WebSocket is not available to a static page.** The handshake must carry `KALSHI-ACCESS-KEY`, `KALSHI-ACCESS-SIGNATURE` and
+   `KALSHI-ACCESS-TIMESTAMP` (signature over `timestamp + "GET" + "/trade-api/ws/v2"`) even for the public market-data channels
+   ([Quick Start: WebSockets](https://docs.kalshi.com/getting_started/quick_start_websockets)); browsers cannot set WebSocket headers,
+   so the site polls REST and `suggestions.html` #11 describes the bridge.
+4. **Fees are modelled from the published schedule**, and one previously-flagged item is now resolved: demo `status:"active"` is
+   *not* a contradiction — `active` is the documented market status that the `open` filter matches
+   ([Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle)). See [flagged.html](flagged.html) E1.
+5. **Two fee models coexist on purpose** (6-dp + cent alignment in the CI ledger, cent-rounding in the browser lab) and maker fees
+   are not modelled anywhere — material for the gas series, which lists a maker multiplier of 1. See E2/E3.
+6. **Dollar figures for traded notional stay estimates.** A measured alternative (the trade tape: `count_fp × yes_price_dollars` per
+   execution) is specced in Suggestions #2 but is not implemented, and it cannot be naively back-filled because the endpoint
+   documents no ordering guarantee (E7).
+7. **Real demo-account tracking is still blocked on the owner.** It needs a demo API key + private key as repository secrets
+   ([API Keys](https://docs.kalshi.com/getting_started/api_keys)); session `20e3ad14`'s guarded executor sits unmerged in draft
+   [PR #2](https://github.com/wingbangboozle1-lang/Trade1/pull/2). E9.
+
+## Quality gates added this session
+
+- `python3 scripts/portfolio_engine.py selftest` — 50 numeric checks (official fee-table rows, the exact $0.10 boundary,
+  balance-alignment arithmetic, settlement payouts, whole-contract sizing, determinism).
+- `node tests/portfolio.test.mjs` — 60 checks: artifact contract (every row has a source, alert threshold respected, bounded size)
+  plus `portfolio.html` booted in jsdom against both the real artifact and a synthetic populated ledger.
+- `node scripts/check_links.mjs` — link and navigation check over all published root pages (17 pages, 0 failures on 2026-11-20);
+  added because the pre-existing `scripts/check_site.mjs` allow-list does not include the deployed root pages (E10).

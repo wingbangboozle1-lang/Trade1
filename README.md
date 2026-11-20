@@ -13,6 +13,8 @@ elections, culture, crypto, and golf**. Deployed at
 | `dashboard.html` | Live ranked markets, ≥ $0.10 alert chats (all events + ROI-screen picks), price chart (seconds/minutes/hours windows), order-book depth, computed liquidity, resolved-events strip |
 | `topics/*.html` | Topic-focused dashboards (gas-prices, elections, culture, crypto, golf) |
 | `trades.html` | Strategy Lab: automated **paper** strategies, portfolio performance, P&L by strategy/topic, equity curve, resolution log |
+| `portfolio.html` | Always-on CI ledger: the same strategies run by `scripts/portfolio_engine.py` on GitHub Actions, committed to `data/portfolio.json` — equity curve, categorised trade ledger, ≥$0.10 alert feed with the sample gap each move was measured over, resolutions, per-row source links |
+| `suggestions.html` | Source-checked roadmap for making the site more live and interactive (what is already live, quick wins for a static page, what needs a small server, what needs your demo key) |
 | `data.html` | Verified data tables — every row links the official URL it came from |
 | `methods.html` | Full methodology: endpoints, field units, alert rule, ROI formula, strategies, fees, topic mapping |
 | `flagged.html` | Flagged for Review — everything unverified, contradictory, or deliberately not implemented |
@@ -23,7 +25,8 @@ elections, culture, crypto, and golf**. Deployed at
 - **Site**: static HTML + vanilla JS (`assets/app.js` engine, `assets/model.js` strategies). No frameworks, no CDN dependencies.
 - **Live data**: browser polls public demo endpoints directly (CORS verified: the API reflects any origin — `data/cors.json`). Batching via `GET /markets?tickers=…`, discovery via `GET /events?status=open&limit=200` and `GET /series?category=…&include_volume=true`, depth via `GET /markets/{ticker}/orderbook`, history via `GET /series/{s}/markets/{t}/candlesticks`.
 - **Verification pipeline**: `.github/workflows/verify-and-collect.yml` runs `scripts/collect.py` on GitHub Actions (twice hourly after deploy + on relevant pushes), refreshes `data/` snapshots, and commits them with a per-request log (`data/log.md`). Topic rules live in `scripts/topics.json` and are mirrored in `assets/model.js`.
-- **Paper trading**: strategies in `assets/model.js` (momentum, fade, favorite-harvest, 50¢ breakout) fill against official quotes with official taker fees (`roundup(0.07 × C × P × (1−P))`, from [kalshi.com/docs/kalshi-fee-schedule.pdf](https://kalshi.com/docs/kalshi-fee-schedule.pdf)) and settle at $1 per winning contract. Local `localStorage` only — no orders are ever sent, no credentials requested.
+- **Always-on ledger**: `.github/workflows/portfolio.yml` runs `scripts/portfolio_engine.py` twice an hour (self-tests first, then a live cycle). It compares one priced cycle with the next, books fills at the official quotes with the official taker fee (`ceil_6dp` model fee + cent balance alignment per [docs.kalshi.com/getting_started/fee_rounding](https://docs.kalshi.com/getting_started/fee_rounding)), settles on the exchange's YES/NO result, and commits `data/portfolio.json` + `data/portfolio_state.json` to `main` with `[skip ci]`. Nothing authenticates and no order is ever sent.
+- **Paper trading (browser)**: strategies in `assets/model.js` (momentum, fade, favorite-harvest, 50¢ breakout) fill against official quotes with official taker fees (`roundup(0.07 × C × P × (1−P))`, from [kalshi.com/docs/kalshi-fee-schedule.pdf](https://kalshi.com/docs/kalshi-fee-schedule.pdf)) and settle at $1 per winning contract. Local `localStorage` only — no orders are ever sent, no credentials requested.
 
 ## Safety & scope
 
@@ -41,7 +44,11 @@ snapshot in `data/` and says so in the banner.
 
 ## Verification
 
-- Every table row on `data.html` links the exact official endpoint URL that produced it.
+- Every table row on `data.html` and `portfolio.html` links the exact official endpoint URL that produced it.
+- Checks you can run yourself: `python3 scripts/portfolio_engine.py selftest` (50 numeric checks),
+  `node tests/portfolio.test.mjs` (60 ledger + page checks; needs `npm i --no-save jsdom` for the DOM part),
+  `node scripts/check_links.mjs` (link/nav check over the published pages), `node scripts/check_site.mjs`
+  (snapshot/row source check), `node scripts/test_lib.mjs` (offline fixtures).
 - `data/log.md` records every fetch (URL, status, size) from the Actions runner.
 - Values that could not be confirmed from an official source are left blank and listed on `flagged.html` — never inferred.
 - Coordination notes for parallel sessions: [COORDINATION.md](COORDINATION.md).

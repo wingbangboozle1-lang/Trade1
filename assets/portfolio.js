@@ -254,7 +254,9 @@
         '<span class="meta">' + plain(a.from_usd, 4) + ' → ' + plain(a.to_usd, 4) +
         (a.spread_usd !== null && a.spread_usd !== undefined ? ' · spread ' + Number(a.spread_usd).toFixed(2) : '') +
         (a.vol24_contracts !== null && a.vol24_contracts !== undefined ? ' · 24h ' + Number(a.vol24_contracts).toLocaleString() + 'c' : '') +
-        ' · score ' + a.score + (a.model_pick ? ' · model pick' : '') + '</span>' +
+        ' · score ' + a.score + (a.model_pick ? ' · model pick' : '') +
+        (a.gap_minutes !== null && a.gap_minutes !== undefined
+          ? ' · over ' + Number(a.gap_minutes).toFixed(0) + ' min' + (a.wide_gap ? ' <span class=\"flag\">(wide gap)</span>' : '') : '') + '</span>' +
         '<div class="links">' + srcLink(a.source, 'quote response') +
         ' · <a href="' + esc(newsUrl(cleanTitle(a.title))) + '" target="_blank" rel="noopener">news search (lead, not a cause)</a>' +
         ' · <a href="' + esc(marketUrl(a.ticker)) + '" target="_blank" rel="noopener">Kalshi market</a></div></div>';

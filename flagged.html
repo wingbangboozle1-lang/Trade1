@@ -70,6 +70,89 @@
     </table></div>
   </section>
 
+
+  <section class="box" style="margin-top:14px">
+    <h2>Added by session <code>e82d36a3</code> — 2026-11-20 (this session's verification work)</h2>
+    <p class="small muted">Items E1–E12 below. None of them blocks the site. Each names the official source it was checked
+      against; where a value could not be confirmed it is left blank in the tables rather than estimated.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Item</th><th>What was checked / what is still open</th><th>Official source</th></tr></thead>
+      <tbody>
+        <tr><td>E1</td><td><b>Correction to Flag #1 above — not a contradiction.</b> The demo API returning
+          <code>status: "active"</code> matches the documented <i>market status</i> enum. The four values cited in Flag #1
+          (<code>unopened / open / closed / settled</code>) are the <code>status=</code> <i>query filter</i> values, and
+          <code>open</code> is documented as matching <code>active</code>.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_lifecycle">Market Lifecycle</a>
+            (status table + filter mapping) · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets schema</a></td></tr>
+        <tr><td>E2</td><td><b>Two fee models now exist, deliberately.</b> The published schedule says
+          <code>fees = roundup(M × 0.07 × C × P × (1−P))</code> with "round up … to a centicent"; the Fee Rounding page defines the
+          trade fee as <code>ceil_6dp(model fee)</code> plus a balance-alignment rounding fee. The <b>CI ledger</b>
+          (<code>scripts/portfolio_engine.py</code>) implements that 6-decimal + $0.01-alignment rule. The <b>browser lab</b>
+          (<code>assets/model.js</code>) still rounds each fee up to a whole cent, which can overcharge by up to $0.0099 per leg —
+          conservative, but the two engines will not produce identical P&amp;L on purpose.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">Fee schedule PDF</a>
+            · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a></td></tr>
+        <tr><td>E3</td><td><b>Maker fees are not modeled anywhere</b>, and for the in-scope gas series they are <i>not</i> zero: the
+          Non-Standard Fees table lists <code>KXAAAGASM</code> (US gas price) with maker multiplier 1 and taker multiplier 1. Any
+          strategy that would rest a limit order in gas markets is therefore mis-priced in both simulators.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">Fee schedule PDF — Non-Standard Fees</a></td></tr>
+        <tr><td>E4</td><td><b>The CI ledger samples every ~30 minutes</b>, so its time-based exits are re-tuned (max-hold counted in
+          samples, not minutes) and a fast round-trip that the browser lab catches is invisible to it. Ledger results are a
+          slower-clock test of the same rules, not a copy of the lab's numbers.</td>
+          <td class="src"><a href="portfolio.html">Portfolio page — "Rules the engine trades by"</a> ·
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/portfolio.yml">workflow</a></td></tr>
+        <tr><td>E5</td><td><b>Wide-gap alerts.</b> The first live cycle compares against a price seeded from the committed snapshot,
+          which can be hours old; every alert now records the sample gap it was measured over and is labelled
+          <span class="flag">wide gap</span> above 90 minutes, so a stale-quote delta is never read as a fast market move.</td>
+          <td class="src"><a href="data/portfolio.json" target="_blank">data/portfolio.json → alerts[].gap_minutes</a></td></tr>
+        <tr><td>E6</td><td><b>Dollar ranking is still an estimate.</b> No per-market dollar-notional field is published, so the
+          highest-dollar ordering uses <code>volume_24h_fp × last_price_dollars</code> and stays labelled "est.". A measured
+          alternative exists (the trade tape, <code>count_fp × yes_price_dollars</code>) but is not yet implemented — see
+          <a href="suggestions.html">Suggestions #2</a>.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets fields</a>
+            · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades</a></td></tr>
+        <tr><td>E7</td><td><b>A tape-based ranking cannot be back-filled naively:</b> <code>GET /markets/trades</code> is paginated
+          (limit ≤ 1000, cursor) and its documentation states no ordering guarantee, so "last 24 h of trades for the whole
+          exchange" cannot be claimed from one page. Any implementation must page until <code>min_ts</code> is passed and label the
+          result partial if it stops early.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades — pagination notes</a></td></tr>
+        <tr><td>E8</td><td><b>Unauthenticated rate limits have no published numbers.</b> The docs say public requests are subject to
+          "separate limits" and to back off on 429. The ledger's pacing (≤ ~1 batched request per ~0.35 s, twice an hour) is a
+          safety choice, not a documented bound.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a></td></tr>
+        <tr><td>E9</td><td><b>Real demo-account tracking is still not possible here</b> — it needs the owner's demo API key ID plus a
+            private key (Ed25519 or RSA-PSS) held as repository secrets. No agent can create or hold them and the site never asks for
+            them. Session <code>20e3ad14</code>'s guarded implementation exists on <code>arena/20e3ad14-trade1</code>
+            (<a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/2">draft PR #2</a>:
+            <code>scripts/demo_account/**</code>) and remains unmerged.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_keys">API Keys</a>
+            · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">Demo environment</a></td></tr>
+        <tr><td>E10</td><td><b>The other CI checker does not cover the deployed root pages.</b>
+          <code>scripts/check_site.mjs</code> link-checks a fixed allow-list that omits <code>dashboard.html</code>,
+          <code>trades.html</code>, <code>data.html</code>, <code>methods.html</code> and <code>topics/*</code>. This session added
+          <code>scripts/check_links.mjs</code> (walks all 17 published pages; 265 local links, 92 external links, 0 failures on
+          2026-11-20) rather than editing theirs. Recommendation: run both in <code>pages.yml</code>.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/check_site.mjs">check_site.mjs</a>
+            · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/check_links.mjs">check_links.mjs</a></td></tr>
+        <tr><td>E11</td><td><b>Root clutter left untouched on purpose.</b> <code>live.html</code>, <code>resolved.html</code>,
+          <code>strategies.html</code> and the <code>js/</code>, <code>css/</code>, <code>pages/</code>, <code>categories/</code>,
+          <code>docs/</code>, <code>site/</code>, <code>monitor/</code>, <code>trade1/</code>, <code>a2ec5543/</code>,
+          <code>probe/</code> trees are other sessions' builds. They are still reachable on the deployed site but are not in the
+          navigation, so a visitor can land on an older look-alike page. Deleting them is an owner decision; nothing was removed.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/tree/main">repository root</a></td></tr>
+        <tr><td>E12</td><td><b>Four pull requests from earlier sessions are still open</b>
+          (<a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/16">#16</a>,
+          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/15">#15</a>,
+          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/3">#3</a>,
+          draft <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pull/2">#2</a>). Their branches
+          were cut before the merged integration builds and overlap the published root pages; merging them now would re-introduce
+          duplicate sites and stale data pipelines. Left open with the reason recorded in
+          <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/COORDINATION.md">COORDINATION.md</a>.</td>
+          <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pulls">open pull requests</a></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
   <section class="box" style="margin-top:14px">
     <h2>Carried from previous parallel sessions (their files remain in this repo)</h2>
     <p class="small muted">Several parallel sessions merged full site builds into this repo before this integration (PR #1 ee533bdf prototype; PR #5/#7/#12/#14/#18 builds: <code>live.html</code>/<code>resolved.html</code>/<code>strategies.html</code>/<code>pages/*</code>/<code>js/*</code>/<code>categories/*</code>/<code>assets/app.mjs</code>). Their published pages are superseded by this build (one coherent root site), but their verification documents stay in-tree for review and their findings were checked when building this page:</p>

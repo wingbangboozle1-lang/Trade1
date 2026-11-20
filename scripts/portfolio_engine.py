@@ -601,6 +601,7 @@ def run_cycle(st, quotes, sources, when, log_list):
         q = views[ticker]
         w["last_quote"] = q
         prev = w.get("samples", [])[-1] if w.get("samples") else None
+        prev_t = prev.get("t") if prev else None
         cur_bits = q["last"] if q["last"] is not None else q["yes_bid"]
         prev_bits = prev.get("p") if prev else None
         w.setdefault("samples", []).append({"t": when, "p": cur_bits,
@@ -617,6 +618,8 @@ def run_cycle(st, quotes, sources, when, log_list):
                 "t": when, "ticker": ticker, "event_ticker": q.get("event_ticker"),
                 "title": q.get("title") or w.get("title"), "topic": w["topic"],
                 "from_bits": prev_bits, "to_bits": cur_bits, "delta_bits": delta,
+                "prev_t": prev_t,
+                "gap_minutes": round((parse_ts(when) - (parse_ts(prev_t) or parse_ts(when))) / 60000, 1),
                 "dir": "up" if delta > 0 else "down", "score": score,
                 "spread_bits": sp, "vol24_c": q["vol24"],
                 "source": sources[0] if sources else None,
@@ -764,6 +767,8 @@ def alert_public(a):
         "title": a.get("title"), "topic": a.get("topic"),
         "from_usd": round(a["from_bits"] / 10000, 4), "to_usd": round(a["to_bits"] / 10000, 4),
         "delta_usd": round(a["delta_bits"] / 10000, 4), "dir": a["dir"], "score": a["score"],
+        "prev_t": a.get("prev_t"), "gap_minutes": a.get("gap_minutes"),
+        "wide_gap": bool(a.get("gap_minutes") is not None and a["gap_minutes"] > 90),
         "spread_usd": round(a["spread_bits"] / 10000, 4) if a.get("spread_bits") is not None else None,
         "vol24_contracts": (a["vol24_c"] / 100) if a.get("vol24_c") is not None else None,
         "model_pick": a["score"] >= float(MIN_MODEL_SCORE), "source": a.get("source"),

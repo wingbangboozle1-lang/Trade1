@@ -72,6 +72,8 @@ ok('every trade row records a fill source URL (and an exit source once closed)',
     (t.status === 'open' || (t.exit && typeof t.exit.source === 'string'))));
 ok('trade quantities are whole contracts (fractional sizes are market-permissioned)',
   rowsWith(art.trades).every((t) => Number.isInteger(t.qty_contracts)));
+ok('every alert records the sample gap it was measured over',
+  rowsWith(art.alerts).every((a) => typeof a.prev_t === 'string' && Number.isFinite(a.gap_minutes)));
 ok('no alert is below the $0.10 threshold',
   rowsWith(art.alerts).every((a) => Math.abs(a.delta_usd) >= 0.1 - 1e-9));
 ok('bounded sizes keep the committed artifact small',
@@ -173,6 +175,7 @@ synth.equity_curve = [
 synth.alerts = [{ t: '2026-11-20T19:30:00Z', ticker: 'KXTEST-1', event_ticker: 'KXTEST',
   title: 'Test **market**', topic: 'crypto', from_usd: 0.66, to_usd: 0.56, delta_usd: -0.1,
   dir: 'down', score: 0.823, spread_usd: 0.02, vol24_contracts: 9000, model_pick: true,
+  prev_t: '2026-11-20T19:00:00Z', gap_minutes: 30, wide_gap: false,
   source: 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXTEST-1' }];
 synth.resolutions = [{ t: '2026-11-20T20:00:00Z', ticker: 'KXTEST-1', event_ticker: 'KXTEST',
   title: 'Test market', topic: 'crypto', result: 'no', settlement_ts: '2026-11-20T19:45:00Z',
