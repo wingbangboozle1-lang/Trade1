@@ -1,5 +1,5 @@
 {
- "generated_epoch": 1795182474,
+ "generated_epoch": 1795183591,
  "method": "Simulated only. No fees, no slippage beyond quoted candle ask/bid, 1 contract per trade, no position sizing.",
  "markets_considered": 250,
  "markets_with_candles": 250,
@@ -15,10 +15,10 @@
   {
    "strategy": "S0_BUY_YES_FIRST_QUOTE",
    "topic": "crypto",
-   "trades": 3,
-   "win_rate": 0.0,
-   "avg_pnl_per_contract": -1.0,
-   "total_pnl_per_contract": -3.0,
+   "trades": 5,
+   "win_rate": 0.2,
+   "avg_pnl_per_contract": -0.5994,
+   "total_pnl_per_contract": -2.997,
    "sample_flag": "insufficient sample (<30 trades)"
   },
   {
@@ -33,10 +33,10 @@
   {
    "strategy": "S2_FAVOURITE_NO",
    "topic": "crypto",
-   "trades": 1,
+   "trades": 3,
    "win_rate": 0.0,
-   "avg_pnl_per_contract": 0.0,
-   "total_pnl_per_contract": 0.0,
+   "avg_pnl_per_contract": -0.0763,
+   "total_pnl_per_contract": -0.229,
    "sample_flag": "insufficient sample (<30 trades)"
   }
  ],
@@ -52,9 +52,9 @@
   {
    "strategy": "S0_BUY_YES_FIRST_QUOTE",
    "band": ">=$0.90",
-   "trades": 1,
-   "win_rate": 0.0,
-   "avg_pnl_per_contract": -1.0,
+   "trades": 3,
+   "win_rate": 0.3333,
+   "avg_pnl_per_contract": -0.3323,
    "sample_flag": "insufficient sample (<30 trades)"
   },
   {
@@ -68,14 +68,82 @@
   {
    "strategy": "S2_FAVOURITE_NO",
    "band": ">=$0.90",
-   "trades": 1,
+   "trades": 3,
    "win_rate": 0.0,
-   "avg_pnl_per_contract": 0.0,
+   "avg_pnl_per_contract": -0.0763,
    "sample_flag": "insufficient sample (<30 trades)"
   }
  ],
- "trade_count": 6,
+ "trade_count": 10,
  "trades": [
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "ticker": "KXXRP15M-26NOV200900-00",
+   "topic": "crypto",
+   "title": "XRP price up in next 15 mins?",
+   "side": "YES",
+   "entry_t": 1795183200,
+   "entry_price": 1.0,
+   "exit_t": "2026-11-20T14:00:04.608936Z",
+   "exit_kind": "settlement",
+   "exit_value": 1.0,
+   "pnl_per_contract": 0.0,
+   "outcome": "yes",
+   "band": ">=$0.90",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRP15M-26NOV200900-00",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf"
+  },
+  {
+   "strategy": "S2_FAVOURITE_NO",
+   "ticker": "KXXRP15M-26NOV200900-00",
+   "topic": "crypto",
+   "title": "XRP price up in next 15 mins?",
+   "side": "NO",
+   "entry_t": 1795183200,
+   "entry_price": 0.2,
+   "exit_t": "2026-11-20T14:00:04.608936Z",
+   "exit_kind": "settlement",
+   "exit_value": 0.0,
+   "pnl_per_contract": -0.2,
+   "outcome": "yes",
+   "band": ">=$0.90",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXXRP15M-26NOV200900-00",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf"
+  },
+  {
+   "strategy": "S0_BUY_YES_FIRST_QUOTE",
+   "ticker": "KXBTC15M-26NOV200900-00",
+   "topic": "crypto",
+   "title": "BTC price up in next 15 mins?",
+   "side": "YES",
+   "entry_t": 1795183200,
+   "entry_price": 0.997,
+   "exit_t": "2026-11-20T14:00:04.608891Z",
+   "exit_kind": "settlement",
+   "exit_value": 1.0,
+   "pnl_per_contract": 0.003,
+   "outcome": "yes",
+   "band": ">=$0.90",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTC15M-26NOV200900-00",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf"
+  },
+  {
+   "strategy": "S2_FAVOURITE_NO",
+   "ticker": "KXBTC15M-26NOV200900-00",
+   "topic": "crypto",
+   "title": "BTC price up in next 15 mins?",
+   "side": "NO",
+   "entry_t": 1795183200,
+   "entry_price": 0.029,
+   "exit_t": "2026-11-20T14:00:04.608891Z",
+   "exit_kind": "settlement",
+   "exit_value": 0.0,
+   "pnl_per_contract": -0.029,
+   "outcome": "yes",
+   "band": ">=$0.90",
+   "source_api": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTC15M-26NOV200900-00",
+   "source_terms": "https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf"
+  },
   {
    "strategy": "S0_BUY_YES_FIRST_QUOTE",
    "ticker": "KXXRPD-26NOV2008-T1.6399",

@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-20 13:47 UTC",
+ "generated_at": "2026-11-20 14:06 UTC",
  "flags": [
   {
    "severity": "info",
    "scope": "markets",
    "entity": "series mapping",
-   "message": "16876 open markets could not be mapped to a series ticker and were excluded from topics.",
+   "message": "16922 open markets could not be mapped to a series ticker and were excluded from topics.",
    "source_url": ""
   },
   {
@@ -26,7 +26,7 @@
    "severity": "info",
    "scope": "markets",
    "entity": "crypto",
-   "message": "Topic has 76495 open markets; first 300 written (sorted by est. 24h $).",
+   "message": "Topic has 74614 open markets; first 300 written (sorted by est. 24h $).",
    "source_url": ""
   },
   {
