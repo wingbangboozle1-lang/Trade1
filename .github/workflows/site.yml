@@ -20,6 +20,10 @@ concurrency:
 
 jobs:
   build:
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -30,24 +34,29 @@ jobs:
       - name: Install renderer dependency
         run: python3 -m pip install --quiet markdown
       - name: Build site from official Kalshi API data
-        run: python3 scripts/build_site.py --out _site
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p probe/build
+          python3 scripts/build_site.py --out _site 2>&1 | tee probe/build/build.log
       - name: Check internal links and data files
         run: python3 scripts/check_site.py _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-      - name: Save build report to this branch (non-main test builds only)
-        if: github.event_name != 'pull_request' && github.ref != 'refs/heads/main'
+      - name: Save build report to the branch (non-main, skip-ci commit)
+        if: always() && github.event_name != 'push' && github.ref != 'refs/heads/main'
         run: |
           mkdir -p probe/build
-          cp _site/data/meta.json _site/data/flags.json probe/build/
+          cp _site/data/meta.json probe/build/ 2>/dev/null || true
+          cp _site/data/flags.json probe/build/ 2>/dev/null || true
           cp _site/data/backtest.json probe/build/ 2>/dev/null || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f probe/build
-          git commit -m "test build report (non-main)" || echo "nothing to commit"
-          git push origin HEAD:${GITHUB_REF_NAME} || echo "push skipped"
+          git commit -m "build report from CI [skip ci]" || echo "nothing to commit"
+          git push origin HEAD:"${{ github.head_ref || github.ref_name }}" || echo "push skipped"
 
   deploy:
     if: github.ref == 'refs/heads/main'
