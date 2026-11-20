@@ -72,6 +72,7 @@ window.KalshiModel = (function () {
     var hay = (title || '') + ' ' + (series || '');
     for (var i = 0; i < TOPICS.length; i++) {
       var t = TOPICS[i];
+      if (t.exclCats && category && t.exclCats.indexOf(category) !== -1) continue; // e.g. Trump golf-club markets sit in Politics (PR #20)
       if (t.exclRe && new RegExp(t.exclRe, 'i').test(hay)) continue;
       if (category && t.categories.indexOf(category) !== -1) {
         if (!t.titleRe || new RegExp(t.titleRe, 'i').test(title || '')) return t.id;

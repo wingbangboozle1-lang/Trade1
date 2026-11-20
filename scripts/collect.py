@@ -163,6 +163,8 @@ def classify(event, topics):
     series = event.get("series_ticker", "") or ""
     cat = event.get("category") or ""
     for t in topics:
+        if t.get("exclude_categories") and cat and cat in t["exclude_categories"]:
+            continue  # e.g. Trump golf-club markets sit in Politics, not Golf (PR #20)
         if t.get("exclude_keywords") and re.search(t["exclude_keywords"], f"{title} {series}", re.I):
             continue
         if cat and cat in t["categories"]:

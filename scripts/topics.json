@@ -1,5 +1,5 @@
 {
-  "$comment": "Topic mapping for the Kalshi demo collector. Match reason is logged per event as 'category' (category in categories, gated by title_keywords when present) or 'series-prefix' (strong ticker regex fallback). Editable; mirrored in assets/app.js TOPICS for live matching - keep both in sync (flagged in flagged.html).",
+  "$comment": "Topic mapping for the Kalshi demo collector. Match reason is logged per event as 'category' (category in categories, gated by title_keywords when present) or 'series-prefix' (strong ticker regex fallback). Editable; mirrored in assets/app.js TOPICS for live matching - keep both in sync (flagged in flagged.html). golf.exclude_categories mirrors session f6094c46's PR #20 finding (Trump golf-club markets sit in Politics); mirrored in assets/model.js.",
   "topics": [
     {
       "id": "gas-prices",
@@ -52,7 +52,11 @@
         "Sports"
       ],
       "title_keywords": "golf",
-      "series_prefix": "^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)"
+      "series_prefix": "^(KX)?(GOLF|PGA|LPGA|RYDER|DPWORLD)",
+      "exclude_categories": [
+        "Politics",
+        "Elections"
+      ]
     }
   ]
 }
