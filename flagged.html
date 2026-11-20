@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0e1518">
+<title>Flagged for review · Kalshi Demo Dashboard</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body data-page="flagged">
+<main class="wrap">
+  <section class="box">
+    <h1>Flagged for review</h1>
+    <p class="muted">Irregularities, unverified values, and scope limits found while building this dashboard. Nothing here blocks the site; review and request changes as needed.
+      Each item links to the official source used to verify the surrounding facts.</p>
+  </section>
+
+  <div class="tablewrap">
+    <table><thead><tr><th>Item</th><th>Status</th><th>Detail</th><th>Official source</th></tr></thead><tbody>
+      <tr><td>Live market values</td><td><span class="pill flag">unverified here</span></td>
+        <td>The Kalshi demo hosts are not reachable from this build sandbox, so live values could not be fetched during construction. The site fetches them at runtime and reports connection status; rows are left blank (not guessed) when the endpoint is unavailable.</td>
+        <td class="source"><a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener">Market data quick start ↗</a></td></tr>
+      <tr><td>Authenticated trading &amp; account performance</td><td><span class="pill flag">not implemented</span></td>
+        <td>Live order placement (POST /portfolio/events/orders) and portfolio/balance/positions/fills require a demo API key + private key. No credentials were requested or stored; the site runs paper trades only.</td>
+        <td class="source"><a href="https://docs.kalshi.com/getting_started/quick_start_create_order" target="_blank" rel="noopener">Create your first order ↗</a> · <a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener">Authenticated requests ↗</a></td></tr>
+      <tr><td>WebSocket live streaming</td><td><span class="pill flag">not used</span></td>
+        <td>The WebSocket handshake requires authentication even for public market-data channels. A static site has no key, so live updates use public REST polling (~20s).</td>
+        <td class="source"><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">WebSockets quick start ↗</a></td></tr>
+      <tr><td>Topic classification</td><td><span class="pill flag">heuristic</span></td>
+        <td>Gas/elections/culture/crypto/golf matching is a keyword heuristic on title/subtitle/ticker text, not an official category API call. It can miss or mis-bucket markets.</td>
+        <td class="source"><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets ↗</a> · <a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener">Market data quick start ↗</a></td></tr>
+      <tr><td>Dollar-volume ranking</td><td><span class="pill flag">derived</span></td>
+        <td>"Est $ vol" = volume_fp × notional_value_dollars is a derived estimate, not an official API field. Ranking defaults to the official volume_fp.</td>
+        <td class="source"><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets ↗</a></td></tr>
+      <tr><td>Order-book ordering</td><td><span class="pill flag">conflicting sources</span></td>
+        <td>The official quick start states arrays are sorted ascending, best bid last (uses [-5:]); some third-party guides state best-to-worst. The engine finds the best bid order-independently with max() to be safe.</td>
+        <td class="source"><a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener">Market data quick start ↗</a> · <a href="https://docs.kalshi.com/api-reference/market/get-market-order-book" target="_blank" rel="noopener">Get Market Orderbook ↗</a></td></tr>
+      <tr><td>YES ask from order book</td><td><span class="pill flag">derived</span></td>
+        <td>The order-book endpoint exposes bids only. The implied YES ask is derived as 1 − best NO bid.</td>
+        <td class="source"><a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener">Market data quick start ↗</a></td></tr>
+      <tr><td>Cause attribution for ≥ $0.10 jumps</td><td><span class="pill flag">unverified</span></td>
+        <td>Alerts link to the official market but do not identify or verify external news/event causes. Each alert is marked "cause unverified".</td>
+        <td class="source"><a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener">Market data quick start ↗</a></td></tr>
+      <tr><td>High-ROI model</td><td><span class="pill flag">heuristic</span></td>
+        <td>Potential ROI = (1 − ask)/ask with a liquidity gate. A heuristic screen, not a validated predictor; thresholds are configurable in js/engine.js.</td>
+        <td class="source"><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets ↗</a></td></tr>
+      <tr><td>Paper-trade P&amp;L</td><td><span class="pill flag">simulated</span></td>
+        <td>P&amp;L is computed from the official settlement value. Fees, partial fills, and slippage are not modeled. Positions are stored in the browser (localStorage), not on a Kalshi account.</td>
+        <td class="source"><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets ↗</a></td></tr>
+      <tr><td>Subpenny / cent vs dollars fields</td><td><span class="pill flag">verify units</span></td>
+        <td>Market responses use *_dollars strings; WebSocket ticker.yes_bid is cents. The engine uses the *_dollars fields and the dollars order-book fields. Confirm against the units reference.</td>
+        <td class="source"><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">WebSockets quick start ↗</a> · <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets ↗</a></td></tr>
+      <tr><td>GitHub Pages deployment</td><td><span class="pill flag">verify</span></td>
+        <td>A Pages workflow deploys on push to main. The repository Pages setting and the successful deployed workflow should be confirmed after merge.</td>
+        <td class="source"><a href="https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-github-pages-deployments" target="_blank" rel="noopener">GitHub Pages docs ↗</a></td></tr>
+    </tbody></table>
+  </div>
+  <p class="note">Verification log and sources are maintained in <a href="COORDINATION.md">COORDINATION.md</a> and on the <a href="sources.html">Sources</a> page.</p>
+</main>
+<script src="js/reference.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>

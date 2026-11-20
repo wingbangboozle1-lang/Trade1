@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0e1518">
+<title>Golf · Kalshi Demo Dashboard</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body data-page="golf" data-topic="Golf">
+<main class="wrap">
+  <section class="box">
+    <h1>Golf</h1>
+    <p class="muted">Live Kalshi demo markets matching the Golf topic (keyword heuristic on title/subtitle/ticker — see <a href="flagged.html">Flagged</a>). Rows link to the official Kalshi market page.</p>
+  </section>
+
+  <section class="box">
+    <div class="row between"><h2>Markets · Golf</h2><span class="muted">Sorted by official volume; * = derived dollar estimate</span></div>
+    <div class="tablewrap"><table><thead><tr>
+      <th>Market / event</th><th>Topic</th><th class="num">YES bid</th><th class="num">YES ask</th><th class="num">NO bid</th>
+      <th class="num">Volume</th><th class="num">Open int.</th><th class="num">Est $ vol*</th><th class="num">Ask size</th><th>Status</th><th>Source</th>
+    </tr></thead><tbody id="markets"></tbody></table></div>
+  </section>
+
+  <div class="layout">
+    <section>
+      <div class="box">
+        <div class="row between"><h2>Price movement</h2><span class="muted" id="graphName">Select a market</span></div>
+        <div class="legend"><span><i style="background:#5fd3a4"></i>YES bid</span><span><i style="background:#ff8479"></i>implied YES ask</span></div>
+        <div class="chart tall"><canvas id="chart" aria-label="YES price against time"></canvas></div>
+        <div class="row" style="margin-top:10px">
+          <label class="muted">Time window
+            <select id="labPeriod"></select>
+          </label>
+          <label class="muted">Market
+            <select id="labMarket"></select>
+          </label>
+        </div>
+        <p class="note">X axis: time · Y axis: YES bid in dollars. Points are sampled while this page is open (not historical exchange data).</p>
+      </div>
+      <div class="box">
+        <div class="row between"><h2>Alerts · Golf</h2><span class="muted">≥ $0.10 moves</span></div>
+        <div class="chat" id="alertsPreview"></div>
+      </div>
+    </section>
+    <aside>
+      <div class="box">
+        <div class="row between"><h2>High-ROI · Golf</h2><span class="muted">model screen</span></div>
+        <div class="chat" id="roiPreview"></div>
+      </div>
+      <div class="box">
+        <h2>Order book depth</h2>
+        <div id="orderbook"><p class="muted">Select a market to load order book depth.</p></div>
+        <p class="note">Contracts available at each bid price. The official endpoint exposes bids only; the implied YES ask is derived as 1 − best NO bid (flagged).</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<script src="js/reference.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
