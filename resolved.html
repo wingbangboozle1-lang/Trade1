@@ -61,23 +61,43 @@
   var API = 'https://external-api.demo.kalshi.co/trade-api/v2/markets/';
   var body = document.getElementById('rs-body');
   var meta = document.getElementById('rs-meta');
+  var cap = document.getElementById('rs-cap');
+  var LIVE_URL = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude';
+  var TOPIC_IDS = ['gas-prices', 'elections', 'culture', 'crypto', 'golf'];
+  var TOPIC_LABEL = { 'gas-prices': 'gas-prices', elections: 'elections', culture: 'culture', crypto: 'crypto', golf: 'golf' };
+  var rows = [];          // every row shown: snapshot rows + live rows
+  var seen = {};          // ticker -> row
+  var liveCount = 0;
+  var scope = {};         // series ticker -> topic id (from the committed topic snapshots)
+  var snapshot = null;
+
   function cell(text) { var td = document.createElement('td'); td.textContent = (text === null || text === undefined || text === '') ? '—' : String(text); return td; }
   function fail(msg) { body.innerHTML = ''; var tr = document.createElement('tr'); var td = cell(msg); td.colSpan = 7; tr.appendChild(td); body.appendChild(tr); meta.textContent = msg; }
-  fetch('data/resolved.json', { cache: 'no-store' }).then(function (r) {
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    return r.json();
-  }).then(function (d) {
-    var rows = (d.markets || []).slice().sort(function (a, b) { return String(b.settlement_ts || '').localeCompare(String(a.settlement_ts || '')); });
-    meta.textContent = rows.length + ' markets shown · snapshot generated ' + (d.generated_at || '—') + ' · window: ' + (d.window || '—') +
-      ' · settled in window: ' + (d.settled_total != null ? d.settled_total : '—') + ' · in scope: ' + (d.in_scope_count != null ? d.in_scope_count : '—');
-    var cap = document.getElementById('rs-cap');
-    if (cap) cap.textContent = rows.length + ' of ' + (d.in_scope_count != null ? d.in_scope_count : '?') + ' in-scope settled markets';
-    if (!rows.length) { fail('No resolved markets in the snapshot.'); return; }
+  function seriesPrefix(t) { var s = String(t || ''); var i = s.indexOf('-'); return i === -1 ? s : s.slice(0, i); }
+  function seriesUrl(series) { return series ? 'https://kalshi.com/markets/' + encodeURIComponent(String(series).toLowerCase()) : ''; }
+
+  function sortRows() {
+    rows.sort(function (a, b) { return String(b.settlement_ts || '').localeCompare(String(a.settlement_ts || '')); });
+  }
+
+  function render() {
+    sortRows();
     body.innerHTML = '';
     rows.forEach(function (m) {
       var tr = document.createElement('tr');
-      var t = cell((m.title || m.ticker) + ' ');
+      var t = document.createElement('td');
+      var k = seriesUrl(seriesPrefix(m.ticker));
+      if (k) {
+        var a0 = document.createElement('a');
+        a0.href = k; a0.target = '_blank'; a0.rel = 'noopener';
+        a0.textContent = m.title || m.ticker;
+        t.appendChild(a0);
+      } else {
+        t.appendChild(document.createTextNode(m.title || m.ticker));
+      }
+      t.appendChild(document.createTextNode(' '));
       var code = document.createElement('code'); code.textContent = m.ticker; t.appendChild(code);
+      if (m.live) { var badge = document.createElement('span'); badge.className = 'muted small'; badge.textContent = ' · live'; t.appendChild(badge); }
       tr.appendChild(t);
       tr.appendChild(cell(m._topic));
       tr.appendChild(cell(m.result));
@@ -91,27 +111,50 @@
       src.appendChild(a); tr.appendChild(src);
       body.appendChild(tr);
     });
+    if (cap) cap.textContent = (snapshot ? rows.length - liveCount : rows.length) +
+      ' of ' + (snapshot && snapshot.in_scope_count != null ? snapshot.in_scope_count : '?') +
+      ' in-scope settled markets' + (liveCount ? ' + ' + liveCount + ' live' : '');
+  }
+
+  function addRow(m, topic, live) {
+    if (!m.ticker || seen[m.ticker]) return false;
+    seen[m.ticker] = true;
+    rows.push({
+      ticker: m.ticker, title: m.title, result: m.result, status: m.status,
+      settlement_ts: m.settlement_ts, settlement_value_dollars: m.settlement_value_dollars,
+      _topic: topic, live: !!live
+    });
+    return true;
+  }
+
+  /* --- snapshot (Actions-collected, source-linked) --- */
+  fetch('data/resolved.json', { cache: 'no-store' }).then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function (d) {
+    snapshot = d;
+    (d.markets || []).forEach(function (m) {
+      addRow({ ticker: m.ticker, title: m.title, result: m.result, status: m.status,
+               settlement_ts: m.settlement_ts, settlement_value_dollars: m.settlement_value_dollars },
+             m._topic, false);
+    });
+    meta.textContent = (d.markets || []).length + ' markets in the snapshot · snapshot generated ' + (d.generated_at || '—') +
+      ' · window: ' + (d.window || '—') +
+      ' · settled in window: ' + (d.settled_total != null ? d.settled_total : '—') +
+      ' · in scope: ' + (d.in_scope_count != null ? d.in_scope_count : '—');
+    if (!rows.length) { fail('No resolved markets in the snapshot.'); return; }
+    render();
+    return loadScope();
   }).catch(function (e) {
     fail('Could not load data/resolved.json (' + e.message + ').');
   });
 
-  /* ---- live refresh --------------------------------------------------
-   * The snapshot above is refreshed by GitHub Actions every few hours. This
-   * block additionally polls the official demo API for the newest settled
-   * markets and prepends any in-scope one that the snapshot does not have yet.
-   * Scope comes from the committed topic snapshots (each event carries the
-   * official series ticker), so nothing outside the five topics is listed.
-   * Source: GET /markets?status=settled
-   *   https://docs.kalshi.com/api-reference/market/get-markets
-   *   https://docs.kalshi.com/getting_started/market_lifecycle
-   */
-  var LIVE_URL = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude';
-  var TOPIC_IDS = ['gas-prices', 'elections', 'culture', 'crypto', 'golf'];
-  var seen = {};
-  function seriesPrefix(t) { var s = String(t || ''); var i = s.indexOf('-'); return i === -1 ? s : s.slice(0, i); }
+  /* --- topic scope from the committed topic snapshots (each event carries the
+         official series ticker), so only the five tracked topics are listed --- */
   function loadScope() {
     return Promise.all(TOPIC_IDS.map(function (id) {
-      return fetch('data/topics/' + id + '.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; })
+      return fetch('data/topics/' + id + '.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
         .catch(function () { return null; })
         .then(function (d) {
           var out = {};
@@ -119,56 +162,29 @@
           return out;
         });
     })).then(function (parts) {
-      var scope = {};
       parts.forEach(function (p) { Object.keys(p).forEach(function (k) { scope[k] = p[k]; }); });
-      return scope;
+      pollLive();
     });
   }
-  function liveRow(m, topic) {
-    var tr = document.createElement('tr');
-    var t = cell((m.title || m.ticker) + ' ');
-    var code = document.createElement('code'); code.textContent = m.ticker; t.appendChild(code);
-    tr.appendChild(t);
-    tr.appendChild(cell(topic));
-    tr.appendChild(cell(m.result));
-    tr.appendChild(cell(m.settlement_ts));
-    tr.appendChild(cell(m.settlement_value_dollars));
-    tr.appendChild(cell(m.status));
-    var src = document.createElement('td');
-    var a = document.createElement('a');
-    a.href = API + encodeURIComponent(m.ticker);
-    a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'official API record';
-    src.appendChild(a); tr.appendChild(src);
-    return tr;
-  }
-  function pollLive(scope) {
+
+  /* --- live refresh: the newest settled in-scope markets from the official API --- */
+  function pollLive() {
     fetch(LIVE_URL, { cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     }).then(function (d) {
       var added = 0;
       (d.markets || []).forEach(function (m) {
-        if (!m.ticker || seen[m.ticker]) return;
         if (m.result !== 'yes' && m.result !== 'no') return;
         var topic = scope[seriesPrefix(m.ticker)];
         if (!topic) return;
-        seen[m.ticker] = true;
-        body.insertBefore(liveRow(m, topic), body.firstChild);
-        added++;
+        if (addRow(m, topic, true)) added++;
       });
-      if (added) {
-        var cap = document.getElementById('rs-cap');
-        if (cap) cap.textContent = cap.textContent + ' + ' + added + ' live';
-      }
-    }).catch(function () { /* the snapshot stays as the source of truth */ });
+      if (added) { liveCount += added; render(); }
+    }).catch(function () { /* the snapshot stays the source of truth */ });
   }
-  loadScope().then(function (scope) {
-    fetch('data/resolved.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; })
-      .catch(function () { return null; }).then(function (d) {
-        ((d && d.markets) || []).forEach(function (m) { if (m.ticker) seen[m.ticker] = true; });
-      }).then(function () { pollLive(scope); });
-  });
-  setInterval(function () { loadScope().then(pollLive); }, 60000);
+
+  setInterval(function () { loadScope(); }, 60000);
 })();
 </script>
 </body>
