@@ -46,7 +46,7 @@ UA = "Trade1-dashboard/1.0 (+https://github.com/wingbangboozle1-lang/Trade1)"
 TOPICS = {
     # Order matters: first match wins. Series category is checked first,
     # then keywords over event/market text (labelled as a keyword match).
-    "golf": {"label": "Golf", "cats": [],
+    "golf": {"label": "Golf", "cats": [], "excl": ["politics", "elections"],
              "kw": r"\bgolf\b|\bmasters\b|\bpga\b|\blpga\b|ryder cup|open championship|mcilroy|scheffler"},
     "gas-prices": {"label": "Gas prices", "cats": [],
                    "kw": r"(?<!natural )gas prices?|gasoline|\bdiesel\b"},  # 'natural gas' excluded
@@ -160,6 +160,8 @@ def classify(series_cat, text):
         if cat and cat in spec["cats"]:
             return key, f"series category: {series_cat}"
     for key, spec in TOPICS.items():
+        if cat and cat in spec.get("excl", []):
+            continue  # e.g. 'Trump golf club visits' sit in Politics, not Golf
         m = re.search(spec["kw"], text, re.I)
         if m:
             return key, f"keyword match: '{m.group(0)}' in title text (no series category match)"
