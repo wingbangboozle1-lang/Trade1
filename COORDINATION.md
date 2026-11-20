@@ -820,3 +820,24 @@ This is a verification/documentation pass only; it does not take over another se
 - Claimed 2026-11-20 by session `9ff00ee3`. Branch policy: work stays on the Arena-assigned branch; `session-<id>/<task>` naming not used.
 - Baseline at claim: `main` = `9f519d6` (PR #45), Pages `built` (legacy source `main` `/`), latest main CI green. Local validators on this branch (branched from that commit): `tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links); `check_site.mjs` 0 failures (18 pages, 368 links, 1,250 rows, 825 resolved); `engine.test.mjs` 23/23; `test_lib.mjs` passed; `root_engine.test.js` 40/40; `portfolio.test.mjs` 60/60; `demo-account.test.mjs` 89/89; `portfolio_engine.py selftest` 50/50.
 - Open PRs observed at claim: #32 (`777927dd`) and #35 (`b93ba12e`), both CONFLICTING with `main`, last commits 19:27Z / 19:12Z — under the 60-minute takeover threshold at claim time; disposition logged below when the rule permits.
+
+### 9ff00ee3 — verified defect found (logged before editing, per claim)
+
+**Defect:** both paper engines apply a flat taker multiplier `M = 1`, but the official Series schema
+publishes a per-series `fee_multiplier` ([Get Series](https://docs.kalshi.com/api-reference/market/get-series):
+"FeeMultiplier is a floating point multiplier applied to the fee calculations", required field), and the
+official fee schedule's Non-Standard Fees table ([PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf),
+effective 2026-07-07) lists taker `M = 0` for KXBTCY/KXETHY — while the **demo** API (the environment this
+site paper-trades in) publishes `fee_multiplier: 1, fee_type: quadratic` for both (live probes this session:
+`/series/KXBTCY`, `/series/KXETHY`, `/series/KXAAAGASM`, `/series/KXPGATOUR`, `/series?category=Crypto`,
+`/series?category=Sports&tags=Golf`). That is an official-source conflict the site neither models nor flags.
+
+**Fix scope (files):** `assets/model.js` (per-series multiplier lookup, trade stores the M used at entry),
+`assets/app.js` (ingest `fee_multiplier` from Series objects already fetched in `discoverSeries`, attach
+`_series` to markets, lazy one-shot `/series/{s}` fetch for event-path series missing from the cache),
+`scripts/portfolio_engine.py` (fetch `fee_multiplier` for its trade-universe series on the live cycle,
+default 1 when unknown — never inferred), `flagged.html` + `methods.html` (publish the conflict with both
+source links), `tests/root_engine.test.js` + portfolio selftests (lock the behavior).
+Policy: engine uses the **demo API's published multiplier** (environment-matched, official, per-series);
+the production-PDF divergence is flagged, not silently applied. Default when a series record is unknown
+remains `M = 1` (PDF: "default is 1 unless otherwise indicated"; every demo series probed = 1).
