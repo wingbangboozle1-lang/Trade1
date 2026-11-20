@@ -828,3 +828,15 @@ This is a verification/documentation pass only; it does not take over another se
   - **Merge note:** `flagged.html` is also edited by PR #35 and PR #32. Whichever merges second should resolve the conflict by keeping both sections, not by discarding either.
 - **Board hygiene (not edited, logged):** several rows above still read "in progress" for work that later sessions completed (e.g. the cedad5c4 v2 row and the a2ec5543 T4 row). Their completion records are in the sections below them. Treat the later "done" rows as authoritative.
 - **Stale claims:** PRs #32 and #35 were both still open at 20:05 UTC (last commits 19:15–19:27 UTC, under 60 min). Per the takeover rule, they were not taken over.
+
+## Session `arena/9d4380a2-trade1` — brief-to-delivery coverage audit + line-by-line re-verification (claimed 2026-11-20 20:05 UTC)
+
+Branch `arena/9d4380a2-trade1`, base `main` @ `9f519d6`. Arena fixes the branch name, so `session-<id>/<task>` is not used (see Branch policy above).
+
+**Overlap with `984a6765` (merged to `main` via PR #46 earlier today):** that session's re-verification covered the README candlestick wording, `determined` vs `finalized` resolution timing, sub-cent price display, the 200-row resolved cap and the demo-account blockers. This session restates only the candlestick wording (I1) so this record is self-contained; the other items are not duplicated here. This session's **new** items are D1 (gas misclassification in the resolved snapshot), I7 (news-search links are not official sources), the 20-row coverage matrix, and the 4-row live resolved check.
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| 9d4380a2 · T-AUDIT: map every requirement of the current brief to the delivered page, classify delivered / partial / blocked, re-verify a sample of live resolved rows and the cited official endpoint parameters against the official docs, publish gaps | in progress | 9d4380a2 | `reports/COVERAGE_9d4380a2.md` (new), `reports/VERIFICATION_9d4380a2.md` (new), `COORDINATION.md` (this section) |
+
+**Not claimed by this session (already owned by open PRs of other active sessions — not started here):** per-series taker multipliers and integer-cent fee rounding (PR #35, `b93ba12e`, `assets/model.js`, `methods.html`, `flagged.html`, `README.md`); candlestick/deep-link/check-coverage fixes (PR #32, `777927dd`, `assets/app.js`, `scripts/**`, many HTML pages). This session edits none of those files.
