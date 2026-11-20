@@ -53,9 +53,11 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
   }
 }
 
+const base = API_BASES.demo;
 try {
   const snap = JSON.parse(await readFile('data/snapshot.json', 'utf8'));
-  const base = API_BASES[snap.api_base_key] || snap.api_base;
+  const snapBase = API_BASES[snap.api_base_key] || snap.api_base;
+  if (snapBase !== base) failures.push(`snapshot api_base ${snapBase} != configured ${base}`);
   for (const r of snap.rows || []) {
     checked.rows++;
     if (!r.source_url || !r.source_url.startsWith(base + '/markets/')) failures.push(`row ${r.ticker}: missing or foreign source_url`);
@@ -67,6 +69,40 @@ try {
   if (!snap.generated_at) failures.push('snapshot: generated_at missing');
 } catch (e) {
   failures.push(`snapshot unreadable: ${e.message}`);
+}
+
+// Per-topic snapshots rendered by data.html: file-level official request URLs (the links
+// every row shows) plus the verbatim identifiers each row needs.
+try {
+  for (const t of ['gas-prices', 'elections', 'culture', 'crypto', 'golf']) {
+    const f = `data/topics/${t}.json`;
+    const d = JSON.parse(await readFile(f, 'utf8'));
+    if (!d.generated_at) failures.push(`${f}: generated_at missing`);
+    const urls = (d.source_urls && (d.source_urls.events || d.source_urls)) || [];
+    if (!Array.isArray(urls) || !urls.length) failures.push(`${f}: no source_urls recorded`);
+    else for (const u of urls) if (typeof u !== 'string' || !u.startsWith(base + '/')) failures.push(`${f}: foreign source_url ${u}`);
+    for (const ev of d.events || []) {
+      checked.rows++;
+      if (!ev.event_ticker) failures.push(`${f}: event row without event_ticker`);
+      if (!ev.title && !ev.sub_title) failures.push(`${f}: event ${ev.event_ticker || '(?)'} without title`);
+    }
+  }
+} catch (e) {
+  failures.push(`topic snapshots unreadable: ${e.message}`);
+}
+
+// Resolved archive rendered by data.html: verbatim yes/no results and official source URLs.
+try {
+  const d = JSON.parse(await readFile('data/resolved.json', 'utf8'));
+  if (!d.generated_at) failures.push('data/resolved.json: generated_at missing');
+  for (const u of d.source_urls || []) if (typeof u !== 'string' || !u.startsWith(base + '/')) failures.push(`data/resolved.json: foreign source_url ${u}`);
+  for (const m of d.markets || []) {
+    checked.resolved++;
+    if (!m.ticker) failures.push('data/resolved.json: row without ticker');
+    if (m.result !== 'yes' && m.result !== 'no') failures.push(`resolved ${m.ticker}: result not verbatim yes/no (got ${JSON.stringify(m.result)})`);
+  }
+} catch (e) {
+  failures.push(`data/resolved.json unreadable: ${e.message}`);
 }
 
 await import('../assets/lib.mjs');

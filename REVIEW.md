@@ -159,3 +159,88 @@ Changes verified line by line:
   `node scripts/test_lib.mjs`, `node tests/engine.test.js`, `node tests/smoke.test.js`,
   `node scripts/check_site.mjs` — all run in CI on every push and pull request.
 - **Session history and task board:** [COORDINATION.md](COORDINATION.md).
+- Site build: all pages return HTTP 200 from a static server; JS passes `node --check`; model harness passes (see session log in COORDINATION.md).
+
+---
+
+## Final integration — line-by-line verification (session `dacc8b5c`, 2026-11-20 UTC)
+
+Scope: every claim the published root site makes about the Kalshi demo API, re-checked this
+session against official documentation and live demo-endpoint responses (page-fetch from the
+session; the build sandbox itself has no route to `*.kalshi.co`). Each row: claim → official
+source → result. Anything not confirmed is left on [flagged.html](flagged.html), never inferred.
+
+### Sources read this session (official)
+
+| Source | URL |
+|---|---|
+| Demo environment (endpoint table) | https://docs.kalshi.com/getting_started/demo_env |
+| Fee schedule PDF (effective July 7, 2026) | https://kalshi.com/docs/kalshi-fee-schedule.pdf |
+| Orderbook responses (format, ordering, reciprocal asks) | https://docs.kalshi.com/getting_started/orderbook_responses |
+| Market settlement ($1/contract, zero settlement fee) | https://docs.kalshi.com/getting_started/market_settlement |
+| Quick start: market data (public, no auth; UI URL pattern) | https://docs.kalshi.com/getting_started/quick_start_market_data |
+| Get Market (per-row resolved links) | https://docs.kalshi.com/api-reference/market/get-market |
+
+### Live demo-endpoint probes (this session, via page-fetch)
+
+| Probe | Result | Confirms |
+|---|---|---|
+| `GET /exchange/status` | 200, `trading_active: true` | demo exchange reachable, demo shards active |
+| `GET /events?status=open&limit=200` | 200 (paged) | documented page size (Get Events example uses `limit=200`); `CFG.eventsLimit = 200` |
+| `GET /events?status=open&limit=1000` | rejected (fetch error) | over the documented maximum; engine correctly uses 200 |
+| `GET /markets?status=open&limit=3&mve_filter=exclude` | 200; `status:"active"`, `last_price_dollars`, `previous_price_dollars`, `volume_fp`, `volume_24h_fp`, `open_interest_fp`, `yes_bid/ask_dollars`, `result:""` | field units in Methods; response status `active` is the **documented** value (see claim check 10) |
+| `GET /series/KXAAAGASM/markets/KXAAAGASM-26NOV30-3.90/candlesticks?start_ts=…&end_ts=…&period_interval=1` | 200, `candlesticks: []` | candlestick path used by `fetchCandles()`; empty-candles flag for KXAAAGASM stands |
+| `GET /markets/KXAAAGASM-26NOV30-3.90/orderbook` | 200, `orderbook_fp: {yes_dollars: [], no_dollars: []}` | documented empty-book behavior; orderbook path correct |
+| `GET /markets/KXNATGAS15M-26NOV201245-45` | 200; `result:"no"`, `status:"finalized"`, `settlement_ts:"2026-11-20T17:45:24.334041Z"` | the `data/resolved.json` row matches **verbatim**; per-row official link on `data.html`; `finalized` is the documented terminal status |
+| `GET /events?status=open&limit=200` (body sample) | `settlement_sources` containing template entries (`url:"https://kalshi.com/"` for generic names) | placeholder-URL flag confirmed live |
+
+### Claim checks (site → official source → result)
+
+1. **Demo endpoint pair** (recommended `external-api.demo.kalshi.co`, also `demo-api.kalshi.co`, WS pair) — [demo_env](https://docs.kalshi.com/getting_started/demo_env) — **match** (site header, README, `CFG.bases`).
+2. **Taker fee `roundup(M × 0.07 × C × P × (1−P))`, M default 1; maker 0.0175, M default 0; no settlement fee** — [fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (table row: 100 contracts @ $0.50 → $1.75) — **match** with `assets/model.js` integer fee math, locked by `tests/root_engine.test.js` (**40/40**, includes every published fee-table row) and `tests/engine.test.mjs` (**25/25**, real engine in jsdom).
+3. **Orderbook: `orderbook_fp.{yes_dollars,no_dollars}` = `[price_dollars, count_fp]`, ascending, best bid last, bids only, YES ask = 1 − NO bid** — [orderbook_responses](https://docs.kalshi.com/getting_started/orderbook_responses) — **match** with `bookViews()` in `assets/app.js`.
+4. **Winning side receives $1 per contract; settlement fee zero for yes/no** — [market_settlement](https://docs.kalshi.com/getting_started/market_settlement) — **match** with paper settlement in `assets/model.js`.
+5. **Public unauthenticated market data; Kalshi UI pattern `kalshi.com/markets/<series>`** — [quick start market data](https://docs.kalshi.com/getting_started/quick_start_market_data) — **match** with the row links rendered by `data.html`/`assets/app.js`.
+6. **Alert rule ≥ $0.10 either direction compared in whole 1/10000-dollar units** — official prices are 4-dp fixed-point strings (observed live: `"0.4500"`; [fixed-point docs](https://docs.kalshi.com/getting_started/fixed_point_migration)) — **match** with `M.alertMove()`; exact-$0.10 float trap covered by tests.
+7. **Estimated dollar figures labeled estimates** — no official per-market dollar-notional field in the live responses (observed field set above; Get Events schema shows none) — **match** (labeling present on dashboard, data page, methods).
+8. **No WebSocket in the browser** — WS handshake requires signed auth headers ([WS quick start](https://docs.kalshi.com/getting_started/quick_start_websockets), cited in `assets/app.js`) — **flagged, not a bug**.
+9. **CORS: demo API reflects any browser origin** — `data/cors.json` (GitHub-runner probes with verbatim headers, 2026-11-20) — **recorded evidence**; not re-probeable from this sandbox.
+10. **Market status vocabulary** — [market lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) documents REST statuses `initialized/active/inactive/closed/determined/disputed/amended/finalized` with filters `open→active`, `settled→finalized` — the site’s observed `status:"active"` / `"finalized"` values are **documented**; the older “status mismatch” flag is withdrawn (this session re-read the doc; the correction is already on `flagged.html`).
+11. **Events page size** — [Get Events](https://docs.kalshi.com/api-reference/events/get-events) shows `limit=200`; `limit=1000` rejected live — the site’s use of 200 is the documented maximum (the older “undocumented ceiling” wording is withdrawn; already corrected on `flagged.html`).
+
+### Validation runs (final, after merging `origin/main` @ `c0e1d1c`)
+
+- `node tools/build.mjs` → **BUILD OK — 17 HTML, 3 JS files validated, 0 broken links** (consolidated single-site tree: every published page + `assets/` engine).
+- `node scripts/check_site.mjs` → **17 HTML, 282 links, 1,250 rows, 825 resolved, 0 failures** — includes this session’s topic-snapshot `source_urls` checks, `event_ticker`-per-row checks, and `resolved.json` verbatim yes/no checks.
+- `node scripts/test_lib.mjs` → passed · `node tests/root_engine.test.js` → **40/40** · `node tests/engine.test.mjs` → **25/25** (jsdom@26.1.0, Node 22 locally / 24 in CI).
+- `npm run check` (= build + check_site) and `npm run test` (= engine.test.mjs + test_lib) → pass.
+- CI (`.github/workflows/pages.yml`, after conflict resolution): jsdom install → `engine.test.mjs` → `test_lib.mjs` → `root_engine.test.js` → `tools/build.mjs` → `check_site.mjs` on every push/PR.
+- Note: `tests/engine.test.js` and `tests/smoke.test.js` still reference the removed `monitor/` tree (removed by main’s consolidation) and fail if run by hand; they are **not** in CI. Left in place — they belong to session f6094c46’s scope; flagged here instead of deleted.
+
+### Merge record (`origin/main` `c0e1d1c` merged into this branch)
+
+`main` advanced (PRs #30, #33, #34, #36, #37) while this session worked — including a full repo
+consolidation to one site and other sessions’ own suggestions page, chart markers, and `check_site`
+rewrite. Merge resolved **without discarding either side** (21 conflicted files):
+
+| File | Resolution |
+|---|---|
+| Nav pages (`index`, `dashboard`, `trades`, `methods`, `flagged`, `sources`, `topics/*`, `data.html` nav) | main’s nav kept (adds Summary; label “Ideas”) — this session’s duplicate link dropped (same target) |
+| `suggestions.html` (add/add) | main’s richer page kept as base (18-item backlog with official-API columns, playbook); this session’s unique items appended as rows 19–22 (URL state, depth heatmap, alert-rule tuning, small-multiple charts) + shipped jump-log noted in the feature row |
+| `assets/app.js` | main’s chart (Y-scale, hover crosshair, trade-tape source, alert dots + `#kx-chart-alerts` link hint) kept; this session’s **per-market jump log** (`#kx-jumps` + `renderJumps`, full event/settlement/news links) kept alongside |
+| `scripts/check_site.mjs`, `tools/build.mjs`, `.github/workflows/pages.yml` | main’s consolidated versions kept (every published page, inline-script skip, jsdom/Node pins); this session’s JSON row checks retained inside `check_site.mjs` |
+| `data.html` | main’s `marketApiUrl()` per-row links kept (same endpoint this session verified live); superseded duplicate dropped |
+| `EXECUTIVE_SUMMARY.md`, `README.md` | main’s rewrites kept (accurate root-site descriptions) |
+| `COORDINATION.md`, `REVIEW.md` | both sides’ session records kept, in order |
+| `tools/build-report.json` | regenerated from the merged tree |
+
+### Irregularities (current list lives on [flagged.html](flagged.html), post-correction)
+
+Demo-account portfolio/execution needs owner-provided demo API keys (never requested in chat —
+dormant `scripts/demo_account/` track exists in PR #2); WebSocket requires signed headers (no
+browser feed); REST cache lag (alerts lag seconds); no official dollar-notional (rankings are
+labeled estimates); maker fees not modeled; KXAAAGASM empty candles (cause unknown); placeholder
+`settlement_sources` URLs; unauthenticated rate limits unpublished; ROI screen is a documented
+heuristic, not verified alpha; session chart samples reset on reload. The previously published
+“status vocabulary” and “undocumented events page-size” flags were **withdrawn** above after
+re-reading the official docs — `flagged.html` already carries the corrected text.

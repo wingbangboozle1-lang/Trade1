@@ -73,6 +73,8 @@ function extractRefs(htmlRaw) {
   while ((m = re.exec(html))) {
     const url = m[1];
     if (/^(https?:|mailto:|#|tel:)/i.test(url)) continue;
+    // Skip refs assembled at runtime by inline JS (href="'+fn()+'" …) — not static links.
+    if (/['+()]/.test(url)) continue;
     refs.push(url.split("#")[0].split("?")[0]);
   }
   return refs;
@@ -112,7 +114,7 @@ async function main() {
     }
   }
 
-  // 3. Nav/topic target pages exist
+  // 3. Nav/topic target pages exist (published root site first, then the parallel trees)
   const navTargets = [
     "index.html", "dashboard.html", "trades.html", "data.html", "methods.html",
     "flagged.html", "sources.html", "executive-summary.html", "suggestions.html",

@@ -787,3 +787,13 @@ This is a verification/documentation pass only; it does not take over another se
   The one remaining owner action (optional): add demo API credentials (`KALSHI_DEMO_KEY_ID`,
   `KALSHI_DEMO_PRIVATE_KEY`) to enable real demo-account tracking/execution, or paste a key into the
   browser panel. Until then live-account values stay blank by design (F-DA-7).
+---
+
+## Session `arena/dacc8b5c-trade1` — final integration, line-by-line verification, gap-fill, PR + Pages
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| Claim: final integration session — line-by-line review of deployed root site vs official sources, gap-fill against the full brief, all validators green, PR to `main`, merge, Pages deploy verification, board record | in progress | dacc8b5c | `COORDINATION.md`, `README.md`, `EXECUTIVE_SUMMARY.md`, `REVIEW.md`, root pages (`index.html`, `dashboard.html`, `trades.html`, `data.html`, `methods.html`, `flagged.html`, `sources.html`, `topics/*.html`), `assets/**`, `scripts/**`, `data/**` (as needed), `.github/workflows/pages.yml` |
+
+- Claimed 2026-11-20 by session `dacc8b5c` on branch `arena/dacc8b5c-trade1`, based on `main` @ `069a1db`.
+- Rationale: every other board task is `done` or `needs review` (published, non-blocking); open PRs #2, #3, #15, #16 have had no commits for >60 minutes (last commits 13:07–13:49 UTC), which per the brief's takeover rule may be taken over by this session. Takeover decisions for those PRs will be logged below; no other session's merged work will be discarded or edited outside this scope.
