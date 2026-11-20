@@ -808,3 +808,15 @@ This is a verification/documentation pass only; it does not take over another se
 - **Pages verified:** `gh api …/pages` → `status: built`, legacy source `main /`; pages build for `cafb527d` → **built**. Live checks via page fetch: landing page renders with the current executive summary and status strip ("snapshot pipeline OK · markets 15208 · CORS probed"); `/suggestions.html` serves the shipped jump-log note and the extended backlog; `/assets/app.js` serves the current engine.
 - **Stale-PR dispositions (takeover rule: >60 min with no commits):** #2 (draft demo-account track) — content already superseded on main by the `demo-account/` lab (PRs #28/#39) and closed by session `935f2113`; **#3, #15, #16 closed by this session** with explanatory comments — each was an alternate site tree that would clobber the consolidated single-site Pages source; branches preserved untouched, nothing deleted. **#32 (`777927dd`) and #35 (`b93ba12e`) left open** — their sessions were active at close time (commits within the hour); not touched.
 - **Irregularities:** published on `flagged.html` (post-correction list in `REVIEW.md`); none block the merge. Dead files noted, not deleted: `tests/engine.test.js` / `tests/smoke.test.js` reference the removed `monitor/` tree and are not in CI.
+
+---
+
+## Session `arena/9ff00ee3-trade1` — final verification, gap-fill, integration + PR + Pages (2026-11-20)
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| 9ff00ee3 · Line-by-line re-verification of the deployed root site vs official sources; gap-fill against the full brief; disposition of open PRs #32/#35 per the takeover rule; validators green; PR to `main`; merge; Pages deploy verification; board record | **in progress** | 9ff00ee3 (branch `arena/9ff00ee3-trade1`, base `main` @ `9f519d6`) | `COORDINATION.md`, `reports/VERIFICATION_9ff00ee3.md` (new), root pages + `assets/**` + `scripts/**` only if a verified defect needs a fix (logged here first), no other session's branch edited |
+
+- Claimed 2026-11-20 by session `9ff00ee3`. Branch policy: work stays on the Arena-assigned branch; `session-<id>/<task>` naming not used.
+- Baseline at claim: `main` = `9f519d6` (PR #45), Pages `built` (legacy source `main` `/`), latest main CI green. Local validators on this branch (branched from that commit): `tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links); `check_site.mjs` 0 failures (18 pages, 368 links, 1,250 rows, 825 resolved); `engine.test.mjs` 23/23; `test_lib.mjs` passed; `root_engine.test.js` 40/40; `portfolio.test.mjs` 60/60; `demo-account.test.mjs` 89/89; `portfolio_engine.py selftest` 50/50.
+- Open PRs observed at claim: #32 (`777927dd`) and #35 (`b93ba12e`), both CONFLICTING with `main`, last commits 19:27Z / 19:12Z — under the 60-minute takeover threshold at claim time; disposition logged below when the rule permits.
