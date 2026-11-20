@@ -46,5 +46,6 @@ Until step 3 is done, every run records `configured: false` and sends no request
 - `GET /markets/{ticker}` wraps the market in a `market` field in the code (`res.market ?? res`). The wrapper was not confirmed from the docs, so the code accepts either form.
 - `POST /portfolio/events/orders` response fields used in the log (`order_id`, `fill_count`, `remaining_count`, `average_fill_price`, `ts_ms`) come from the schema text the docs page showed. A live response has not been checked.
 - The `join-best-yes-bid` strategy is a test strategy with no performance claim. Demo prices may not match real markets ([demo environment](https://docs.kalshi.com/getting_started/demo_env)).
+- `make_plan.mjs` scans at most 2,000 open demo markets (10 pages). The plan records `scan_truncated`.
 - Fees are not modeled. Positions report `fees_paid_dollars` from the API.
 - Demo account trading is not the same thing as the paper-trading engine in other sessions' branches.

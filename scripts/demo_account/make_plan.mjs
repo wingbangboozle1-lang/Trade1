@@ -53,6 +53,7 @@ const plan = {
   strategy: 'join-best-yes-bid',
   strategy_definition: 'Buy 1 YES contract at the current best YES bid when the YES spread is $0.01-$0.03 and a YES bid is resting.',
   markets_scanned: markets.length,
+  scan_truncated: Boolean(cursor), // true when the 10-page scan cap was reached before the last page
   sources: SOURCES,
   orders: candidates.map(({ m, bid, ask, spread, bidSize, vol24 }) => ({
     ticker: m.ticker,
