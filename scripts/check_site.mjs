@@ -1,13 +1,14 @@
-// Pre-deploy checks for site/:
-//  1. every local href/src in site/**/*.html resolves to an existing file (no broken links);
+// Pre-deploy checks for the published site (repository root, served by GitHub Pages):
+//  1. every local href/src in **/*.html resolves to an existing file (no broken links);
 //  2. every snapshot row and resolved row carries an official source_url on the configured API base;
 //  3. shared modules import cleanly.
 // Exits non-zero on any failure.
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
-import { API_BASES } from '../site/assets/lib.mjs';
+import { API_BASES } from '../assets/lib.mjs';
 
-const SITE = 'site';
+const SITE = '.';
+const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts']);
 const failures = [];
 const checked = { html: 0, links: 0, rows: 0, resolved: 0 };
 
@@ -15,12 +16,12 @@ async function walk(dir) {
   const out = [];
   for (const e of await readdir(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) out.push(...await walk(p)); else out.push(p);
+    if (e.isDirectory()) { if (!SKIP.has(e.name)) out.push(...await walk(p)); } else out.push(p);
   }
   return out;
 }
 
-const files = await walk(SITE);
+const files = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
 for (const f of files.filter(f => f.endsWith('.html'))) {
   checked.html++;
   const html = await readFile(f, 'utf8');
@@ -31,12 +32,13 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
     if (!clean) continue;
     checked.links++;
     const target = path.normalize(path.join(path.dirname(f), clean));
+    if (target.startsWith('..')) { failures.push(`${f}: link escapes repo ${ref}`); continue; }
     try { await stat(target); } catch { failures.push(`${f}: broken link ${ref}`); }
   }
 }
 
 try {
-  const snap = JSON.parse(await readFile(path.join(SITE, 'data/snapshot.json'), 'utf8'));
+  const snap = JSON.parse(await readFile('data/snapshot.json', 'utf8'));
   const base = API_BASES[snap.api_base_key] || snap.api_base;
   for (const r of snap.rows || []) {
     checked.rows++;
@@ -51,6 +53,6 @@ try {
   failures.push(`snapshot unreadable: ${e.message}`);
 }
 
-await import('../site/assets/lib.mjs');
+await import('../assets/lib.mjs');
 console.log(JSON.stringify({ checked, failures: failures.length }));
 if (failures.length) { console.error(failures.slice(0, 50).join('\n')); process.exit(1); }

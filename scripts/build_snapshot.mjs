@@ -1,14 +1,14 @@
-// Builds site/data/snapshot.json from the official Kalshi demo Trade API.
+// Builds data/snapshot.json from the official Kalshi demo Trade API.
 // Run in CI (see .github/workflows/pages.yml). Read-only public endpoints only;
 // no credentials are used or stored.
 //
-//   node scripts/build_snapshot.mjs [--base demo|prod] [--out site/data/snapshot.json]
+//   node scripts/build_snapshot.mjs [--base demo|prod] [--out data/snapshot.json]
 //
 // Endpoints used (documented at https://docs.kalshi.com/api-reference):
 //   GET /events?status=open|closed|settled&with_nested_markets=true&limit=200&cursor=
 import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
-import { API_BASES, TOPICS, classifyEvent, rowsFromEvents, fetchPaged } from '../site/assets/lib.mjs';
+import { API_BASES, TOPICS, classifyEvent, rowsFromEvents, fetchPaged } from '../assets/lib.mjs';
 
 const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) => {
   if (a.startsWith('--')) acc.push([a.slice(2), all[i + 1] && !all[i + 1].startsWith('--') ? all[i + 1] : 'true']);
@@ -17,7 +17,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) =>
 const baseKey = args.base || 'demo';
 const base = API_BASES[baseKey];
 if (!base) throw new Error(`unknown --base ${baseKey}`);
-const outFile = args.out || 'site/data/snapshot.json';
+const outFile = args.out || 'data/snapshot.json';
 
 const LIMITS = { open: 40, closed: 10, settled: 10 }; // pages of 200 events each
 const log = (...m) => console.log(new Date().toISOString(), ...m);

@@ -2,7 +2,7 @@
 
 A static GitHub Pages site that monitors **Kalshi demo** markets for five topics: gas prices, elections, culture, crypto and golf. It shows live prices, recent trade-price charts, resting bid liquidity, swing alerts of $0.10 or more, simulated strategies, resolved outcomes, and a Flagged for Review page.
 
-**Live site:** https://wingbangboozle1-lang.github.io/Trade1/ (published from `main` by `.github/workflows/pages.yml`).
+**Live site:** https://wingbangboozle1-lang.github.io/Trade1/ (GitHub Pages, legacy source: `main`, repository root).
 
 ## Safety and scope
 
@@ -16,16 +16,16 @@ A static GitHub Pages site that monitors **Kalshi demo** markets for five topics
 
 | Path | Purpose |
 |---|---|
-| `site/index.html` | Landing page with executive summary and topic counts |
-| `site/live.html` | Live dashboard: markets table, price chart with selectable window (60 s to 6 h), liquidity by price, "All swings" chat and "High-ROI screen" chat |
-| `site/topics/*.html` | One subpage per topic (same live panel, filtered) |
-| `site/resolved.html` | Markets with an official yes/no result |
-| `site/strategies.html` | Simulated strategies A/B/C with breakdown by strategy, topic and alert type |
-| `site/sources.html` | Official sources and what was verified on each |
-| `site/flagged.html` | Flagged for Review: data flags, unverified or blocked items, repo findings, suggestions |
-| `site/assets/lib.mjs` | Shared logic: topic rules, row normalisation, cursor pagination, swing detection, screen rule, orderbook parsing |
-| `site/assets/app.mjs` | Browser app (live polling, chart, liquidity, chats, simulated engine) |
-| `scripts/build_snapshot.mjs` | Builds `site/data/snapshot.json` from the official demo API (run in CI) |
+| `index.html` | Landing page with executive summary and topic counts |
+| `live.html` | Live dashboard: markets table, price chart with selectable window (60 s to 6 h), liquidity by price, "All swings" chat and "High-ROI screen" chat |
+| `topics/*.html` | One subpage per topic (same live panel, filtered) |
+| `resolved.html` | Markets with an official yes/no result |
+| `strategies.html` | Simulated strategies A/B/C with breakdown by strategy, topic and alert type |
+| `sources.html` | Official sources and what was verified on each |
+| `flagged.html` | Flagged for Review: data flags, unverified or blocked items, repo findings, suggestions |
+| `assets/lib.mjs` | Shared logic: topic rules, row normalisation, cursor pagination, swing detection, screen rule, orderbook parsing |
+| `assets/app.mjs` | Browser app (live polling, chart, liquidity, chats, simulated engine) |
+| `scripts/build_snapshot.mjs` | Builds `data/snapshot.json` from the official demo API (run in CI) |
 | `scripts/check_site.mjs` | Pre-deploy check: local links resolve; every row has an official `source_url` |
 | `scripts/test_lib.mjs` | Offline unit checks for the shared logic |
 
@@ -33,16 +33,16 @@ A static GitHub Pages site that monitors **Kalshi demo** markets for five topics
 
 1. CI (`pages.yml`) runs `build_snapshot.mjs` against `https://external-api.demo.kalshi.co/trade-api/v2` (open, closed and settled events, cursor-paginated, with page caps that are recorded in the snapshot).
 2. Each row keeps its official `source_url` (`/markets/{ticker}`) and the event's official settlement sources.
-3. `check_site.mjs` must pass before the artifact is uploaded. Deployment runs only on `main`. A scheduled run every 30 minutes refreshes the snapshot.
+3. GitHub Pages publishes the repository root from `main` (legacy branch source; no Actions deploy). The workflow runs `test_lib.mjs` and `check_site.mjs` on every push and PR, and every 3 hours rebuilds `data/snapshot.json` and `data/cors_check.txt`, committing them back to `main`.
 4. In the browser, the live pages call the same endpoints every 15–60 seconds. If the browser cannot reach the API, the pages show the snapshot and say so.
 
 ## Run locally
 
 ```bash
 node scripts/test_lib.mjs
-node scripts/build_snapshot.mjs --base demo --out site/data/snapshot.json   # needs internet access to Kalshi
+node scripts/build_snapshot.mjs --base demo --out data/snapshot.json   # needs internet access to Kalshi
 node scripts/check_site.mjs
-python3 -m http.server 8000 --directory site   # then open http://localhost:8000/
+python3 -m http.server 8000   # then open http://localhost:8000/
 ```
 
 ## Official references
@@ -56,4 +56,4 @@ python3 -m http.server 8000 --directory site   # then open http://localhost:8000
 - [Rate limits](https://docs.kalshi.com/getting_started/rate_limits)
 - [Historical data](https://docs.kalshi.com/getting_started/historical_data)
 
-Full list with what was verified on each: `site/sources.html`. Coordination log: [COORDINATION.md](COORDINATION.md).
+Full list with what was verified on each: `sources.html`. Coordination log: [COORDINATION.md](COORDINATION.md).

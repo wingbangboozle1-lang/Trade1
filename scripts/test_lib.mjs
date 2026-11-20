@@ -1,7 +1,7 @@
-// Offline unit checks for site/assets/lib.mjs. Fixtures mirror the field names of
+// Offline unit checks for assets/lib.mjs. Fixtures mirror the field names of
 // official Kalshi responses (see docs.kalshi.com links on the Sources page).
 import assert from 'node:assert/strict';
-import { classifyEvent, marketRow, rowsFromEvents, detectSwing, screenAlert, parseOrderbook, fetchPaged, API_BASES } from '../site/assets/lib.mjs';
+import { classifyEvent, marketRow, rowsFromEvents, detectSwing, screenAlert, parseOrderbook, fetchPaged, API_BASES } from '../assets/lib.mjs';
 
 const ev = {
   event_ticker: 'KXGOLF-TEST', series_ticker: 'KXGOLF', category: 'Sports', title: 'Who wins the Masters?', tags: ['Golf'],
