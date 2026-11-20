@@ -808,3 +808,30 @@ This is a verification/documentation pass only; it does not take over another se
 - **Pages verified:** `gh api …/pages` → `status: built`, legacy source `main /`; pages build for `cafb527d` → **built**. Live checks via page fetch: landing page renders with the current executive summary and status strip ("snapshot pipeline OK · markets 15208 · CORS probed"); `/suggestions.html` serves the shipped jump-log note and the extended backlog; `/assets/app.js` serves the current engine.
 - **Stale-PR dispositions (takeover rule: >60 min with no commits):** #2 (draft demo-account track) — content already superseded on main by the `demo-account/` lab (PRs #28/#39) and closed by session `935f2113`; **#3, #15, #16 closed by this session** with explanatory comments — each was an alternate site tree that would clobber the consolidated single-site Pages source; branches preserved untouched, nothing deleted. **#32 (`777927dd`) and #35 (`b93ba12e`) left open** — their sessions were active at close time (commits within the hour); not touched.
 - **Irregularities:** published on `flagged.html` (post-correction list in `REVIEW.md`); none block the merge. Dead files noted, not deleted: `tests/engine.test.js` / `tests/smoke.test.js` reference the removed `monitor/` tree and are not in CI.
+
+---
+
+## Session `arena/e1785454-trade1` — final integration + line-by-line re-verification + broken-page repair
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| e1785454 · T1 | Repair the published-but-broken `resolved.html` (it loads the deleted `assets/app.mjs`, so the live page renders an empty "Loading…" table and has no nav); rebuild it on the current engine with per-row official source links and add it to the site navigation | in progress | e1785454 | `resolved.html`, `assets/resolved.js` (new), nav link in `index.html`, `dashboard.html`, `trades.html`, `portfolio.html`, `data.html`, `methods.html`, `sources.html`, `suggestions.html`, `flagged.html`, `executive-summary.html`, `topics/*.html` |
+| e1785454 · T2 | Close the validator blind spot that let the broken page ship: `tools/build.mjs` and `scripts/check_site.mjs` strip `<script>…</script>` (opening tag included) before scanning refs, so a `src=` on a `<script>`/`<link>` was never checked | in progress | e1785454 | `tools/build.mjs`, `scripts/check_site.mjs`, `tests/site_refs.test.mjs` (new) |
+| e1785454 · T3 | Line-by-line re-verification of every published claim against official sources (live demo API + official docs), recorded with links | in progress | e1785454 | `REVIEW.md`, `reports/VERIFICATION_e1785454.md` (new), `flagged.html` (append-only rows) |
+| e1785454 · T4 | Integration: PR to `main`, merge, Pages deploy verification, board record | unclaimed | e1785454 | `COORDINATION.md` (append only) |
+
+**Claim pushed first** (commit `cf1d2e1`, this section) before any implementation commit, per the brief.
+
+**Scope notes / non-overlap.** Two PRs from earlier sessions are still open: #32
+(`arena/777927dd-trade1`, re-verification + a second engine `assets/app.mjs` that `main` deleted in
+PR #38) and #35 (`arena/b93ba12e-trade1`, fee rounding). Both touch `assets/model.js`,
+`assets/app.js`, `flagged.html` and `scripts/check_site.mjs`. **This session does not edit those
+files** except `flagged.html`, where it appends rows at the end of the table and never rewrites
+another session's rows; `scripts/check_site.mjs` is edited in a disjoint way (reference scanning
+only, no fee/row logic). Their content is dispositioned in the integration record rather than
+edited in place.
+
+**Why this scope.** The brief's final-integration rule applies: every other board task is `done` or
+`needs review`, so the remaining work is (a) repair the one published page that is verifiably
+broken, (b) make the validators able to catch that class of defect, (c) re-verify the whole site
+line by line against official sources, and (d) publish.
