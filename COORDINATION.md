@@ -25,14 +25,20 @@ from the official API. Anything the sandbox could not confirm is left blank and 
 
 | ID | Task | Status | Owner | Files (scope) |
 |----|------|--------|-------|----------------|
-| T1 | Executive summary + project scope | in progress | session-0db174ef-trade1 | `docs/executive-summary.md` |
-| T2 | Official API reference + verification notes | in progress | session-0db174ef-trade1 | `docs/api-reference.md`, `docs/verification.md`, `docs/sources.md` |
-| T3 | Kalshi demo client (public + RSA-PSS signed) | in progress | session-0db174ef-trade1 | `site/js/kalshi.js` |
-| T4 | Core dashboard: state, charts, tables, sharp-move flags | in progress | session-0db174ef-trade1 | `site/js/store.js`, `site/js/charts.js`, `site/js/dashboard.js`, `site/css/style.css` |
-| T5 | Topic pages (gas, elections, culture, crypto, golf) | in progress | session-0db174ef-trade1 | `site/pages/*.html`, `site/js/topics.js` |
-| T6 | Portfolio tracker + simulated strategy engine + demo execution | in progress | session-0db174ef-trade1 | `site/js/strategy.js`, `site/js/portfolio.js`, `site/pages/portfolio.html` |
-| T7 | Flagged for Review + topic landing index | in progress | session-0db174ef-trade1 | `site/pages/flagged.html`, `site/js/flagged.js` |
-| T8 | Site build/link validation + GitHub Pages + PR + merge | pending | session-0db174ef-trade1 | `tools/build.mjs`, `tools/linkcheck.mjs`, `.github/workflows/pages.yml`, `README.md` |
+| T1 | Executive summary + project scope | done | session-0db174ef-trade1 | `docs/executive-summary.md` |
+| T2 | Official API reference + verification notes | done | session-0db174ef-trade1 | `docs/api-reference.md`, `docs/verification.md`, `docs/sources.md` |
+| T3 | Kalshi demo client (public + RSA-PSS signed) | done | session-0db174ef-trade1 | `site/js/kalshi.js` |
+| T4 | Core dashboard: state, charts, tables, sharp-move flags | done | session-0db174ef-trade1 | `site/js/store.js`, `site/js/charts.js`, `site/js/dashboard.js`, `site/css/style.css` |
+| T5 | Topic pages (gas, elections, culture, crypto, golf) | done | session-0db174ef-trade1 | `site/pages/*.html`, `site/js/nav.js` |
+| T6 | Portfolio tracker + simulated strategy engine + demo execution | done | session-0db174ef-trade1 | `site/js/strategy.js`, `site/js/portfolio.js`, `site/pages/portfolio.html` |
+| T7 | Flagged for Review + topic landing index | done | session-0db174ef-trade1 | `site/pages/flagged.html`, `site/js/flagged.js` |
+| T8 | Site build/link validation + GitHub Pages + PR + merge | in progress | session-0db174ef-trade1 | `tools/build.mjs`, `.github/workflows/pages.yml`, `package.json`, `README.md` |
+
+Note: the task text refers to a separate "integration branch". This session is pinned to
+`arena/0db174ef-trade1` by the Arena harness and must not switch or create branches, so the
+integration/publish step is performed **on this branch**: build+link validation, GitHub Pages
+deploy workflow, then a PR from `arena/0db174ef-trade1` to `main`. This branch is the integration
+branch for the purposes of this session.
 
 ## Session log
 
@@ -61,9 +67,44 @@ from the official API. Anything the sandbox could not confirm is left blank and 
   Topic mapping is data-driven (filtered from Kalshi's own series/tag data at runtime) to avoid
   fabricating series tickers. See Flagged for Review.
 
+## Completion records
+
+### T1 — Executive summary
+- `docs/executive-summary.md`: scope + API surface + findings + network constraint.
+
+### T2 — API reference + verification
+- `docs/api-reference.md`, `docs/verification.md`, `docs/sources.md`. Endpoint paths, RSA-PSS auth
+  headers/signature/salt length, WS subscribe message, legacy Basic-token auth all verified from
+  official sources (see verification.md).
+
+### T3 — Kalshi client
+- `site/js/kalshi.js`: public fetch + WebCrypto RSA-PSS signing; host probe with fast timeout +
+  fallback; portfolio + order endpoints; WS subscribe. Fails gracefully (no invented data).
+
+### T4 — Core dashboard
+- `store.js` (polling, price series, orderbook, sharp-move detection, resolution),
+  `charts.js` (time/price chart with seconds/minutes/hours window + liquidity depth chart),
+  `dashboard.js` (tables with per-row source links + detail + sharp moves), `style.css`.
+
+### T5 — Topic pages
+- gas, elections, culture, crypto, golf pages + shared `nav.js`. Topics separate; events grouped.
+
+### T6 — Portfolio + strategy engine
+- `strategy.js`: 4 strategies, simulated trades, categorization by type + topic, win-rate/P&L,
+  auto-settle. `portfolio.js` + `portfolio.html`: live demo balance/positions, trade log, opt-in
+  real demo execution.
+
+### T7 — Flagged for Review
+- `flagged.js` + `flagged.html`: irregularities + unverified items with source links.
+
+### T8 — Build + Pages + PR
+- `tools/build.mjs`: JS syntax + broken-link/asset + nav-target check. Result:
+  **BUILD OK — 8 HTML, 10 JS files validated, 0 broken links.**
+- `.github/workflows/pages.yml`: build + deploy `site/` to GitHub Pages on push to `main`.
+
 ## Integration / publish
 
-- [ ] T8 build + link validation
+- [x] T8 build + link validation (`node tools/build.mjs` -> BUILD OK)
 - [ ] GitHub Pages deploy confirmed
 - [ ] PR created and merged
 - [ ] PR link + merge result recorded here
