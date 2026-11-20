@@ -352,7 +352,7 @@ def main():
             ev_trim["_volume_contracts"] = round(total_vol, 2)
             ev_trim["_market_count"] = len(ms)
             ev_trim["_markets"] = sorted(
-                ms, key=lambda m: (m["_est_dollar_volume"] or 0), reverse=True)[:20]
+                ms, key=lambda m: (m["_est_dollar_volume"] or 0), reverse=True)[:8]
             rows.append(ev_trim)
         rows.sort(key=lambda r: r["_est_dollar_volume"], reverse=True)
         payload = {
