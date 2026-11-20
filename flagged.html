@@ -81,7 +81,7 @@
 
     <section class="box" style="margin-top:14px">
     <h2>Added by session <code>e82d36a3</code> — 2026-11-20 (portfolio ledger + re-verification)</h2>
-    <p class="small muted">Items E1–E10. Duplicate findings that the consolidated tables above already cover (the
+    <p class="small muted">Items E1–E11. Duplicate findings that the consolidated tables above already cover (the
       <code>status:"active"</code> question, the <code>limit=200</code> question, settlement-source template gaps, the
       per-series fee structure, unauthenticated rate limits, the demo-account key requirement, no-WebSocket, sampled alerts)
       are <b>not</b> repeated here. What remains is specific to the CI ledger this session added and to what the merged
@@ -189,6 +189,31 @@
           <code>reports/</code> trees remain in place — nothing was deleted by this session.</td>
           <td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/pulls">open pull requests</a>
             · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/tree/main">repository root</a></td></tr>
+        <tr><td>E11</td><td><b>The first live CI artifact was internally inconsistent, and no test could see it.</b>
+          After PR #41 merged, <code>portfolio.yml</code> wrote <a href="data/portfolio.json" target="_blank"><code>data/portfolio.json</code></a>
+          (19:39:57Z, 96 markets, 4 open positions, 9 alerts). I read the <i>deployed</i> file and page instead of only the local copy and found:
+          (a) every row's <i>source</i> linked the batched 96-ticker call rather than that row's own market;
+          (b) each open position's <code>cost_usd</code> was <b>exactly its own <code>fee_usd</code> higher</b> than
+          <code>qty × entry</code> (fade row: $26.283 vs 147 × $0.16 = $23.52, difference $2.763) while the page column read
+          “Cost incl. fee”, so anyone recomputing <code>cost + fee</code> double-counted; and
+          (c) <code>fee_usd</code> was ≈2× the published fee model evaluated at the row's own entry price
+          ($2.763 vs <code>0.07 × 147 × 0.16 × 0.84 = $1.383</code>).
+          <b>Fixed and now gated:</b> per-row sources are the single-ticker call (batched URL alongside);
+          <code>cost_usd</code> / <code>fee_usd</code> / <code>fee_rounding_usd</code> / <code>outlay_usd</code> are four explicit fields;
+          alerts measured over &gt; 90 min are reported and logged as <code>SKIP … gap too wide to enter</code> but never traded
+          (<code>MAX_ENTRY_GAP_MINUTES</code>); and <code>python3 scripts/portfolio_engine.py audit</code> cross-checks the published
+          artifact against <b>each row's own inputs</b> and is called inside <code>write_artifact()</code>, so the next cycle cannot commit a row
+          whose arithmetic disagrees with the rules printed in the same file. It reports <b>33 findings</b> on the 19:39:57Z artifact and
+          <b>0</b> on the one this code writes.
+          <b>Still open:</b> I could not reproduce finding (c)'s factor-of-two from the engine as published — the arithmetic in
+          <code>trade_public()</code> accounts for the cost half, but not both halves at once — so it is recorded as an unresolved
+          measurement rather than explained away; the deployed ledger's rows are left untouched (no retro-scrub), and the next scheduled
+          cycle will rewrite the file under the audit gate. Engine self-tests 50 → 57, page/artifact suite 60 → 68. See
+          <a href="methods.html">Methods §8</a> and <a href="reports/VERIFICATION_e82d36a3.md">the verification log §7</a>.</td>
+          <td class="src"><a href="data/portfolio.json" target="_blank">deployed <code>data/portfolio.json</code></a>
+            · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/fee_rounding">Fee Rounding</a>
+            · <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">Fee schedule PDF</a>
+            · <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44804234034">ledger run 44804234034</a></td></tr>
       </tbody>
     </table></div>
   </section>

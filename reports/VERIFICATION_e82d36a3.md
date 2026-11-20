@@ -108,3 +108,26 @@ wherever the two overlapped, and each resolution was then re-verified rather tha
 fixed or narrowed by main's own patches; the ledger's own numeric anchors (fee math, `≥ $0.10` boundary at exactly 1000
 1e-4-dollar units, budget sizing, settlement at $1 with no fee, offline determinism) are unchanged and still assert
 **50/50**, with the page suite at **60/60**.
+
+## 7. Post-deploy review of the generated artifact (the check that found real defects)
+
+After PR #41 merged, `portfolio.yml` wrote `data/portfolio.json` (`status:"live"`, 19:39:57Z, 96 watchlist markets,
+4 open positions, 9 alerts). I read the **deployed page and the deployed JSON** (`fetch_page` on both the page and the raw
+file) rather than trusting the local copy. Findings, with the numbers exactly as published:
+
+| # | Finding (measured, not assumed) | Evidence | What I did |
+|---|---|---|---|
+| 1 | Row "source" links pointed at the batched 96-ticker call, so a row could not be verified against one response | every `positions[].source` was `…/markets?tickers=KXAAAGASD-…%2C…` | `ticker_source()` now emits the single-ticker `…/markets?tickers=<own ticker>` for trades, exits, alerts and resolutions; the batched URL is kept as `source_batch` and rendered as “batched call”. A test asserts no `%2C` URL reaches a row-source href |
+| 2 | Each open position's `cost_usd` exceeded `qty × entry` by **exactly its own `fee_usd`**, while the page column read “Cost incl. fee” | fade: `cost_usd 26.283` vs `147 × $0.16 = 23.52`, difference `2.763` = that row's `fee_usd` | `cost_usd` = pure cost, `fee_usd` = entry fee, `fee_rounding_usd` = its rounding component, `outlay_usd` = the aligned cash debit; the column is “Outlay (cost + fee)” with the split shown, and the relations are asserted at the data level |
+| 3 | `fee_usd` was ≈2× the published fee model at the row's own entry price | `2.763` vs `0.07 × 147 × 0.16 × 0.84 = 1.383` (momentum row: `0.1664` vs `0.0865`) | **Unresolved and recorded as such.** `trade_public()` explains the cost half (it re-added a fee that was already inside `cost_cc`) but not both halves simultaneously; I could not reproduce the factor of two from the published engine, so it is flagged (E11) instead of given a tidy explanation |
+| 4 | A `≥ $0.10` alert measured across a long interval could open a position (`momentum on +0.7700`) | the alert's own `gap_minutes` is recorded per row; the demo's hourly markets legitimately gap | `MAX_ENTRY_GAP_MINUTES = 90`: such alerts are still recorded, labelled *wide gap*, and the run log states `SKIP … gap too wide to enter`. Breakout/harvest scan entries are unaffected and that is stated in Methods §8 rather than hidden |
+| 5 | **Nothing in the suite could have caught 1–3**, because every fixture was self-consistent by construction | 50/50 and 60/60 were green while the deployed file was inconsistent | Added `python3 scripts/portfolio_engine.py audit [--artifact PATH]`, which re-derives every row's cost/fee/outlay **from that row's own qty, entry price and source**, called inside `write_artifact()` so a bad row fails the cycle instead of being committed, and wired into `tests/portfolio.test.mjs` (including a negative test that corrupts a row and requires rejection). It reports **33 findings** on the 19:39:57Z artifact, **0** on the current writer's output |
+
+Not done, deliberately: the four positions from that cycle stay in the deployed ledger exactly as booked, with their
+wide-gap alerts visible — rewriting a published record to look tidier is the one thing this project promised not to do.
+The next scheduled cycle rewrites the file under the audit gate.
+
+Re-run after these fixes (2026-11-20, ~20:1xZ): engine self-tests **57/57**, ledger+page/artifact suite **68/68**,
+`node scripts/check_links.mjs` **0 failures** (357 local, 169 external), `node scripts/check_site.mjs`
+`{"checked":{"html":18,"links":367,"rows":1118,"resolved":625},"failures":0}`, `node tools/build.mjs` **BUILD OK**,
+`python3 scripts/portfolio_engine.py audit` → **0 findings** on the artifact this code writes.

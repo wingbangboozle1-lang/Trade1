@@ -17,7 +17,7 @@ tracking, and every table row linked to the official API record it came from.
 | [`dashboard.html`](dashboard.html) | Live ranked markets, the two ≥ 10¢ alert chats, price chart (60 s → 24 h), order-book depth, resolved strip |
 | [`topics/*.html`](topics/golf.html) | One page per topic (gas-prices, elections, culture, crypto, golf), scoped to that topic |
 | [`trades.html`](trades.html) | Strategy Lab: paper strategies, portfolio performance, P&L by strategy and topic, equity curve |
-| [`portfolio.html`](portfolio.html) | **Always-on CI ledger**: the same strategies run by `scripts/portfolio_engine.py` on GitHub Actions and committed to `data/portfolio.json` — equity curve, trade ledger categorised by strategy and topic, ≥ $0.10 alert feed carrying the sample gap each move was measured over, resolutions, per-row source links |
+| [`portfolio.html`](portfolio.html) | **Always-on CI ledger**: the same strategies run by `scripts/portfolio_engine.py` on GitHub Actions and committed to `data/portfolio.json` — equity curve, trade ledger categorised by strategy and topic, ≥ $0.10 alert feed carrying the sample gap each move was measured over, resolutions, per-row source links. Fields are explicit: `cost_usd` = qty × price, `fee_usd` = taker fee (+ rounding component), `outlay_usd` = what cash was actually debited |
 | [`data.html`](data.html) | Verified snapshot tables — every row links the official URL that produced it |
 | [`methods.html`](methods.html) | Every rule the dashboard runs, with its source |
 | [`flagged.html`](flagged.html) | Flagged for Review: unverified values, contradictions, deliberate limitations |
@@ -43,6 +43,7 @@ tracking, and every table row linked to the official API record it came from.
   cycle with the previous one, books fills at the official quotes with the official taker fee (`ceil_6dp` model fee plus
   the $0.01 balance alignment per [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding)), settles on the
   exchange's YES/NO result, and commits `data/portfolio.json` + `data/portfolio_state.json` to `main` with `[skip ci]`.
+  An alert measured over more than 90 minutes (a cold start, or a runner gap) is reported and labelled but never traded on.
   Simulation only: nothing authenticates and no order is ever sent. Its rules and its differences from the browser lab
   are documented in [methods.html](methods.html) §8–§9. (The account-capable layer is separate: `demo-account.yml` +
   `scripts/demo_account/**`, which stays inert until the owner adds the demo-key secrets.)
@@ -62,6 +63,7 @@ node scripts/check_site.mjs   # every snapshot row carries an official source UR
 # the CI ledger's own checks (all offline, no credentials, no network needed)
 python3 scripts/portfolio_engine.py selftest   # 50 checks: fee math, alert boundary, sizing, settlement, determinism
 node tests/portfolio.test.mjs                  # ledger invariants + portfolio.html boot in jsdom (skips the DOM part without it)
+python3 scripts/portfolio_engine.py audit      # re-derives every published row's cost/fee/outlay from its own qty, entry price and source
 node scripts/check_links.mjs                   # every published page: nav parity, local links, external links are https+official
 ```
 

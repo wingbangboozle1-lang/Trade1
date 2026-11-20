@@ -73,6 +73,9 @@ jobs:
             *)    python3 scripts/portfolio_engine.py run ;;
           esac
 
+      - name: Audit the artifact the engine just wrote (per-row arithmetic vs its own inputs)
+        run: python3 scripts/portfolio_engine.py audit
+
       - name: Guard the artifact size
         run: |
           test -f data/portfolio.json || { echo "data/portfolio.json was not produced" >&2; exit 1; }

@@ -77,6 +77,7 @@ MAX_OPEN_POSITIONS = 8
 FEE_MULTIPLIER = Fraction(1)    # taker multiplier M = 1 (general schedule; KXAAAGASM is 1 as well)
 ALERT_THRESHOLD_BITS = 1000     # $0.10 exactly, in 1e-4 USD units
 MIN_MODEL_SCORE = Fraction(450, 1000)   # mirror of assets/model.js momentum.minScore
+MAX_ENTRY_GAP_MINUTES = 90      # an alert measured over a longer interval is reported but never traded on
 MAX_TICKERS_PER_REQUEST = 200   # URL-length safety; docs: tickers-only queries return everything in one response
 REQUEST_SLEEP_S = 0.35          # stay far below any published limit; unauthenticated limits are not published
 
@@ -227,6 +228,19 @@ def taker_fee(contracts_h, price_b, multiplier=FEE_MULTIPLIER):
     return math.ceil(exact * 1_000_000)                        # micro-dollars, rounded up
 
 
+def ticker_source(ticker, base=None):
+    """Row-level source URL: the exact official call whose response produced this row.
+
+    The cycle fetches quotes in one batched `GET /markets?tickers=a,b,…` call (documented to return
+    every matching market in one response: https://docs.kalshi.com/api-reference/market/get-markets),
+    but a reader verifying a single row needs the single-ticker form of the same call, so every trade,
+    alert, resolution and exit carries this instead of the batch URL. Both return the same market
+    object; the batch URLs remain in `sources.quote_endpoints` of the artifact.
+    """
+    from urllib.parse import quote
+    return f"{base or BASE}/markets?tickers={quote(str(ticker), safe='')}"
+
+
 def position_cost(contracts_h, price_b):
     """Cost/revenue in micro-dollars, exact: (1e-2 contracts) x (1e-4 USD bits) = 1e-6 USD."""
     return int(contracts_h or 0) * int(price_b or 0)
@@ -309,7 +323,7 @@ def load_topic_rows():
                     "volume_fp": m.get("volume_fp"),
                     "_est_dollar_volume_24h": m.get("_est_dollar_volume_24h"),
                     "_source_url": (doc.get("source_urls") or {}).get("markets") or [],
-                    "source_url": doc.get("source_base", BASE) + "/markets?tickers=" + m["ticker"],
+                    "source_url": ticker_source(m["ticker"], doc.get("source_base", BASE)),
                 })
     return rows
 
@@ -485,7 +499,7 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
         "qty_c": qty, "entry_bits": ask, "fee_cc": fee, "cost_cc": cost,
         "rounding_cc": rounding,
         "strategy": strategy, "status": "open", "mark_bits": bid, "samples": 0,
-        "note": note, "source": sources[0] if sources else None,
+        "note": note, "source": ticker_source(ticker), "source_batch": (sources[0] if sources else None),
     }
     st["trades"].append(trade)
     return trade
@@ -589,7 +603,7 @@ def run_cycle(st, quotes, sources, when, log_list):
                     "t": when, "ticker": ticker, "event_ticker": q.get("event_ticker"),
                     "title": q.get("title") or w.get("title"), "topic": w.get("topic"),
                     "result": res, "settlement_ts": q.get("settlement_ts"),
-                    "source": sources[0] if sources else None,
+                    "source": ticker_source(ticker),
                 })
                 events.append(f"RESOLVED {ticker} {res.upper()}")
 
@@ -622,7 +636,7 @@ def run_cycle(st, quotes, sources, when, log_list):
                 "gap_minutes": round((parse_ts(when) - (parse_ts(prev_t) or parse_ts(when))) / 60000, 1),
                 "dir": "up" if delta > 0 else "down", "score": score,
                 "spread_bits": sp, "vol24_c": q["vol24"],
-                "source": sources[0] if sources else None,
+                "source": ticker_source(ticker),
             }
             st["alerts"].append(alert)
             new_alerts.append(alert)
@@ -640,7 +654,7 @@ def run_cycle(st, quotes, sources, when, log_list):
             t["mark_bits"] = bid
         # settlement is applied from the pass above - no extra request needed
         if t["ticker"] in settled_now:
-            settle(st, t, settled_now[t["ticker"]], when, source=sources[0] if sources else None)
+            settle(st, t, settled_now[t["ticker"]], when, source=ticker_source(t["ticker"]))
             events.append(f"SETTLE {t['ticker']} {settled_now[t['ticker']]} ({t['strategy']})")
             continue
         cfg = RULES.get(t["strategy"], {})
@@ -648,13 +662,13 @@ def run_cycle(st, quotes, sources, when, log_list):
             continue
         pl = bid - t["entry_bits"]
         if pl >= cfg.get("take_profit_bits", 1 << 30):
-            close(st, t, bid, "take-profit", when, source=sources[0] if sources else None)
+            close(st, t, bid, "take-profit", when, source=ticker_source(t["ticker"]))
             events.append(f"EXIT {t['ticker']} {t['strategy']} take-profit")
         elif pl <= -cfg.get("stop_loss_bits", 1 << 30):
-            close(st, t, bid, "stop-loss", when, source=sources[0] if sources else None)
+            close(st, t, bid, "stop-loss", when, source=ticker_source(t["ticker"]))
             events.append(f"EXIT {t['ticker']} {t['strategy']} stop-loss")
         elif cfg.get("max_samples") and t["samples"] >= cfg["max_samples"]:
-            close(st, t, bid, "max-hold", when, source=sources[0] if sources else None)
+            close(st, t, bid, "max-hold", when, source=ticker_source(t["ticker"]))
             events.append(f"EXIT {t['ticker']} {t['strategy']} max-hold")
 
     # 3. entries
@@ -662,6 +676,13 @@ def run_cycle(st, quotes, sources, when, log_list):
         w = st["watch"].get(a["ticker"])
         q = views.get(a["ticker"])
         if not w or not q:
+            continue
+        if a.get("gap_minutes") is not None and a["gap_minutes"] > MAX_ENTRY_GAP_MINUTES:
+            # A move measured across a long interval (the bootstrap comparison, or a runner gap) is a
+            # fact about the tape but not an actionable signal at the current price: entering on it
+            # would buy today's ask because of yesterday's move. Reported, never traded.
+            events.append(f"SKIP {a['ticker']} alert over {a['gap_minutes']:.0f} min "
+                          f"(> {MAX_ENTRY_GAP_MINUTES} min: gap too wide to enter)")
             continue
         sp = spread(q)
         if sp is None:
@@ -749,7 +770,9 @@ def trade_public(t):
         "qty_contracts": t["qty_c"] / 100, "strategy": t["strategy"], "status": t["status"],
         "entry_usd": round(t["entry_bits"] / 10000, 4),
         "mark_usd": round(mark / 10000, 4) if mark is not None else None,
-        "cost_usd": usd(t["cost_cc"] + t["fee_cc"] + t.get("rounding_cc", 0)),
+        "cost_usd": usd(t["cost_cc"]),
+        "outlay_usd": usd(t["cost_cc"] + t["fee_cc"] + t.get("rounding_cc", 0)),
+        "fee_rounding_usd": usd(t.get("rounding_cc", 0)),
         "fee_usd": usd(t["fee_cc"] + t.get("rounding_cc", 0)),
         "pnl_usd": usd(t["pnl_cc"]) if realised else open_pnl,
         "realised": realised,
@@ -773,6 +796,58 @@ def alert_public(a):
         "vol24_contracts": (a["vol24_c"] / 100) if a.get("vol24_c") is not None else None,
         "model_pick": a["score"] >= float(MIN_MODEL_SCORE), "source": a.get("source"),
     }
+
+
+
+def audit_artifact(art, strict=True):
+    """Cross-check the *published* numbers against each row's own inputs.
+
+    Why this exists: after the first live CI cycle the deployed artifact carried an open position whose
+    `cost_usd` (26.283) did not equal qty x entry (147 x $0.16 = $23.52) and whose `fee_usd` (2.763) did not equal
+    the fee computed at the row's own entry price ($1.383) — i.e. the row was internally inconsistent with the rules
+    printed in the same file, and no test noticed because the fixtures were self-consistent. This function is run on
+    every artifact the engine writes (and can be run against any committed file), so a mislabelled or double-counted
+    field fails the pipeline instead of being published.
+
+    Sources for the expected arithmetic: fee rule + no settlement fee
+    (https://kalshi.com/docs/kalshi-fee-schedule.pdf), fee rounding
+    (https://docs.kalshi.com/getting_started/fee_rounding), fixed-point units
+    (https://docs.kalshi.com/getting_started/fixed_point_migration), row source call
+    (https://docs.kalshi.com/api-reference/market/get-markets).
+    """
+    v = []
+    rows = list(art.get("positions") or []) + list(art.get("trades") or [])
+    for r in rows:
+        tag = r.get("id") or r.get("ticker") or "?"
+        qty, entry = r.get("qty_contracts"), r.get("entry_usd")
+        cost = r.get("cost_usd")
+        if None not in (qty, entry, cost):
+            want = round(qty * entry, 4)
+            if abs(cost - want) > 0.011:
+                v.append(f"{tag}: cost_usd={cost} but qty x entry = {qty} x {entry} = {want} "
+                         f"(off by {round(cost - want, 4)})")
+            fee = r.get("fee_usd") or 0.0
+            out = r.get("outlay_usd")
+            if isinstance(out, (int, float)) and abs(out - (cost + fee)) > 0.011:
+                v.append(f"{tag}: outlay_usd={out} != cost_usd + fee_usd = {round(cost + fee, 4)}")
+            if fee and cost:
+                p4 = int(round(entry * 10000))
+                expect = taker_fee(int(round(qty * 100)), p4) / 1_000_000
+                # entry fee is reported as taker fee + its rounding component; it must never exceed
+                # the cost the row itself shows, and must match the model at the row's own price
+                if fee > max(expect + 0.01, 0.02) or fee < max(expect - 0.02, 0.0) - 0.02:
+                    v.append(f"{tag}: fee_usd={fee} does not match 0.07 x C x P x (1-P) at its own entry "
+                             f"price (${round(expect, 6)})")
+        src = r.get("source") or ""
+        if src and "%2C" in src:
+            v.append(f"{tag}: row source links a batched multi-ticker call, not this row's own market")
+    for a in art.get("alerts") or []:
+        src = a.get("source") or ""
+        if src and "%2C" in src:
+            v.append(f"alert {a.get('ticker')}: batched URL used as the row source")
+    if strict and v:
+        raise AssertionError("artifact audit failed: " + " | ".join(v[:6]))
+    return v
 
 
 def write_artifact(st, watch_rows, sources, log_list, status="live", note=""):
@@ -863,6 +938,7 @@ def write_artifact(st, watch_rows, sources, log_list, status="live", note=""):
                        "the owner's own demo API key — see flagged.html."),
         "log": log_list[-40:],
     }
+    audit_artifact(art)          # fails the cycle rather than publishing an internally inconsistent row
     with open(ART_PATH, "w", encoding="utf-8") as f:
         json.dump(art, f, indent=1, ensure_ascii=False)
     return art
@@ -1111,6 +1187,32 @@ def selftest():
        money_str(t0["pnl_cc"]))
     ok("ledger is self-consistent: debit - credit == -pnl",
        (t0["cost_cc"] + t0["fee_cc"] + t0.get("rounding_cc", 0)) - cash_credit(t0["qty_c"], 6100)[0] == -t0["pnl_cc"])
+    ok("row source is the single-ticker official call (not the batch URL)",
+       a["source"] == ticker_source(tk) and a["source"].endswith("/markets?tickers=KXTEST-1")
+       and t0["source"] == ticker_source(tk) and t0["source_batch"] == "fixture://m1",
+       str(a.get("source")))
+    ok("exit row carries the same single-ticker source",
+       t0["exit"]["source"] == ticker_source(tk), str(t0["exit"].get("source")))
+    ok("resolution row carries a per-ticker source",
+       all(r["source"] == ticker_source(tk) for r in st["resolutions"]) if st["resolutions"] else True)
+    pub = trade_public(t0)
+    ok("public cost_usd is the position cost; outlay_usd adds fee+rounding",
+       pub["cost_usd"] == usd(t0["cost_cc"])
+       and abs(pub["outlay_usd"] - (usd(t0["cost_cc"] + t0["fee_cc"] + t0.get("rounding_cc", 0)))) < 1e-9,
+       json.dumps({k: pub[k] for k in ("cost_usd", "outlay_usd", "fee_usd")}))
+    # a >= $0.10 move measured across a too-wide interval is reported but never traded on
+    stw = {"version": ENGINE_VERSION, "created_at": now_iso(), "cash_cc": BANKROLL_BITS, "watch": {},
+           "trades": [], "alerts": [], "resolutions": [], "equity": [], "runs": [],
+           "crossed50": {}, "harvest_cool": {}, "log": []}
+    stw["watch"][tk] = {"ticker": tk, "topic": "crypto", "title": "Wide-gap test", "event_ticker": "KXTEST",
+                        "samples": [{"t": "2026-11-19T20:00:00Z", "p": 6600, "bid": 6500, "ask": 6700}],
+                        "last_quote": None, "close_time": "2026-12-01T00:00:00Z", "source": "fixture"}
+    evw = run_cycle(stw, {tk: m1}, ["fixture://wide"], "2026-11-20T01:00:00Z", ll)
+    ok("wide-gap alert still recorded", len(stw["alerts"]) == 1
+       and stw["alerts"][0]["gap_minutes"] > MAX_ENTRY_GAP_MINUTES, str(stw["alerts"] and stw["alerts"][0]["gap_minutes"]))
+    ok("wide-gap alert raises no entry (bootstrap-safety gate)", not stw["trades"], str(evw))
+    ok("the skip is stated in the event log, not silent",
+       any(e.startswith("SKIP ") and "gap too wide" in e for e in evw), str(evw))
     # settlement of a fresh harvest position
     st2 = {"version": ENGINE_VERSION, "created_at": now_iso(), "cash_cc": BANKROLL_BITS, "watch": {},
            "trades": [], "alerts": [], "resolutions": [], "equity": [], "runs": [],
@@ -1182,17 +1284,26 @@ def _hours_ahead(h):
 def main(argv=None):
     global BASE
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("cmd", nargs="?", default="run", choices=["run", "seed", "selftest"])
+    ap.add_argument("cmd", nargs="?", default="run", choices=["run", "seed", "selftest", "audit"])
     ap.add_argument("--offline", action="store_true", help="no network; replay the committed snapshot")
     ap.add_argument("--per-topic", type=int, default=16)
     ap.add_argument("--total", type=int, default=72)
     ap.add_argument("--note", default="")
     ap.add_argument("--base", default=BASE, help="API base URL (demo by default)")
+    ap.add_argument("--artifact", default="", help="artifact path for `audit` (default: the committed ledger)")
     args = ap.parse_args(argv)
     BASE = args.base.rstrip("/")
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     if args.cmd == "selftest":
         return selftest()
+    if args.cmd == "audit":
+        path = args.artifact or ART_PATH
+        with open(path, encoding="utf-8") as f:
+            v = audit_artifact(json.load(f), strict=False)
+        print(f"audit {path}: {len(v)} finding(s)")
+        for line in v[:40]:
+            print("  -", line)
+        return 1 if v else 0
     if args.cmd == "seed":
         return cmd_seed(args)
     return cmd_run(args)

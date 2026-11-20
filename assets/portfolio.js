@@ -160,7 +160,11 @@
       { label: 'Mark (bid)', render: function (r) { return plain(r.mark_usd, 4); } },
       { label: 'Unrealised', render: function (r) { return usd(r.pnl_usd); } },
       { label: 'Opened', render: function (r) { return '<span class="small">' + esc(mdhm(r.t)) + '</span>'; } },
-      { label: 'Row source', render: function (r) { return srcLink(r.source, 'fill quote') + ' · ' + srcLink(r.exit && r.exit.source, 'exit quote'); } }
+      { label: 'Outlay (cost + fee)', render: function (r) {
+        var total = (typeof r.outlay_usd === 'number') ? r.outlay_usd
+                  : (typeof r.cost_usd === 'number' && typeof r.fee_usd === 'number' ? r.cost_usd + r.fee_usd : r.cost_usd);
+        return plain(total) + '<br><span class="muted small">' + plain(r.cost_usd) + ' + ' + plain(r.fee_usd) + ' fee</span>'; } },
+      { label: 'Row source', render: function (r) { return srcLink(r.source, 'fill quote') + ' · ' + srcLink(r.exit && r.exit.source, 'exit quote') + (r.source_batch ? '<br>' + srcLink(r.source_batch, 'batched call') : ''); } }
     ];
     $('#pf-positions').innerHTML = table(cols, rows, 'No open paper positions. Entries appear when a market the engine watches moves ≥ $0.10 between two cycles, or a scan rule (breakout / harvest) fires.');
   }
@@ -184,7 +188,10 @@
       { label: 'Side', render: function (r) { return esc((r.side || '').toUpperCase()); } },
       { label: 'Qty', render: function (r) { return esc(r.qty_contracts); } },
       { label: 'Entry', render: function (r) { return plain(r.entry_usd, 4); } },
-      { label: 'Cost incl. fee', render: function (r) { return plain(r.cost_usd); } },
+      { label: 'Outlay', render: function (r) {
+        var total = (typeof r.outlay_usd === 'number') ? r.outlay_usd
+                  : (typeof r.cost_usd === 'number' && typeof r.fee_usd === 'number' && r.status !== 'open' ? r.cost_usd + r.fee_usd : r.cost_usd);
+        return plain(total) + '<br><span class="muted small">cost ' + plain(r.cost_usd) + ' · fee ' + plain(r.fee_usd) + '</span>'; } },
       { label: 'Status', k: 'status', sortable: true, render: function (r) {
         var cls = r.status === 'open' ? 'warn' : r.status === 'settled' ? 'up' : 'muted';
         return '<span class="' + (r.status === 'settled' ? 'up' : r.status === 'closed' ? 'muted' : 'flat') + '">' + esc(r.status) + '</span>' +
@@ -192,7 +199,7 @@
       { label: 'P&L', k: 'pnl_usd', sortable: true, render: function (r) { return usd(r.pnl_usd); } },
       { label: 'Opened', k: 't', sortable: true, render: function (r) { return '<span class="small">' + esc(mdhm(r.t)) + '</span>'; } },
       { label: 'Why', render: function (r) { return '<span class="small muted">' + esc(r.note || '') + '</span>'; } },
-      { label: 'Row source', render: function (r) { return srcLink(r.source, 'fill') + ' · ' + srcLink(r.exit && r.exit.source, 'exit') + '<br>' + srcLink(apiUrl(r.ticker), 'current quote'); } }
+      { label: 'Row source', render: function (r) { return srcLink(r.source, 'fill') + ' · ' + srcLink(r.exit && r.exit.source, 'exit') + '<br>' + srcLink(apiUrl(r.ticker), 'current quote') + (r.source_batch ? ' · ' + srcLink(r.source_batch, 'batched call') : ''); } }
     ];
     $('#pf-ledger-note').textContent = 'showing ' + rows.length + ' of ' + all.length + ' ledger rows · click a header to sort';
     $('#pf-trades').innerHTML = table(cols, rows, 'No trades recorded yet. The engine needs at least two priced cycles before it can detect a ≥ $0.10 move.');

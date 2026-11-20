@@ -175,6 +175,20 @@
       demo-account figures are real (demo) fills and must never be compared to either simulation.</li>
     <li><b>Bootstrap gap.</b> The first cycle of a fresh state seeds prices from the committed snapshot, so the first comparison can span hours. Each alert
       carries <code>gap_minutes</code> (and a <span class="flag">wide gap</span> label above 90 minutes) so a stale-quote delta is never read as a fast move.</li>
+    <li><b>A wide gap is reported, never traded.</b> Above 90 minutes the engine records the alert, labels it
+      <span class="flag">wide gap</span> and logs <code>SKIP … gap too wide to enter</code> in the run event log — it does <b>not</b> open a
+      position on it, because buying <i>today's</i> ask because of a move measured <i>hours</i> ago is not the rule the lab tests
+      (<code>MAX_ENTRY_GAP_MINUTES</code>). The two scan-driven entries (breakout, harvest) are measured on the current quote only, so they can
+      still fire on the first cycle after a restart; that is stated here rather than hidden, and a harvest entry taken on a fresh
+      ledger is therefore a "price and close time look attractive right now" trade, not a reaction to a jump.</li>
+    <li><b>Row sources are single-market calls.</b> A cycle fetches one batched <code>GET /markets?tickers=a,b,…</code> response, but every
+      trade, exit, alert and resolution row carries the equivalent <code>…/markets?tickers=&lt;own ticker&gt;</code> URL so a reviewer can verify one
+      row against one response; the batched URL is linked alongside as “batched call”. That is what makes the line-by-line check in
+      <a href="reports/VERIFICATION_e82d36a3.md"><code>reports/VERIFICATION_e82d36a3.md</code></a> reproducible from the published artifact.</li>
+    <li><b>Cost vs outlay.</b> In <code>data/portfolio.json</code>, <code>cost_usd</code> is the pure position cost (qty × price),
+      <code>fee_usd</code> is the taker fee plus its rounding component, and <code>outlay_usd</code> is what the ledger actually debited from cash
+      (cost + fee, aligned down to the cent grid). The tables label the column “Outlay (cost + fee)” and show the split, because the $25-per-trade
+      target is a budget on the <i>outlay</i>, so an entry at $0.16 can cost 147 contracts × $0.16 = $23.52 plus a $2.82 fee = $26.34 outlay.</li>
   </ul>
 </section>
 

@@ -525,6 +525,21 @@ Post-merge checks re-run: `check_site.mjs` → `{"checked":{"html":18,"links":36
 `check_links.mjs` → 16 published pages, 353 local links, 168 external links, 0 failures; `tools/build.mjs` → BUILD OK
 (17 HTML, 6 JS); `tests/portfolio.test.mjs` → 60/60.
 
+**Post-deploy review (this session, after PR #41 merged as `d7095ac`):** the scheduled ledger cycle wrote the first live
+`data/portfolio.json` (19:39:57Z). Reading the **deployed** artifact rather than the local one exposed three defects the
+offline suite could not see — row sources pointing at the batched 96-ticker call, a row's `cost_usd` exceeding
+`qty × entry` by exactly its own `fee_usd` while the column said “Cost incl. fee”, and `fee_usd` ≈ 2× the published fee
+model at the row's own entry price (the last one is **still unexplained** and published as such). Fixed structurally, not
+cosmetically: four explicit fields (`cost_usd` / `fee_usd` / `fee_rounding_usd` / `outlay_usd`), per-ticker row sources
+with the batched URL alongside, a `MAX_ENTRY_GAP_MINUTES = 90` gate that reports but never trades a wide-gap alert, and
+`python3 scripts/portfolio_engine.py audit` — which re-derives every published row from its own inputs, runs inside
+`write_artifact()` and as a CI step, so a cycle cannot commit an internally inconsistent ledger. Test counts moved
+50 → 57 (engine) and 60 → 68 (page/artifact); the audit reports 33 findings on the 19:39:57Z artifact and 0 on this
+writer's output. **The four cold-start positions were not rewritten** — the published record stays as booked, with the
+discrepancy described on `flagged.html` E11; the next scheduled cycle replaces the file under the gate.
+**Heads-up for anyone else touching `data/portfolio.json`:** it is written only by `portfolio.yml`; do not hand-edit it
+and do not add a second writer.
+
 **Deploy note (do not misread this):** Pages publishes from `main` with `build_type: legacy` (`main` / `/`), verified via
 `gh api repos/wingbangboozle1-lang/Trade1/pages`. **A push to `arena/e82d36a3-trade1` therefore does not deploy anything**
 and no deploy claim is made for it; the Pages claim belongs to the merged `main` build (`ff8ed1b0`, PR #38). After this

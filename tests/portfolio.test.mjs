@@ -40,6 +40,41 @@ ok('engine selftest covers the official fee example ($1.75 for 100 contracts at 
   /fee 100c @ \$0\.50 = \$1\.75 exactly/.test(selftest));
 ok('engine selftest covers the exact 10-cent boundary', /exactly 1000 bits/.test(selftest));
 
+/* 1b. the engine's own cross-check of the published artifact ------------------- */
+// Why this is a separate gate: the first live CI artifact was internally inconsistent (a row's cost_usd
+// exceeded qty x entry by that row's own fee_usd, and fee_usd was ~2x the published fee model at the row's
+// entry price) and nothing in the suite could see it, because every fixture was self-consistent by construction.
+let auditOut = '', auditCode = 0;
+try {
+  auditOut = execFileSync('python3', ['scripts/portfolio_engine.py', 'audit'], { cwd: ROOT, encoding: 'utf8' });
+} catch (e) {
+  auditCode = e.status === undefined ? -1 : e.status;
+  auditOut = (e.stdout || '') + (e.stderr || '');
+}
+ok('engine audit of the committed artifact reports no finding',
+  auditCode === 0 && /: 0 finding\(s\)/.test(auditOut), auditOut.slice(0, 320));
+ok('engine audit catches a cost double-counted with its own fee', (() => {
+  const py = [
+    'import json, sys',
+    'sys.path.insert(0, "scripts")',
+    'import portfolio_engine as E',
+    'a = json.load(open("data/portfolio.json"))',
+    'rows = a.get("positions") or a.get("trades") or []',
+    'if not rows:',
+    '    print("skip-no-rows"); raise SystemExit(0)',
+    'r = dict(rows[0])',
+    'r["cost_usd"] = round((r.get("cost_usd") or 0) + (r.get("fee_usd") or 0), 4)',
+    'findings = E.audit_artifact({"positions": [r], "trades": [], "alerts": []}, strict=False)',
+    'print("REJECTED" if findings else "ACCEPTED-BAD-ROW")',
+  ].join('\n');
+  let out = '';
+  try {
+    out = execFileSync('python3', ['-c', py], { cwd: ROOT, encoding: 'utf8' });
+  } catch (e2) { out = (e2.stdout || '') + (e2.stderr || ''); }
+  if (/skip-no-rows/.test(out)) return true;      // an empty ledger has nothing to corrupt
+  return /REJECTED/.test(out);
+})(), 'the audit accepted a row whose cost_usd included its own fee');
+
 /* 2. artifact contract --------------------------------------------------------- */
 const art = JSON.parse(read('data/portfolio.json'));
 ok('artifact identity', art.artifact === 'kalshi-demo-ci-paper-portfolio', String(art.artifact));
@@ -85,6 +120,15 @@ ok('equity values are finite numbers',
   rowsWith(art.equity_curve).every((p) => Number.isFinite(p.equity_usd) && Number.isFinite(p.cash_usd)));
 ok('summary is internally consistent (open + realised = total)',
   art.summary.trades_total === art.summary.open + art.summary.realised);
+ok('row sources are per-ticker official calls (verifiable one row at a time)',
+  rowsWith(art.trades).concat(rowsWith(art.positions), rowsWith(art.alerts), rowsWith(art.resolutions))
+    .every((r) => !r.source || /\/markets\?tickers=[^%]+$|data\/topics\//.test(r.source)),
+  'a row links a batched multi-ticker URL instead of its own market');
+ok('outlay_usd, when present, equals cost + fee + rounding',
+  rowsWith(art.trades).concat(rowsWith(art.positions)).every((r) =>
+    typeof r.outlay_usd !== 'number' ||
+    Math.abs(r.outlay_usd - ((r.cost_usd || 0) + (r.fee_usd || 0) + (r.fee_rounding_usd || 0))) < 0.011),
+  'cost/fee/outlay fields disagree');
 ok('cash + positions reconciles to equity within a cent',
   Math.abs(art.summary.equity_usd - art.summary.cash_usd -
     rowsWith(art.positions).reduce((s, p) => s + (p.cost_usd || 0) + (p.pnl_usd || 0), 0)) <
@@ -182,7 +226,7 @@ synth.resolutions = [{ t: '2026-11-20T20:00:00Z', ticker: 'KXTEST-1', event_tick
   source: 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXTEST-1' }];
 synth.trades = [{ id: 't1', t: '2026-11-20T19:30:00Z', ticker: 'KXTEST-1', event_ticker: 'KXTEST',
   title: 'Test market', topic: 'crypto', side: 'no', qty_contracts: 48, strategy: 'momentum',
-  status: 'settled', entry_usd: 0.45, mark_usd: 0.44, cost_usd: 21.84, fee_usd: 0.84,
+  status: 'settled', entry_usd: 0.45, mark_usd: 0.44, cost_usd: 21.84, fee_usd: 0.84, outlay_usd: 22.68,
   pnl_usd: 23.32, realised: true, exit: { t: '2026-11-20T20:00:00Z', price_usd: 1,
   reason: 'settlement (no)', fee_usd: 0, credit_usd: 48,
   source: 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXTEST-1' },
@@ -192,7 +236,9 @@ synth.positions = [{ id: 't2', t: '2026-11-20T20:00:00Z', ticker: 'KXTEST-2', ev
   title: 'Open test market', topic: 'golf', side: 'yes', qty_contracts: 27, strategy: 'harvest',
   status: 'open', entry_usd: 0.92, mark_usd: 0.93, cost_usd: 24.9, fee_usd: 0.1, pnl_usd: 0.27,
   realised: false, exit: null, note: 'harvest @ $0.9200',
-  source: 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXTEST-2' }];
+  cost_usd_incl_fee_only: true, outlay_usd: 25.0, fee_rounding_usd: 0,
+  source: 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXTEST-2',
+  source_batch: 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXTEST-2%2CKXTEST-1' }];
 synth.by_strategy = [{ strategy: 'momentum', trades: 1, open: 0, closed: 1, settled: 1, wins: 1,
   losses: 0, flat: 0, win_rate_pct: 100, pnl_usd: 23.32, cost_usd: 22.68, avg_pnl_usd: 23.32, roi_pct: 102.8 }];
 synth.by_topic = [{ topic: 'crypto', trades: 1, open: 0, closed: 1, settled: 1, wins: 1, losses: 0,
@@ -226,6 +272,17 @@ if (HAVE_DOM) {
     ok('synthetic: alert chat renders the jump with a news lead and a quote source',
       /news search/.test(d2.querySelector('#pf-alerts').textContent) &&
       /markets\?tickers=KXTEST-1/.test(d2.querySelector('#pf-alerts').innerHTML));
+    ok('synthetic: positions panel shows an explicit outlay column (cost + fee, not a bare cost)',
+      /Outlay \(cost \+ fee\)/.test(d2.querySelector('#pf-positions').textContent) &&
+      /25\.00|25\.0/.test(d2.querySelector('#pf-positions').textContent));
+    ok('synthetic: the batched quote call is offered alongside the per-ticker source',
+      /batched call/.test(d2.querySelector('#pf-positions').innerHTML));
+    ok('synthetic: ledger outlay cell renders from outlay_usd (settled 22.68 = 21.84 + 0.84)',
+      /22\.68/.test(d2.querySelector('#pf-trades').textContent));
+    ok('synthetic: every row source is the single-ticker official call, never a 96-ticker blob',
+      Array.from(d2.querySelectorAll('#pf-trades tbody tr, #pf-positions tbody tr')).every(
+        (tr) => !/tickers=[^&"]*%2C/.test(tr.innerHTML.replace(/<a[^>]*>batched call<\/a>/g, ''))),
+      'multi-ticker url leaked into a row-source href');
     ok('synthetic: markdown asterisks in titles are stripped for display',
       !/\*\*/.test(d2.querySelector('#pf-alerts').textContent));
     ok('synthetic: resolutions table shows NO', /NO/.test(d2.querySelector('#pf-resolutions').textContent));

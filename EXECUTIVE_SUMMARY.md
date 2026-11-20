@@ -109,9 +109,18 @@ requirements it called "not built", plus the verification this session performed
   work, superseded by #39) should now be closed rather than merged.
 
 **Quality gates added by this session** (all runnable offline, all green on 2026-11-20):
-`python3 scripts/portfolio_engine.py selftest` → 50/50 · `node tests/portfolio.test.mjs` → 60/60 (34/34 without jsdom) ·
-`node scripts/check_links.mjs` → 16 published pages, 329 local links, 168 external links, 0 failures · and the pre-existing
-suites re-run after the merge: `check_site.mjs` 16 pages / 0 failures, `tests/engine.test.mjs` 23/23,
+`python3 scripts/portfolio_engine.py selftest` → 57/57 · `node tests/portfolio.test.mjs` → 68/68 (34/34 without jsdom) ·
+`python3 scripts/portfolio_engine.py audit` → 0 findings on the artifact this code writes (33 on the first live one) ·
+`node scripts/check_links.mjs` → 16 published pages, 358 local links, 171 external links, 0 failures · and the pre-existing
+suites re-run after the merge: `check_site.mjs` 18 pages / 0 failures, `tests/engine.test.mjs` 23/23,
 `tests/root_engine.test.js` 40 passed / 0 failed, `scripts/test_lib.mjs` passed, `tools/build.mjs` BUILD OK.
+
+**One method note worth repeating.** The defect class above was only findable by reading the *deployed* artifact: every
+local fixture was self-consistent by construction, so 50/50 and 60/60 were green while the published file was not. The
+fix is therefore structural, not editorial — `scripts/portfolio_engine.py audit` re-derives each published row's cost, fee
+and outlay from that row's own `qty_contracts`, `entry_usd` and source URL, runs inside `write_artifact()` (so a cycle
+cannot commit an inconsistent row) and inside the test suite with a negative test that corrupts a row and must be rejected.
+Written to `flagged.html` as **E11**, including the part I could *not* explain (the ~2× entry fee), which stays flagged
+rather than being given a tidy cause.
 One live cycle of the ledger ran on a GitHub runner ([workflow run `44801621609`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44801621609),
 both jobs success) — this sandbox has no route to `*.demo.kalshi.co`, which is itself verified and recorded rather than assumed.
