@@ -43,7 +43,8 @@ def esc(value) -> str:
 def money(v, digits=2, dash="—"):
     if v is None or v == "":
         return f'<span class="faint">{dash}</span>'
-    return f'<span class="money">${v:,.{digits}f}</span>'
+    sign = "-" if v < 0 else ""
+    return f'<span class="money">{sign}${abs(v):,.{digits}f}</span>'
 
 
 def cents(v, dash="—"):
@@ -68,8 +69,8 @@ def signed(v, digits=2, dash="—"):
     if v is None or v == "":
         return f'<span class="faint">{dash}</span>'
     cls = "up" if v > 0 else ("down" if v < 0 else "mut")
-    sign = "+" if v > 0 else ""
-    return f'<span class="money {cls}">{sign}${v:,.{digits}f}</span>'
+    sign = "+" if v > 0 else ("-" if v < 0 else "")
+    return f'<span class="money {cls}">{sign}${abs(v):,.{digits}f}</span>'
 
 
 def when(ts):
