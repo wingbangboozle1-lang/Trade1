@@ -531,17 +531,45 @@ window.KalshiApp = (function () {
       .filter(function (x) { return x.p !== null; });
     var base = h, src = 'session polls only';
     if (w.src === 'trades' && S.trades && S.trades.length) {
-      base = S.trades.filter(function (x) { return x.t >= cutoff; }).concat(h);
+      base = S.trades.filter(function (x) { return x.t >= cutoff; })
+        .map(function (x) { return { t: x.t, p: x.p, src: 'trade print' }; }).concat(h);
       src = 'official trade prints (GET /markets/trades)';
     } else if (w.src === 'candles' && S.candles && S.candles.length) {
-      base = S.candles.filter(function (x) { return x.t >= cutoff; }).concat(h);
+      base = S.candles.filter(function (x) { return x.t >= cutoff; })
+        .map(function (x) { return { t: x.t, p: x.p, src: (w.interval || 1) + '-min candle close' }; }).concat(h);
       src = 'official candlesticks (period ' + (w.interval || 1) + ' min)';
     }
     base.sort(function (a, b) { return a.t - b.t; });
     S.chartSource = src;
     return base;
   }
-  function drawChart() {
+  /* Hover readout: the canvas keeps the last plotted geometry so a mousemove can
+   * map the pointer back to the nearest official print (or candle close) and
+   * show its exact time and price. Nothing is inferred — the value shown is the
+   * value the API returned. */
+  var CHART = { pts: [], t0: 0, t1: 0, L: 44, W: 0 };
+  function chartHover(e) {
+    var box = $('#kx-chart'); if (!box || CHART.pts.length < 2) return;
+    var rect = box.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    if (mx < CHART.L || mx > CHART.W - 8) { drawChart(); return; }
+    var frac = (mx - CHART.L) / (CHART.W - 8 - CHART.L);
+    var t = CHART.t0 + frac * (CHART.t1 - CHART.t0);
+    var best = null, bestD = Infinity;
+    CHART.pts.forEach(function (d) {
+      var dd = Math.abs(d.t - t);
+      if (dd < bestD) { bestD = dd; best = d; }
+    });
+    if (!best) return;
+    var tip = $('#kx-chart-tip');
+    if (tip) {
+      tip.textContent = new Date(best.t).toLocaleString() + ' · ' + money(best.p) +
+        (best.src ? ' · ' + best.src : '');
+      tip.style.display = 'block';
+    }
+    drawChart(mx);
+  }
+  function drawChart(hoverX) {
     var box = $('#kx-chart'); if (!box) return;
     var rect = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
     if (rect.width < 10) return;
@@ -552,18 +580,28 @@ window.KalshiApp = (function () {
     var css = getComputedStyle(document.documentElement);
     var line = css.getPropertyValue('--line') || '#2a383b', muted = css.getPropertyValue('--muted') || '#91a3a4',
         green = css.getPropertyValue('--green') || '#61d6a2';
+    var data = chartData();
+    /* Y axis: contract price in dollars. The scale is the observed range of the
+     * plotted prints, padded by 2c and clamped to the legal $0.00-$1.00 grid —
+     * a fixed 0-1 axis would flatten a market trading at 45-52c into a line.
+     * Axis labels show the real bounds so nothing is implied. */
+    var prices = data.map(function (d) { return d.p; });
+    var lo = Math.min.apply(null, prices), hi = Math.max.apply(null, prices);
+    if (!isFinite(lo) || !isFinite(hi)) { lo = 0; hi = 1; }
+    lo = Math.max(0, lo - 0.02); hi = Math.min(1, hi + 0.02);
+    if (hi - lo < 0.01) { lo = Math.max(0, lo - 0.005); hi = Math.min(1, hi + 0.005); }
     x.strokeStyle = line; x.fillStyle = muted; x.font = '11px system-ui';
-    for (var i = 0; i <= 5; i++) {
-      var yy = T + i * (H - T - B) / 5;
+    for (var i = 0; i <= 4; i++) {
+      var yy = T + i * (H - T - B) / 4;
+      var lv = hi - i * (hi - lo) / 4;
       x.globalAlpha = 0.6;
       x.beginPath(); x.moveTo(L, yy); x.lineTo(W - R, yy); x.stroke();
       x.globalAlpha = 1;
-      x.fillText((1 - i / 5).toFixed(2), 6, yy + 4);
+      x.fillText(lv.toFixed(2), 6, yy + 4);
     }
-    var data = chartData();
     var winLabel = ($('#kx-win') && $('#kx-win').selectedOptions[0] ? $('#kx-win').selectedOptions[0].text : S.window);
     $('#kx-chart-note') && ($('#kx-chart-note').textContent =
-      data.length + ' points · ' + winLabel + ' · X = time, Y = contract price ($0.00–$1.00) · source: ' + (S.chartSource || '—') +
+      data.length + ' points · ' + winLabel + ' · X = time, Y = contract price (axis scaled to the printed range, clamped to $0.00–$1.00; hover the line for exact values) · source: ' + (S.chartSource || '—') +
       (S.tradesTruncated ? ' · NOTE: the 1,000-trade page cap was hit, so the oldest prints in this window are not shown' : ''));
     if (data.length < 2) {
       $('#kx-chart-name') && ($('#kx-chart-name').textContent = S.selected || 'Select a market');
@@ -574,18 +612,11 @@ window.KalshiApp = (function () {
     var t0 = data[0].t, t1 = data[data.length - 1].t;
     if (t1 === t0) t1 = t0 + 1000;
     function px(t) { return L + (t - t0) / (t1 - t0) * (W - L - R); }
-    function py(p) { return T + (1 - p) * (H - T - B); }
+    CHART.pts = data; CHART.t0 = t0; CHART.t1 = t1; CHART.L = L; CHART.W = W;
+    function py(p) { return T + (hi - p) / (hi - lo) * (H - T - B); }
     x.strokeStyle = green; x.lineWidth = 2; x.beginPath();
     data.forEach(function (d, i) { i ? x.lineTo(px(d.t), py(d.p)) : x.moveTo(px(d.t), py(d.p)); });
     x.stroke();
-    // ≥10¢ swing alert markers for this ticker inside the window (colors: up=green, down=pink)
-    M.state.alerts.filter(function (a) {
-      return a.ticker === S.selected && a.t >= t0 && a.t <= t1;
-    }).forEach(function (a) {
-      x.fillStyle = a.dir === 'up' ? green : '#f48fb1';
-      x.beginPath(); x.arc(px(a.t), py(a.to), 4, 0, 7); x.fill();
-      x.strokeStyle = '#fff'; x.lineWidth = 1.5; x.stroke();
-    });
     var lastP = data[data.length - 1].p;
     x.fillStyle = green;
     x.beginPath(); x.arc(px(t1), py(lastP), 3.5, 0, 7); x.fill();
@@ -607,6 +638,11 @@ window.KalshiApp = (function () {
       x.fillStyle = muted; x.font = '10px system-ui';
       x.fillText((al.delta > 0 ? '+' : '') + al.delta.toFixed(2), Math.min(px(al.t) + 5, W - 40), py(al.to) - 7);
     });
+    if (typeof hoverX === 'number') {
+      x.strokeStyle = muted; x.globalAlpha = 0.7; x.lineWidth = 1;
+      x.beginPath(); x.moveTo(hoverX, T); x.lineTo(hoverX, H - B); x.stroke();
+      x.globalAlpha = 1;
+    }
     var name = $('#kx-chart-name');
     if (name) name.textContent = S.selected || '';
     var hint2 = $('#kx-chart-alerts');
@@ -903,7 +939,8 @@ window.KalshiApp = (function () {
       '</tr></thead><tbody id="kx-rows"></tbody></table></div>' +
       '<p class="muted small">Ranked by <b>estimated traded dollars</b> (total contracts \u00d7 last price), ties broken by estimated 24h dollars \u2014 both computed from exchange-reported fields, not exchange-published (blank when the market reports no volume). \u0394 sample = change vs the previous poll sample. Every row links the official <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=" target="_blank" rel="noopener">GET /markets?tickers=</a> response that produced it.</p></div>' +
       '<div class="box"><div class="row spread"><h2>Price chart</h2><span class="muted small" id="kx-chart-name">—</span></div>' +
-      '<div class="chartbox"><canvas id="kx-chart"></canvas></div>' +
+      '<div class="chartbox" style="position:relative"><canvas id="kx-chart"></canvas>' +
+      '<div id="kx-chart-tip" class="muted small" style="display:none;position:absolute;top:4px;right:6px;background:rgba(10,20,22,.86);border:1px solid var(--line);border-radius:6px;padding:2px 8px;pointer-events:none"></div></div>' +
       '<p class="muted small" id="kx-chart-note"></p>' +
       '<p id="kx-chart-alerts"></p>' +
       '<div id="kx-book"></div></div></div>' +
@@ -927,6 +964,11 @@ window.KalshiApp = (function () {
       S.window = this.value; S.candles = null; S.lastCandleFetch = 0; fetchCandles();
     });
     $('#kx-refresh').addEventListener('click', function () { pollWatch(); pollBook(); fetchCandles(); });
+    $('#kx-chart').addEventListener('mousemove', chartHover);
+    $('#kx-chart').addEventListener('mouseleave', function () {
+      var tip = $('#kx-chart-tip'); if (tip) tip.style.display = 'none';
+      drawChart();
+    });
 
     renderChats(); renderTable(); renderKPIs(); renderResolved(); renderBook(); renderStatus();
     drawChart();
