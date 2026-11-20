@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Executive summary · Kalshi Demo Monitor</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Executive summary</h1>
+    <p>What this dashboard is, what it does, what it deliberately does not do — and how each claim was verified</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html" class="active">Summary</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+
+  <section class="box">
+    <h2>In one paragraph</h2>
+    <p>This site is a static, read-only dashboard over the <b>official Kalshi demo Trade API</b>
+    (<code>https://external-api.demo.kalshi.co/trade-api/v2</code>, the recommended demo host in the
+    <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">official demo docs</a>).
+    It watches live markets in exactly five topics — <b>gas prices, elections, culture, crypto, golf</b> —
+    ranks them by an estimated traded-dollar figure, posts a chat alert for every price move of
+    <b>$0.10 or more in either direction</b> into two scrolling feeds (all moves, and moves that pass a
+    documented ROI screen), charts the YES price against time with seconds-to-hours windows plus order-book
+    depth, and runs <b>four automated paper strategies</b> on live quotes so that strategies can be compared
+    by strategy and by topic, with every position carried to its official YES/NO resolution.</p>
+    <p class="muted small">The demo environment is play money; Kalshi's own documentation warns that demo
+    prices and behaviour may not reflect production markets. Nothing here is financial advice, and no order is
+    ever transmitted.</p>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Requirement → delivery, line by line</h2>
+    <div class="tablewrap"><table>
+      <tr><th>Requirement</th><th>How this site delivers it</th><th>Verification / source</th></tr>
+
+      <tr><td>Work against the recommended demo REST root</td>
+        <td>All requests go to <code>external-api.demo.kalshi.co/trade-api/v2</code>; the also-supported host <code>demo-api.kalshi.co</code> is used only as an automatic fallback.</td>
+        <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">Demo environment</a>, <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">API environments</a></td></tr>
+
+      <tr><td>Only gas prices, elections, culture, crypto and golf</td>
+        <td>Topic rules live in <code>scripts/topics.json</code> (authoritative for the committed snapshots) and are mirrored in <code>assets/model.js</code> for live matching. Category-gated with reviewed keyword/series fallbacks; golf excludes Politics/Elections so Trump golf-club markets cannot leak in.</td>
+        <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series-list">Get Series List</a> (<code>category</code>/<code>tags</code> filters); <a href="methods.html">Methods §2</a></td></tr>
+
+      <tr><td>Highest dollar amount live events</td>
+        <td>The market table is ranked by <b>estimated</b> 24-hour traded notional (contracts × last price) with open interest shown alongside. It is labelled an estimate everywhere because <b>the API publishes no per-market dollar-volume field</b>.</td>
+        <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets schema</a> (has <code>volume_fp</code> in contracts, not dollars); <a href="flagged.html">Flagged #5</a></td></tr>
+
+      <tr><td>Alerts for moves ≥ $0.10 either direction</td>
+        <td>Two detectors: (1) change between consecutive 12-second samples, and (2) a swing that reversed inside one poll, caught with the exchange's own <code>previous_price_dollars</code>. Comparison is done in integer 1/10,000s so an exact $0.10 move can never fail on floating-point error. Unit-tested.</td>
+        <td class="src"><code>Market.previous_price_dollars</code> in the <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market">Get Market schema</a>; test: <code>tests/engine.test.mjs</code></td></tr>
+
+      <tr><td>Two scrolling chats (all events / model picks)</td>
+        <td>Left feed: every alert with timestamp, direction, size, quotes and links (Kalshi series page, official API record, the event's official settlement sources, and a news <em>search</em> link labelled as a lead). Right feed: only alerts whose ROI score clears the documented threshold.</td>
+        <td class="src"><a href="methods.html">Methods §3</a> (score weights); <a href="flagged.html">Flagged #8</a> (the score is a heuristic, not backtested alpha)</td></tr>
+
+      <tr><td>Track events until they resolve YES or NO</td>
+        <td>Every polled market is checked for the official terminal state; when it settles, the outcome and settlement timestamp are recorded and open paper positions settle at $1 per winning contract. Resolved rows link the exact API record.</td>
+        <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_lifecycle">Market Lifecycle</a> (<code>finalized</code> = paid out), <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_settlement">Market Settlement</a> ($1/contract, no settlement fee)</td></tr>
+
+      <tr><td>Automate simulated trades to test strategies</td>
+        <td>Four strategies run automatically every cycle on live quotes: <b>momentum</b>, <b>fade</b>, <b>favourite harvest</b> (buy ≥ 90¢ near expiry) and <b>50¢ breakout</b>, each with explicit entry filters, take-profit, stop-loss and time exit. Trades are categorised by strategy <em>and</em> topic with P&amp;L, ROI on cost and win rate.</td>
+        <td class="src">Parameters documented in <a href="methods.html">Methods §4</a>; fee model from the <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">official fee schedule</a></td></tr>
+
+      <tr><td>Portfolio performance</td>
+        <td>Paper equity, cash, open positions marked at the official bid, realised P&amp;L, win rate, per-strategy and per-topic breakdowns, and an equity curve. Stored in this browser only (export/import as JSON).</td>
+        <td class="src"><a href="trades.html">Strategy Lab</a>; <a href="flagged.html">Flagged #12</a> explains why a real demo-account portfolio is not read</td></tr>
+
+      <tr><td>Live graph, X = time (seconds/minutes/hours), Y = contract price</td>
+        <td>Six windows: 60 s, 5 m, 15 m, 1 h, 6 h, 24 h. Seconds/minutes windows are built from the <b>official trade tape</b>; 1 h+ windows from <b>official candlesticks</b> (1-minute, 60-minute). The caption states which source is drawn and warns when the 1,000-trade page cap truncates a window.</td>
+        <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-trades">Get Trades</a>, <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a> (period_interval 1 / 60 / 1440 only)</td></tr>
+
+      <tr><td>Liquidity: how many contracts are available at a price</td>
+        <td>The order-book ladder shows resting contracts at each price for YES and NO bids, derives the opposite-side asks with the official reciprocal rule (YES ask = $1 − NO bid), and totals bid-side liquidity in dollars.</td>
+        <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/orderbook_responses">Orderbook Responses</a> (bids only, ascending, best bid last)</td></tr>
+
+      <tr><td>Live events and links that may have caused a jump</td>
+        <td>Each alert carries the Kalshi series page, the official API record for the event, the official settlement sources Kalshi lists for that event, and a Google News <em>search</em> for the title explicitly labelled as a lead. The site never claims a cause.</td>
+        <td class="src"><code>settlement_sources</code> in <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events</a>; <a href="flagged.html">Flagged #7</a></td></tr>
+
+      <tr><td>Topics kept separate, events inside a topic grouped</td>
+        <td>One subpage per topic; each shows that topic's live markets, its alerts, its own chart and order book, and its own snapshot table. The all-topics dashboard keeps a topic tab strip.</td>
+        <td class="src"><a href="topics/gas-prices.html">Gas</a>, <a href="topics/elections.html">Elections</a>, <a href="topics/culture.html">Culture</a>, <a href="topics/crypto.html">Crypto</a>, <a href="topics/golf.html">Golf</a></td></tr>
+
+      <tr><td>Every table row has an official source link</td>
+        <td>Snapshot rows link the exact official API URL that produced the value (<code>/markets/&lt;ticker&gt;</code>, <code>/events/&lt;event_ticker&gt;</code>) and the run log records every request. Rows whose value the API did not return are left blank.</td>
+        <td class="src"><a href="data.html">Data</a>; <code>data/log.md</code>; enforced by <code>scripts/check_site.mjs</code> in CI</td></tr>
+    </table></div>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>What is deliberately <em>not</em> built, and why</h2>
+    <div class="tablewrap"><table>
+      <tr><th>Not built</th><th>Reason (with the official text that decides it)</th></tr>
+      <tr><td>WebSocket streaming</td>
+        <td>The official docs state authentication is required to establish the WebSocket connection and the three <code>KALSHI-ACCESS-*</code> headers must be sent <em>during the handshake</em>. A browser cannot attach custom headers to a WebSocket, so a static page cannot connect. The site polls REST instead and states the resulting lag.
+        <span class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_websockets">Quick Start: WebSockets</a></span></td></tr>
+      <tr><td>Real demo-account balance / positions</td>
+        <td>Account endpoints require signed requests with a private API key. The brief says there must be no manual input from the owner, and a public site must never handle credentials — so portfolio tracking is a local paper portfolio, clearly labelled.
+        <span class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests">Quick Start: Authenticated Requests</a></span></td></tr>
+      <tr><td>Order execution on the exchange</td>
+        <td>Same reason as above, plus safety: an unauthenticated public site that could place real orders would be a hazard. "Simulated trades" are recorded fills against official quotes, never transmitted.
+        <span class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/orders/create-order-v2">Create Order (V2)</a></span></td></tr>
+      <tr><td>Sub-second alert latency</td>
+        <td>REST responses are cached: "prices, sizes and status can lag the exchange by several seconds". Sub-second swings are therefore not observable; the site says so instead of implying real-time precision.
+        <span class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets (caching note)</a></span></td></tr>
+      <tr><td>Exchange-published dollar volume</td>
+        <td>No such field exists in the market schema, so every dollar figure on the site is computed from contracts × price and labelled an estimate.
+        <span class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets schema</a></span></td></tr>
+    </table></div>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Verification method</h2>
+    <ol class="small">
+      <li><b>Documentation first.</b> Every endpoint, field name, unit and limit was read on <a target="_blank" rel="noopener" href="https://docs.kalshi.com/">docs.kalshi.com</a>; the exact pages are listed on <a href="sources.html">Sources</a>.</li>
+      <li><b>Live responses second.</b> Field shapes were confirmed against live demo responses (for example <code>orderbook_fp.yes_dollars</code> as <code>[price_dollars, count_fp]</code> strings, and <code>volume_fp</code> as a contract count, not dollars).</li>
+      <li><b>Automated checks third.</b> CI runs the real dashboard engine in a headless DOM against captured response shapes (<code>tests/engine.test.mjs</code>), the offline library tests (<code>scripts/test_lib.mjs</code>), a syntax/link/nav check (<code>tools/build.mjs</code>), and a check that every snapshot row carries an official source URL (<code>scripts/check_site.mjs</code>).</li>
+      <li><b>Blank beats wrong.</b> Anything the API did not return is left blank and listed on <a href="flagged.html">Flagged for Review</a>, with the source that was checked.</li>
+    </ol>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Suggestions to make the site more live and interactive</h2>
+    <p class="small muted">These are recommendations, clearly marked as not implemented — the current build is limited to what a static page can verify.</p>
+    <ol class="small">
+      <li><b>Server-side watcher with a signed demo key.</b> A tiny scheduled job (GitHub Actions already runs the data collector) could keep state between polls and push true WebSocket <code>ticker</code>/<code>trade</code> events into the committed snapshot, cutting alert latency from ~12 s to sub-second. It needs a demo API key stored as a repository secret — a decision for the owner, not taken here.</li>
+      <li><b>Alert sound and browser notifications.</b> A local, opt-in beep/OS notification when a ≥ $0.10 move posts, so the dashboard can be left on a second screen.</li>
+      <li><b>Anchor the news link to a timestamp.</b> The Google News search already jumps to a query; adding <code>when:1h</code> to the query string would bias it to recent stories. It remains a <em>lead</em>, never a cause.</li>
+      <li><b>Cross-market confirmation.</b> When one market in a mutually exclusive event jumps, show the sibling markets' moves side by side — a cheap way to distinguish a real repricing from a stale quote.</li>
+      <li><b>Depth-weighted fill simulation.</b> Walk the official order-book ladder to estimate slippage for larger paper sizes instead of assuming the top level fills everything.</li>
+      <li><b>Persist alerts across devices.</b> Alerts and paper trades live in <code>localStorage</code>; exporting them to the repo (like the snapshots) would make a shared, multi-observer history possible without any credentials.</li>
+    </ol>
+  </section>
+
+  <p class="footer">Kalshi demo is a play-money environment. This site is not affiliated with Kalshi and is not financial advice.
+  Unverified items are published on <a href="flagged.html">Flagged for Review</a> with their sources.</p>
+</main>
+</body>
+</html>
