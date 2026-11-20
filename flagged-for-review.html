@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d1719" />
+    <meta name="description" content="Official source verification, scope, and unverified items for the Kalshi demo market monitor." />
+    <title>Flagged for Review · Kalshi Demo Monitor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to review findings</a>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Kalshi Demo Monitor home">
+        <span class="brand-mark" aria-hidden="true">K</span>
+        <span class="brand-copy"><strong>Market Lens</strong><small>Kalshi demo monitor</small></span>
+      </a>
+      <div class="connection-status">
+        <span class="connection-dot is-warning" aria-hidden="true"></span>
+        <span><strong>Verification notes</strong><small>Official references linked below</small></span>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="primary-nav" aria-label="Dashboard navigation">
+          <a class="nav-link" href="index.html"><span class="nav-icon" aria-hidden="true">◫</span> Overview</a>
+          <a class="nav-link" href="topics/gas-prices.html"><span class="nav-icon" aria-hidden="true">⌁</span> Gas prices</a>
+          <a class="nav-link" href="topics/elections.html"><span class="nav-icon" aria-hidden="true">▤</span> Elections</a>
+          <a class="nav-link" href="topics/culture.html"><span class="nav-icon" aria-hidden="true">✳</span> Culture</a>
+          <a class="nav-link" href="topics/crypto.html"><span class="nav-icon" aria-hidden="true">₿</span> Crypto</a>
+          <a class="nav-link" href="topics/golf.html"><span class="nav-icon" aria-hidden="true">◎</span> Golf</a>
+        </nav>
+        <p class="nav-label nav-label-spaced">RESEARCH</p>
+        <nav class="primary-nav" aria-label="Research pages">
+          <a class="nav-link active" href="flagged-for-review.html" aria-current="page"><span class="nav-icon" aria-hidden="true">⚑</span> Flagged for review</a>
+        </nav>
+        <div class="sidebar-note">
+          <span class="status-pill status-pill-demo">DEMO · READ ONLY</span>
+          <p>No account keys are stored or requested. Simulated positions stay in this browser.</p>
+        </div>
+      </aside>
+
+      <main id="main-content" class="main-content review-content">
+        <section class="page-hero review-hero">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span> SOURCE AUDIT · IMPLEMENTATION BOUNDARIES</p>
+            <h1>Flagged for review</h1>
+            <p class="review-lede">
+              This page separates facts confirmed from Kalshi’s published documentation from items that cannot be
+              verified or safely implemented in a static GitHub Pages client. Every fact and issue row links to an
+              official source; blank values are deliberately not inferred.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-subtle" href="index.html">← Back to dashboard</a>
+            <a class="button button-primary" href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">Kalshi API environments ↗</a>
+          </div>
+        </section>
+
+        <section class="safety-banner" aria-label="Scope notice">
+          <span class="safety-icon" aria-hidden="true">!</span>
+          <p><strong>No live account access is claimed.</strong> The dashboard uses public demo market data and local paper trades only. It does not request credentials, read an account portfolio, or submit orders.</p>
+        </section>
+
+        <section class="review-section" aria-labelledby="summaryHeading">
+          <p class="eyebrow">EXECUTIVE SUMMARY</p>
+          <h2 id="summaryHeading">What the site does</h2>
+          <p>
+            The site polls Kalshi’s recommended demo REST API for open markets, applies a clearly labeled text-based
+            filter for gas prices, elections, culture, crypto, and golf, and displays the API’s reported YES prices,
+            sizes, volume, and status with a source link on every market row. It observes YES-bid changes of at least
+            $0.10 between snapshots, shows them in two scrollable feeds, and uses an experimental spread/liquidity
+            screen to produce paper-strategy candidates. It samples a selected-market chart, loads selectable top-5/10/20/50 bid levels
+            per side from the public orderbook endpoint, and follows locally discovered tickers until a yes/no result
+            is returned with settled status.
+          </p>
+          <p>
+            REST responses may be cached, so polling is best-effort rather than exchange-push real time. Browser-local
+            alerts, chart points, resolution records, and simulated positions are not an account history and do not
+            transfer across devices. The site deliberately leaves aggregate dollar notional blank, makes no ROI claim,
+            and does not assign news causes to price movements.
+          </p>
+        </section>
+
+        <section class="review-section" aria-labelledby="endpointHeading">
+          <p class="eyebrow">OFFICIAL DEMO ENDPOINTS</p>
+          <h2 id="endpointHeading">Endpoint pair checked against Kalshi documentation</h2>
+          <p>The recommended and supported alternatives below are documented for Kalshi’s demo environment. The application currently uses the recommended REST endpoint and does not open a WebSocket connection.</p>
+          <div class="endpoint-grid">
+            <article class="endpoint-card">
+              <small>REST · recommended</small>
+              <code>https://external-api.demo.kalshi.co/trade-api/v2</code>
+              <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">Official endpoint list ↗</a>
+            </article>
+            <article class="endpoint-card">
+              <small>REST · also supported</small>
+              <code>https://demo-api.kalshi.co/trade-api/v2</code>
+              <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">Official endpoint list ↗</a>
+            </article>
+            <article class="endpoint-card">
+              <small>WebSocket · recommended</small>
+              <code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code>
+              <a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener noreferrer">Official WebSocket guide ↗</a>
+            </article>
+            <article class="endpoint-card">
+              <small>WebSocket · also supported</small>
+              <code>wss://demo-api.kalshi.co/trade-api/ws/v2</code>
+              <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">Official endpoint list ↗</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="review-section" aria-labelledby="verifiedHeading">
+          <p class="eyebrow">VERIFIED FACTS</p>
+          <h2 id="verifiedHeading">Documented behavior used by the prototype</h2>
+          <div class="table-scroll">
+            <table class="data-table review-table">
+              <thead><tr><th scope="col">Finding</th><th scope="col">Verified detail</th><th scope="col">Official source</th></tr></thead>
+              <tbody>
+                <tr><td>Demo REST base URLs</td><td>The recommended host is external-api.demo.kalshi.co; demo-api.kalshi.co is also supported.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">Kalshi · API environments ↗</a></td></tr>
+                <tr><td>Demo WebSocket URLs</td><td>The recommended host is external-api-ws.demo.kalshi.co; demo-api.kalshi.co is also supported for WebSocket.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">Kalshi · API environments ↗</a></td></tr>
+                <tr><td>Public market data</td><td>Kalshi documents unauthenticated REST market-data requests, including market listings and orderbooks.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener noreferrer">Kalshi · Market data quick start ↗</a></td></tr>
+                <tr><td>Market-list fields</td><td>The official schema includes fields such as YES bid/ask prices and sizes, 24-hour volume, status, result, and notional_value_dollars.</td><td><a class="source-link" href="https://docs.kalshi.com/api-reference/market/get-market" target="_blank" rel="noopener noreferrer">Kalshi · Get Market schema ↗</a></td></tr>
+                <tr><td>Market listing pagination</td><td>Get Markets supports cursor pagination; the documented maximum page size is 1,000. Results can change while paging.</td><td><a class="source-link" href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener noreferrer">Kalshi · Get Markets ↗</a><br /><a class="source-link" href="https://docs.kalshi.com/getting_started/pagination" target="_blank" rel="noopener noreferrer">Kalshi · Pagination guide ↗</a></td></tr>
+                <tr><td>Orderbook shape</td><td>Public orderbook data contains YES and NO bid arrays with dollar price and contract quantity; arrays are ascending and the best bid is last. The endpoint returns bids, not separate asks.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/orderbook_responses" target="_blank" rel="noopener noreferrer">Kalshi · Orderbook responses ↗</a></td></tr>
+                <tr><td>REST freshness</td><td>Market data responses can be cached and lag the exchange by several seconds; Kalshi recommends WebSockets when current prices or state are needed.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener noreferrer">Kalshi · Market data quick start ↗</a></td></tr>
+                <tr><td>WebSocket authentication</td><td>Kalshi’s WebSocket guide requires authentication during connection setup, including for sessions subscribing to public market-data channels.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener noreferrer">Kalshi · WebSocket quick start ↗</a></td></tr>
+                <tr><td>Authenticated requests</td><td>Authenticated REST requests use an API key ID, timestamp, and request signature made with the private key.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener noreferrer">Kalshi · Authenticated requests ↗</a></td></tr>
+                <tr><td>Portfolio positions</td><td>The portfolio positions endpoint is authenticated and can return realized P&amp;L and fees fields for the account.</td><td><a class="source-link" href="https://docs.kalshi.com/api-reference/portfolio/get-positions" target="_blank" rel="noopener noreferrer">Kalshi · Get Positions ↗</a></td></tr>
+                <tr><td>Simple yes/no settlement</td><td>Kalshi documents a $1 per contract payout to the winning YES or NO side for simple yes/no settlement. Settlement-floor markets can differ.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener noreferrer">Kalshi · Market settlement ↗</a><br /><a class="source-link" href="https://docs.kalshi.com/getting_started/settlement_bounds" target="_blank" rel="noopener noreferrer">Kalshi · Settlement bounds ↗</a></td></tr>
+                <tr><td>GitHub Pages workflow</td><td>Custom Pages deployments require a Pages artifact, pages: write and id-token: write permissions, and a configured GitHub Pages publishing workflow.</td><td><a class="source-link" href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages" target="_blank" rel="noopener noreferrer">GitHub · Custom Pages workflows ↗</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="review-section" aria-labelledby="flagsHeading">
+          <p class="eyebrow">OPEN ITEMS · NO UNSOURCED VALUES</p>
+          <h2 id="flagsHeading">Flagged for review</h2>
+          <p>These are intentionally not represented as verified account, performance, or causality facts. Where a value is not confirmed, the value cell is blank.</p>
+          <div class="table-scroll">
+            <table class="data-table review-table flag-table">
+              <thead><tr><th scope="col">Item</th><th scope="col">Value / observation</th><th scope="col">Status and reason</th><th scope="col">Official source</th></tr></thead>
+              <tbody>
+                <tr id="dollar-notional"><td>Aggregate dollar notional by event</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">UNVERIFIED</span><br />The schema includes notional_value_dollars, but the reviewed API reference does not establish it as aggregate traded dollar volume for event ranking. The dashboard leaves this column blank and does not calculate volume × price.</td><td><a class="source-link" href="https://docs.kalshi.com/api-reference/market/get-market" target="_blank" rel="noopener noreferrer">Kalshi · Get Market schema ↗</a></td></tr>
+                <tr><td>High-ROI model / expected returns</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">UNVERIFIED</span><br />No strategy training set, historical backtest, or validated return evidence is included. The candidate feed is a transparent spread/size screen only; it must not be interpreted as a profitability estimate.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener noreferrer">Kalshi · Public market data fields ↗</a></td></tr>
+                <tr><td>News or website cause of a price jump</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">UNVERIFIED</span><br />Each alert offers a title-based Google News search as possible context, but the app does not ingest articles, verify a matching headline, or claim a causal relationship. The official market-record link remains the data source.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener noreferrer">Kalshi · Market data quick start ↗</a></td></tr>
+                <tr><td>Kalshi demo-account balance, positions, and fills</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">NOT CONNECTED</span><br />Private portfolio endpoints require signed authentication. No API key or private key was provided, requested, or embedded in the static site.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener noreferrer">Kalshi · Authentication guide ↗</a><br /><a class="source-link" href="https://docs.kalshi.com/api-reference/portfolio/get-positions" target="_blank" rel="noopener noreferrer">Kalshi · Get Positions ↗</a></td></tr>
+                <tr><td>Actual demo order submission</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">NOT IMPLEMENTED</span><br />No trade endpoint is called. Automatically generated entries are browser-local paper trades and never reach Kalshi.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener noreferrer">Kalshi · Authenticated requests ↗</a></td></tr>
+                <tr><td>Authenticated WebSocket push feed</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">NOT IMPLEMENTED</span><br />A production-safe static client cannot keep the private signing key needed for the documented WebSocket handshake. The prototype uses public REST polling instead.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener noreferrer">Kalshi · WebSocket quick start ↗</a></td></tr>
+                <tr id="status-mismatch"><td>Raw market status mapping</td><td>During review on 2026-11-20, a request using status=open returned records whose raw status field was active.</td><td><span class="flag-badge">IRREGULARITY</span><br />The Get Markets reference lists open, paused, closed, settled, and unopened as filter values. This site displays the returned status verbatim and does not map active to open. Confirm the status contract before using it for execution.</td><td><a class="source-link" href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&amp;limit=5" target="_blank" rel="noopener noreferrer">Kalshi demo API response ↗</a><br /><a class="source-link" href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener noreferrer">Kalshi · Get Markets reference ↗</a></td></tr>
+                <tr id="terminal-status"><td>Terminal status mapping</td><td>A demo request filtered with status=settled returned a market record with raw status=finalized and result=no during the 2026-11-20 source review.</td><td><span class="flag-badge">OBSERVED, NOT IN ENUM</span><br />The app preserves the raw status label. For resolution and paper payouts only, it accepts settled or the observed finalized status when the same official record also contains result=yes or result=no. Re-check this behavior against the current API before relying on it.</td><td><a class="source-link" href="https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC&amp;status=settled" target="_blank" rel="noopener noreferrer">Kalshi demo settled-market query ↗</a><br /><a class="source-link" href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener noreferrer">Kalshi · Get Markets reference ↗</a></td></tr>
+                <tr><td>Category classification</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">HEURISTIC</span><br />Topics are matched from titles, subtitles, event/series tickers, and any returned category text. This can omit relevant markets or include false positives; it is not an official Kalshi category assignment.</td><td><a class="source-link" href="https://docs.kalshi.com/api-reference/market/get-market" target="_blank" rel="noopener noreferrer">Kalshi · Get Market schema ↗</a></td></tr>
+                <tr><td>Browser CORS and deployed Pages origin</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">DEPLOYMENT TEST PENDING</span><br />Kalshi documents JavaScript market-data requests, but browser access from the eventual GitHub Pages origin was not verified during source review. The UI fails closed and shows no sample rows if fetch is blocked.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener noreferrer">Kalshi · Market data quick start ↗</a><br /><a class="source-link" href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages" target="_blank" rel="noopener noreferrer">GitHub · Pages workflow docs ↗</a></td></tr>
+                <tr><td>Complete historical archive across devices</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">NOT IMPLEMENTED</span><br />Price samples, alerts, tracked tickers, and paper trades are stored only in local browser storage. Data are not a server-side archive and may be cleared by the browser.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/pagination" target="_blank" rel="noopener noreferrer">Kalshi · Pagination guide ↗</a></td></tr>
+                <tr><td>Strategy fees, slippage, fills, and ROI</td><td class="value-blank" aria-label="Not verified"></td><td><span class="flag-badge">NOT SIMULATED</span><br />Paper entries use a reported ask and mark at a reported bid. This prototype does not model fees, queue position, partial fills, or execution latency, so its paper P&amp;L is not actual account performance.</td><td><a class="source-link" href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener noreferrer">Kalshi · Settlement rules ↗</a><br /><a class="source-link" href="https://docs.kalshi.com/api-reference/portfolio/get-positions" target="_blank" rel="noopener noreferrer">Kalshi · Portfolio fields ↗</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="review-section" id="category-matching" aria-labelledby="methodHeading">
+          <p class="eyebrow">METHOD AND SAFETY</p>
+          <h2 id="methodHeading">How to make this more live and decision-useful</h2>
+          <div class="method-list">
+            <article><strong>Use a trusted server-side bridge for private features</strong><p>Keep private signing keys in a server-side secret manager, expose a narrowly scoped backend to the static dashboard, and audit access. Do not paste a private key into browser code. Kalshi’s authenticated request and WebSocket guides describe the signing requirement.</p></article>
+            <article><strong>Add push updates only after secure authentication</strong><p>Once a protected backend exists, use Kalshi’s authenticated WebSocket session for ticker/orderbook updates, reconnect backoff, and explicit stale-feed indicators. Keep polling as a documented fallback.</p></article>
+            <article><strong>Backtest before claiming ROI</strong><p>Store timestamped historical snapshots and settlement outcomes, version each strategy, include fees and realistic fills, and compare results out of sample. The current candidate filter is not a return forecast.</p></article>
+            <article><strong>Keep price movement separate from cause</strong><p>The alert's title-based Google News link is a search only, not an ingested or verified headline. Add a timestamped, independently verified news feed before presenting specific coverage, and never imply that a matching article proves causation.</p></article>
+            <article><strong>Confirm aggregate notional semantics</strong><p>Ask Kalshi or locate a documented field that means total traded dollar value at the event level. Until that is confirmed, do not relabel contract counts or a per-contract field as dollar volume.</p></article>
+            <article><strong>Preserve resolution provenance</strong><p>Retain the specific market API response and settlement timestamp/result for each tracked ticker, and visibly mark missing or conflicting status data rather than guessing.</p></article>
+          </div>
+        </section>
+
+        <section class="review-section" aria-labelledby="sourcesHeading">
+          <p class="eyebrow">MANUAL REVIEW LINKS</p>
+          <h2 id="sourcesHeading">Official sources consulted</h2>
+          <ul class="source-list">
+            <li><a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">API Environments and Endpoints ↗</a>REST and WebSocket production/demo endpoint pairs.</li>
+            <li><a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener noreferrer">Quick Start: Market Data ↗</a>Unauthenticated REST data, market discovery, orderbooks, and data freshness.</li>
+            <li><a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener noreferrer">Get Markets ↗</a>Market-list request parameters, status filters, schema, and pagination cursor.</li>
+            <li><a href="https://docs.kalshi.com/api-reference/market/get-market" target="_blank" rel="noopener noreferrer">Get Market ↗</a>Single-market response schema and official market fields.</li>
+            <li><a href="https://docs.kalshi.com/getting_started/orderbook_responses" target="_blank" rel="noopener noreferrer">Orderbook Responses ↗</a>YES/NO bid arrays, level quantities, sorting, and reciprocal ask explanation.</li>
+            <li><a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener noreferrer">Quick Start: WebSockets ↗</a>Demo WebSocket URL, authentication, and public/private channel behavior.</li>
+            <li><a href="https://docs.kalshi.com/getting_started/quick_start_authenticated_requests" target="_blank" rel="noopener noreferrer">Quick Start: Authenticated Requests ↗</a>Key ID, private-key signing, and demo portfolio example.</li>
+            <li><a href="https://docs.kalshi.com/api-reference/portfolio/get-positions" target="_blank" rel="noopener noreferrer">Get Positions ↗</a>Authenticated market/event positions and portfolio P&amp;L fields.</li>
+            <li><a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener noreferrer">Market Settlement ↗</a>Simple yes/no settlement outcomes and payout overview.</li>
+            <li><a href="https://docs.kalshi.com/getting_started/pagination" target="_blank" rel="noopener noreferrer">Understanding Pagination ↗</a>Cursor behavior and list endpoint pagination notes.</li>
+            <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages" target="_blank" rel="noopener noreferrer">GitHub Pages custom workflows ↗</a>Official custom action-based deployment requirements.</li>
+          </ul>
+        </section>
+
+        <footer class="site-footer">
+          <div><strong>Market Lens · Kalshi demo</strong><span>Findings are time-bound; re-check sources before relying on them.</span></div>
+          <div class="footer-links"><a href="index.html">Dashboard overview</a><a href="https://demo.kalshi.co/" target="_blank" rel="noopener noreferrer">Kalshi demo site ↗</a></div>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

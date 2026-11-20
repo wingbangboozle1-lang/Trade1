@@ -1,0 +1,8 @@
+{
+  "name": "kalshi-demo-market-lens",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js && python3 scripts/generate_topic_pages.py --check && python3 tests/check_site.py"
+  }
+}

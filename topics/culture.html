@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d1719" />
+    <meta
+      name="description"
+      content="A read-only Kalshi demo-market monitor for gas prices, elections, culture, crypto, and golf, with sampled alerts and local paper strategies."
+    />
+    <title>Kalshi Demo Monitor · Culture</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="module" src="../app.js"></script>
+  </head>
+  <body data-category="culture">
+    <a class="skip-link" href="#main-content">Skip to dashboard</a>
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="Kalshi Demo Monitor home">
+        <span class="brand-mark" aria-hidden="true">K</span>
+        <span class="brand-copy">
+          <strong>Market Lens</strong>
+          <small>Kalshi demo monitor</small>
+        </span>
+      </a>
+      <div class="connection-status" aria-live="polite">
+        <span id="connectionDot" class="connection-dot" aria-hidden="true"></span>
+        <span>
+          <strong id="connectionLabel">Waiting for Kalshi demo API</strong>
+          <small id="lastUpdated">No live snapshot received yet</small>
+        </span>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="primary-nav" aria-label="Dashboard navigation">
+          <a class="nav-link" href="../index.html" data-nav-category="all">
+            <span class="nav-icon" aria-hidden="true">◫</span> Overview
+          </a>
+          <a class="nav-link" href="gas-prices.html" data-nav-category="gas-prices">
+            <span class="nav-icon" aria-hidden="true">⌁</span> Gas prices
+          </a>
+          <a class="nav-link" href="elections.html" data-nav-category="elections">
+            <span class="nav-icon" aria-hidden="true">▤</span> Elections
+          </a>
+          <a class="nav-link" href="culture.html" data-nav-category="culture">
+            <span class="nav-icon" aria-hidden="true">✳</span> Culture
+          </a>
+          <a class="nav-link" href="crypto.html" data-nav-category="crypto">
+            <span class="nav-icon" aria-hidden="true">₿</span> Crypto
+          </a>
+          <a class="nav-link" href="golf.html" data-nav-category="golf">
+            <span class="nav-icon" aria-hidden="true">◎</span> Golf
+          </a>
+        </nav>
+        <p class="nav-label nav-label-spaced">TOOLS</p>
+        <nav class="primary-nav" aria-label="Research tools">
+          <a class="nav-link" href="#alerts"><span class="nav-icon" aria-hidden="true">◉</span> Price alerts</a>
+          <a class="nav-link" href="#paper-lab"><span class="nav-icon" aria-hidden="true">▥</span> Paper lab</a>
+          <a class="nav-link" href="#resolution"><span class="nav-icon" aria-hidden="true">✓</span> Resolution tracker</a>
+          <a class="nav-link" href="../flagged-for-review.html">
+            <span class="nav-icon" aria-hidden="true">⚑</span> Flagged for review
+            <span class="nav-count" aria-label="Review items">!</span>
+          </a>
+        </nav>
+        <div class="sidebar-note">
+          <span class="status-pill status-pill-demo">DEMO · READ ONLY</span>
+          <p>No account keys are stored or requested. Simulated positions stay in this browser.</p>
+        </div>
+      </aside>
+
+      <main id="main-content" class="main-content">
+        <section class="page-hero">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span> PUBLIC DEMO DATA · FIVE TOPICS</p>
+            <h1 id="pageTitle">Kalshi market overview</h1>
+            <p id="pageDescription" class="hero-copy">
+              A practical view of open demo markets across gas prices, elections, culture, crypto, and golf.
+              Topics are matched from market text; they are not official Kalshi categories.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-subtle" href="../flagged-for-review.html">Review scope &amp; sources <span aria-hidden="true">↗</span></a>
+            <a class="button button-primary" href="https://demo.kalshi.co/" target="_blank" rel="noopener noreferrer">
+              Open Kalshi demo <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="safety-banner" aria-label="Important simulation notice">
+          <span class="safety-icon" aria-hidden="true">!</span>
+          <p>
+            <strong>Demo data and paper trades only.</strong>
+            This static site reads public market data. It does not authenticate, connect to a demo portfolio,
+            or submit exchange orders. Price alerts are sampled REST observations and may lag or miss moves between polls.
+          </p>
+        </section>
+
+        <section class="executive-summary panel" data-home-only aria-labelledby="summaryHeading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">EXECUTIVE SUMMARY</p>
+              <h2 id="summaryHeading">A transparent, read-only monitor</h2>
+            </div>
+            <a class="text-link" href="../flagged-for-review.html">See verified details and open items <span aria-hidden="true">→</span></a>
+          </div>
+          <p>
+            The dashboard discovers open demo markets with Kalshi’s public Trade API, groups markets by five
+            requested topics, records observed YES-bid changes of at least $0.10, and displays bid depth for a
+            selected market. The $0.10 alerts are generated only from consecutive snapshots seen by this browser.
+            The strategy shortlist is an explicit liquidity/spread screen—not a tested forecast or a claim of high ROI.
+          </p>
+          <div class="summary-facts">
+            <div><span class="fact-label">Market data</span><strong>Demo REST · best-effort polling</strong></div>
+            <div><span class="fact-label">History</span><strong>Collected locally while this page is open</strong></div>
+            <div><span class="fact-label">Trading</span><strong>Automatic paper simulation only</strong></div>
+            <div><span class="fact-label">Dollar-volume ranking</span><strong class="text-warning">Unverified · not inferred</strong></div>
+          </div>
+        </section>
+
+        <section class="metric-grid" aria-label="Market summary">
+          <article class="metric-card">
+            <div class="metric-top"><span>Matching live markets</span><span class="metric-icon metric-icon-green" aria-hidden="true">◫</span></div>
+            <strong id="marketCount" class="metric-value">—</strong>
+            <small id="marketCountNote">Waiting for the official open-market response</small>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>Observed moves ≥ $0.10</span><span class="metric-icon metric-icon-amber" aria-hidden="true">↕</span></div>
+            <strong id="moveCount" class="metric-value">0</strong>
+            <small>Stored in this browser · up to 100 per feed</small>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>Highest reported 24h volume</span><span class="metric-icon metric-icon-blue" aria-hidden="true">≋</span></div>
+            <strong id="topVolume" class="metric-value">—</strong>
+            <small id="topVolumeNote">Contracts, not dollar notional</small>
+          </article>
+          <article class="metric-card metric-card-warning">
+            <div class="metric-top"><span>Aggregate dollar notional</span><span class="metric-icon metric-icon-amber" aria-hidden="true">$</span></div>
+            <strong class="metric-value">—</strong>
+            <small><a href="../flagged-for-review.html#dollar-notional">Unverified · intentionally blank</a></small>
+          </article>
+        </section>
+
+        <section class="panel market-panel" id="markets" aria-labelledby="marketsHeading">
+          <div class="section-heading section-heading-wrap">
+            <div>
+              <p class="eyebrow">MARKET DISCOVERY</p>
+              <h2 id="marketsHeading">Open markets by topic and event</h2>
+              <p class="section-subtitle">Events rank by their highest fresh 24-hour market contract-volume reading; markets rank within each event by the same measure. This is not event-level dollar volume, which remains unverified and blank.</p>
+            </div>
+            <div class="toolbar-actions">
+              <label class="select-label" for="chartRange">Chart window</label>
+              <select id="chartRange" class="control-select" aria-label="Chart time range">
+                <option value="30">Last 30 seconds</option>
+                <option value="300" selected>Last 5 minutes</option>
+                <option value="3600">Last hour</option>
+                <option value="21600">Last 6 hours</option>
+              </select>
+              <button id="refreshNow" class="button button-subtle" type="button">Refresh now <span aria-hidden="true">↻</span></button>
+            </div>
+          </div>
+          <div class="table-note">
+            <span class="note-mark" aria-hidden="true">i</span>
+            <span>Prices and sizes are shown only when returned by the official market response. Each data row links to its specific Kalshi demo API record; the raw status is displayed without remapping.</span>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table market-table">
+              <thead>
+                <tr>
+                  <th scope="col">Market / event</th>
+                  <th scope="col">Topic</th>
+                  <th scope="col">YES bid</th>
+                  <th scope="col">YES ask</th>
+                  <th scope="col">Best YES bid size</th>
+                  <th scope="col">Best YES ask size</th>
+                  <th scope="col">24h volume<br /><small>contracts</small></th>
+                  <th scope="col">Dollar notional</th>
+                  <th scope="col">API status</th>
+                  <th scope="col">Source</th>
+                </tr>
+              </thead>
+              <tbody id="marketRows">
+                <tr><td class="empty-cell" colspan="10">Connecting to the official Kalshi demo market-data endpoint…</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer">
+            <span id="marketTableStatus">No snapshot received yet.</span>
+            <span><a href="../flagged-for-review.html#category-matching">Topic matching is heuristic</a> · <a href="../flagged-for-review.html#dollar-notional">Dollar notional is unverified</a></span>
+          </div>
+        </section>
+
+        <section class="detail-grid" aria-label="Selected market details">
+          <article class="panel chart-panel" aria-labelledby="chartHeading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">OBSERVED PRICE</p>
+                <h2 id="chartHeading">YES bid history</h2>
+                <p id="selectedMarketLabel" class="section-subtitle">Select a market row to start a chart.</p>
+              </div>
+              <span class="chart-legend"><span class="legend-dot"></span> YES bid (USD)</span>
+            </div>
+            <div class="chart-frame">
+              <canvas id="priceChart" role="img" aria-label="Selected Kalshi market YES bid over time"></canvas>
+              <p id="chartEmpty" class="chart-empty">Chart samples are collected in this browser while the market is selected.</p>
+            </div>
+            <div class="chart-axis-note"><span>X · local observation time</span><span>Y · YES bid, dollars</span></div>
+            <p class="fine-print">This is a sampled local history, not Kalshi historical data. REST responses may be cached; unsampled intraperiod moves are not visible.</p>
+          </article>
+
+          <article class="panel orderbook-panel" aria-labelledby="orderbookHeading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">AVAILABLE BIDS</p>
+                <h2 id="orderbookHeading">Order book levels</h2>
+                <p id="orderbookMarketLabel" class="section-subtitle">Select a market to load its book.</p>
+              </div>
+              <div class="toolbar-actions book-actions">
+                <label class="select-label" for="bookDepth">Levels</label>
+                <select id="bookDepth" class="control-select" aria-label="Orderbook levels per side">
+                  <option value="5">Top 5</option>
+                  <option value="10">Top 10</option>
+                  <option value="20" selected>Top 20</option>
+                  <option value="50">Top 50</option>
+                </select>
+                <a id="orderbookSource" class="source-link" href="https://docs.kalshi.com/getting_started/orderbook_responses" target="_blank" rel="noopener noreferrer">API guide ↗</a>
+              </div>
+            </div>
+            <div class="table-scroll orderbook-scroll">
+              <table class="data-table compact-table">
+                <thead><tr><th scope="col">Side</th><th scope="col">Bid price</th><th scope="col">Contracts at price</th><th scope="col">Source</th></tr></thead>
+                <tbody id="orderbookRows"><tr><td colspan="4" class="empty-cell">No market selected.</td></tr></tbody>
+              </table>
+            </div>
+            <p id="orderbookStatus" class="fine-print">The official orderbook returns bid levels for YES and NO; it does not return asks as direct book levels.</p>
+          </article>
+        </section>
+
+        <section class="panel alert-panel" id="alerts" aria-labelledby="alertsHeading">
+          <div class="section-heading section-heading-wrap">
+            <div>
+              <p class="eyebrow">LIVE ALERT STREAM · OBSERVED BY THIS BROWSER</p>
+              <h2 id="alertsHeading">Sharp price moves</h2>
+              <p class="section-subtitle">Trigger: absolute change in reported YES bid of at least $0.10 between successful snapshots.</p>
+            </div>
+              <div class="toolbar-actions alert-toolbar">
+                <span class="status-pill status-pill-outline">30s best-effort REST polling</span>
+                <button id="clearAlerts" class="button button-subtle" type="button">Clear feeds</button>
+              </div>
+            </div>
+            <div class="alert-columns">
+            <article class="alert-feed-card">
+              <div class="feed-heading"><div><span class="feed-dot feed-dot-all"></span><h3>All qualifying moves</h3></div><span id="allAlertCount" class="feed-count">0</span></div>
+              <p class="feed-description">Every observed move meeting the threshold across the five topic filters.</p>
+              <div id="allAlerts" class="chat-feed" role="log" aria-label="All qualifying price moves" aria-live="polite">
+                <div class="feed-empty">No qualifying sampled moves yet.</div>
+              </div>
+            </article>
+            <article class="alert-feed-card alert-feed-highlight">
+              <div class="feed-heading"><div><span class="feed-dot feed-dot-model"></span><h3>Screened research candidates</h3></div><span id="candidateCount" class="feed-count">0</span></div>
+              <p class="feed-description">Requires a ≥$0.10 move, YES spread ≤$0.05, both best-side sizes ≥5 contracts, binary type, and default settlement. <strong>Not</strong> a validated high-ROI model.</p>
+              <div id="candidateAlerts" class="chat-feed" role="log" aria-label="Screened research candidates" aria-live="polite">
+                <div class="feed-empty">No move has passed the transparent screen.</div>
+              </div>
+            </article>
+          </div>
+          <p class="causality-note"><strong>Cause not verified.</strong> Each alert links to its official market record and a title-based Google News search for context only. Search results are not verified headlines or evidence that news caused the move.</p>
+        </section>
+
+        <section class="panel paper-panel" id="paper-lab" aria-labelledby="paperHeading">
+          <div class="section-heading section-heading-wrap">
+            <div>
+              <p class="eyebrow">LOCAL STRATEGY LAB</p>
+              <h2 id="paperHeading">Automated paper strategies</h2>
+              <p class="section-subtitle">Automatic simulation is on by default; it creates browser-local hypothetical entries only. No account or order endpoint is called.</p>
+            </div>
+            <label class="toggle-control" for="autoPaperToggle">
+              <span>Auto paper</span>
+              <input id="autoPaperToggle" type="checkbox" checked />
+              <span class="toggle-visual" aria-hidden="true"></span>
+            </label>
+          </div>
+          <div class="simulation-config">
+            <div class="config-copy">
+              <strong>Transparent entry rule</strong>
+              <p>Entry screen: observed YES-bid move ≥$0.10, YES spread ≤$0.05, YES bid/ask sizes ≥5 contracts each, market_type=binary, and settlement_bounds_type=default. One position per market/strategy is opened at the API-reported ask and marked at the API-reported bid; these thresholds are experimental, not ROI-validated.</p>
+            </div>
+            <div class="config-fields">
+              <label for="strategyMode">Strategies</label>
+              <select id="strategyMode" class="control-select">
+                <option value="both" selected>Momentum + mean reversion</option>
+                <option value="momentum">Momentum only</option>
+                <option value="mean-reversion">Mean reversion only</option>
+              </select>
+              <label for="paperQuantity">Contracts per paper entry</label>
+              <input id="paperQuantity" class="control-input" type="number" min="1" max="20" step="1" value="1" inputmode="numeric" />
+            </div>
+          </div>
+          <div class="paper-stats" id="paperSummary" aria-live="polite">
+            <div><span class="fact-label">Open positions</span><strong id="openPositionCount">0</strong></div>
+            <div><span class="fact-label">Settled paper P&amp;L</span><strong id="realizedPnl">—</strong></div>
+            <div><span class="fact-label">Open mark-to-market</span><strong id="unrealizedPnl">—</strong></div>
+            <div><span class="fact-label">Simulation scope</span><strong>Local browser only</strong></div>
+          </div>
+          <div class="table-scroll strategy-table-wrap">
+            <table class="data-table">
+              <thead><tr><th scope="col">Strategy</th><th scope="col">Paper trades</th><th scope="col">Settled</th><th scope="col">Realized paper P&amp;L</th><th scope="col">Open mark-to-market</th><th scope="col">Payout rule source</th></tr></thead>
+              <tbody id="strategyRows"><tr><td colspan="6" class="empty-cell">No strategy results yet.</td></tr></tbody>
+            </table>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead><tr><th scope="col">Observed time / market</th><th scope="col">Topic</th><th scope="col">Strategy</th><th scope="col">Side</th><th scope="col">Qty</th><th scope="col">Entry ask</th><th scope="col">Latest bid / payout</th><th scope="col">Paper P&amp;L</th><th scope="col">State</th><th scope="col">Source</th></tr></thead>
+              <tbody id="paperRows"><tr><td colspan="10" class="empty-cell">No paper entries have been generated.</td></tr></tbody>
+            </table>
+          </div>
+          <div class="table-footer paper-footer">
+            <span id="paperStatus">Paper simulation is ready; it waits for a new qualifying sampled move.</span>
+            <button id="clearLocalData" class="text-button" type="button">Clear local paper data</button>
+          </div>
+          <p class="fine-print">Unsettled P&amp;L is (observed bid − simulated ask) × contracts. Settled P&amp;L uses the official yes/no result and the documented $1 winning-contract payout for default-settlement binary markets. Fees, queue position, slippage, partial fills, and account activity are not simulated.</p>
+        </section>
+
+        <section class="panel resolution-panel" id="resolution" aria-labelledby="resolutionHeading">
+          <div class="section-heading section-heading-wrap">
+            <div>
+              <p class="eyebrow">FOLLOW-THROUGH</p>
+              <h2 id="resolutionHeading">Resolution tracker</h2>
+              <p class="section-subtitle">Markets discovered by this browser are checked by ticker after leaving the open-market response. Outcomes are shown only when Kalshi returns a settled status and a yes/no result.</p>
+            </div>
+            <span id="resolutionCount" class="status-pill status-pill-outline">0 tracked</span>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead><tr><th scope="col">Market / event</th><th scope="col">Topic</th><th scope="col">API status</th><th scope="col">Official result</th><th scope="col">Last observed</th><th scope="col">Source</th></tr></thead>
+              <tbody id="resolutionRows"><tr><td colspan="6" class="empty-cell">No closed or settled markets have been observed yet.</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="closing-note" data-home-only>
+          <div>
+            <p class="eyebrow">IMPLEMENTATION BOUNDARY</p>
+            <h2>What this dashboard can and cannot verify</h2>
+            <p>The demo REST endpoints and market-data fields are verified against Kalshi’s official documentation. This static client cannot safely hold an API private key, access a private demo portfolio, submit real demo orders, or guarantee push-level freshness. Dollar-notional semantics, strategy ROI, and external news causality remain flagged rather than guessed.</p>
+          </div>
+          <a class="button button-primary" href="../flagged-for-review.html">Open flagged review page <span aria-hidden="true">→</span></a>
+        </section>
+
+        <footer class="site-footer">
+          <div><strong>Market Lens · Kalshi demo</strong><span>Educational prototype · not financial advice</span></div>
+          <div class="footer-links">
+            <a href="../flagged-for-review.html">Flagged for review</a>
+            <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener noreferrer">Official API environments</a>
+            <a href="https://docs.kalshi.com/getting_started/quick_start_market_data" target="_blank" rel="noopener noreferrer">Official market-data guide</a>
+          </div>
+        </footer>
+      </main>
+    </div>
+    <div id="announcer" class="visually-hidden" aria-live="polite"></div>
+  </body>
+</html>
