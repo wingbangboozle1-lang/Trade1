@@ -598,3 +598,13 @@ removal and the fix now lives in `assets/app.js → kalshiUrl()`). `live.html` a
 removed too — no nav entry pointed at them, one of them still loaded the deleted engine, and both duplicated
 Dashboard/Strategy Lab content. Remaining site: **15 pages**, `BUILD OK`, `23/23` engine tests, `40/40` unit
 tests, `0` check failures. Their findings remain in `flagged.html`, `reports/` and `docs/`.
+
+### Final current-branch audit (`1db0a677`, 2026-11-20 UTC)
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| Final verification of integrated site, Pages, workflows, and remaining limitations | done | `1db0a677` (`arena/1db0a677-trade1`) | `reports/FINAL_AUDIT.md`, this section of `COORDINATION.md` |
+
+This is a verification/documentation pass only; it does not take over another session's implementation scope or alter the canonical site/data. Branch started at `069a1db6026f573f7b1227115c04e5cf481a9ed3`; mainline additions were preserved during rebases. Current validation: `npm run build` (15 HTML, 2 JS, 0 broken links); `npm test` (23/23 plus lib tests); `node tests/root_engine.test.js` (40/40); `npm run check` (15 HTML, 274 links, 1,118 rows, 625 resolved, 0 failures). Pages deployment 44802648997 and site checks 44802649528 passed; live page metadata was fetched. See [`reports/FINAL_AUDIT.md`](reports/FINAL_AUDIT.md) for sources, exact evidence, limitations, and conflict notes.
+
+Audit PR #28: https://github.com/wingbangboozle1-lang/Trade1/pull/28 (open from `arena/1db0a677-trade1` to `main`). Checks passed on the preceding head; this rebase incorporates the newest mainline integration and the final head is being re-validated before merge.
