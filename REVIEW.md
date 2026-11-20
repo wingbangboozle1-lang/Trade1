@@ -19,7 +19,7 @@ in place and summarized at the bottom; they are also published on the site's
 ### `assets/app.js` (engine)
 - Polling batch uses `GET /markets?tickers=…` — verified live: single response, empty cursor, works for settled markets too (settlement detection comes free from the same response).
 - Discovery uses `GET /events?status=open&limit=200` (verified: `limit=1000` → 400) and `GET /series?category=…&include_volume=true` (verified live; `status` is **not** sent on `/series` because it is not a documented parameter there).
-- Alert rule: sampled price delta ≥ $0.10 either direction, raw compare with 1e-9 tolerance (official prices are 4-dp fixed-point strings per [Fixed-Point Representation](https://docs.kalshi.com/getting_started/fixed_point_migration)).
+- Alert rule: sampled price delta ≥ $0.10 either direction, compared as integer 1e-4 units (official prices are 4-dp fixed-point strings per [Fixed-Point Representation](https://docs.kalshi.com/getting_started/fixed_point_migration)). This avoids binary-float misses (e.g. 0.66 − 0.56 = 0.0999… would fail a naive `>= 0.10`). Updated by session `a67aa1ab`.
 - Order book: `orderbook_fp.{yes_dollars,no_dollars}`, ascending, best bid last, asks derived as `1 − bid` per [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses). Computed bid-side liquidity is labeled computed, not exchange-published.
 - Chart windows ≥ 1 h use `GET /series/{s}/markets/{t}/candlesticks` (period 1 or 60 min) per [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks); sub-hour windows use session samples only (REST cache lag documented by Kalshi).
 - 429 handling: exponential backoff, per [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits).
@@ -72,8 +72,25 @@ in place and summarized at the bottom; they are also published on the site's
 15. Alerts are sampled between polls (~12 s); faster swings invisible over REST.
 16. Sub-hour chart windows use session samples that reset on reload (localStorage prudence).
 
+## Integration pass — session `a67aa1ab` (2026-11-20, branch `arena/a67aa1ab-trade1`, base `main` @ `069a1db`)
+
+Scope: root site docs + engine (`COORDINATION.md`, `EXECUTIVE_SUMMARY.md`, `REVIEW.md`, `assets/app.js`, `assets/model.js`, `scripts/collect.py`, `flagged.html`, `methods.html`). No other session's files touched.
+
+Changes verified line by line:
+
+1. **`assets/app.js` — alert threshold made float-safe.** Replaced `Math.abs(raw) < CFG.alertThreshold - 1e-9` with integer 1e-4 comparison (`Math.abs(Math.round(raw * 10000)) < 1000`), so an exact $0.10 move (e.g. $0.66 → $0.56) can never be missed through double error. Alert now reports 4-dp delta.
+2. **`assets/app.js` + `assets/model.js` — golf topic defense-in-depth.** Added `exclCats: ['Politics', 'Elections']` to the golf topic in both `assets/model.js` (client classifier) and mirrored the `exclude_categories` check already in `scripts/topics.json` / `scripts/collect.py` discovery, so Trump golf-club markets filed under Politics never enter the Golf topic (credit: session `a2ec5543` PR #20).
+3. **`assets/app.js` — ranking by highest estimated traded dollars.** `rowsFor()` now sorts by total est. dollars (`volume_fp × last_price_dollars`) with 24h est. as tiebreak; label updated on the dashboard ("Ranked by highest estimated traded dollars … compute, not exchange-published").
+4. **`assets/app.js` — orderbook now shows NO-side depth.** Added NO ask (derived `1 − YES bid`) and NO bid ladders with contracts-at-each-price bars, so traders can see how many contracts are available at a given price on both sides.
+5. **`assets/app.js` — chart alert markers.** ≥$0.10 swing alerts for the selected ticker are plotted on the price curve (green = up, pink = down) within the chosen time window.
+6. **`assets/app.js` — fee disclosure updated.** Paper broker fees are ON by default using the official taker schedule `round_up(0.07 × C × P × (1−P))` (verified from the fee schedule PDF); the "Fees excluded / UNVERIFIED 7%" language removed.
+7. **`EXECUTIVE_SUMMARY.md`** rewritten to describe the deployed root site (was describing session `f6094c46`'s `site/` build).
+8. **`REVIEW.md`** — alert-rule line updated; this integration section added.
+9. **`COORDINATION.md`** — claim appended (task, status, owner session, files in scope); PR/merge to be recorded here after integration.
+
 ## How to re-verify
 
 - Snapshot evidence: `data/log.md` (every request logged), `data/cors.json`, `data/meta.json`.
 - Live probes: open any linked endpoint URL from `data.html` or `sources.html` in a browser.
-- Site build: all pages return HTTP 200 from a static server; JS passes `node --check`; model harness passes (see session log in COORDINATION.md).
+- Site build: all pages return HTTP 200 from a static server; JS passes `node --check` (done for `assets/app.js`, `assets/model.js`); model harness passes (see session log in COORDINATION.md).
+- Re-run `node scripts/test_lib.mjs` and `node scripts/check_site.mjs` (0 failures) before merge.
