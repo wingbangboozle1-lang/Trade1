@@ -62,7 +62,9 @@
     var sortSel = $("marketSort");
     var chartCanvas = $("priceChart");
     var depthCanvas = $("depthChart");
-    var state = { topic: "all", range: 300, ticker: null, zoomY: true };
+    // History starts at the first collector run, so the default window spans everything we have
+    // rather than pretending an empty 5-minute window is a flat price.
+    var state = { topic: "all", range: 86400, ticker: null, zoomY: true };
 
     fetch("data/markets.json", { cache: "no-store" })
       .then(function (r) { return r.json(); })

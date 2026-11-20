@@ -324,6 +324,9 @@ def build_markets(snap, universe, jumps):
         payload[m["ticker"]] = {
             "ticker": m["ticker"], "title": m["title"], "event": m["event_title"],
             "topics": m["topics"], "points": points,
+            "observed_points": sum(1 for p in points if p.get("src") != "candle"),
+            "history_points": sum(1 for p in points if p.get("src") == "candle"),
+            "price_label": m.get("price_label"),
             "book": (m.get("book") or {}).get("levels") or {},
             "liquidity": (m.get("book") or {}),
             "close_time": m.get("close_time"),
@@ -398,11 +401,12 @@ size of the market. Switch to liquidity to see where an order would actually fil
       <div class="controls">
         <div class="seg" id="rangeSeg">
           <button type="button" data-range="60" aria-pressed="false">1m</button>
-          <button type="button" data-range="300" aria-pressed="true">5m</button>
+          <button type="button" data-range="300" aria-pressed="false">5m</button>
           <button type="button" data-range="3600" aria-pressed="false">1h</button>
           <button type="button" data-range="21600" aria-pressed="false">6h</button>
-          <button type="button" data-range="86400" aria-pressed="false">24h</button>
+          <button type="button" data-range="86400" aria-pressed="true">24h</button>
           <button type="button" data-range="604800" aria-pressed="false">7d</button>
+          <button type="button" data-range="0" aria-pressed="false">all</button>
         </div>
         <label class="inline"><input type="checkbox" id="zoomY" checked> zoom Y</label>
       </div>
@@ -414,7 +418,8 @@ size of the market. Switch to liquidity to see where an order would actually fil
         <span class="faint">dashed vertical lines = moves ≥ $0.10</span>
       </div>
       <p class="faint" style="font-size:12px;margin-top:8px">X axis: time · Y axis: contract price in dollars.
-      Points are observations written by the collector; hover for exact values.</p>
+      Points are observations written by the collector (every ~15 min), plus exchange candles where
+      backfilled. Hover for exact values.</p>
     </div>
     <div class="card" style="margin-top:14px">
       <h2>Order book <span class="hint">contracts resting at each price</span></h2>
