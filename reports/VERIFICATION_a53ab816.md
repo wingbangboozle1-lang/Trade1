@@ -8,7 +8,7 @@
 
 This was an audit and targeted factual-correction pass on the already-integrated site, not a new dashboard implementation. The deployed root site already contains the live/polled dashboard, topic pages, price and depth charts, ≥$0.10 alert chats, automatic paper strategies and an always-on paper ledger, resolution views, and a separate opt-in demo-account console.
 
-The pass corrected inaccurate statements on `flagged.html` that said no account API/order support existed, corrected a typo in Kalshi's supported demo WebSocket host, and clarified that the browser Strategy Lab and CI ledger use different fee rounding approximations. The ordinary paper workflow remains automatic and needs no keys. Real demo-account balance/positions and actual demo orders remain opt-in and require a user-owned key; no key was present and no account request or order was sent in this audit.
+The pass corrected inaccurate statements on `flagged.html` that said no account API/order support existed, corrected a typo in Kalshi's supported demo WebSocket host, clarified that the browser Strategy Lab and CI ledger use different fee rounding approximations, and refreshed stale account/repository-state notes. `README.md` now clearly distinguishes the no-key automatic paper workflow from the optional account console. Real demo-account balance/positions and actual demo orders remain opt-in and require a user-owned key; no key was present and no account request or order was sent in this audit.
 
 ## Official-source verification
 
@@ -40,14 +40,16 @@ The account console UI and implementation were inspected locally: `demo-account/
 ## Verification performed on this checkout
 
 - `npm ci --no-audit --no-fund` — installed locked test dependencies.
-- `npm test` — **23/23** page/engine assertions passed; library tests passed.
 - `npm run check` — build passed (**18 HTML**, 6 JS, 0 broken links); source checker passed (**1,250 market rows**, 825 resolved rows, 374 checked links, 0 failures).
+- `npm test` — **23/23** page/engine assertions passed; library tests passed.
 - `node tests/root_engine.test.js` — **40/40** assertions passed (including exact ±$0.10 thresholds).
 - `node tests/demo-account.test.mjs` — **89/89** passed.
 - `node tests/portfolio.test.mjs` — **60/60** passed.
 - `python3 scripts/portfolio_engine.py selftest` — **50/50** passed.
 - `node scripts/check_links.mjs` — 16 published pages, 360 local links, 175 external links, 0 failures; two warnings explicitly identify legacy pages outside published navigation (`executive-summary.html`, `resolved.html`).
-- GitHub API: Pages reports `status: built`, public, HTTPS enforced, legacy source `main /`. Latest build ID `1388030462` reports `built` for commit `9f519d6f710bfccfd1a241803a0742a89822dc2a`. The site's CI checks and Pages deploy Actions runs for that commit both completed successfully (runs `44806283895` and `44806282975`).
+- PR [#48](https://github.com/wingbangboozle1-lang/Trade1/pull/48) merged at 2026-11-20 20:07 UTC as merge commit `14312e3b2f7ba72d47f82757b21c14bb7591a7fa`. PR checks passed (Actions run [44808347447](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44808347447)).
+- GitHub Pages API reports `status: built`, public, HTTPS enforced, legacy source `main /`. Latest build ID `1388061000` reports `built` for commit `14312e3b2f7ba72d47f82757b21c14bb7591a7fa`. Pages deploy Actions run [44808435520](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44808435520) and site-check run [44808436536](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44808436536) completed successfully on that commit.
+- The live [Flagged for Review page](https://wingbangboozle1-lang.github.io/Trade1/flagged.html) was fetched after deploy and showed the corrected section headings and fee/credential/WSS-host disclosures.
 
 ## Limits and remaining review items
 
