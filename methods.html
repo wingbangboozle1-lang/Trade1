@@ -40,8 +40,9 @@
     <tr><td><code>GET /markets/{ticker}/orderbook</code></td><td>Depth panel + computed liquidity</td><td>~8 s (selected)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-order-book">Get Market Orderbook</a></td></tr>
     <tr><td><code>GET /series/{s}/markets/{t}/candlesticks?period_interval=1|60</code></td><td>Chart windows ≥ 1 hour</td><td>~60 s (visible)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a></td></tr>
     <tr><td><code>GET /markets?status=settled&amp;min_settled_ts=…</code></td><td>Actions snapshot of recent resolutions</td><td>2×/hour (runner)</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a></td></tr>
+    <tr><td><code>GET /series?category=X&amp;include_volume=true</code></td><td>Authoritative per-topic series discovery (covers hourly crypto / daily AAA-gas series that /events paging misses)</td><td>~6 min (client) + per runner run</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series-list">Get Series List</a></td></tr>
   </table></div>
-  <p class="muted small">Verified live: <code>limit=1000</code> on <code>/events</code> is rejected (400); <code>tickers=</code> returns every matching market with an empty cursor; demo responses use <code>status</code> values <code>active</code> (open) and <code>finalized</code> (settled) although the docs enumerate <code>open/settled</code> — flagged. Evidence: <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md" target="_blank" rel="noopener">data/log.md</a>.</p>
+  <p class="muted small">Verified live: <code>limit=1000</code> on <code>/events</code> is rejected (400); <code>tickers=</code> returns every matching market with an empty cursor; demo responses use <code>status</code> values <code>active</code> (open) and <code>finalized</code> (settled) although the docs enumerate <code>open/settled</code> — flagged; <code>/series?category=…</code> is case-sensitive and does not document a <code>status</code> parameter (none is sent). Evidence: <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md" target="_blank" rel="noopener">data/log.md</a>.</p>
 </section>
 
 <section class="box" style="margin-top:14px">
@@ -77,7 +78,7 @@
   </table></div>
   <ul class="small">
     <li>Sizing: target $25 per trade (configurable), max 8 concurrent positions, one position per strategy per market.</li>
-    <li>Fills assume the official quote with <b>no slippage</b> — optimistic; flagged. Fees are <b>excluded</b> (toggle exists but the fee schedule was not verified from an official source this session — flagged).</li>
+    <li>Fills assume the official quote with <b>no slippage</b> — optimistic; flagged. Fees: taker <code>roundup(0.07 × C × P × (1−P))</code> per the official <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">fee schedule</a> (verified this session), applied on paper entries and exits; maker fees not modeled (paper fills assume immediate match) — flagged. Fees can be toggled off in the Strategy Lab.</li>
     <li>Mark-to-market uses the official bid; settlement pays $1 per winning contract (<a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_settlement">Market Settlement</a>).</li>
     <li>All trades live in <code>localStorage</code> only (export/import/reset in the Strategy Lab).</li>
   </ul>
@@ -87,7 +88,7 @@
   <h2>5. Topic mapping (categories observed on the demo API)</h2>
   <div class="tablewrap"><table>
     <tr><th>Topic</th><th>Category match</th><th>Keyword / series guards</th></tr>
-    <tr><td>Gas prices</td><td>Economics, Energy</td><td>title: gasoline | gas price | average gas | fuel price | petrol; <b>excludes</b> natural gas / natgas / propane; series prefix GAS|FUEL</td></tr>
+    <tr><td>Gas prices</td><td>Economics, Energy</td><td>title: gasoline | gas price | average gas | fuel price | petrol; <b>excludes</b> natural gas / natgas / propane; series prefix (AAA)?GAS | FUEL (matches <code>KXAAAGASD</code> and <code>KXGAS…</code>)</td></tr>
     <tr><td>Elections</td><td>Elections</td><td>series prefix ELECT|SEN|HOUSE|GOV|PRES|MAYOR</td></tr>
     <tr><td>Culture</td><td>Culture, Entertainment, Mentions, Music, Movies, TV, Pop Culture</td><td>—</td></tr>
     <tr><td>Crypto</td><td>Crypto</td><td>series prefix BTC|ETH|SOL|XRP|DOGE|CRYPTO|BITCOIN|ETHEREUM|DEMOFUT (DEMOFUT = demo-synthetic BTC futures; flagged)</td></tr>
