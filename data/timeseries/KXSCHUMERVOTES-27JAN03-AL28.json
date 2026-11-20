@@ -1,0 +1,21 @@
+{
+"ticker": "KXSCHUMERVOTES-27JAN03-AL28",
+"title": "Will Schumer get at least 28 votes on the first Senate leader ballot?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.9,
+"ask": 0.92,
+"mid": 0.91,
+"last": 0.92,
+"vol": 220.61,
+"oi": 91.34
+}
+],
+"event_ticker": "KXSCHUMERVOTES-27JAN03",
+"series_ticker": "KXSCHUMERVOTES",
+"updated_at": "2026-11-20T13:30:34Z"
+}

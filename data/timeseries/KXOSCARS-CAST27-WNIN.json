@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARS-CAST27-WNIN",
+"title": "Will Wild Horse Nine win Casting at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.05,
+"ask": 0.11,
+"mid": 0.08,
+"last": 0.1,
+"vol": 143.03,
+"oi": 135.03
+}
+],
+"event_ticker": "KXOSCARS-CAST27",
+"series_ticker": "KXOSCARS",
+"updated_at": "2026-11-20T13:30:34Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARACTR-27-KAT",
+"title": "Will Kate O'Flynn win Best Actress at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 105.0,
+"oi": 105.0
+}
+],
+"event_ticker": "KXOSCARACTR-27",
+"series_ticker": "KXOSCARACTR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

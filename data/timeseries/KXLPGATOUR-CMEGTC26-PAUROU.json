@@ -1,0 +1,24 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-PAUROU",
+"title": "CME Group Tour Championship: Pauline Roussin-Bouchard wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.002,
+"ask": 0.011,
+"mid": 0.0065,
+"last": 0.011,
+"vol": 8422.0,
+"oi": 8096.68,
+"liq": 1860.55,
+"yes_qty": 1722.0,
+"no_qty": 2840.48
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

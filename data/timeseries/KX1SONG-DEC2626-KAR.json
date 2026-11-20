@@ -1,0 +1,21 @@
+{
+"ticker": "KX1SONG-DEC2626-KAR",
+"title": "Will KAROL G have a #1 hit this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.04,
+"ask": 0.05,
+"mid": 0.045,
+"last": 0.06,
+"vol": 7887.41,
+"oi": 5717.46
+}
+],
+"event_ticker": "KX1SONG-DEC2626",
+"series_ticker": "KX1SONG",
+"updated_at": "2026-11-20T13:30:35Z"
+}

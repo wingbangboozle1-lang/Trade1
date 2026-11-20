@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARSCORE-27-SOC",
+"title": "Will The Social Reckoning win Best Music (Original Score) at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.04,
+"vol": 1682.0,
+"oi": 970.0
+}
+],
+"event_ticker": "KXOSCARSCORE-27",
+"series_ticker": "KXOSCARSCORE",
+"updated_at": "2026-11-20T13:30:35Z"
+}

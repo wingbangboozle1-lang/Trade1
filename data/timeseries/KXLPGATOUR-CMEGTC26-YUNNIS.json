@@ -1,0 +1,24 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-YUNNIS",
+"title": "CME Group Tour Championship: Yuna Nishimura wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.002,
+"ask": 0.012,
+"mid": 0.007,
+"last": 0.006,
+"vol": 8881.8,
+"oi": 8497.94,
+"liq": 1534.63,
+"yes_qty": 1483.0,
+"no_qty": 3011.52
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

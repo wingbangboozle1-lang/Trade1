@@ -1,0 +1,21 @@
+{
+"ticker": "KXJEFFRIESVOTES-27FEB01-AL258",
+"title": "Will Jeffries get at least 258 votes on the first Speaker ballot?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.09,
+"ask": 0.17,
+"mid": 0.13,
+"last": 0.1,
+"vol": 2603.03,
+"oi": 1548.04
+}
+],
+"event_ticker": "KXJEFFRIESVOTES-27FEB01",
+"series_ticker": "KXJEFFRIESVOTES",
+"updated_at": "2026-11-20T13:30:35Z"
+}

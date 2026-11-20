@@ -1,0 +1,21 @@
+{
+"ticker": "KXMEXCOALSEATS-27JUN06-AL375",
+"title": "Will the combined number of Chamber of Deputies seats won by Morena, PT and PVEM be at least 375 in Mexico's Jun 6, 2027 election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.2,
+"ask": 0.22,
+"mid": 0.21,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"event_ticker": "KXMEXCOALSEATS-27JUN06",
+"series_ticker": "KXMEXCOALSEATS",
+"updated_at": "2026-11-20T13:30:35Z"
+}

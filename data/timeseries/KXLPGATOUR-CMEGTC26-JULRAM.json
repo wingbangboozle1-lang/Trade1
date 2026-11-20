@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-JULRAM",
+"title": "CME Group Tour Championship: Julia Lopez Ramirez wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.012,
+"mid": 0.006,
+"last": 0.004,
+"vol": 13264.07,
+"oi": 13187.11
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

@@ -1,0 +1,24 @@
+{
+"ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03-B50",
+"title": "Will Republicans win the 2026 U.S. House of Representatives national popular vote?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.001,
+"ask": 0.002,
+"mid": 0.0015,
+"last": 0.001,
+"vol": 2837372.77,
+"oi": 1155321.72,
+"liq": 5737.21,
+"yes_qty": 5544.03,
+"no_qty": 24869.4
+}
+],
+"event_ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03",
+"series_ticker": "KXHOUSEPOPVOTEMARGIN",
+"updated_at": "2026-11-20T13:30:35Z"
+}

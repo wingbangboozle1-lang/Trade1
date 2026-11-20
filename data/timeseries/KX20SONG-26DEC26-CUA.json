@@ -1,0 +1,21 @@
+{
+"ticker": "KX20SONG-26DEC26-CUA",
+"title": "Will Dua Lipa have a top 20 song this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.11,
+"ask": 0.18,
+"mid": 0.145,
+"last": 0.04,
+"vol": 1066.22,
+"oi": 440.88
+}
+],
+"event_ticker": "KX20SONG-26DEC26",
+"series_ticker": "KX20SONG",
+"updated_at": "2026-11-20T13:30:35Z"
+}

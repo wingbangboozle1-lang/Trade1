@@ -1,0 +1,21 @@
+{
+"ticker": "KX1DREUNION-27-JAN01",
+"title": "Will there be a One Direction reunion before Jan 1, 2027?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.03,
+"ask": 0.08,
+"mid": 0.055,
+"last": 0.02,
+"vol": 110.84,
+"oi": 80.8
+}
+],
+"event_ticker": "KX1DREUNION-27",
+"series_ticker": "KX1DREUNION",
+"updated_at": "2026-11-20T13:30:35Z"
+}

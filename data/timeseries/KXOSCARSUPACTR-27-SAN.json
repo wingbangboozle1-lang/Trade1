@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARSUPACTR-27-SAN",
+"title": "Will Sandra H\u00fcller win Best Supporting Actress at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.02,
+"vol": 7931.41,
+"oi": 5246.22
+}
+],
+"event_ticker": "KXOSCARSUPACTR-27",
+"series_ticker": "KXOSCARSUPACTR",
+"updated_at": "2026-11-20T13:30:35Z"
+}

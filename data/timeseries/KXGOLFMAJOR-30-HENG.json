@@ -1,0 +1,21 @@
+{
+"ticker": "KXGOLFMAJOR-30-HENG",
+"title": "Will Harris English win a golf major championship after June 22, 2026 and before 2030?",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.02,
+"ask": 0.94,
+"mid": 0.48,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"event_ticker": "KXGOLFMAJOR-30",
+"series_ticker": "KXGOLFMAJOR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

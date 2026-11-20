@@ -1,0 +1,21 @@
+{
+"ticker": "KXGOPSTATESUPERMAJ-26NOV03-UTS",
+"title": "Will the number of Utah State Senate seats held by Republicans be at least 20 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.98,
+"ask": 0.99,
+"mid": 0.985,
+"last": 0.99,
+"vol": 4790.46,
+"oi": 4323.09
+}
+],
+"event_ticker": "KXGOPSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXGOPSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

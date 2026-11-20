@@ -1,0 +1,21 @@
+{
+"ticker": "KXVICTORIAPREMIER-27JAN01-JWIL",
+"title": "Will it be confirmed that Jess Wilson is the first person to serve as Premier of Victoria after the caretaker period for the 2026 Victorian state election ends?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.89,
+"ask": 0.94,
+"mid": 0.915,
+"last": 0.95,
+"vol": 925.64,
+"oi": 839.7
+}
+],
+"event_ticker": "KXVICTORIAPREMIER-27JAN01",
+"series_ticker": "KXVICTORIAPREMIER",
+"updated_at": "2026-11-20T13:30:34Z"
+}

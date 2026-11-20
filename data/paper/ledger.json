@@ -1,7 +1,7 @@
 {
  "created_at": "2026-11-20T13:23:07Z",
  "starting_balance": 10000.0,
- "cash": 8759.73,
+ "cash": 8691.775,
  "positions": [
   {
    "ticker": "KXAAAGASCDCA-26NOV21-SD",
@@ -437,8 +437,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.815 -> 0.765 over 6 snapshots",
-   "mark": 0.26,
-   "unrealized": 0.5
+   "mark": 0.25,
+   "unrealized": 0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T60999.99",
@@ -532,8 +532,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.485 -> 0.395 over 6 snapshots",
-   "mark": 0.62,
-   "unrealized": 0.25
+   "mark": 0.61,
+   "unrealized": 0.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T61999.99",
@@ -684,8 +684,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES ask 0.040 with 47297/54114 contracts resting",
-   "mark": 0.02,
-   "unrealized": -0.5
+   "mark": 0.03,
+   "unrealized": -0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T64999.99",
@@ -798,8 +798,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.8,
-   "unrealized": -1.25
+   "mark": 0.78,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.855",
@@ -817,8 +817,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.8,
-   "unrealized": -1.25
+   "mark": 0.79,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.860",
@@ -836,8 +836,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.81,
-   "unrealized": -1.0
+   "mark": 0.79,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.865",
@@ -855,8 +855,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
-   "mark": 0.81,
-   "unrealized": -1.25
+   "mark": 0.8,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.870",
@@ -874,8 +874,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
-   "mark": 0.82,
-   "unrealized": -1.0
+   "mark": 0.8,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.875",
@@ -893,8 +893,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
-   "mark": 0.82,
-   "unrealized": -1.25
+   "mark": 0.81,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.880",
@@ -912,8 +912,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
-   "mark": 0.83,
-   "unrealized": -1.0
+   "mark": 0.81,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.885",
@@ -931,8 +931,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
-   "mark": 0.83,
-   "unrealized": -1.0
+   "mark": 0.81,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.890",
@@ -950,8 +950,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
-   "mark": 0.83,
-   "unrealized": -1.25
+   "mark": 0.82,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.895",
@@ -969,8 +969,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
-   "mark": 0.84,
-   "unrealized": -1.0
+   "mark": 0.82,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.900",
@@ -988,8 +988,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.84,
-   "unrealized": -1.25
+   "mark": 0.82,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.905",
@@ -1007,8 +1007,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.84,
-   "unrealized": -1.25
+   "mark": 0.83,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.910",
@@ -1026,8 +1026,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.85,
-   "unrealized": -1.0
+   "mark": 0.83,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.915",
@@ -1045,8 +1045,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.85,
-   "unrealized": -1.0
+   "mark": 0.83,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.920",
@@ -1064,8 +1064,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.85,
-   "unrealized": -1.25
+   "mark": 0.84,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.925",
@@ -1083,8 +1083,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.86,
-   "unrealized": -1.0
+   "mark": 0.85,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.930",
@@ -1102,8 +1102,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.86,
-   "unrealized": -1.0
+   "mark": 0.85,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.935",
@@ -1121,8 +1121,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.86,
-   "unrealized": -1.0
+   "mark": 0.85,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.940",
@@ -1140,8 +1140,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
-   "mark": 0.86,
-   "unrealized": -1.25
+   "mark": 0.85,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.945",
@@ -1159,8 +1159,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
-   "mark": 0.87,
-   "unrealized": -1.0
+   "mark": 0.86,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.950",
@@ -1178,8 +1178,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
-   "mark": 0.87,
-   "unrealized": -1.0
+   "mark": 0.86,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.955",
@@ -1197,8 +1197,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
-   "mark": 0.87,
-   "unrealized": -1.25
+   "mark": 0.86,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.960",
@@ -1216,8 +1216,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
-   "mark": 0.88,
-   "unrealized": -1.0
+   "mark": 0.86,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.965",
@@ -1235,8 +1235,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
-   "mark": 0.88,
-   "unrealized": -1.0
+   "mark": 0.87,
+   "unrealized": -1.25
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.970",
@@ -1254,8 +1254,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.070 (edge -0.085)",
-   "mark": 0.89,
-   "unrealized": -1.0
+   "mark": 0.87,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXNVGOVNOTC-26NOV03-AL1.5",
@@ -1486,25 +1486,6 @@
    "unrealized": -2.0
   },
   {
-   "ticker": "KXBTC15M-26NOV200830-30",
-   "side": "yes",
-   "contracts": 25,
-   "avg_price": 0.26,
-   "cost": 6.5,
-   "fees": 0.34,
-   "opened_ts": 1795181209,
-   "strategy": "topic_uncertainty",
-   "family": "Event thesis",
-   "title": "BTC price up in next 15 mins?",
-   "topics": [
-    "crypto"
-   ],
-   "event_ticker": "KXBTC15M-26NOV200830",
-   "reason": "YES ask 0.260 with 15285/29218 contracts resting",
-   "mark": 0.25,
-   "unrealized": -0.25
-  },
-  {
    "ticker": "KXBTCD-26NOV2017-T58999.99",
    "side": "no",
    "contracts": 25,
@@ -1539,46 +1520,312 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.735 is -0.063 below the 10-snapshot mean 0.798",
-   "mark": 0.73,
+   "mark": 0.74,
+   "unrealized": 0.0
+  },
+  {
+   "ticker": "KXBTC15M-26NOV200830-30",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.87,
+   "cost": 21.75,
+   "fees": 0.2,
+   "opened_ts": 1795181430,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "BTC price up in next 15 mins?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTC15M-26NOV200830",
+   "reason": "Jump 0.255 -> 0.855 (+0.600) on the latest snapshot",
+   "mark": 0.84,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXCRYPTOLEAD15M-26NOV200830-BTC",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.75,
+   "cost": 18.75,
+   "fees": 0.33,
+   "opened_ts": 1795181430,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Which of these cryptocurrencies will have the highest return from Nov 20 - 8:15AM EST to 8:30AM EST?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXCRYPTOLEAD15M-26NOV200830",
+   "reason": "Jump 0.585 -> 0.725 (+0.140) on the latest snapshot",
+   "mark": 0.7,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXGTA6UNITS-01JAN27-T36000000",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.36,
+   "cost": 9.0,
+   "fees": 0.41,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "GTA VI \u00b7 36 million+ sold-in units before Jan 2027?",
+   "topics": [
+    "culture"
+   ],
+   "event_ticker": "KXGTA6UNITS-01JAN27",
+   "reason": "YES ask 0.360 with 4172/3223 contracts resting",
+   "mark": 0.35,
    "unrealized": -0.25
   },
   {
-   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "ticker": "KXGTA6UNITS-01JAN27-T39000000",
    "side": "yes",
    "contracts": 25,
-   "avg_price": 0.29,
-   "cost": 7.25,
-   "fees": 0.37,
-   "opened_ts": 1795181209,
+   "avg_price": 0.27,
+   "cost": 6.75,
+   "fees": 0.35,
+   "opened_ts": 1795181430,
    "strategy": "topic_uncertainty",
    "family": "Event thesis",
-   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
+   "title": "GTA VI \u00b7 39 million+ sold-in units before Jan 2027?",
    "topics": [
-    "elections"
+    "culture"
    ],
-   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
-   "reason": "YES ask 0.290 with 1200/2710 contracts resting",
-   "mark": 0.2,
-   "unrealized": -2.25
+   "event_ticker": "KXGTA6UNITS-01JAN27",
+   "reason": "YES ask 0.270 with 3977/4576 contracts resting",
+   "mark": 0.26,
+   "unrealized": -0.25
   },
   {
-   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "ticker": "KXGTA6UNITS-01JAN27-T50000000",
    "side": "yes",
    "contracts": 25,
-   "avg_price": 0.11,
-   "cost": 2.75,
-   "fees": 0.18,
-   "opened_ts": 1795181209,
+   "avg_price": 0.15,
+   "cost": 3.75,
+   "fees": 0.23,
+   "opened_ts": 1795181430,
    "strategy": "topic_uncertainty",
    "family": "Event thesis",
-   "title": "Will Democrats win the 2026 national House popular vote by at least 14.4 percentage points?",
+   "title": "GTA VI \u00b7 50 million+ sold-in units before Jan 2027?",
+   "topics": [
+    "culture"
+   ],
+   "event_ticker": "KXGTA6UNITS-01JAN27",
+   "reason": "YES ask 0.150 with 8701/5554 contracts resting",
+   "mark": 0.13,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03-B13",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.075,
+   "cost": 1.875,
+   "fees": 0.13,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will the Democratic margin of victory in the 2026 U.S. House of Representatives national popular vote be between 12 and 14%?",
    "topics": [
     "elections"
    ],
-   "event_ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03",
-   "reason": "YES ask 0.110 with 1007/2628 contracts resting",
-   "mark": 0.03,
-   "unrealized": -2.0
+   "event_ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03",
+   "reason": "YES ask 0.075 with 62626/5482 contracts resting",
+   "mark": 0.062,
+   "unrealized": -0.325
+  },
+  {
+   "ticker": "KXLPGATOUR-CMEGTC26-AYAFUR",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.021,
+   "cost": 0.525,
+   "fees": 0.04,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "CME Group Tour Championship: Ayaka Furue wins",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLPGATOUR-CMEGTC26",
+   "reason": "YES ask 0.021 with 956/2613 contracts resting",
+   "mark": 0.012,
+   "unrealized": -0.225
+  },
+  {
+   "ticker": "KXLPGATOUR-CMEGTC26-CHAHUL",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.077,
+   "cost": 1.925,
+   "fees": 0.13,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "CME Group Tour Championship: Charley Hull wins",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLPGATOUR-CMEGTC26",
+   "reason": "YES ask 0.077 with 2223/2913 contracts resting",
+   "mark": 0.063,
+   "unrealized": -0.35
+  },
+  {
+   "ticker": "KXLPGATOUR-CMEGTC26-HYECHO",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.083,
+   "cost": 2.075,
+   "fees": 0.14,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "CME Group Tour Championship: Hye-Jin Choi wins",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLPGATOUR-CMEGTC26",
+   "reason": "YES ask 0.083 with 986/7167 contracts resting",
+   "mark": 0.079,
+   "unrealized": -0.1
+  },
+  {
+   "ticker": "KXLPGATOUR-CMEGTC26-JEETHI",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.24,
+   "cost": 6.0,
+   "fees": 0.32,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "CME Group Tour Championship: Jeeno Thitikul wins",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLPGATOUR-CMEGTC26",
+   "reason": "YES ask 0.240 with 3290/13097 contracts resting",
+   "mark": 0.19,
+   "unrealized": -1.25
+  },
+  {
+   "ticker": "KXLPGATOUR-CMEGTC26-KARDAV",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.033,
+   "cost": 0.825,
+   "fees": 0.06,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "CME Group Tour Championship: Karis Davidson wins",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLPGATOUR-CMEGTC26",
+   "reason": "YES ask 0.033 with 924/2981 contracts resting",
+   "mark": 0.013,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXLPGATOUR-CMEGTC26-NELKOR",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.086,
+   "cost": 2.15,
+   "fees": 0.14,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "CME Group Tour Championship: Nelly Korda wins",
+   "topics": [
+    "golf"
+   ],
+   "event_ticker": "KXLPGATOUR-CMEGTC26",
+   "reason": "YES ask 0.086 with 3225/9522 contracts resting",
+   "mark": 0.063,
+   "unrealized": -0.575
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T4.135",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.41,
+   "cost": 10.25,
+   "fees": 0.43,
+   "opened_ts": 1795181430,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Will the natural gas close price be above 4.135 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "YES mid 0.120 -> 0.205 over 6 snapshots",
+   "mark": 0.0,
+   "unrealized": -10.25
+  },
+  {
+   "ticker": "KXOSCARPIC-27-ART",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.02,
+   "cost": 0.5,
+   "fees": 0.04,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Artificial win Best Picture at the Oscars?",
+   "topics": [
+    "culture"
+   ],
+   "event_ticker": "KXOSCARPIC-27",
+   "reason": "YES ask 0.020 with 10041/108382 contracts resting",
+   "mark": 0.01,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXVANHOLLENVOTES-27JAN03-AL22",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.13,
+   "cost": 3.25,
+   "fees": 0.2,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Van Hollen get at least 22 votes on the first Senate leader ballot?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXVANHOLLENVOTES-27JAN03",
+   "reason": "YES ask 0.130 with 11836/9483 contracts resting",
+   "mark": 0.12,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXVANHOLLENVOTES-27JAN03-AL28",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.06,
+   "cost": 1.5,
+   "fees": 0.1,
+   "opened_ts": 1795181430,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "title": "Will Van Hollen get at least 28 votes on the first Senate leader ballot?",
+   "topics": [
+    "elections"
+   ],
+   "event_ticker": "KXVANHOLLENVOTES-27JAN03",
+   "reason": "YES ask 0.060 with 6016/5630 contracts resting",
+   "mark": 0.04,
+   "unrealized": -0.5
   }
  ],
  "fills": [
@@ -3383,6 +3630,329 @@
    "topics": [
     "elections"
    ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXBTC15M-26NOV200830-30",
+   "side": "yes",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.84,
+   "fee": 0.24,
+   "cost": -21.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "take profit at 0.84 (entry 0.26)",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.2,
+   "fee": 0.28,
+   "cost": -5.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "stop loss at 0.20 (entry 0.29)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.03,
+   "fee": 0.06,
+   "cost": -0.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "stop loss at 0.03 (entry 0.11)",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXBTC15M-26NOV200830-30",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.87,
+   "fee": 0.2,
+   "cost": 21.75,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.255 -> 0.855 (+0.600) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXCRYPTOLEAD15M-26NOV200830-BTC",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.75,
+   "fee": 0.33,
+   "cost": 18.75,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.585 -> 0.725 (+0.140) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXGTA6UNITS-01JAN27-T36000000",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.36,
+   "fee": 0.41,
+   "cost": 9.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.360 with 4172/3223 contracts resting",
+   "topics": [
+    "culture"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXGTA6UNITS-01JAN27-T39000000",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.27,
+   "fee": 0.35,
+   "cost": 6.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.270 with 3977/4576 contracts resting",
+   "topics": [
+    "culture"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXGTA6UNITS-01JAN27-T50000000",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.15,
+   "fee": 0.23,
+   "cost": 3.75,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.150 with 8701/5554 contracts resting",
+   "topics": [
+    "culture"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03-B13",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.075,
+   "fee": 0.13,
+   "cost": 1.875,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.075 with 62626/5482 contracts resting",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXLPGATOUR-CMEGTC26-AYAFUR",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.021,
+   "fee": 0.04,
+   "cost": 0.525,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.021 with 956/2613 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXLPGATOUR-CMEGTC26-CHAHUL",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.077,
+   "fee": 0.13,
+   "cost": 1.925,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.077 with 2223/2913 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXLPGATOUR-CMEGTC26-HYECHO",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.083,
+   "fee": 0.14,
+   "cost": 2.075,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.083 with 986/7167 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXLPGATOUR-CMEGTC26-JEETHI",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.24,
+   "fee": 0.32,
+   "cost": 6.0,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.240 with 3290/13097 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXLPGATOUR-CMEGTC26-KARDAV",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.033,
+   "fee": 0.06,
+   "cost": 0.825,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.033 with 924/2981 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXLPGATOUR-CMEGTC26-NELKOR",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.086,
+   "fee": 0.14,
+   "cost": 2.15,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.086 with 3225/9522 contracts resting",
+   "topics": [
+    "golf"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXNATGASD-26NOV2317-T4.135",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.41,
+   "fee": 0.43,
+   "cost": 10.25,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.120 -> 0.205 over 6 snapshots",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXOSCARPIC-27-ART",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.02,
+   "fee": 0.04,
+   "cost": 0.5,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.020 with 10041/108382 contracts resting",
+   "topics": [
+    "culture"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXVANHOLLENVOTES-27JAN03-AL22",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.13,
+   "fee": 0.2,
+   "cost": 3.25,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.130 with 11836/9483 contracts resting",
+   "topics": [
+    "elections"
+   ]
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXVANHOLLENVOTES-27JAN03-AL28",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.06,
+   "fee": 0.1,
+   "cost": 1.5,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "reason": "YES ask 0.060 with 6016/5630 contracts resting",
+   "topics": [
+    "elections"
+   ]
   }
  ],
  "equity_curve": [
@@ -3399,6 +3969,13 @@
    "cash": 8759.73,
    "positions": 1120.75,
    "equity": 9880.48
+  },
+  {
+   "t": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "cash": 8691.77,
+   "positions": 1174.8,
+   "equity": 9866.57
   }
  ],
  "closed": [
@@ -3591,9 +4168,66 @@
    "title": "Dutch TTF gas above $98.000 on Nov 23 at 4:59:59 PM EST?",
    "reason_close": "stop loss at 0.59 (entry 0.68)",
    "holding_ts": 239
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXBTC15M-26NOV200830-30",
+   "side": "yes",
+   "contracts": 25,
+   "entry": 0.26,
+   "exit": 0.84,
+   "fees": 0.58,
+   "realized": 14.26,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "topics": [
+    "crypto"
+   ],
+   "title": "BTC price up in next 15 mins?",
+   "reason_close": "take profit at 0.84 (entry 0.26)",
+   "holding_ts": 221
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.2",
+   "side": "yes",
+   "contracts": 25,
+   "entry": 0.29,
+   "exit": 0.2,
+   "fees": 0.65,
+   "realized": -2.53,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "topics": [
+    "elections"
+   ],
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.2 percentage points?",
+   "reason_close": "stop loss at 0.20 (entry 0.29)",
+   "holding_ts": 221
+  },
+  {
+   "ts": 1795181430,
+   "at": "2026-11-20T13:30:46Z",
+   "ticker": "KXHOUSEPOPVOTEMARGIND-26NOV03-AL14.4",
+   "side": "yes",
+   "contracts": 25,
+   "entry": 0.11,
+   "exit": 0.03,
+   "fees": 0.24,
+   "realized": -2.06,
+   "strategy": "topic_uncertainty",
+   "family": "Event thesis",
+   "topics": [
+    "elections"
+   ],
+   "title": "Will Democrats win the 2026 national House popular vote by at least 14.4 percentage points?",
+   "reason_close": "stop loss at 0.03 (entry 0.11)",
+   "holding_ts": 221
   }
  ],
  "note": "Simulated portfolio only. No Kalshi account is connected; no order was placed.",
- "updated_at": "2026-11-20T13:27:04Z",
- "last_snapshot_ts": 1795181209
+ "updated_at": "2026-11-20T13:30:46Z",
+ "last_snapshot_ts": 1795181430
 }

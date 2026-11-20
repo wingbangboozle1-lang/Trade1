@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-YANWIL",
+"title": "CME Group Tour Championship: Yana Wilson wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.006,
+"mid": 0.003,
+"last": 0.004,
+"vol": 3025.22,
+"oi": 3025.22
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

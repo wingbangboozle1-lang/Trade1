@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARCINE-27-ADV",
+"title": "Will The Adventures of Cliff Booth win Best Cinematography at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.06,
+"vol": 31.27,
+"oi": 31.27
+}
+],
+"event_ticker": "KXOSCARCINE-27",
+"series_ticker": "KXOSCARCINE",
+"updated_at": "2026-11-20T13:30:34Z"
+}

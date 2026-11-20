@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-TAT",
+"title": "Will Tate McRae have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.03,
+"ask": 0.04,
+"mid": 0.035,
+"last": 0.04,
+"vol": 6479.66,
+"oi": 1179.96
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

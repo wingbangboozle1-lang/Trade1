@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-2CH",
+"title": "Will 2 Chainz have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.03,
+"mid": 0.02,
+"last": 0.01,
+"vol": 1985.02,
+"oi": 1145.0
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

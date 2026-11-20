@@ -1,0 +1,21 @@
+{
+"ticker": "KXDHOUSEWON-26NOV03-AL238",
+"title": "Will the number of U.S. House seats won by Democratic Party candidates be at least 238 in the 2026 U.S. House elections?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 1.0,
+"mid": 0.5,
+"last": 0.99,
+"vol": 26769.2,
+"oi": 16299.18
+}
+],
+"event_ticker": "KXDHOUSEWON-26NOV03",
+"series_ticker": "KXDHOUSEWON",
+"updated_at": "2026-11-20T13:30:34Z"
+}

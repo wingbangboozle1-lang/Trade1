@@ -1,0 +1,21 @@
+{
+"ticker": "KXGTA6UNITS-01MAR27-T9000000",
+"title": "GTA VI \u00b7 9 million+ sold-in units before Mar 2027?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.96,
+"ask": 0.98,
+"mid": 0.97,
+"last": 0.98,
+"vol": 8408.67,
+"oi": 5501.1
+}
+],
+"event_ticker": "KXGTA6UNITS-01MAR27",
+"series_ticker": "KXGTA6UNITS",
+"updated_at": "2026-11-20T13:30:34Z"
+}

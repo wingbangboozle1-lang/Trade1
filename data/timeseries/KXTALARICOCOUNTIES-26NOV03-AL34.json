@@ -1,0 +1,21 @@
+{
+"ticker": "KXTALARICOCOUNTIES-26NOV03-AL34",
+"title": "Will the number of Texas counties won by James Talarico be at least 34 in the November 3, 2026 U.S. Senate general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.98,
+"ask": 1.0,
+"mid": 0.99,
+"last": 0.98,
+"vol": 1485.11,
+"oi": 1094.58
+}
+],
+"event_ticker": "KXTALARICOCOUNTIES-26NOV03",
+"series_ticker": "KXTALARICOCOUNTIES",
+"updated_at": "2026-11-20T13:30:34Z"
+}

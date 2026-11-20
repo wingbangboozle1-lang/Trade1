@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARSUPACTR-27-TAO",
+"title": "Will Tao Okamoto win Best Supporting Actress at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.03,
+"mid": 0.015,
+"last": 0.04,
+"vol": 6016.2,
+"oi": 5630.01
+}
+],
+"event_ticker": "KXOSCARSUPACTR-27",
+"series_ticker": "KXOSCARSUPACTR",
+"updated_at": "2026-11-20T13:30:35Z"
+}

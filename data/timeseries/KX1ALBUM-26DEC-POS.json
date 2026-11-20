@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-POS",
+"title": "Will Post Malone have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.16,
+"ask": 0.19,
+"mid": 0.175,
+"last": 0.24,
+"vol": 15874.12,
+"oi": 5487.9
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARDIR-27-ALE",
+"title": "Will Alejandro G. I\u00f1\u00e1rritu win Best Director at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.01,
+"vol": 34885.77,
+"oi": 26206.43
+}
+],
+"event_ticker": "KXOSCARDIR-27",
+"series_ticker": "KXOSCARDIR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

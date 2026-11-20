@@ -1,0 +1,21 @@
+{
+"ticker": "KXTPSENATEMAX-26NOV03-AL4.5",
+"title": "Will a third-party Senate candidate win at least 4.5% of the vote in 2026?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.05,
+"mid": 0.03,
+"last": 0.55,
+"vol": 8.81,
+"oi": 8.81
+}
+],
+"event_ticker": "KXTPSENATEMAX-26NOV03",
+"series_ticker": "KXTPSENATEMAX",
+"updated_at": "2026-11-20T13:30:34Z"
+}

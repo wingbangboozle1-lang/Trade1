@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-JENKUP",
+"title": "CME Group Tour Championship: Jennifer Kupcho wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.008,
+"mid": 0.004,
+"last": 0.001,
+"vol": 415.57,
+"oi": 246.51
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

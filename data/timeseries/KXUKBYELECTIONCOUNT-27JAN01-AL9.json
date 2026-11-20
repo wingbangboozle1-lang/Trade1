@@ -1,0 +1,21 @@
+{
+"ticker": "KXUKBYELECTIONCOUNT-27JAN01-AL9",
+"title": "Will the total number of UK parliamentary by-elections with polling day scheduled and held in 2026 be at least 9 2026?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.04,
+"mid": 0.025,
+"last": 0.03,
+"vol": 763.01,
+"oi": 347.45
+}
+],
+"event_ticker": "KXUKBYELECTIONCOUNT-27JAN01",
+"series_ticker": "KXUKBYELECTIONCOUNT",
+"updated_at": "2026-11-20T13:30:34Z"
+}

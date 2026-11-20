@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-MIYYAM",
+"title": "CME Group Tour Championship: Miyu Yamashita wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.021,
+"ask": 0.032,
+"mid": 0.0265,
+"last": 0.033,
+"vol": 19224.55,
+"oi": 18162.91
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

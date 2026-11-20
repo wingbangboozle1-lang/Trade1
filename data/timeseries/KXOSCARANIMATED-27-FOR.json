@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARANIMATED-27-FOR",
+"title": "Will Forgotten Island win Best Animated Feature Film at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.02,
+"vol": 3283.46,
+"oi": 2888.78
+}
+],
+"event_ticker": "KXOSCARANIMATED-27",
+"series_ticker": "KXOSCARANIMATED",
+"updated_at": "2026-11-20T13:30:34Z"
+}

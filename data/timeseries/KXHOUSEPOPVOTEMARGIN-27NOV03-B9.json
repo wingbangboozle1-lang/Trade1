@@ -1,0 +1,21 @@
+{
+"ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03-B9",
+"title": "Will the Democratic margin of victory in the 2026 U.S. House of Representatives national popular vote be between 8 and 10%?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.001,
+"mid": 0.0005,
+"last": 0.001,
+"vol": 536080.46,
+"oi": 338524.33
+}
+],
+"event_ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03",
+"series_ticker": "KXHOUSEPOPVOTEMARGIN",
+"updated_at": "2026-11-20T13:30:35Z"
+}

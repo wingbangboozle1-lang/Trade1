@@ -1,0 +1,21 @@
+{
+"ticker": "KXDEMSTATESUPERMAJ-26NOV03-WAS",
+"title": "Will the number of Washington State Senate seats held by Democrats be at least 33 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.02,
+"ask": 0.06,
+"mid": 0.04,
+"last": 0.01,
+"vol": 5.0,
+"oi": 5.0
+}
+],
+"event_ticker": "KXDEMSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXDEMSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

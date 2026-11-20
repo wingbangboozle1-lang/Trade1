@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-KID",
+"title": "Will The Kid LAROI have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.02,
+"ask": 0.03,
+"mid": 0.025,
+"last": 0.02,
+"vol": 220.22,
+"oi": 154.64
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

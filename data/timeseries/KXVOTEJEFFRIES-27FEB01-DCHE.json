@@ -1,0 +1,21 @@
+{
+"ticker": "KXVOTEJEFFRIES-27FEB01-DCHE",
+"title": "Will Darializa Avila Chevalier vote for Jeffries on the first Speaker ballot?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.32,
+"ask": 0.33,
+"mid": 0.325,
+"last": 0.32,
+"vol": 405.38,
+"oi": 405.0
+}
+],
+"event_ticker": "KXVOTEJEFFRIES-27FEB01",
+"series_ticker": "KXVOTEJEFFRIES",
+"updated_at": "2026-11-20T13:30:35Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXGOPSTATESUPERMAJ-26NOV03-FLH",
+"title": "Will the number of Florida House of Representatives seats held by Republicans be at least 80 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 1.0,
+"mid": 0.5,
+"last": 0.01,
+"vol": 880.25,
+"oi": 880.25
+}
+],
+"event_ticker": "KXGOPSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXGOPSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

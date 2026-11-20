@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARPIC-27-ILO",
+"title": "Will I Love Boosters win Best Picture at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 6329.37,
+"oi": 6329.37
+}
+],
+"event_ticker": "KXOSCARPIC-27",
+"series_ticker": "KXOSCARPIC",
+"updated_at": "2026-11-20T13:30:34Z"
+}

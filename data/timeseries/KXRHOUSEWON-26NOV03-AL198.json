@@ -1,0 +1,21 @@
+{
+"ticker": "KXRHOUSEWON-26NOV03-AL198",
+"title": "Will the number of U.S. House seats won by Republican Party candidates be at least 198 in the 2026 U.S. House elections?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 16578.09,
+"oi": 9205.76
+}
+],
+"event_ticker": "KXRHOUSEWON-26NOV03",
+"series_ticker": "KXRHOUSEWON",
+"updated_at": "2026-11-20T13:30:34Z"
+}

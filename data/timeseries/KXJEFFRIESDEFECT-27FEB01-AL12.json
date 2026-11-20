@@ -1,0 +1,21 @@
+{
+"ticker": "KXJEFFRIESDEFECT-27FEB01-AL12",
+"title": "Will at least 12 Democrats vote against Jeffries on the first Speaker ballot?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.17,
+"ask": 0.18,
+"mid": 0.175,
+"last": 0.18,
+"vol": 8066.64,
+"oi": 5881.08
+}
+],
+"event_ticker": "KXJEFFRIESDEFECT-27FEB01",
+"series_ticker": "KXJEFFRIESDEFECT",
+"updated_at": "2026-11-20T13:30:35Z"
+}

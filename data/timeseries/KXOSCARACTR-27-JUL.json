@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARACTR-27-JUL",
+"title": "Will Julianne Moore win Best Actress at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.86,
+"ask": 0.87,
+"mid": 0.865,
+"last": 0.87,
+"vol": 99233.12,
+"oi": 66380.06
+}
+],
+"event_ticker": "KXOSCARACTR-27",
+"series_ticker": "KXOSCARACTR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

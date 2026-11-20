@@ -1,0 +1,21 @@
+{
+"ticker": "KXPGA3BALL-THRC26R2JVANKHIRGSAR-JVAN",
+"title": "Will John VanDerLaan win the 2nd round 3-ball matchup?",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.36,
+"ask": 0.37,
+"mid": 0.365,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"event_ticker": "KXPGA3BALL-THRC26R2JVANKHIRGSAR",
+"series_ticker": "KXPGA3BALL",
+"updated_at": "2026-11-20T13:30:35Z"
+}

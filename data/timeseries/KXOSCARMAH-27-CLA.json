@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARMAH-27-CLA",
+"title": "Will Clayface win Best Makeup and Hairstyling at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.04,
+"mid": 0.025,
+"last": 0.06,
+"vol": 1628.43,
+"oi": 1462.43
+}
+],
+"event_ticker": "KXOSCARMAH-27",
+"series_ticker": "KXOSCARMAH",
+"updated_at": "2026-11-20T13:30:34Z"
+}

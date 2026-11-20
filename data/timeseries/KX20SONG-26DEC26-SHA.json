@@ -1,0 +1,21 @@
+{
+"ticker": "KX20SONG-26DEC26-SHA",
+"title": "Will Shaboozey have a top 20 song this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.05,
+"ask": 0.14,
+"mid": 0.095,
+"last": 0.13,
+"vol": 1953.38,
+"oi": 1062.5
+}
+],
+"event_ticker": "KX20SONG-26DEC26",
+"series_ticker": "KX20SONG",
+"updated_at": "2026-11-20T13:30:35Z"
+}

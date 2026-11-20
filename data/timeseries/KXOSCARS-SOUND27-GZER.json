@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARS-SOUND27-GZER",
+"title": "Will Godzilla Minus Zero win Sound at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.02,
+"ask": 0.1,
+"mid": 0.06,
+"last": 0.2,
+"vol": 734.53,
+"oi": 672.98
+}
+],
+"event_ticker": "KXOSCARS-SOUND27",
+"series_ticker": "KXOSCARS",
+"updated_at": "2026-11-20T13:30:35Z"
+}

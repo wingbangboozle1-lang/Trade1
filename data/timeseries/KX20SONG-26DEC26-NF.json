@@ -1,0 +1,21 @@
+{
+"ticker": "KX20SONG-26DEC26-NF",
+"title": "Will NF have a top 20 song this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.06,
+"mid": 0.035,
+"last": 0.06,
+"vol": 3.56,
+"oi": 2.56
+}
+],
+"event_ticker": "KX20SONG-26DEC26",
+"series_ticker": "KX20SONG",
+"updated_at": "2026-11-20T13:30:35Z"
+}

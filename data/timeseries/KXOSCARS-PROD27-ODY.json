@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARS-PROD27-ODY",
+"title": "Will The Odyssey win Production Design at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.54,
+"ask": 0.55,
+"mid": 0.545,
+"last": 0.55,
+"vol": 1635.25,
+"oi": 1583.25
+}
+],
+"event_ticker": "KXOSCARS-PROD27",
+"series_ticker": "KXOSCARS",
+"updated_at": "2026-11-20T13:30:35Z"
+}

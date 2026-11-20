@@ -1,0 +1,21 @@
+{
+"ticker": "KX10SONG-26-PHA",
+"title": "Will Pharrell Williams have a top 10 song this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.06,
+"mid": 0.035,
+"last": 0.11,
+"vol": 440.0,
+"oi": 440.0
+}
+],
+"event_ticker": "KX10SONG-26",
+"series_ticker": "KX10SONG",
+"updated_at": "2026-11-20T13:30:35Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARDIR-27-NAT",
+"title": "Will Nathan Fielder win Best Director at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.14,
+"ask": 0.15,
+"mid": 0.145,
+"last": 0.14,
+"vol": 59001.05,
+"oi": 51865.09
+}
+],
+"event_ticker": "KXOSCARDIR-27",
+"series_ticker": "KXOSCARDIR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

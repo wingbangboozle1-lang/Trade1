@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARDIR-27-CHRI",
+"title": "Will Christopher Nolan win Best Director at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.59,
+"ask": 0.6,
+"mid": 0.595,
+"last": 0.58,
+"vol": 115320.65,
+"oi": 69593.26
+}
+],
+"event_ticker": "KXOSCARDIR-27",
+"series_ticker": "KXOSCARDIR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

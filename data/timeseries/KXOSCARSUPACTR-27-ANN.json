@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARSUPACTR-27-ANN",
+"title": "Will Anne Hathaway win Best Supporting Actress at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.57,
+"ask": 0.59,
+"mid": 0.58,
+"last": 0.56,
+"vol": 36841.06,
+"oi": 18822.5
+}
+],
+"event_ticker": "KXOSCARSUPACTR-27",
+"series_ticker": "KXOSCARSUPACTR",
+"updated_at": "2026-11-20T13:30:35Z"
+}

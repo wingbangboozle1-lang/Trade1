@@ -1,0 +1,21 @@
+{
+"ticker": "KX20SONG-26DEC26-SZA",
+"title": "Will SZA have a top 20 song this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.89,
+"ask": 0.92,
+"mid": 0.905,
+"last": 0.88,
+"vol": 8427.51,
+"oi": 6546.28
+}
+],
+"event_ticker": "KX20SONG-26DEC26",
+"series_ticker": "KX20SONG",
+"updated_at": "2026-11-20T13:30:35Z"
+}

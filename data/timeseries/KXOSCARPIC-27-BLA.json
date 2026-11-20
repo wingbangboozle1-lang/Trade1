@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARPIC-27-BLA",
+"title": "Will The Black Ball win Best Picture at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.1,
+"ask": 0.11,
+"mid": 0.105,
+"last": 0.11,
+"vol": 866975.3,
+"oi": 504722.67
+}
+],
+"event_ticker": "KXOSCARPIC-27",
+"series_ticker": "KXOSCARPIC",
+"updated_at": "2026-11-20T13:30:34Z"
+}

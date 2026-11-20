@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-MAR",
+"title": "Will Mariah Carey have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.06,
+"mid": 0.035,
+"last": 0.06,
+"vol": 312.39,
+"oi": 210.39
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

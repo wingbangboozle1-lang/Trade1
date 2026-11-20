@@ -1,0 +1,21 @@
+{
+"ticker": "KX20SONG-26DEC26-EMI",
+"title": "Will Eminem have a top 20 song this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.03,
+"ask": 0.3,
+"mid": 0.165,
+"last": 0.14,
+"vol": 145.54,
+"oi": 137.54
+}
+],
+"event_ticker": "KX20SONG-26DEC26",
+"series_ticker": "KX20SONG",
+"updated_at": "2026-11-20T13:30:35Z"
+}

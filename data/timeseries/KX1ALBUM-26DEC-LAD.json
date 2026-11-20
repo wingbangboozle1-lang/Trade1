@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-LAD",
+"title": "Will Lady Gaga have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.02,
+"ask": 0.06,
+"mid": 0.04,
+"last": 0.03,
+"vol": 1544.2,
+"oi": 532.66
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

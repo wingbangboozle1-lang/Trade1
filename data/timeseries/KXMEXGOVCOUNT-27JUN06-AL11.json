@@ -1,0 +1,21 @@
+{
+"ticker": "KXMEXGOVCOUNT-27JUN06-AL11",
+"title": "Will the number of governorships won by candidates of registered coalitions that include Morena be at least 11 in Mexico's Jun 6, 2027 gubernatorial elections?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.32,
+"ask": 0.34,
+"mid": 0.33,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
+}
+],
+"event_ticker": "KXMEXGOVCOUNT-27JUN06",
+"series_ticker": "KXMEXGOVCOUNT",
+"updated_at": "2026-11-20T13:30:35Z"
+}

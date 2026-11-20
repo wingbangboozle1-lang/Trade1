@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARACTO-27-JER",
+"title": "Will Jeremy Strong win Best Actor at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 71015.87,
+"oi": 59426.83
+}
+],
+"event_ticker": "KXOSCARACTO-27",
+"series_ticker": "KXOSCARACTO",
+"updated_at": "2026-11-20T13:30:34Z"
+}

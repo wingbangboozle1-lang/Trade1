@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARANIMATED-27-RAY",
+"title": "Will Ray Gunn win Best Animated Feature Film at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.03,
+"mid": 0.015,
+"last": 0.03,
+"vol": 4228.05,
+"oi": 2715.54
+}
+],
+"event_ticker": "KXOSCARANIMATED-27",
+"series_ticker": "KXOSCARANIMATED",
+"updated_at": "2026-11-20T13:30:34Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXPGA3BALL-THRC26R2FBIDASADPNYH-ASAD",
+"title": "Will Adrien Saddier win the 2nd round 3-ball matchup?",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.47,
+"ask": 0.48,
+"mid": 0.475,
+"last": 0.47,
+"vol": 94.0,
+"oi": 94.0
+}
+],
+"event_ticker": "KXPGA3BALL-THRC26R2FBIDASADPNYH",
+"series_ticker": "KXPGA3BALL",
+"updated_at": "2026-11-20T13:30:35Z"
+}

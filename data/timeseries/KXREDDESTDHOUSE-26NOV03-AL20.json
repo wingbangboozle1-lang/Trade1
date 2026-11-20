@@ -1,0 +1,21 @@
+{
+"ticker": "KXREDDESTDHOUSE-26NOV03-AL20",
+"title": "Will the highest 2024 Trump-minus-Harris presidential margin, in percentage points, among U.S. House districts won by a Democratic candidate be at least 20 at the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.55,
+"ask": 0.98,
+"mid": 0.765,
+"last": 0.98,
+"vol": 9399.76,
+"oi": 4959.61
+}
+],
+"event_ticker": "KXREDDESTDHOUSE-26NOV03",
+"series_ticker": "KXREDDESTDHOUSE",
+"updated_at": "2026-11-20T13:30:34Z"
+}

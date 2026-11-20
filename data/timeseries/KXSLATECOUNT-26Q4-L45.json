@@ -1,0 +1,21 @@
+{
+"ticker": "KXSLATECOUNT-26Q4-L45",
+"title": "Will there be at least 45 wide film releases in Q4 2026?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.95,
+"ask": 0.96,
+"mid": 0.955,
+"last": 0.93,
+"vol": 16040.75,
+"oi": 2839.97
+}
+],
+"event_ticker": "KXSLATECOUNT-26Q4",
+"series_ticker": "KXSLATECOUNT",
+"updated_at": "2026-11-20T13:30:34Z"
+}

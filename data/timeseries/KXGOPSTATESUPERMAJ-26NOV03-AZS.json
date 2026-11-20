@@ -1,0 +1,21 @@
+{
+"ticker": "KXGOPSTATESUPERMAJ-26NOV03-AZS",
+"title": "Will the number of Arizona State Senate seats held by Republicans be at least 20 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 3924.0,
+"oi": 1134.0
+}
+],
+"event_ticker": "KXGOPSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXGOPSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

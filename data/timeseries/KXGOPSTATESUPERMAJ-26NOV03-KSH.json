@@ -1,0 +1,21 @@
+{
+"ticker": "KXGOPSTATESUPERMAJ-26NOV03-KSH",
+"title": "Will the number of Kansas House of Representatives seats held by Republicans be at least 84 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.29,
+"vol": 1169.09,
+"oi": 1000.0
+}
+],
+"event_ticker": "KXGOPSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXGOPSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

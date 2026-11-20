@@ -22,9 +22,18 @@
 "last": 0.01,
 "vol": 4881.99,
 "oi": 2921.39
+},
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.01,
+"vol": 4881.99,
+"oi": 2921.39
 }
 ],
 "event_ticker": "KXBTC-26NOV2017",
 "series_ticker": "KXBTC",
-"updated_at": "2026-11-20T13:26:53Z"
+"updated_at": "2026-11-20T13:30:35Z"
 }

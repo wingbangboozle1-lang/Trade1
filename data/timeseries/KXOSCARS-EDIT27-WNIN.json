@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARS-EDIT27-WNIN",
+"title": "Will Wild Horse Nine win Film Editing at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.02,
+"ask": 0.08,
+"mid": 0.05,
+"last": 0.09,
+"vol": 0.1,
+"oi": 0.1
+}
+],
+"event_ticker": "KXOSCARS-EDIT27",
+"series_ticker": "KXOSCARS",
+"updated_at": "2026-11-20T13:30:34Z"
+}

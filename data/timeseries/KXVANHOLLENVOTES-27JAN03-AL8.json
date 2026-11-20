@@ -1,0 +1,21 @@
+{
+"ticker": "KXVANHOLLENVOTES-27JAN03-AL8",
+"title": "Will Van Hollen get at least 8 votes on the first Senate leader ballot?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.91,
+"ask": 0.95,
+"mid": 0.93,
+"last": 0.92,
+"vol": 3087.42,
+"oi": 1825.27
+}
+],
+"event_ticker": "KXVANHOLLENVOTES-27JAN03",
+"series_ticker": "KXVANHOLLENVOTES",
+"updated_at": "2026-11-20T13:30:34Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARS-DOCSHORT27-TDEA",
+"title": "Will The Revolution Against Death win Documentary Short Film at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.08,
+"mid": 0.045,
+"last": 0.09,
+"vol": 58.8,
+"oi": 58.8
+}
+],
+"event_ticker": "KXOSCARS-DOCSHORT27",
+"series_ticker": "KXOSCARS",
+"updated_at": "2026-11-20T13:30:34Z"
+}

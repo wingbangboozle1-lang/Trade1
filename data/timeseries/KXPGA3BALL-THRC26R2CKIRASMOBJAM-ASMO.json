@@ -1,0 +1,21 @@
+{
+"ticker": "KXPGA3BALL-THRC26R2CKIRASMOBJAM-ASMO",
+"title": "Will Austin Smotherman win the 2nd round 3-ball matchup?",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.29,
+"ask": 0.31,
+"mid": 0.3,
+"last": 0.32,
+"vol": 294.0,
+"oi": 294.0
+}
+],
+"event_ticker": "KXPGA3BALL-THRC26R2CKIRASMOBJAM",
+"series_ticker": "KXPGA3BALL",
+"updated_at": "2026-11-20T13:30:34Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXPGA3BALL-THRC26R2HSPRJSTATCOL-HSPR",
+"title": "Will Hayden Springer win the 2nd round 3-ball matchup?",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.48,
+"ask": 0.51,
+"mid": 0.495,
+"last": 0.48,
+"vol": 50.4,
+"oi": 50.4
+}
+],
+"event_ticker": "KXPGA3BALL-THRC26R2HSPRJSTATCOL",
+"series_ticker": "KXPGA3BALL",
+"updated_at": "2026-11-20T13:30:35Z"
+}

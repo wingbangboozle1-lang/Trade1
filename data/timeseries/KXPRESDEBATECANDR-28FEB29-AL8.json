@@ -1,0 +1,21 @@
+{
+"ticker": "KXPRESDEBATECANDR-28FEB29-AL8",
+"title": "Will the number of candidates who participate in the first RNC-sanctioned 2028 Republican presidential primary debate be at least 8 before Mar 1, 2028?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.25,
+"ask": 0.29,
+"mid": 0.27,
+"last": 0.25,
+"vol": 11.52,
+"oi": 11.52
+}
+],
+"event_ticker": "KXPRESDEBATECANDR-28FEB29",
+"series_ticker": "KXPRESDEBATECANDR",
+"updated_at": "2026-11-20T13:30:35Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "BEYONCEGENRE-30-AFA",
+"title": "Where will the next Beyonce album chart?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.17,
+"ask": 0.25,
+"mid": 0.21,
+"last": 0.21,
+"vol": 1262.58,
+"oi": 170.0
+}
+],
+"event_ticker": "BEYONCEGENRE-30",
+"series_ticker": "KXBEYONCEGENRE",
+"updated_at": "2026-11-20T13:30:35Z"
+}

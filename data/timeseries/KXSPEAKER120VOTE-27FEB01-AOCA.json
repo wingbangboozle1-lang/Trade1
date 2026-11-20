@@ -1,0 +1,21 @@
+{
+"ticker": "KXSPEAKER120VOTE-27FEB01-AOCA",
+"title": "Will it be confirmed that Alexandria Ocasio-Cortez receives at least one vote for Speaker of the House on a roll call at the opening of the 120th Congress?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.18,
+"ask": 0.23,
+"mid": 0.205,
+"last": 0.16,
+"vol": 1291.18,
+"oi": 923.42
+}
+],
+"event_ticker": "KXSPEAKER120VOTE-27FEB01",
+"series_ticker": "KXSPEAKER120VOTE",
+"updated_at": "2026-11-20T13:30:35Z"
+}

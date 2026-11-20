@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-JIIM",
+"title": "CME Group Tour Championship: Jin Hee Im wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.007,
+"mid": 0.0035,
+"last": 0.002,
+"vol": 2047.13,
+"oi": 1858.81
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

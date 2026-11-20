@@ -1,0 +1,21 @@
+{
+"ticker": "KXDEMSTATESUPERMAJ-26NOV03-HIS",
+"title": "Will the number of Hawaii State Senate seats held by Democrats be at least 17 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 1.0,
+"mid": 0.5,
+"last": 0.99,
+"vol": 7494.4,
+"oi": 7130.05
+}
+],
+"event_ticker": "KXDEMSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXDEMSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-ALIKIM",
+"title": "CME Group Tour Championship: A Lim Kim wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.063,
+"ask": 0.075,
+"mid": 0.069,
+"last": 0.075,
+"vol": 6345.84,
+"oi": 6280.41
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXUNDERHARRIS-27JAN04-AELS",
+"title": "Will Abdul El-Sayed underperform Kamala Harris in Michigan?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 9355.48,
+"oi": 8481.13
+}
+],
+"event_ticker": "KXUNDERHARRIS-27JAN04",
+"series_ticker": "KXUNDERHARRIS",
+"updated_at": "2026-11-20T13:30:34Z"
+}

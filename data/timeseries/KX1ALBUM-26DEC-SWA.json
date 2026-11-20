@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-SWA",
+"title": "Will Swae Lee have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.02,
+"vol": 1974.38,
+"oi": 1264.38
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

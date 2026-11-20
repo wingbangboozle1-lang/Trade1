@@ -1,0 +1,21 @@
+{
+"ticker": "KXTRUMPDEMDISTRICTS-26NOV03-AL25",
+"title": "Will the number of Democratic U.S. House members elected from the 235 districts that Donald Trump carried in 2024 be at least 25 at the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.95,
+"ask": 0.99,
+"mid": 0.97,
+"last": 0.97,
+"vol": 404.27,
+"oi": 402.27
+}
+],
+"event_ticker": "KXTRUMPDEMDISTRICTS-26NOV03",
+"series_ticker": "KXTRUMPDEMDISTRICTS",
+"updated_at": "2026-11-20T13:30:34Z"
+}

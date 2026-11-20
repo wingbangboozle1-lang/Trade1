@@ -1,0 +1,21 @@
+{
+"ticker": "KXHOUSEPOPVSGB-26NOV03-D5",
+"title": "Will Democrats outperform the final VoteHub generic ballot margin by 5 to 6.9 points in the 2026 House popular vote?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.02,
+"ask": 0.91,
+"mid": 0.465,
+"last": 0.9,
+"vol": 122.08,
+"oi": 36.08
+}
+],
+"event_ticker": "KXHOUSEPOPVSGB-26NOV03",
+"series_ticker": "KXHOUSEPOPVSGB",
+"updated_at": "2026-11-20T13:30:35Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXISRGOVTYPE-26NOV06-B30",
+"title": "Will Israel form a minority government?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.33,
+"ask": 0.35,
+"mid": 0.34,
+"last": 0.35,
+"vol": 1082.35,
+"oi": 1026.35
+}
+],
+"event_ticker": "KXISRGOVTYPE-26NOV06",
+"series_ticker": "KXISRGOVTYPE",
+"updated_at": "2026-11-20T13:30:35Z"
+}

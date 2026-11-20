@@ -1,0 +1,21 @@
+{
+"ticker": "KXINDCOUNT-27JAN03-AL1",
+"title": "Will the number of candidates unaffiliated with a political party elected to U.S. House or Senate seats be at least 1 in the 2026 U.S. congressional elections for the 120th Congress?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.05,
+"mid": 0.025,
+"last": 0.02,
+"vol": 943.34,
+"oi": 606.9
+}
+],
+"event_ticker": "KXINDCOUNT-27JAN03",
+"series_ticker": "KXINDCOUNT",
+"updated_at": "2026-11-20T13:30:34Z"
+}

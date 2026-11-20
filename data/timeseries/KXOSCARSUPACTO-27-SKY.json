@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARSUPACTO-27-SKY",
+"title": "Will Skyler Gisondo win Best Supporting Actor at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 13452.7,
+"oi": 8719.84
+}
+],
+"event_ticker": "KXOSCARSUPACTO-27",
+"series_ticker": "KXOSCARSUPACTO",
+"updated_at": "2026-11-20T13:30:35Z"
+}

@@ -1,0 +1,21 @@
+{
+"ticker": "KXISRGOVTYPE-26NOV06-E0",
+"title": "Will Israel fail to form a government?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.32,
+"ask": 0.36,
+"mid": 0.34,
+"last": 0.31,
+"vol": 529.31,
+"oi": 354.31
+}
+],
+"event_ticker": "KXISRGOVTYPE-26NOV06",
+"series_ticker": "KXISRGOVTYPE",
+"updated_at": "2026-11-20T13:30:35Z"
+}

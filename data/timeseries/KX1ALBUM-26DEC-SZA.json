@@ -1,0 +1,21 @@
+{
+"ticker": "KX1ALBUM-26DEC-SZA",
+"title": "Will SZA have a #1 album this year?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.16,
+"ask": 0.17,
+"mid": 0.165,
+"last": 0.2,
+"vol": 7008.09,
+"oi": 1062.42
+}
+],
+"event_ticker": "KX1ALBUM-26DEC",
+"series_ticker": "KX1ALBUM",
+"updated_at": "2026-11-20T13:30:35Z"
+}

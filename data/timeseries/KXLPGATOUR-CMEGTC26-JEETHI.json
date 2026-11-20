@@ -1,0 +1,24 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-JEETHI",
+"title": "CME Group Tour Championship: Jeeno Thitikul wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.19,
+"ask": 0.24,
+"mid": 0.215,
+"last": 0.24,
+"vol": 40674.74,
+"oi": 37153.62,
+"liq": 6118.32,
+"yes_qty": 3290.04,
+"no_qty": 13097.22
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

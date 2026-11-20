@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARMAH-27-MIC",
+"title": "Will Michael win Best Makeup and Hairstyling at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.03,
+"mid": 0.015,
+"last": 0.03,
+"vol": 418.08,
+"oi": 418.08
+}
+],
+"event_ticker": "KXOSCARMAH-27",
+"series_ticker": "KXOSCARMAH",
+"updated_at": "2026-11-20T13:30:34Z"
+}

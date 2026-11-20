@@ -1,0 +1,21 @@
+{
+"ticker": "KXOSCARINTLFILM-27-MIN",
+"title": "Will Minotaur win Best International Feature Film at the Oscars?",
+"topics": [
+"culture"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.02,
+"mid": 0.015,
+"last": 0.01,
+"vol": 987.74,
+"oi": 869.04
+}
+],
+"event_ticker": "KXOSCARINTLFILM-27",
+"series_ticker": "KXOSCARINTLFILM",
+"updated_at": "2026-11-20T13:30:34Z"
+}

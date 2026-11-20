@@ -1,0 +1,21 @@
+{
+"ticker": "KXPGA3BALL-THRC26R2CPHICBEZRBRE-CPHI",
+"title": "Will Chandler Phillips win the 2nd round 3-ball matchup?",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.38,
+"ask": 0.4,
+"mid": 0.39,
+"last": 0.39,
+"vol": 61.47,
+"oi": 61.47
+}
+],
+"event_ticker": "KXPGA3BALL-THRC26R2CPHICBEZRBRE",
+"series_ticker": "KXPGA3BALL",
+"updated_at": "2026-11-20T13:30:34Z"
+}

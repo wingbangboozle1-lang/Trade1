@@ -1,0 +1,24 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-HYECHO",
+"title": "CME Group Tour Championship: Hye-Jin Choi wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.079,
+"ask": 0.083,
+"mid": 0.081,
+"last": 0.079,
+"vol": 13974.69,
+"oi": 13919.89,
+"liq": 1792.15,
+"yes_qty": 986.37,
+"no_qty": 7167.44
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

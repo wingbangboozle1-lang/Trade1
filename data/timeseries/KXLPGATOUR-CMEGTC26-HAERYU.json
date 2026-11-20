@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-HAERYU",
+"title": "CME Group Tour Championship: Hae-Ran Ryu wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.054,
+"ask": 0.14,
+"mid": 0.097,
+"last": 0.14,
+"vol": 11094.48,
+"oi": 10388.06
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

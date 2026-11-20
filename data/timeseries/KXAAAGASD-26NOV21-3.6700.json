@@ -42,6 +42,15 @@
 "last": 0.01,
 "vol": 2000.0,
 "oi": 2000.0
+},
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.02,
+"mid": 0.01,
+"last": 0.01,
+"vol": 2000.0,
+"oi": 2000.0
 }
 ],
 "history_backfilled_at": "2026-11-20T13:19:12Z",
@@ -52,5 +61,5 @@
 ],
 "event_ticker": "KXAAAGASD-26NOV21",
 "series_ticker": "KXAAAGASD",
-"updated_at": "2026-11-20T13:26:52Z"
+"updated_at": "2026-11-20T13:30:34Z"
 }

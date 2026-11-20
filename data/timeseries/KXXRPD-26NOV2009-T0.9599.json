@@ -22,9 +22,18 @@
 "last": 0.01,
 "vol": 2113.21,
 "oi": 1882.21
+},
+{
+"t": 1795181430,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 2113.21,
+"oi": 1882.21
 }
 ],
 "event_ticker": "KXXRPD-26NOV2009",
 "series_ticker": "KXXRPD",
-"updated_at": "2026-11-20T13:26:52Z"
+"updated_at": "2026-11-20T13:30:35Z"
 }

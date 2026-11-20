@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-JENBAE",
+"title": "CME Group Tour Championship: Jenny Bae wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.003,
+"ask": 0.013,
+"mid": 0.008,
+"last": 0.004,
+"vol": 4317.96,
+"oi": 4076.92
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

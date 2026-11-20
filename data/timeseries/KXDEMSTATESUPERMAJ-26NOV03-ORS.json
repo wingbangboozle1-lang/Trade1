@@ -1,0 +1,21 @@
+{
+"ticker": "KXDEMSTATESUPERMAJ-26NOV03-ORS",
+"title": "Will the number of Oregon State Senate seats held by Democrats be at least 20 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.01,
+"ask": 0.1,
+"mid": 0.055,
+"last": 0.17,
+"vol": 25.0,
+"oi": 25.0
+}
+],
+"event_ticker": "KXDEMSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXDEMSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

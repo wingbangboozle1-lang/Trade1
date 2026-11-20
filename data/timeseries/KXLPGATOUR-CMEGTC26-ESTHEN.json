@@ -1,0 +1,21 @@
+{
+"ticker": "KXLPGATOUR-CMEGTC26-ESTHEN",
+"title": "CME Group Tour Championship: Esther Henseleit wins",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.001,
+"ask": 0.008,
+"mid": 0.0045,
+"last": 0.008,
+"vol": 838.94,
+"oi": 510.72
+}
+],
+"event_ticker": "KXLPGATOUR-CMEGTC26",
+"series_ticker": "KXLPGATOUR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

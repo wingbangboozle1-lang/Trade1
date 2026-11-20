@@ -1,0 +1,21 @@
+{
+"ticker": "KXSCHUMERVOICE-27JAN01-AL1",
+"title": "Will Chuck Schumer be reelected Senate Democratic leader for the 120th Congress by voice vote or acclamation?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.03,
+"ask": 0.04,
+"mid": 0.035,
+"last": 0.05,
+"vol": 6915.57,
+"oi": 5872.51
+}
+],
+"event_ticker": "KXSCHUMERVOICE-27JAN01",
+"series_ticker": "KXSCHUMERVOICE",
+"updated_at": "2026-11-20T13:30:34Z"
+}

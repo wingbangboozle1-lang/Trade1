@@ -1,0 +1,21 @@
+{
+"ticker": "KXDEMSTATESUPERMAJ-26NOV03-ILH",
+"title": "Will the number of Illinois House of Representatives seats held by Democrats be at least 71 after the November 3, 2026 general election?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.96,
+"ask": 0.99,
+"mid": 0.975,
+"last": 0.99,
+"vol": 305.0,
+"oi": 245.0
+}
+],
+"event_ticker": "KXDEMSTATESUPERMAJ-26NOV03",
+"series_ticker": "KXDEMSTATESUPERMAJ",
+"updated_at": "2026-11-20T13:30:34Z"
+}

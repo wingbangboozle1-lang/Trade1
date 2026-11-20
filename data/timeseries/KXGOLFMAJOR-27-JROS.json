@@ -1,0 +1,21 @@
+{
+"ticker": "KXGOLFMAJOR-27-JROS",
+"title": "Will Justin Rose win a golf major championship in 2027?",
+"topics": [
+"golf"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.011,
+"ask": 0.17,
+"mid": 0.0905,
+"last": 0.19,
+"vol": 162.02,
+"oi": 162.02
+}
+],
+"event_ticker": "KXGOLFMAJOR-27",
+"series_ticker": "KXGOLFMAJOR",
+"updated_at": "2026-11-20T13:30:34Z"
+}

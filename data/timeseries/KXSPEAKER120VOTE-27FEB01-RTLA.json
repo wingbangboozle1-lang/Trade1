@@ -1,0 +1,21 @@
+{
+"ticker": "KXSPEAKER120VOTE-27FEB01-RTLA",
+"title": "Will it be confirmed that Rashida Tlaib receives at least one vote for Speaker of the House on a roll call at the opening of the 120th Congress?",
+"topics": [
+"elections"
+],
+"points": [
+{
+"t": 1795181430,
+"bid": 0.08,
+"ask": 0.15,
+"mid": 0.115,
+"last": 0.12,
+"vol": 200.0,
+"oi": 200.0
+}
+],
+"event_ticker": "KXSPEAKER120VOTE-27FEB01",
+"series_ticker": "KXSPEAKER120VOTE",
+"updated_at": "2026-11-20T13:30:35Z"
+}
