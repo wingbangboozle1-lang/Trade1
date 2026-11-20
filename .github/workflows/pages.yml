@@ -47,6 +47,8 @@ jobs:
         run: node tools/build.mjs
       - name: Every page link resolves and every snapshot row has an official source URL
         run: node scripts/check_site.mjs
+      - name: Published-page link and nav parity check
+        run: node scripts/check_links.mjs
 
   snapshot:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
