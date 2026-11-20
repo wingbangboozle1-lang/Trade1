@@ -16,9 +16,21 @@
 "liq": 18324.69,
 "yes_qty": 5114.92,
 "no_qty": 18768.77
+},
+{
+"t": 1795181655,
+"bid": 0.92,
+"ask": 0.93,
+"mid": 0.925,
+"last": 0.921,
+"vol": 931287.07,
+"oi": 317000.29,
+"liq": 18069.46,
+"yes_qty": 4767.54,
+"no_qty": 18768.77
 }
 ],
 "event_ticker": "KXHOUSEPOPVOTEMARGIN-27NOV03",
 "series_ticker": "KXHOUSEPOPVOTEMARGIN",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

@@ -412,9 +412,21 @@
 "liq": 10380.93,
 "yes_qty": 5656.19,
 "no_qty": 11485.69
+},
+{
+"t": 1795181655,
+"bid": 0.6,
+"ask": 0.61,
+"mid": 0.605,
+"last": 0.61,
+"vol": 245867.23,
+"oi": 127761.11,
+"liq": 10380.93,
+"yes_qty": 5656.19,
+"no_qty": 11485.69
 }
 ],
-"history_backfilled_at": "2026-11-20T13:30:31Z",
+"history_backfilled_at": "2026-11-20T13:34:16Z",
 "history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
 "title": "GTA VI \u00b7 3 million+ sold-in units before Jan 2027?",
 "topics": [
@@ -422,5 +434,5 @@
 ],
 "event_ticker": "KXGTA6UNITS-01JAN27",
 "series_ticker": "KXGTA6UNITS",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

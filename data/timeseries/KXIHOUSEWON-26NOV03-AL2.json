@@ -13,9 +13,18 @@
 "last": 0.02,
 "vol": 7965.75,
 "oi": 3426.02
+},
+{
+"t": 1795181655,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.02,
+"vol": 7965.75,
+"oi": 3426.02
 }
 ],
 "event_ticker": "KXIHOUSEWON-26NOV03",
 "series_ticker": "KXIHOUSEWON",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

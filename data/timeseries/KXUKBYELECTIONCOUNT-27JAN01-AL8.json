@@ -13,9 +13,18 @@
 "last": 0.16,
 "vol": 1418.01,
 "oi": 275.49
+},
+{
+"t": 1795181655,
+"bid": 0.02,
+"ask": 0.05,
+"mid": 0.035,
+"last": 0.16,
+"vol": 1418.01,
+"oi": 275.49
 }
 ],
 "event_ticker": "KXUKBYELECTIONCOUNT-27JAN01",
 "series_ticker": "KXUKBYELECTIONCOUNT",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

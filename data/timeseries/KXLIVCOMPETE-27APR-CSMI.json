@@ -13,9 +13,18 @@
 "last": 0.01,
 "vol": 5127.25,
 "oi": 3051.78
+},
+{
+"t": 1795181655,
+"bid": 0.01,
+"ask": 0.06,
+"mid": 0.035,
+"last": 0.01,
+"vol": 5127.25,
+"oi": 3051.78
 }
 ],
 "event_ticker": "KXLIVCOMPETE-27APR",
 "series_ticker": "KXLIVCOMPETE",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

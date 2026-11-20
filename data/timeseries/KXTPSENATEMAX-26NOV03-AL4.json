@@ -13,9 +13,18 @@
 "last": 0.87,
 "vol": 66.19,
 "oi": 66.19
+},
+{
+"t": 1795181655,
+"bid": 0.01,
+"ask": 0.05,
+"mid": 0.03,
+"last": 0.87,
+"vol": 66.19,
+"oi": 66.19
 }
 ],
 "event_ticker": "KXTPSENATEMAX-26NOV03",
 "series_ticker": "KXTPSENATEMAX",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

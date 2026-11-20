@@ -13,9 +13,18 @@
 "last": 0.76,
 "vol": 10637.08,
 "oi": 7636.17
+},
+{
+"t": 1795181655,
+"bid": 0.81,
+"ask": 0.82,
+"mid": 0.815,
+"last": 0.76,
+"vol": 10637.08,
+"oi": 7636.17
 }
 ],
 "event_ticker": "KXJEFFRIESDEFECT-27FEB01",
 "series_ticker": "KXJEFFRIESDEFECT",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

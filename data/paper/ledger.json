@@ -1,7 +1,7 @@
 {
  "created_at": "2026-11-20T13:23:07Z",
  "starting_balance": 10000.0,
- "cash": 8691.775,
+ "cash": 8733.585,
  "positions": [
   {
    "ticker": "KXAAAGASCDCA-26NOV21-SD",
@@ -437,8 +437,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.815 -> 0.765 over 6 snapshots",
-   "mark": 0.25,
-   "unrealized": 0.25
+   "mark": 0.26,
+   "unrealized": 0.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T60999.99",
@@ -456,8 +456,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.725 -> 0.645 over 6 snapshots",
-   "mark": 0.36,
-   "unrealized": 0.0
+   "mark": 0.37,
+   "unrealized": 0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T60999.99",
@@ -475,8 +475,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.645 is -0.058 below the 10-snapshot mean 0.703",
-   "mark": 0.63,
-   "unrealized": -0.5
+   "mark": 0.61,
+   "unrealized": -1.0
   },
   {
    "ticker": "KXBTCD-26NOV2017-T61499.99",
@@ -494,8 +494,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.605 -> 0.515 over 6 snapshots",
-   "mark": 0.48,
-   "unrealized": -0.25
+   "mark": 0.5,
+   "unrealized": 0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T61499.99",
@@ -513,8 +513,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.515 is -0.075 below the 10-snapshot mean 0.590",
-   "mark": 0.51,
-   "unrealized": -0.25
+   "mark": 0.49,
+   "unrealized": -0.75
   },
   {
    "ticker": "KXBTCD-26NOV2017-T61999.99",
@@ -532,8 +532,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.485 -> 0.395 over 6 snapshots",
-   "mark": 0.61,
-   "unrealized": 0.0
+   "mark": 0.64,
+   "unrealized": 0.75
   },
   {
    "ticker": "KXBTCD-26NOV2017-T61999.99",
@@ -551,8 +551,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.395 is -0.063 below the 10-snapshot mean 0.458",
-   "mark": 0.37,
-   "unrealized": -1.5
+   "mark": 0.35,
+   "unrealized": -2.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T62499.99",
@@ -570,8 +570,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.345 -> 0.265 over 6 snapshots",
-   "mark": 0.74,
-   "unrealized": 0.0
+   "mark": 0.75,
+   "unrealized": 0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T62499.99",
@@ -589,8 +589,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.265 is -0.063 below the 10-snapshot mean 0.328",
-   "mark": 0.25,
-   "unrealized": -1.0
+   "mark": 0.24,
+   "unrealized": -1.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T62999.99",
@@ -646,8 +646,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES ask 0.090 with 59799/52965 contracts resting",
-   "mark": 0.09,
-   "unrealized": 0.0
+   "mark": 0.08,
+   "unrealized": -0.25
   },
   {
    "ticker": "KXBTCD-26NOV2017-T63999.99",
@@ -665,8 +665,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES ask 0.060 with 49624/54534 contracts resting",
-   "mark": 0.05,
-   "unrealized": -0.25
+   "mark": 0.04,
+   "unrealized": -0.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T64499.99",
@@ -684,8 +684,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES ask 0.040 with 47297/54114 contracts resting",
-   "mark": 0.03,
-   "unrealized": -0.25
+   "mark": 0.02,
+   "unrealized": -0.5
   },
   {
    "ticker": "KXBTCD-26NOV2017-T64999.99",
@@ -783,25 +783,6 @@
    "unrealized": -1.25
   },
   {
-   "ticker": "KXNATGASD-26NOV2317-T3.850",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.85,
-   "cost": 21.25,
-   "fees": 0.23,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will the natural gas close price be above 3.850 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXNATGASD-26NOV2317",
-   "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.78,
-   "unrealized": -1.75
-  },
-  {
    "ticker": "KXNATGASD-26NOV2317-T3.855",
    "side": "no",
    "contracts": 25,
@@ -817,8 +798,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.79,
-   "unrealized": -1.5
+   "mark": 0.77,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.860",
@@ -836,8 +817,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.150 (edge -0.165)",
-   "mark": 0.79,
-   "unrealized": -1.5
+   "mark": 0.77,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.865",
@@ -855,8 +836,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
-   "mark": 0.8,
-   "unrealized": -1.5
+   "mark": 0.78,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.870",
@@ -874,27 +855,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.140 (edge -0.155)",
-   "mark": 0.8,
-   "unrealized": -1.5
-  },
-  {
-   "ticker": "KXNATGASD-26NOV2317-T3.875",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.87,
-   "cost": 21.75,
-   "fees": 0.2,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will the natural gas close price be above 3.875 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXNATGASD-26NOV2317",
-   "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
-   "mark": 0.81,
-   "unrealized": -1.5
+   "mark": 0.78,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.880",
@@ -912,8 +874,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
-   "mark": 0.81,
-   "unrealized": -1.5
+   "mark": 0.79,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.885",
@@ -931,8 +893,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.130 (edge -0.145)",
-   "mark": 0.81,
-   "unrealized": -1.5
+   "mark": 0.8,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.890",
@@ -950,8 +912,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
-   "mark": 0.82,
-   "unrealized": -1.5
+   "mark": 0.8,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.895",
@@ -969,27 +931,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.120 (edge -0.135)",
-   "mark": 0.82,
-   "unrealized": -1.5
-  },
-  {
-   "ticker": "KXNATGASD-26NOV2317-T3.900",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.89,
-   "cost": 22.25,
-   "fees": 0.18,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will the natural gas close price be above 3.900 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXNATGASD-26NOV2317",
-   "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.82,
-   "unrealized": -1.75
+   "mark": 0.8,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.905",
@@ -1007,8 +950,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.83,
-   "unrealized": -1.5
+   "mark": 0.81,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.910",
@@ -1026,8 +969,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.83,
-   "unrealized": -1.5
+   "mark": 0.81,
+   "unrealized": -2.0
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.915",
@@ -1045,46 +988,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.110 (edge -0.125)",
-   "mark": 0.83,
-   "unrealized": -1.5
-  },
-  {
-   "ticker": "KXNATGASD-26NOV2317-T3.920",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.9,
-   "cost": 22.5,
-   "fees": 0.16,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will the natural gas close price be above 3.920 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXNATGASD-26NOV2317",
-   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.84,
-   "unrealized": -1.5
-  },
-  {
-   "ticker": "KXNATGASD-26NOV2317-T3.925",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.9,
-   "cost": 22.5,
-   "fees": 0.16,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will the natural gas close price be above 3.925 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXNATGASD-26NOV2317",
-   "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.85,
-   "unrealized": -1.25
+   "mark": 0.82,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.930",
@@ -1102,8 +1007,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.85,
-   "unrealized": -1.25
+   "mark": 0.83,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.935",
@@ -1121,27 +1026,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.100 (edge -0.115)",
-   "mark": 0.85,
-   "unrealized": -1.25
-  },
-  {
-   "ticker": "KXNATGASD-26NOV2317-T3.940",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.91,
-   "cost": 22.75,
-   "fees": 0.15,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will the natural gas close price be above 3.940 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXNATGASD-26NOV2317",
-   "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
-   "mark": 0.85,
-   "unrealized": -1.5
+   "mark": 0.83,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.945",
@@ -1159,8 +1045,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
-   "mark": 0.86,
-   "unrealized": -1.25
+   "mark": 0.84,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.950",
@@ -1178,8 +1064,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.090 (edge -0.105)",
-   "mark": 0.86,
-   "unrealized": -1.25
+   "mark": 0.84,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.955",
@@ -1197,8 +1083,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
-   "mark": 0.86,
-   "unrealized": -1.5
+   "mark": 0.85,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.960",
@@ -1216,8 +1102,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
-   "mark": 0.86,
-   "unrealized": -1.5
+   "mark": 0.85,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNATGASD-26NOV2317-T3.965",
@@ -1235,27 +1121,8 @@
    ],
    "event_ticker": "KXNATGASD-26NOV2317",
    "reason": "Reference 0.005 vs bid 0.080 (edge -0.095)",
-   "mark": 0.87,
-   "unrealized": -1.25
-  },
-  {
-   "ticker": "KXNATGASD-26NOV2317-T3.970",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.93,
-   "cost": 23.25,
-   "fees": 0.12,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Will the natural gas close price be above 3.970 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXNATGASD-26NOV2317",
-   "reason": "Reference 0.005 vs bid 0.070 (edge -0.085)",
-   "mark": 0.87,
-   "unrealized": -1.5
+   "mark": 0.85,
+   "unrealized": -1.75
   },
   {
    "ticker": "KXNVGOVNOTC-26NOV03-AL1.5",
@@ -1410,82 +1277,6 @@
    "unrealized": -0.5
   },
   {
-   "ticker": "KXTTFD-23NOV261659-T100P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.76,
-   "cost": 19.0,
-   "fees": 0.32,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $100.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.240 (edge -0.275)",
-   "mark": 0.68,
-   "unrealized": -2.0
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T103P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.87,
-   "cost": 21.75,
-   "fees": 0.2,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $103.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.130 (edge -0.165)",
-   "mark": 0.79,
-   "unrealized": -2.0
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T97P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.63,
-   "cost": 15.75,
-   "fees": 0.41,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $97.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.370 (edge -0.405)",
-   "mark": 0.55,
-   "unrealized": -2.0
-  },
-  {
-   "ticker": "KXTTFD-23NOV261659-T99P000",
-   "side": "no",
-   "contracts": 25,
-   "avg_price": 0.72,
-   "cost": 18.0,
-   "fees": 0.36,
-   "opened_ts": 1795180970,
-   "strategy": "fair_value_vs_clock",
-   "family": "Statistical",
-   "title": "Dutch TTF gas above $99.000 on Nov 23 at 4:59:59 PM EST?",
-   "topics": [
-    "gas"
-   ],
-   "event_ticker": "KXTTFD-23NOV261659",
-   "reason": "Reference 0.005 vs bid 0.280 (edge -0.315)",
-   "mark": 0.64,
-   "unrealized": -2.0
-  },
-  {
    "ticker": "KXBTCD-26NOV2017-T58999.99",
    "side": "no",
    "contracts": 25,
@@ -1520,8 +1311,8 @@
    ],
    "event_ticker": "KXBTCD-26NOV2017",
    "reason": "YES mid 0.735 is -0.063 below the 10-snapshot mean 0.798",
-   "mark": 0.74,
-   "unrealized": 0.0
+   "mark": 0.73,
+   "unrealized": -0.25
   },
   {
    "ticker": "KXBTC15M-26NOV200830-30",
@@ -1729,8 +1520,8 @@
    ],
    "event_ticker": "KXLPGATOUR-CMEGTC26",
    "reason": "YES ask 0.033 with 924/2981 contracts resting",
-   "mark": 0.013,
-   "unrealized": -0.5
+   "mark": 0.018,
+   "unrealized": -0.375
   },
   {
    "ticker": "KXLPGATOUR-CMEGTC26-NELKOR",
@@ -1826,6 +1617,196 @@
    "reason": "YES ask 0.060 with 6016/5630 contracts resting",
    "mark": 0.04,
    "unrealized": -0.5
+  },
+  {
+   "ticker": "KXBTCD-26NOV2009-T61299.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.39,
+   "cost": 9.75,
+   "fees": 0.42,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2009",
+   "reason": "Jump 0.720 -> 0.615 (-0.105) on the latest snapshot",
+   "mark": 0.38,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2009-T61399.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.55,
+   "cost": 13.75,
+   "fees": 0.44,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2009",
+   "reason": "Jump 0.575 -> 0.455 (-0.120) on the latest snapshot",
+   "mark": 0.54,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXBTCD-26NOV2009-T61499.99",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.74,
+   "cost": 18.5,
+   "fees": 0.34,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXBTCD-26NOV2009",
+   "reason": "Jump 0.405 -> 0.265 (-0.140) on the latest snapshot",
+   "mark": 0.73,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T4.145",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.54,
+   "cost": 13.5,
+   "fees": 0.44,
+   "opened_ts": 1795181655,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "title": "Will the natural gas close price be above 4.145 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "reason": "YES mid 0.230 -> 0.270 over 6 snapshots",
+   "mark": 0.0,
+   "unrealized": -13.5
+  },
+  {
+   "ticker": "KXNATGASW-26NOV2017-T3.699",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.36,
+   "cost": 9.0,
+   "fees": 0.41,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Will the natural gas close price be above 3.699 USD/MMBtu on November 20, 2026 at 5:00 PM EST?",
+   "topics": [
+    "gas"
+   ],
+   "event_ticker": "KXNATGASW-26NOV2017",
+   "reason": "Jump 0.165 -> 0.345 (+0.180) on the latest snapshot",
+   "mark": 0.33,
+   "unrealized": -0.75
+  },
+  {
+   "ticker": "KXSOLD-26NOV2009-T70.4999",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.45,
+   "cost": 11.25,
+   "fees": 0.44,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "SOL price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXSOLD-26NOV2009",
+   "reason": "Jump 0.710 -> 0.560 (-0.150) on the latest snapshot",
+   "mark": 0.43,
+   "unrealized": -0.5
+  },
+  {
+   "ticker": "KXSOLD-26NOV2009-T70.7499",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.68,
+   "cost": 17.0,
+   "fees": 0.39,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "SOL price on Nov 20, 2026?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXSOLD-26NOV2009",
+   "reason": "Jump 0.445 -> 0.325 (-0.120) on the latest snapshot",
+   "mark": 0.67,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXXRP-26NOV2009-B0.9299500",
+   "side": "yes",
+   "contracts": 25,
+   "avg_price": 0.86,
+   "cost": 21.5,
+   "fees": 0.22,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Ripple price at Nov 20, 2026 at 9am EST?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXXRP-26NOV2009",
+   "reason": "Jump 0.690 -> 0.855 (+0.165) on the latest snapshot",
+   "mark": 0.85,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXXRP-26NOV2009-B0.9499500",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.88,
+   "cost": 22.0,
+   "fees": 0.19,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Ripple price at Nov 20, 2026 at 9am EST?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXXRP-26NOV2009",
+   "reason": "Jump 0.300 -> 0.125 (-0.175) on the latest snapshot",
+   "mark": 0.87,
+   "unrealized": -0.25
+  },
+  {
+   "ticker": "KXXRPD-26NOV2009-T0.9399",
+   "side": "no",
+   "contracts": 25,
+   "avg_price": 0.88,
+   "cost": 22.0,
+   "fees": 0.19,
+   "opened_ts": 1795181655,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "title": "Ripple price at Nov 20, 2026 at 9am EST?",
+   "topics": [
+    "crypto"
+   ],
+   "event_ticker": "KXXRPD-26NOV2009",
+   "reason": "Jump 0.285 -> 0.125 (-0.160) on the latest snapshot",
+   "mark": 0.87,
+   "unrealized": -0.25
   }
  ],
  "fills": [
@@ -3953,6 +3934,363 @@
    "topics": [
     "elections"
    ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.850",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.76,
+   "fee": 0.32,
+   "cost": -19.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.76 (entry 0.85)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.875",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.78,
+   "fee": 0.31,
+   "cost": -19.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.78 (entry 0.87)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.900",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.8,
+   "fee": 0.28,
+   "cost": -20.0,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.80 (entry 0.89)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.920",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.82,
+   "fee": 0.26,
+   "cost": -20.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.82 (entry 0.90)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.925",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.82,
+   "fee": 0.26,
+   "cost": -20.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.82 (entry 0.90)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.940",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.83,
+   "fee": 0.25,
+   "cost": -20.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.83 (entry 0.91)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.970",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.85,
+   "fee": 0.23,
+   "cost": -21.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.85 (entry 0.93)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T100P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.67,
+   "fee": 0.39,
+   "cost": -16.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.67 (entry 0.76)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T103P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.78,
+   "fee": 0.31,
+   "cost": -19.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.78 (entry 0.87)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T97P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.54,
+   "fee": 0.44,
+   "cost": -13.5,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.54 (entry 0.63)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T99P000",
+   "side": "no",
+   "action": "sell",
+   "contracts": 25,
+   "price": 0.63,
+   "fee": 0.41,
+   "cost": -15.75,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "reason": "stop loss at 0.63 (entry 0.72)",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXBTCD-26NOV2009-T61299.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.39,
+   "fee": 0.42,
+   "cost": 9.75,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.720 -> 0.615 (-0.105) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXBTCD-26NOV2009-T61399.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.55,
+   "fee": 0.44,
+   "cost": 13.75,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.575 -> 0.455 (-0.120) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXBTCD-26NOV2009-T61499.99",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.74,
+   "fee": 0.34,
+   "cost": 18.5,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.405 -> 0.265 (-0.140) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXNATGASD-26NOV2317-T4.145",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.54,
+   "fee": 0.44,
+   "cost": 13.5,
+   "strategy": "momentum_ignition",
+   "family": "Momentum",
+   "reason": "YES mid 0.230 -> 0.270 over 6 snapshots",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXNATGASW-26NOV2017-T3.699",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.36,
+   "fee": 0.41,
+   "cost": 9.0,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.165 -> 0.345 (+0.180) on the latest snapshot",
+   "topics": [
+    "gas"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXSOLD-26NOV2009-T70.4999",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.45,
+   "fee": 0.44,
+   "cost": 11.25,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.710 -> 0.560 (-0.150) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXSOLD-26NOV2009-T70.7499",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.68,
+   "fee": 0.39,
+   "cost": 17.0,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.445 -> 0.325 (-0.120) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXXRP-26NOV2009-B0.9299500",
+   "side": "yes",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.86,
+   "fee": 0.22,
+   "cost": 21.5,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.690 -> 0.855 (+0.165) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXXRP-26NOV2009-B0.9499500",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.88,
+   "fee": 0.19,
+   "cost": 22.0,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.300 -> 0.125 (-0.175) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "ticker": "KXXRPD-26NOV2009-T0.9399",
+   "side": "no",
+   "action": "buy",
+   "contracts": 25,
+   "price": 0.88,
+   "fee": 0.19,
+   "cost": 22.0,
+   "strategy": "post_jump_drift",
+   "family": "Event driven",
+   "reason": "Jump 0.285 -> 0.125 (-0.160) on the latest snapshot",
+   "topics": [
+    "crypto"
+   ]
   }
  ],
  "equity_curve": [
@@ -3976,6 +4314,13 @@
    "cash": 8691.77,
    "positions": 1174.8,
    "equity": 9866.57
+  },
+  {
+   "t": 1795181655,
+   "at": "2026-11-20T13:34:31Z",
+   "cash": 8733.58,
+   "positions": 1097.18,
+   "equity": 9830.76
   }
  ],
  "closed": [
@@ -4225,9 +4570,218 @@
    "title": "Will Democrats win the 2026 national House popular vote by at least 14.4 percentage points?",
    "reason_close": "stop loss at 0.03 (entry 0.11)",
    "holding_ts": 221
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.850",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.85,
+   "exit": 0.76,
+   "fees": 0.55,
+   "realized": -2.57,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Will the natural gas close price be above 3.850 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "reason_close": "stop loss at 0.76 (entry 0.85)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.875",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.87,
+   "exit": 0.78,
+   "fees": 0.51,
+   "realized": -2.56,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Will the natural gas close price be above 3.875 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "reason_close": "stop loss at 0.78 (entry 0.87)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.900",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.89,
+   "exit": 0.8,
+   "fees": 0.46,
+   "realized": -2.53,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Will the natural gas close price be above 3.900 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "reason_close": "stop loss at 0.80 (entry 0.89)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.920",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.9,
+   "exit": 0.82,
+   "fees": 0.42,
+   "realized": -2.26,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Will the natural gas close price be above 3.920 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "reason_close": "stop loss at 0.82 (entry 0.90)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.925",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.9,
+   "exit": 0.82,
+   "fees": 0.42,
+   "realized": -2.26,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Will the natural gas close price be above 3.925 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "reason_close": "stop loss at 0.82 (entry 0.90)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.940",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.91,
+   "exit": 0.83,
+   "fees": 0.4,
+   "realized": -2.25,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Will the natural gas close price be above 3.940 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "reason_close": "stop loss at 0.83 (entry 0.91)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXNATGASD-26NOV2317-T3.970",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.93,
+   "exit": 0.85,
+   "fees": 0.35,
+   "realized": -2.23,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Will the natural gas close price be above 3.970 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "reason_close": "stop loss at 0.85 (entry 0.93)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T100P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.76,
+   "exit": 0.67,
+   "fees": 0.71,
+   "realized": -2.64,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $100.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.67 (entry 0.76)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T103P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.87,
+   "exit": 0.78,
+   "fees": 0.51,
+   "realized": -2.56,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $103.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.78 (entry 0.87)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T97P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.63,
+   "exit": 0.54,
+   "fees": 0.85,
+   "realized": -2.69,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $97.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.54 (entry 0.63)",
+   "holding_ts": 685
+  },
+  {
+   "ts": 1795181655,
+   "at": "2026-11-20T13:34:30Z",
+   "ticker": "KXTTFD-23NOV261659-T99P000",
+   "side": "no",
+   "contracts": 25,
+   "entry": 0.72,
+   "exit": 0.63,
+   "fees": 0.77,
+   "realized": -2.66,
+   "strategy": "fair_value_vs_clock",
+   "family": "Statistical",
+   "topics": [
+    "gas"
+   ],
+   "title": "Dutch TTF gas above $99.000 on Nov 23 at 4:59:59 PM EST?",
+   "reason_close": "stop loss at 0.63 (entry 0.72)",
+   "holding_ts": 685
   }
  ],
  "note": "Simulated portfolio only. No Kalshi account is connected; no order was placed.",
- "updated_at": "2026-11-20T13:30:46Z",
- "last_snapshot_ts": 1795181430
+ "updated_at": "2026-11-20T13:34:31Z",
+ "last_snapshot_ts": 1795181655
 }

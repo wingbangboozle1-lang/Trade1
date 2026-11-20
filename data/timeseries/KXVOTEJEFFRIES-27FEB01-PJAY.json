@@ -13,9 +13,18 @@
 "last": 0.99,
 "vol": 0.2,
 "oi": 0.2
+},
+{
+"t": 1795181655,
+"bid": 0.91,
+"ask": 0.94,
+"mid": 0.925,
+"last": 0.99,
+"vol": 0.2,
+"oi": 0.2
 }
 ],
 "event_ticker": "KXVOTEJEFFRIES-27FEB01",
 "series_ticker": "KXVOTEJEFFRIES",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

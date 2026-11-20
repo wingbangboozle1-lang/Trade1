@@ -16,9 +16,21 @@
 "liq": 4138.9,
 "yes_qty": 3225.32,
 "no_qty": 9521.85
+},
+{
+"t": 1795181655,
+"bid": 0.063,
+"ask": 0.086,
+"mid": 0.0745,
+"last": 0.061,
+"vol": 47675.78,
+"oi": 43545.68,
+"liq": 4094.18,
+"yes_qty": 3177.91,
+"no_qty": 9521.85
 }
 ],
 "event_ticker": "KXLPGATOUR-CMEGTC26",
 "series_ticker": "KXLPGATOUR",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

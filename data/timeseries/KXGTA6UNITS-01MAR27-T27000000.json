@@ -13,9 +13,18 @@
 "last": 0.93,
 "vol": 77.42,
 "oi": 74.21
+},
+{
+"t": 1795181655,
+"bid": 0.92,
+"ask": 0.93,
+"mid": 0.925,
+"last": 0.93,
+"vol": 77.42,
+"oi": 74.21
 }
 ],
 "event_ticker": "KXGTA6UNITS-01MAR27",
 "series_ticker": "KXGTA6UNITS",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

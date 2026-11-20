@@ -1,0 +1,21 @@
+{
+"ticker": "KXXRP15M-26NOV200845-45",
+"title": "XRP price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795181655,
+"bid": 0.24,
+"ask": 0.26,
+"mid": 0.25,
+"last": 0.25,
+"vol": 9977.44,
+"oi": 7065.46
+}
+],
+"event_ticker": "KXXRP15M-26NOV200845",
+"series_ticker": "KXXRP15M",
+"updated_at": "2026-11-20T13:34:19Z"
+}

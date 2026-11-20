@@ -13,9 +13,18 @@
 "last": 0.06,
 "vol": 78.18,
 "oi": 78.18
+},
+{
+"t": 1795181655,
+"bid": 0.01,
+"ask": 0.06,
+"mid": 0.035,
+"last": 0.06,
+"vol": 78.18,
+"oi": 78.18
 }
 ],
 "event_ticker": "KXOSCARS-SOUND27",
 "series_ticker": "KXOSCARS",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

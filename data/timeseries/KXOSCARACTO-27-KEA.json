@@ -13,9 +13,18 @@
 "last": 0.01,
 "vol": 2206.56,
 "oi": 2206.56
+},
+{
+"t": 1795181655,
+"bid": 0.0,
+"ask": 0.01,
+"mid": 0.005,
+"last": 0.01,
+"vol": 2206.56,
+"oi": 2206.56
 }
 ],
 "event_ticker": "KXOSCARACTO-27",
 "series_ticker": "KXOSCARACTO",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

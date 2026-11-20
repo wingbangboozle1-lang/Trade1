@@ -13,9 +13,18 @@
 "last": 0.0,
 "vol": 0.0,
 "oi": 0.0
+},
+{
+"t": 1795181655,
+"bid": 0.67,
+"ask": 0.68,
+"mid": 0.675,
+"last": 0.0,
+"vol": 0.0,
+"oi": 0.0
 }
 ],
 "event_ticker": "KXMEXGOVCOUNT-27JUN06",
 "series_ticker": "KXMEXGOVCOUNT",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

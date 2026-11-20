@@ -13,9 +13,18 @@
 "last": 0.05,
 "vol": 10983.53,
 "oi": 8909.53
+},
+{
+"t": 1795181655,
+"bid": 0.0,
+"ask": 0.04,
+"mid": 0.02,
+"last": 0.05,
+"vol": 10983.53,
+"oi": 8909.53
 }
 ],
 "event_ticker": "KXTALARICOCOUNTIES-26NOV03",
 "series_ticker": "KXTALARICOCOUNTIES",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

@@ -31,9 +31,18 @@
 "last": 0.04,
 "vol": 199.6,
 "oi": 199.6
+},
+{
+"t": 1795181655,
+"bid": 0.02,
+"ask": 0.04,
+"mid": 0.03,
+"last": 0.02,
+"vol": 210.6,
+"oi": 210.6
 }
 ],
 "event_ticker": "KXBNBD-26NOV2009",
 "series_ticker": "KXBNBD",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

@@ -13,9 +13,18 @@
 "last": 0.02,
 "vol": 9315.08,
 "oi": 4661.09
+},
+{
+"t": 1795181655,
+"bid": 0.0,
+"ask": 1.0,
+"mid": 0.5,
+"last": 0.02,
+"vol": 9315.08,
+"oi": 4661.09
 }
 ],
 "event_ticker": "KXUNDERHARRIS-27JAN04",
 "series_ticker": "KXUNDERHARRIS",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

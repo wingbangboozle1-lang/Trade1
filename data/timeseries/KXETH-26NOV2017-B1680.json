@@ -31,9 +31,18 @@
 "last": 0.11,
 "vol": 818.61,
 "oi": 818.61
+},
+{
+"t": 1795181655,
+"bid": 0.14,
+"ask": 0.17,
+"mid": 0.155,
+"last": 0.11,
+"vol": 818.61,
+"oi": 818.61
 }
 ],
 "event_ticker": "KXETH-26NOV2017",
 "series_ticker": "KXETH",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

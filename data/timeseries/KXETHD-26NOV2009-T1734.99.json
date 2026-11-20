@@ -31,9 +31,18 @@
 "last": 0.43,
 "vol": 5263.02,
 "oi": 2006.83
+},
+{
+"t": 1795181655,
+"bid": 0.26,
+"ask": 0.27,
+"mid": 0.265,
+"last": 0.26,
+"vol": 5893.35,
+"oi": 2574.38
 }
 ],
 "event_ticker": "KXETHD-26NOV2009",
 "series_ticker": "KXETHD",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }

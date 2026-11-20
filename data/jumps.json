@@ -1,8 +1,762 @@
 {
- "generated_at": "2026-11-20T13:30:35Z",
+ "generated_at": "2026-11-20T13:34:20Z",
  "threshold_dollars": 0.1,
  "attribution_note": "Causes are only shown when a reviewer has filed a source URL in data/attributions.json. Unattributed jumps are listed as unverified.",
  "jumps": [
+  {
+   "ticker": "KXNATGASD-26NOV2317-T4.085",
+   "title": "Will the natural gas close price be above 4.085 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "topics": [
+    "gas"
+   ],
+   "kalshi_category": "Commodities",
+   "from": 0.235,
+   "to": 0.115,
+   "delta": -0.12,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-23T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4.085",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+    "site": "https://kalshi.com/markets/kxnatgasd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T4",
+   "title": "Will the natural gas close price be above 4 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "topics": [
+    "gas"
+   ],
+   "kalshi_category": "Commodities",
+   "from": 0.25,
+   "to": 0.125,
+   "delta": -0.125,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-23T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T4",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+    "site": "https://kalshi.com/markets/kxnatgasd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.985",
+   "title": "Will the natural gas close price be above 3.985 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "topics": [
+    "gas"
+   ],
+   "kalshi_category": "Commodities",
+   "from": 0.225,
+   "to": 0.12,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-23T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.985",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+    "site": "https://kalshi.com/markets/kxnatgasd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXNATGASD-26NOV2317-T3.980",
+   "title": "Will the natural gas close price be above 3.980 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",
+   "event_ticker": "KXNATGASD-26NOV2317",
+   "topics": [
+    "gas"
+   ],
+   "kalshi_category": "Commodities",
+   "from": 0.255,
+   "to": 0.15,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-23T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASD-26NOV2317-T3.980",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASD-26NOV2317",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASD",
+    "site": "https://kalshi.com/markets/kxnatgasd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXNATGASW-26NOV2017-T3.699",
+   "title": "Will the natural gas close price be above 3.699 USD/MMBtu on November 20, 2026 at 5:00 PM EST?",
+   "event_ticker": "KXNATGASW-26NOV2017",
+   "topics": [
+    "gas"
+   ],
+   "kalshi_category": "Commodities",
+   "from": 0.165,
+   "to": 0.345,
+   "delta": 0.18,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 158.46,
+   "close_time": "2026-11-20T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNATGASW-26NOV2017-T3.699",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXNATGASW-26NOV2017",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXNATGASW",
+    "site": "https://kalshi.com/markets/kxnatgasw"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXBTCD-26NOV2009-T61499.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "event_ticker": "KXBTCD-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.405,
+   "to": 0.265,
+   "delta": -0.14,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 76975.34,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2009-T61499.99",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXBTCD-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXBTCD",
+    "site": "https://kalshi.com/markets/kxbtcd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXBTCD-26NOV2009-T61399.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "event_ticker": "KXBTCD-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.575,
+   "to": 0.455,
+   "delta": -0.12,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 63875.99,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2009-T61399.99",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXBTCD-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXBTCD",
+    "site": "https://kalshi.com/markets/kxbtcd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXBTCD-26NOV2009-T61299.99",
+   "title": "Bitcoin price on Nov 20, 2026?",
+   "event_ticker": "KXBTCD-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.72,
+   "to": 0.615,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 44209.44,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBTCD-26NOV2009-T61299.99",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXBTCD-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXBTCD",
+    "site": "https://kalshi.com/markets/kxbtcd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXPGA3BALL-THRC26R2CYOUBGARJBYR-JBYR",
+   "title": "Will Jonathan Byrd win the 2nd round 3-ball matchup?",
+   "event_ticker": "KXPGA3BALL-THRC26R2CYOUBGARJBYR",
+   "topics": [
+    "golf"
+   ],
+   "kalshi_category": "Sports",
+   "from": 0.265,
+   "to": 0.48,
+   "delta": 0.215,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-12-04T13:30:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXPGA3BALL-THRC26R2CYOUBGARJBYR-JBYR",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXPGA3BALL-THRC26R2CYOUBGARJBYR",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXPGA3BALL",
+    "site": "https://kalshi.com/markets/kxpga3ball"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXPGA3BALL-THRC26R2CYOUBGARJBYR-CYOU",
+   "title": "Will Carson Young win the 2nd round 3-ball matchup?",
+   "event_ticker": "KXPGA3BALL-THRC26R2CYOUBGARJBYR",
+   "topics": [
+    "golf"
+   ],
+   "kalshi_category": "Sports",
+   "from": 0.365,
+   "to": 0.5,
+   "delta": 0.135,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 272.38,
+   "close_time": "2026-12-04T13:30:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXPGA3BALL-THRC26R2CYOUBGARJBYR-CYOU",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXPGA3BALL-THRC26R2CYOUBGARJBYR",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXPGA3BALL",
+    "site": "https://kalshi.com/markets/kxpga3ball"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXPGA3BALL-THRC26R2CYOUBGARJBYR-BGAR",
+   "title": "Will Brice Garnett win the 2nd round 3-ball matchup?",
+   "event_ticker": "KXPGA3BALL-THRC26R2CYOUBGARJBYR",
+   "topics": [
+    "golf"
+   ],
+   "kalshi_category": "Sports",
+   "from": 0.365,
+   "to": 0.48,
+   "delta": 0.115,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-12-04T13:30:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXPGA3BALL-THRC26R2CYOUBGARJBYR-BGAR",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXPGA3BALL-THRC26R2CYOUBGARJBYR",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXPGA3BALL",
+    "site": "https://kalshi.com/markets/kxpga3ball"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXHYPE-26NOV2009-B55.125",
+   "title": "HYPE price on Nov 20, 2026?",
+   "event_ticker": "KXHYPE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.4,
+   "to": 0.15,
+   "delta": -0.25,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHYPE-26NOV2009-B55.125",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXHYPE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXHYPE",
+    "site": "https://kalshi.com/markets/kxhype"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXHYPE-26NOV2009-B54.375",
+   "title": "HYPE price on Nov 20, 2026?",
+   "event_ticker": "KXHYPE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.005,
+   "to": 0.47,
+   "delta": 0.465,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHYPE-26NOV2009-B54.375",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXHYPE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXHYPE",
+    "site": "https://kalshi.com/markets/kxhype"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLD-26NOV2009-T70.7499",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLD-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.445,
+   "to": 0.325,
+   "delta": -0.12,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 1472.95,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLD-26NOV2009-T70.7499",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLD-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLD",
+    "site": "https://kalshi.com/markets/kxsold"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLD-26NOV2009-T70.4999",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLD-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.71,
+   "to": 0.56,
+   "delta": -0.15,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 1143.75,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLD-26NOV2009-T70.4999",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLD-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLD",
+    "site": "https://kalshi.com/markets/kxsold"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLE-26NOV2009-B67.625",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.15,
+   "to": 0.045,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLE-26NOV2009-B67.625",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLE",
+    "site": "https://kalshi.com/markets/kxsole"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLE-26NOV2009-B67.375",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.15,
+   "to": 0.045,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLE-26NOV2009-B67.375",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLE",
+    "site": "https://kalshi.com/markets/kxsole"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLE-26NOV2009-B67.125",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.15,
+   "to": 0.045,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLE-26NOV2009-B67.125",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLE",
+    "site": "https://kalshi.com/markets/kxsole"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLE-26NOV2009-B66.875",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.15,
+   "to": 0.045,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLE-26NOV2009-B66.875",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLE",
+    "site": "https://kalshi.com/markets/kxsole"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLE-26NOV2009-B66.625",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.15,
+   "to": 0.045,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLE-26NOV2009-B66.625",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLE",
+    "site": "https://kalshi.com/markets/kxsole"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLE-26NOV2009-B66.375",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.15,
+   "to": 0.045,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLE-26NOV2009-B66.375",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLE",
+    "site": "https://kalshi.com/markets/kxsole"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXSOLE-26NOV2009-B66.125",
+   "title": "SOL price on Nov 20, 2026?",
+   "event_ticker": "KXSOLE-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.15,
+   "to": 0.045,
+   "delta": -0.105,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSOLE-26NOV2009-B66.125",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXSOLE-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXSOLE",
+    "site": "https://kalshi.com/markets/kxsole"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXXRP-26NOV2009-B0.9499500",
+   "title": "Ripple price at Nov 20, 2026 at 9am EST?",
+   "event_ticker": "KXXRP-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.3,
+   "to": 0.125,
+   "delta": -0.175,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 887.01,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXXRP-26NOV2009-B0.9499500",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXXRP-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXXRP",
+    "site": "https://kalshi.com/markets/kxxrp"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXXRP-26NOV2009-B0.9299500",
+   "title": "Ripple price at Nov 20, 2026 at 9am EST?",
+   "event_ticker": "KXXRP-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.69,
+   "to": 0.855,
+   "delta": 0.165,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 2.0,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXXRP-26NOV2009-B0.9299500",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXXRP-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXXRP",
+    "site": "https://kalshi.com/markets/kxxrp"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXXRPD-26NOV2009-T0.9399",
+   "title": "Ripple price at Nov 20, 2026 at 9am EST?",
+   "event_ticker": "KXXRPD-26NOV2009",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.285,
+   "to": 0.125,
+   "delta": -0.16,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 2673.09,
+   "close_time": "2026-11-20T14:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXXRPD-26NOV2009-T0.9399",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXXRPD-26NOV2009",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXXRPD",
+    "site": "https://kalshi.com/markets/kxxrpd"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXBNB-26NOV2017-B632",
+   "title": "BNB price on Nov 20, 2026?",
+   "event_ticker": "KXBNB-26NOV2017",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.12,
+   "to": 0.235,
+   "delta": 0.115,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBNB-26NOV2017-B632",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXBNB-26NOV2017",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXBNB",
+    "site": "https://kalshi.com/markets/kxbnb"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXBNB-26NOV2017-B627",
+   "title": "BNB price on Nov 20, 2026?",
+   "event_ticker": "KXBNB-26NOV2017",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.12,
+   "to": 0.24,
+   "delta": 0.12,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBNB-26NOV2017-B627",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXBNB-26NOV2017",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXBNB",
+    "site": "https://kalshi.com/markets/kxbnb"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXBNB-26NOV2017-B622",
+   "title": "BNB price on Nov 20, 2026?",
+   "event_ticker": "KXBNB-26NOV2017",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.125,
+   "to": 0.245,
+   "delta": 0.12,
+   "direction": "up",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBNB-26NOV2017-B622",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXBNB-26NOV2017",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXBNB",
+    "site": "https://kalshi.com/markets/kxbnb"
+   },
+   "attribution_status": "unverified"
+  },
+  {
+   "ticker": "KXHYPED-26NOV2017-T55.9999",
+   "title": "HYPE price on Nov 20, 2026?",
+   "event_ticker": "KXHYPED-26NOV2017",
+   "topics": [
+    "crypto"
+   ],
+   "kalshi_category": "Crypto",
+   "from": 0.91,
+   "to": 0.81,
+   "delta": -0.1,
+   "direction": "down",
+   "from_ts": 1795181430,
+   "to_ts": 1795181655,
+   "observed_at": "2026-11-20T13:34:20Z",
+   "liquidity_usd": null,
+   "volume_24h": 0.0,
+   "close_time": "2026-11-20T22:00:00Z",
+   "sources": {
+    "market": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHYPED-26NOV2017-T55.9999",
+    "event": "https://api.elections.kalshi.com/trade-api/v2/events/KXHYPED-26NOV2017",
+    "series": "https://api.elections.kalshi.com/trade-api/v2/series/KXHYPED",
+    "site": "https://kalshi.com/markets/kxhyped"
+   },
+   "attribution_status": "unverified"
+  },
   {
    "ticker": "KXNATGASD-26NOV2317-T4.015",
    "title": "Will the natural gas close price be above 4.015 USD/MMBtu on November 23, 2026 at 5:00 PM EST?",

@@ -35,10 +35,10 @@ Portfolio page reproducible.</div>
 <dl class="meta"><dt>min_edge</dt><dd class='money'>0.06</dd><dt>max_price</dt><dd class='money'>0.45</dd><dt>min_days_to_close</dt><dd class='money'>3</dd></dl>
 <hr class="sep">
 <div class="grid cols-4" style="gap:8px">
-  <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">8</span></span></div>
+  <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">19</span></span></div>
   <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="money">0.0%</span></span></div>
-  <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money down">-$20.16</span></span></div>
-  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">57</span></span></div>
+  <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money down">-$47.37</span></span></div>
+  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">46</span></span></div>
 </div></div><div class="card">
 <h2>momentum_ignition <span class="chip topic">Momentum</span></h2>
 <p style="margin:0 0 10px">Look at the last 6 snapshots. If YES mid rose by &gt;= 0.03 and the last three snapshots are not lower, buy YES at the ask while it is below 0.9. Symmetric for NO on a fall. Exit is handled by the portfolio&#39;s take-profit.</p>
@@ -48,7 +48,7 @@ Portfolio page reproducible.</div>
   <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">0</span></span></div>
   <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="faint">—</span></span></div>
   <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money mut">$0.00</span></span></div>
-  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">10</span></span></div>
+  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">11</span></span></div>
 </div></div><div class="card">
 <h2>fade_stretched_move <span class="chip topic">Market making</span></h2>
 <p style="margin:0 0 10px">Needs &gt;= 10 snapshots and &gt;= 50 contracts resting on each side. If YES mid is at least 0.05 above its window mean, buy NO; if it is at least 0.05 below, buy YES. Intended as a resting-order (maker) style entry.</p>
@@ -68,7 +68,7 @@ Portfolio page reproducible.</div>
   <div class="kpi"><span class="label">closed</span><span class="value money"><span class="money">0</span></span></div>
   <div class="kpi"><span class="label">win rate</span><span class="value money"><span class="faint">—</span></span></div>
   <div class="kpi"><span class="label">realized</span><span class="value money"><span class="money mut">$0.00</span></span></div>
-  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">2</span></span></div>
+  <div class="kpi"><span class="label">open</span><span class="value money"><span class="money">11</span></span></div>
 </div></div><div class="card">
 <h2>topic_uncertainty <span class="chip topic">Event thesis</span></h2>
 <p style="margin:0 0 10px">Within a topic, buy YES at the ask on markets with &gt;= 25 contracts resting per side whose YES price is at or below 0.4: positive-expectation longshots the market still prices as live rather than dead.</p>
@@ -96,9 +96,9 @@ Portfolio page reproducible.</div>
   <th class="num">closed</th><th class="num">win rate</th><th class="num">realized</th></tr></thead>
   <tbody><tr><td><b>fair_value_vs_clock</b></td><td>Statistical</td>
 <td style="max-width:420px;font-size:12.5px" class="mut">With &gt;= 3 days to close and the YES ask or bid at or below 0.45, compare price with a reference probability that rises linearly to 0.5 as close time approaches. Buy YES if reference - price &gt;= 0.06; buy NO if price - reference &gt;= 0.06.</td>
-<td class="num"><span class="money">8</span></td>
+<td class="num"><span class="money">19</span></td>
 <td class="num"><span class="money">0.0%</span></td>
-<td class="num"><span class="money down">-$20.16</span></td></tr><tr><td><b>momentum_ignition</b></td><td>Momentum</td>
+<td class="num"><span class="money down">-$47.37</span></td></tr><tr><td><b>momentum_ignition</b></td><td>Momentum</td>
 <td style="max-width:420px;font-size:12.5px" class="mut">Look at the last 6 snapshots. If YES mid rose by &gt;= 0.03 and the last three snapshots are not lower, buy YES at the ask while it is below 0.9. Symmetric for NO on a fall. Exit is handled by the portfolio&#39;s take-profit.</td>
 <td class="num"><span class="money">0</span></td>
 <td class="num"><span class="faint">—</span></td>

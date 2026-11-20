@@ -13,9 +13,18 @@
 "last": 0.16,
 "vol": 25.0,
 "oi": 25.0
+},
+{
+"t": 1795181655,
+"bid": 0.15,
+"ask": 0.17,
+"mid": 0.16,
+"last": 0.16,
+"vol": 25.0,
+"oi": 25.0
 }
 ],
 "event_ticker": "KXOSCARS-PROD27",
 "series_ticker": "KXOSCARS",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

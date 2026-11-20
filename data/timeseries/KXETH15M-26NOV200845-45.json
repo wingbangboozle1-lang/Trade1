@@ -1,0 +1,21 @@
+{
+"ticker": "KXETH15M-26NOV200845-45",
+"title": "ETH price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795181655,
+"bid": 0.34,
+"ask": 0.36,
+"mid": 0.35,
+"last": 0.35,
+"vol": 21397.82,
+"oi": 11686.93
+}
+],
+"event_ticker": "KXETH15M-26NOV200845",
+"series_ticker": "KXETH15M",
+"updated_at": "2026-11-20T13:34:19Z"
+}

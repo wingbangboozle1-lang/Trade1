@@ -1,0 +1,21 @@
+{
+"ticker": "KXZEC15M-26NOV200845-45",
+"title": "ZEC price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795181655,
+"bid": 0.66,
+"ask": 0.67,
+"mid": 0.665,
+"last": 0.66,
+"vol": 7730.59,
+"oi": 2972.15
+}
+],
+"event_ticker": "KXZEC15M-26NOV200845",
+"series_ticker": "KXZEC15M",
+"updated_at": "2026-11-20T13:34:19Z"
+}

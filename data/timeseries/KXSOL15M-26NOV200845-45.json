@@ -1,0 +1,21 @@
+{
+"ticker": "KXSOL15M-26NOV200845-45",
+"title": "SOL price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795181655,
+"bid": 0.24,
+"ask": 0.25,
+"mid": 0.245,
+"last": 0.25,
+"vol": 14576.9,
+"oi": 7192.01
+}
+],
+"event_ticker": "KXSOL15M-26NOV200845",
+"series_ticker": "KXSOL15M",
+"updated_at": "2026-11-20T13:34:19Z"
+}

@@ -503,9 +503,18 @@
 "last": 0.74,
 "vol": 318884.04,
 "oi": 39379.07
+},
+{
+"t": 1795181655,
+"bid": 0.73,
+"ask": 0.74,
+"mid": 0.735,
+"last": 0.73,
+"vol": 319433.26,
+"oi": 39928.29
 }
 ],
-"history_backfilled_at": "2026-11-20T13:30:32Z",
+"history_backfilled_at": "2026-11-20T13:34:17Z",
 "history_source": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
 "title": "Bitcoin price on Nov 20, 2026?",
 "topics": [
@@ -513,5 +522,5 @@
 ],
 "event_ticker": "KXBTCD-26NOV2017",
 "series_ticker": "KXBTCD",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

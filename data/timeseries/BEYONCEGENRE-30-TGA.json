@@ -13,9 +13,18 @@
 "last": 0.24,
 "vol": 1213.26,
 "oi": 127.33
+},
+{
+"t": 1795181655,
+"bid": 0.17,
+"ask": 0.24,
+"mid": 0.205,
+"last": 0.24,
+"vol": 1213.26,
+"oi": 127.33
 }
 ],
 "event_ticker": "BEYONCEGENRE-30",
 "series_ticker": "KXBEYONCEGENRE",
-"updated_at": "2026-11-20T13:30:35Z"
+"updated_at": "2026-11-20T13:34:20Z"
 }

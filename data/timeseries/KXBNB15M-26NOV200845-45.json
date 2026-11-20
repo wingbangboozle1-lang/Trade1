@@ -1,0 +1,21 @@
+{
+"ticker": "KXBNB15M-26NOV200845-45",
+"title": "BNB price up in next 15 mins?",
+"topics": [
+"crypto"
+],
+"points": [
+{
+"t": 1795181655,
+"bid": 0.35,
+"ask": 0.36,
+"mid": 0.355,
+"last": 0.36,
+"vol": 3374.38,
+"oi": 1943.26
+}
+],
+"event_ticker": "KXBNB15M-26NOV200845",
+"series_ticker": "KXBNB15M",
+"updated_at": "2026-11-20T13:34:19Z"
+}

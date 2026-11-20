@@ -13,9 +13,18 @@
 "last": 0.005,
 "vol": 2715.77,
 "oi": 2388.29
+},
+{
+"t": 1795181655,
+"bid": 0.002,
+"ask": 0.007,
+"mid": 0.0045,
+"last": 0.005,
+"vol": 2715.77,
+"oi": 2388.29
 }
 ],
 "event_ticker": "KXLPGATOUR-CMEGTC26",
 "series_ticker": "KXLPGATOUR",
-"updated_at": "2026-11-20T13:30:34Z"
+"updated_at": "2026-11-20T13:34:19Z"
 }
