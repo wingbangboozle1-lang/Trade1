@@ -15,8 +15,9 @@ The canonical GitHub Pages site is already integrated at the repository root and
 - `node tests/root_engine.test.js` — pass: 40 assertions, including exact ±$0.10 alert boundaries, classification, and paper-broker behavior. Fee fixtures are cross-checked against Kalshi's [official fee schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf).
 - `npm run check` — pass: build plus site validation; 15 HTML pages, 274 links, 1,118 snapshot rows, 625 resolved entries, 0 failures. Checker: [`scripts/check_site.mjs`](../scripts/check_site.mjs).
 - GitHub Pages API reports `status: built`, public, HTTPS enforced, legacy source `main` at `/`: [Pages API](https://api.github.com/repos/wingbangboozle1-lang/Trade1/pages).
-- Latest completed Pages deployment after the current integration, [run 44802648997](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44802648997), succeeded on 2026-11-20 at the current `main` site build.
-- The matching `Site checks + data refresh` run [44802649528](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44802649528) completed successfully.
+- After audit PR #28 merged, the Pages deployment [run 44803066485](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44803066485) completed successfully.
+- The matching `Site checks + data refresh` run [44803067458](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44803067458) completed successfully.
+- PR #28 required check run [44802946400](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44802946400) passed before merge.
 - Scheduled official API verification/collection [run 44797727149](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44797727149) also passed its verification, collection, snapshot-commit, and artifact-upload steps.
 - GitHub Actions emitted a maintenance warning in recent runs: `actions/checkout@v4` and/or `actions/upload-artifact@v4` target Node.js 20 and are being forced to run on Node.js 24; see GitHub's [Node 20 deprecation notice](https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/). This is not a failed check, but action versions/runtime policy should be reviewed.
 
@@ -40,6 +41,10 @@ The public landing page was fetched after deploy and displayed the current 2026-
 ## Corrections in this audit
 
 The earlier executive summary named `site/` as the published Pages source and described CORS as untested. During this audit, mainline integration updated `EXECUTIVE_SUMMARY.md` with the repository-root Pages source and the runner-probe status; this branch preserved that newer mainline version rather than overwriting parallel-session changes. The current summary's CORS caveat and the evidence in `data/cors.json` and `data/log.md` distinguish a measured probe from a guarantee or end-to-end browser verification.
+
+## PR and merge record
+
+Audit PR [#28](https://github.com/wingbangboozle1-lang/Trade1/pull/28) merged to `main` at 2026-11-20 19:32:22 UTC. Merge commit: `72f04b3fdea316d180c4b880bf71d51f106e623b`. Pages deploy run 44803066485 and site-check run 44803067458 succeeded after the merge; the live landing page was fetched and rendered with the current snapshot status.
 
 ## Manual review links
 
