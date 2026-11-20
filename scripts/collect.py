@@ -131,6 +131,11 @@ def trim(obj, fields):
     return {k: obj[k] for k in fields if k in obj}
 
 
+def series_guess(et):
+    """KXETHD-26NOV2117 -> KXETHD ; KXNEXTSPEAKER-31-APRE -> KXNEXTSPEAKER"""
+    return (et or "").split("-")[0]
+
+
 def fnum(s):
     try:
         return float(s)
@@ -240,9 +245,15 @@ def main():
     ev_fetch_count, ev_fetch_urls = 0, []
     for tid, pairs in list(buckets.items()):
         for e, why in pairs:
-            if ev_fetch_count >= 250:
+            if ev_fetch_count >= 160:
                 break
-            url = f"{BASE}/markets?event_ticker={urllib.parse.quote(e['event_ticker'])}"
+            et = e["event_ticker"]
+            # official event metadata (category, series_ticker, settlement_sources)
+            je = fetch_json(f"{BASE}/events/{urllib.parse.quote(et)}", "(event metadata)")
+            ev_fetch_count += 1
+            if je and je.get("event"):
+                e.update({k: je["event"][k] for k in EVENT_FIELDS if k in je["event"]})
+            url = f"{BASE}/markets?event_ticker={urllib.parse.quote(et)}"
             j = fetch_json(url, "(event markets)")
             ev_fetch_count += 1
             if j and j.get("markets"):
@@ -253,8 +264,21 @@ def main():
                     if m.get("ticker") and m["ticker"] not in have:
                         markets.append(m)
                         have.add(m["ticker"])
-        log(f"in-scope event market fetches so far: {ev_fetch_count}")
+        log(f"in-scope event metadata+market fetches so far: {ev_fetch_count}")
     log(f"markets after per-event fetch: {len(markets)}")
+
+    # market-level classification pass: derive a series guess from the event
+    # ticker and classify by title/series so fast-cycling series (hourly crypto,
+    # daily AAA gas) are covered even when /events paging misses them.
+    for m in markets:
+        et = m.get("event_ticker")
+        if not et or any(e["event_ticker"] == et for pairs in buckets.values() for e, _ in pairs):
+            continue
+        sg = series_guess(et)
+        tid, why = classify({"title": m.get("title"), "series_ticker": sg}, topics)
+        if tid:
+            buckets[tid].append(({"event_ticker": et, "title": m.get("title"),
+                                  "series_ticker": sg, "category": m.get("category")}, why))
 
     topic_files = {}
     for t in topics:
@@ -322,7 +346,8 @@ def main():
         title = (m.get("title") or "") + " " + (e.get("title", "") if e else "")
         series = m.get("series_ticker") or (e.get("series_ticker", "") if e else "") or ""
         probe = {"event_ticker": m.get("event_ticker"), "title": title,
-                 "series_ticker": series, "category": e.get("category") if e else None}
+                 "series_ticker": series or series_guess(m.get("event_ticker")),
+                 "category": e.get("category") if e else None}
         tid, why = classify(probe, topics)
         if not tid and not e:
             # settled events are absent from the open-events list; fall back to
@@ -408,7 +433,7 @@ def main():
             "events_open_count": len(events),
             "markets_open_count": len(markets),
             "settled_count_recent": len(settled),
-            "event_market_fetches": ev_fetch_count,
+            "event_metadata_and_market_fetches": ev_fetch_count,
             "orderbook_ok": os.path.exists(os.path.join(OUT, "samples/orderbook-sample.json")),
             "candlesticks_ok": os.path.exists(os.path.join(OUT, "samples/candlesticks-sample.json")),
         },
