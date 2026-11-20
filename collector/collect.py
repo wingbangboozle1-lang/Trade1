@@ -104,7 +104,9 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
     write_json(os.path.join(DATA, "universe.json"), universe)
     print(f"  series indexed: {universe['series_count']}")
 
-    events = client.events(status="open", max_pages=25)
+    # Events are paged deeply: with ~200 events per page we still need many pages to cover every
+    # open market, and a market whose event is missing would be silently dropped from the ranking.
+    events = client.events(status="open", max_pages=200)
     print(f"  open events: {len(events)}")
     markets = client.markets(status="open", max_pages=25)
     print(f"  open markets (mve excluded): {len(markets)}")
@@ -131,6 +133,9 @@ def collect(base: str, with_depth: bool = True, depth_limit: int = MAX_DEPTH_TIC
             mid = round((yes_bid + yes_ask) / 2, 4)
         elif yes_bid is not None:
             mid = yes_bid
+        if yes_bid is None and yes_ask is None and fnum(m.get("last_price_dollars")) is None:
+            # no price has ever been observed: keep it out of rankings rather than implying a $0.00 quote
+            continue
         volume = fnum(m.get("volume_fp"), 0.0) or 0.0
         vol24 = fnum(m.get("volume_24h_fp"), 0.0) or 0.0
         oi = fnum(m.get("open_interest_fp"), 0.0) or 0.0

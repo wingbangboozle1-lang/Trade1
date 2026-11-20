@@ -107,13 +107,29 @@ class TestStrategies(unittest.TestCase):
         hist = [{"t": i, "mid": 0.40} for i in range(8)]
         self.assertIsNone(strategies.MomentumStrategy().evaluate(self._market(), hist, {"size": 10}))
 
-    def test_complement_arbitrage_requires_a_real_edge(self):
+    def test_complement_arbitrage_only_when_bids_exceed_one(self):
+        """Regression for a real bug found on live data: buying YES and NO costs
+        2 - (yes_bid + no_bid) and pays $1, so the edge exists when the bids SUM ABOVE 1. The first
+        implementation had this backwards and would have locked in a loss."""
         s = strategies.ComplementArbStrategy()
         ctx = {"size": 10, "book_depth": {"yes_qty": 100, "no_qty": 100}}
-        self.assertIsNone(s.evaluate(self._market(yes_bid=0.50, no_bid=0.50), [], ctx))
-        sig = s.evaluate(self._market(yes_bid=0.44, no_bid=0.50), [], ctx)
+        # bids sum to 0.94 -> pair costs 1.06 for a $1 payout: no trade
+        self.assertIsNone(s.evaluate(self._market(yes_bid=0.44, no_bid=0.50), [], ctx))
+        # bids sum to 1.04 -> pair costs 0.96 for a $1 payout: +0.04 locked
+        sig = s.evaluate(self._market(yes_bid=0.52, no_bid=0.52), [], ctx)
         self.assertIsNotNone(sig)
-        self.assertAlmostEqual(sig.meta["edge"], 0.06, places=6)
+        self.assertAlmostEqual(sig.meta["edge"], 0.04, places=4)
+
+    def test_no_strategy_pays_a_dollar_or_zero(self):
+        """Regression: the first live run bought NO at $1.00 (zero upside) on low-strike markets."""
+        self.assertFalse(strategies.tradable(1.0))
+        self.assertFalse(strategies.tradable(0.0))
+        self.assertFalse(strategies.tradable(None))
+        self.assertTrue(strategies.tradable(0.5))
+        s = strategies.TopicThesisStrategy()
+        sig = s.evaluate(self._market(yes_bid=0.0, yes_ask=0.0, mid=0.0), [],
+                         {"size": 5, "book_depth": {"yes_qty": 100, "no_qty": 100}})
+        self.assertIsNone(sig)
 
     def test_post_jump_uses_the_requested_threshold(self):
         s = strategies.StaleOddsStrategy()

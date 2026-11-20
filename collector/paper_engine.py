@@ -35,6 +35,7 @@ from collector.util import DATA, iso, now_ts, read_json, write_json
 
 STARTING_BALANCE = 10_000.00
 ORDER_SIZE = 25                # contracts per signal
+MAX_OPEN_PER_STRATEGY = 12     # risk control: one rule cannot own the entire book
 TAKE_PROFIT = 0.05             # exit when the mark is +5c in favor
 STOP_LOSS = 0.08               # exit when the mark is -8c against
 
@@ -245,6 +246,9 @@ def run(snapshot_path: str | None = None, strategies_csv: str | None = None) -> 
     strategies = [s for s in stratmod.registry() if not chosen or s.name in chosen]
 
     open_tickers = {(p["ticker"], p["side"]) for p in doc["positions"]}
+    open_count = defaultdict(int)
+    for p in doc["positions"]:
+        open_count[p["strategy"]] += 1
     signals = []
     for m in snapshot["markets"]:
         hist = history_for(m["ticker"])
@@ -258,6 +262,8 @@ def run(snapshot_path: str | None = None, strategies_csv: str | None = None) -> 
                 continue
             if (sig.ticker, sig.side) in open_tickers and sig.side != "yes_complement":
                 continue
+            if open_count[sig.strategy] >= MAX_OPEN_PER_STRATEGY:
+                continue
             signals.append((sig, m))
 
     # Largest-edge first so a limited cash balance goes to the best ideas.
@@ -267,6 +273,7 @@ def run(snapshot_path: str | None = None, strategies_csv: str | None = None) -> 
         fill = execute(doc, sig, m, ts)
         if fill:
             new_fills.append(fill)
+            open_count[sig.strategy] += 1
 
     # 4. mark to market + equity curve
     positions_value = mark_to_market(doc, snapshot)

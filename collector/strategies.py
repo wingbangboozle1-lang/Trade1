@@ -28,6 +28,16 @@ class Signal:
     meta: dict = field(default_factory=dict)
 
 
+MIN_PRICE = 0.02     # below this a contract is a lottery ticket with no upside left
+MAX_PRICE = 0.98     # above this there is no room left to profit
+
+
+def tradable(price: float | None) -> bool:
+    """Prices we are willing to pay. Stops the engine buying NO at $1.00 (zero upside) or YES at
+    $0.00 (not fillable), which is what happened on low-strike markets in the first live run."""
+    return price is not None and MIN_PRICE <= price <= MAX_PRICE
+
+
 def _mid(yes_bid: float | None, yes_ask: float | None) -> float | None:
     if yes_bid is None and yes_ask is None:
         return None
@@ -91,10 +101,10 @@ class FairValueStrategy(Strategy):
             return None
         if mid > p["max_price"] and edge < 0:
             return None
-        if edge > 0 and yes_ask is not None:
+        if edge > 0 and tradable(yes_ask):
             return Signal(self.name, self.family, market["ticker"], "yes", yes_ask,
                           ctx["size"], f"Reference {reference:.3f} vs ask {yes_ask:.3f} (edge {edge:+.3f})")
-        if edge < 0 and yes_bid is not None:
+        if edge < 0 and yes_bid is not None and tradable(round(1 - yes_bid, 4)):
             no_ask = round(1 - yes_bid, 4)
             return Signal(self.name, self.family, market["ticker"], "no", no_ask,
                           ctx["size"], f"Reference {reference:.3f} vs bid {yes_bid:.3f} (edge {edge:+.3f})")
@@ -138,10 +148,10 @@ class MomentumStrategy(Strategy):
             return None
         yes_ask = market.get("yes_ask")
         yes_bid = market.get("yes_bid")
-        if delta > 0 and yes_ask is not None and yes_ask < p["max_entry_low"]:
+        if delta > 0 and tradable(yes_ask) and yes_ask < p["max_entry_low"]:
             return Signal(self.name, self.family, market["ticker"], "yes", yes_ask, ctx["size"],
                           f"YES mid {first:.3f} -> {last:.3f} over {p['window']} snapshots")
-        if delta < 0 and yes_bid is not None and (1 - yes_bid) < p["max_entry_low"]:
+        if delta < 0 and yes_bid is not None and (1 - yes_bid) < p["max_entry_low"] and tradable(round(1 - yes_bid, 4)):
             return Signal(self.name, self.family, market["ticker"], "no", round(1 - yes_bid, 4),
                           ctx["size"], f"YES mid {first:.3f} -> {last:.3f} over {p['window']} snapshots")
         return None
@@ -179,11 +189,11 @@ class MeanReversionStrategy(Strategy):
         dev = round(last - mean, 4)
         if abs(dev) < p["stretch"]:
             return None
-        if dev > 0 and market.get("yes_bid") is not None:
+        if dev > 0 and market.get("yes_bid") is not None and tradable(round(1 - market["yes_bid"], 4)):
             return Signal(self.name, self.family, market["ticker"], "no",
                           round(1 - market["yes_bid"], 4), ctx["size"],
                           f"YES mid {last:.3f} is {dev:+.3f} above the {p['window']}-snapshot mean {mean:.3f}")
-        if dev < 0 and market.get("yes_ask") is not None:
+        if dev < 0 and tradable(market.get("yes_ask")):
             return Signal(self.name, self.family, market["ticker"], "yes", market["yes_ask"],
                           ctx["size"],
                           f"YES mid {last:.3f} is {dev:+.3f} below the {p['window']}-snapshot mean {mean:.3f}")
@@ -218,10 +228,10 @@ class StaleOddsStrategy(Strategy):
         delta = round(last - prev, 4)   # round: 0.60-0.50 is 0.0999... in binary floats
         if abs(delta) < p["jump_threshold"]:
             return None
-        if delta > 0 and market.get("yes_ask") is not None and market["yes_ask"] - last <= p["max_fade"]:
+        if delta > 0 and tradable(market.get("yes_ask")) and market["yes_ask"] - last <= p["max_fade"]:
             return Signal(self.name, self.family, market["ticker"], "yes", market["yes_ask"],
                           ctx["size"], f"Jump {prev:.3f} -> {last:.3f} ({delta:+.3f}) on the latest snapshot")
-        if delta < 0 and market.get("yes_bid") is not None and last - market["yes_bid"] <= p["max_fade"]:
+        if delta < 0 and market.get("yes_bid") is not None and tradable(round(1 - market["yes_bid"], 4)) and last - market["yes_bid"] <= p["max_fade"]:
             return Signal(self.name, self.family, market["ticker"], "no",
                           round(1 - market["yes_bid"], 4), ctx["size"],
                           f"Jump {prev:.3f} -> {last:.3f} ({delta:+.3f}) on the latest snapshot")
@@ -251,7 +261,7 @@ class TopicThesisStrategy(Strategy):
         if (depth.get("yes_qty") or 0) < p["min_depth"] or (depth.get("no_qty") or 0) < p["min_depth"]:
             return None
         yes_ask = market.get("yes_ask")
-        if yes_ask is None or yes_ask <= 0.02 or yes_ask > p["max_price"]:
+        if not tradable(yes_ask) or yes_ask > p["max_price"]:
             return None
         return Signal(self.name, self.family, market["ticker"], "yes", yes_ask, ctx["size"],
                       f"YES ask {yes_ask:.3f} with {depth.get('yes_qty'):.0f}/{depth.get('no_qty'):.0f} contracts resting")
@@ -265,10 +275,11 @@ class ComplementArbStrategy(Strategy):
 
     name = "complement_arbitrage"
     family = "Arbitrage"
-    params = {"min_edge": 0.02, "min_depth": 5}
+    params = {"min_edge": 0.03, "min_depth": 25}
 
-    rule = ("If best YES bid + best NO bid <= 1 - {min_edge} and both sides hold >= {min_depth} "
-            "contracts, buy YES and NO together sized to the smaller side.")
+    rule = ("Buying YES and NO together costs (1 - NO bid) + (1 - YES bid) = 2 - (YES bid + NO bid) and "
+            "pays exactly $1 at settlement, so a locked edge exists only when YES bid + NO bid exceeds 1 "
+            "by at least {min_edge}. Enter when both sides rest >= {min_depth} contracts.")
 
     def __init__(self, **over):
         self.params = {**type(self).params, **over}
@@ -279,10 +290,14 @@ class ComplementArbStrategy(Strategy):
         yb, nb = market.get("yes_bid"), market.get("no_bid")
         if yb is None or nb is None:
             return None
+        if not (tradable(round(1 - nb, 4)) and tradable(round(1 - yb, 4))):
+            return None
         depth = ctx.get("book_depth") or {}
         if min(depth.get("yes_qty") or 0, depth.get("no_qty") or 0) < p["min_depth"]:
             return None
-        edge = 1.0 - (yb + nb)
+        # Buying YES lifts the NO bid (cost 1 - no_bid); buying NO lifts the YES bid (cost 1 - yes_bid).
+        # Pair cost = 2 - (yb + nb); settlement pays $1, so profit = yb + nb - 1.
+        edge = round(yb + nb - 1.0, 4)
         if edge < p["min_edge"]:
             return None
         contracts = min(int(depth.get("yes_qty") or 0), int(depth.get("no_qty") or 0), ctx["size"] * 2)
@@ -290,7 +305,8 @@ class ComplementArbStrategy(Strategy):
             return None
         return Signal(self.name, self.family, market["ticker"], "yes_complement",
                       round(1 - nb, 4), contracts,
-                      f"YES bid {yb:.2f} + NO bid {nb:.2f} = {yb + nb:.2f}, locking {edge:.2f} per pair",
+                      f"YES bid {yb:.2f} + NO bid {nb:.2f} = {yb + nb:.2f}: cost {2 - (yb + nb):.2f}, pays $1.00, "
+                      f"locking {edge:.2f} per pair",
                       meta={"no_price": round(1 - yb, 4), "edge": round(edge, 4)})
 
 
