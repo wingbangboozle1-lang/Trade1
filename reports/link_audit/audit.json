@@ -1,0 +1,3025 @@
+{
+  "html_files": 78,
+  "local_refs_ok": 916,
+  "local_broken": [
+    {
+      "file": "site/pages/flagged.html",
+      "line": 3,
+      "attr": "href<a>",
+      "value": "flagged_notes.html"
+    },
+    {
+      "file": "site/pages/index.html",
+      "line": 33,
+      "attr": "href<a>",
+      "value": "summary.html"
+    },
+    {
+      "file": "site/pages/index.html",
+      "line": 33,
+      "attr": "href<a>",
+      "value": "review.html"
+    },
+    {
+      "file": "site/pages/sources.html",
+      "line": 3,
+      "attr": "href<a>",
+      "value": "methodology.html"
+    }
+  ],
+  "root_absolute_refs": [],
+  "external_hosts_html": {
+    "assets.kalshi.com": {
+      "class": "official-verified",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/flagged_notes.html",
+          "https://assets.kalshi.com/contract_terms/AAAGAS.pdf"
+        ],
+        [
+          "a2ec5543/review_api.html",
+          "https://assets.kalshi.com/contract_terms/AAAGAS.pdf"
+        ],
+        [
+          "a2ec5543/summary.html",
+          "https://assets.kalshi.com/contract_terms/AAAGAS.pdf"
+        ]
+      ]
+    },
+    "demo.kalshi.co": {
+      "class": "official-verified",
+      "count": 2,
+      "examples": [
+        [
+          "site/flagged.html",
+          "https://demo.kalshi.co/"
+        ],
+        [
+          "site/index.html",
+          "https://demo.kalshi.co/"
+        ]
+      ]
+    },
+    "docs.github.com": {
+      "class": "official-verified",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/flagged_notes.html",
+          "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        ],
+        [
+          "a2ec5543/review.html",
+          "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        ]
+      ]
+    },
+    "docs.kalshi.com": {
+      "class": "official-verified",
+      "count": 138,
+      "examples": [
+        [
+          "a2ec5543/analysis.html",
+          "https://docs.kalshi.com/getting_started/api_environments"
+        ],
+        [
+          "a2ec5543/crypto.html",
+          "https://docs.kalshi.com/getting_started/api_environments"
+        ],
+        [
+          "a2ec5543/culture.html",
+          "https://docs.kalshi.com/getting_started/api_environments"
+        ]
+      ]
+    },
+    "external-api.demo.kalshi.co": {
+      "class": "official-verified",
+      "count": 36,
+      "examples": [
+        [
+          "categories/crypto.html",
+          "https://external-api.demo.kalshi.co/trade-api/v2"
+        ],
+        [
+          "categories/culture.html",
+          "https://external-api.demo.kalshi.co/trade-api/v2"
+        ],
+        [
+          "categories/elections.html",
+          "https://external-api.demo.kalshi.co/trade-api/v2"
+        ]
+      ]
+    },
+    "github.com": {
+      "class": "official-verified",
+      "count": 19,
+      "examples": [
+        [
+          "a2ec5543/review.html",
+          "https://github.com/wingbangboozle1-lang/Trade1/actions"
+        ],
+        [
+          "a2ec5543/review.html",
+          "https://github.com/wingbangboozle1-lang/Trade1/pull/4"
+        ],
+        [
+          "data.html",
+          "https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/cors.json"
+        ]
+      ]
+    },
+    "help.kalshi.com": {
+      "class": "official-verified",
+      "count": 1,
+      "examples": [
+        [
+          "site/flagged.html",
+          "https://help.kalshi.com/en/articles/13823775-creating-and-using-a-demo-account"
+        ]
+      ]
+    },
+    "kalshi.com": {
+      "class": "official-verified",
+      "count": 12,
+      "examples": [
+        [
+          "a2ec5543/flagged_notes.html",
+          "https://kalshi.com/developer-agreement"
+        ],
+        [
+          "a2ec5543/review_api.html",
+          "https://kalshi.com/developer-agreement"
+        ],
+        [
+          "flagged.html",
+          "https://kalshi.com/docs/kalshi-fee-schedule.pdf"
+        ]
+      ]
+    }
+  },
+  "external_hosts_json": {
+    "abc.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://abc.com/"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://abc.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://abc.com/"
+        ]
+      ]
+    },
+    "abcnews.go.com": {
+      "class": "media/other (review)",
+      "count": 10,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://abcnews.go.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://abcnews.go.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://abcnews.go.com"
+        ]
+      ]
+    },
+    "api.github.com": {
+      "class": "official-verified",
+      "count": 2,
+      "examples": [
+        [
+          "reports/link_audit/audit.json",
+          "https://api.github.com/repos/wingbangboozle1-lang/Trade1/pages"
+        ],
+        [
+          "trade1/data/flags.json",
+          "https://api.github.com/repos/wingbangboozle1-lang/Trade1/pages"
+        ]
+      ]
+    },
+    "apnews.com": {
+      "class": "media/other (review)",
+      "count": 13,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://apnews.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://apnews.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://apnews.com/"
+        ]
+      ]
+    },
+    "apps.apple.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://apps.apple.com/us/charts/iphone"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://apps.apple.com/us/charts/iphone"
+        ]
+      ]
+    },
+    "assets.kalshi.com": {
+      "class": "official-verified",
+      "count": 92,
+      "examples": [
+        [
+          "a2ec5543/data/backtest.json",
+          "https://assets.kalshi.com/contract_terms/BTC.pdf"
+        ],
+        [
+          "a2ec5543/data/backtest.json",
+          "https://assets.kalshi.com/contract_terms/CRYPTO15M.pdf"
+        ],
+        [
+          "a2ec5543/data/flags.json",
+          "https://assets.kalshi.com/contract_terms/ROLEINPRODUCTIONCHARACTER.pdf"
+        ]
+      ]
+    },
+    "bandcamp.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://bandcamp.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://bandcamp.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://bandcamp.com"
+        ]
+      ]
+    },
+    "cbsnews.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://cbsnews.com"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://cbsnews.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://cbsnews.com"
+        ]
+      ]
+    },
+    "charts.youtube.com": {
+      "class": "third-party-settlement-source (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://charts.youtube.com/US"
+        ],
+        [
+          "data/snapshot.json",
+          "https://charts.youtube.com/US"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://charts.youtube.com/US"
+        ]
+      ]
+    },
+    "clerk.house.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://clerk.house.gov/DischargePetition/2026083127"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://clerk.house.gov/DischargePetition/2026083127"
+        ]
+      ]
+    },
+    "complex.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://complex.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://complex.com/"
+        ]
+      ]
+    },
+    "congress.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/elections.json",
+          "https://congress.gov"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://congress.gov"
+        ]
+      ]
+    },
+    "deadline.com": {
+      "class": "media/other (review)",
+      "count": 5,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://deadline.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://deadline.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://deadline.com"
+        ]
+      ]
+    },
+    "decisiondeskhq.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/elections.json",
+          "https://decisiondeskhq.com/results/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://decisiondeskhq.com/results/"
+        ]
+      ]
+    },
+    "demo-api.kalshi.co": {
+      "class": "official-verified",
+      "count": 6,
+      "examples": [
+        [
+          "a2ec5543/data/sources.json",
+          "https://demo-api.kalshi.co/trade-api/v2"
+        ],
+        [
+          "config/sources.json",
+          "https://demo-api.kalshi.co/trade-api/v2"
+        ],
+        [
+          "data/cors.json",
+          "https://demo-api.kalshi.co/trade-api/v2"
+        ]
+      ]
+    },
+    "demo.kalshi.co": {
+      "class": "official-verified",
+      "count": 1,
+      "examples": [
+        [
+          "reports/link_audit/audit.json",
+          "https://demo.kalshi.co/"
+        ]
+      ]
+    },
+    "democrats.org": {
+      "class": "media/other (review)",
+      "count": 6,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://democrats.org/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://democrats.org/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://democrats.org/"
+        ]
+      ]
+    },
+    "docs.github.com": {
+      "class": "official-verified",
+      "count": 1,
+      "examples": [
+        [
+          "reports/link_audit/audit.json",
+          "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        ]
+      ]
+    },
+    "docs.kalshi.com": {
+      "class": "official-verified",
+      "count": 50,
+      "examples": [
+        [
+          "a2ec5543/data/meta.json",
+          "https://docs.kalshi.com/getting_started/api_environments"
+        ],
+        [
+          "a2ec5543/data/sources.json",
+          "https://docs.kalshi.com/api-reference/market/get-market-candlesticks"
+        ],
+        [
+          "a2ec5543/data/sources.json",
+          "https://docs.kalshi.com/api-reference/market/get-market-orderbook"
+        ]
+      ]
+    },
+    "elections.bcohio.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://elections.bcohio.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://elections.bcohio.gov/"
+        ]
+      ]
+    },
+    "espn.com": {
+      "class": "media/other (review)",
+      "count": 4,
+      "examples": [
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://espn.com"
+        ],
+        [
+          "data/topics/golf.json",
+          "https://espn.com"
+        ],
+        [
+          "monitor/data/snapshot-2026-11-20.json",
+          "https://espn.com"
+        ]
+      ]
+    },
+    "ew.com": {
+      "class": "media/other (review)",
+      "count": 4,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://ew.com/"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://ew.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://ew.com"
+        ]
+      ]
+    },
+    "example.com": {
+      "class": "placeholder-not-a-source",
+      "count": 2,
+      "examples": [
+        [
+          "data/cors.json",
+          "https://example.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://example.com"
+        ]
+      ]
+    },
+    "external-api.demo.kalshi.co": {
+      "class": "official-verified",
+      "count": 3104,
+      "examples": [
+        [
+          "a2ec5543/data/backtest.json",
+          "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTC15M-26NOV201000-00"
+        ],
+        [
+          "a2ec5543/data/backtest.json",
+          "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2009-T60999.99"
+        ],
+        [
+          "a2ec5543/data/backtest.json",
+          "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTCD-26NOV2009-T61099.99"
+        ]
+      ]
+    },
+    "external-api.kalshi.com": {
+      "class": "official-verified",
+      "count": 862,
+      "examples": [
+        [
+          "reports/link_audit/audit.json",
+          "https://external-api.kalshi.com/trade-api/v2"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://external-api.kalshi.com/trade-api/v2/markets/KX2028DRUN-28-AOC"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://external-api.kalshi.com/trade-api/v2/markets/KX2028DRUN-28-JOSS"
+        ]
+      ]
+    },
+    "foxsports.com": {
+      "class": "media/other (review)",
+      "count": 4,
+      "examples": [
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://foxsports.com"
+        ],
+        [
+          "data/topics/golf.json",
+          "https://foxsports.com"
+        ],
+        [
+          "monitor/data/snapshot-2026-11-20.json",
+          "https://foxsports.com"
+        ]
+      ]
+    },
+    "ft.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://ft.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://ft.com/"
+        ]
+      ]
+    },
+    "fuzzydoor.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://fuzzydoor.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://fuzzydoor.com/"
+        ]
+      ]
+    },
+    "gasprices.aaa.com": {
+      "class": "media/other (review)",
+      "count": 58,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://gasprices.aaa.com/"
+        ],
+        [
+          "a2ec5543/data/topic-gas.json",
+          "https://gasprices.aaa.com/"
+        ],
+        [
+          "a2ec5543/data/topic-gas.json",
+          "https://gasprices.aaa.com/?state=AK"
+        ]
+      ]
+    },
+    "github.com": {
+      "class": "official-verified",
+      "count": 10,
+      "examples": [
+        [
+          "reports/link_audit/audit.json",
+          "https://github.com/wingbangboozle1-lang/Trade1"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://github.com/wingbangboozle1-lang/Trade1/actions"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/pages.yml"
+        ]
+      ]
+    },
+    "golfchannel.com": {
+      "class": "media/other (review)",
+      "count": 4,
+      "examples": [
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://golfchannel.com"
+        ],
+        [
+          "data/topics/golf.json",
+          "https://golfchannel.com"
+        ],
+        [
+          "monitor/data/snapshot-2026-11-20.json",
+          "https://golfchannel.com"
+        ]
+      ]
+    },
+    "gop.com": {
+      "class": "media/other (review)",
+      "count": 5,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://gop.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://gop.com/"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://gop.com/"
+        ]
+      ]
+    },
+    "help.kalshi.com": {
+      "class": "official-verified",
+      "count": 1,
+      "examples": [
+        [
+          "reports/link_audit/audit.json",
+          "https://help.kalshi.com/en/articles/13823775-creating-and-using-a-demo-account"
+        ]
+      ]
+    },
+    "infoelectoral.interior.gob.es": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://infoelectoral.interior.gob.es/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://infoelectoral.interior.gob.es/"
+        ]
+      ]
+    },
+    "kalshi.com": {
+      "class": "official-verified",
+      "count": 82,
+      "examples": [
+        [
+          "a2ec5543/data/sources.json",
+          "https://kalshi.com/developer-agreement"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://kalshi.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://kalshi.com/"
+        ]
+      ]
+    },
+    "kotaku.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://kotaku.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://kotaku.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://kotaku.com"
+        ]
+      ]
+    },
+    "lacity.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/elections.json",
+          "https://lacity.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://lacity.gov/"
+        ]
+      ]
+    },
+    "leginfo.legislature.ca.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://leginfo.legislature.ca.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://leginfo.legislature.ca.gov/"
+        ]
+      ]
+    },
+    "luminatedata.com": {
+      "class": "third-party-settlement-source (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://luminatedata.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://luminatedata.com/"
+        ]
+      ]
+    },
+    "m-election.mn": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://m-election.mn/en"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://m-election.mn/en"
+        ]
+      ]
+    },
+    "music.amazon.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://music.amazon.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://music.amazon.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://music.amazon.com"
+        ]
+      ]
+    },
+    "music.apple.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://music.apple.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://music.apple.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://music.apple.com"
+        ]
+      ]
+    },
+    "music.youtube.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://music.youtube.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://music.youtube.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://music.youtube.com"
+        ]
+      ]
+    },
+    "nec.go.kr": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://nec.go.kr/site/eng/03/10303000000002020070601.jsp"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://nec.go.kr/site/eng/03/10303000000002020070601.jsp"
+        ]
+      ]
+    },
+    "newsroom.spotify.com": {
+      "class": "third-party-settlement-source (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://newsroom.spotify.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://newsroom.spotify.com/"
+        ]
+      ]
+    },
+    "officialwebsite.org": {
+      "class": "placeholder-not-a-source",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://officialwebsite.org"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://officialwebsite.org"
+        ]
+      ]
+    },
+    "open.spotify.com": {
+      "class": "media/other (review)",
+      "count": 6,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://open.spotify.com/"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://open.spotify.com/artist/2hlmm7s2ICUX0LVIhVFlZQ?si=cbxdJ4KZTtCp-nhfMg0nDQ"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://open.spotify.com/artist/50co4Is1HCEo8bhOyUWKpn?si=c7OvE7ngTbSBu_IF5zq7iw"
+        ]
+      ]
+    },
+    "parliament.fi": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://parliament.fi/en/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://parliament.fi/en/"
+        ]
+      ]
+    },
+    "pitchfork.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://pitchfork.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://pitchfork.com"
+        ]
+      ]
+    },
+    "pythdata.app": {
+      "class": "third-party-settlement-source (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://pythdata.app/explore"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://pythdata.app/explore"
+        ]
+      ]
+    },
+    "socialmediaaccounts.com": {
+      "class": "placeholder-not-a-source",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://socialmediaaccounts.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://socialmediaaccounts.com"
+        ]
+      ]
+    },
+    "thegameawards.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://thegameawards.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://thegameawards.com/"
+        ]
+      ]
+    },
+    "tidal.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://tidal.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://tidal.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://tidal.com"
+        ]
+      ]
+    },
+    "time.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://time.com/"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://time.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://time.com/"
+        ]
+      ]
+    },
+    "trends.google.com": {
+      "class": "third-party-settlement-source (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://trends.google.com/home"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://trends.google.com/home"
+        ]
+      ]
+    },
+    "tse.org.gt": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://tse.org.gt/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://tse.org.gt/"
+        ]
+      ]
+    },
+    "tvline.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://tvline.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://tvline.com"
+        ]
+      ]
+    },
+    "valtioneuvosto.fi": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://valtioneuvosto.fi/en/frontpage"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://valtioneuvosto.fi/en/frontpage"
+        ]
+      ]
+    },
+    "variety.com": {
+      "class": "media/other (review)",
+      "count": 7,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://variety.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://variety.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://variety.com/"
+        ]
+      ]
+    },
+    "votes.parliament.uk": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://votes.parliament.uk/"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://votes.parliament.uk/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://votes.parliament.uk/"
+        ]
+      ]
+    },
+    "web.cec.gov.tw": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://web.cec.gov.tw/central?Menu_id=1392"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://web.cec.gov.tw/central?Menu_id=1392"
+        ]
+      ]
+    },
+    "whitehouse.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://whitehouse.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://whitehouse.gov/"
+        ]
+      ]
+    },
+    "wingbangboozle1-lang.github.io": {
+      "class": "official-verified",
+      "count": 5,
+      "examples": [
+        [
+          "a2ec5543/data/sources.json",
+          "https://wingbangboozle1-lang.github.io"
+        ],
+        [
+          "config/sources.json",
+          "https://wingbangboozle1-lang.github.io"
+        ],
+        [
+          "data/cors.json",
+          "https://wingbangboozle1-lang.github.io"
+        ]
+      ]
+    },
+    "www.007.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.007.com/"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.007.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.007.com/"
+        ]
+      ]
+    },
+    "www.abc.net.au": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 4,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.abc.net.au/"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.abc.net.au/"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://www.abc.net.au/"
+        ]
+      ]
+    },
+    "www.ap.org": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://www.ap.org"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.ap.org"
+        ]
+      ]
+    },
+    "www.artnet.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.artnet.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.artnet.com/"
+        ]
+      ]
+    },
+    "www.axios.com": {
+      "class": "media/other (review)",
+      "count": 10,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.axios.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.axios.com"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.axios.com/"
+        ]
+      ]
+    },
+    "www.bbc.com": {
+      "class": "media/other (review)",
+      "count": 7,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.bbc.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.bbc.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.bbc.com/news"
+        ]
+      ]
+    },
+    "www.billboard.com": {
+      "class": "third-party-settlement-source (review)",
+      "count": 8,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.billboard.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.billboard.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.billboard.com"
+        ]
+      ]
+    },
+    "www.bloomberg.com": {
+      "class": "media/other (review)",
+      "count": 10,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.bloomberg.com/news"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.bloomberg.com/news"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.bloomberg.com"
+        ]
+      ]
+    },
+    "www.bls.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 4,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.bls.gov/cpi/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.bls.gov/news.release/empsit.nr0.htm"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.bls.gov/cpi/"
+        ]
+      ]
+    },
+    "www.boe.es": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.boe.es/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.boe.es/"
+        ]
+      ]
+    },
+    "www.boe.ohio.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.boe.ohio.gov/miami/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.boe.ohio.gov/miami/"
+        ]
+      ]
+    },
+    "www.casareal.es": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.casareal.es"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.casareal.es"
+        ]
+      ]
+    },
+    "www.cbsnews.com": {
+      "class": "media/other (review)",
+      "count": 7,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.cbsnews.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.cbsnews.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.cbsnews.com/"
+        ]
+      ]
+    },
+    "www.cfbenchmarks.com": {
+      "class": "media/other (review)",
+      "count": 20,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+        ],
+        [
+          "a2ec5543/data/resolved.json",
+          "https://www.cfbenchmarks.com/"
+        ],
+        [
+          "a2ec5543/data/resolved.json",
+          "https://www.cfbenchmarks.com/data/indices/BRTI?ref=blog.cfbenchmarks.com"
+        ]
+      ]
+    },
+    "www.clarkcountynv.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.clarkcountynv.gov/government/departments/elections/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.clarkcountynv.gov/government/departments/elections/"
+        ]
+      ]
+    },
+    "www.cnbc.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.cnbc.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.cnbc.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.cnbc.com"
+        ]
+      ]
+    },
+    "www.cnn.com": {
+      "class": "media/other (review)",
+      "count": 11,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.cnn.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.cnn.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.cnn.com/"
+        ]
+      ]
+    },
+    "www.co.rock.wi.us": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.co.rock.wi.us/departments/county-clerk/election-information"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.co.rock.wi.us/departments/county-clerk/election-information"
+        ]
+      ]
+    },
+    "www.congreso.es": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.congreso.es"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.congreso.es"
+        ]
+      ]
+    },
+    "www.congress.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 4,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.congress.gov/"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://www.congress.gov/"
+        ],
+        [
+          "monitor/data/snapshot-2026-11-20.json",
+          "https://www.congress.gov/"
+        ]
+      ]
+    },
+    "www.conseil-constitutionnel.fr": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.conseil-constitutionnel.fr/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.conseil-constitutionnel.fr/"
+        ]
+      ]
+    },
+    "www.courts.ca.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.courts.ca.gov/opinions.htm"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.courts.ca.gov/opinions.htm"
+        ]
+      ]
+    },
+    "www.decisiondeskhq.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.decisiondeskhq.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.decisiondeskhq.com/"
+        ]
+      ]
+    },
+    "www.democrats.senate.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.democrats.senate.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.democrats.senate.gov/"
+        ]
+      ]
+    },
+    "www.disneyplus.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://www.disneyplus.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.disneyplus.com/"
+        ]
+      ]
+    },
+    "www.eia.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "monitor/data/snapshot-2026-11-20.json",
+          "https://www.eia.gov/dnav/pet/PET_PRI_GND_DCUS_NUS_W.htm"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.eia.gov/dnav/pet/PET_PRI_GND_DCUS_NUS_W.htm"
+        ]
+      ]
+    },
+    "www.elections.ca": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.elections.ca/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.elections.ca/"
+        ]
+      ]
+    },
+    "www.elysee.fr": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.elysee.fr/en/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.elysee.fr/en/"
+        ]
+      ]
+    },
+    "www.espn.com": {
+      "class": "media/other (review)",
+      "count": 10,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.espn.com/"
+        ],
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://www.espn.com"
+        ],
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://www.espn.com/"
+        ]
+      ]
+    },
+    "www.fec.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.fec.gov"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.fec.gov"
+        ]
+      ]
+    },
+    "www.federalreserve.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+        ]
+      ]
+    },
+    "www.fox.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.fox.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.fox.com/"
+        ]
+      ]
+    },
+    "www.foxnews.com": {
+      "class": "media/other (review)",
+      "count": 10,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.foxnews.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.foxnews.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.foxnews.com"
+        ]
+      ]
+    },
+    "www.foxsports.com": {
+      "class": "media/other (review)",
+      "count": 8,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.foxsports.com"
+        ],
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://www.foxsports.com"
+        ],
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://www.foxsports.com/"
+        ]
+      ]
+    },
+    "www.google.com": {
+      "class": "media/other (review)",
+      "count": 4,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://www.google.com/search?q=Entertainment+Weekly"
+        ],
+        [
+          "monitor/data/snapshot-2026-11-20.json",
+          "https://www.google.com/search?q=account"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.google.com/search?q=Entertainment+Weekly"
+        ]
+      ]
+    },
+    "www.gov.uk": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/elections.json",
+          "https://www.gov.uk/government/organisations/prime-ministers-office-10-downing-street"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.gov.uk/government/organisations/prime-ministers-office-10-downing-street"
+        ]
+      ]
+    },
+    "www.grammy.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.grammy.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.grammy.com/"
+        ]
+      ]
+    },
+    "www.hollywoodreporter.com": {
+      "class": "media/other (review)",
+      "count": 8,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.hollywoodreporter.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.hollywoodreporter.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.hollywoodreporter.com/c/tv/tv-news/"
+        ]
+      ]
+    },
+    "www.house.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.house.gov/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.house.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.house.gov/"
+        ]
+      ]
+    },
+    "www.hulu.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.hulu.com/welcome"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.hulu.com/welcome"
+        ]
+      ]
+    },
+    "www.imdb.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://www.imdb.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.imdb.com"
+        ]
+      ]
+    },
+    "www.interior.gob.es": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.interior.gob.es/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.interior.gob.es/"
+        ]
+      ]
+    },
+    "www.juntaelectoralcentral.es": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.juntaelectoralcentral.es/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.juntaelectoralcentral.es/"
+        ]
+      ]
+    },
+    "www.justice.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.justice.gov/ag"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.justice.gov/ag"
+        ]
+      ]
+    },
+    "www.latimes.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.latimes.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.latimes.com"
+        ]
+      ]
+    },
+    "www.livgolf.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/topics/golf.json",
+          "https://www.livgolf.com/"
+        ],
+        [
+          "monitor/data/snapshot-2026-11-20.json",
+          "https://www.livgolf.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.livgolf.com/"
+        ]
+      ]
+    },
+    "www.londonelects.org.uk": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.londonelects.org.uk/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.londonelects.org.uk/"
+        ]
+      ]
+    },
+    "www.lyoncountyks.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.lyoncountyks.gov/240/Election-Office"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.lyoncountyks.gov/240/Election-Office"
+        ]
+      ]
+    },
+    "www.maine.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 4,
+      "examples": [
+        [
+          "data/topics/elections.json",
+          "https://www.maine.gov/sos/"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://www.maine.gov/sos/elections-voting"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.maine.gov/sos/"
+        ]
+      ]
+    },
+    "www.masters.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/golf.json",
+          "https://www.masters.com/index.html"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.masters.com/index.html"
+        ]
+      ]
+    },
+    "www.metacritic.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.metacritic.com/game/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.metacritic.com/game/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.metacritic.com/game/"
+        ]
+      ]
+    },
+    "www.ms.now": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.ms.now/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.ms.now/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.ms.now/"
+        ]
+      ]
+    },
+    "www.msnbc.com": {
+      "class": "media/other (review)",
+      "count": 8,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.msnbc.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.msnbc.com"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.msnbc.com/"
+        ]
+      ]
+    },
+    "www.nass.org": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.nass.org/can-I-vote"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.nass.org/can-I-vote"
+        ]
+      ]
+    },
+    "www.nationalpopularvote.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.nationalpopularvote.com"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.nationalpopularvote.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.nationalpopularvote.com"
+        ]
+      ]
+    },
+    "www.nato.int": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.nato.int/"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://www.nato.int/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.nato.int/"
+        ]
+      ]
+    },
+    "www.nbc.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.nbc.com/saturday-night-live"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.nbc.com/saturday-night-live"
+        ]
+      ]
+    },
+    "www.nbcnews.com": {
+      "class": "media/other (review)",
+      "count": 7,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.nbcnews.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.nbcnews.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.nbcnews.com/"
+        ]
+      ]
+    },
+    "www.nbcsports.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-golf.json",
+          "http://www.nbcsports.com/"
+        ],
+        [
+          "data/topics/golf.json",
+          "http://www.nbcsports.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "http://www.nbcsports.com/"
+        ]
+      ]
+    },
+    "www.netflix.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.netflix.com/tudum/top10"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.netflix.com/tudum/top10"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.netflix.com/tudum/top10"
+        ]
+      ]
+    },
+    "www.nhl.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.nhl.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.nhl.com"
+        ]
+      ]
+    },
+    "www.nytimes.com": {
+      "class": "media/other (review)",
+      "count": 12,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.nytimes.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.nytimes.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.nytimes.com/"
+        ]
+      ]
+    },
+    "www.oscars.org": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.oscars.org/oscars"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.oscars.org/oscars"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.oscars.org/oscars"
+        ]
+      ]
+    },
+    "www.pcmanitoba.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.pcmanitoba.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.pcmanitoba.com/"
+        ]
+      ]
+    },
+    "www.pgatour.com": {
+      "class": "media/other (review)",
+      "count": 6,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.pgatour.com/"
+        ],
+        [
+          "a2ec5543/data/topic-golf.json",
+          "https://www.pgatour.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.pgatour.com/"
+        ]
+      ]
+    },
+    "www.politico.com": {
+      "class": "media/other (review)",
+      "count": 11,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.politico.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.politico.com"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.politico.com/"
+        ]
+      ]
+    },
+    "www.pref.kanagawa.jp": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.pref.kanagawa.jp/docs/em7/index.html"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.pref.kanagawa.jp/docs/em7/index.html"
+        ]
+      ]
+    },
+    "www.prnewswire.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/elections.json",
+          "https://www.prnewswire.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.prnewswire.com/"
+        ]
+      ]
+    },
+    "www.realclearpolling.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.realclearpolling.com/polls/approval/donald-trump/approval-rating"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.realclearpolling.com/polls/approval/donald-trump/approval-rating"
+        ]
+      ]
+    },
+    "www.reuters.com": {
+      "class": "media/other (review)",
+      "count": 13,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.reuters.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.reuters.com"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.reuters.com/"
+        ]
+      ]
+    },
+    "www.riaa.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.riaa.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.riaa.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.riaa.com"
+        ]
+      ]
+    },
+    "www.riigikogu.ee": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.riigikogu.ee/en/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.riigikogu.ee/en/"
+        ]
+      ]
+    },
+    "www.rockstargames.com": {
+      "class": "media/other (review)",
+      "count": 5,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.rockstargames.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.rockstargames.com/VI"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.rockstargames.com/"
+        ]
+      ]
+    },
+    "www.rollingstone.com": {
+      "class": "media/other (review)",
+      "count": 5,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.rollingstone.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.rollingstone.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.rollingstone.com"
+        ]
+      ]
+    },
+    "www.rottentomatoes.com": {
+      "class": "media/other (review)",
+      "count": 10,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.rottentomatoes.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.rottentomatoes.com/"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.rottentomatoes.com/m/avengers_doomsday"
+        ]
+      ]
+    },
+    "www.semafor.com": {
+      "class": "media/other (review)",
+      "count": 6,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.semafor.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.semafor.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.semafor.com/"
+        ]
+      ]
+    },
+    "www.sfchronicle.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.sfchronicle.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.sfchronicle.com"
+        ]
+      ]
+    },
+    "www.sfusd.edu": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.sfusd.edu/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.sfusd.edu/"
+        ]
+      ]
+    },
+    "www.sos.ca.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 4,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.sos.ca.gov"
+        ],
+        [
+          "data/topics/elections.json",
+          "https://www.sos.ca.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.sos.ca.gov"
+        ]
+      ]
+    },
+    "www.sos.mn.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.sos.mn.gov"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.sos.mn.gov"
+        ]
+      ]
+    },
+    "www.soundcloud.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.soundcloud.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.soundcloud.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.soundcloud.com"
+        ]
+      ]
+    },
+    "www.speaker.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.speaker.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.speaker.gov/"
+        ]
+      ]
+    },
+    "www.spotify.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.spotify.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.spotify.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.spotify.com"
+        ]
+      ]
+    },
+    "www.take2games.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.take2games.com/ir"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.take2games.com/ir"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.take2games.com/ir"
+        ]
+      ]
+    },
+    "www.theguardian.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.theguardian.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.theguardian.com"
+        ]
+      ]
+    },
+    "www.theinformation.com": {
+      "class": "media/other (review)",
+      "count": 9,
+      "examples": [
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.theinformation.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.theinformation.com/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.theinformation.com"
+        ]
+      ]
+    },
+    "www.thewrap.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.thewrap.com"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.thewrap.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.thewrap.com"
+        ]
+      ]
+    },
+    "www.tse.org.gt": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.tse.org.gt/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.tse.org.gt/"
+        ]
+      ]
+    },
+    "www.universalpictures.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.universalpictures.com/"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.universalpictures.com/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.universalpictures.com/"
+        ]
+      ]
+    },
+    "www.valitsus.ee": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.valitsus.ee/en"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.valitsus.ee/en"
+        ]
+      ]
+    },
+    "www.vatican.va": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.vatican.va/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.vatican.va/"
+        ]
+      ]
+    },
+    "www.washingtonpost.com": {
+      "class": "media/other (review)",
+      "count": 7,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.washingtonpost.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.washingtonpost.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.washingtonpost.com/"
+        ]
+      ]
+    },
+    "www.whitehouse.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 6,
+      "examples": [
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.whitehouse.gov/"
+        ],
+        [
+          "data/snapshot.json",
+          "https://www.whitehouse.gov/administration/executive-office-of-the-president/"
+        ]
+      ]
+    },
+    "www.willcountyclerk.gov": {
+      "class": "government/institutional domain (not individually verified)",
+      "count": 2,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.willcountyclerk.gov/"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.willcountyclerk.gov/"
+        ]
+      ]
+    },
+    "www.wsj.com": {
+      "class": "media/other (review)",
+      "count": 9,
+      "examples": [
+        [
+          "a2ec5543/data/moves.json",
+          "https://www.wsj.com/"
+        ],
+        [
+          "a2ec5543/data/topic-culture.json",
+          "https://www.wsj.com/"
+        ],
+        [
+          "a2ec5543/data/topic-elections.json",
+          "https://www.wsj.com/"
+        ]
+      ]
+    },
+    "www.xxlmag.com": {
+      "class": "media/other (review)",
+      "count": 2,
+      "examples": [
+        [
+          "data/topics/culture.json",
+          "https://www.xxlmag.com"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.xxlmag.com"
+        ]
+      ]
+    },
+    "www.youtube.com": {
+      "class": "media/other (review)",
+      "count": 3,
+      "examples": [
+        [
+          "data/snapshot.json",
+          "https://www.youtube.com/c/ISHOWSPEED"
+        ],
+        [
+          "data/topics/culture.json",
+          "https://www.youtube.com/c/ISHOWSPEED"
+        ],
+        [
+          "reports/link_audit/audit.json",
+          "https://www.youtube.com/c/ISHOWSPEED"
+        ]
+      ]
+    }
+  },
+  "per_file": {
+    "a2ec5543/analysis.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/crypto.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/culture.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/elections.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/flagged.html": {
+      "local_refs": 16,
+      "external_refs": 1
+    },
+    "a2ec5543/flagged_notes.html": {
+      "local_refs": 14,
+      "external_refs": 18
+    },
+    "a2ec5543/gas.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/golf.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/index.html": {
+      "local_refs": 20,
+      "external_refs": 1
+    },
+    "a2ec5543/methodology.html": {
+      "local_refs": 15,
+      "external_refs": 4
+    },
+    "a2ec5543/moves.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/resolved.html": {
+      "local_refs": 15,
+      "external_refs": 1
+    },
+    "a2ec5543/review.html": {
+      "local_refs": 14,
+      "external_refs": 11
+    },
+    "a2ec5543/review_api.html": {
+      "local_refs": 14,
+      "external_refs": 28
+    },
+    "a2ec5543/sources.html": {
+      "local_refs": 16,
+      "external_refs": 1
+    },
+    "a2ec5543/summary.html": {
+      "local_refs": 18,
+      "external_refs": 8
+    },
+    "categories/crypto.html": {
+      "local_refs": 4,
+      "external_refs": 4
+    },
+    "categories/culture.html": {
+      "local_refs": 4,
+      "external_refs": 4
+    },
+    "categories/elections.html": {
+      "local_refs": 4,
+      "external_refs": 4
+    },
+    "categories/gas.html": {
+      "local_refs": 4,
+      "external_refs": 4
+    },
+    "categories/golf.html": {
+      "local_refs": 4,
+      "external_refs": 4
+    },
+    "dashboard.html": {
+      "local_refs": 15,
+      "external_refs": 0
+    },
+    "data.html": {
+      "local_refs": 15,
+      "external_refs": 3
+    },
+    "flagged.html": {
+      "local_refs": 16,
+      "external_refs": 24
+    },
+    "index.html": {
+      "local_refs": 27,
+      "external_refs": 3
+    },
+    "live.html": {
+      "local_refs": 7,
+      "external_refs": 0
+    },
+    "methods.html": {
+      "local_refs": 15,
+      "external_refs": 16
+    },
+    "monitor/crypto.html": {
+      "local_refs": 6,
+      "external_refs": 0
+    },
+    "monitor/culture.html": {
+      "local_refs": 6,
+      "external_refs": 0
+    },
+    "monitor/elections.html": {
+      "local_refs": 6,
+      "external_refs": 0
+    },
+    "monitor/findings.html": {
+      "local_refs": 6,
+      "external_refs": 0
+    },
+    "monitor/flagged.html": {
+      "local_refs": 2,
+      "external_refs": 3
+    },
+    "monitor/gas-prices.html": {
+      "local_refs": 6,
+      "external_refs": 0
+    },
+    "monitor/golf.html": {
+      "local_refs": 6,
+      "external_refs": 0
+    },
+    "monitor/index.html": {
+      "local_refs": 14,
+      "external_refs": 5
+    },
+    "monitor/live.html": {
+      "local_refs": 5,
+      "external_refs": 7
+    },
+    "monitor/resolved.html": {
+      "local_refs": 3,
+      "external_refs": 1
+    },
+    "monitor/strategies.html": {
+      "local_refs": 4,
+      "external_refs": 2
+    },
+    "pages/crypto.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "pages/culture.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "pages/elections.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "pages/flagged.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "pages/gas.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "pages/golf.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "pages/portfolio.html": {
+      "local_refs": 12,
+      "external_refs": 0
+    },
+    "resolved.html": {
+      "local_refs": 4,
+      "external_refs": 1
+    },
+    "site/flagged.html": {
+      "local_refs": 13,
+      "external_refs": 10
+    },
+    "site/index.html": {
+      "local_refs": 26,
+      "external_refs": 11
+    },
+    "site/pages/analysis.html": {
+      "local_refs": 0,
+      "external_refs": 0
+    },
+    "site/pages/flagged.html": {
+      "local_refs": 1,
+      "external_refs": 0
+    },
+    "site/pages/index.html": {
+      "local_refs": 5,
+      "external_refs": 0
+    },
+    "site/pages/moves.html": {
+      "local_refs": 0,
+      "external_refs": 0
+    },
+    "site/pages/resolved.html": {
+      "local_refs": 0,
+      "external_refs": 0
+    },
+    "site/pages/sources.html": {
+      "local_refs": 1,
+      "external_refs": 0
+    },
+    "site/strategies.html": {
+      "local_refs": 23,
+      "external_refs": 2
+    },
+    "site/suggestions.html": {
+      "local_refs": 13,
+      "external_refs": 3
+    },
+    "site/topics/crypto.html": {
+      "local_refs": 24,
+      "external_refs": 7
+    },
+    "site/topics/culture.html": {
+      "local_refs": 24,
+      "external_refs": 7
+    },
+    "site/topics/elections.html": {
+      "local_refs": 24,
+      "external_refs": 7
+    },
+    "site/topics/gas-prices.html": {
+      "local_refs": 24,
+      "external_refs": 7
+    },
+    "site/topics/golf.html": {
+      "local_refs": 24,
+      "external_refs": 7
+    },
+    "site/verification.html": {
+      "local_refs": 15,
+      "external_refs": 20
+    },
+    "sources.html": {
+      "local_refs": 13,
+      "external_refs": 25
+    },
+    "strategies.html": {
+      "local_refs": 4,
+      "external_refs": 0
+    },
+    "topics/crypto.html": {
+      "local_refs": 15,
+      "external_refs": 0
+    },
+    "topics/culture.html": {
+      "local_refs": 15,
+      "external_refs": 0
+    },
+    "topics/elections.html": {
+      "local_refs": 15,
+      "external_refs": 0
+    },
+    "topics/gas-prices.html": {
+      "local_refs": 15,
+      "external_refs": 0
+    },
+    "topics/golf.html": {
+      "local_refs": 15,
+      "external_refs": 0
+    },
+    "trade1/crypto/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trade1/culture/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trade1/elections/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trade1/flagged/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trade1/gas-prices/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trade1/golf/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trade1/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trade1/jumps/index.html": {
+      "local_refs": 11,
+      "external_refs": 0
+    },
+    "trades.html": {
+      "local_refs": 15,
+      "external_refs": 0
+    }
+  }
+}
