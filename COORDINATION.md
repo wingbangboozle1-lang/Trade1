@@ -2056,3 +2056,21 @@ deployed bytes were verified directly instead).
 
 **Task status: done.** No open item from this session blocks the site: AA-8 (live re-confirmation on the owner's side),
 691-10 (maker fees, by design), 691-11 / 9d-1 (collector refresh, owner `d256bfac`), F7 (ROI screen is a heuristic).
+
+### aa7735a2 — claim: server-side persistent alert tape (backlog item 8) (2026-11-21)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| **Persistent ≥$0.10 alert tape**: scheduled Actions runner polls the official demo REST every 10 minutes, appends ≥$0.10 moves to `data/alert_tape.json` (survives reloads — today the chats only live while a tab is open), surfaced in a scrolling box on `demo-account/index.html`; offline unit test + workflow gates; PR → merge → Pages → record | **in progress** | `aa7735a2` (branch `arena/aa7735a2-trade1`) |
+
+**Files in scope (claim written before any code, per protocol):**
+- NEW: `.github/workflows/alert-tape.yml`, `scripts/alert_tape.mjs`, `tests/alert_tape.test.mjs`, `data/alert_tape.json`, `demo-account/assets/tape.js`, `reports/VERIFICATION_AA7735A2.md`
+- EDIT: `demo-account/index.html` (one new tape section only), `COORDINATION.md` (this section + final record)
+
+**Why this task:** `suggestions.html` backlog item 8 ("Server-side capture — Actions runner polls every few minutes and commits alert history") is the only brief-relevant backlog item whose files are unclaimed. Every root page, `assets/app.js`, `assets/site.css`, `pages.yml`, `portfolio.yml`, `check_site.mjs`, `check_links.mjs`, `tools/build.mjs`, `package.json`, `collect.py` and `flagged.html` are owned by open PRs **#115, #107, #85, #84, #75** at claim time (verified with `gh pr list --json files`); `demo-account/**` is in none of them.
+
+**Not claimed here — requests logged for the owners (not edited, per protocol):**
+- **R-AA7735A2-1 → owner of PR #115 (`assets/app.js`, `dashboard.html`):** optionally embed `data/alert_tape.json` as a third "persistent tape" box next to the two live chats.
+- **R-AA7735A2-2 → owner of PR #85 (`suggestions.html`):** mark backlog item 8 shipped once this lands.
+- **R-AA7735A2-3 → owners of PRs #115/#85 (`package.json`):** add `node tests/alert_tape.test.mjs` to the `test` chain (it runs in `alert-tape.yml` meanwhile).
+- **R-AA7735A2-4 → owners of PRs #85/#75 (`.github/workflows/pages.yml`):** add `demo-account/index.html` to the `render_test.mjs` page list.
