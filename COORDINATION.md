@@ -1189,4 +1189,48 @@ Baseline at claim (all run locally on the claim commit): `npm run check` → BUI
 live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/89) suites all pass;
 `tools/render_test.mjs` 15/15 pages, 0 JS errors.
 
-Status of the work items below is recorded at the end of this section once complete.
+**Status: done.** Recorded 2026-11-21 ~07:02 UTC.
+
+| Item | Defect (all reproduced locally before the fix) | Regression gate | Status |
+|---|---|---|---|
+| AA-1 | markets past `close_time` were still price-sampled → phantom −$0.10 alerts after close, paper exits at a sticky bid | `tests/live_dash.test.mjs` A1, A1b | fixed |
+| AA-2 | closed rows outranked tradeable ones; no status / best-price / resting-size columns; no "live now" KPI | A2 | fixed |
+| AA-3 | order-book ladder printed only the last 6 array entries per side (wrong end of the ask ladder) and hid contracts + sweep cost | A3 | fixed |
+| AA-4 | a `/series` record could not add `settlement_sources` to an event `/events` had already created | A4 | fixed |
+| AA-5 | both alert chats empty on first load despite stored alerts | A5 | fixed (session note + persisted moves board; retention 300 → 800) |
+| AA-6 | ROI score ignored book depth | `scripts/test_model.mjs` §6 | changed + disclosed |
+| AA-7 | CI page-render gate called the live demo API when its cache was empty → a network hiccup failed a docs-only push (`main` @ `1f99d61`, run 44876724665) | `tools/render_test.mjs --offline` in `pages.yml` | fixed |
+
+- **Sources (official, re-read 2026-11-21):** Market Lifecycle https://docs.kalshi.com/getting_started/market_lifecycle ·
+  Orderbook Responses https://docs.kalshi.com/getting_started/orderbook_responses ·
+  Get Markets https://docs.kalshi.com/api-reference/market/get-markets ·
+  Get Market Candlesticks https://docs.kalshi.com/api-reference/market/get-market-candlesticks ·
+  Get Series https://docs.kalshi.com/api-reference/market/get-series ·
+  Get Series List https://docs.kalshi.com/api-reference/market/get-series-list ·
+  Get Trades https://docs.kalshi.com/api-reference/market/get-trades ·
+  API Environments https://docs.kalshi.com/getting_started/api_environments ·
+  Quick Start: WebSockets https://docs.kalshi.com/getting_started/quick_start_websockets
+- **Verification performed (branch, exit 0):** `tools/build.mjs` BUILD OK 18 HTML / 6 JS / 0 broken links ·
+  `check_site.mjs` 18 HTML / 432 links / 1,249 rows / 825 resolved / 0 failures ·
+  `check_links.mjs` 16 pages / 400 local + 236 external / 0 failures ·
+  `npm test` = engine 23/23 · live_fixes 3/3 · **live_dash 6/6 (new)** · lib ok · fees 50/50 · model 30 ·
+  root_engine 48/48 · model.test 21/21 · portfolio 60/60 · demo-account 89/89 · `tests/test_collect.py` 4/4 ·
+  `tools/render_test.mjs --offline` 16 pages, 0 JS errors.
+- **Not verified (no inference made):** live runtime responses from the demo API — this sandbox has no route to
+  `external-api.demo.kalshi.co` (curl returns 000). Runtime behaviour was checked against fixtures built from the committed
+  official-response samples (`data/samples/`) and the official docs. Published as **AA-8** on `flagged.html` for the owner.
+- **Publications:** `methods.html` §2/§3/§4/§6 (the changed rules, each with its official source), `flagged.html`
+  AA-1 … AA-8, `suggestions.html` §2c (what shipped, what is next).
+- **Conflict resolution:** `COORDINATION.md` conflicted on rebase twice (session `504976fa`'s verification record, then
+  `31a8a56b`/`d256bfac`). Both were resolved additively — every incoming session block was kept verbatim above this section.
+  `package.json` also conflicted; the merged `test` script keeps session `d256bfac`'s `python3 tests/test_collect.py`
+  **and** adds `tests/live_dash.test.mjs`. Nothing from another session was dropped.
+- **PR / merge:** [PR #69](https://github.com/wingbangboozle1-lang/Trade1/pull/69) `arena/aa7d3d27-trade1` → `main`,
+  checks **pass** (run [44877702587](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44877702587)),
+  merged without waiting for approval at 2026-11-21T06:56:14Z, merge commit **`33255ec`**.
+- **Pages verified:** `gh api .../pages` → `status: built`, `build_type: legacy`, source `main /`, https enforced;
+  latest Pages build for commit `33255ec` → **built**, no error. Post-merge `main` run
+  [44877900125](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44877900125) → **success**.
+  The deployed https://wingbangboozle1-lang.github.io/Trade1/flagged.html was fetched and shows the AA-1 … AA-8 section.
+- **Task status:** done. Open items are published on `flagged.html` and do not block: AA-8 (live re-confirmation),
+  691-10 (maker fees), 691-11 / 9d-1 (collector refresh pending, owned by session `d256bfac`), F7 (ROI screen is a heuristic).
