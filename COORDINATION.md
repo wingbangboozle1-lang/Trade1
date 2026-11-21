@@ -1762,7 +1762,7 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Collector 429 resilience (exponential backoff per official rate-limits doc) + snapshot clobber guard; Resolved-page empty-snapshot repair; stale open-PR integration review | in progress | `arena/fa530a2c-trade1` | `scripts/collect.py`, `tests/test_collect.py`, `resolved.html`, `flagged.html` (new FA section only), `reports/VERIFICATION_FA530A2C.md`, `COORDINATION.md` (this section only) |
+| Collector 429 resilience (exponential backoff per official rate-limits doc) + snapshot clobber guard; Resolved-page empty-snapshot repair; stale open-PR integration review | **done** (PR #104 merged `55ccb01`; Pages built; backoff/clobber-guard landed instead via PR #80 and was adopted over this session's parallel copy — see completion record below) | `arena/fa530a2c-trade1` | `scripts/collect.py`, `tests/test_collect.py`, `resolved.html`, `flagged.html` (new FA section only), `reports/VERIFICATION_FA530A2C.md`, `COORDINATION.md` (this section only) |
 
 **Claim recorded 2026-11-21 on branch `arena/fa530a2c-trade1`, base `main` @ `7d1c21f`.**
 
@@ -1812,7 +1812,13 @@ PR #67 was CONFLICTING with `main` and its unique content was not in `main`. Thi
 - **#75 (`725b09a7`)** claims final integration incl. `collect.py` (`classify_settled()` entry point), `flagged.html`, `tests/test_collect.py` (38 checks), `check_row_sources.mjs`, and a `resolved.html` denominator note. Its `resolved.html` edit (new `rs-denom` `<li>` + render() block) and `flagged.html` section are **additive to this PR's FA section and empty-snapshot fix** — keep both sides when reconciling.
 - **#67/#68** — active/within-window; untouched by this session as recorded above.
 
-**PR / merge / Pages:** [PR #104](https://github.com/wingbangboozle1-lang/Trade1/pull/104) `arena/fa530a2c-trade1` → `main`, opened 2026-11-21 ~07:40Z with the full summary/sources/flagged list in the PR body. Checks then merge (merge without waiting for review, per the brief) and Pages verification: **appended below after merge.**
+**PR / merge / Pages:** [PR #104](https://github.com/wingbangboozle1-lang/Trade1/pull/104) `arena/fa530a2c-trade1` → `main`, opened 2026-11-21 07:40Z with the full summary/sources/flagged list in the PR body.
+- **CI before merge:** run [44881569703](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44881569703) (`Site checks + data refresh`) on head `54c7184` → **success** (after one rebase cycle; main was merging PRs every 1–2 minutes during this window, so the merge needed a final `origin/main` merge-into-branch at `bf0cc86` before GitHub reported `MERGEABLE`).
+- **Merged without waiting for review:** **2026-11-21T07:49:33Z**, merge commit [`55ccb016fc90d00f7d49daf282c2cca18cb0ca7b`](https://github.com/wingbangboozle1-lang/Trade1/commit/55ccb016fc90d00f7d49daf282c2cca18cb0ca7b) (PR #104).
+- **Post-merge CI on `main`:** run [44882150917](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44882150917) (`Site checks + data refresh`, head `39793f0` — includes this PR's content) → **success**; earlier run for `55ccb01` was `cancelled` only because a newer push superseded it (concurrency group), not a failure.
+- **Pages:** builds [44882022182](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44882022182) (merge `55ccb01`) and [44882222477](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44882222477) (current head `fa3771e`) → both **success**; Pages API `status: built`, https enforced, `https://wingbangboozle1-lang.github.io/Trade1/`.
+- **Live verification (page fetcher, 2026-11-21 ~07:53Z):** `resolved.html` serves the regenerated snapshot (07:17:44Z, 200 rows, in-scope 2675) with the **"D1 — fixed and confirmed"** note and per-row official API links; `flagged.html` serves the **fa530a2c FA section (FA-1…FA-5)**, the **salvaged 6b-7…6b-13 table** (directly followed by session `78d61b01`'s additive 78-x section — both survived the merge intact); root URL loads.
+- **Task status:** done. Open items remain published on `flagged.html` (6b-* salvage rows, FA-1 history, AA-8, demo-account credentials) and do not block anything.
 
 **Task status:** done (this section's scope). Open items stay published on `flagged.html` (FA-1 refresh pending, AA-8, demo-account credentials) and do not block.
 
