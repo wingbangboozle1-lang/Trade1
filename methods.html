@@ -212,7 +212,11 @@ score = raw · damp                          (rounded to 3 dp)</pre>
   result is published on <a href="data.html">Data</a> and in
   <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/endpoint_contract.json" target="_blank" rel="noopener"><code>data/endpoint_contract.json</code></a>.
   Requests whose rejection is itself documented (e.g. <code>depth=101</code> → 400) are recorded for information
-  and cannot fail the build; only a documented contract breaking does. The probe could not be executed from the
+  and cannot fail the build, and neither does an <b>empty array</b> where the window can legitimately contain
+  nothing (a market younger than the hourly or daily period it asks about) — emptiness is only a violation where the
+  query itself defines the answer set, e.g. a <code>tickers=</code> batch that returns nothing for a market the
+  listing just showed. Both rules came out of the probe’s first live run, whose four “mismatches” were four wrong
+  expectations in the probe (see <a href="flagged.html">Flagged</a> KX-7); only a documented contract breaking does. The probe could not be executed from the
   build sandbox — that sandbox has no route to <code>*.kalshi.co</code> — so until the first workflow run the file
   is a labelled placeholder with zero results and the Data page says “Not probed yet”. See
   <a href="reports/VERIFICATION_5fa4bde9.md"><code>reports/VERIFICATION_5fa4bde9.md</code></a>.</p>

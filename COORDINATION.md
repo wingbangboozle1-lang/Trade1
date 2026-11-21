@@ -340,6 +340,17 @@ constant), and tearing down a jsdom window while its own timers were still queue
 test and killed the process between tests, after printing 13 of 14 passes). Worth adopting in the shared `pages.yml`
 if its owners want the same property.
 
+**Note E — two sandbox capabilities worth knowing (found 2026-11-21 while diagnosing the first CI probe run).**
+(1) The page fetcher available here CAN read a `https://external-api.demo.kalshi.co/...` **response body** — it does
+not go through the blocked TLS path `curl` uses — but it reports no status code and no headers, so it cannot replace
+a contract probe (status codes, `x-ratelimit-*`, CORS echo all need a runner). It is, however, enough to settle
+schema questions such as “is the payload wrapped in `series`?” or “does a market row carry `series_ticker`?”, and both
+were settled that way before the probe's expectations were corrected. (2) `curl` to `docs.kalshi.com` fails
+(TLS), but `fetch_page` on the same URL with the `.md` suffix returns the whole official OpenAPI block — which is how
+`MarketStatusQuery` turned out to have **five** filter values (`unopened|open|paused|closed|settled`), not the four
+listed in several records on this board (Flagged KX-8). When a claim on the site rests on a schema detail, re-read
+the `.md` form rather than trusting a paraphrase in the repo.
+
 **Deliberately not touched** (owned by sessions active at claim time, per their board rows):
 `scripts/collect.py`, `scripts/collect_test.py`, `scripts/portfolio_engine.py`, `flagged.html`,
 `resolved.html`, `assets/portfolio.js`, `README.md`, `EXECUTIVE_SUMMARY.md`,

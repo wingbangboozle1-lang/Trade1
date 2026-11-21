@@ -104,21 +104,40 @@ def probe(url, expect, note=""):
     return out, js
 
 
-def check_fields(case, js, top_keys, item_keys):
-    """Record presence exactly as observed; missing keys are listed, never filled."""
+def check_fields(case, js, top_keys, item_keys, min_items=0):
+    """Record presence exactly as observed; missing keys are listed, never filled.
+
+    An EMPTY result is not a field violation: the first live run of this probe flagged
+    candles-60/candles-1440 as a mismatch because the sample market had been created 44
+    minutes earlier, so it legitimately has no hourly or daily candle in the requested
+    window (and the docs allow an empty array). Emptiness is only a violation where the
+    request itself defines the answer set (min_items=1): a `tickers=` batch that returns
+    nothing for a market `markets-open` just listed, for instance, IS a contract break.
+    """
     missing = [k for k in top_keys if not isinstance(js, dict) or k not in js]
     case["missing_top_level_fields"] = missing
     if item_keys and isinstance(js, dict):
         arr = js.get("markets") or js.get("events") or js.get("series") or js.get("trades") or js.get("candlesticks") or []
-        sample = arr[0] if isinstance(arr, list) and arr else None
-        case["items_seen"] = len(arr) if isinstance(arr, list) else 0
+        # A single-record endpoint documents its payload as an OBJECT, not an array — the
+        # documented GetSeriesResponse is { "series": Series }, so treat a mapping as one item.
+        if isinstance(arr, dict):
+            arr = [arr]
+        arr = arr if isinstance(arr, list) else []
+        sample = arr[0] if arr else None
+        case["items_seen"] = len(arr)
         if sample is None:
-            case["item_fields_missing"] = item_keys
-            case["item_note"] = "no items in this response, so item fields could not be checked"
+            case["items_empty"] = True
+            case["item_fields_missing"] = []
+            case["item_note"] = ("no items in this response: nothing to check against the schema "
+                                 "(an empty array is a legitimate answer)")
+            if min_items >= 1:
+                case["verdict"] = "empty-unexpected"
         else:
             case["item_fields_present"] = [k for k in item_keys if k in sample]
             case["item_fields_missing"] = [k for k in item_keys if k not in sample]
-    bad = [k for k in case.get("missing_top_level_fields", []) ]
+    elif item_keys and isinstance(js, dict) and isinstance(js.get(item_keys and "series"), dict):
+        pass
+    bad = [k for k in case.get("missing_top_level_fields", [])]
     if bad or case.get("item_fields_missing"):
         case["verdict"] = "field-mismatch"
     elif "verdict" not in case:
@@ -143,7 +162,8 @@ def main(argv):
     no_sample = [False]   # set if the discovery sweep produced no market at all
     say(f"endpoint contract probe start base={BASE}")
 
-    def add(cid, url, expect, doc, what, top_keys=(), item_keys=(), informative=False, mutate=None, needs_sample=False):
+    def add(cid, url, expect, doc, what, top_keys=(), item_keys=(), informative=False, mutate=None,
+            needs_sample=False, min_items=0):
         time.sleep(PACE_S)
         if needs_sample and no_sample[0]:
             # The per-market cases are meaningless without a real ticker: say so
@@ -160,7 +180,7 @@ def main(argv):
         obs["doc"] = doc
         obs["informative"] = informative
         if js is not None:
-            check_fields(obs, js, list(top_keys), list(item_keys))
+            check_fields(obs, js, list(top_keys), list(item_keys), min_items=min_items)
             if mutate:
                 try:
                     mutate(obs, js)
@@ -183,14 +203,24 @@ def main(argv):
              ["markets", "cursor"],
              ["ticker", "event_ticker", "status", "result", "last_price_dollars", "yes_bid_dollars",
               "yes_ask_dollars", "yes_bid_size_fp", "yes_ask_size_fp", "volume_fp", "volume_24h_fp",
-              "open_interest_fp", "close_time", "notional_value_dollars", "price_level_structure"])
+              "open_interest_fp", "close_time", "notional_value_dollars", "price_level_structure"],
+             min_items=1)
     mkts = (js or {}).get("markets") or []
     def vol(m):
         try:
             return float(m.get("volume_24h_fp") or 0)
         except (TypeError, ValueError):
             return 0.0
-    pick = sorted(mkts, key=vol, reverse=True)[0] if mkts else None
+    def created(m):
+        try:
+            return datetime.fromisoformat(str(m.get("created_time")).replace("Z", "+00:00"))
+        except Exception:
+            return datetime.max.replace(tzinfo=timezone.utc)
+    traded = [m for m in mkts if vol(m) > 0] or mkts
+    # Oldest rather than busiest: /markets?status=open is sorted newest-first (documented),
+    # and the busiest rows on it are demo markets created minutes ago — too young to have any
+    # hourly or daily candlestick, which made the candle cases report an empty window.
+    pick = sorted(traded, key=created)[0] if traded else None
     no_sample[0] = pick is None
     say(f"markets-open items: {len(mkts)}; sample market for per-market cases: "
         + (pick["ticker"] if pick else "(none — per-market cases will report unreachable/empty)"))
@@ -203,14 +233,26 @@ def main(argv):
         DOCS["get_markets"],
         "watchlist polling shape: with tickers as the only filter every matching market is returned in one "
         "response and the cursor is empty (documented), so one request can carry 200 tickers.",
-        ["markets"], ["ticker", "status"],
+        ["markets"], ["ticker", "status"], min_items=1,
         mutate=batch_check, needs_sample=True)
     add("markets-event", f"{BASE}/markets?event_ticker={urllib.parse.quote(et)}", 200,
         DOCS["get_markets"], "event expansion: one request returns every market of the event.",
         ["markets"], ["ticker", "event_ticker"], needs_sample=True)
     add("markets-series", f"{BASE}/markets?series_ticker={urllib.parse.quote(st)}&status=open&limit=1000", 200,
-        DOCS["get_markets"], "series discovery: the sweep that catches fast-cycling series /events paging misses.",
-        ["markets"], ["ticker", "series_ticker"])
+        DOCS["get_markets"],
+        "series discovery: the sweep that catches fast-cycling series /events paging misses. NOTE the field this "
+        "case used to require — market rows carry no `series_ticker`, and the documented Market schema has no such "
+        "property either (its required list names `event_ticker` instead), so the client derives the series from the "
+        "event it already has or from the ticker prefix; that is the assumption the UI codes to. `status=open` is a "
+        "filter value; the row's own `status` reads `active`.",
+        ["markets", "cursor"],
+        ["ticker", "event_ticker", "market_type", "status", "result", "yes_bid_dollars", "yes_ask_dollars",
+         "yes_bid_size_fp", "yes_ask_size_fp", "no_bid_dollars", "no_ask_dollars", "last_price_dollars",
+         "volume_fp", "volume_24h_fp", "open_interest_fp", "created_time", "updated_time", "open_time",
+         "close_time", "latest_expiration_time", "settlement_timer_seconds", "notional_value_dollars",
+         "can_close_early", "expiration_value", "rules_primary", "rules_secondary", "price_level_structure",
+         "price_ranges", "settlement_bounds_type", "yes_sub_title", "no_sub_title"],
+        min_items=1)
     add("orderbook", f"{BASE}/markets/{urllib.parse.quote(tk)}/orderbook?depth=10", 200,
         DOCS["orderbook"],
         "depth = price levels per side, counted from the best bid; 1-100 valid; bids only (asks are the "
@@ -240,7 +282,8 @@ def main(argv):
         DOCS["candlesticks"], "period_interval 0 is not one of 1/60/1440 — the request the chart used to make, before the fix.", needs_sample=True)
     add("events-open", f"{BASE}/events?status=open&limit=200", 200, DOCS["get_events"],
         "the discovery sweep's page size.", ["events", "cursor"],
-        ["event_ticker", "series_ticker", "title", "sub_title", "mutually_exclusive", "settlement_sources"])
+        ["event_ticker", "series_ticker", "title", "sub_title", "mutually_exclusive", "settlement_sources"],
+        min_items=1)
     add("events-limit-1000", f"{BASE}/events?status=open&limit=1000", [200, 400], DOCS["get_events"],
         "documented maximum is 200; the docs do not say whether an over-limit page size is clamped or "
         "rejected, so this case only records which it is (the client keeps to 200 either way).",
@@ -258,10 +301,17 @@ def main(argv):
         DOCS["get_series_list"],
         "per-topic series listing: carries the official volume, the per-series fee multiplier the paper "
         "broker uses, and the settlement sources the alert chats link.",
-        ["series"], ["ticker", "title", "category", "fee_multiplier", "fee_type"])
+        ["series"], ["ticker", "title", "category", "fee_multiplier", "fee_type"], min_items=1)
     add("series-detail", f"{BASE}/series/{urllib.parse.quote(st)}", 200, DOCS["get_series"],
-        "one series record: fee_multiplier/fee_type and settlement_sources for the selected market's series.",
-        ["series"], ["ticker", "title"])
+        "one series record. The documented GetSeriesResponse is { \"series\": Series } — an OBJECT under a "
+        "required `series` key, not a bare object and not a list — and the fields listed are the documented "
+        "required members of Series. fee_multiplier/fee_type drive the paper broker; settlement_sources drive "
+        "the alert links. (An earlier revision of this case expected `ticker`/`title` at the TOP level, which "
+        "the wrapper shape makes impossible: a wrong expectation, not an API break.)",
+        ["series"],
+        ["ticker", "frequency", "title", "category", "categories", "tags", "settlement_sources",
+         "contract_url", "contract_terms_url", "fee_type", "fee_multiplier", "additional_prohibitions"],
+        min_items=1)
     add("exchange-status", f"{BASE}/exchange/status", 200, DOCS["environments"],
         "exchange/trading flags the status strip reads.", ["exchange_active", "trading_active"])
 
@@ -405,6 +455,23 @@ def selftest():
     c = {}
     batch_check(c, {"markets": [{"ticker": "T"}], "cursor": "SHOULD-BE-EMPTY"})
     eq(c.get("verdict"), "paging-shape-mismatch", "a cursor on a tickers-only request breaks the polling assumption")
+
+    # the emptiness / container-shape rules, so the fixes themselves are covered offline
+    c = {}
+    check_fields(c, {"candlesticks": []}, ["candlesticks"], ["end_period_ts", "price"], min_items=0)
+    eq((c.get("verdict"), c.get("items_empty")), ("ok", True),
+       "an empty array in a window that can legitimately have no rows is not a field mismatch")
+    c = {}
+    check_fields(c, {"candlesticks": []}, ["candlesticks"], ["end_period_ts"], min_items=1)
+    eq(c.get("verdict"), "empty-unexpected",
+       "a request whose answer set is defined by the query itself must not come back empty")
+    c = {}
+    check_fields(c, {"series": {"ticker": "S", "title": "T"}}, ["series"], ["ticker", "title"], min_items=1)
+    eq((c.get("items_seen"), c.get("item_fields_missing")), (1, []),
+       "a single-record response documented as an object is read as one item")
+    c = {}
+    check_fields(c, {"markets": [{"ticker": "T", "event_ticker": "E"}]}, ["markets"], ["ticker", "series_ticker"])
+    eq(c.get("verdict"), "field-mismatch", "a field the case requires is still reported missing when absent")
 
     print("selftest:", "FAILED" if fails else "ok")
     return 1 if fails else 0
