@@ -221,6 +221,24 @@ this branch only; whichever tree has the newer `generated_at` should win at inte
 invents a value to fill a gap. `data/log.md` from the run is the per-request evidence (URL + status + size).
 
 
+## 7. Strategy-lab ledger as merged — one factual line, no conclusion
+
+The simulated-trading layer is owned by other sessions; this session only checked that the numbers the
+site shows are the numbers the artifact holds. At the snapshot on `main` when this PR merged,
+`data/portfolio.json` (`generated_at 2026-11-21T07:28:04Z`, CI paper ledger) reports:
+`trades_total 12`, `open 8`, `realised 4`, `settled 2`, `wins 0 / losses 4`, `realised_pnl_usd -59.5891`
+on `realised_cost_usd 99.2991` (`roi_pct -60.01`), `cash_usd 744.17`, `equity_usd 933.48`,
+`return_on_bankroll_pct -6.652`, `peak_equity_usd 995.44`, `max_drawdown_usd -61.96`, `alerts_total 34`.
+By strategy the 12 listed trades split momentum 7 / breakout 3 / fade 1 / harvest 1.
+
+**Reading of that, stated carefully:** with four realised trades it is a **sample too small to rank any
+strategy** — the same caveat a2ec5543 filed as F7 ("6 trades; sample too small to judge") and which the
+ledger is still inside. The `-60 %` realised ROI on a $1,000 paper bankroll is a fact about four
+exits, not evidence about a method, and the site labels it as simulation over demo prices ("The price and
+behavior of markets in the demo environment may not be reflective of those in real markets" —
+[demo_env](https://docs.kalshi.com/getting_started/demo_env.md)). Nothing here is a recommendation to
+change a strategy; the engine keeps running every 30 minutes and the sample grows.
+
 ## 7. Not verified (blank, deliberately — no inference)
 
 | Item | Why blank |
