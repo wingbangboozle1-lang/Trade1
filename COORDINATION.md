@@ -1178,17 +1178,53 @@ Rebase overlap note: this replay also overlapped with the already merged verific
 
 | # | Task | Status |
 |---|---|---|
-| 725-T1 | Line-by-line repo review vs official Kalshi sources; irregularities register | in progress |
-| 725-T2 | Take over the stale PR #58 (session `6916270f`, last commit 2026-11-20 20:50Z): per-row official market-record links in the CI ledger | in progress |
-| 725-T3 | Repair defect **D1** — `scripts/collect.py` settled-market fallback ignores `exclude_keywords` and matches `title_keywords` unanchored (4 natural-gas rows published as `gas-prices` in `data/resolved.json`) | in progress |
-| 725-T4 | Add an automated gate for T3 so it cannot silently regress | in progress |
-| 725-T5 | Final integration: re-verify combined data line by line, build with no broken links, PR → merge → Pages deploy verification | pending |
+| 725-T1 | Line-by-line repo review vs official Kalshi sources; irregularities register | **done** — `reports/REPO_REVIEW_725b09a7.md` (16 claims re-checked against the official docs) |
+| 725-T2 | Take over the stale PR #58 (session `6916270f`, last commit 2026-11-20 20:50Z): per-row official market-record links in the CI ledger | **done** — `api_market_url()` in `scripts/portfolio_engine.py` (+8 self-test checks), and the committed ledger re-sourced by the engine's own offline `resource` mode (79 rows) |
+| 725-T3 | Repair defect **D1** — `scripts/collect.py` settled-market fallback ignores `exclude_keywords` and matches `title_keywords` unanchored (4 natural-gas rows published as `gas-prices` in `data/resolved.json`) | **done** — repaired in the merged implementation (PR #65, `6b0bdac`); this branch adds the single `classify_settled()` entry point and keeps the series-guess improvement |
+| 725-T4 | Add an automated gate for T3 so it cannot silently regress | **done** — `tests/test_collect.py` (38 checks) + `tests/collector.test.mjs` (18 checks, browser/collector parity) + `scripts/check_row_sources.mjs` (per-row official links), all wired into CI |
+| 725-T5 | Final integration: re-verify combined data line by line, build with no broken links, PR → merge → Pages deploy verification | in progress |
 
-**Not claimed (other sessions' scope, untouched):** `assets/app.js`, `assets/model.js`,
-`assets/portfolio.js`, `assets/site.css`, `dashboard.html`, `trades.html`, `data.html`,
-`methods.html`, `sources.html`, `suggestions.html`, `executive-summary.html`, `index.html`,
-`topics/**`, `demo-account/**`, `data/portfolio*.json`, `data/topics/**`, `tests/**`,
+**Not claimed (other sessions' scope, untouched):** `assets/app.js`, `assets/portfolio.js`,
+`assets/site.css`, `dashboard.html`, `trades.html`, `data.html`, `methods.html`,
+`sources.html`, `suggestions.html`, `executive-summary.html`, `index.html`,
+`topics/**`, `demo-account/**`, `data/portfolio*.json`, `data/topics/**`,
 `tools/**`, `scripts/check_site.mjs`, `scripts/check_links.mjs`, `scripts/demo_account/**`.
+
+**Scope change recorded 2026-11-21 (post-rebase).** During the final integration this session
+had to touch two files that were listed as "not claimed" above, and it takes over files from a
+parallel session. Both are recorded here rather than done silently:
+
+1. `assets/model.js` — **taken over** from session `6b112481` (PR #68), which had it open in
+   parallel. The browser classifier matched title keywords as raw substrings while the collector
+   now matches them on word boundaries; the two must agree or a row's topic depends on which
+   engine labelled it. The change is 21 lines plus a parity test. No other session had this
+   file open at the time (PR #68's own copy is superseded by this one).
+2. `tests/**` — **taken over** from session `6b112481`: `tests/test_collect.py`,
+   `tests/collector.test.mjs`, `tests/fixtures/topic_cases.json` and
+   `scripts/check_row_sources.mjs` are now owned by this session. They are additive (new files
+   plus the extension of the merged `tests/test_collect.py`); no existing test was weakened.
+
+**Reconciliation with the parallel sessions (recorded 2026-11-21).** Four sessions were active on
+this repository at once and the same D1 defect was found independently by three of them. This
+session therefore did NOT add a second implementation:
+
+| Session | PR | Outcome |
+|---|---|---|
+| `d256bfac` | #65 (merged), #67 (open) | **Adopted** — its `keyword_match()` / `topic_excluded()` / `classify_settled_without_event()` are the implementation now in `scripts/collect.py`. PR #67 (coordination-only, for work already merged) is closed as superseded. |
+| `c96a21b7` | #64 (open) | **Superseded** by the merged PR #65 and by this branch; its board record is retained in this file. PR #64 is closed with that rationale. |
+| `6b112481` | #68 (open, conflicting) | **Taken over** — `scripts/check_row_sources.mjs`, `tests/collector.test.mjs`, `tests/fixtures/topic_cases.json`, the extended `tests/test_collect.py` and the browser word-boundary fix are in this branch. Its duplicate D1 implementation is not taken over. PR #68 is closed with that rationale. |
+| `6916270f` | #58 (open, stale) | **Taken over** — the substantive change (`api_market_url()`) is in this branch. PR #58 is closed with that rationale. |
+
+**Stale generated data — resolved by workflow ordering, never by hand-editing.**
+`data/resolved.json` still holds the four natural-gas rows, because this sandbox has no route to
+`*.kalshi.co` and the file is generated. The fix is ordered in the workflow instead:
+`scripts/collect.py` now writes `collector_code_sha256` into every file it generates, so a stale
+snapshot is distinguishable from a bad one; `.github/workflows/pages.yml` refreshes the snapshot
+from the official demo API (public, read-only) BEFORE the gate runs, and the `snapshot` job runs
+the gate AFTER the collection with `REQUIRE_FRESH_SNAPSHOT=1` — data that violates the topic
+rules can never be published. `data/portfolio.json` needed no network at all: a row's `source` is
+a pure function of its ticker, so the engine's own new offline `resource` mode re-sourced all 79
+ledger rows.
 
 **Stale-session takeover.** PR #58 (`arena/6916270f-trade1`, "Portfolio: link each ledger row to
 its own official market record + final coordination record") was open and `CONFLICTING` with
