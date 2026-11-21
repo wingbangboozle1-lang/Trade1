@@ -43,6 +43,9 @@ tracking, and every table row linked to the official API record it came from.
   cycle with the previous one, books fills at the official quotes with the official taker fee (`ceil_6dp` model fee plus
   the $0.01 balance alignment per [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding)), settles on the
   exchange's YES/NO result, and commits `data/portfolio.json` + `data/portfolio_state.json` to `main` with `[skip ci]`.
+  Every ledger row (trade, exit, resolution, alert) carries its **own** official market record,
+  `GET /markets/{ticker}`, as its row source; the batched quote endpoint that produced the cycle
+  is published separately in `sources.quote_endpoints` and in `data/log.md`.
   Simulation only: nothing authenticates and no order is ever sent. Its rules and its differences from the browser lab
   are documented in [methods.html](methods.html) §8–§9. (The account-capable layer is separate: `demo-account.yml` +
   `scripts/demo_account/**`, which stays inert until the owner adds the demo-key secrets.)
@@ -64,12 +67,33 @@ npm run test     # 23 jsdom/page-engine assertions plus offline library tests
 node scripts/check_site.mjs   # every snapshot row carries an official source URL
 
 # the CI ledger's own checks (all offline, no credentials, no network needed)
-python3 scripts/portfolio_engine.py selftest   # 50 checks: fee math, alert boundary, sizing, settlement, determinism
+python3 scripts/portfolio_engine.py selftest   # 76 checks: fee math, alert boundary, sizing, settlement, determinism, per-row sources
 node tests/portfolio.test.mjs                  # ledger invariants + portfolio.html boot in jsdom (skips the DOM part without it)
 node scripts/check_links.mjs                   # every published page: nav parity, local links, external links are https+official
+
+# the collector's classification regression gate (offline, no network)
+python3 scripts/collect_test.py               # 23 checks: topic exclusions, keyword word boundaries, pagination facts
 ```
 
-CI (`.github/workflows/pages.yml`) runs all three on every push and pull request.
+CI (`.github/workflows/pages.yml`) runs all of them on every push and pull request.
+
+## Verification records
+
+Every published number traces back to an official Kalshi endpoint. The verification records for
+this repository, each with the official links it was checked against:
+
+| Record | What it covers |
+|---|---|
+| [`reports/REPO_REVIEW_725b09a7.md`](reports/REPO_REVIEW_725b09a7.md) | Line-by-line review of the site, engine, collector and ledger; 16 API claims re-verified against the official docs; the fee-schedule transcription compared row by row with the official PDF; three defects found and fixed |
+| [`reports/INTEGRATION_AUDIT_6916270f.md`](reports/INTEGRATION_AUDIT_6916270f.md) | The previous final integration: defects D1–D11, the fee-table transcription, the CI gates |
+| [`reports/VERIFICATION_9ff00ee3.md`](reports/VERIFICATION_9ff00ee3.md) | Re-verification of the per-series fee multiplier and the `fee_multiplier` schema |
+| [`reports/VERIFICATION_a53ab816.md`](reports/VERIFICATION_a53ab816.md) | Audit of the deployed site; corrections to stale review and safety claims |
+| [`reports/VERIFICATION_9d4380a2.md`](reports/VERIFICATION_9d4380a2.md) | Independent re-verification; the Resolved-page repair |
+| [`reports/COVERAGE_9d4380a2.md`](reports/COVERAGE_9d4380a2.md) | Brief requirement → delivered / partial / blocked matrix |
+| [`data/log.md`](data/log.md) | One line per API request the collector made (time, method, URL, status, bytes) |
+| [`data/fee_schedule_series.json`](data/fee_schedule_series.json) | The transcribed per-series fee table, with the rows that could not be read listed as not transcribed |
+| [`flagged.html`](flagged.html) | Everything that could not be verified, is a deliberate limitation, or is a known defect — with source links |
+| [`sources.html`](sources.html) | The official documentation pages used |
 
 ## Safety & scope
 
@@ -88,6 +112,7 @@ data/         verified snapshots: topics/*, resolved.json, meta.json, cors.json,
               portfolio.json + portfolio_state.json (written by the ledger workflow, not by hand)
 scripts/      collect.py (collector/verifier), build_snapshot.mjs, topics.json (topic rules),
               check_site.mjs, check_links.mjs (nav parity + external links), test_lib.mjs,
+              collect_test.py (offline classification/pagination regression gate),
               portfolio_engine.py (the CI ledger: self-tests, seed, one live cycle)
 tests/        engine.test.mjs (jsdom tests of the published pages), root_engine.test.js (fee/alert/unit
               math), portfolio.test.mjs (ledger invariants + portfolio.html boot, DOM part self-skips)

@@ -27,6 +27,7 @@ Usage:  python3 scripts/collect_test.py     (exit 0 = pass, 1 = fail)
 """
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -119,6 +120,47 @@ def main():
             check("gas-prices carries exclude_keywords",
                   bool(t.get("exclude_keywords")),
                   "scripts/topics.json lost gas-prices.exclude_keywords")
+
+    # ---- D3: a truncated pagination sweep must be reported as truncated ---
+    # The 72 h settled sweep is capped (SETTLED_MAX_PAGES). The counts derived
+    # from it are LOWER BOUNDS, and the snapshot must say so rather than
+    # presenting a partial denominator as a complete one.
+    check("SETTLED_MAX_PAGES is larger than the default page cap",
+          collect.SETTLED_MAX_PAGES >= collect.MAX_PAGES,
+          f"{collect.SETTLED_MAX_PAGES} < {collect.MAX_PAGES}")
+    check("paged() reports pagination facts",
+          hasattr(collect, "paged"))
+    import inspect
+    src = inspect.getsource(collect.paged)
+    check("paged() returns a pagination-stats third element",
+          "return items, urls, stats" in src)
+    check("paged() records a truncation flag", '"truncated"' in src)
+    check("the resolved snapshot flags a lower-bound in-scope count",
+          "in_scope_count_is_lower_bound" in inspect.getsource(collect.main),
+          "scripts/collect.py no longer publishes in_scope_count_is_lower_bound")
+    check("the resolved snapshot publishes the pagination facts",
+          "settled_pagination" in inspect.getsource(collect.main),
+          "scripts/collect.py no longer publishes settled_pagination")
+
+    # ---- the published snapshot must not contradict the collector's rules --
+    # If data/resolved.json is present, no row may sit under gas-prices while
+    # the gas topic's own exclude rule matches it.
+    snap_path = os.path.join(ROOT, "data", "resolved.json")
+    if os.path.exists(snap_path):
+        with open(snap_path, encoding="utf-8") as f:
+            snap = json.load(f)
+        gas = [t for t in topics if t["id"] == "gas-prices"][0]
+        ex = gas.get("exclude_keywords")
+        bad = []
+        for m in snap.get("markets", []):
+            if m.get("_topic") != "gas-prices":
+                continue
+            hay = " ".join([m.get("title") or "", m.get("_event_title") or "",
+                            m.get("series_ticker") or ""])
+            if ex and re.search(ex, hay, re.I):
+                bad.append(m.get("ticker"))
+        check("published data/resolved.json has no gas row the gas rule excludes",
+              not bad, f"still misclassified: {bad}")
 
     print(f"\n{CHECKS - len(FAILURES)}/{CHECKS} checks passed")
     if FAILURES:

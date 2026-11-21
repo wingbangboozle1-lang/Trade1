@@ -32,6 +32,14 @@ ALT = "https://demo-api.kalshi.co/trade-api/v2"
 PAGES_ORIGIN = "https://wingbangboozle1-lang.github.io"
 OUT = "data"
 MAX_PAGES = 6
+# Settled markets are swept over a 72 h window, and the demo environment
+# settles fast-cycling markets continuously (BTC 15-minute, hourly crypto,
+# daily AAA gas). The default 6-page cap therefore truncates the sweep, which
+# makes every count derived from it a LOWER BOUND rather than the exchange's
+# total for the window. 20 pages x 1,000 = 20,000 settled markets; the
+# truncation flag is published either way, so the site never claims a complete
+# denominator it does not have.
+SETTLED_MAX_PAGES = 20
 UA = "Trade1-verify/1.0 (github.com/wingbangboozle1-lang/Trade1)"
 
 LOG = []
@@ -80,6 +88,12 @@ def fetch_json(url, note=""):
 
 
 def paged(path, params, key, max_pages=MAX_PAGES):
+    """Page a cursor-paginated endpoint.
+
+    Returns (items, urls, stats). `stats` records whether pagination ran to
+    the end of the collection or was cut short by `max_pages` - a truncated
+    sweep means the item count is a LOWER BOUND, not the exchange's total for
+    the query, and any published figure derived from it must say so."""
     items, cursor, pages, urls = [], "", 0, []
     while pages < max_pages:
         q = dict(params)
@@ -97,7 +111,12 @@ def paged(path, params, key, max_pages=MAX_PAGES):
         log(f"  page {pages}: +{len(batch)} items (total {len(items)}); cursor={'present' if cursor else 'empty'}")
         if not cursor:
             break
-    return items, urls
+    stats = {"pages": pages, "max_pages": max_pages,
+             "truncated": bool(cursor), "returned": len(items)}
+    if cursor:
+        log(f"  PAGINATION TRUNCATED at {pages}/{max_pages} pages "
+            f"({len(items)} items, cursor still present) - counts are a lower bound")
+    return items, urls, stats
 
 
 def wjson(path, obj):
@@ -231,21 +250,21 @@ def main():
         wjson("exchange-status.json", {"fetched_from": f"{BASE}/exchange/status", "response": ex})
 
     # ---------- 3. open events (paged) ----------
-    events, event_urls = paged("/events", {"status": "open", "limit": "200"}, "events", max_pages=12)
+    events, event_urls, events_pagination = paged("/events", {"status": "open", "limit": "200"}, "events", max_pages=12)
     events_status_open_ok = bool(events) or len(event_urls) > 0
     log(f"open events collected: {len(events)}")
 
     # ---------- 4. open markets (paged). Docs document status=open; the live demo
     # emits status 'active' - we record which call shape works and what it returns.
-    markets, market_urls = paged("/markets", {"status": "open", "limit": "1000", "mve_filter": "exclude"}, "markets")
+    markets, market_urls, markets_pagination = paged("/markets", {"status": "open", "limit": "1000", "mve_filter": "exclude"}, "markets")
     markets_status_open_ok = bool(markets)
     if not markets:  # retry without mve_filter in case that param is rejected
         log("mve_filter=exclude sweep empty - retrying plain")
-        markets, market_urls = paged("/markets", {"status": "open", "limit": "1000"}, "markets")
+        markets, market_urls, markets_pagination = paged("/markets", {"status": "open", "limit": "1000"}, "markets")
         markets_status_open_ok = bool(markets)
     if not markets:
         log("status=open returned no markets - retrying without status filter")
-        markets, market_urls = paged("/markets", {"limit": "1000"}, "markets")
+        markets, market_urls, markets_pagination = paged("/markets", {"limit": "1000"}, "markets")
     log(f"open markets collected: {len(markets)}")
 
     statuses = {}
@@ -413,9 +432,9 @@ def main():
 
     # ---------- 6. settled markets (recent) -> resolution outcomes ----------
     since = int(time.time()) - 3 * 24 * 3600
-    settled, settled_urls = paged("/markets", {
+    settled, settled_urls, settled_pagination = paged("/markets", {
         "status": "settled", "min_settled_ts": str(since), "limit": "1000",
-        "mve_filter": "exclude"}, "markets")
+        "mve_filter": "exclude"}, "markets", max_pages=SETTLED_MAX_PAGES)
     log(f"settled markets collected (last 3 days): {len(settled)}")
     in_scope = []
     for m in settled:
@@ -444,7 +463,16 @@ def main():
         "window": "last 3 days (min_settled_ts = now-72h)",
         "source_urls": settled_urls[:3],
         "settled_total": len(settled),
+        # The settled sweep is cursor-paginated and capped (SETTLED_MAX_PAGES).
+        # When it is truncated, `settled_total` and `in_scope_count` are LOWER
+        # BOUNDS for the 72 h window, not the exchange's totals. Both flags are
+        # published so the site never presents a partial denominator as a
+        # complete one.
+        "settled_pagination": settled_pagination,
+        "settled_total_is_lower_bound": bool(settled_pagination.get("truncated")),
         "in_scope_count": len(in_scope),
+        "in_scope_count_is_lower_bound": bool(settled_pagination.get("truncated")),
+        "rows_published": min(200, len(in_scope)),
         "markets": in_scope[:200],
     })
 
@@ -505,8 +533,11 @@ def main():
             "markets_status_open_accepted": markets_status_open_ok,
             "markets_open_statuses_observed": statuses,
             "events_open_count": len(events),
+            "events_pagination": events_pagination,
             "markets_open_count": len(markets),
+            "markets_pagination": markets_pagination,
             "settled_count_recent": len(settled),
+            "settled_pagination": settled_pagination,
             "event_metadata_and_market_fetches": ev_fetch_count,
             "series_discovered_per_topic": {t["id"]: sum(1 for k in series_stats if k) for t in topics},
             "series_market_counts_top": dict(sorted(series_stats.items(), key=lambda kv: -kv[1])[:25]),
