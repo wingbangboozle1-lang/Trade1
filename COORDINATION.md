@@ -1136,3 +1136,16 @@ complete, live, and green). No other session's files were touched.
 static page, maker fees unmodeled, ROI screen is a heuristic shortlist not verified alpha).
 
 **Status:** done. No PR needed — no code changes; this record is the only diff.
+
+---
+
+## Session `arena/31a8a56b-trade1` — final independent verification & delivery (2026-11-21)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 31a8a56b · Final independent line-by-line verification of the deployed root site vs official Kalshi sources; confirm build + Pages deploy; publish verification report; PR → merge → Pages verification | done | `31a8a56b` (branch `arena/31a8a56b-trade1`, base `main` @ `a15a941`) | `COORDINATION.md` (this section), `reports/VERIFICATION_31a8a56b.md` (new) |
+
+- **Verification performed (2026-11-21):** all 10 official sources re-read (demo env, API environments, market lifecycle, Get Markets, Get Market Candlesticks, Orderbook Responses, fee schedule PDF effective 2026-07-07, Fee Rounding, Quick Start WebSockets, Market Settlement). Every endpoint, field, status, fee formula, and order-book shape used by the site matches the official source; full table in `reports/VERIFICATION_31a8a56b.md`. No new irregularities; all previously published items remain on `flagged.html` (non-blocking).
+- **Validators (all exit 0):** `tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links); `check_site.mjs` 18 HTML / 426 links / 1,249 rows / 825 resolved / 0 failures; `check_links.mjs` 16 pages / 394 local + 222 external / 0 failures; `npm test` green (engine 23/23, root_engine 40/40, portfolio 60/60, demo-account 89/89, fees/model/libs all pass).
+- **Claim rule honored:** no other session's files edited outside this scope; shared outputs (index/navigation) not touched.
+- **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
