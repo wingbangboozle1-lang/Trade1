@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-11-21T06:58:35.754898+00:00",
+ "generated_at": "2026-11-21T07:17:44.256244+00:00",
  "source_urls": [
   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200",
   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI8MuXhwcSFEtYU0hFSU5CQVVNT1VULTI2T0NU",
   "https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXVi0yOE5PVjA3V1ZTMDA5"
  ],
- "open_event_count": 2200,
+ "open_event_count": 2400,
  "categories": {
-  "Elections": 1940,
+  "Elections": 2140,
   "Sports": 71,
   "Economics": 61,
   "Politics": 42,

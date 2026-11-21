@@ -163,7 +163,9 @@ await test('A2 — the market table separates live markets, flags status and sho
     'the market ranked first is not the tradeable one (closed rows must not outrank live rows)');
   const html = window.document.querySelector('#kx-rows').innerHTML;
   assert.ok(html.includes('321') && html.includes('654'), 'resting contract sizes (yes_bid_size_fp/yes_ask_size_fp) are not shown');
-  assert.ok(/Best price/.test(window.document.querySelector('#kalshi-app').textContent), 'no best-price column');
+  assert.ok(/Market favours/.test(window.document.querySelector('#kalshi-app').textContent), 'no "market favours" column');
+  assert.ok(!/Best price/.test(window.document.querySelector('#kalshi-app').textContent),
+    'the misleading "Best price" label reappeared (a 100c ask is the dearer side, not a best price)');
   assert.ok(window.document.querySelector('#kpi-live'), 'no "live now" KPI');
   assert.equal(window.document.querySelector('#kpi-live').textContent, '1',
     'the live count should be 1 (one open market, one past close_time), got ' + window.document.querySelector('#kpi-live').textContent);
