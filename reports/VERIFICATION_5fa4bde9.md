@@ -205,7 +205,11 @@ fail on a runner:
 
 Run `44886293135`, job *Live endpoint contract probe*: **16 of 20 cases matched, 4 did not, 2 recorded for
 information**. After the corrections below, run `44886913088` on the same job reported **20 of 20 ok, 0 mismatched,
-2 informative** (that run predates the two added settled-window candle cases, which bring the file to 22). All four disagreements were **wrong expectations in my probe, not changes at the exchange** — which is
+2 informative**. With the two settled-lifetime candle cases added, run `44887307618` (PR #116 head) reported
+**22 of 22 ok, 0 mismatched, 2 informative** — and `candles-60-settled` / `candles-1440-settled` each came back with
+one real candle object, which is what makes the hourly and daily *item* shape verified against live data rather than
+against an empty array (`candles-60` / `candles-1440` on the young open market still answer 200 with `[]`, recorded as
+`items_empty`, exactly as intended). All four disagreements were **wrong expectations in my probe, not changes at the exchange** — which is
 exactly what publishing the evidence rather than a bare red cross buys:
 
 | case | what the probe demanded | what the official schema actually says | fix |
