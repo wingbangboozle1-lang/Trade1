@@ -1815,3 +1815,86 @@ PR #67 was CONFLICTING with `main` and its unique content was not in `main`. Thi
 **PR / merge / Pages:** [PR #104](https://github.com/wingbangboozle1-lang/Trade1/pull/104) `arena/fa530a2c-trade1` → `main`, opened 2026-11-21 ~07:40Z with the full summary/sources/flagged list in the PR body. Checks then merge (merge without waiting for review, per the brief) and Pages verification: **appended below after merge.**
 
 **Task status:** done (this section's scope). Open items stay published on `flagged.html` (FA-1 refresh pending, AA-8, demo-account credentials) and do not block.
+
+---
+
+## Session `arena/78d61b01-trade1` — collector classification + publish gate, PR #58 review, live re-verification, final integration (2026-11-21)
+
+**Claim taken 2026-11-21T06:5xZ** on branch `arena/78d61b01-trade1`, base `main` @ `a15a941` (the CI
+ledger commit); rebased during this session onto `main` @ `b08da8b0` and then onto `948488e6`.
+Branch policy note (as recorded by earlier sessions): the platform fixes this session to one branch
+name, so the brief's `session-<id>/<task>` naming is not used.
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| 78d61b01 · T1 — settled-market classifier consistency in the `scripts/collect.py` settled fallback (`exclude_keywords` / whole-word matching; closes D1 / flagged 9d-1) | **closed — landed as PR #65 (`6b0bdac8`, 2026-11-21T06:42Z)** for the exclusion rules; this session kept only the missing piece (feed the fallback the series guessed from `event_ticker`, since a Market record publishes no `series_ticker`) plus the publish gate, on top of it. Flagged 9d-1 can be closed: the 07:05Z CI sweep has **0** natural-gas rows in 200 | 78d61b01 + d256bfac | `scripts/collect.py`, `tests/test_collect_hardening.py`, `.github/workflows/pages.yml`, `flagged.html` |
+| 78d61b01 · T2 — takeover of stale PR #58 (per-row official market-record links in `scripts/portfolio_engine.py`) | **withdrawn, not double-landed.** The work existed on this branch (`99503592`); measured as a duplicate of PR #68/#70, so it was dropped. PR #70 merged at `948488e6` and `main`'s `data/portfolio.json` now carries per-row `…/markets/{ticker}` links (checked: 11/11 trade rows). **Action for the owner: close PR #58 as superseded** | 78d61b01 → 6877ec31 (merged) | `scripts/portfolio_engine.py`, `tests/portfolio.test.mjs` |
+| 78d61b01 · T2b — live browser classifier sync (`assets/model.js`, `assets/app.js`) | **released, not implemented.** `assets/**` became the claimed scope of session `aa7d3d27` (PR #64 → `d949035`), which is why this session touched nothing under `assets/`. Its 429 retry (`assets/app.js` L154) already covers the browser side | unclaimed (was 78d61b01) | — |
+| 78d61b01 · T3 — line-by-line re-verification of the deployed data and doc claims against official docs + live demo API | **done** → `reports/VERIFICATION_78d61b01.md` (12 checks, 6 with live URLs read today; 1 explicitly carried-not-retested; 5 things not verified and not claimed) | 78d61b01 | `reports/VERIFICATION_78d61b01.md`, `flagged.html`, `EXECUTIVE_SUMMARY.md` |
+| 78d61b01 · T4 — final integration: PR → `main`, merge without waiting for review, confirm Pages | **in progress** — this branch carries the collector hardening that `main` still lacks; PR link and merge result recorded below this table when done | 78d61b01 | `COORDINATION.md` |
+| **78d61b01 · T5 (new, incident) — CI collector lost every request to 429 and still published an empty snapshot** | **fixed, split across two sessions and merged additively.** `c96a21b7` landed the read side on `main` (`get_with_retry` pacing + `Retry-After`/`X-RateLimit-Reset` backoff + the `KEPT` list that stops a failed read rewriting an artifact, `tests/test_collect_failclosed.py`). This branch therefore **dropped its own staging/`promote()`/`snapshot_guard()` implementation** as a duplicate and keeps only what `main` lacked: `request_stats` counters in `collect_status.json`, the pre-commit gate in the `snapshot` job that makes a degraded run red, the settled call-site series guess, per-topic resolved selection, and the conflict-marker scan. 16 offline checks in `tests/test_collect_hardening.py` | 78d61b01 (+ c96a21b7 for the reads) | `scripts/collect.py`, `tests/test_collect_hardening.py`, `.github/workflows/pages.yml`, `package.json`, `flagged.html`, `EXECUTIVE_SUMMARY.md` |
+| 78d61b01 · T6 (new, found while reading the new snapshot) — the combined Resolved view published 200 rows all from one topic (`[:200]` on a recency-sorted list) | **fixed on this branch**: `select_resolved()` gives each topic an equal share of the 200 and backfills by recency; `resolved.json` now carries `published_count` / `published_per_topic` / `row_selection`; 5 added cases (16 in that file, plus main's 10 + 6) | 78d61b01 | `scripts/collect.py`, `tests/test_collect_hardening.py`, `flagged.html` (item 78-8) |
+| 78d61b01 · T7 (new, board integrity) — `main` shipped committed conflict markers in this file | **repaired on this branch**: the three marker lines removed, both wrapped records kept verbatim (line-by-line check: 0 of main's board lines lost); `checks` now fails on any committed conflict-marker line | 78d61b01 | `COORDINATION.md`, `.github/workflows/pages.yml`, `flagged.html` (item 78-7) |
+
+### Incident record — 2026-11-21 06:58Z: a rate-limited run blanked the live tables
+
+* `main` @ `b08da8b0` ("data: verified snapshot 2026-11-21T06:58:41Z") published `data/resolved.json`
+  at **321 B / 0 rows**, `data/topics/crypto.json` 260 kB → **4.5 kB**, `golf.json` → 2.9 kB,
+  `gas-prices.json` → 1.1 kB. Pages republished it, so the alert feeds and topic tables went blank.
+* Cause, from that run's own `data/log.md`: 12 paged `/events` calls in ~1 s, then
+  `429 too_many_requests` on `/markets?status=open`, on the `mve_filter`-less retry, on every
+  series/event follow-up and on the settled sweep; the collector read "no data" for each and wrote
+  anyway. `check_site.mjs` passed because a zero-row table has no failing row.
+* **How it got dispatched, so nobody repeats it:** `gh workflow run pages.yml --ref main` was fired as
+  a read-only check of the pipeline. It is **not** read-only — the `snapshot` job runs `collect.py`
+  and commits to the ref. Treat that dispatch as a write operation.
+* Fix, tests and wording correction are described in T5 and in `flagged.html` items 78-1…78-3, and in
+  `reports/VERIFICATION_78d61b01.md` §4. After merging this branch, one full run should republish
+  ≈6,000 markets / 200 settled rows with all five topic files populated; a run the API truncates now
+  fails red instead of publishing.
+
+### Self-correction, recorded so no other session repeats it (flagged 78-6)
+
+This session believed — and briefly wrote here — that the `snapshot` job had force-pushed a data
+commit over its code push. That was wrong, and the workflow is innocent: `pages.yml` commits the
+snapshot, runs `git pull --rebase origin <branch>` and pushes normally. What actually happened is a
+local bookkeeping failure that every session on this repo is exposed to: an interrupted rebase left
+`HEAD` detached while the branch ref still pointed at `8e5efa1f`, so `git push -q origin
+arena/78d61b01-trade1` exited 0 having moved nothing, and run `44878556490` (`headSha 8e5efa1f`) ran
+the pre-hardening collector. Its `data` commit `117bfde9` is a fast-forward.
+
+Checklist adopted here, recommended to the others: after any rebase or `--quit`, confirm
+`git branch --show-current` and that the branch ref equals the commit you mean to ship; after a push,
+confirm with `git ls-remote origin refs/heads/<branch>`; and read the `headSha` of a dispatched run
+before crediting it with anything.
+
+### Board repair by 78d61b01 (2026-11-21, this branch)
+
+`origin/main` @ `43ae3c1c` carried **committed Git conflict markers** in this file: `<<<<<<< HEAD`
+(l.1333), `=======` (l.1367) and `>>>>>>> origin/main` (l.1424), left by the PR #70 merge (`948488e6`)
+and preserved by the PR #77 merge. They wrapped two live session records (`6877ec31`, `6de17567`) — so
+the published board rendered those sections with stray markers. This branch removes **only the three
+marker lines** and keeps both sections verbatim (verified: every non-marker line of `main`'s board is
+still present, 0 lost; section count 21 → 22 including this session's). No session's text was edited.
+Published as flagged item 78-7.
+
+### CI proof for T5/T6 (recorded for the integrator)
+
+`gh run view 44879449386` — `Site checks + data refresh` on this branch, **success** (2026-11-21T07:16:14Z →
+07:20:09Z, data commit `f019584e`). Its `data/log.md` records `run counts: {'events': 2400, 'markets':
+14647, 'settled': 6000, 'topic_events': 2374, 'resolved_rows': 2675, 'failed': 0}; request stats:
+{'requests': 504, 'retried': 0, 'throttled_429': 0, 'failed': 0}` and `PUBLISHED 13 file(s)`. Zero 429s
+where the 06:58Z run had none succeed — that is the throttle working, measured in production.
+`checks` is **skipped** on `workflow_dispatch` (`if:` covers push/PR only), so the collector tests run on
+the PR, not on this dispatch.
+
+### Requests to other owners (not edited here, per protocol)
+
+* **owner of `main`**: `main` still publishes the 0-row snapshot from `b08da8b0`; the collector
+  hardening is only on `arena/78d61b01-trade1`. Merging this branch and letting one scheduled run
+  finish is the repair path (and `main` already refuses to rewrite artifacts from failed reads since
+  `c96a21b7`, so a dispatch there is safe now — but it is still a **write** to the ref it runs on).
+* **owner of `flagged.html`** (shared page): this session appended items 78-1…78-6 only; no existing
+  row was edited except the 9d-1 disposition recorded in 78-1's status column.
+* **owner of the Pages build**: after the merge, confirm `resolved.json` regains rows and that
+  `meta.json` now carries `request_stats` (the field the gate writes).

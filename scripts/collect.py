@@ -45,6 +45,7 @@ PACE_S = 0.25          # small pause before each API call, to stay under the dem
 BACKOFF_CAP_S = 60.0   # ceiling for one backoff, so a throttled sweep cannot stall the job
 FAILURES = []          # every transient upstream failure this run (url, status, attempts)
 KEPT = []              # artifacts deliberately NOT rewritten because their inputs failed
+STATS = {"requests": 0, "retried": 0, "throttled_429": 0}  # request accounting for the docs claim
 
 LOG = []
 
@@ -81,10 +82,14 @@ def get_with_retry(url):
     code, body, dt = None, b"", 0.0
     for attempt in range(1, MAX_ATTEMPTS + 1):
         time.sleep(PACE_S)
+        STATS["requests"] += 1
         code, hs, body, dt = get(url)
         if code == 200 or (code is not None and code not in RETRY_STATUSES):
             return code, body, dt, attempt
         if attempt < MAX_ATTEMPTS:
+            STATS["retried"] += 1
+            if code == 429:
+                STATS["throttled_429"] += 1
             ra = (hs.get("retry-after") or "").strip()
             if re.fullmatch(r"\d+(\.\d+)?", ra):
                 wait = float(ra)
@@ -238,6 +243,39 @@ def classify_settled_without_event(title, series, topics):
         if keyword_match(t["title_keywords"], title):
             return t["id"], "title-keyword"
     return None, None
+
+
+def select_resolved(rows, limit, topic_ids):
+    """Pick which settled rows to publish, without letting one topic own the page.
+
+    A plain "newest `limit`" slice reads fairly until you look at the result: the
+    15-minute and hourly crypto series settle continuously, so on 2026-11-21 the
+    newest 200 of 2,675 in-scope rows were 200 crypto rows and nothing else — the
+    combined Resolved page showed one topic out of five (flagged item 78-8). Each
+    topic therefore gets an equal share of the budget (newest first inside the
+    topic) and any unused share is backfilled from the remaining rows in overall
+    recency order. The result is `min(limit, len(rows))` rows, newest first.
+    """
+    if limit <= 0 or not rows:
+        return []
+    ids = [t for t in (topic_ids or []) if t]
+    if not ids:
+        return rows[:limit]
+    per = max(1, limit // len(ids))
+    buckets = {t: [] for t in ids}
+    extra = []
+    for r in rows:  # `rows` arrives sorted newest-first and that order is preserved
+        b = buckets.get(r.get("_topic"))
+        if b is not None and len(b) < per:
+            b.append(r)
+        else:
+            extra.append(r)
+    picked = [r for t in ids for r in buckets[t]]
+    picked.sort(key=lambda m: m.get("settlement_ts") or "", reverse=True)
+    if len(picked) < limit:
+        picked.extend(extra[: limit - len(picked)])
+        picked.sort(key=lambda m: m.get("settlement_ts") or "", reverse=True)
+    return picked[:limit]
 
 
 def main():
@@ -491,7 +529,8 @@ def main():
         if not tid and not e:
             # Settled events are absent from the open-events list. The fallback
             # must still honor exclusions and whole-word keyword boundaries.
-            tid, why = classify_settled_without_event(title, series, topics)
+            tid, why = classify_settled_without_event(
+                title, series or series_guess(m.get("event_ticker")), topics)
         if tid:
             row = trim(m, MARKET_FIELDS)
             row["_topic"] = tid
@@ -506,6 +545,12 @@ def main():
                 prev_rows = len((json.load(f) or {}).get("markets") or [])
         except Exception:
             prev_rows = 0
+    published = select_resolved(in_scope, 200, [t["id"] for t in topics])
+    per_topic = {}
+    for r in published:
+        per_topic[r.get("_topic")] = per_topic.get(r.get("_topic"), 0) + 1
+    log(f"resolved row selection: {len(published)} of {len(in_scope)} in-scope rows; "
+        f"per topic {json.dumps(dict(sorted(per_topic.items())))}")
     if settled_ok and (settled or prev_rows == 0):
         wjson("resolved.json", {
             "generated_at": started.isoformat(),
@@ -513,7 +558,10 @@ def main():
             "source_urls": settled_urls[:3],
             "settled_total": len(settled),
             "in_scope_count": len(in_scope),
-            "markets": in_scope[:200],
+            "published_count": len(published),
+            "published_per_topic": dict(sorted(per_topic.items())),
+            "row_selection": "equal per-topic share of 200 (newest first), unused share backfilled by recency",
+            "markets": published,
         })
     else:
         KEPT.append("resolved.json")
@@ -596,6 +644,7 @@ def main():
     wjson("collect_status.json", {
         "run_started_at": started.isoformat(),
         "transient_read_failures": len(FAILURES),
+        "request_stats": dict(STATS),
         "failures_first_20": FAILURES[:20],
         "kept_previous_artifacts": KEPT,
         "status": "degraded: previous verified artifacts kept" if KEPT else "ok",
