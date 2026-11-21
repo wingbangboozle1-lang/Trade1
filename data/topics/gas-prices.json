@@ -1,7 +1,7 @@
 {
  "topic": "gas-prices",
  "label": "Gas prices",
- "generated_at": "2026-11-21T15:55:12.718811+00:00",
+ "generated_at": "2026-11-21T18:57:36.551511+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -11,8 +11,8 @@
   ],
   "markets": [
    "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwI-uaG2AYQ8M7jigMSJEtYTkhMR09BTC0yNk5PVjIxQU5BVVRBLUFOQUlNT09SRTMtMQ",
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwI9ryG2AYQsOnuugESJEtYVkFMT1JBTlRHQU1FLTI2Tk9WMjExNTAwTUFOVzdNLVc3TQ"
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgsIo5GH2AYQ-KnbLBIdS1hMT0xNQVAtMjZOT1YyMTExMDBNUlJCLTItTVI",
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIlpGH2AYQyJaBtwMSJktYU1dJU1NMRUFHVUVTUFJFQUQtMjZOT1YyMkxBVVZBRC1WQUQy"
   ],
   "event_markets_example": [
    "https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASM-26NOV30",
@@ -315,8 +315,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 30769.58,
-   "_volume_contracts": 153725.22,
+   "_est_dollar_volume": 31283.62,
+   "_volume_contracts": 154253.51,
    "_market_count": 21,
    "_markets": [
     {
@@ -329,7 +329,7 @@
      "status": "active",
      "result": "",
      "last_price_dollars": "0.9900",
-     "previous_price_dollars": "0.9400",
+     "previous_price_dollars": "0.9300",
      "previous_yes_bid_dollars": "0.8600",
      "yes_bid_dollars": "0.9600",
      "yes_ask_dollars": "1.0000",
@@ -338,7 +338,7 @@
      "yes_bid_size_fp": "173.61",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "19368.09",
-     "volume_24h_fp": "4544.18",
+     "volume_24h_fp": "4543.18",
      "open_interest_fp": "15652.27",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
@@ -348,7 +348,7 @@
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 19174.41,
-     "_est_dollar_volume_24h": 4498.74
+     "_est_dollar_volume_24h": 4497.75
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.6000",
@@ -390,18 +390,18 @@
      "no_sub_title": "Above 3.6400",
      "status": "active",
      "result": "",
-     "last_price_dollars": "0.0300",
+     "last_price_dollars": "0.0400",
      "previous_price_dollars": "0.0200",
-     "previous_yes_bid_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.0100",
      "yes_bid_dollars": "0.0200",
-     "yes_ask_dollars": "0.0300",
-     "no_bid_dollars": "0.9700",
+     "yes_ask_dollars": "0.0400",
+     "no_bid_dollars": "0.9600",
      "no_ask_dollars": "0.9800",
      "yes_bid_size_fp": "8333.33",
-     "yes_ask_size_fp": "119.17",
-     "volume_fp": "49291.26",
-     "volume_24h_fp": "7367.20",
-     "open_interest_fp": "38435.48",
+     "yes_ask_size_fp": "3757.54",
+     "volume_fp": "49819.55",
+     "volume_24h_fp": "6788.02",
+     "open_interest_fp": "38963.77",
      "open_time": "2026-11-15T21:34:40Z",
      "close_time": "2026-11-23T04:59:00Z",
      "expected_expiration_time": "2026-11-23T15:00:00Z",
@@ -409,8 +409,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 1478.74,
-     "_est_dollar_volume_24h": 221.02
+     "_est_dollar_volume": 1992.78,
+     "_est_dollar_volume_24h": 271.52
     },
     {
      "ticker": "KXAAAGASW-26NOV23-3.6600",
@@ -793,8 +793,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 126.23,
-   "_volume_contracts": 422.59,
+   "_est_dollar_volume": 122.44,
+   "_volume_contracts": 423.59,
    "_market_count": 5,
    "_markets": [
     {
@@ -806,18 +806,18 @@
      "no_sub_title": "Above 3.30",
      "status": "active",
      "result": "",
-     "last_price_dollars": "0.3000",
+     "last_price_dollars": "0.2900",
      "previous_price_dollars": "0.7100",
      "previous_yes_bid_dollars": "0.2900",
      "yes_bid_dollars": "0.2900",
      "yes_ask_dollars": "0.7100",
      "no_bid_dollars": "0.2900",
      "no_ask_dollars": "0.7100",
-     "yes_bid_size_fp": "40.20",
+     "yes_bid_size_fp": "39.20",
      "yes_ask_size_fp": "93.71",
-     "volume_fp": "407.94",
-     "volume_24h_fp": "12.06",
-     "open_interest_fp": "209.00",
+     "volume_fp": "408.94",
+     "volume_24h_fp": "13.06",
+     "open_interest_fp": "210.00",
      "open_time": "2025-10-13T21:28:30Z",
      "close_time": "2026-12-31T04:59:00Z",
      "expected_expiration_time": "2026-12-31T15:00:00Z",
@@ -825,8 +825,8 @@
      "can_close_early": true,
      "strike_type": "greater",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 122.38,
-     "_est_dollar_volume_24h": 3.62
+     "_est_dollar_volume": 118.59,
+     "_est_dollar_volume_24h": 3.79
     },
     {
      "ticker": "KXAAAGASM-26DEC31-3.10",
