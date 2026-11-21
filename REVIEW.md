@@ -269,9 +269,9 @@ logged here as requests to the owning sessions, not edits.
 
 | Artifact / page | Checks performed | Result |
 |---|---|---|
-| `data/topics/*.json` (5 files) | Every `source_urls` entry (events, markets, event_markets_example groups) is on the official demo base; `definition` is exactly the classification fields of `scripts/topics.json` (the rule of record); `event_count` ≥ stored events; stored events ≤ 30 (collect.py `rows[:30]` cap); every market row's `result` ∈ `{'', 'yes', 'no'}` | Pass — 131 events / 811 market rows across 5 topics |
+| `data/topics/*.json` (5 files) | Every `source_urls` entry (events, markets, event_markets_example groups) is on the official demo base; `definition` is exactly the classification fields of `scripts/topics.json` (the rule of record); `event_count` ≥ stored events; stored events ≤ 30 (collect.py `rows[:30]` cap); every market row's `result` ∈ `{'', 'yes', 'no'}` | Pass — 130 events / 791 market rows across 5 topics (collected 2026-11-21T07:17:44Z) |
 | Topic grouping (brief: "topics separate, events within topic together") | Each `event_ticker` appears in exactly one topic file; each market ticker is filed once | Pass (0 cross-topic events, 0 duplicate tickers) |
-| `data/resolved.json` | `result` verbatim `yes`/`no` only; file-level `source_urls` official; generated_at present | Pass (825 resolved rows) |
+| `data/resolved.json` | `result` verbatim `yes`/`no` only; file-level `source_urls` official; generated_at present | Pass (200 settled-market rows at 2026-11-21T07:17:44Z; `data/snapshot.json` carries 625 resolved rows of its own — 825 counted together by the gate) |
 | `data/snapshot.json` | `topic_rules` is exactly the `assets/lib.mjs` TOPICS serialization with the `scripts/build_snapshot.mjs` mapping; rows/resolved carry official `source_url` + `kalshi.com` `kalshi_url`; result enum | Pass (1,118 rows + 625 resolved; caps documented in `counts`: top 150/topic open, top 200/topic resolved) |
 | `data.html` render code | Per-row links are the official records (`/markets/{ticker}`, `/events/{event_ticker}`, `markets?event_ticker=`) — no bare batch URLs in rows; computed cells labeled “est.”; blanks rendered as blank (`money()`/`fmt()` return `''`); “top events” tables | Pass, with one transparency gap found and **fixed this session** (I4): the top-events tables now disclose “Showing 15 of N matched open events — the top 30 stored…” |
 | Cross-artifact value provenance (topic rows vs snapshot rows, overlapping tickers) | Field-by-field compare of 166 overlapping tickers | All differences explained by collection cadence (I5) or normalization (I2); **no invented values found** |
@@ -284,7 +284,7 @@ logged here as requests to the owning sessions, not edits.
 - **I2 — `result` normalization differs between artifacts.** Undetermined markets are `result: null` in `data/snapshot.json` but `result: ""` in `data/topics/*.json`; the official response omits/empties the field and the site renders blank either way. No user-visible impact. **Request to `scripts/collect.py` owner (PR #79 session):** normalize one representation.
 - **I3 — topic `_markets` rows omit `series_ticker`** (collect.py `MARKET_FIELDS` trim) although the official market record publishes it and `data/snapshot.json` stores it; the series is shown from the event row instead. Informational — no invented values; consider documenting the trim in methods.
 - **I4 — fixed this session:** the `data.html` “top events” tables showed 15 of up to 30 stored of N matched events with no totals; they now disclose the full counts and the “est.” basis of the ranking.
-- **I5 — artifact cadence, not corruption.** `data/snapshot.json` was generated 2026-11-20T19:11Z while `data/topics/*.json` + `data/resolved.json` were generated 2026-11-21T03:59Z. Same tickers legitimately show different quotes/prices across the two (e.g. `KXPRESNOMD-28-BOBA` last trade 0.003 → 0.88 between cycles; each file keeps its own source URL and cycle timestamp). Reviewers comparing artifacts should compare same-cycle files only.
+- **I5 — artifact cadence, not corruption.** `data/snapshot.json` was generated 2026-11-20T19:11:17Z while `data/topics/*.json` + `data/resolved.json` are refreshed by the collector at 2026-11-21T07:17:44Z cycles. Same tickers legitimately show different quotes across the two (e.g. `KXPRESNOMD-28-BOBA`: snapshot `last_price` 0.003 at 19:11Z vs topic `last_price_dollars` "0.8800" with `previous_price_dollars` "0.0050" at 07:17Z — the topic file's own previous-price field corroborates the move; each file keeps its own source URL and cycle timestamp). Reviewers comparing artifacts should compare same-cycle files only.
 - **I6 — `scalar` results exist** in the official lifecycle (`result` ∈ `yes`/`no`/`scalar`). The brief tracks binary YES/NO contracts; the collector keeps binary market types only and the new gates fail on any result outside `blank/yes/no`, so a scalar leak would be caught before publish rather than mislabeled.
 - **I7 — retraction.** This session's working notes initially cited two flagged findings (“hidden URL in methods.html title attribute”, “executive summary claims nine dropdowns”). Neither string exists at any commit of this repository (`git log -S`); both are retracted — nothing to fix, nothing published.
 
@@ -300,8 +300,17 @@ Negative-tested before landing: five injected defects (cross-topic duplicate eve
 
 ### Validation runs (this session, `2acfa8e` + the changes above)
 
-- `npm run check` → `BUILD OK — 18 HTML, 6 JS, 0 broken links`; `check_site` 1,249 rows / 825 resolved / **0 failures**; `check_links` 16 pages, 400 local, 236 external, **0 failures**.
-- `npm test` → engine 23/23 · live_fixes 3 · live_dash 6 · lib pass · test_model 30 · root_engine 48 · model.test 21 · portfolio 60/60 · demo-account 89 · test_collect 4/4 (Python) — **all green**.
+- `npm run check` → `BUILD OK — 18 HTML, 6 JS, 0 broken links`; `check_site` 1,248 rows / 825 resolved / **0 failures**; `check_links` 16 pages, 409 local, 249 external, **0 failures**.
+- `npm test` → engine 23/23 · live_fixes 3 · live_dash 6 · lib pass · test_model 36 · root_engine 48 · model.test 21 · portfolio 60/60 · demo-account 89 · test_collect 10/10 (Python) — **all green**.
+- Figures above are the merged tree (`2acfa8e` + concurrent sessions' PRs through `cd7108f` + this session's changes); the audit was re-run after rebasing onto `cd7108f` and the counts refreshed to the 07:17:44Z collector cycle.
+
+### Merge-conflict log (protocol requirement)
+
+Rebasing this session's commits onto concurrent `main` (`cd7108f`) hit end-of-file append conflicts in
+`COORDINATION.md` (claim block vs sessions `0b68e1e4`/`1c5b46b2`'s records) and a generated-file conflict in
+`tools/build-report.json`. Resolution kept **both sides verbatim** of the board (only the three conflict
+delimiter lines were dropped); the generated file was resolved to the incoming version and re-generated by
+the final check run. Nothing from any other session was discarded.
 
 ### Requests to file owners (logged in COORDINATION.md; files not edited here)
 
