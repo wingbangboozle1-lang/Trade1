@@ -1103,3 +1103,11 @@ pages rendered with 0 JS errors.
 
 **CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
 `tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.
+
+---
+
+## Session `85565d8d` — status-vocabulary and live-API re-verification (claim, 2026-11-21 UTC)
+
+**Claim.** Session `85565d8d` on branch `arena/85565d8d-trade1` (base `main` @ `a15a941`).
+Task: independently re-verify, against official Kalshi docs and the live demo endpoint, the market `status` vocabulary and lifecycle fields the dashboard depends on; record the result and the status of flagged item F4.
+**File scope (only these):** `reports/VERIFICATION_85565d8d.md` (new), `COORDINATION.md` (this section, append only). No shared outputs (site pages, `flagged.html`, `index.html`, nav, `data/**`) are edited; any change needed there is logged as a request below.
