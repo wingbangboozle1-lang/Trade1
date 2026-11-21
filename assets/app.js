@@ -462,12 +462,17 @@ window.KalshiApp = (function () {
    * cases must fire, because REST polling cannot see the tick-by-tick path
    * (official docs: responses are cached and can lag by seconds —
    * https://docs.kalshi.com/api-reference/market/get-markets):
-   *   1. step:      |current sample - previous sample| >= $0.10
-   *   2. swing:     the market swung >= $0.10 and came back inside one poll
-   *                 window. The market object exposes `previous_price_dollars`
-   *                 (last trade price before the current one, per the official
-   *                 Market schema), so |current - previous_price| catches a
-   *                 round-trip that sampled deltas miss.
+   *   1. step:      |current sample - previous sample| >= $0.10  — the sudden-move detector
+   *   2. reference: |current - previous_price_dollars| >= $0.10. CORRECTED 2026-11-21
+   *                 (session 9b6ffae0, verified against the official Market schema):
+   *                 `previous_price_dollars` is "Price for the last traded YES contract on
+   *                 this market A DAY AGO in dollars" — NOT the trade before the current
+   *                 one. https://docs.kalshi.com/api-reference/events/get-events.md
+   *                 So this branch is a 24-hour reference comparison: it catches a market
+   *                 that is >= $0.10 away from the same time yesterday (including a
+   *                 round-trip that happened while the page was closed), which sampled
+   *                 deltas cannot see. It is labelled as such in the chats; do not read it
+   *                 as a sudden intraday swing.
    * Prices are compared in integer ten-thousandths of a dollar (4 dp, the
    * documented price precision) so an exact $0.10 move can never fail on
    * binary-float error (0.66 - 0.56 === 0.09999999999999998). The comparison
@@ -484,13 +489,15 @@ window.KalshiApp = (function () {
     var mv = M.alertMove(b, a);
     var kind = 'sample';
     if (!mv) {
-      // Fall back to the exchange-reported previous trade price to catch a
-      // swing that fully reversed between two polls.
+      // Second detector: the exchange's 24-hour reference price
+      // (previous_price_dollars = "last traded YES contract ... a day ago").
+      // Catches a move that happened outside the sampling window; it is NOT
+      // an intraday swing, and the chat label says so.
       var pp = Number(m.previous_price_dollars);
       if (!isFinite(pp)) return;
       mv = M.alertMove(pp, a);
       if (!mv) return;
-      kind = 'swing (previous trade)';
+      kind = 'vs 24h reference price';
     }
     if (lastAlertAt[m.ticker] && now - lastAlertAt[m.ticker] < CFG.alertCooldownMs) return;
     lastAlertAt[m.ticker] = now;
