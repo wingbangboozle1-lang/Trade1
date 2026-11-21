@@ -143,3 +143,39 @@ demo-account 89/89 · `tests/test_collect.py` **8/8** · `portfolio_engine.py se
 
 **Published on the site:** four rows **BE-1 … BE-4** on [`flagged.html`](flagged.html); the new entry rules and the rate-limit
 policy on [`methods.html`](methods.html) §4.
+## Addendum — session `1d71a602` (2026-11-21): final integration, fresh numbers
+
+Full line-by-line record: [`reports/VERIFICATION_1d71a602.md`](reports/VERIFICATION_1d71a602.md).
+Official sources re-read 2026-11-21: [API Environments](https://docs.kalshi.com/getting_started/api_environments)
+(demo REST/WS hosts match the brief exactly) · [Demo Environment](https://docs.kalshi.com/getting_started/demo_env)
+(mock funds; demo prices may not reflect production) · [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets)
+(schema incl. `notional_value_dollars` per-contract) · [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses)
+(bids only, best bid last, reciprocal asks) · [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks)
+(periods 1/60/1440 only) · [WebSockets](https://docs.kalshi.com/getting_started/quick_start_websockets)
+(signed handshake → REST polling from browsers) · [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle)
+(`result` yes/no/scalar, `finalized` + `settlement_ts`) · [Market Settlement](https://docs.kalshi.com/getting_started/market_settlement)
+($1 per winning contract, zero settlement fee for yes/no).
+
+**Fresh verified numbers (verbatim from committed artifacts, 2026-11-21):**
+
+| Artifact | Generated | Headline (source in file) |
+|---|---|---|
+| `data/snapshot.json` | 2026-11-20T19:11Z | 17,753 matched rows → 1,118 open kept + 625 resolved kept (494 NO / 131 YES). Open by topic: elections 7,954 · crypto 440 · culture 329 · golf 67 · gas-prices **0** |
+| `data/topics/*.json` + `data/meta.json` | 2026-11-21T06:58Z | Events: elections 1,942 · culture 28 · crypto 4 · golf 3 · gas 0. Top est. dollars: `KXRHOUSESEATS-27` $1,579,719.60 · `KXBTC50VS100-BTC-26DEC31` $1,480,017.12 (contracts × last price, labelled estimates) |
+| `data/portfolio.json` (CI ledger) | 2026-11-21T06:00Z | 11 trades (7 open, 4 realised, 2 settled), 0W/4L, realised −$59.59 (ROI −60.01%), equity $934.77 / $1,000 (−6.52%), 29 alerts, 21 resolutions. By strategy: momentum −$29.17 · harvest −$24.87 · fade −$5.55 · breakout open. By topic: crypto −$55.29 · culture −$4.30 · elections open |
+| `data/demo_account/status.json` | 2026-11-20T19:37Z | `configured: false` — no demo-account balance/positions to report; execution log is `dry_run`/`not_sent` only. No account performance is claimed |
+
+**New irregularities (published on [Flagged](flagged.html), do not block):** NEW-1 two snapshot
+pipelines/two clocks (2026-11-20 vs 2026-11-21, freshness stated per file) · NEW-2
+`notional_value_dollars` is $1/contract payout, so snapshot selection (≈ open interest) and live
+ranking (estimated traded dollars) are two different "highest dollar" definitions, both labelled ·
+NEW-3 gas-prices genuinely empty on demo (0 open in both pipelines) · NEW-4 portfolio sample
+(11 trades, 0 wins) too small to judge strategies (backtest F7 + [Flagged item 8](flagged.html#f8) stand) · NEW-5 sandbox has no route to
+Kalshi (curl 000; verification via docs + committed CI evidence, AA-8 stands) · NEW-6 open PRs
+#70/#68/#67/#64/#58 predate this integration and were not merged here (owner to close).
+
+**Gates (this session, exit 0):** `npm run check` BUILD OK 18 HTML/6 JS, `check_site.mjs`
+1,183 rows/625 resolved/0 failures, `check_links.mjs` 16 pages/408 local/269 external links/0 failures · `npm test` all suites
+pass (portfolio 60/60, demo-account 89/89, test_collect 4/4) · `render_test.mjs --offline` with all
+16 pages named explicitly → 16 pages rendered / 0 JS errors · Pages `built` on `main` @ `7d1c21f` at claim; post-merge Pages
+verification recorded in `COORDINATION.md`.

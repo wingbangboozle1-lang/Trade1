@@ -188,6 +188,36 @@
       <code>tests/test_collect.py</code> 10/10, <code>test_collect_failclosed.py</code> 6/6 · <code>portfolio_engine.py selftest</code> 77/77.
       <b>Not verified here:</b> a live run of the corrected collector — this sandbox has no route to
       <code>external-api.demo.kalshi.co</code>, so the next scheduled Actions data job is the first real run (Flag BE-4).</p>
+    <h2>Addendum — session <code>1d71a602</code>, 2026-11-21 (final integration, fresh numbers)</h2>
+    <p class="small muted">Line-by-line record: <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/reports/VERIFICATION_1d71a602.md">reports/VERIFICATION_1d71a602.md</a>.
+      Official pages re-read on 2026-11-21: <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">API Environments</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/demo_env">Demo Environment</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/orderbook_responses">Orderbook Responses</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks">Get Market Candlesticks</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_websockets">WebSockets quick start</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_lifecycle">Market Lifecycle</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/market_settlement">Market Settlement</a>.
+      The demo REST/WS roots named in the brief are exactly the hosts these pages recommend, so no endpoint was changed.
+      No value below was inferred: each is quoted from the committed artifact named in its row.</p>
+    <div class="tablewrap"><table class="small">
+      <thead><tr><th>Artifact</th><th>Generated (UTC)</th><th>What it says now</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Committed snapshot</td><td>2026-11-20 19:11</td><td>17,753 matched rows → 1,118 open kept + 625 resolved kept (494 NO / 131 YES). Open by topic: elections 7,954 · crypto 440 · culture 329 · golf 67 · <b>gas-prices 0</b>. All three coverage scans hit their page caps, so this is a labelled sample, not a census.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/snapshot.json"><code>data/snapshot.json</code></a> → <code>counts</code> / <code>topics</code> / <code>coverage</code>; per-row links on <a href="data.html">Data</a></td></tr>
+        <tr><td>Topic files + collector meta</td><td>2026-11-21 06:58</td><td>Events per topic: elections 1,942 · culture 28 · crypto 4 · golf 3 · gas-prices 0. Largest estimated event dollars: <code>KXRHOUSESEATS-27</code> $1,579,719.60 and <code>KXBTC50VS100-BTC-26DEC31</code> $1,480,017.12 — contracts × last price, labelled estimates (no dollar-volume field exists).</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/topics/elections.json"><code>data/topics/*.json</code></a>, <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/meta.json"><code>data/meta.json</code></a></td></tr>
+        <tr><td>CI paper ledger</td><td>2026-11-21 06:00</td><td>11 trades (7 open, 4 realised, 2 settled), 0 wins / 4 losses, realised P&amp;L <b>−$59.59</b> on $99.30 cost (ROI −60.01%), equity $934.77 of $1,000 (−6.52%), peak $995.44, max drawdown −$60.67, 29 alerts, 21 resolutions. By strategy: momentum −$29.17 (7 trades) · harvest −$24.87 · fade −$5.55 · breakout 2 open. By topic: crypto −$55.29 · culture −$4.30 · elections 2 open.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/portfolio.json"><code>data/portfolio.json</code></a> → <code>summary</code> / <code>by_strategy</code> / <code>by_topic</code>; on-site <a href="portfolio.html">Portfolio</a></td></tr>
+        <tr><td>Demo-account track</td><td>2026-11-20 19:37 (<code>checked_at</code>)</td><td><code>configured: false</code> — the owner's <code>KALSHI_DEMO_KEY_ID</code> / <code>KALSHI_DEMO_PRIVATE_KEY</code> secrets do not exist, so no authenticated request is sent and the execution log is <code>dry_run</code> / <code>not_sent</code> only. There are therefore <b>no demo-account balances, positions or returns to report</b>, and the site claims none.</td><td class="src"><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/demo_account/status.json"><code>data/demo_account/status.json</code></a>, <a href="demo-account/">Demo Account</a></td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted" style="margin-top:10px"><b>Read the results honestly.</b> Eleven trades with zero wins is not a verdict on any strategy — it is
+    a sample too small to rank them, and it is reported that way (<a href="flagged.html#new-4">NEW-4</a>, <a href="flagged.html#f8">Flagged item 8</a>).
+    The two snapshot pipelines run on different clocks (2026-11-20 vs 2026-11-21) and freshness is stated per file rather than merged
+    (<a href="flagged.html#new-1">NEW-1</a>). Gas prices is genuinely empty on the demo API — 0 open markets in both pipelines — so that
+    topic page shows an empty state, not missing data (<a href="flagged.html#new-3">NEW-3</a>).
+    Gates for this integration: <code>npm run check</code> (BUILD OK, 18 HTML / 6 JS / 0 broken links; <code>check_site.mjs</code>
+    1,183 rows / 625 resolved / 0 failures; <code>check_links.mjs</code> 16 pages / 408 local / 269 external / 0 failures),
+    <code>npm test</code> all suites green (portfolio 60/60, demo-account 89/89, <code>test_collect.py</code> 4/4), and
+    <code>render_test.mjs --offline</code>, with all 16 pages named explicitly (the tool otherwise renders only <code>index.html</code>) → 16 pages rendered / 0 JS errors.</p>
   </section>
 
   <p class="footer">Kalshi demo is a play-money environment. This site is not affiliated with Kalshi and is not financial advice.
