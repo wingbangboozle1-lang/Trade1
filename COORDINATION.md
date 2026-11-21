@@ -1209,7 +1209,48 @@ static page, maker fees unmodeled, ROI screen is a heuristic shortlist not verif
 - **Verification performed (2026-11-21):** all 10 official sources re-read (demo env, API environments, market lifecycle, Get Markets, Get Market Candlesticks, Orderbook Responses, fee schedule PDF effective 2026-07-07, Fee Rounding, Quick Start WebSockets, Market Settlement). Every endpoint, field, status, fee formula, and order-book shape used by the site matches the official source; full table in `reports/VERIFICATION_31a8a56b.md`. No new irregularities; all previously published items remain on `flagged.html` (non-blocking).
 - **Validators (all exit 0):** `tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links); `check_site.mjs` 18 HTML / 426 links / 1,249 rows / 825 resolved / 0 failures; `check_links.mjs` 16 pages / 394 local + 222 external / 0 failures; `npm test` green (engine 23/23, root_engine 40/40, portfolio 60/60, demo-account 89/89, fees/model/libs all pass).
 - **Claim rule honored:** no other session's files edited outside this scope; shared outputs (index/navigation) not touched.
-- **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
+- **PR / merge / deploy:** [PR #63](https://github.com/wingbangboozle1-lang/Trade1/pull/63) `arena/31a8a56b-trade1` → `main`, merged without waiting for review (merge commit `d59fb0f`, state MERGED, 2026-11-21). GitHub Pages API: `status: built`, `build_type: legacy`, source `main /`, https enforced. Pages build 1389238538 for commit `d59fb0f` → **built**, error null, duration 27816 ms. Live site: https://wingbangboozle1-lang.github.io/Trade1/. Build + checks + tests all green on this branch before merge.
+
+## Session `arena/d256bfac-trade1` — resolved-market topic classifier repair (claimed 2026-11-21 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Repair settled-market fallback topic exclusions and keyword boundaries; add offline regression coverage; publish snapshot caveat and verification record | in progress | `arena/d256bfac-trade1` | `scripts/collect.py`, `tests/test_collect.py`, `package.json`, `resolved.html`, `flagged.html`, `reports/VERIFICATION_D256BFAC.md`, `COORDINATION.md` |
+
+Claim recorded on the active branch. This is a narrow fix to the previously documented resolved-topic defect (9d-1 / 691-11); no Kalshi endpoints or snapshots will be modified because this sandbox cannot reach Kalshi. The committed snapshot remains explicitly flagged until the scheduled collector refresh confirms corrected rows.
+
+Rebase overlap note: the `COORDINATION.md` append conflicted with session `arena/504976fa-trade1`'s verification-only entry. Both complete records were retained; no other session's content was removed.
+
+Rebase overlap note: this replay also overlapped with the already merged verification record from session `arena/31a8a56b-trade1`. Both complete records were retained.
+
+---
+
+## Session `arena/aa7d3d27-trade1` — live-engine defect repair (claim, 2026-11-21)
+
+**Claim** taken 2026-11-21 ~06:45 UTC on branch `arena/aa7d3d27-trade1`, base `main` @ `a15a941`.
+Branch policy note: the platform fixes this session to one branch name, so the brief's
+`session-<id>/<task>` naming is not used (same constraint recorded by earlier sessions above).
+
+Files in scope (nothing else is edited, and no file another open session owns is touched):
+
+- `assets/app.js`, `assets/model.js`, `assets/portfolio.js`, `assets/site.css`
+- `tests/*.mjs`, `tests/*.js`, `scripts/test_model.mjs`, `scripts/test_fees.mjs`
+- `tools/render_test.mjs`
+- `dashboard.html`, `portfolio.html` (mount points only), `methods.html` (rule text for changed rules),
+  `flagged.html` (new flagged items), `suggestions.html` (shipped items)
+- `COORDINATION.md` (this section only)
+
+Deliberately **not** touched (owned by open sessions at claim time):
+`scripts/collect.py`, `scripts/topics.json`, `data/**` collectors, `reports/**`
+(PRs #63 `31a8a56b`, #64 `c96a21b7`, #65 `d256bfac` — all docs/collector scope). Request-level notes
+for those owners go in the log at the end of this section, not in their files.
+
+Baseline at claim (all run locally on the claim commit): `npm run check` → BUILD OK 18 HTML / 6 JS,
+`check_site.mjs` 1,249 rows 0 failures, `check_links.mjs` 16 pages 0 failures; `npm test` → engine,
+live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/89) suites all pass;
+`tools/render_test.mjs` 15/15 pages, 0 JS errors.
+
+Status of the work items below is recorded at the end of this section once complete.
 
 ---
 

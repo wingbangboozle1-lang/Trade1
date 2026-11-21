@@ -40,6 +40,13 @@ window.KalshiModel = (function () {
     catch (e) { /* quota exceeded — drop silently, state stays in memory */ }
   }
 
+  /* How many alerts are retained. The cap used to be 300 with no way to see
+   * anything older; at ~1,000 in-scope markets a 12 s poll can fill that in a
+   * single session. 800 keeps the "recent moves" board populated across
+   * reloads while staying far below the localStorage budget the engine has
+   * been tested against (tests/portfolio.test.mjs asserts the quoted size). */
+  var ALERT_CAP = 800;
+
   var DEFAULT_BOT = {
     enabled: true,
     bank: 1000,            // virtual starting bankroll, USD
@@ -104,20 +111,61 @@ window.KalshiModel = (function () {
    *   vol     = volume_fp (contracts, exchange-reported)
    *   spread  = yes_ask - yes_bid (exchange quotes)
    *   |delta| = sampled price move that triggered the alert (>= $0.10)
-   * score = 0.30*min(vol24/2000,1) + 0.25*min(vol/10000,1)
+   *   book    = yes_bid_size_fp + yes_ask_size_fp (contracts resting at the
+   *             top of book; official /markets fields — see Get Markets:
+   *             yes_bid_size_fp / yes_ask_size_fp)
+   * raw   = 0.30*min(vol24/2000,1) + 0.25*min(vol/10000,1)
    *       + 0.20*max(0,1-spread/0.15) + 0.25*min(|delta|/0.25,1)
+   * damp  = 0.60 + 0.40*min(book/500,1)   (a move on an empty book is worth less)
+   *       = 0.85 when the response publishes no top-of-book sizes at all
+   * score = raw * damp
+   * The liquidity damping was added 2026-11-21 (session aa7d3d27): before it a
+   * 10c jump in a market with 1 contract resting scored the same as the same
+   * jump in a market with 5,000, which is the opposite of "high ROI".
    * Alerts with score >= minScore (default 0.45) go to the model chat.
    * This is a heuristic screen, NOT verified predictive alpha (flagged). */
+  function bookSize(m) {
+    var yb = Number(m.yes_bid_size_fp), ya = Number(m.yes_ask_size_fp);
+    var haveYb = isFinite(yb) && String(m.yes_bid_size_fp) !== '';
+    var haveYa = isFinite(ya) && String(m.yes_ask_size_fp) !== '';
+    if (!haveYb && !haveYa) return null;
+    return (haveYb ? yb : 0) + (haveYa ? ya : 0);
+  }
   function score(delta, m) {
     var vol24 = Number(m.volume_24h_fp || m.volume_24h || 0);
     var vol = Number(m.volume_fp || m.volume || 0);
     var spread = (Number(m.yes_ask_dollars) - Number(m.yes_bid_dollars));
     if (!isFinite(spread)) spread = 0.99;
-    var s = 0.30 * Math.min(vol24 / 2000, 1)
-          + 0.25 * Math.min(vol / 10000, 1)
-          + 0.20 * Math.max(0, 1 - spread / 0.15)
-          + 0.25 * Math.min(Math.abs(delta) / 0.25, 1);
-    return Math.round(s * 1000) / 1000;
+    var raw = 0.30 * Math.min(vol24 / 2000, 1)
+            + 0.25 * Math.min(vol / 10000, 1)
+            + 0.20 * Math.max(0, 1 - spread / 0.15)
+            + 0.25 * Math.min(Math.abs(delta) / 0.25, 1);
+    var book = bookSize(m);
+    var damp = book === null ? 0.85 : 0.60 + 0.40 * Math.min(book / 500, 1);
+    return Math.round(raw * damp * 1000) / 1000;
+  }
+
+  /* ---------- tradeability (official market lifecycle) ----------
+   * https://docs.kalshi.com/getting_started/market_lifecycle
+   *   `active`      = open for trading (the only status a fill can happen in)
+   *   `initialized` = created, not yet open ("Transitions to active when
+   *                   open_time passes")
+   *   `inactive`    = trading paused; `closed` = past close_time, no new orders;
+   *   `determined`/`disputed`/`amended`/`finalized` = determination/settlement.
+   * `GET /markets?status=open` maps to `active` only (same page, filter table),
+   * and the dashboard's discovery already asks for status=open, so this guard
+   * matters for the SNAPSHOT fallback: the committed data/topics/*.json files
+   * are trimmed snapshots taken at collection time, so a market can still read
+   * `status: "active"` long after its `close_time` passed. Paper entries and
+   * the "live / closed" view use this single rule instead of guessing.
+   * No value is invented: an absent status or close_time is treated as
+   * "not tradeable" / "no close information", never defaulted to open. */
+  function isTradeable(m, now) {
+    if (!m) return false;
+    if (String(m.status || '') !== 'active') return false;
+    var closeMs = Date.parse(m.close_time || '');
+    if (!isFinite(closeMs)) return true;              // no close_time published
+    return closeMs > (now === undefined ? Date.now() : now);
   }
 
   /* ---------- fee (official schedule: taker = roundup(M x 0.07 x C x P x (1-P));
@@ -230,7 +278,7 @@ window.KalshiModel = (function () {
   var cash = load('cash', state.bot.bank);
   function persistAll() {
     save('trades', state.trades.slice(-400));
-    save('alerts', state.alerts.slice(-300));
+    save('alerts', state.alerts.slice(-ALERT_CAP));
     save('resolved', state.resolved);
     save('equity', state.equity.slice(-1200));
     save('bot', state.bot);
@@ -259,6 +307,9 @@ window.KalshiModel = (function () {
   function tryEnter(m, side, strategy, qtyOverride, note) {
     var bot = state.bot;
     if (!bot.enabled) return false;
+    /* A paper fill can only model a market that is open for trading at the
+     * moment of the fill (official lifecycle, see isTradeable above). */
+    if (!isTradeable(m)) return false;
     if (openPositions().length >= bot.maxPositions) return false;
     var openSame = openPositions().some(function (t) { return t.ticker === m.ticker && t.strategy === strategy; });
     if (openSame) return false;
@@ -349,11 +400,17 @@ window.KalshiModel = (function () {
     });
     // scan strategies (every cycle for breakout, every 5th for harvest to save CPU)
     var scan = (watchList || []).map(function (t) { return watch[t]; }).filter(Boolean);
+    var nowMs = now || Date.now();
     scan.forEach(function (m) {
       if (!m._topic) return;
       var spread = Number(m.yes_ask_dollars) - Number(m.yes_bid_dollars);
       var vol24 = Number(m.volume_24h_fp || 0);
       var last = Number(m.last_price_dollars);
+      /* Baseline the 50c crossing state only while the market is tradeable;
+       * otherwise a market that reopens after being closed would immediately
+       * look like it "crossed" against a baseline taken from its closed price
+       * (the snapshot fallback keeps closed-but-still-status-active rows). */
+      if (!isTradeable(m, nowMs)) return;
       if (st.breakout.on) {
         var prev = state.crossed50[m.ticker];
         if (prev === undefined && isFinite(last)) {
@@ -447,7 +504,7 @@ window.KalshiModel = (function () {
 
   function pushAlert(a) {
     state.alerts.push(a);
-    if (state.alerts.length > 300) state.alerts.splice(0, state.alerts.length - 300);
+    if (state.alerts.length > ALERT_CAP) state.alerts.splice(0, state.alerts.length - ALERT_CAP);
     persistAll();
   }
   function reset(bank) {
@@ -458,7 +515,8 @@ window.KalshiModel = (function () {
   }
 
   return {
-    state: state, TOPICS: TOPICS, classify: classify, score: score,
+    state: state, TOPICS: TOPICS, classify: classify, score: score, bookSize: bookSize,
+    isTradeable: isTradeable, ALERT_CAP: ALERT_CAP,
     fee: fee, seriesOf: seriesOf, takerMultiplier: takerMultiplier,
     runStrategies: runStrategies, manage: manage, applyResolutions: applyResolutions,
     recordEquity: recordEquity, equity: equity, summary: summary,

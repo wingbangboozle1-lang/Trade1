@@ -76,8 +76,12 @@ ok('unknown categories stay unclassified', () => assert.equal(M.classify('Climat
 /* ---- 4. strategy entry band and settlement ------------------------------ */
 // runStrategies(newAlerts, watch, watchList, now): alerts drive momentum/fade,
 // the watch list drives harvest/breakout. watch keys are tickers.
+/* `status`/`close_time` are part of the fixture because the engine only papers a
+ * fill in a market that is open for trading (official lifecycle). */
+const FUTURE = new Date(Date.now() + 3600e3).toISOString();
 const mkMarket = (ticker, yesBid, yesAsk, extra = {}) => ({
   ticker, event_ticker: 'T-EV', title: 'Test market', _topic: 'crypto',
+  status: 'active', close_time: FUTURE,
   yes_bid_dollars: yesBid, yes_ask_dollars: yesAsk,
   no_bid_dollars: String((1 - Number(yesAsk)).toFixed(4)), no_ask_dollars: String((1 - Number(yesBid)).toFixed(4)),
   last_price_dollars: yesBid, volume_24h_fp: '90000', volume_fp: '900000', open_interest_fp: '5000', ...extra,
@@ -108,6 +112,55 @@ ok('the settled P&L matches qty x (payout - entry) - entry fee', () => {
 ok('note: no settlement fee is charged, matching the official schedule', () => {
   const s = M.state.trades[0];
   assert.equal(s.exit.fee, undefined, 'settlement must not add an exit fee');
+});
+
+
+/* ---- 5. tradeability guard (official market lifecycle) ------------------ */
+// https://docs.kalshi.com/getting_started/market_lifecycle — only `active`
+// (and before close_time) is tradeable; initialized/closed/inactive/determined/
+// finalized are not, and a missing status is never treated as open.
+ok('an active market closing in the future is tradeable', () => assert.equal(M.isTradeable(mkMarket('LIVE-1', '0.5', '0.51')), true));
+ok('active but past close_time is not tradeable', () =>
+  assert.equal(M.isTradeable(mkMarket('STALE-1', '0.5', '0.51', { close_time: '2020-01-01T00:00:00Z' })), false));
+ok('closed / determined / finalized / inactive are not tradeable', () => {
+  for (const st of ['closed', 'determined', 'amended', 'finalized', 'inactive', 'settled', 'initialized'])
+    assert.equal(M.isTradeable(mkMarket('X-1', '0.5', '0.51', { status: st })), false, 'status ' + st + ' was treated as tradeable');
+});
+ok('a market with no published status is not tradeable', () =>
+  assert.equal(M.isTradeable({ ticker: 'NOSTATUS-1', close_time: FUTURE }), false));
+ok('the guard blocks a paper fill in a market that already closed', () => {
+  M.reset(1000);
+  const stale = mkMarket('STALE-2', '0.5000', '0.5100', { close_time: '2020-01-01T00:00:00Z' });
+  M.runStrategies([{ ticker: 'STALE-2', delta: 0.20, dir: 'up' }], { 'STALE-2': stale }, ['STALE-2'], Date.now());
+  assert.equal(M.state.trades.length, 0, 'a fill was recorded in a market past its close_time');
+});
+ok('the 50c breakout baseline is not taken from a closed market', () => {
+  M.reset(1000);
+  const stale = mkMarket('STALE-3', '0.9000', '0.9100', { close_time: '2020-01-01T00:00:00Z', last_price_dollars: '0.9000' });
+  M.runStrategies([], { 'STALE-3': stale }, ['STALE-3'], Date.now());
+  assert.equal(M.state.crossed50['STALE-3'], undefined, 'breakout state was recorded for a closed market');
+});
+
+/* ---- 6. liquidity-aware ROI score -------------------------------------- */
+// Same move and same volume; only the resting size at the top of book differs.
+const thin = { volume_24h_fp: '500', volume_fp: '5000', yes_bid_dollars: '0.40', yes_ask_dollars: '0.42',
+  yes_bid_size_fp: '1.00', yes_ask_size_fp: '1.00' };
+const deep = { ...thin, yes_bid_size_fp: '4000.00', yes_ask_size_fp: '6000.00' };
+ok('a 10c move on a deep book scores higher than the same move on a 2-contract book',
+  () => assert.ok(M.score(0.10, deep) > M.score(0.10, thin), `deep ${M.score(0.10, deep)} vs thin ${M.score(0.10, thin)}`));
+ok('the score stays within 0..1 with published sizes', () => {
+  const s = M.score(0.5, deep);
+  assert.ok(Number.isFinite(s) && s >= 0 && s <= 1, 'score=' + s);
+});
+ok('no published sizes at all leaves the score undamped (0.85 x raw, never NaN)', () => {
+  const bare = { volume_24h_fp: '2000', volume_fp: '10000', yes_bid_dollars: '0.50', yes_ask_dollars: '0.51' };
+  const raw = 0.30 + 0.25 + 0.20 * Math.max(0, 1 - 0.01 / 0.15) + 0.25 * Math.min(0.10 / 0.25, 1);
+  assert.ok(Math.abs(M.score(0.10, bare) - Math.round(raw * 0.85 * 1000) / 1000) < 1e-9, 'score=' + M.score(0.10, bare));
+});
+ok('bookSize sums the two published sides and returns null when neither is published', () => {
+  assert.equal(M.bookSize({ yes_bid_size_fp: '10', yes_ask_size_fp: '5' }), 15);
+  assert.equal(M.bookSize({ yes_bid_size_fp: '10' }), 10);
+  assert.equal(M.bookSize({}), null);
 });
 
 console.log(`model tests: ${passed} checks passed` + (process.exitCode ? ' (with failures above)' : ''));

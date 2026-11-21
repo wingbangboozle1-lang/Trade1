@@ -283,6 +283,19 @@ window.KalshiApp = (function () {
                   if (!S.events[et]) {
                     S.events[et] = { event_ticker: et, title: m.title, series_ticker: sr.ticker,
                                      settlement_sources: sr.settlement_sources || [], _topic: t.id };
+                  } else {
+                    /* The /events call runs in parallel with this series sweep and
+                     * usually wins, so the event usually already exists. Fill in
+                     * only the fields that response did not carry — an earlier
+                     * revision wrote the first one and dropped this series'
+                     * settlement_sources, which are the links the alert chats and
+                     * the source list show (official Get Series schema). */
+                    var known = S.events[et];
+                    if (!known.series_ticker) known.series_ticker = sr.ticker;
+                    if (!known.title) known.title = m.title;
+                    if ((!known.settlement_sources || !known.settlement_sources.length) && sr.settlement_sources) {
+                      known.settlement_sources = sr.settlement_sources;
+                    }
                   }
                   m._topic = t.id;
                   m._series = sr.ticker;
@@ -374,7 +387,51 @@ window.KalshiApp = (function () {
       var prev = S.watch[m.ticker];
       var merged = Object.assign({}, prev, m);
       merged._topic = prev._topic;
+      merged._series = prev._series || m.series_ticker;
       S.watch[m.ticker] = merged;
+
+      var st = String(m.status || '');
+      /* A market is only traded (sampled, alertable) while the official
+       * lifecycle says it is open: status `active` AND close_time still in the
+       * future — "active -> closed: when close_time passes" (implicit, no
+       * WebSocket event). The close_time test matters because snapshot rows are
+       * trimmed at collection time: they can still read status `active` long
+       * after they closed. */
+      var tradeable = M.isTradeable(merged, now);
+      /* "No longer open for trading", per the official lifecycle table
+       * (https://docs.kalshi.com/getting_started/market_lifecycle):
+       * `inactive` = paused, `closed` = past close_time and awaiting
+       * determination, and determined/disputed/amended/finalized = the
+       * determination and settlement stages. Only `active` and `initialized`
+       * are still on the trading side of that table.
+       * A market that has left the trading side must stop producing price
+       * samples. An earlier revision only filtered settled markets here, so a
+       * market that simply CLOSED kept its last quote and fed the poll sampler:
+       * a quote going to 0.00 after close looked like a -$0.10 swing alert,
+       * `M.manage()` could "fill" an exit at that sticky bid, and the 50c
+       * breakout baseline kept moving on a market nobody could trade. It is
+       * still tracked (it is on the way to a resolution, which is what the
+       * resolved tracker is for) — it just no longer trades or alerts. */
+      if (!tradeable) {
+        merged._closed = true;
+        /* Settlement detection straight from the batch response. `determined`
+         * (result known, settlement timer running), `amended` (re-determined
+         * after a dispute) and `finalized` (settlement complete) all carry an
+         * official yes/no result and are the resolutions we record. A merely
+         * `closed`/`inactive` market has no result yet. */
+        if ((st === 'finalized' || st === 'determined' || st === 'amended' || st === 'settled' || st === 'closed')
+            && (m.result === 'yes' || m.result === 'no')) {
+          if (!M.state.resolved[m.ticker]) {
+            resolvedNow[m.ticker] = {
+              result: m.result, settlement_ts: m.settlement_ts || null,
+              event: m.event_ticker, title: m.title,
+              topic: prev._topic, settlement_value_dollars: m.settlement_value_dollars || null
+            };
+          }
+        }
+        M.manage(m.ticker, merged, now);
+        return;
+      }
 
       var last = Number(m.last_price_dollars);
       var bid = Number(m.yes_bid_dollars);
@@ -387,23 +444,6 @@ window.KalshiApp = (function () {
            the raw object has no _topic (the topic is attached by the classifier),
            so building the alert from it dropped the topic from every alert. */
         checkAlert(merged, h, now);
-      }
-      // settlement detection straight from the batch response
-      var st = String(m.status || '');
-      /* Official market lifecycle (https://docs.kalshi.com/getting_started/market_lifecycle):
-         `closed` = past close_time, awaiting determination (result is still empty);
-         `determined` = result known, settlement timer running; `amended` = re-determined
-         after a dispute; `finalized` = settlement complete. All three of the last
-         statuses can carry an official yes/no result, so all three are resolutions. */
-      if ((st === 'finalized' || st === 'determined' || st === 'amended' || st === 'settled' || st === 'closed')
-          && (m.result === 'yes' || m.result === 'no')) {
-        if (!M.state.resolved[m.ticker]) {
-          resolvedNow[m.ticker] = {
-            result: m.result, settlement_ts: m.settlement_ts || null,
-            event: m.event_ticker, title: m.title,
-            topic: prev._topic, settlement_value_dollars: m.settlement_value_dollars || null
-          };
-        }
       }
       M.manage(m.ticker, merged, now);
     });
@@ -734,17 +774,44 @@ window.KalshiApp = (function () {
       (model ? ' · score ' + a.score : '') + '</span>' +
       '<div class="links">' + alertLinks(a) + '</div></div>';
   }
+  var SESSION_START = Date.now();
+  /* A chat with an empty first screen tells a trader nothing. This note states
+   * what the chat is, when this tab started watching, and that older alerts
+   * kept in localStorage are listed separately below (they were captured by a
+   * previous tab, so their "from" price may be older than this page). */
+  function chatSessionNote() {
+    return '<div class="msg note"><span class="time">' + hhmmss(SESSION_START) + '</span>' +
+      '<b>Watching</b> · new \u2265 $0.10 moves post here as they are sampled (' + (CFG.watchPollMs / 1000) +
+      ' s poll). Moves captured in earlier sessions are kept in the board below until they are replaced.</div>';
+  }
+  function recentBoard(limit) {
+    var minScore = (M.state.bot.strategies && M.state.bot.strategies.momentum.minScore) || 0.45;
+    var rows = M.state.alerts.slice().reverse().slice(0, limit || 40);
+    if (!rows.length) return '<span class="muted">No stored \u2265 $0.10 move yet.</span>';
+    return '<table class="board"><thead><tr><th>Sampled (local)</th><th>Move</th><th>Market</th><th>Topic</th><th>Score</th><th>Source</th></tr></thead><tbody>' +
+      rows.map(function (a) {
+        var topicLabel = M.topicById(a.topic) ? M.topicById(a.topic).label : (a.topic || '');
+        return '<tr><td class="muted">' + hhmmss(a.t) + '</td>' +
+          '<td><span class="' + a.dir + '">' + (a.delta > 0 ? '+' : '') + a.delta.toFixed(2) + '</span></td>' +
+          '<td>' + (kalshiUrl(a.event) ? '<a href="' + esc(kalshiUrl(a.event)) + '" target="_blank" rel="noopener">' + esc(a.title) + '</a>' : esc(a.title)) + '</td>' +
+          '<td class="muted">' + esc(topicLabel) + '</td>' +
+          '<td class="' + (a.score >= minScore ? 'up' : 'muted') + '">' + (a.score === undefined ? '' : a.score) + '</td>' +
+          '<td><a class="small" href="' + esc(apiMarketUrl(a.ticker)) + '" target="_blank" rel="noopener">API</a></td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+  function refreshBoard() { var b = $('#kx-board'); if (b) b.innerHTML = recentBoard(); }
   function renderChats() {
     var all = $('#kx-chat-all'), model = $('#kx-chat-model');
     if (!all) return;
     var wasBottom = all.scrollHeight - all.scrollTop - all.clientHeight < 40;
     var wasBottomM = model.scrollHeight - model.scrollTop - model.clientHeight < 40;
     var minScore = (M.state.bot.strategies && M.state.bot.strategies.momentum.minScore) || 0.45;
-    all.innerHTML = M.state.alerts.slice(-80).map(function (a) { return chatMsg(a, false); }).join('') ||
-      '<div class="muted">No \u2265 $0.10 moves captured yet. Polling runs while the tab is open.</div>';
-    model.innerHTML = M.state.alerts.filter(function (a) { return a.score >= minScore; }).slice(-80)
+    all.innerHTML = chatSessionNote() + (M.state.alerts.slice(-80).map(function (a) { return chatMsg(a, false); }).join('') ||
+      '<div class="muted">No \u2265 $0.10 moves sampled in this tab yet. Polling runs while the tab is open.</div>');
+    model.innerHTML = chatSessionNote() + (M.state.alerts.filter(function (a) { return a.score >= minScore; }).slice(-80)
       .map(function (a) { return chatMsg(a, true); }).join('') ||
-      '<div class="muted">No alerts above the model score threshold (' + minScore + ') yet. Formula: methods.html.</div>';
+      '<div class="muted">No alert above the model score threshold (' + minScore + ') yet. Formula: methods.html.</div>');
+    refreshBoard();
     if (wasBottom) all.scrollTop = all.scrollHeight;
     if (wasBottomM) model.scrollTop = model.scrollHeight;
   }
@@ -763,6 +830,7 @@ window.KalshiApp = (function () {
       while (model.children.length > 120) model.removeChild(model.firstChild);
       if (stickM) model.scrollTop = model.scrollHeight;
     }
+    refreshBoard();
     if (a.ticker === S.selected) renderJumps();
   }
 
@@ -806,37 +874,90 @@ window.KalshiApp = (function () {
         return b24 - a24;
       });
   }
+  /* Live vs closed split.
+   * "live" = M.isTradeable(): status `active` AND close_time still in the future
+   * (official lifecycle table: initialized -> active when open_time passes,
+   * active -> closed when close_time passes). Everything else is either awaiting
+   * determination, settled, or a snapshot row whose close_time has already
+   * passed — none of those can be traded, so ranking them by traded dollars
+   * ahead of live markets hid the markets a trader can actually act on.
+   * Both groups are still shown (the brief asks for events tracked until they
+   * resolve), just not mixed together. */
+  function isLive(m) { return M.isTradeable(m, Date.now()); }
+  function liveCount() {
+    return S.list.reduce(function (n, t) {
+      var m = S.watch[t];
+      return n + (m && (!S.topic || m._topic === S.topic) && isLive(m) ? 1 : 0);
+    }, 0);
+  }
+  /* Best price = whichever side of the book is worth more per contract.
+   * A YES contract bought at yes_ask and a NO contract bought at no_ask are the
+   * two ways to take a position here, so the side with the higher ask is the
+   * side the market currently favours. Values are the exchange's own quotes
+   * (official /markets fields) — nothing is derived. */
+  function bestSide(m) {
+    var ya = Number(m.yes_ask_dollars), na = Number(m.no_ask_dollars);
+    if (!isFinite(ya) && !isFinite(na)) return null;
+    if (isFinite(ya) && isFinite(na)) return ya >= na ? { side: 'YES', p: ya } : { side: 'NO', p: na };
+    return isFinite(ya) ? { side: 'YES', p: ya } : { side: 'NO', p: na };
+  }
+  function statusCell(m) {
+    var st = String(m.status || '');
+    var closeMs = Date.parse(m.close_time || '');
+    var leftMs = isFinite(closeMs) ? closeMs - Date.now() : null;
+    var soon = leftMs !== null && leftMs > 0 && leftMs < 6 * 3600e3;
+    var label = st === 'active' ? (soon ? 'closing <6h' : 'live') : (st || 'no status');
+    return '<span class="badge ' + (st === 'active' && !soon ? 'yes' : soon ? 'soon' : 'no') + '">' + esc(label) + '</span>';
+  }
+  function tableRow(m) {
+    var h = S.history[m.ticker] || [];
+    var prev = h.length > 1 ? (h[h.length - 2].last !== null ? h[h.length - 2].last : h[h.length - 2].bid) : null;
+    var cur = h.length ? (h[h.length - 1].last !== null ? h[h.length - 1].last : h[h.length - 1].bid) : null;
+    var d = (prev !== null && cur !== null) ? Math.round((cur - prev) * 1000) / 1000 : null;
+    var dHtml = d === null ? '<span class="flat">—</span>' :
+      '<span class="' + (d > 0 ? 'up' : d < 0 ? 'down' : 'flat') + '">' + (d > 0 ? '+' : '') + d.toFixed(2) + '</span>';
+    var close = m.close_time ? new Date(m.close_time).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+    var apiUrl = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=' + encodeURIComponent(m.ticker);
+    var best = bestSide(m);
+    var bestHtml = best ? '<b>' + best.side + '</b> ' + esc(cents(best.p)) : '';
+    return '<tr data-t="' + esc(m.ticker) + '" class="' + (m.ticker === S.selected ? 'sel' : '') + (isLive(m) ? '' : ' closed') + '">' +
+      '<td>' + (kalshiUrl(m.event_ticker) ? '<a href="' + esc(kalshiUrl(m.event_ticker)) + '" target="_blank" rel="noopener">' + esc(m.title || m.ticker) + '</a>'
+        : esc(m.title || m.ticker)) +
+      ' · <a class="small" href="' + esc(apiMarketUrl(m.ticker)) + '" target="_blank" rel="noopener">API</a>' +
+      '<br><small class="muted">' + esc(m.event_ticker) + ' · ' + esc(M.topicById(m._topic) ? M.topicById(m._topic).label : 'other') + '</small></td>' +
+      '<td>' + statusCell(m) + '</td>' +
+      '<td>' + bestHtml + '</td>' +
+      '<td>' + esc(cents(m.yes_bid_dollars)) + '</td>' +
+      '<td>' + esc(cents(m.yes_ask_dollars)) + '</td>' +
+      '<td>' + esc(cents(m.last_price_dollars)) + '</td>' +
+      '<td>' + dHtml + '</td>' +
+      '<td>' + esc(fmtK(m.yes_bid_size_fp)) + '</td>' +
+      '<td>' + esc(fmtK(m.yes_ask_size_fp)) + '</td>' +
+      '<td>' + esc(fmtK(m.volume_fp || m.volume)) + '</td>' +
+      '<td>' + esc(fmtK(m.volume_24h_fp || m.volume_24h)) + '</td>' +
+      '<td>' + (isFinite(Number(m.volume_fp)) && isFinite(Number(m.last_price_dollars)) ? '$' + fmtK(Number(m.volume_fp) * Number(m.last_price_dollars)) : '') + '</td>' +
+      '<td>' + (isFinite(Number(m.volume_24h_fp)) && isFinite(Number(m.last_price_dollars)) ? '$' + fmtK(Number(m.volume_24h_fp) * Number(m.last_price_dollars)) : '') + '</td>' +
+      '<td>' + esc(fmtK(m.open_interest_fp || m.open_interest)) + '</td>' +
+      '<td class="muted">' + esc(close) + '</td>' +
+      '<td class="src"><a href="' + esc(apiUrl) + '" target="_blank" rel="noopener">API</a></td>' +
+      '</tr>';
+  }
   function renderTable() {
     var tb = $('#kx-rows'); if (!tb) return;
-    var rows = rowsFor().slice(0, 120);
-    $('#kx-count') && ($('#kx-count').textContent = rows.length + ' shown · watchlist ' + S.list.length);
-    tb.innerHTML = rows.map(function (m) {
-      var h = S.history[m.ticker] || [];
-      var prev = h.length > 1 ? (h[h.length - 2].last !== null ? h[h.length - 2].last : h[h.length - 2].bid) : null;
-      var cur = h.length ? (h[h.length - 1].last !== null ? h[h.length - 1].last : h[h.length - 1].bid) : null;
-      var d = (prev !== null && cur !== null) ? Math.round((cur - prev) * 1000) / 1000 : null;
-      var dHtml = d === null ? '<span class="flat">—</span>' :
-        '<span class="' + (d > 0 ? 'up' : d < 0 ? 'down' : 'flat') + '">' + (d > 0 ? '+' : '') + d.toFixed(2) + '</span>';
-      var close = m.close_time ? new Date(m.close_time).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
-      var apiUrl = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=' + encodeURIComponent(m.ticker);
-      return '<tr data-t="' + esc(m.ticker) + '" class="' + (m.ticker === S.selected ? 'sel' : '') + '">' +
-        '<td>' + (kalshiUrl(m.event_ticker) ? '<a href="' + esc(kalshiUrl(m.event_ticker)) + '" target="_blank" rel="noopener">' + esc(m.title || m.ticker) + '</a>'
-          : esc(m.title || m.ticker)) +
-        ' · <a class="small" href="' + esc(apiMarketUrl(m.ticker)) + '" target="_blank" rel="noopener">API</a>' +
-        '<br><small class="muted">' + esc(m.event_ticker) + ' · ' + esc(M.topicById(m._topic) ? M.topicById(m._topic).label : 'other') + '</small></td>' +
-        '<td>' + esc(cents(m.yes_bid_dollars)) + '</td>' +
-        '<td>' + esc(cents(m.yes_ask_dollars)) + '</td>' +
-        '<td>' + esc(cents(m.last_price_dollars)) + '</td>' +
-        '<td>' + dHtml + '</td>' +
-        '<td>' + esc(fmtK(m.volume_fp || m.volume)) + '</td>' +
-        '<td>' + esc(fmtK(m.volume_24h_fp || m.volume_24h)) + '</td>' +
-        '<td>' + (isFinite(Number(m.volume_fp)) && isFinite(Number(m.last_price_dollars)) ? '$' + fmtK(Number(m.volume_fp) * Number(m.last_price_dollars)) : '') + '</td>' +
-        '<td>' + (isFinite(Number(m.volume_24h_fp)) && isFinite(Number(m.last_price_dollars)) ? '$' + fmtK(Number(m.volume_24h_fp) * Number(m.last_price_dollars)) : '') + '</td>' +
-        '<td>' + esc(fmtK(m.open_interest_fp || m.open_interest)) + '</td>' +
-        '<td class="muted">' + esc(close) + '</td>' +
-        '<td class="src"><a href="' + esc(apiUrl) + '" target="_blank" rel="noopener">API</a></td>' +
-        '</tr>';
-    }).join('') || '<tr><td colspan="12" class="muted">No markets in scope yet — discovery is running, or live API is unreachable (snapshot mode shows data/ rows on the Data page).</td></tr>';
+    var all = rowsFor();
+    var live = all.filter(isLive);
+    var rows = (live.length ? live : all).slice(0, 120);
+    var closedHidden = all.length - rows.length;
+    $('#kx-count') && ($('#kx-count').textContent =
+      rows.length + (live.length ? ' live' : '') + ' shown · watchlist ' + S.list.length +
+      (closedHidden > 0 ? ' · ' + closedHidden + ' more (closed/further down)' : ''));
+    var head = '';
+    if (!live.length && all.length) {
+      head = '<tr><td colspan="16" class="muted">No market in scope is open for trading right now (all are closed, awaiting determination, or settled) — showing the most recent rows ranked by traded dollars. Rows appear live again when discovery/polling sees an ' +
+        '<code>active</code> market with a future <code>close_time</code>.</td></tr>';
+    }
+    tb.innerHTML = head + (rows.map(tableRow).join('') ||
+      '<tr><td colspan="16" class="muted">No markets in scope yet — discovery is running, or live API is unreachable (snapshot mode shows data/ rows on the Data page).</td></tr>');
     tb.querySelectorAll('tr[data-t]').forEach(function (tr) {
       tr.addEventListener('click', function (ev) {
         if (ev.target.closest('a')) return;
@@ -853,25 +974,83 @@ window.KalshiApp = (function () {
   }
 
   /* ---------- orderbook panel ---------- */
+  /* Official semantics (https://docs.kalshi.com/getting_started/orderbook_responses):
+   * only bids are published; arrays are ascending by price, so the BEST bid is the
+   * LAST element and the first element is the deepest/worst price. Asks are
+   * derived by the documented reciprocal rule (YES ask = $1 - NO bid,
+   * NO ask = $1 - YES bid). `?depth=N` returns the best N levels per side.
+   *
+   * Two things this panel used to get wrong for a trader deciding on a market:
+   *   - it printed only the last 6 entries of each array, which are the levels
+   *     nearest the best bid, so the ladder was not the top of the book in the
+   *     direction a buyer needs (the cheapest asks sit at the LOWEST derived
+   *     prices) and most of the liquidity was invisible;
+   *   - it showed a single number per price, never how many contracts you could
+   *     take before the price moved.
+   * Now: ladder tables are ordered best-first for a buyer, each row shows the
+   * contracts resting at that price, the running total a buyer could take up to
+   * it, and the cash that would cost — all arithmetic on published values. */
+  function bookViews() {
+    var b = S.book || { yes_dollars: [], no_dollars: [] };
+    function lv(arr) {
+      return (arr || []).map(function (x) { return { p: Number(x[0]), q: Number(x[1]) }; })
+        .filter(function (x) { return isFinite(x.p) && isFinite(x.q); });
+    }
+    var yb = lv(b.yes_dollars), nb = lv(b.no_dollars);
+    // derived asks, re-sorted ascending because reversing the bid order is not
+    // enough once prices are viewed from the other side of the 0-1 line
+    var ya = nb.map(function (x) { return { p: Math.round((1 - x.p) * 10000) / 10000, q: x.q }; })
+      .sort(function (a, c) { return a.p - c.p; });
+    var na = yb.map(function (x) { return { p: Math.round((1 - x.p) * 10000) / 10000, q: x.q }; })
+      .sort(function (a, c) { return a.p - c.p; });
+    function cash(arr) { return arr.reduce(function (s, x) { return s + x.p * x.q; }, 0); }
+    function contracts(arr) { return arr.reduce(function (s, x) { return s + x.q; }, 0); }
+    return {
+      yb: yb, nb: nb, ya: ya, na: na,
+      liqY: cash(yb), liqN: cash(nb), liqYA: cash(ya), liqNA: cash(na),
+      cY: contracts(yb), cN: contracts(nb),
+      bestYesBid: yb.length ? yb[yb.length - 1].p : null,
+      bestNoBid: nb.length ? nb[nb.length - 1].p : null,
+      bestYesAsk: ya.length ? ya[0].p : null,
+      bestNoAsk: na.length ? na[0].p : null
+    };
+  }
+  function ladderTable(title, arr, cls, note) {
+    var run = 0, cash = 0;
+    var rows = arr.slice(0, 15).map(function (x) {
+      run += x.q; cash += x.q * x.p;
+      return '<tr><td>' + money(x.p) + '</td><td>' + fmtN(x.q) + '</td><td class="muted">' + fmtN(run) + '</td><td class="muted">' + money(cash) + '</td>' +
+        '<td style="width:26%"><div class="bar ' + (cls || '') + '" style="width:' + Math.min(100, x.q / Math.max(1, arr[0].q) * 100) + '%"></div></td></tr>';
+    }).join('') || '<tr><td colspan="5" class="muted">empty</td></tr>';
+    return '<table class="ladder"><thead><tr><th>' + title + '</th><th>Contracts</th><th>Cum. contracts</th><th>Cum. cost</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>' +
+      (note ? '<p class="muted small">' + note + '</p>' : '');
+  }
   function renderBook() {
     var box = $('#kx-book'); if (!box) return;
     if (!S.selected) { box.innerHTML = '<div class="muted">Click a market row to load its order book.</div>'; return; }
     var v = bookViews();
-    function levels(arr, cls) {
-      return arr.slice(-6).reverse().map(function (x) {
-        return '<tr><td>' + money(x.p) + '</td><td>' + fmtN(x.q) + '</td>' +
-          '<td style="width:38%"><div class="bar ' + (cls || '') + '" style="width:' + Math.min(100, x.q / 10) + '%"></div></td></tr>';
-      }).join('') || '<tr><td colspan="3" class="muted">empty</td></tr>';
-    }
+    var spread = (v.bestYesAsk !== null && v.bestYesBid !== null) ? Math.round((v.bestYesAsk - v.bestYesBid) * 10000) / 10000 : null;
+    var m = S.watch[S.selected] || {};
     box.innerHTML =
-      '<h3 class="spread">' + esc(S.selected) + '<span class="muted small"> book polled every ' + (CFG.bookPollMs / 1000) + 's · contracts at each price</span></h3>' +
-      '<table class="ladder"><thead><tr><th>YES ask*</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.ya) + '</tbody></table>' +
-      '<table class="ladder"><thead><tr><th>YES bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.yb) + '</tbody></table>' +
-      '<table class="ladder"><thead><tr><th>NO ask*</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.na, 'no') + '</tbody></table>' +
-      '<table class="ladder"><thead><tr><th>NO bid</th><th>Contracts</th><th></th></tr></thead><tbody>' + levels(v.nb, 'no') + '</tbody></table>' +
-      '<p class="muted small">*Asks are derived (YES ask = $1.00 − NO bid; NO ask = $1.00 − YES bid; official reciprocal rule). ' +
-      'Computed bid-side liquidity (Σ price × contracts): YES <b>' + money(v.liqY) + '</b> · NO <b>' + money(v.liqN) + '</b> · total <b>' + money(v.liqY + v.liqN) + '</b>. ' +
-      'Empty book = no resting orders (official behavior). Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets/' + encodeURIComponent(S.selected) + '/orderbook" target="_blank" rel="noopener">orderbook API</a>.</p>';
+      '<div class="row spread"><h3 class="spread" style="margin:0">' + esc(S.selected) +
+      '<span class="muted small"> book polled every ' + (CFG.bookPollMs / 1000) + 's · depth ' + CFG.bookDepth + ' levels/side</span></h3>' +
+      statusCell(m) + '</div>' +
+      '<p class="small" style="margin:6px 0">Best YES bid <b>' + money(v.bestYesBid) + '</b> · Best YES ask <b>' + money(v.bestYesAsk) + '</b>' +
+      (spread === null ? '' : ' · spread <b>' + money(spread) + '</b>') +
+      ' · YES-side cash held in bids <b>' + money(v.liqY) + '</b> (' + fmtN(v.cY) + ' contracts)' +
+      ' · NO-side cash held in bids <b>' + money(v.liqN) + '</b> (' + fmtN(v.cN) + ' contracts)</p>' +
+      '<div class="grid2"><div>' +
+      ladderTable('YES ask* (what you pay to buy YES, cheapest first)', v.ya, '', 'Cum. cost = contracts &#215; price added level by level: the cash needed to sweep those levels.') +
+      ladderTable('YES bid (what selling YES gets, best first)', v.yb.slice().reverse(), '') +
+      '</div><div>' +
+      ladderTable('NO ask* (what you pay to buy NO, cheapest first)', v.na.slice().reverse(), 'no', 'Cum. cost = contracts &#215; price added level by level: the cash needed to sweep those levels.') +
+      ladderTable('NO bid (what selling NO gets, best first)', v.nb.slice().reverse(), 'no', '') +
+      '</div></div>' +
+      '<p class="muted small">*Asks are derived, never published: YES ask = $1.00 − NO bid; NO ask = $1.00 − YES bid (official reciprocal rule). ' +
+      'Only bids are returned by the exchange. Price ordering per the official docs: arrays ascend, the best bid is the last element. ' +
+      'Empty book = no resting orders (the endpoint answers 200 with empty arrays for an empty book and for an unknown ticker alike). ' +
+      'Source: <a href="' + esc(CFG.bases[0] + '/markets/' + encodeURIComponent(S.selected) + '/orderbook?depth=' + CFG.bookDepth) + '" target="_blank" rel="noopener">orderbook API</a> · ' +
+      '<a href="https://docs.kalshi.com/getting_started/orderbook_responses" target="_blank" rel="noopener">official response docs</a>.</p>';
   }
 
   /* ---------- resolved strip ---------- */
@@ -896,6 +1075,7 @@ window.KalshiApp = (function () {
     var alerts1h = M.state.alerts.filter(function (a) { return a.t >= hourAgo; }).length;
     var sum = M.summary();
     set('#kpi-watch', String(S.list.length));
+    set('#kpi-live', String(liveCount()));
     set('#kpi-alerts', String(alerts1h));
     set('#kpi-open', String(sum.open));
     set('#kpi-equity', '$' + sum.equity.toFixed(2), sum.equity >= M.state.bot.bank ? 'up' : 'down');
@@ -998,6 +1178,7 @@ window.KalshiApp = (function () {
       '<p class="notice blue small">Alert rule: a <b>\u2265 $0.10</b> sampled price move (either direction) posts to the left chat. The right chat shows only moves the ROI screen likes ' +
       '(score \u2265 <span id="kx-minscore">' + M.state.bot.strategies.momentum.minScore + '</span>; formula in Methods). Links: official Kalshi page, the event\u2019s settlement sources, and a news search lead — causality is never claimed. Paper trading runs automatically per the Strategy Lab settings.</p>' +
       '<div class="cards">' +
+      '<div class="card"><small>Live now (open for trading)</small><strong id="kpi-live">—</strong></div>' +
       '<div class="card"><small>Watchlist markets</small><strong id="kpi-watch">—</strong></div>' +
       '<div class="card"><small>\u226510\u00a2 alerts (1h)</small><strong id="kpi-alerts">—</strong></div>' +
       '<div class="card"><small>Est. 24h traded $ (shown)</small><strong id="kpi-dv">—</strong></div>' +
@@ -1009,9 +1190,10 @@ window.KalshiApp = (function () {
       '<div class="box"><div class="row spread"><h2 id="kx-title">' + (S.topic ? esc(M.topicById(S.topic).label) + ' · live markets' : 'Live markets · all topics') +
       '</h2><span class="muted small" id="kx-count"></span></div>' +
       '<div class="tablewrap" style="max-height:430px"><table><thead><tr>' +
-      '<th>Event</th><th>YES bid</th><th>YES ask</th><th>Last</th><th>\u0394 sample</th><th>Vol</th><th>24h vol</th><th>Est. $</th><th>Est 24h $</th><th>Open int.</th><th>Closes</th><th>Source</th>' +
+      '<th>Event</th><th>Status</th><th>Best price</th><th>YES bid</th><th>YES ask</th><th>Last</th><th>\u0394 sample</th>' +
+      '<th>Bid size</th><th>Ask size</th><th>Vol</th><th>24h vol</th><th>Est. $</th><th>Est 24h $</th><th>Open int.</th><th>Closes</th><th>Source</th>' +
       '</tr></thead><tbody id="kx-rows"></tbody></table></div>' +
-      '<p class="muted small">Ranked by <b>estimated traded dollars</b> (total contracts \u00d7 last price), ties broken by estimated 24h dollars \u2014 both computed from exchange-reported fields, not exchange-published (blank when the market reports no volume). \u0394 sample = change vs the previous poll sample. Every row links the official <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=" target="_blank" rel="noopener">GET /markets?tickers=</a> response that produced it.</p></div>' +
+      '<p class="muted small"><b>Open for trading only</b> (status <code>active</code> and <code>close_time</code> still in the future, per the <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">official lifecycle</a>), ranked by <b>estimated traded dollars</b> (total contracts \u00d7 last price), ties broken by estimated 24h dollars \u2014 computed from exchange-reported fields, not exchange-published (blank when the market reports no volume). <b>Best price</b> names the cheaper-to-buy side with the higher exchange ask. <b>Bid size / Ask size</b> are the exchange\u2019s own top-of-book contract counts (<code>yes_bid_size_fp</code>, <code>yes_ask_size_fp</code>). \u0394 sample = change vs the previous poll sample. Every row links the official <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=" target="_blank" rel="noopener">GET /markets?tickers=</a> response that produced it. Closed and settled rows stay on the <a href="'+ (opts.root||'') +'resolved.html">Resolved</a> page.</p></div>' +
       '<div class="box"><div class="row spread"><h2>Price chart</h2><span class="muted small" id="kx-chart-name">—</span></div>' +
       '<div class="chartbox" style="position:relative"><canvas id="kx-chart"></canvas>' +
       '<div id="kx-chart-tip" class="muted small" style="display:none;position:absolute;top:4px;right:6px;background:rgba(10,20,22,.86);border:1px solid var(--line);border-radius:6px;padding:2px 8px;pointer-events:none"></div></div>' +
@@ -1024,6 +1206,9 @@ window.KalshiApp = (function () {
       '<div class="chatbox" id="kx-chat-all"></div></div>' +
       '<div class="box"><div class="row spread"><h2>Model picks · high-ROI screen</h2><span class="muted small">score \u2265 threshold</span></div>' +
       '<div class="chatbox" id="kx-chat-model"></div></div></div>' +
+      '<div class="box" style="margin-top:14px"><div class="row spread"><h2>Recent \u2265 $0.10 moves (persisted)</h2>' +
+      '<span class="muted small">newest first &middot; stored in this browser (cap ' + M.ALERT_CAP + ')</span></div>' +
+      '<div class="tablewrap" id="kx-board"></div></div>' +
       '<div class="box" style="margin-top:14px"><div class="row spread"><h2>Watched events resolved (YES / NO)</h2>' +
       '<a class="small" href="' + (opts.root || '') + 'trades.html">Strategy Lab \u2192</a></div>' +
       '<div class="tablewrap"><table><thead><tr><th>Event</th><th>Result</th><th>Settled (UTC)</th></tr></thead><tbody id="kx-resolved"></tbody></table></div></div>' +

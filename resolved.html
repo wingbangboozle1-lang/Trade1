@@ -40,9 +40,9 @@
 
 <div class="notice"><b>How the result is set.</b> Kalshi sets <code>result</code> (yes / no) when a market is determined; it pays out at settlement and the REST status becomes <code>finalized</code>. Source: <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market Lifecycle</a> · <a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener">Market Settlement</a>. Every row's <b>Source</b> link is the official API record for that market; the row's values are the ones in that record at snapshot time.</div>
 
-<div class="notice blue small"><b>Known irregularities on this page (not yet fixed; see <a href="flagged.html">Flagged</a>):</b>
+<div class="notice blue small"><b>Snapshot review notes (see <a href="flagged.html">Flagged</a>):</b>
 <ul>
-  <li><b>D1:</b> the settled-market fallback in the collector does not apply the gas topic's exclusions. Rows whose topic reads <code>gas-prices</code> but are not gasoline are wrong — <code>KXNATGAS15M-26NOV201415-15</code> (natural gas) and <code>KXROMLNBMGAME-26NOV201200PLOPIT-PLO</code> (a basketball match matched on "Petrolul"). Their result and settlement fields were re-checked against the official API and match.</li>
+  <li><b>D1 — refresh pending:</b> the collector code now applies topic exclusions and whole-word keyword matching to settled-market fallback classification. The currently committed snapshot may still contain <code>KXNATGAS15M-26NOV201415-15</code> (natural gas) and <code>KXROMLNBMGAME-26NOV201200PLOPIT-PLO</code> (basketball; "Petrolul" substring). This sandbox cannot reach Kalshi to regenerate or verify the snapshot; the next scheduled collector run must confirm the correction.</li>
   <li><b>Cap:</b> only the newest 200 markets are listed (<span id="rs-cap">—</span>).</li>
 </ul></div>
 

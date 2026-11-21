@@ -11,8 +11,23 @@
  * graph is verified statically by scripts/check_site.mjs instead. Passing such
  * a page prints a SKIPPED note rather than a false failure.
  *
- * Usage:  node tools/render_test.mjs [--live] [--wait ms] [page ...]
- *   --live   refetch the API (default: use cached fixtures when present)
+ * Network policy (changed 2026-11-21, session aa7d3d27): the gate is OFFLINE by
+ * default. It used to fall back to live fetches whenever .render-cache/ was
+ * empty, and GitHub Actions starts with an empty cache, so the CI gate depended
+ * on the demo API being reachable from the runner at that second. A single
+ * network hiccup then failed a docs-only commit (main @ 1f99d61, run
+ * 44876724665). Now:
+ *   - a missing fixture is answered with a deterministic empty 200 fixture, so
+ *     the pages take their "no API" path (which is a path worth rendering too);
+ *   - --offline (used by CI) makes any accidental attempt to reach the network a
+ *     hard error instead of a hang;
+ *   - --live still refetches and rewrites the cache when a human wants fresh
+ *     fixtures.
+ *
+ * Usage:  node tools/render_test.mjs [--live] [--offline] [--wait ms] [page ...]
+ *   --live     refetch the API and refresh .render-cache/
+ *   --offline  never touch the network; fail if a fetch would be attempted
+ *   --wait ms  how long to let each page settle (default 9000)
  *
  * Nothing here writes to the site. Fixtures live in .render-cache/ (gitignored).
  */
@@ -27,6 +42,8 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const CACHE = path.join(ROOT, '.render-cache');
 const ARGS = process.argv.slice(2);
 const LIVE = ARGS.includes('--live');
+const OFFLINE = ARGS.includes('--offline');
+if (LIVE && OFFLINE) { console.error('--live and --offline are mutually exclusive'); process.exit(2); }
 const WAIT = Number((ARGS.find((a) => a.startsWith('--wait=')) || '--wait=9000').split('=')[1]);
 const PAGES = ARGS.filter((a) => !a.startsWith('--'));
 const BASE = 'https://external-api.demo.kalshi.co/trade-api/v2';
@@ -51,6 +68,19 @@ function startServer() {
   });
 }
 
+/* Deterministic stand-in for a request whose fixture is missing. Shapes match the
+ * official response bodies closely enough that the engine's normal "nothing to
+ * show" branches run: an empty list plus an empty cursor. */
+function emptyFixture(url) {
+  const p = new URL(url).pathname.replace(/^\/trade-api\/v2/, '');
+  if (p === '/events') return { events: [], cursor: '' };
+  if (p === '/markets/trades') return { trades: [], cursor: '' };
+  if (p.startsWith('/series/') && p.includes('/candlesticks')) return { candlesticks: [] };
+  if (p.startsWith('/series/')) return { series: {} };
+  if (p.startsWith('/markets/') && p.endsWith('/orderbook')) return { orderbook_fp: { yes_dollars: [], no_dollars: [] } };
+  return { markets: [], cursor: '' };
+}
+
 async function cachedFetch(url) {
   const key = crypto.createHash('sha1').update(url).digest('hex');
   const file = path.join(CACHE, key + '.json');
@@ -58,9 +88,14 @@ async function cachedFetch(url) {
     const raw = await readFile(file, 'utf8');
     return { status: 200, body: raw, cached: true };
   }
+  if (!LIVE) {
+    if (OFFLINE) globalThis.__offlineHits = (globalThis.__offlineHits || []).concat(url);
+    return { status: 200, body: JSON.stringify(emptyFixture(url)), cached: false, synthetic: true };
+  }
   const t0 = Date.now();
   const r = await fetch(url, { headers: { accept: 'application/json' } });
   const body = await r.text();
+  await mkdir(CACHE, { recursive: true });
   await writeFile(file, body);
   await writeFile(file + '.meta', JSON.stringify({ url, status: r.status, ms: Date.now() - t0, at: new Date().toISOString() }));
   return { status: r.status, body, cached: false };
