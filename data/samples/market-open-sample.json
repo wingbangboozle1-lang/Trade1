@@ -11,17 +11,17 @@
   "status": "active",
   "result": "",
   "last_price_dollars": "0.0030",
-  "previous_price_dollars": "0.0030",
+  "previous_price_dollars": "0.0040",
   "previous_yes_bid_dollars": "0.0020",
   "yes_bid_dollars": "0.0020",
   "yes_ask_dollars": "0.0030",
   "no_bid_dollars": "0.9970",
   "no_ask_dollars": "0.9980",
   "yes_bid_size_fp": "83333.33",
-  "yes_ask_size_fp": "50577.92",
-  "volume_fp": "507702271.66",
-  "volume_24h_fp": "8920.28",
-  "open_interest_fp": "190201431.72",
+  "yes_ask_size_fp": "49755.92",
+  "volume_fp": "507703093.66",
+  "volume_24h_fp": "9004.27",
+  "open_interest_fp": "190202253.72",
   "open_time": "2025-05-19T22:39:51Z",
   "close_time": "2029-11-07T15:00:00Z",
   "expected_expiration_time": "2029-01-21T15:00:00Z",
@@ -29,7 +29,7 @@
   "can_close_early": true,
   "strike_type": "custom",
   "price_level_structure": "deci_cent",
-  "_est_dollar_volume": 1523106.81,
-  "_est_dollar_volume_24h": 26.76
+  "_est_dollar_volume": 1523109.28,
+  "_est_dollar_volume_24h": 27.01
  }
 }
