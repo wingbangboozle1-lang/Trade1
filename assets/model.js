@@ -56,10 +56,10 @@ window.KalshiModel = (function () {
                            // kalshi.com/docs/kalshi-fee-schedule.pdf (verified 2026-11-20).
                            // Maker fees are not modeled (paper fills assume immediate match).
     strategies: {
-      momentum:  { on: true, holdMin: 15, takeProfit: 0.15, stopLoss: 0.10, minScore: 0.45, maxSpread: 0.06 },
-      fade:      { on: true, holdMin: 10, takeProfit: 0.08, stopLoss: 0.08, maxSpread: 0.04, minVol24h: 100 },
+      momentum:  { on: true, holdMin: 15, takeProfit: 0.15, stopLoss: 0.10, minScore: 0.45, maxSpread: 0.06, maxEntry: 0.90 },
+      fade:      { on: true, holdMin: 10, takeProfit: 0.08, stopLoss: 0.08, maxSpread: 0.04, minVol24h: 100, maxEntry: 0.90 },
       harvest:   { on: true, minPrice: 0.90, maxSpread: 0.03, maxCloseHours: 72 },
-      breakout:  { on: true, minVol24h: 500, maxSpread: 0.05, holdMin: 30, takeProfit: 0.12, stopLoss: 0.10 }
+      breakout:  { on: true, minVol24h: 500, maxSpread: 0.05, holdMin: 30, takeProfit: 0.12, stopLoss: 0.10, maxEntry: 0.90 }
     }
   };
 
@@ -333,6 +333,14 @@ window.KalshiModel = (function () {
     return i === -1 ? s.toUpperCase() : s.slice(0, i).toUpperCase();
   }
 
+  /* Entry price cap for the directional strategies (mirror of the CI ledger's
+   * RULES[*].max_entry_bits): buying at a $0.95 ask risks $0.95 to make $0.05.
+   * Harvest is exempt by design - it buys $0.90-$0.99 YES near expiry. */
+  function entryCap(strategy) {
+    var cfg = (state.bot && state.bot.strategies && state.bot.strategies[strategy]) || {};
+    return typeof cfg.maxEntry === 'number' ? cfg.maxEntry : null;
+  }
+
   function tryEnter(m, side, strategy, qtyOverride, note) {
     var bot = state.bot;
     if (!bot.enabled) return false;
@@ -340,10 +348,12 @@ window.KalshiModel = (function () {
      * moment of the fill (official lifecycle, see isTradeable above). */
     if (!isTradeable(m)) return false;
     if (openPositions().length >= bot.maxPositions) return false;
-    var openSame = openPositions().some(function (t) { return t.ticker === m.ticker && t.strategy === strategy; });
+    var openSame = openPositions().some(function (t) { return t.ticker === m.ticker; });
     if (openSame) return false;
     var ba = bidAsk(m, side);
     if (ba.ask === null || ba.ask < 0.05 || ba.ask > 0.95) return false; // unfillable edges
+    var cap = entryCap(strategy);
+    if (cap !== null && ba.ask > cap) return false;                  // see entryCap
     var qty = qtyOverride || Math.max(1, Math.floor(bot.perTradeDollars / ba.ask));
     var cost = qty * ba.ask;
     if (cost > cash) { qty = Math.floor(cash / ba.ask); cost = qty * ba.ask; }

@@ -88,22 +88,22 @@ REQUEST_SLEEP_S = 0.35          # stay far below any published limit; unauthenti
 # printed on portfolio.html so a reader can audit the rule behind each trade.
 RULES = {
     "momentum": {
-        "enter": "a sampled >= $0.10 move whose model score >= 0.45 and YES spread <= $0.06; buy the side the move points to (up -> YES, down -> NO)",
+        "enter": "a sampled >= $0.10 move whose model score >= 0.45 and YES spread <= $0.06; buy the side the move points to (up -> YES, down -> NO), only if that side's ask is <= $0.90 (never chase a spike into a near-certain price)",
         "exit": "take-profit +$0.15, stop-loss -$0.10, else max 12 samples (~6 h) at the official bid, else settlement",
         "take_profit_bits": 1500, "stop_loss_bits": 1000, "max_samples": 12,
-        "max_spread_bits": 600, "min_score": 0.45,
+        "max_spread_bits": 600, "min_score": 0.45, "max_entry_bits": 9000,
     },
     "fade": {
-        "enter": "a sampled >= $0.10 move whose model score < 0.45, spread <= $0.04 and 24 h volume >= 100 contracts; buy the opposite side",
+        "enter": "a sampled >= $0.10 move whose model score < 0.45, spread <= $0.04 and 24 h volume >= 100 contracts; buy the opposite side, only if that side's ask is <= $0.90",
         "exit": "take-profit +$0.08, stop-loss -$0.08, else max 4 samples (~2 h) at the official bid, else settlement",
         "take_profit_bits": 800, "stop_loss_bits": 800, "max_samples": 4,
-        "max_spread_bits": 400, "min_vol24h_contracts": 100,
+        "max_spread_bits": 400, "min_vol24h_contracts": 100, "max_entry_bits": 9000,
     },
     "breakout": {
-        "enter": "last price crosses the 50c line between two samples, with 24 h volume >= 500 contracts and spread <= $0.05; buy the side it crossed to",
+        "enter": "last price crosses the 50c line between two samples, with 24 h volume >= 500 contracts and spread <= $0.05; buy the side it crossed to, only if that side's ask is <= $0.90",
         "exit": "take-profit +$0.12, stop-loss -$0.10, else max 48 samples (~24 h) at the official bid, else settlement",
         "take_profit_bits": 1200, "stop_loss_bits": 1000, "max_samples": 48,
-        "max_spread_bits": 500, "min_vol24h_contracts": 500,
+        "max_spread_bits": 500, "min_vol24h_contracts": 500, "max_entry_bits": 9000,
     },
     "harvest": {
         "enter": "last price between $0.90 and $0.99, spread <= $0.03, market closes within 72 h; buy YES to settlement (no take-profit, no stop)",
@@ -455,19 +455,54 @@ def pick_watchlist(rows, per_topic=16, total=72):
 
 
 # -------------------------------------------------------------------------- HTTP layer
+# 429 handling mirrors scripts/collect.py: the official rate-limit doc says to back
+# off with exponential backoff on 429, no Retry-After header is sent, and
+# X-RateLimit-Reset (seconds) is available when the API includes it.
+MAX_RETRIES_429 = 5
+BACKOFF_CAP_S = 30.0
+_last_req_at = 0.0
+
+
+def _pace():
+    global _last_req_at
+    wait = REQUEST_SLEEP_S - (time.time() - _last_req_at)
+    if wait > 0:
+        time.sleep(wait)
+    _last_req_at = time.time()
+
+
 def http_get(url, timeout=30):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status, json.loads(r.read())
-    except urllib.error.HTTPError as e:
+    global _last_req_at
+    headers = {"User-Agent": UA, "Accept": "application/json"}
+    delay = 1.0
+    code, j, hs = 0, {}, {}
+    for attempt in range(MAX_RETRIES_429 + 1):
+        _pace()
+        req = urllib.request.Request(url, headers=headers)
         try:
-            body = e.read()[:300].decode("utf-8", "replace")
-        except Exception:
-            body = ""
-        return e.code, {"_error": body}
-    except Exception as e:                      # network-level failure (the dev sandbox has no route)
-        return 0, {"_error": f"{type(e).__name__}: {e}"}
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                code, j = r.status, json.loads(r.read())
+                hs = {k.lower(): v for k, v in r.headers.items()}
+        except urllib.error.HTTPError as e:
+            try:
+                body = e.read()[:300].decode("utf-8", "replace")
+            except Exception:
+                body = ""
+            code, j = e.code, {"_error": body}
+            hs = {k.lower(): v for k, v in e.headers.items()}
+        except Exception as e:                  # network-level failure (the dev sandbox has no route)
+            return 0, {"_error": f"{type(e).__name__}: {e}"}
+        if code != 429:
+            return code, j
+        if attempt >= MAX_RETRIES_429:
+            break
+        try:
+            wait = min(float(hs.get("x-ratelimit-reset", "")), BACKOFF_CAP_S) if hs.get("x-ratelimit-reset") else delay
+        except (TypeError, ValueError):
+            wait = delay
+        time.sleep(wait)
+        delay = min(delay * 2, BACKOFF_CAP_S)
+    return code, j
 
 
 def fetch_quotes(tickers, log_list):
@@ -589,9 +624,14 @@ def open_positions(st):
     return [t for t in st["trades"] if t["status"] == "open"]
 
 
-def find_open(st, ticker, strategy):
+def find_open(st, ticker, strategy=None):
+    """An open position on this ticker blocks any second entry on it, from any
+    strategy. (Previously the check was ticker+strategy, which let momentum and
+    harvest stack two same-side positions on one market — the ledger's two
+    settled -100% losses were exactly that double-stack on
+    KXETHD-26NOV2017-T1659.99.)"""
     for t in st["trades"]:
-        if t["status"] == "open" and t["ticker"] == ticker and t["strategy"] == strategy:
+        if t["status"] == "open" and t["ticker"] == ticker:
             return t
     return None
 
@@ -599,10 +639,16 @@ def find_open(st, ticker, strategy):
 def enter(st, ticker, side, strategy, q, note, sources, when):
     if len(open_positions(st)) >= MAX_OPEN_POSITIONS:
         return None
-    if find_open(st, ticker, strategy):
+    if find_open(st, ticker):
         return None
     bid, ask = bid_ask(q, side)
     if ask is None or ask < 500 or ask > 9500:      # unfillable edges, same guard as the browser lab
+        return None
+    # Entry price cap for the directional strategies: buying the side the move
+    # points to at a $0.95 ask risks $0.95 to make $0.05. Harvest is exempt by
+    # design (it buys $0.90-$0.99 YES near expiry and holds to settlement).
+    cap = RULES.get(strategy, {}).get("max_entry_bits")
+    if cap is not None and ask > cap:
         return None
     fee_m = series_multiplier(st, ticker)           # demo fee_multiplier, default 1
     budget = min(st["cash_cc"], PER_TRADE_BITS)
@@ -905,7 +951,10 @@ def trade_public(t):
         "exit": ({"t": t["exit"]["t"], "price_usd": round(t["exit"]["price_bits"] / 10000, 4),
                   "reason": t["exit"]["reason"], "fee_usd": usd(t["exit"]["fee_cc"]),
                   "credit_usd": usd(t["exit"].get("credit_cc", 0)),
-                  "source": t["exit"].get("source") or api_market_url(t["ticker"])} if t.get("exit") else None),
+                  # One row, one link: the exit links the market's OWN official
+                  # record. The batch quote URL that produced the price is kept
+                  # in the state file and in the artifact's sources list.
+                  "source": api_market_url(t["ticker"]) or t["exit"].get("source")} if t.get("exit") else None),
         "note": t.get("note", ""),
         # One row, one link: every projected row links ITS OWN official market
         # record ({BASE}/markets/{ticker}). Older state rows recorded the batch
@@ -1262,6 +1311,69 @@ def selftest():
     ok("bool is not accepted as a multiplier", series_multiplier(
         {"series_fees": {"KXBAD": {"fee_multiplier": True}}}, "KXBAD-1") == 1)
 
+    # 2b. every ledger row links its OWN official market record
+    #     (official Get Market endpoint, https://docs.kalshi.com/api-reference/market/get-market)
+    ok("api_market_url builds the per-market record URL",
+       api_market_url("KXTEST-1") == BASE + "/markets/KXTEST-1", api_market_url("KXTEST-1"))
+    ok("api_market_url is None without a ticker", api_market_url(None) is None)
+    ok("api_market_url is None for an empty ticker", api_market_url("") is None)
+    _t = {"id": "x", "t": now_iso(), "ticker": "KXTEST-1", "event_ticker": "KXTEST",
+          "series_ticker": "KXTEST", "title": "T", "topic": "crypto", "side": "yes",
+          "qty_c": 100, "strategy": "momentum", "status": "open", "entry_bits": 5000,
+          "mark_bits": 5000, "samples": 1, "cost_cc": 50_000, "fee_cc": 100,
+          "rounding_cc": 0, "pnl_cc": 0, "note": "n", "source": api_market_url("KXTEST-1")}
+    ok("a trade row's source is its own market record",
+       trade_public(_t)["source"] == BASE + "/markets/KXTEST-1", trade_public(_t)["source"])
+    _a = {"t": now_iso(), "ticker": "KXTEST-1", "event_ticker": "KXTEST",
+          "series_ticker": "KXTEST", "title": "T", "topic": "crypto",
+          "from_bits": 6000, "to_bits": 5000, "delta_bits": -1000, "dir": "down",
+          "score": 0.5, "prev_t": now_iso(), "gap_minutes": 1.0, "spread_bits": 100,
+          "vol24_c": 1000, "source": api_market_url("KXTEST-1")}
+    ok("an alert row's source is its own market record",
+       alert_public(_a)["source"] == BASE + "/markets/KXTEST-1", alert_public(_a)["source"])
+    ok("a trade row falls back to its market record when the source is missing",
+       trade_public(dict(_t, source=None))["source"] == BASE + "/markets/KXTEST-1")
+    ok("an alert row falls back to its market record when the source is missing",
+       alert_public(dict(_a, source=None))["source"] == BASE + "/markets/KXTEST-1")
+    ok("a ledger row source is always on the official demo API base",
+       api_market_url("KXTEST-1").startswith("https://external-api.demo.kalshi.co/trade-api/v2/"))
+    # An exit row links the market's own record too, not the cycle's batch URL.
+    _te = dict(_t, status="closed", exit={"t": now_iso(), "price_bits": 0, "reason": "settlement (no)",
+                                          "fee_cc": 0, "credit_cc": 0,
+                                          "source": BASE + "/markets?tickers=KXA,KXB"})
+    ok("an exit row's source is its own market record, not the batch quote URL",
+       trade_public(_te)["exit"]["source"] == BASE + "/markets/KXTEST-1",
+       trade_public(_te)["exit"]["source"])
+    # The COMMITTED ledger must already satisfy the rule: every row links its
+    # OWN official market record, not the cycle's batch quote URL.
+    _committed = os.path.join("data", "portfolio.json")
+    if os.path.exists(_committed):
+        try:
+            with open(_committed, encoding="utf-8") as _f:
+                _art = json.load(_f)
+            _bad = []
+            _n = 0
+            for _t in _art.get("trades", []):
+                _n += 1
+                if _t.get("source") != api_market_url(_t.get("ticker")):
+                    _bad.append(("trade", _t.get("ticker")))
+                if _t.get("exit"):
+                    _n += 1
+                    if _t["exit"].get("source") != api_market_url(_t.get("ticker")):
+                        _bad.append(("exit", _t.get("ticker")))
+            for _a in _art.get("alerts", []):
+                _n += 1
+                if _a.get("source") != api_market_url(_a.get("ticker")):
+                    _bad.append(("alert", _a.get("ticker")))
+            for _r in _art.get("resolutions", []):
+                _n += 1
+                if _r.get("source") != api_market_url(_r.get("ticker")):
+                    _bad.append(("resolution", _r.get("ticker")))
+            ok("every committed ledger row links its own official market record (%d rows)" % _n,
+               _bad == [], _bad or "all rows carry GET /markets/{ticker}")
+        except (ValueError, OSError) as _e:
+            ok("committed ledger is readable JSON", False, str(_e))
+
     # 3. the >= $0.10 rule must be exact at the boundary (binary float would fail this)
     ok("float trap: 0.66-0.56 < 0.10 in float", (0.66 - 0.56) < 0.10)
     ok("bit math: $0.66->$0.56 is exactly 1000 bits", abs(bits("0.5600") - bits("0.6600")) == ALERT_THRESHOLD_BITS)
@@ -1370,6 +1482,38 @@ def selftest():
         return json.dumps({"alerts": s["alerts"], "trades": s["trades"]}, sort_keys=True)
     ok("deterministic given fixed clock", run_once() == run_once())
 
+    # 9. entry guards: one position per ticker across strategies, and a price cap on
+    #    directional entries (mirrors assets/model.js tryEnter). The ledger double-stacked
+    #    momentum + harvest on KXETHD-26NOV2017-T1659.99 and both settled -100%.
+    def qv(yb, ya, nb, na):
+        return quote_view({"yes_bid_dollars": yb, "yes_ask_dollars": ya,
+                           "no_bid_dollars": nb, "no_ask_dollars": na,
+                           "volume_24h_fp": "9000.00", "volume_fp": "30000.00",
+                           "close_time": _hours_ahead(30), "status": "active"})
+
+    st = load_state_like()
+    first = enter(st, "KXTEST-1", "yes", "momentum", qv("0.5000", "0.5100", "0.4900", "0.5000"),
+                  "t", ["fixture://g1"], "2026-11-20T02:00:00Z")
+    ok("a plain momentum entry on a fresh state fills", first is not None)
+    second = enter(st, "KXTEST-1", "yes", "harvest", qv("0.9100", "0.9200", "0.0800", "0.0900"),
+                   "t", ["fixture://g2"], "2026-11-20T02:00:00Z")
+    ok("an open position blocks a second entry on the same ticker (any strategy)", second is None,
+       "a stacked same-ticker entry was allowed")
+    ok("the first entry is the momentum position", first is not None and first["strategy"] == "momentum")
+
+    st = load_state_like()
+    hot = qv("0.9400", "0.9500", "0.0500", "0.0600")
+    ok("momentum refuses an ask above $0.90 (no chasing a >$0.90 spike)",
+       enter(st, "KXTEST-1", "yes", "momentum", hot, "t", ["fixture://g3"], "2026-11-20T02:00:00Z") is None
+       and len(st["trades"]) == 0)
+    ok("breakout and fade share the same $0.90 entry cap",
+       RULES["breakout"].get("max_entry_bits") == 9000 and RULES["fade"].get("max_entry_bits") == 9000)
+    st = load_state_like()
+    ok("harvest is exempt from the cap by design (buys $0.90-$0.99 YES)",
+       "max_entry_bits" not in RULES["harvest"]
+       and enter(st, "KXTEST-1", "yes", "harvest", qv("0.9400", "0.9500", "0.0500", "0.0600"),
+                 "t", ["fixture://g4"], "2026-11-20T02:00:00Z") is not None)
+
     print(f"\n{checks - len(fails)}/{checks} checks passed")
     if fails:
         print("FAILURES:\n  " + "\n  ".join(fails))
@@ -1391,10 +1535,64 @@ def _hours_ahead(h):
     return datetime.fromtimestamp(time.time() + h * 3600, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def cmd_resource(args):
+    """Recompute every ledger row's `source` from its ticker - offline, no network.
+
+    The `source` of a ledger row is a PURE FUNCTION of the row's market
+    ticker (api_market_url()), so the committed ledger can be brought onto the
+    current rule without touching the exchange and without hand-editing the
+    generated file: this command runs the engine's own writer over the
+    committed state and rewrites each row's source with the value the engine
+    would write today.
+
+    It touches nothing else - no price, no size, no P&L, no timestamp - so the
+    ledger's numbers are unchanged; only the row-level official links change.
+    Rows without a ticker keep whatever source they already had, and the
+    batch quote endpoint that produced the prices stays published in the
+    artifact's `sources.quote_endpoints` and in `data/log.md`."""
+    path = os.path.join("data", "portfolio.json")
+    if not os.path.exists(path):
+        print("data/portfolio.json not found", file=sys.stderr)
+        return 1
+    with open(path, encoding="utf-8") as f:
+        art = json.load(f)
+
+    changed = 0
+    checked = 0
+
+    def fix(row, ticker):
+        nonlocal changed, checked
+        if not isinstance(row, dict):
+            return
+        checked += 1
+        want = api_market_url(ticker)
+        if want and row.get("source") != want:
+            row["source"] = want
+            changed += 1
+
+    for t in art.get("trades", []):
+        fix(t, t.get("ticker"))
+        if isinstance(t.get("exit"), dict):
+            fix(t["exit"], t.get("ticker"))
+    for a in art.get("alerts", []):
+        fix(a, a.get("ticker"))
+    for r in art.get("resolutions", []):
+        fix(r, r.get("ticker"))
+    for p in art.get("positions", []) or []:
+        fix(p, p.get("ticker"))
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(art, f, indent=1, ensure_ascii=False)
+        f.write("\n")
+    print("re-sourced %d of %d ledger rows in data/portfolio.json" % (changed, checked))
+    return 0
+
+
 def main(argv=None):
     global BASE
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("cmd", nargs="?", default="run", choices=["run", "seed", "selftest"])
+    ap.add_argument("cmd", nargs="?", default="run",
+                    choices=["run", "seed", "selftest", "resource"])
     ap.add_argument("--offline", action="store_true", help="no network; replay the committed snapshot")
     ap.add_argument("--per-topic", type=int, default=16)
     ap.add_argument("--total", type=int, default=72)
@@ -1407,6 +1605,8 @@ def main(argv=None):
         return selftest()
     if args.cmd == "seed":
         return cmd_seed(args)
+    if args.cmd == "resource":
+        return cmd_resource(args)
     return cmd_run(args)
 
 

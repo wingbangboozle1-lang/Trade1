@@ -21,5 +21,6 @@
   "Social": 1,
   "Test": 1
  },
- "unclassified_events": 225
+ "unclassified_events": 225,
+ "collector_code_sha256": "01bc2a00514482c8615cf3550cc64735a1465960d754e6c0838b486170ba1a78"
 }

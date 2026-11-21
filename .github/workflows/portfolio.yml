@@ -51,6 +51,8 @@ jobs:
         run: node tests/portfolio.test.mjs
       - name: Ledger engine must not regress the shared site checks
         run: node scripts/check_site.mjs
+      - name: Every rendered table row links its own official record
+        run: node scripts/check_row_sources.mjs
 
   ledger:
     runs-on: ubuntu-latest
@@ -72,6 +74,13 @@ jobs:
             seed) python3 scripts/portfolio_engine.py seed ;;
             *)    python3 scripts/portfolio_engine.py run ;;
           esac
+
+      # Deterministic, offline re-sourcing of the committed ledger: every row's
+      # `source` is recomputed from its own ticker by the engine's own writer,
+      # so a row can never point at the cycle's batch quote URL. It changes no
+      # price, no size, no P&L and no timestamp.
+      - name: Re-source every ledger row with its own official market record
+        run: python3 scripts/portfolio_engine.py resource
 
       - name: Guard the artifact size
         run: |

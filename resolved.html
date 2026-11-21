@@ -113,7 +113,8 @@
     });
     if (cap) cap.textContent = (snapshot ? rows.length - liveCount : rows.length) +
       ' of ' + (snapshot && snapshot.in_scope_count != null ? snapshot.in_scope_count : '?') +
-      ' in-scope settled markets' + (liveCount ? ' + ' + liveCount + ' live' : '');
+      ' in-scope settled markets' + (liveCount ? ' + ' + liveCount + ' live' : '') +
+      (snapshot && snapshot.in_scope_count_is_lower_bound ? ' (the in-scope count is a lower bound — the collector\'s settled sweep hit its page cap with a cursor still present)' : '');
   }
 
   function addRow(m, topic, live) {
@@ -138,10 +139,17 @@
                settlement_ts: m.settlement_ts, settlement_value_dollars: m.settlement_value_dollars },
              m._topic, false);
     });
+    /* The settled sweep is cursor-paginated and capped by the collector, so
+       `settled_total` and `in_scope_count` are LOWER BOUNDS whenever the
+       sweep was truncated (the collector publishes the flag). Saying "at
+       least" is the honest rendering of a lower bound. */
+    var lb = d.settled_total_is_lower_bound ? 'at least ' : '';
+    var lbi = d.in_scope_count_is_lower_bound ? 'at least ' : '';
     meta.textContent = (d.markets || []).length + ' markets in the snapshot · snapshot generated ' + (d.generated_at || '—') +
       ' · window: ' + (d.window || '—') +
-      ' · settled in window: ' + (d.settled_total != null ? d.settled_total : '—') +
-      ' · in scope: ' + (d.in_scope_count != null ? d.in_scope_count : '—');
+      ' · settled in window: ' + lb + (d.settled_total != null ? d.settled_total : '—') +
+      ' · in scope: ' + lbi + (d.in_scope_count != null ? d.in_scope_count : '—') +
+      (d.settled_total_is_lower_bound ? ' (lower bound: the sweep hit the collector\'s page cap with a cursor still present, so the exchange had more settled markets in this window than are listed)' : '');
     if (!rows.length) { fail('No resolved markets in the snapshot.'); return; }
     render();
     return loadScope();

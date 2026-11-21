@@ -87,5 +87,6 @@
   "All values in data/ are verbatim from the logged endpoint URLs (see log.md).",
   "_est_dollar_volume is computed (contracts x last price); it is not an exchange-published field.",
   "Fields absent from responses are omitted, never defaulted."
- ]
+ ],
+ "collector_code_sha256": "01bc2a00514482c8615cf3550cc64735a1465960d754e6c0838b486170ba1a78"
 }

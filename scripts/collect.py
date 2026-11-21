@@ -18,6 +18,7 @@ Outputs (all under data/):
   resolved.json              - recently settled in-scope markets with result (yes/no)
   samples/*.json             - raw sample objects for line-by-line field verification
 """
+import hashlib
 import json
 import os
 import re
@@ -32,6 +33,16 @@ ALT = "https://demo-api.kalshi.co/trade-api/v2"
 PAGES_ORIGIN = "https://wingbangboozle1-lang.github.io"
 OUT = "data"
 MAX_PAGES = 6
+# The settled sweep covers a 72 h window, and the demo environment settles
+# fast-cycling markets continuously (BTC 15-minute, hourly crypto, daily AAA
+# gas). The default 6-page cap therefore truncates the sweep: the 2026-11-21
+# 03:59:57Z run logged `page 6: +1000 items (total 6000); cursor=present`,
+# i.e. the cursor was STILL present when the cap was reached, so `settled_total`
+# 6000 was a LOWER BOUND and not the exchange's total for the window. The
+# collector now sweeps up to 20 pages (20,000 markets) and publishes the
+# truncation flag either way, so the site never presents a partial denominator
+# as a complete one.
+SETTLED_MAX_PAGES = 20
 UA = "Trade1-verify/1.0 (github.com/wingbangboozle1-lang/Trade1)"
 
 # Fail-closed reads (COORDINATION c96a21b7): a 429 / 5xx / network error is retried with
@@ -39,6 +50,7 @@ UA = "Trade1-verify/1.0 (github.com/wingbangboozle1-lang/Trade1)"
 RETRY_STATUSES = {429, 500, 502, 503, 504}
 MAX_ATTEMPTS = 5
 PACE_S = 0.25          # small pause before each API call, to stay under the demo rate limit
+BACKOFF_CAP_S = 60.0   # never wait longer than this between two attempts
 FAILURES = []          # every transient upstream failure this run (url, status, attempts)
 KEPT = []              # artifacts deliberately NOT rewritten because their inputs failed
 
@@ -73,7 +85,17 @@ def get(url, origin=None, method="GET", timeout=45):
 
 
 def get_with_retry(url):
-    """GET with backoff on 429 / 5xx / network failure. Returns (code, body, dt, attempts)."""
+    """GET with backoff on 429 / 5xx / network failure. Returns (code, body, dt, attempts).
+
+    Backoff order (official Rate Limits and Tiers page,
+    https://docs.kalshi.com/getting_started/rate_limits):
+      1. `X-RateLimit-Reset` (seconds until the bucket is full) when the API
+         sends it - it is the only server-supplied hint about when to retry;
+      2. `Retry-After` when it is a plain number of seconds;
+      3. otherwise exponential backoff, 2^n seconds.
+    Every wait is capped at BACKOFF_CAP_S so one throttled sweep cannot stall
+    the whole job, and the number of attempts is bounded by MAX_ATTEMPTS.
+    """
     code, body, dt = None, b"", 0.0
     for attempt in range(1, MAX_ATTEMPTS + 1):
         time.sleep(PACE_S)
@@ -81,9 +103,17 @@ def get_with_retry(url):
         if code == 200 or (code is not None and code not in RETRY_STATUSES):
             return code, body, dt, attempt
         if attempt < MAX_ATTEMPTS:
-            ra = (hs.get("retry-after") or "").strip()
-            wait = float(ra) if re.fullmatch(r"\d+(\.\d+)?", ra) else 2 ** attempt
-            wait = min(float(wait), 60.0)
+            wait = None
+            reset = (hs.get("x-ratelimit-reset") or "").strip()
+            if re.fullmatch(r"\d+(\.\d+)?", reset):
+                wait = float(reset)
+            if wait is None:
+                ra = (hs.get("retry-after") or "").strip()
+                if re.fullmatch(r"\d+(\.\d+)?", ra):
+                    wait = float(ra)
+            if wait is None:
+                wait = 2 ** attempt
+            wait = min(float(wait), BACKOFF_CAP_S)
             log(f"RETRY {attempt}/{MAX_ATTEMPTS - 1} in {wait:.0f}s: {code or 'NET-FAIL'} {url}")
             time.sleep(wait)
     return code, body, dt, MAX_ATTEMPTS
@@ -111,6 +141,13 @@ def fetch_json(url, note=""):
 
 
 def paged(path, params, key, max_pages=MAX_PAGES):
+    """Page a cursor-paginated endpoint.
+
+    Returns (items, urls, stats). `stats` records whether the sweep ran to the
+    end of the collection or was cut short by `max_pages`: a truncated sweep
+    means the item count is a LOWER BOUND, not the exchange's total for the
+    query, and any published figure derived from it must say so.
+    """
     items, cursor, pages, urls = [], "", 0, []
     while pages < max_pages:
         q = dict(params)
@@ -128,7 +165,44 @@ def paged(path, params, key, max_pages=MAX_PAGES):
         log(f"  page {pages}: +{len(batch)} items (total {len(items)}); cursor={'present' if cursor else 'empty'}")
         if not cursor:
             break
-    return items, urls
+    truncated = bool(cursor)
+    stats = {"pages": pages, "max_pages": max_pages,
+             "truncated": truncated, "returned": len(items)}
+    if truncated:
+        log(f"  PAGINATION TRUNCATED at {pages}/{max_pages} pages "
+            f"({len(items)} items, cursor still present) - counts are a lower bound")
+    return items, urls, stats
+
+
+def collector_code_sha256():
+    """Fingerprint of the code that produced a snapshot.
+
+    The collector writes this into every file it generates, so a reader can
+    tell whether the committed snapshot was produced by the CURRENT collector
+    code or by an older revision. That distinction matters: a snapshot taken
+    before a classification fix legitimately still contains the rows the fix
+    removes, and a gate must report "stale snapshot" rather than "the
+    collector produced bad data".
+
+    The fingerprint covers scripts/collect.py and scripts/topics.json - the
+    two files that determine which rows are collected and how they are
+    labelled. The recipe is reproducible: sha256 of collect.py bytes, then a
+    NUL byte, then sha256 of topics.json bytes.
+    """
+    h = hashlib.sha256()
+    here = os.path.dirname(os.path.abspath(__file__))
+    for name in ("collect.py", "topics.json"):
+        path = os.path.join(here, name)
+        try:
+            with open(path, "rb") as f:
+                h.update(f.read())
+        except OSError:
+            h.update(b"<missing:" + name.encode() + b">")
+        h.update(b"\0")
+    return h.hexdigest()
+
+
+COLLECTOR_CODE_SHA256 = collector_code_sha256()
 
 
 def wjson(path, obj):
@@ -137,6 +211,10 @@ def wjson(path, obj):
         return
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
+    if isinstance(obj, dict):
+        # Provenance: which collector code produced this file.
+        obj = dict(obj)
+        obj["collector_code_sha256"] = COLLECTOR_CODE_SHA256
     with open(full, "w", encoding="utf-8") as f:
         json.dump(obj, f, indent=1, ensure_ascii=False)
     log(f"WROTE {full} ({os.path.getsize(full):,}B)")
@@ -230,6 +308,38 @@ def classify_settled_without_event(title, series, topics):
     return None, None
 
 
+def classify_settled(market, event, topics):
+    """Classify a SETTLED market row.
+
+    `market` is a market object from `GET /markets` (the settled sweep);
+    `event` is the matching event object when that event is still in the
+    open-events list, else None.
+
+    A settled event is no longer returned by `GET /events?status=open`, so for
+    most settled rows there is no event - and therefore no category - to
+    classify against. `classify_settled_without_event()` then matches on the
+    series prefix and the topic's title keywords, while applying the topic's
+    exclusion rules and whole-word keyword boundaries exactly as `classify()`
+    does.
+
+    When the event IS known, `classify()` is authoritative and the fallback is
+    not used: the event's own category then decides.
+
+    Official defect reference: flagged item 9d-1 - a natural-gas market and a
+    basketball match matched on the substring "petrol" were labelled
+    `gas-prices` before this rule existed.
+    """
+    title = f"{market.get('title', '')} {event.get('title', '') if event else ''}"
+    series = (market.get("series_ticker")
+              or (event.get("series_ticker", "") if event else "")
+              or series_guess(market.get("event_ticker")))
+    if event:
+        return classify({"event_ticker": market.get("event_ticker"), "title": title,
+                         "series_ticker": series,
+                         "category": event.get("category")}, topics)
+    return classify_settled_without_event(title, series, topics)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     started = datetime.now(timezone.utc)
@@ -265,21 +375,21 @@ def main():
 
     # ---------- 3. open events (paged) ----------
     base_fail = len(FAILURES)  # failures from here on make this run's discovery untrustworthy
-    events, event_urls = paged("/events", {"status": "open", "limit": "200"}, "events", max_pages=12)
+    events, event_urls, events_pagination = paged("/events", {"status": "open", "limit": "200"}, "events", max_pages=12)
     events_status_open_ok = bool(events) or len(event_urls) > 0
     log(f"open events collected: {len(events)}")
 
     # ---------- 4. open markets (paged). Docs document status=open; the live demo
     # emits status 'active' - we record which call shape works and what it returns.
-    markets, market_urls = paged("/markets", {"status": "open", "limit": "1000", "mve_filter": "exclude"}, "markets")
+    markets, market_urls, markets_pagination = paged("/markets", {"status": "open", "limit": "1000", "mve_filter": "exclude"}, "markets")
     markets_status_open_ok = bool(markets)
     if not markets:  # retry without mve_filter in case that param is rejected
         log("mve_filter=exclude sweep empty - retrying plain")
-        markets, market_urls = paged("/markets", {"status": "open", "limit": "1000"}, "markets")
+        markets, market_urls, markets_pagination = paged("/markets", {"status": "open", "limit": "1000"}, "markets")
         markets_status_open_ok = bool(markets)
     if not markets:
         log("status=open returned no markets - retrying without status filter")
-        markets, market_urls = paged("/markets", {"limit": "1000"}, "markets")
+        markets, market_urls, markets_pagination = paged("/markets", {"limit": "1000"}, "markets")
     log(f"open markets collected: {len(markets)}")
 
     statuses = {}
@@ -464,30 +574,50 @@ def main():
     # ---------- 6. settled markets (recent) -> resolution outcomes ----------
     since = int(time.time()) - 3 * 24 * 3600
     n_set = len(FAILURES)
-    settled, settled_urls = paged("/markets", {
+    settled, settled_urls, settled_pagination = paged("/markets", {
         "status": "settled", "min_settled_ts": str(since), "limit": "1000",
-        "mve_filter": "exclude"}, "markets")
+        "mve_filter": "exclude"}, "markets", max_pages=SETTLED_MAX_PAGES)
     settled_ok = len(FAILURES) == n_set
     log(f"settled markets collected (last 3 days): {len(settled)}")
     in_scope = []
     for m in settled:
         e = ev_by_ticker.get(m.get("event_ticker"))
-        title = (m.get("title") or "") + " " + (e.get("title", "") if e else "")
-        series = m.get("series_ticker") or (e.get("series_ticker", "") if e else "") or ""
-        probe = {"event_ticker": m.get("event_ticker"), "title": title,
-                 "series_ticker": series or series_guess(m.get("event_ticker")),
-                 "category": e.get("category") if e else None}
-        tid, why = classify(probe, topics)
-        if not tid and not e:
-            # Settled events are absent from the open-events list. The fallback
-            # must still honor exclusions and whole-word keyword boundaries.
-            tid, why = classify_settled_without_event(title, series, topics)
+        # One entry point for both cases: the event is known (classify() is
+        # authoritative) or it is gone (the fallback matches the series prefix
+        # and the title keywords, and still honours the topic exclusions and
+        # whole-word keyword boundaries). See classify_settled().
+        tid, why = classify_settled(m, e, topics)
         if tid:
             row = trim(m, MARKET_FIELDS)
             row["_topic"] = tid
             row["_event_title"] = e.get("title") if e else None
             in_scope.append(row)
     in_scope.sort(key=lambda m: m.get("settlement_ts") or "", reverse=True)
+    # Publication slice: the site tracks FIVE topics, but the demo environment
+    # settles fast-cycling crypto series continuously, so a plain
+    # "newest 200 settled markets" slice is almost entirely crypto and the
+    # Resolved page would show no elections, culture, golf or gas rows at all.
+    # Publish a topic-balanced slice instead: round-robin over the topics by
+    # settlement time, so every tracked topic is represented, then fill any
+    # remaining capacity with the globally newest rows. Deterministic, and
+    # the per-topic counts are published next to the rows.
+    rows_published = min(200, len(in_scope))
+    by_topic = {}
+    for r in in_scope:
+        by_topic.setdefault(r.get("_topic"), []).append(r)
+    balanced = []
+    topic_ids = sorted(by_topic)
+    i = 0
+    while len(balanced) < rows_published and any(by_topic[t] for t in topic_ids):
+        t = topic_ids[i % len(topic_ids)]
+        if by_topic[t]:
+            balanced.append(by_topic[t].pop(0))
+        i += 1
+        if i > rows_published * 4:   # safety valve; every row is visited
+            break
+    rows_by_topic = {}
+    for r in balanced:
+        rows_by_topic[r.get("_topic")] = rows_by_topic.get(r.get("_topic"), 0) + 1
     prev_rows = 0
     prev_path = os.path.join(OUT, "resolved.json")
     if os.path.exists(prev_path):
@@ -502,8 +632,18 @@ def main():
             "window": "last 3 days (min_settled_ts = now-72h)",
             "source_urls": settled_urls[:3],
             "settled_total": len(settled),
+            # The settled sweep is cursor-paginated and capped (SETTLED_MAX_PAGES).
+            # When it is truncated, `settled_total` and `in_scope_count` are LOWER
+            # BOUNDS for the 72 h window, not the exchange's totals. Both flags are
+            # published so the site never presents a partial denominator as a
+            # complete one.
+            "settled_pagination": settled_pagination,
+            "settled_total_is_lower_bound": bool(settled_pagination.get("truncated")),
             "in_scope_count": len(in_scope),
-            "markets": in_scope[:200],
+            "in_scope_count_is_lower_bound": bool(settled_pagination.get("truncated")),
+            "rows_published": len(balanced),
+            "rows_by_topic": rows_by_topic,
+            "markets": balanced,
         })
     else:
         KEPT.append("resolved.json")
@@ -569,6 +709,8 @@ def main():
             "events_open_count": len(events),
             "markets_open_count": len(markets),
             "settled_count_recent": len(settled),
+            "settled_pagination": settled_pagination,
+            "settled_count_is_lower_bound": bool(settled_pagination.get("truncated")),
             "event_metadata_and_market_fetches": ev_fetch_count,
             "series_discovered_per_topic": {t["id"]: sum(1 for k in series_stats if k) for t in topics},
             "series_market_counts_top": dict(sorted(series_stats.items(), key=lambda kv: -kv[1])[:25]),
@@ -590,7 +732,8 @@ def main():
         "kept_previous_artifacts": KEPT,
         "status": "degraded: previous verified artifacts kept" if KEPT else "ok",
         "retry_policy": {"statuses": sorted(RETRY_STATUSES), "max_attempts": MAX_ATTEMPTS,
-                         "backoff": "Retry-After header if numeric, else 2^attempt seconds (max 60 s)"},
+                         "backoff": "X-RateLimit-Reset header if numeric, else Retry-After if numeric, "
+                                   "else 2^attempt seconds (max 60 s)"},
     })
 
     with open(os.path.join(OUT, "log.md"), "w", encoding="utf-8") as f:
