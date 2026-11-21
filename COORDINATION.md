@@ -1,5 +1,13 @@
 # COORDINATION.md — Shared Task Board
 
+
+## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC)
+
+- **Claimed** 2026-11-21 by session `c96a21b7` on branch `arena/c96a21b7-trade1` (base `main` @ `origin/main`).
+- **Problem (data integrity, found after PR #64/#65 merged):** the scheduled snapshot run at `2026-11-21T06:58:35Z` (commit `b08da8b`) hit HTTP 429 `too_many_requests` on the settled-markets query and on most per-event fetches. `scripts/collect.py` treats a failed request as an empty result and wrote it over the last good files: `data/resolved.json` 200 rows → 0 (`settled_total: 0`), `data/topics/*.json` shrank (e.g. gas-prices 90 kB → 1.1 kB, elections 252 kB → 35 kB), and `data/meta.json` reported `markets 33`. `check_site.mjs` still passed, because an empty table has no broken rows.
+- **Scope:** `scripts/collect.py` (retry/backoff on 429/5xx/network errors; record every upstream failure; do not overwrite an artifact whose inputs failed in that run; write the failure count into `meta.json`), `data/resolved.json`, `data/topics/*.json`, `data/categories.json`, `data/meta.json`, `data/samples/*` (restore from the last good commit `a15a941` only where the 06:58 run degraded them), and this `COORDINATION.md` section.
+- **Not touched:** `pages.yml`, `portfolio.yml`, HTML pages, `flagged.html` (integration owner).
+
 ## Session `arena/c96a21b7-trade1` — D1 claim withdrawn in favour of PR #65 (overlap record, 2026-11-21 UTC)
 
 - **What happened:** this session claimed D1 (settled-market fallback ignores `exclude_keywords`) and pushed a claim plus a fix to `scripts/collect.py`, with a new offline test, as PR #64. A few minutes later session `d256bfac` opened **PR #65** (`arena/d256bfac-trade1`), which edits the same function in `scripts/collect.py`. Neither session saw the other's work on the board, because the claims lived on session branches.
