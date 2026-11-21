@@ -123,7 +123,7 @@ Each row is a claim as it appears in the repo/site, the official page, and the v
 | 9b-G | `GET /events` page size: "limit max 200 (1000 → 400)"; the repo carried a flag "undocumented events page-size ceiling" | [Get Events](https://docs.kalshi.com/api-reference/events/get-events.md) | **Flag resolved — it is documented:** "Parameter to specify the number of results per page. Defaults to 200. Maximum value is 200." Collector paging at 200 is correct. |
 | 9b-H | "demo `status:"active"`/`finalized` differs from the documented status set" (long-standing flag on `flagged.html`) | [Get Events](https://docs.kalshi.com/api-reference/events/get-events.md) market schema | **Flag resolved — no anomaly.** The documented *response* enum is `initialized \| inactive \| active \| closed \| determined \| disputed \| amended \| finalized`; the *query filter* is a different enum (`unopened \| open \| closed \| settled`). Both observed demo values are in the documented response enum; the site's handling of `determined`/`amended` matches the same enum. |
 | 9b-I | Market `result` values used by `resolved.html` (YES/NO) | same page: `result` enum `'yes' \| 'no' \| scalar \| ''` | **Verified**, incl. the two values the site leaves blank (`scalar`, empty string before settlement). |
-| 9b-J | **`previous_price_dollars` = "last trade price before the current one"** — comment in `assets/app.js` `checkAlert()`, and the swing-fallback description in `executive-summary.html` ("caught with the exchange's own `previous_price_dollars`") | same page, Market schema: `previous_price_dollars` — "Price for the last traded YES contract on this market **a day ago** in dollars" (`previous_yes_bid_dollars` and `previous_yes_ask_dollars` are worded the same way) | **DEFECT FOUND — the repo's reading is wrong.** The field is a 24-hour-old reference price, not the previous trade. Consequence: the "swing (previous trade)" alert branch can fire on a ≥ $0.10 difference versus **yesterday**, labelled as a swing that "reversed inside one poll window". Fix proposed in §5; `assets/app.js` is claimed by session `aa7d3d27` (PR #74), so the patch is logged for its owner instead of edited here. |
+| 9b-J | **`previous_price_dollars` = "last trade price before the current one"** — comment in `assets/app.js` `checkAlert()`, and the swing-fallback description in `executive-summary.html` ("caught with the exchange's own `previous_price_dollars`") | same page, Market schema: `previous_price_dollars` — "Price for the last traded YES contract on this market **a day ago** in dollars" (`previous_yes_bid_dollars` and `previous_yes_ask_dollars` are worded the same way) | **DEFECT FOUND — the repo's reading is wrong.** The field is a 24-hour-old reference price, not the previous trade. Consequence: the "swing (previous trade)" alert branch can fire on a ≥ $0.10 difference versus **yesterday**, labelled as a swing that "reversed inside one poll window". **Fixed in this branch** (`assets/app.js`, which no open PR claimed): label is now `vs 24h reference price` and the comment quotes the official definition — see §5 R1a. The matching copy in `executive-summary.html` is owned by PRs #85/#95, so it is logged as R1b rather than edited. |
 | 9b-K | "no official per-market dollar-volume field; `$_volume` figures are estimates" | same page: fields are `volume_fp`, `volume_24h_fp` ("market volume in **contracts**") and `notional_value_dollars` ("The total value of a single contract at settlement in dollars") | **Verified.** No dollar-volume field exists; `notional_value_dollars` is per-contract settlement value, not traded notional, so the estimate stays an estimate. |
 | 9b-L | Orderbook claims: bids only, `[price_dollars, count_fp]` ascending, best bid last, reciprocal ask, `depth` param, derived asks flagged | [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses.md) | **Verified**, plus two facts worth publishing: "**Order counts per level are not returned**" (so a level's *contract* count is all the site can show — it does) and "A market with no resting orders returns empty … **So does a ticker that does not match any market**: the endpoint returns `200` with empty arrays rather than `404`" (an archived/typo ticker is indistinguishable from an empty book — the site's "empty book" label should say that). Also: "The REST orderbook is a point-in-time read." |
 | 9b-M | Candlestick claims: `period_interval` ∈ {1, 60, 1440}, ≤ 5,000 periods/request, `start_ts`/`end_ts` in seconds | [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md) | **Verified + completed.** Millisecond values are rejected (`400 bad_request`), and "The most recent candlesticks can be a few seconds behind the latest trades and quotes" — the exact reason the site's seconds/minutes windows fall back to the trade tape. |
@@ -144,20 +144,24 @@ These are the only actionable code changes the audit found. Each is one-line-ish
 they were **not** applied because the files are claimed by open PRs (#74, #75, #79). Logged in
 `COORDINATION.md` per the coordination protocol.
 
-- **R1 — `assets/app.js` `checkAlert()` swing fallback (owner: `aa7d3d27`, PR #74).**
-  The comment and the `executive-summary.html` wording treat `previous_price_dollars` as the previous
-  trade; officially it is "the last traded YES contract … **a day ago**". Minimal correct fix, no
-  behaviour loss — keep the detector, rename it to what it actually measures:
-  ```js
-  // assets/app.js, checkAlert(): relabel the fallback
-  -      kind = 'swing (previous trade)';
-  +      kind = 'vs 24h reference price';   // official: previous_price_dollars = last traded YES price a day ago
-  ```
-  and in the comment block replace "(last trade price before the current one, per the official
-  Market schema)" with "the last traded YES price **a day ago**, per the official Market schema —
-  https://docs.kalshi.com/api-reference/events/get-events.md". A stricter follow-up: require
-  `|current − previous_price| ≥ $0.10` **and** a same-session sampled move before raising it, so a
-  quiet market cannot post a "sudden swing" that is really yesterday's price.
+- **R1a — `assets/app.js` `checkAlert()` 24-hour-reference detector — APPLIED IN THIS BRANCH.**
+  The file was claimed by no open PR (checked against the file lists of #75/#79/#85/#90/#95/#97), so the fix
+  was applied here instead of being left as a request. Detection behaviour is untouched; the two statements
+  that were wrong are now right — the chat label changed from `'swing (previous trade)'` to
+  `'vs 24h reference price'`, and the comment block quotes the official definition plus the
+  [Get Events](https://docs.kalshi.com/api-reference/events/get-events.md) link instead of asserting
+  "last trade price before the current one". `npm test` passes on the change (the
+  `tests/engine.test.mjs` assertion that the fallback exists still holds; no test depended on the old label).
+  Deliberately **not** done: deleting the branch. A >= $0.10 gap to the same time yesterday is a useful
+  alert — it must simply not be presented as a sudden intraday swing. A stricter variant (require both a
+  sampled move and the reference gap before firing) is left to the Strategy Lab owner, because it would
+  change which alerts the ROI screen scores.
+- **R1b — `executive-summary.html` (owners: open PRs #85, #95).** Same misdescription in the published
+  summary: "a swing that reversed inside one poll, caught with the exchange's own `previous_price_dollars`".
+  Suggested text: "a >= $0.10 gap to the exchange's 24-hour reference price (`previous_price_dollars` is
+  documented as the last traded YES price **a day ago**), which catches moves that happened outside the
+  sampling window; the sudden-move detector is the sampled one."
+
 - **R2 — `scripts/collect.py` request budget (owner: `0b68e1e4` PR #79 / `d256bfac`, next in line for that file).**
   The 429 storms every session hit are avoidable in part: `GET /markets/candlesticks` accepts **up to 100
   tickers** per call (≤ 10,000 total periods), and `GET /markets?tickers=a,b,c` batches market reads,
