@@ -1,5 +1,23 @@
 # COORDINATION.md — Shared Task Board
 
+## Session `arena/3c017782-trade1` — FINAL INTEGRATION: reconcile parallel branches, re-verify line by line, publish to GitHub Pages (claimed 2026-11-21 07:17 UTC)
+
+- **Claimed** 2026-11-21 by session `3c017782` on branch `arena/3c017782-trade1` (base `main` @ `2acfa8e`).
+- **Role:** final integration session per the brief. The parallel sessions have delivered their branches and opened PRs; this session merges their *verified* content, re-verifies the combined data line by line against official sources, confirms the site builds with no broken links, and publishes to GitHub Pages.
+- **Scope claimed:** `COORDINATION.md` (this section + integration records), `scripts/collect.py`, `scripts/portfolio_engine.py`, `scripts/check_row_sources.mjs` (new), `tests/collector.test.mjs` (new), `tests/fixtures/topic_cases.json` (new), `tests/test_collect.py`, `scripts/test_model.mjs`, `tests/live_dash.test.mjs`, `assets/app.js`, `assets/model.js`, `assets/portfolio.js`, `flagged.html`, `methods.html`, `suggestions.html`, `resolved.html`, `data.html`, `executive-summary.html`, `EXECUTIVE_SUMMARY.md`, `README.md`, `REVIEW.md`, `reports/**`, `.github/workflows/pages.yml`, `.github/workflows/portfolio.yml`, `package.json`, `data/fee_schedule_series.json`, `data/portfolio.json`, `tools/build-report.json`.
+- **Open PRs being reconciled (all content read line by line before porting; authors credited):**
+
+| PR | Branch | Disposition |
+|---|---|---|
+| [#67](https://github.com/wingbangboozle1-lang/Trade1/pull/67) | `arena/d256bfac-trade1` | **Port** — board/verification record only (`reports/VERIFICATION_D256BFAC.md`). |
+| [#74](https://github.com/wingbangboozle1-lang/Trade1/pull/74) | `arena/aa7d3d27-trade1` | **Port** — “Market favours” column rename (a 100¢ ask is the *dearer* side, not a bargain); also removes the conflict markers that `main` still ships. |
+| [#79](https://github.com/wingbangboozle1-lang/Trade1/pull/79) | `arena/0b68e1e4-trade1` | **Partial port** — the `portfolio_engine.py` 429 retry and the ledger entry guards (`max_entry` cap, cross-strategy ticker dedupe) are new and are kept; its `scripts/collect.py` hunk **reverts** PR #80’s fail-closed collector, so that hunk is **not** taken (main’s version is strictly stronger). |
+| [#75](https://github.com/wingbangboozle1-lang/Trade1/pull/75) | `arena/725b09a7-trade1` | **Partial port** — new `scripts/check_row_sources.mjs` per-row official-source gate, new `tests/collector.test.mjs` + `tests/fixtures/topic_cases.json`, settled-sweep pagination cap + truncation flag, and the collector-code provenance fingerprint are new and are kept; its `scripts/collect.py` hunk likewise **reverts** PR #80’s fail-closed gates, so only its *additive* parts are taken. |
+| [#68](https://github.com/wingbangboozle1-lang/Trade1/pull/68) | `arena/6b112481-trade1` | **Superseded** by #75 (same new files, byte-identical; #75 carries the newer review report and the extra verification reports). Content not lost — credited on #75. |
+
+- **Defect found on `main` (fixing here):** `COORDINATION.md` ships **unresolved conflict markers** at lines 1359–1450 (`<<<<<<< HEAD` … `=======` … `>>>>>>> origin/main`), committed by an earlier merge. The live site publishes this file, so the markers are visible to readers.
+- **Verification constraint:** this sandbox has **no route** to `*.demo.kalshi.co` (curl → `000`), so no live API value can be re-read here. Every runtime claim is checked against the **official Kalshi docs** (read via the page fetcher) and the **committed response samples** in `data/samples/`. Nothing is inferred to fill a blank.
+- **Status:** in progress.
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
