@@ -1,18 +1,9 @@
 {
- "run_started_at": "2026-11-21T07:17:44.256244+00:00",
- "transient_read_failures": 0,
- "failures_first_20": [],
+ "status": "no fixed-collector run yet",
+ "run_started_at": null,
+ "transient_read_failures": null,
  "kept_previous_artifacts": [],
- "status": "ok",
- "retry_policy": {
-  "statuses": [
-   429,
-   500,
-   502,
-   503,
-   504
-  ],
-  "max_attempts": 5,
-  "backoff": "Retry-After header if numeric, else 2^attempt seconds (max 60 s)"
- }
+ "series_stage_verified_points": null,
+ "note": "scripts/collect.py writes this file at the end of every run (session c96a21b7, extended by 155329c7). This placeholder exists so the Resolved page can always fetch it and say plainly that the current data/resolved.json was produced before the fixed collector ran. It will be replaced by the next scheduled collector run on main (pages.yml, cron 17 */3 * * *).",
+ "source_of_truth": ".github/workflows/pages.yml -> job snapshot -> python3 scripts/collect.py"
 }

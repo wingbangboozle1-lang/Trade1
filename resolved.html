@@ -39,6 +39,7 @@
 <h2>Resolved markets</h2>
 <p class="small" id="rs-meta">Loading the snapshot…</p>
 <p class="small muted" id="rs-live">Live sweep: waiting to contact the official demo API…</p>
+<p class="small muted" id="rs-run">Collector run status: loading…</p>
 
 <div class="notice"><b>How the result is set.</b> Kalshi sets <code>result</code> (yes / no) when a market is determined; it pays out at settlement and the REST status becomes <code>finalized</code>. Source: <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market Lifecycle</a> · <a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener">Market Settlement</a>. Every row's <b>Source</b> link is the official API record for that market; the row's values are the ones in that record at snapshot time.</div>
 
@@ -77,6 +78,35 @@
   var snapshot = null;
 
   function cell(text) { var td = document.createElement('td'); td.textContent = (text === null || text === undefined || text === '') ? '—' : String(text); return td; }
+
+  /* data/collect_status.json is written by scripts/collect.py on every run (c96a21b7).
+   * It is the only place that says whether the LAST run was degraded — i.e. whether it
+   * refused to overwrite a verified artifact because upstream reads failed — and whether
+   * it reached the settled sweep at all. Showing it here keeps this page honest about
+   * how old / how trustworthy the snapshot above it actually is. */
+  var RUN_STATUS = null;
+  function renderRunStatus() {
+    var box = document.getElementById('rs-run');
+    if (!box) return;
+    if (!RUN_STATUS) {
+      box.textContent = 'Collector run status: data/collect_status.json not present yet (it is written by the next scheduled collector run).';
+      return;
+    }
+    var s = RUN_STATUS;
+    var kept = (s.kept_previous_artifacts || []);
+    var bits = [
+      'Collector run started ' + (s.run_started_at || '—'),
+      'status ' + (s.status || '—'),
+      (s.transient_read_failures || 0) + ' transient read failure(s)',
+      kept.length ? 'kept previous verified: ' + kept.join(', ') : 'no artifact kept (all inputs read cleanly)'
+    ];
+    if (s.series_stage_verified_points !== undefined) {
+      bits.push('reached the series stage ' + s.series_stage_verified_points + ' time(s)'
+        + (s.series_stage_verified_points === 0 ? ' — it never got that far, so the settled sweep was never asked' : ''));
+    }
+    box.textContent = bits.join(' · ');
+    box.className = (s.status && s.status.indexOf('degraded') === 0) ? 'small' : 'small muted';
+  }
   function fail(msg) { body.innerHTML = ''; var tr = document.createElement('tr'); var td = cell(msg); td.colSpan = 7; tr.appendChild(td); body.appendChild(tr); meta.textContent = msg; }
   function seriesPrefix(t) { var s = String(t || ''); var i = s.indexOf('-'); return i === -1 ? s : s.slice(0, i); }
   function seriesUrl(series) { return series ? 'https://kalshi.com/markets/' + encodeURIComponent(String(series).toLowerCase()) : ''; }
@@ -161,6 +191,12 @@
    * That mattered in production: the committed snapshot was built during a
    * throttled collector run (220 x HTTP 429 in data/log.md), so its
    * settled_total: 0 was a rate-limit artifact, not an exchange fact. */
+  fetch('data/collect_status.json', { cache: 'no-store' }).then(function (r) {
+    return r.ok ? r.json() : null;
+  }).catch(function () { return null; }).then(function (j) {
+    RUN_STATUS = j; renderRunStatus();
+  });
+
   fetch('data/resolved.json', { cache: 'no-store' }).then(function (r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
