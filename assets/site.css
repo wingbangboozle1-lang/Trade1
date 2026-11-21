@@ -73,6 +73,15 @@ label{font-size:12px;color:var(--muted);display:block;margin-bottom:2px}
 .chatbox .time{color:var(--muted);font-size:11.5px;margin-right:6px}
 .chatbox .meta{color:var(--muted);font-size:12px}
 .chatbox .links{font-size:11.5px;margin-top:3px}
+.chatbox .msg.note{background:#101c22;border-left:3px solid var(--blue);color:var(--muted);font-size:12.5px}
+.badge.soon{background:#3a2f18;color:#e8c06a}
+/* persisted ≥ $0.10 move board */
+table.board{width:100%;border-collapse:collapse;font-size:13px}
+table.board th,table.board td{padding:5px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+table.board th{color:var(--muted);font-weight:600;font-size:12px}
+table.board td:nth-child(3){white-space:normal}
+tr.closed td{opacity:.72}
+
 .footer{margin-top:26px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px}
 .flag{color:var(--amber)}
 .src{font-size:11px}
