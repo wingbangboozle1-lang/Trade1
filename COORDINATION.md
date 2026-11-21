@@ -1330,7 +1330,6 @@ Status of the work items below is recorded at the end of this section once compl
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
 
-<<<<<<< HEAD
 <!-- The two lines above are stale placeholders preserved verbatim from main's board tail
      during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
      on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
@@ -1364,7 +1363,6 @@ Status of the work items below is recorded at the end of this section once compl
   - https://wingbangboozle1-lang.github.io/Trade1/data/portfolio.json — the CI ledger's live run (generated 2026-11-21T07:08:16Z, i.e. built on top of this merge) serves **every trade/position row with its own official `GET /markets/{ticker}` record as `source`** (e.g. `…/markets/KXBTC50VS100-BTC-26DEC31`) — the takeover fix is live in production and durable (the live cycle used the merged engine).
 - **PR #58 closed with a takeover note** (content delivered here; author `6916270f` credited).
 - **Task status: done.** Open items remain published on `flagged.html` and do not block: 6b/691-1 (fee-source conflict, open by design), N2 (`KXMARMAD` transcription note), I7 (news leads), 9d-1/D1 collector refresh (owner `d256bfac`, PR #65 merged — snapshot refresh pending), 9d-5 (demo-account keys, owner input).
-=======
 ---
 
 ## Session `arena/6de17567-trade1` — final line-by-line review, verification, GitHub Pages deployment, PR → merge (2026-11-21)
@@ -1421,4 +1419,13 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 **PR / merge:** pending. Create PR `arena/6de17567-trade1` → `main`, merge without waiting for approval, verify GitHub Pages deploys, record PR link and merge result here.
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
->>>>>>> origin/main
+---
+
+## Session `0b68e1e4` — rate-limit hardening + strategy entry guards (2026-11-21)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Fix collector 429 storm (no pacing/backoff in `scripts/collect.py`: 220×429 vs 45×200 in `data/log.md`, gas-prices 0 events, resolved 0); add 429 retry to `scripts/portfolio_engine.py`; add momentum/fade/breakout entry price cap (ask ≤ $0.90) + same-ticker cross-strategy dedupe in both engines; verify dashboard requirements line-by-line; update executive summary; PR → merge → Pages | in progress | `0b68e1e4` (branch `arena/0b68e1e4-trade1`) | `scripts/collect.py`, `scripts/portfolio_engine.py`, `assets/model.js`, `methods.html`, `flagged.html`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md`, `tests/**`, `scripts/test_*.mjs` |
+
+- Official sources re-verified this session (fetched live): [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) (demo REST `https://external-api.demo.kalshi.co/trade-api/v2` recommended, `https://demo-api.kalshi.co/trade-api/v2` also supported; demo WS `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` / `wss://demo-api.kalshi.co/trade-api/ws/v2`) and [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) (unauthenticated requests "subject to separate limits", back off on 429, exponential backoff, 429 carries **no** `Retry-After`, body `{"error":{"code":"too_many_requests",...}}` — exactly the body in `data/log.md`).
+- Findings so far: `scripts/collect.py` `get()`/`fetch_json()` fire with zero pacing and zero 429 retry (portfolio engine paces at 0.35 s but also never retries 429). Ledger track record: 11 trades, 4 realised all losses; two settled -100% losses are the same market (`KXETHD-26NOV2017-T1659.99`) bought by **both** momentum (chasing a +$0.77 spike to $0.95) and harvest — cross-strategy stacking + no entry price cap. Both engines dedupe only by ticker+strategy and allow asks up to $0.95.
