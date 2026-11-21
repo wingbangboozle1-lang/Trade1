@@ -364,6 +364,26 @@
             <b>not</b> taken over here because PR #79 owns those two files. Small sample: 12 trades, 4 realised, 0 wins —
             no performance claim is made anywhere on the site.</td>
         </tr>
+        <tr>
+          <td>RS-1</td>
+          <td><b>The Resolved page's denominator could not be checked, and its "newest 200" framing implied a complete
+            population.</b> The settled sweep is cursor-paginated with <code>limit=1000</code> and a page cap, over a
+            72-hour window. The 2026-11-21 run logged <code>settled_total: 6,000</code> after six pages — exactly the cap —
+            so the artifact cannot show whether a cursor remained. The page presented “only the newest 200 markets are
+            listed” without saying what the denominator (the in-scope count) means.</td>
+          <td>Read from the committed run:
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md</a>
+            (six <code>GET /markets?status=settled…&amp;limit=1000</code> lines, then <code>settled markets collected (last 3 days): 6000</code>)
+            and <code>data/resolved.json</code> (<code>settled_total</code> 6,000, <code>in_scope_count</code> 2,675).
+            Pagination contract:
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/pagination">Pagination</a> ·
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a>.</td>
+          <td><b>Disclosed, not silently "fixed".</b> The Resolved page now states the 72-hour window, the 1,000-per-page
+            request and the page cap, marks the denominator a <b>lower bound</b>, and says plainly that all 200 listed rows
+            classifying as crypto is a property of <i>this sweep</i>, not evidence that the other four topics had no
+            settlements. <b>Open for the owner:</b> raising or reporting the page cap (the fix proposed in the unmerged
+            PR #75 as defect D3) would remove the ambiguity; the collector file was not edited here.</td>
+        </tr>
       </tbody>
     </table></div>
   </section>

@@ -43,7 +43,8 @@
 <div class="notice blue small"><b>Snapshot review notes (see <a href="flagged.html">Flagged</a>):</b>
 <ul>
   <li><b>D1 — fixed and confirmed:</b> the collector applies topic exclusions and whole-word keyword matching to settled-market fallback classification (so natural-gas and "Petrolul"-substring titles no longer classify as gas-prices; PR #65). After the 2026-11-21 06:58Z rate-limited run emptied the snapshot, the collector became fail-closed on 429s (PR #80, <a href="flagged.html">Flagged</a> FA-1) and the scheduled 07:17:44Z run regenerated <code>data/resolved.json</code> with no pre-fix rows (verified).</li>
-  <li><b>Cap:</b> only the newest 200 markets are listed (<span id="rs-cap">—</span>).</li>
+  <li><b>Cap:</b> only the newest 200 in-scope markets are listed (<span id="rs-cap">—</span>); the denominator is a <b>lower bound</b>.</li>
+  <li><b>Query window and page cap (flagged item RS-1).</b> The settled sweep requests the <b>last 72 hours</b> (<code>min_settled_ts</code>) with <code>limit=1000</code> and stops at the collector's page cap. On 2026-11-21 the run reported <code>settled_total</code> = 6,000 after six pages at 1,000 per page — exactly the cap — so a remaining cursor cannot be ruled out from the artifact. The in-scope denominator above is therefore a lower bound, and all 200 listed rows happen to classify as crypto for this sweep, which is a property of the sweep, not a statement that the other four topics had no settlements. Evidence: <code>data/log.md</code> for that run, and <code>data/resolved.json</code> (<code>settled_total</code>, <code>in_scope_count</code>).</li>
 </ul></div>
 
 <section class="box">
