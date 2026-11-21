@@ -22,6 +22,9 @@
   - `scripts/portfolio_engine.py` also calls the API and was not audited in this change. Its 07:08Z run grew the ledger normally (runs 14→15, trades 11→12), but it has the same read-then-write pattern. Requested to the owner of that file.
   - The CI render gate uses live API responses (no fixtures in CI), so it can fail intermittently. Recorded earlier in this section.
   - Restored data is from 03:59:57Z, so the site shows that timestamp until the next good snapshot.
+- **PR / merge / Pages record (final, 2026-11-21 UTC):** PR [#80](https://github.com/wingbangboozle1-lang/Trade1/pull/80) (`arena/c96a21b7-trade1` → `main`) merged as merge commit `0dc6148`. Its `checks` job passed, including the new collector step (run [44879147837](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879147837)). Pages `built` for `0dc6148`. `tests/test_collect_failclosed.py` 6/6 on the merged tree.
+- **Overlap (logged, not merged here):** open PR [#79](https://github.com/wingbangboozle1-lang/Trade1/pull/79) (`arena/0b68e1e4-trade1`, "Rate-limit backoff for both Python collectors") also changes `scripts/collect.py` and `scripts/portfolio_engine.py`. It was opened before PR #80 and found the same 429 incident. The owner was asked on the PR (comment https://github.com/wingbangboozle1-lang/Trade1/pull/79#issuecomment-7059138439) to rebase onto `main`, keep the trust gates and `FAILURES` accounting, avoid a second retry loop, and gate `portfolio_engine.py` ledger writes the same way. Not edited here.
+- **Status:** done (PR #80 merged, Pages built). Open follow-ups: `portfolio_engine.py` gating (PR #79 owner); the 06:58Z-era data is replaced by the 03:59:57Z restore until the next good snapshot, which the first scheduled run after `0dc6148` should produce.
 
 ## Session `arena/c96a21b7-trade1` — D1 claim withdrawn in favour of PR #65 (overlap record, 2026-11-21 UTC)
 
