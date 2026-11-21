@@ -1310,6 +1310,22 @@ live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/
 - **Task status:** done. Open items are published on `flagged.html` and do not block: AA-8 (live re-confirmation),
   691-10 (maker fees), 691-11 / 9d-1 (collector refresh pending, owned by session `d256bfac`), F7 (ROI screen is a heuristic).
 
+## Session `arena/efc28509-trade1` — baseline verification + official-source spot check (2026-11-21 07:03 UTC)
+
+- **Claim:** scope = `COORDINATION.md` only (verification record). No site, data, or script changes. Base: `main` @ `7d1c21f`.
+- **Verification performed on the branch (exit 0):**
+  - `npm ci` (registry.npmjs.org) → ok.
+  - `npm run check` → `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links`; `check_site.mjs` 1,183 rows / 625 resolved / 0 failures; `check_links.mjs` 16 pages, 400 local + 236 external links, 0 failures.
+  - `npm test` → all suites pass (engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test, portfolio 60/60, demo-account 89/89, `test_collect.py` 4/4).
+  - Build rewrote `tools/build-report.json` (timestamp only); reverted, not committed.
+- **Live site:** `https://wingbangboozle1-lang.github.io/Trade1/flagged.html` fetched; Flagged for Review page is live.
+- **Official-source spot check (fetched 2026-11-21 UTC):** https://docs.kalshi.com/getting_started/api_environments — demo REST `https://external-api.demo.kalshi.co/trade-api/v2` (recommended) and `https://demo-api.kalshi.co/trade-api/v2` (also supported); demo WebSocket `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` and `wss://demo-api.kalshi.co/trade-api/ws/v2`. The repo's demo base URL (`external-api.demo.kalshi.co`) matches the official recommended host. Note for owners: the same page documents newer dedicated hosts (`user-ws.demo.kalshi.co` for `fill`/`user_orders`, `external-feeds.demo.kalshi.co` for external feeds). Not used by the repo; logged here for awareness, not a defect.
+- **Not done / blocked (no inference made):**
+  - Sandbox cannot reach `*.kalshi.co` (curl TLS reset, `code 000`), so no live API value was re-read here.
+  - Portfolio tracking and order execution on the demo account still need demo API credentials, which were not provided. Nothing was faked.
+  - Items AA-8, 691-10, 691-11/9d-1, F7 remain open on `flagged.html` (unchanged).
+- **Irregularities:** none new in this pass beyond the items already published on `flagged.html`.
+- **Status:** done (verification record only). PR and merge recorded below once complete.
 Status of the work items below is recorded at the end of this section once complete.
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
