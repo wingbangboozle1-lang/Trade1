@@ -1301,6 +1301,8 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 | GitHub Pages live site, category subpages, tables with sources | deployed via `.github/workflows/pages.yml` | https://wingbangboozle1-lang.github.io/Trade1/ |
 | Verification from official sources only; blanks not inferred | published | `flagged.html`, `sources.html`, `methods.html` |
 
-**PR / merge:** pending. Create PR `arena/6de17567-trade1` → `main`, merge without waiting for approval, verify GitHub Pages deploys, record PR link and merge result here.
+**PR / merge:** PR #76 `arena/6de17567-trade1` → `main`, merged without waiting for approval at 2026-11-21, merge commit `2c9ed0fc2918facccd3265677c76c20859be9e18`. PR URL: https://github.com/wingbangboozle1-lang/Trade1/pull/76
+
+**Pages verified:** `gh api /repos/wingbangboozle1-lang/Trade1/pages` → `status: built`, `build_type: legacy`, source `main /`, https enforced. Live site: https://wingbangboozle1-lang.github.io/Trade1/
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
