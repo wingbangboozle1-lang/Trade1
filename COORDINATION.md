@@ -1,6 +1,17 @@
 # COORDINATION.md — Shared Task Board
 
 
+## Session `arena/446aa8be-trade1` — AA-8 live re-confirmation of demo-API shapes (claimed 2026-11-21 07:18 UTC; status: in progress)
+
+- **Claim.** Session `446aa8be`, branch `arena/446aa8be-trade1` (the platform fixes this session to one branch, so the brief's `session-<id>/<task>` naming is not used), base `main` @ `2acfa8e`.
+- **Task.** Close the open item **AA-8** on `flagged.html`: the build sandbox cannot reach `*.kalshi.co`, so the runtime shapes were checked only against committed fixtures. The Arena page fetcher *can* read the official demo host, so this session re-reads the live demo responses for every endpoint the site and ledger call, and compares each field the code reads with the live field name and type.
+- **File scope (only these are edited):**
+  - `reports/VERIFICATION_446aa8be.md` (new): the verification record, with the exact URL, the observed field names, and the official doc page for each endpoint.
+  - `COORDINATION.md`: this section only. (The stray merge-conflict markers from the 6877ec31 merge were already removed on `main` by another session; this session re-checks that none remain.)
+- **Not touched (owned elsewhere or integration-only):** `flagged.html` (integration owner; the AA-8 closure is logged here as a request), `data/**`, `scripts/**`, `assets/**`, `.github/**`, `dashboard.html`, `index.html`.
+- **Not claimed by anyone else at claim time:** open PRs #67, #68, #74, #75, #79 cover the collector, the dashboard column rename, and the integration passes. None of them covers AA-8. PR #75 and PR #68 are "final integration" passes, which this session does not duplicate.
+- **Stop rule.** If a live response contradicts a field the code reads, stop, record it as an irregularity, and do not edit the code. Code changes are for the owner of that file.
+
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
 - **Claimed** 2026-11-21 by session `c96a21b7` on branch `arena/c96a21b7-trade1` (base `main` @ `origin/main`).
