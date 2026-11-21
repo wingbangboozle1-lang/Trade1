@@ -948,12 +948,15 @@ window.KalshiApp = (function () {
     var tb = $('#kx-rows'); if (!tb) return;
     var all = rowsFor();
     var live = all.filter(isLive);
-    var rows = (live.length ? live : all).slice(0, 120);
-    var closedHidden = all.length - rows.length;
+    var shown = (live.length ? live : all).slice(0, 120);
+    var hiddenLive = Math.max(0, live.length - shown.length);
+    var hiddenClosed = all.length - shown.length - hiddenLive;
     $('#kx-count') && ($('#kx-count').textContent =
-      rows.length + (live.length ? ' live' : '') + ' shown · watchlist ' + S.list.length +
-      (closedHidden > 0 ? ' · ' + closedHidden + ' more (closed/further down)' : ''));
+      shown.length + (live.length ? ' live' : '') + ' shown · watchlist ' + S.list.length +
+      (hiddenLive > 0 ? ' · ' + hiddenLive + ' more live below the 120-row window' : '') +
+      (hiddenClosed > 0 ? ' · ' + hiddenClosed + ' closed/settled not ranked here (see Resolved)' : ''));
     var head = '';
+    var rows = shown;
     if (!live.length && all.length) {
       head = '<tr><td colspan="16" class="muted">No market in scope is open for trading right now (all are closed, awaiting determination, or settled) — showing the most recent rows ranked by traded dollars. Rows appear live again when discovery/polling sees an ' +
         '<code>active</code> market with a future <code>close_time</code>.</td></tr>';
