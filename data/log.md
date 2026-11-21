@@ -1,297 +1,563 @@
 # Verification & collection log (UTC)
 
-- 06:58:35Z collector start 2026-11-21T06:58:35.754898+00:00 base=https://external-api.demo.kalshi.co/trade-api/v2
-- 06:58:35Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=(none) -> 200; ACAO=None
-- 06:58:35Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=https://wingbangboozle1-lang.github.io -> 200; ACAO='https://wingbangboozle1-lang.github.io'
-- 06:58:35Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=https://example.com -> 200; ACAO='https://example.com'
-- 06:58:35Z CORS GET https://demo-api.kalshi.co/trade-api/v2/exchange/status origin=https://wingbangboozle1-lang.github.io -> 200; ACAO='https://wingbangboozle1-lang.github.io'
-- 06:58:35Z CORS OPTIONS https://external-api.demo.kalshi.co/trade-api/v2/markets origin=https://wingbangboozle1-lang.github.io -> 204; ACAO='https://wingbangboozle1-lang.github.io'
-- 06:58:35Z WROTE data/cors.json (3,094B)
-- 06:58:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status -> 200, 632B in 0.0s (exchange status)
-- 06:58:35Z WROTE data/exchange-status.json (907B)
-- 06:58:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200 -> 200, 144,036B in 0.0s 
-- 06:58:35Z   page 1: +200 items (total 200); cursor=present
-- 06:58:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI8MuXhwcSFEtYU0hFSU5CQVVNT1VULTI2T0NU -> 200, 152,582B in 0.0s 
-- 06:58:35Z   page 2: +200 items (total 400); cursor=present
-- 06:58:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXVi0yOE5PVjA3V1ZTMDA5 -> 200, 159,481B in 0.0s 
-- 06:58:35Z   page 3: +200 items (total 600); cursor=present
-- 06:58:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXSS0yOE5PVjA3V0lIMDI0 -> 200, 158,062B in 0.0s 
-- 06:58:35Z   page 4: +200 items (total 800); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdWVC0yOE5PVjA3VlRIQ0Ex -> 200, 160,428B in 0.0s 
-- 06:58:36Z   page 5: +200 items (total 1000); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdUWC0yOE5PVjA3VFhIMDc0 -> 200, 162,868B in 0.0s 
-- 06:58:36Z   page 6: +200 items (total 1200); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdTRC0yOE5PVjA3U0RTMDI0 -> 200, 165,490B in 0.0s 
-- 06:58:36Z   page 7: +200 items (total 1400); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdSSS0yOE5PVjA3UklTMDM2 -> 200, 158,670B in 0.0s 
-- 06:58:36Z   page 8: +200 items (total 1600); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdQQS0yOE5PVjA3UEFIMTM4 -> 200, 161,355B in 0.0s 
-- 06:58:36Z   page 9: +200 items (total 1800); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdPUi0yOE5PVjA3T1JIMDEz -> 200, 159,779B in 0.0s 
-- 06:58:36Z   page 10: +200 items (total 2000); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdPSC0yOE5PVjA3T0hIMDUz -> 200, 158,703B in 0.0s 
-- 06:58:36Z   page 11: +200 items (total 2200); cursor=present
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdOWS0yOE5PVjA3TllIMDY2 -> 429 (68B)  body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z open events collected: 2200
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude -> 429 (68B)  body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z mve_filter=exclude sweep empty - retrying plain
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000 -> 429 (68B)  body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z status=open returned no markets - retrying without status filter
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?limit=1000 -> 429 (68B)  body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z open markets collected: 0
-- 06:58:36Z market statuses observed: {}
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Economics&include_volume=true&limit=1000 -> 200, 942,223B in 0.0s (series list)
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Energy&include_volume=true&limit=1000 -> 200, 16B in 0.0s (series list)
-- 06:58:36Z topic gas-prices: 144 series matched (categories ['Economics', 'Energy']); fetching top 40 by volume
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASW&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASM&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMTX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMINCA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMINTX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASWNJ&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDGA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMAXCA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMAXTX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDOH&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDMI&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=GASMIN&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=GASMAX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASM&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMIN&status=open&limit=1000 -> 200, 27B in 0.0s (series markets)
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=GAS&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMAX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMINCA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMAXCA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMINTX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDWA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDAL&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMAXTX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDNC&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASW&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDTX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDAZ&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDCA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDFL&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDNY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDWY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDSC&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDSD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDMN&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDNH&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDCT&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDRI&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASED&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Elections&include_volume=true&limit=1000 -> 200, 4,236,384B in 0.1s (series list)
-- 06:58:36Z topic elections: 2710 series matched (categories ['Elections']); fetching top 40 by volume
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRESNOMD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRESPERSON&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRESNOMR&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVCA&status=open&limit=1000 -> 200, 27B in 0.0s (series markets)
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVCAPRIMARY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVAK&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMAYORLA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXCAGOVPRIMARYTOP3&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXCAGOVPRIMARY1ST&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRIMARYMOV&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMOVVAREDISTRICT&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXVOTEPRIMARY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVFLNOMR&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBALANCEPOWERCOMBO&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBRPRES&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSCRSENS&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNEXTIRANLEADER&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=CONTROLH&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPERUPRES&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATEMID&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATEMED&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVWINOMD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=RSENATESEATS&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXKHAMENEIOUT&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=SENATETX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLEADERSOUT&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXCOLOMBIAPRES&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATETXR&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDSENATESEATS&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTXRSENRUNOFFMOV&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVCAPRIMARYPARTY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXFRENCHPRES&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATEMAD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLAMAYORMATCHUP&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNEXTHUNGARYPM&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLAMAYOR1R&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMESENATEPERSON&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXELECTIONBILL&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXRHOUSESEATS&status=open&limit=1000 -> 200, 15,518B in 0.0s (series markets)
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLAMAYORADVANCE&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Culture&include_volume=true&limit=1000 -> 429 (68B) (series list) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Entertainment&include_volume=true&limit=1000 -> 429 (68B) (series list) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Mentions&include_volume=true&limit=1000 -> 429 (68B) (series list) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Music&include_volume=true&limit=1000 -> 429 (68B) (series list) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Movies&include_volume=true&limit=1000 -> 200, 16B in 0.0s (series list)
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=TV&include_volume=true&limit=1000 -> 429 (68B) (series list) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Pop%20Culture&include_volume=true&limit=1000 -> 429 (68B) (series list) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z topic culture: 0 series matched (categories ['Culture', 'Entertainment', 'Mentions', 'Music', 'Movies', 'TV', 'Pop Culture']); fetching top 0 by volume
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Crypto&include_volume=true&limit=1000 -> 200, 287,858B in 0.0s (series list)
-- 06:58:36Z topic crypto: 321 series matched (categories ['Crypto']); fetching top 40 by volume
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMAXMON&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETH&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRP&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRPD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOGE&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMAXSHARDINGTEST&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSHIBA&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLINK&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHMAXY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSHIBAD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOGED&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLINKD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMINY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLTCD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAVAX&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOT&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLTC&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAVAXD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMAXY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXLM&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXLMD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMINMON&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBCHD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOTD&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC2026200&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMAX100&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC15M&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC2025100&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHMINY&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC50VS100&status=open&limit=1000 -> 200, 2,186B in 0.0s (series markets)
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETH15M&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHMAXMON&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSOL15M&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRPMAXMON&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRP15M&status=open&limit=1000 -> 429 (68B) (series markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Sports&include_volume=true&limit=1000 -> 429 (68B) (series list) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z topic golf: 0 series matched (categories ['Sports']); fetching top 0 by volume
-- 06:58:37Z markets after series discovery: 12
-- 06:58:37Z topic gas-prices: event fetch budget used 0
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRHOUSESEATS-27 -> 200, 16,812B in 0.0s (event metadata)
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRHOUSESEATS-27 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTNATOSECGEN-99 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEWPOPE-70 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERSONPRESMAM-45 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERSONPRESFUENTES-45 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTISRAELPM-45JAN01 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTUKPRIMEMIN-35JAN01 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBRUVSEAT-35 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPRESPARTY-2032 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSENATERACE-TX-32 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAYORLA-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOVRACE-TX-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXCONTROLS-2030 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXCONTROLH-2030 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMNSTATELEG-30SEN -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXALSTATELEG-30SEN -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXALSTATELEG-30HOUSE -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMISTATELEG-30SEN -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMDSTATELEG-30SEN -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMDSTATELEG-30HOD -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSENATERACE-TX-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSENATERACE-MS-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTSPEAKER-31 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBRAZILPRESPARTY-30OCT27 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBRAZILPRES-30OCT27 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXISRDEFMIN-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXCANELECTION-29OCT15 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMEXICOPRESPARTY-30JUN02 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMEXICOPRES-30JUN02 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXEUPARLIAMENT-29JUN10 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOVRACE-VA-29 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOVRACE-NJ-29 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXINDIANPM-29APR30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXKOREAPRESPARTY-30MAR27 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXKOREAPRES-30MAR27 -> 200, 20,990B in 0.0s (event markets)
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGERELECTION-29MAR25 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXJAPANHOUSE-30FEB07 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGDPPARTYCOMBO-30MAR -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXCPIPARTYCOMBO-30MAR -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXUKGEYEAR-30JAN01 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTATLFED-30JAN01 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXHOUSEEXPANDLAW-26NOV -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXU3PARTYCOMBO-30SEP -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPAYROLLSPARTYCOMBO-30SEP -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXUKCOALITION-30JAN01 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXEUREF-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXEUEXITCOUNTRY-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXELECTUKRAINE-30JAN01 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXECCOMPACT-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXCASECESSION-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXINXPARTYCOMBO-30JAN -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNYCMAYORPERSON-29 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXALBERTAREFYES-29 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTGERCHANC-29FEB25 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAUSTPM-28SEP23 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXUKPARTY-29 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSTATELEGWY-28NOV07WYS030 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSTATELEGWY-28NOV07WYS028 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSTATELEGWY-28NOV07WYS026 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z topic elections: event fetch budget used 60
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA7RELEASEDATE-USA -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMBONDSONG-35 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXJOHNNYDEPP-35 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXACTORSONNYCROCKETT-35 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA6SONGS-31 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXTVSEASONRELEASETHELASTOFUS -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXACTORTOMCRUZ-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXINDIANAPOWELL-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLEBRITNEY -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-VILLAIN -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-Q -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-MONEYPENNY -> 200, 20,306B in 0.0s (event markets)
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-M -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-FELIX -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXYTUBESUBSISHOWSPEED -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXTVSEASONRELEASEACOURTOFTHORNSANDROSES -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSHOWENDSIMPSONS-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSHOWENDFAMILYGUY-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMOVIERELEASEDATE-AUS -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMOVIERELEASEDATE-007 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMEDIARELEASEPRISONBREAK-30JAN01 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMARRIAGESTYLESKRAVITZ-HSZK -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA6SONGS-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXARTISTCOLLABTHUGANDGUNNA-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXARTISTCOLLABDRAKEKENDRICK-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=BEYONCEGENRE-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA6STORY-01JAN30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z topic culture: event fetch budget used 28
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTC50VS100-BTC-26DEC31 -> 200, 2,618B in 0.0s (event metadata)
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTC50VS100-BTC-26DEC31 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCD-33MAY2100 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCD-33APR0610 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXDEMOFUTBOT-29DEC31 -> 200, 1,579B in 0.0s (event metadata)
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXDEMOFUTBOT-29DEC31 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z topic crypto: event fetch budget used 6
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAFUTURE-36MRUS -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAFUTURE-36JKOI -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOLFMAJOR-30 -> 429 (68B) (event markets) body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z topic golf: event fetch budget used 3
-- 06:58:37Z markets after per-event fetch: 33
-- 06:58:37Z WROTE data/topics/gas-prices.json (1,129B)
-- 06:58:37Z WROTE data/topics/elections.json (34,614B)
-- 06:58:37Z WROTE data/topics/culture.json (49,210B)
-- 06:58:37Z WROTE data/topics/crypto.json (4,493B)
-- 06:58:37Z WROTE data/topics/golf.json (2,853B)
-- 06:58:37Z WROTE data/categories.json (757B)
-- 06:58:37Z categories observed: {'World': 2, 'Elections': 1940, 'Climate and Weather': 9, 'Science and Technology': 26, 'Politics': 42, 'Sports': 71, 'Financials': 10, 'Entertainment': 28, 'Economics': 61, 'Companies': 7, 'Social': 1, 'Crypto': 2, 'Test': 1}; unclassified events: 225
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794985117&limit=1000&mve_filter=exclude -> 429 (68B)  body=b'{"error":{"code":"too_many_requests","message":"too many requests"}}'
-- 06:58:37Z settled markets collected (last 3 days): 0
-- 06:58:37Z WROTE data/resolved.json (321B)
-- 06:58:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets/KXRHOUSESEATS-27-230/orderbook -> 200, 51B in 0.0s (orderbook)
-- 06:58:37Z WROTE data/samples/orderbook-sample.json (301B)
-- 06:58:37Z WROTE data/samples/market-open-sample.json (1,123B)
-- 06:58:37Z WROTE data/meta.json (2,161B)
+- 07:19:44Z collector start 2026-11-21T07:19:44.801126+00:00 base=https://external-api.demo.kalshi.co/trade-api/v2
+- 07:19:45Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=(none) -> 200; ACAO=None
+- 07:19:45Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=https://wingbangboozle1-lang.github.io -> 200; ACAO='https://wingbangboozle1-lang.github.io'
+- 07:19:45Z CORS GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status origin=https://example.com -> 200; ACAO='https://example.com'
+- 07:19:45Z CORS GET https://demo-api.kalshi.co/trade-api/v2/exchange/status origin=https://wingbangboozle1-lang.github.io -> 200; ACAO='https://wingbangboozle1-lang.github.io'
+- 07:19:46Z CORS OPTIONS https://external-api.demo.kalshi.co/trade-api/v2/markets origin=https://wingbangboozle1-lang.github.io -> 204; ACAO='https://wingbangboozle1-lang.github.io'
+- 07:19:46Z WROTE data/cors.json (3,093B)
+- 07:19:46Z GET https://external-api.demo.kalshi.co/trade-api/v2/exchange/status -> 200, 632B in 0.3s (exchange status)
+- 07:19:46Z WROTE data/exchange-status.json (907B)
+- 07:19:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200 -> 200, 144,036B in 0.5s 
+- 07:19:47Z   page 1: +200 items (total 200); cursor=present
+- 07:19:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI8MuXhwcSFEtYU0hFSU5CQVVNT1VULTI2T0NU -> 200, 152,582B in 0.6s 
+- 07:19:48Z   page 2: +200 items (total 400); cursor=present
+- 07:19:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXVi0yOE5PVjA3V1ZTMDA5 -> 200, 159,481B in 0.5s 
+- 07:19:48Z   page 3: +200 items (total 600); cursor=present
+- 07:19:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdXSS0yOE5PVjA3V0lIMDI0 -> 200, 158,062B in 0.5s 
+- 07:19:49Z   page 4: +200 items (total 800); cursor=present
+- 07:19:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdWVC0yOE5PVjA3VlRIQ0Ex -> 200, 160,428B in 0.5s 
+- 07:19:50Z   page 5: +200 items (total 1000); cursor=present
+- 07:19:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdUWC0yOE5PVjA3VFhIMDc0 -> 200, 162,868B in 0.5s 
+- 07:19:51Z   page 6: +200 items (total 1200); cursor=present
+- 07:19:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdTRC0yOE5PVjA3U0RTMDI0 -> 200, 165,490B in 0.5s 
+- 07:19:51Z   page 7: +200 items (total 1400); cursor=present
+- 07:19:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdSSS0yOE5PVjA3UklTMDM2 -> 200, 158,670B in 0.5s 
+- 07:19:52Z   page 8: +200 items (total 1600); cursor=present
+- 07:19:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdQQS0yOE5PVjA3UEFIMTM4 -> 200, 161,355B in 0.5s 
+- 07:19:53Z   page 9: +200 items (total 1800); cursor=present
+- 07:19:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdPUi0yOE5PVjA3T1JIMDEz -> 200, 159,779B in 0.5s 
+- 07:19:54Z   page 10: +200 items (total 2000); cursor=present
+- 07:19:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdPSC0yOE5PVjA3T0hIMDUz -> 200, 158,703B in 0.5s 
+- 07:19:54Z   page 11: +200 items (total 2200); cursor=present
+- 07:19:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200&cursor=CgYI4I2G_QYSGktYU1RBVEVMRUdOWS0yOE5PVjA3TllIMDY2 -> 200, 159,715B in 0.5s 
+- 07:19:55Z   page 12: +200 items (total 2400); cursor=present
+- 07:19:55Z open events collected: 2400
+- 07:19:56Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude -> 200, 2,034,012B in 0.8s 
+- 07:19:56Z   page 1: +1000 items (total 1000); cursor=present
+- 07:19:57Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwI7emE2AYQ0Ly6tQISJUtYVkFMT1JBTlRHQU1FLTI2Tk9WMjExOTMwU1JPQUZTLU9BRlM -> 200, 2,109,099B in 0.9s 
+- 07:19:57Z   page 2: +1000 items (total 2000); cursor=present
+- 07:19:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIxJWE2AYQyM6ljwESJUtYTkNBQU1CU1BSRUFELTI2Tk9WMjFBUk1ZQklORy1BUk1ZMTE -> 200, 2,253,738B in 0.8s 
+- 07:19:58Z   page 3: +1000 items (total 3000); cursor=present
+- 07:20:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIweuD2AYQ8O27iQISJUtYTkNBQU1CU1BSRUFELTI2Tk9WMjFVTkNXTk9SRi1VTkNXMjc -> 200, 2,050,754B in 0.8s 
+- 07:20:00Z   page 4: +1000 items (total 4000); cursor=present
+- 07:20:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgwIuuuD2AYQoJbVtQESI0tYTkJBVE9UQUxQUkVDSVNFLTI2Tk9WMjJERU5DSEktMjM5 -> 200, 2,011,149B in 0.8s 
+- 07:20:01Z   page 5: +1000 items (total 5000); cursor=present
+- 07:20:02Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=open&limit=1000&mve_filter=exclude&cursor=CgsIuOuD2AYQoNiEIhIjS1hOQkFUT1RBTFBSRUNJU0UtMjZOT1YyMklORE5ZSy0xMTA -> 200, 2,079,737B in 0.8s 
+- 07:20:02Z   page 6: +1000 items (total 6000); cursor=present
+- 07:20:02Z open markets collected: 6000
+- 07:20:02Z market statuses observed: {'active': 6000}
+- 07:20:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Economics&include_volume=true&limit=1000 -> 200, 942,223B in 0.9s (series list)
+- 07:20:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Energy&include_volume=true&limit=1000 -> 200, 16B in 0.2s (series list)
+- 07:20:03Z topic gas-prices: 144 series matched (categories ['Economics', 'Energy']); fetching top 40 by volume
+- 07:20:04Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASW&status=open&limit=1000 -> 200, 29,716B in 0.3s (series markets)
+- 07:20:05Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASM&status=open&limit=1000 -> 200, 42,055B in 0.4s (series markets)
+- 07:20:05Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASD&status=open&limit=1000 -> 200, 4,193B in 0.3s (series markets)
+- 07:20:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMTX&status=open&limit=1000 -> 200, 21,076B in 0.3s (series markets)
+- 07:20:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMINCA&status=open&limit=1000 -> 200, 5,889B in 0.2s (series markets)
+- 07:20:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMINTX&status=open&limit=1000 -> 200, 8,805B in 0.3s (series markets)
+- 07:20:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASWNJ&status=open&limit=1000 -> 200, 29,612B in 0.3s (series markets)
+- 07:20:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDGA&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMAXCA&status=open&limit=1000 -> 200, 11,759B in 0.3s (series markets)
+- 07:20:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASMAXTX&status=open&limit=1000 -> 200, 14,649B in 0.3s (series markets)
+- 07:20:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDOH&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDMI&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=GASMIN&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=GASMAX&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASM&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMIN&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=GAS&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMAX&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMINCA&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMAXCA&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMINTX&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDWA&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDAL&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASMAXTX&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDNC&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASW&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDTX&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDAZ&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDCA&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDFL&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=AAAGASD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDNY&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDWY&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDSC&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDSD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDMN&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDNH&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:23Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDCT&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:23Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASDRI&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAAAGASED&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Elections&include_volume=true&limit=1000 -> 200, 4,236,383B in 0.9s (series list)
+- 07:20:25Z topic elections: 2710 series matched (categories ['Elections']); fetching top 40 by volume
+- 07:20:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRESNOMD&status=open&limit=1000 -> 200, 106,375B in 0.5s (series markets)
+- 07:20:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRESPERSON&status=open&limit=1000 -> 200, 84,586B in 0.4s (series markets)
+- 07:20:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRESNOMR&status=open&limit=1000 -> 200, 96,706B in 0.4s (series markets)
+- 07:20:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVCA&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVCAPRIMARY&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVAK&status=open&limit=1000 -> 200, 13,240B in 0.3s (series markets)
+- 07:20:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMAYORLA&status=open&limit=1000 -> 200, 27,268B in 0.3s (series markets)
+- 07:20:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXCAGOVPRIMARYTOP3&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXCAGOVPRIMARY1ST&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPRIMARYMOV&status=open&limit=1000 -> 200, 20,784B in 0.3s (series markets)
+- 07:20:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMOVVAREDISTRICT&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXVOTEPRIMARY&status=open&limit=1000 -> 200, 108,073B in 0.5s (series markets)
+- 07:20:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVFLNOMR&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBALANCEPOWERCOMBO&status=open&limit=1000 -> 200, 8,164B in 0.2s (series markets)
+- 07:20:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBRPRES&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSCRSENS&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNEXTIRANLEADER&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=CONTROLH&status=open&limit=1000 -> 200, 3,391B in 0.2s (series markets)
+- 07:20:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPERUPRES&status=open&limit=1000 -> 200, 45,679B in 0.4s (series markets)
+- 07:20:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATEMID&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATEMED&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVWINOMD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=RSENATESEATS&status=open&limit=1000 -> 200, 20,347B in 0.3s (series markets)
+- 07:20:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXKHAMENEIOUT&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=SENATETX&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLEADERSOUT&status=open&limit=1000 -> 200, 10,605B in 0.3s (series markets)
+- 07:20:40Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXCOLOMBIAPRES&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:40Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATETXR&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:41Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDSENATESEATS&status=open&limit=1000 -> 200, 34,549B in 0.3s (series markets)
+- 07:20:41Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTXRSENRUNOFFMOV&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOVCAPRIMARYPARTY&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXFRENCHPRES&status=open&limit=1000 -> 200, 46,133B in 0.4s (series markets)
+- 07:20:43Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSENATEMAD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:43Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLAMAYORMATCHUP&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:44Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNEXTHUNGARYPM&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:44Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLAMAYOR1R&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMESENATEPERSON&status=open&limit=1000 -> 200, 26,770B in 0.3s (series markets)
+- 07:20:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXELECTIONBILL&status=open&limit=1000 -> 200, 7,187B in 0.2s (series markets)
+- 07:20:46Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXRHOUSESEATS&status=open&limit=1000 -> 200, 15,518B in 0.3s (series markets)
+- 07:20:46Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLAMAYORADVANCE&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Culture&include_volume=true&limit=1000 -> 200, 4,399B in 0.3s (series list)
+- 07:20:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Entertainment&include_volume=true&limit=1000 -> 200, 2,637,061B in 0.8s (series list)
+- 07:20:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Mentions&include_volume=true&limit=1000 -> 200, 585,526B in 0.6s (series list)
+- 07:20:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Music&include_volume=true&limit=1000 -> 200, 16B in 0.2s (series list)
+- 07:20:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Movies&include_volume=true&limit=1000 -> 200, 16B in 0.3s (series list)
+- 07:20:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=TV&include_volume=true&limit=1000 -> 200, 16B in 0.3s (series list)
+- 07:20:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Pop%20Culture&include_volume=true&limit=1000 -> 200, 16B in 0.2s (series list)
+- 07:20:51Z topic culture: 3135 series matched (categories ['Culture', 'Entertainment', 'Mentions', 'Music', 'Movies', 'TV', 'Pop Culture']); fetching top 40 by volume
+- 07:20:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTRUMPSAY&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXWCMENTION&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTRUMPMENTION&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXWORLDCUPHALFTIME&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXRT&status=open&limit=1000 -> 200, 241,889B in 0.6s (series markets)
+- 07:20:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXRANKLISTTIMEMAG&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNFLMENTION&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLIUSACOUPLE&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:56Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLIUSAELIMINATIONW&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:56Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTRUMPSAYMONTH&status=open&limit=1000 -> 200, 20,759B in 0.3s (series markets)
+- 07:20:57Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXOSCARPIC&status=open&limit=1000 -> 200, 60,585B in 0.4s (series markets)
+- 07:20:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMETGALA&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSURVIVOR&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:20:59Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBIGBROTHER&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:20:59Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXRANKLISTSONGSPOTUSA&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTIME&status=open&limit=1000 -> 200, 158,120B in 0.5s (series markets)
+- 07:21:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXOSCARACTO&status=open&limit=1000 -> 200, 37,373B in 0.3s (series markets)
+- 07:21:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTOPALBUMRECORD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:02Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTRUMPSAYCOMPANY&status=open&limit=1000 -> 200, 59,657B in 0.4s (series markets)
+- 07:21:02Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXFEDMENTION&status=open&limit=1000 -> 200, 51,645B in 0.4s (series markets)
+- 07:21:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNETFLIXRANKSHOW&status=open&limit=1000 -> 200, 24,097B in 0.3s (series markets)
+- 07:21:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSBGUESTS&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:04Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXOSCARNOMPIC&status=open&limit=1000 -> 200, 84,779B in 0.4s (series markets)
+- 07:21:04Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXTRUMPMENTIONB&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:05Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXWCATTEND&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:05Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXFINALSATTEND&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXFEATURE&status=open&limit=1000 -> 200, 284,331B in 0.6s (series markets)
+- 07:21:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDANCINGWITHTHESTARS&status=open&limit=1000 -> 200, 38,418B in 0.3s (series markets)
+- 07:21:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNETFLIXRANKMOVIE&status=open&limit=1000 -> 200, 27,923B in 0.4s (series markets)
+- 07:21:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXOSCARGUESTS&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPERFORMSUPERBOWLB&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBIGBROTHERELIMINATION&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXOSCARSUPACTO&status=open&limit=1000 -> 200, 40,320B in 0.4s (series markets)
+- 07:21:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXYTVIEWSHIGH&status=open&limit=1000 -> 200, 212,884B in 0.6s (series markets)
+- 07:21:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXEUROVISION&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDWTSELIMINATION&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXNBAMENTION&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLIUSAELIMINATION&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXRANKLISTGOOGLESEARCHTOP5&status=open&limit=1000 -> 200, 55,503B in 0.4s (series markets)
+- 07:21:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXALBUMSALES&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Crypto&include_volume=true&limit=1000 -> 200, 287,858B in 0.6s (series list)
+- 07:21:14Z topic crypto: 321 series matched (categories ['Crypto']); fetching top 40 by volume
+- 07:21:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCD&status=open&limit=1000 -> 200, 1,822,090B in 0.8s (series markets)
+- 07:21:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCY&status=open&limit=1000 -> 200, 49,895B in 0.4s (series markets)
+- 07:21:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMAXMON&status=open&limit=1000 -> 200, 18,821B in 0.3s (series markets)
+- 07:21:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHY&status=open&limit=1000 -> 200, 31,802B in 0.3s (series markets)
+- 07:21:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHD&status=open&limit=1000 -> 200, 727,327B in 0.6s (series markets)
+- 07:21:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC&status=open&limit=1000 -> 200, 1,861,234B in 0.8s (series markets)
+- 07:21:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETH&status=open&limit=1000 -> 200, 738,242B in 0.6s (series markets)
+- 07:21:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRP&status=open&limit=1000 -> 200, 1,986,184B in 0.8s (series markets)
+- 07:21:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRPD&status=open&limit=1000 -> 200, 1,962,428B in 0.8s (series markets)
+- 07:21:23Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOGE&status=open&limit=1000 -> 200, 187,217B in 0.5s (series markets)
+- 07:21:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXMAXSHARDINGTEST&status=open&limit=1000 -> 200, 161,687B in 0.5s (series markets)
+- 07:21:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSHIBA&status=open&limit=1000 -> 200, 45,127B in 0.4s (series markets)
+- 07:21:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLINK&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHMAXY&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSHIBAD&status=open&limit=1000 -> 200, 44,475B in 0.4s (series markets)
+- 07:21:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOGED&status=open&limit=1000 -> 200, 184,700B in 0.5s (series markets)
+- 07:21:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLINKD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMINY&status=open&limit=1000 -> 200, 11,056B in 0.3s (series markets)
+- 07:21:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLTCD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAVAX&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOT&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLTC&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXAVAXD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMAXY&status=open&limit=1000 -> 200, 15,568B in 0.3s (series markets)
+- 07:21:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXLM&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXLMD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMINMON&status=open&limit=1000 -> 200, 23,419B in 0.3s (series markets)
+- 07:21:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBCHD&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDOTD&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC2026200&status=open&limit=1000 -> 200, 2,229B in 0.2s (series markets)
+- 07:21:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTCMAX100&status=open&limit=1000 -> 200, 8,870B in 0.2s (series markets)
+- 07:21:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC15M&status=open&limit=1000 -> 200, 4,016B in 0.3s (series markets)
+- 07:21:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC2025100&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHMINY&status=open&limit=1000 -> 200, 9,951B in 0.3s (series markets)
+- 07:21:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC50VS100&status=open&limit=1000 -> 200, 2,187B in 0.2s (series markets)
+- 07:21:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETH15M&status=open&limit=1000 -> 200, 4,022B in 0.3s (series markets)
+- 07:21:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXETHMAXMON&status=open&limit=1000 -> 200, 18,754B in 0.3s (series markets)
+- 07:21:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXSOL15M&status=open&limit=1000 -> 200, 4,022B in 0.3s (series markets)
+- 07:21:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRPMAXMON&status=open&limit=1000 -> 200, 18,616B in 0.3s (series markets)
+- 07:21:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXXRP15M&status=open&limit=1000 -> 200, 4,020B in 0.2s (series markets)
+- 07:21:41Z GET https://external-api.demo.kalshi.co/trade-api/v2/series?category=Sports&include_volume=true&limit=1000 -> 200, 6,885,722B in 1.1s (series list)
+- 07:21:41Z topic golf: 101 series matched (categories ['Sports']); fetching top 40 by volume
+- 07:21:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGATOUR&status=open&limit=1000 -> 200, 409,166B in 0.6s (series markets)
+- 07:21:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDPWORLDTOUR&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:43Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR1LEAD&status=open&limit=1000 -> 200, 5,563B in 0.3s (series markets)
+- 07:21:43Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGATOP20&status=open&limit=1000 -> 200, 276,855B in 0.6s (series markets)
+- 07:21:44Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLPGATOUR&status=open&limit=1000 -> 200, 116,711B in 0.5s (series markets)
+- 07:21:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGATOP10&status=open&limit=1000 -> 200, 276,540B in 0.7s (series markets)
+- 07:21:46Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDPWORLDTOURR1LEAD&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGATOP5&status=open&limit=1000 -> 200, 275,957B in 0.6s (series markets)
+- 07:21:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR2LEAD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAMAKECUT&status=open&limit=1000 -> 200, 1,243B in 0.2s (series markets)
+- 07:21:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR3LEAD&status=open&limit=1000 -> 200, 289,499B in 0.6s (series markets)
+- 07:21:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAROUNDSCORE&status=open&limit=1000 -> 200, 31,493B in 0.3s (series markets)
+- 07:21:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGATOP40&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAWINNERWITHOUT&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXDPWORLDTOURR2LEAD&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAMASTERS&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGASOLHEIM&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGARYDER&status=open&limit=1000 -> 200, 4,839B in 0.2s (series markets)
+- 07:21:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAHOLEINONE&status=open&limit=1000 -> 200, 3,778B in 0.2s (series markets)
+- 07:21:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAMAJORTOP10&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR1TOP10&status=open&limit=1000 -> 200, 27B in 0.3s (series markets)
+- 07:21:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR2TOP5&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAH2H&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGA3BALL&status=open&limit=1000 -> 200, 146,414B in 0.5s (series markets)
+- 07:21:56Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGACUT&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:56Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR1TOP5&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:57Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOLFMAJOR&status=open&limit=1000 -> 200, 337,270B in 0.6s (series markets)
+- 07:21:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXLPGAR3LEAD&status=open&limit=1000 -> 200, 118,494B in 0.5s (series markets)
+- 07:21:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXGOLFMAJORS&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:59Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR1T5&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:21:59Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR1T20&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR3TOP10&status=open&limit=1000 -> 200, 281,112B in 0.6s (series markets)
+- 07:22:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR2TOP10&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGACOMPETE&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:02Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAR1T10&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:02Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAPLAYOFF&status=open&limit=1000 -> 200, 1,597B in 0.3s (series markets)
+- 07:22:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAT20&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGA5BALL&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAT5&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:04Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXPGAT10&status=open&limit=1000 -> 200, 27B in 0.2s (series markets)
+- 07:22:04Z markets after series discovery: 13837
+- 07:22:04Z discovery trusted: True (transient failures this run so far: 0)
+- 07:22:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASM-26NOV30 -> 200, 35,705B in 0.3s (event metadata)
+- 07:22:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASM-26NOV30 -> 200, 35,288B in 0.3s (event markets)
+- 07:22:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASW-26NOV23 -> 200, 30,123B in 0.3s (event metadata)
+- 07:22:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASW-26NOV23 -> 200, 29,716B in 0.3s (event markets)
+- 07:22:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASMINTX-26DEC31 -> 200, 9,228B in 0.2s (event metadata)
+- 07:22:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASMINTX-26DEC31 -> 200, 8,805B in 0.3s (event markets)
+- 07:22:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASM-26DEC31 -> 200, 7,210B in 0.2s (event metadata)
+- 07:22:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASM-26DEC31 -> 200, 6,793B in 0.2s (event markets)
+- 07:22:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASWNJ-26NOV23 -> 200, 30,040B in 0.3s (event metadata)
+- 07:22:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASWNJ-26NOV23 -> 200, 29,612B in 0.3s (event markets)
+- 07:22:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASMINCA-26DEC31 -> 200, 7,869B in 0.2s (event metadata)
+- 07:22:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASMINCA-26DEC31 -> 200, 7,441B in 0.2s (event markets)
+- 07:22:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASD-28SEP16 -> 200, 4,620B in 0.2s (event metadata)
+- 07:22:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASD-28SEP16 -> 200, 4,193B in 0.2s (event markets)
+- 07:22:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASMAXCA-26DEC31 -> 200, 43,283B in 0.4s (event metadata)
+- 07:22:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASMAXCA-26DEC31 -> 200, 42,854B in 0.4s (event markets)
+- 07:22:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASMAXTX-26DEC31 -> 200, 32,120B in 0.3s (event metadata)
+- 07:22:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASMAXTX-26DEC31 -> 200, 31,696B in 0.3s (event markets)
+- 07:22:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASMTX-26NOV30 -> 200, 21,501B in 0.3s (event metadata)
+- 07:22:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXAAAGASMTX-26NOV30 -> 200, 21,076B in 0.3s (event markets)
+- 07:22:18Z topic gas-prices: event fetch budget used 20
+- 07:22:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPRESNOMD-28 -> 200, 108,180B in 0.5s (event metadata)
+- 07:22:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPRESNOMD-28 -> 200, 107,752B in 0.5s (event markets)
+- 07:22:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPRESPERSON-28 -> 200, 85,048B in 0.4s (event metadata)
+- 07:22:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPRESPERSON-28 -> 200, 84,596B in 0.4s (event markets)
+- 07:22:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXGOVAK-26 -> 200, 14,327B in 0.3s (event metadata)
+- 07:22:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOVAK-26 -> 200, 13,240B in 0.3s (event markets)
+- 07:22:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPRESNOMR-28 -> 200, 97,095B in 0.5s (event metadata)
+- 07:22:23Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPRESNOMR-28 -> 200, 96,692B in 0.4s (event markets)
+- 07:22:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAYORLA-26 -> 200, 14,612B in 0.3s (event metadata)
+- 07:22:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAYORLA-26 -> 200, 14,170B in 0.3s (event markets)
+- 07:22:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPERUPRES-26 -> 200, 46,477B in 0.4s (event metadata)
+- 07:22:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERUPRES-26 -> 200, 45,679B in 0.4s (event markets)
+- 07:22:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/RSENATESEATS-27 -> 200, 21,650B in 0.3s (event metadata)
+- 07:22:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=RSENATESEATS-27 -> 200, 20,347B in 0.3s (event markets)
+- 07:22:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRHOUSESEATS-27 -> 200, 16,812B in 0.3s (event metadata)
+- 07:22:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRHOUSESEATS-27 -> 200, 15,518B in 0.3s (event markets)
+- 07:22:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXELECTIONBILL -> 200, 21,642B in 0.3s (event metadata)
+- 07:22:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXELECTIONBILL -> 200, 21,225B in 0.3s (event markets)
+- 07:22:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMESENATEPERSON-26 -> 200, 27,240B in 0.3s (event metadata)
+- 07:22:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMESENATEPERSON-26 -> 200, 26,770B in 0.3s (event markets)
+- 07:22:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXDSENATESEATS-27 -> 200, 16,976B in 0.3s (event metadata)
+- 07:22:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXDSENATESEATS-27 -> 200, 15,670B in 0.3s (event markets)
+- 07:22:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXFRENCHPRES-27 -> 200, 47,159B in 0.4s (event metadata)
+- 07:22:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXFRENCHPRES-27 -> 200, 46,110B in 1.4s (event markets)
+- 07:22:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/CONTROLH-2028 -> 200, 3,753B in 0.2s (event metadata)
+- 07:22:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=CONTROLH-2028 -> 200, 3,391B in 0.2s (event markets)
+- 07:22:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXDSENATESEATS-29 -> 200, 19,306B in 0.3s (event metadata)
+- 07:22:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXDSENATESEATS-29 -> 200, 18,905B in 0.3s (event markets)
+- 07:22:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXLEADERSOUT-27JAN01 -> 200, 115,515B in 0.5s (event metadata)
+- 07:22:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXLEADERSOUT-27JAN01 -> 200, 113,789B in 0.5s (event markets)
+- 07:22:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXVOTEPRIMARY-26JUN02ESWA -> 200, 22,145B in 0.3s (event metadata)
+- 07:22:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXVOTEPRIMARY-26JUN02ESWA -> 200, 21,630B in 0.3s (event markets)
+- 07:22:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXVOTEPRIMARY-26JUN02KPOR -> 200, 22,128B in 0.3s (event metadata)
+- 07:22:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXVOTEPRIMARY-26JUN02KPOR -> 200, 21,603B in 0.3s (event markets)
+- 07:22:40Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXVOTEPRIMARY-26JUN02SHIL -> 200, 22,119B in 0.3s (event metadata)
+- 07:22:40Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXVOTEPRIMARY-26JUN02SHIL -> 200, 21,594B in 0.3s (event markets)
+- 07:22:41Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXVOTEPRIMARY-26JUN02TSYE -> 200, 22,096B in 0.4s (event metadata)
+- 07:22:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXVOTEPRIMARY-26JUN02TSYE -> 200, 21,576B in 0.3s (event markets)
+- 07:22:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXVOTEPRIMARY-GOVCAPRIMARY26XBEC -> 200, 22,313B in 0.3s (event metadata)
+- 07:22:43Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXVOTEPRIMARY-GOVCAPRIMARY26XBEC -> 200, 21,774B in 0.3s (event markets)
+- 07:22:43Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPRIMARYMOV-SENATEMED26 -> 200, 21,295B in 0.3s (event metadata)
+- 07:22:44Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPRIMARYMOV-SENATEMED26 -> 200, 20,784B in 0.3s (event markets)
+- 07:22:44Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTNATOSECGEN-99 -> 200, 14,786B in 0.3s (event markets)
+- 07:22:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEWPOPE-70 -> 200, 21,478B in 0.3s (event markets)
+- 07:22:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERSONPRESMAM-45 -> 200, 1,407B in 0.2s (event markets)
+- 07:22:46Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERSONPRESFUENTES-45 -> 200, 1,412B in 0.3s (event markets)
+- 07:22:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTISRAELPM-45JAN01 -> 200, 26,623B in 0.3s (event markets)
+- 07:22:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXNEXTUKPRIMEMIN-35JAN01 -> 200, 66,381B in 0.4s (event markets)
+- 07:22:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBRUVSEAT-35 -> 200, 1,480B in 0.3s (event markets)
+- 07:22:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPRESPARTY-2032 -> 200, 3,164B in 0.2s (event markets)
+- 07:22:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSENATERACE-TX-32 -> 200, 3,680B in 0.2s (event markets)
+- 07:22:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAYORLA-30 -> 200, 13,124B in 0.3s (event markets)
+- 07:22:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOVRACE-TX-30 -> 200, 3,542B in 0.2s (event markets)
+- 07:22:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXCONTROLS-2030 -> 200, 3,402B in 0.2s (event markets)
+- 07:22:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXCONTROLH-2030 -> 200, 3,368B in 0.2s (event markets)
+- 07:22:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMNSTATELEG-30SEN -> 200, 4,786B in 0.3s (event markets)
+- 07:22:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXALSTATELEG-30SEN -> 200, 4,774B in 0.2s (event markets)
+- 07:22:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXALSTATELEG-30HOUSE -> 200, 5,294B in 0.3s (event markets)
+- 07:22:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMISTATELEG-30SEN -> 200, 4,778B in 0.2s (event markets)
+- 07:22:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMDSTATELEG-30SEN -> 200, 4,778B in 0.2s (event markets)
+- 07:22:53Z topic elections: event fetch budget used 60
+- 07:22:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXOSCARPIC-27 -> 200, 61,025B in 0.5s (event metadata)
+- 07:22:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXOSCARPIC-27 -> 200, 60,585B in 0.4s (event markets)
+- 07:22:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXDANCINGWITHTHESTARS-26DEC31 -> 200, 38,985B in 0.3s (event metadata)
+- 07:22:56Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXDANCINGWITHTHESTARS-26DEC31 -> 200, 38,418B in 0.3s (event markets)
+- 07:22:57Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXTIME-26 -> 200, 158,477B in 0.5s (event metadata)
+- 07:22:57Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXTIME-26 -> 200, 158,126B in 0.5s (event markets)
+- 07:22:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-HUN -> 200, 26,172B in 0.3s (event metadata)
+- 07:22:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-HUN -> 200, 25,687B in 0.3s (event markets)
+- 07:22:59Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-FOC -> 200, 19,763B in 0.3s (event metadata)
+- 07:23:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-FOC -> 200, 19,358B in 0.3s (event markets)
+- 07:23:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-FUR -> 200, 20,746B in 0.4s (event metadata)
+- 07:23:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-FUR -> 200, 19,880B in 0.3s (event markets)
+- 07:23:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-IPL -> 200, 25,294B in 0.3s (event metadata)
+- 07:23:02Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-IPL -> 200, 24,892B in 0.3s (event markets)
+- 07:23:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-AVE -> 200, 18,801B in 0.3s (event metadata)
+- 07:23:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-AVE -> 200, 18,381B in 0.4s (event markets)
+- 07:23:04Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-VIO -> 200, 19,707B in 0.3s (event metadata)
+- 07:23:04Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-VIO -> 200, 19,296B in 0.3s (event markets)
+- 07:23:05Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXOSCARSUPACTO-27 -> 200, 40,777B in 0.4s (event metadata)
+- 07:23:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXOSCARSUPACTO-27 -> 200, 40,320B in 0.4s (event markets)
+- 07:23:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXOSCARNOMPIC-27 -> 200, 85,195B in 0.4s (event metadata)
+- 07:23:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXOSCARNOMPIC-27 -> 200, 84,779B in 0.4s (event markets)
+- 07:23:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXOSCARACTO-27 -> 200, 37,813B in 0.3s (event metadata)
+- 07:23:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXOSCARACTO-27 -> 200, 37,373B in 0.3s (event markets)
+- 07:23:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-HEX -> 200, 19,501B in 0.3s (event metadata)
+- 07:23:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-HEX -> 200, 19,116B in 0.3s (event markets)
+- 07:23:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRANKLISTGOOGLESEARCHTOP5-26DEC -> 200, 55,937B in 0.4s (event metadata)
+- 07:23:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRANKLISTGOOGLESEARCHTOP5-26DEC -> 200, 55,503B in 0.4s (event markets)
+- 07:23:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-DUNE -> 200, 18,465B in 0.3s (event metadata)
+- 07:23:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-DUNE -> 200, 18,049B in 0.3s (event markets)
+- 07:23:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA7RELEASEDATE-USA -> 200, 26,287B in 0.3s (event markets)
+- 07:23:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMBONDSONG-35 -> 200, 33,952B in 0.3s (event markets)
+- 07:23:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXJOHNNYDEPP-35 -> 200, 1,471B in 0.2s (event markets)
+- 07:23:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXACTORSONNYCROCKETT-35 -> 200, 14,399B in 0.3s (event markets)
+- 07:23:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA6SONGS-31 -> 200, 14,852B in 0.3s (event markets)
+- 07:23:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXTVSEASONRELEASETHELASTOFUS -> 200, 10,245B in 0.3s (event markets)
+- 07:23:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXACTORTOMCRUZ-30 -> 200, 1,839B in 0.2s (event markets)
+- 07:23:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXINDIANAPOWELL-30 -> 200, 1,474B in 0.2s (event markets)
+- 07:23:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLEBRITNEY -> 200, 26,902B in 0.3s (event markets)
+- 07:23:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-VILLAIN -> 200, 25,242B in 0.3s (event markets)
+- 07:23:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-Q -> 200, 12,115B in 0.3s (event markets)
+- 07:23:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-MONEYPENNY -> 200, 20,306B in 0.3s (event markets)
+- 07:23:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-M -> 200, 12,310B in 0.3s (event markets)
+- 07:23:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007-FELIX -> 200, 22,941B in 0.3s (event markets)
+- 07:23:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPERFORMROLE007 -> 200, 66,284B in 0.4s (event markets)
+- 07:23:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXYTUBESUBSISHOWSPEED -> 200, 5,782B in 0.2s (event markets)
+- 07:23:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXTVSEASONRELEASEACOURTOFTHORNSANDROSES -> 200, 1,471B in 0.2s (event markets)
+- 07:23:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSHOWENDSIMPSONS-30 -> 200, 1,522B in 0.2s (event markets)
+- 07:23:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXSHOWENDFAMILYGUY-30 -> 200, 1,515B in 0.2s (event markets)
+- 07:23:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMOVIERELEASEDATE-AUS -> 200, 11,646B in 0.3s (event markets)
+- 07:23:23Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMOVIERELEASEDATE-007 -> 200, 9,986B in 0.3s (event markets)
+- 07:23:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMEDIARELEASEPRISONBREAK-30JAN01 -> 200, 14,133B in 0.3s (event markets)
+- 07:23:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMARRIAGESTYLESKRAVITZ-HSZK -> 200, 5,785B in 0.2s (event markets)
+- 07:23:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA6SONGS-30 -> 200, 21,811B in 0.3s (event markets)
+- 07:23:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXARTISTCOLLABTHUGANDGUNNA-30 -> 200, 7,132B in 0.2s (event markets)
+- 07:23:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXARTISTCOLLABDRAKEKENDRICK-30 -> 200, 1,415B in 0.2s (event markets)
+- 07:23:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=BEYONCEGENRE-30 -> 200, 13,263B in 0.3s (event markets)
+- 07:23:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGTA6STORY-01JAN30 -> 200, 18,076B in 0.3s (event markets)
+- 07:23:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXRT-ZER -> 200, 20,029B in 0.3s (event metadata)
+- 07:23:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXRT-ZER -> 200, 19,576B in 0.3s (event markets)
+- 07:23:28Z topic culture: event fetch budget used 60
+- 07:23:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCY-27JAN0100 -> 200, 50,354B in 0.5s (event metadata)
+- 07:23:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCY-27JAN0100 -> 200, 49,884B in 0.4s (event markets)
+- 07:23:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXETHY-27JAN0100 -> 200, 32,273B in 0.3s (event metadata)
+- 07:23:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXETHY-27JAN0100 -> 200, 31,802B in 0.3s (event markets)
+- 07:23:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTC50VS100-BTC-26DEC31 -> 200, 2,619B in 0.2s (event metadata)
+- 07:23:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTC50VS100-BTC-26DEC31 -> 200, 2,187B in 0.3s (event markets)
+- 07:23:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCMINY-27JAN01 -> 200, 27,425B in 0.3s (event metadata)
+- 07:23:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCMINY-27JAN01 -> 200, 27,006B in 0.4s (event markets)
+- 07:23:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCMAX100-26 -> 200, 25,395B in 0.3s (event metadata)
+- 07:23:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCMAX100-26 -> 200, 24,979B in 0.3s (event markets)
+- 07:23:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTC2026200-27JAN01 -> 200, 2,664B in 0.2s (event metadata)
+- 07:23:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTC2026200-27JAN01 -> 200, 2,229B in 0.2s (event markets)
+- 07:23:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCMINMON-BTC-26NOV30 -> 200, 23,843B in 0.3s (event metadata)
+- 07:23:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCMINMON-BTC-26NOV30 -> 200, 23,419B in 0.3s (event markets)
+- 07:23:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCMAXMON-BTC-26NOV30 -> 200, 19,245B in 0.3s (event metadata)
+- 07:23:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCMAXMON-BTC-26NOV30 -> 200, 18,821B in 0.3s (event markets)
+- 07:23:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCMAXY-26DEC31 -> 200, 16,159B in 0.3s (event metadata)
+- 07:23:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCMAXY-26DEC31 -> 200, 15,568B in 0.3s (event markets)
+- 07:23:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTC15M-26NOV210230 -> 200, 2,584B in 0.2s (event metadata)
+- 07:23:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTC15M-26NOV210230 -> 200, 2,102B in 0.2s (event markets)
+- 07:23:40Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXETHD-26NOV2103 -> 200, 562,663B in 0.7s (event metadata)
+- 07:23:41Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXETHD-26NOV2103 -> 200, 562,163B in 0.6s (event markets)
+- 07:23:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXETHD-26NOV2117 -> 200, 73,963B in 0.4s (event metadata)
+- 07:23:42Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXETHD-26NOV2117 -> 200, 73,463B in 0.5s (event markets)
+- 07:23:43Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXDOGED-26NOV2117 -> 200, 47,631B in 0.4s (event metadata)
+- 07:23:44Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXDOGED-26NOV2117 -> 200, 47,130B in 0.4s (event markets)
+- 07:23:44Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXETHMINY-27JAN01 -> 200, 16,543B in 0.3s (event metadata)
+- 07:23:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXETHMINY-27JAN01 -> 200, 16,169B in 0.4s (event markets)
+- 07:23:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXETHMAXMON-ETH-26NOV30 -> 200, 19,178B in 0.3s (event metadata)
+- 07:23:46Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXETHMAXMON-ETH-26NOV30 -> 200, 18,754B in 0.3s (event markets)
+- 07:23:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2413 -> 200, 19,147B in 0.3s (event metadata)
+- 07:23:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2413 -> 200, 18,606B in 0.3s (event markets)
+- 07:23:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2414 -> 200, 19,146B in 0.3s (event metadata)
+- 07:23:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2414 -> 200, 18,605B in 0.3s (event markets)
+- 07:23:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2418 -> 200, 19,143B in 0.3s (event metadata)
+- 07:23:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2418 -> 200, 18,603B in 0.3s (event markets)
+- 07:23:50Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2410 -> 200, 19,164B in 0.3s (event metadata)
+- 07:23:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2410 -> 200, 18,622B in 0.3s (event markets)
+- 07:23:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2419 -> 200, 19,141B in 0.3s (event metadata)
+- 07:23:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2419 -> 200, 18,600B in 0.3s (event markets)
+- 07:23:52Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2415 -> 200, 19,143B in 0.3s (event metadata)
+- 07:23:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2415 -> 200, 18,602B in 0.3s (event markets)
+- 07:23:53Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2417 -> 200, 19,139B in 0.3s (event metadata)
+- 07:23:54Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2417 -> 200, 18,598B in 0.3s (event markets)
+- 07:23:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2416 -> 200, 19,142B in 0.3s (event metadata)
+- 07:23:55Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2416 -> 200, 18,601B in 0.3s (event markets)
+- 07:23:56Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCD-26NOV2103 -> 200, 343,083B in 0.6s (event metadata)
+- 07:23:57Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCD-26NOV2103 -> 200, 342,569B in 0.6s (event markets)
+- 07:23:57Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2412 -> 200, 19,613B in 0.3s (event metadata)
+- 07:23:58Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2412 -> 200, 19,070B in 0.3s (event markets)
+- 07:23:59Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXETH15M-26NOV210230 -> 200, 2,577B in 0.3s (event metadata)
+- 07:23:59Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXETH15M-26NOV210230 -> 200, 2,096B in 0.2s (event markets)
+- 07:24:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXMAXSHARDINGTEST-27DEC2411 -> 200, 19,889B in 0.3s (event metadata)
+- 07:24:00Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXMAXSHARDINGTEST-27DEC2411 -> 200, 19,346B in 0.3s (event markets)
+- 07:24:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXXRP15M-26NOV210230 -> 200, 2,573B in 0.2s (event metadata)
+- 07:24:01Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXXRP15M-26NOV210230 -> 200, 2,094B in 0.2s (event markets)
+- 07:24:02Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXXRPD-26NOV2103 -> 200, 147,729B in 0.5s (event metadata)
+- 07:24:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXXRPD-26NOV2103 -> 200, 147,176B in 0.5s (event markets)
+- 07:24:03Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCD-33MAY2100 -> 200, 344,595B in 0.6s (event markets)
+- 07:24:04Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXBTCD-33APR0610 -> 200, 355,726B in 0.6s (event markets)
+- 07:24:04Z topic crypto: event fetch budget used 60
+- 07:24:05Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOUR-THRC26 -> 200, 290,411B in 0.6s (event metadata)
+- 07:24:06Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOUR-THRC26 -> 200, 296,667B in 0.6s (event markets)
+- 07:24:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOUR-MAST27 -> 200, 109,564B in 0.5s (event metadata)
+- 07:24:07Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOUR-MAST27 -> 200, 111,269B in 0.5s (event markets)
+- 07:24:08Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXLPGATOUR-CMEGTC26 -> 200, 114,659B in 0.5s (event metadata)
+- 07:24:09Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXLPGATOUR-CMEGTC26 -> 200, 116,695B in 0.5s (event markets)
+- 07:24:10Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOP20-THRC26 -> 200, 286,740B in 0.6s (event metadata)
+- 07:24:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOP20-THRC26 -> 200, 292,933B in 0.5s (event markets)
+- 07:24:11Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGAR1LEAD-MAST27 -> 200, 6,144B in 0.3s (event metadata)
+- 07:24:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAR1LEAD-MAST27 -> 200, 5,563B in 0.2s (event markets)
+- 07:24:12Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOP5-THRC26 -> 200, 285,805B in 0.6s (event metadata)
+- 07:24:13Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOP5-THRC26 -> 200, 292,003B in 0.5s (event markets)
+- 07:24:14Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOLFMAJOR-30 -> 200, 117,968B in 0.5s (event markets)
+- 07:24:15Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXGOLFMAJOR-27 -> 200, 221,855B in 0.6s (event metadata)
+- 07:24:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXGOLFMAJOR-27 -> 200, 221,360B in 0.6s (event markets)
+- 07:24:16Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGARYDER-RC27 -> 200, 5,390B in 0.2s (event metadata)
+- 07:24:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGARYDER-RC27 -> 200, 4,839B in 0.2s (event markets)
+- 07:24:17Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOP10-THRC26 -> 200, 286,425B in 0.5s (event metadata)
+- 07:24:18Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOP10-THRC26 -> 200, 292,618B in 0.6s (event markets)
+- 07:24:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAFUTURE-36MRUS -> 200, 8,126B in 0.2s (event markets)
+- 07:24:19Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAFUTURE-36JKOI -> 200, 7,954B in 0.2s (event markets)
+- 07:24:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOUR-THOC26H24975 -> 200, 1,579B in 0.2s (event metadata)
+- 07:24:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOUR-THOC26H24975 -> 200, 1,259B in 0.2s (event markets)
+- 07:24:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOP20-THOC26H24975 -> 200, 1,565B in 0.2s (event metadata)
+- 07:24:21Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOP20-THOC26H24975 -> 200, 1,243B in 0.3s (event markets)
+- 07:24:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOP10-THOC26H24975 -> 200, 1,565B in 0.2s (event metadata)
+- 07:24:22Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOP10-THOC26H24975 -> 200, 1,243B in 0.2s (event markets)
+- 07:24:23Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOP5-THOC26H24975 -> 200, 1,559B in 0.2s (event metadata)
+- 07:24:23Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGATOP5-THOC26H24975 -> 200, 1,239B in 0.2s (event markets)
+- 07:24:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGAMAKECUT-THOC26H24975 -> 200, 1,569B in 0.3s (event metadata)
+- 07:24:24Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAMAKECUT-THOC26H24975 -> 200, 1,243B in 0.2s (event markets)
+- 07:24:25Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGAR3LEAD-THRC26 -> 200, 289,997B in 0.6s (event metadata)
+- 07:24:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAR3LEAD-THRC26 -> 200, 289,499B in 0.5s (event markets)
+- 07:24:26Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGAROUNDSCORE-THRC26R3 -> 200, 31,383B in 0.4s (event metadata)
+- 07:24:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAROUNDSCORE-THRC26R3 -> 200, 31,493B in 0.3s (event markets)
+- 07:24:27Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGAHOLEINONE-THRC26 -> 200, 6,267B in 0.2s (event metadata)
+- 07:24:28Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGAHOLEINONE-THRC26 -> 200, 5,742B in 0.2s (event markets)
+- 07:24:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3JPAUBKOHANOV -> 200, 7,271B in 0.3s (event metadata)
+- 07:24:29Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3JPAUBKOHANOV -> 200, 6,614B in 0.3s (event markets)
+- 07:24:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3NHARJSMIKVEN -> 200, 7,291B in 0.2s (event metadata)
+- 07:24:30Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3NHARJSMIKVEN -> 200, 6,629B in 0.3s (event markets)
+- 07:24:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3JDAHGHIGDWAL -> 200, 7,305B in 0.2s (event metadata)
+- 07:24:31Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3JDAHGHIGDWAL -> 200, 6,643B in 0.2s (event markets)
+- 07:24:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3KBRAMMCNDTHO -> 200, 7,388B in 0.2s (event metadata)
+- 07:24:32Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3KBRAMMCNDTHO -> 200, 6,716B in 0.2s (event markets)
+- 07:24:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3EGRIJKOIJPOS -> 200, 7,339B in 0.3s (event metadata)
+- 07:24:33Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3EGRIJKOIJPOS -> 200, 6,675B in 0.2s (event markets)
+- 07:24:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3JVANCBEZVWHA -> 200, 7,469B in 0.2s (event metadata)
+- 07:24:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3JVANCBEZVWHA -> 200, 6,785B in 0.2s (event markets)
+- 07:24:34Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3DCHACPHISVAL -> 200, 7,416B in 0.2s (event metadata)
+- 07:24:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3DCHACPHISVAL -> 200, 6,738B in 0.2s (event markets)
+- 07:24:35Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3RHISPNYHMPAV -> 200, 7,351B in 0.2s (event metadata)
+- 07:24:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3RHISPNYHMPAV -> 200, 6,683B in 0.2s (event markets)
+- 07:24:36Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3CKIRBKOESNOH -> 200, 7,246B in 0.2s (event metadata)
+- 07:24:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3CKIRBKOESNOH -> 200, 6,592B in 0.2s (event markets)
+- 07:24:37Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3TMOOCRAMKVIL -> 200, 7,278B in 0.2s (event metadata)
+- 07:24:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3TMOOCRAMKVIL -> 200, 6,618B in 0.2s (event markets)
+- 07:24:38Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3DRILDFORNSHI -> 200, 7,278B in 0.3s (event metadata)
+- 07:24:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3DRILDFORNSHI -> 200, 6,618B in 0.2s (event markets)
+- 07:24:39Z GET https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGA3BALL-THRC26R3KHIRBGARCYOU -> 200, 7,325B in 0.2s (event metadata)
+- 07:24:40Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?event_ticker=KXPGA3BALL-THRC26R3KHIRBGARCYOU -> 200, 6,661B in 0.2s (event markets)
+- 07:24:40Z topic golf: event fetch budget used 61
+- 07:24:40Z markets after per-event fetch: 14646
+- 07:24:42Z WROTE data/topics/gas-prices.json (81,163B)
+- 07:24:44Z WROTE data/topics/elections.json (252,063B)
+- 07:24:44Z WROTE data/topics/culture.json (242,286B)
+- 07:24:44Z WROTE data/topics/crypto.json (252,665B)
+- 07:24:44Z WROTE data/topics/golf.json (169,449B)
+- 07:24:44Z WROTE data/categories.json (757B)
+- 07:24:44Z categories observed: {'World': 2, 'Elections': 2140, 'Climate and Weather': 9, 'Science and Technology': 26, 'Politics': 42, 'Sports': 71, 'Financials': 10, 'Entertainment': 28, 'Economics': 61, 'Companies': 7, 'Social': 1, 'Crypto': 2, 'Test': 1}; unclassified events: 225
+- 07:24:45Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986684&limit=1000&mve_filter=exclude -> 200, 2,200,144B in 0.8s 
+- 07:24:45Z   page 1: +1000 items (total 1000); cursor=present
+- 07:24:46Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986684&limit=1000&mve_filter=exclude&cursor=CgwImYWF2AYQqOKt1AMSJktYTkJBMkRQUk9ULTI2Tk9WMjBTQUNMQUwtU0FDREhVTlRFUjE1 -> 200, 2,431,058B in 0.8s 
+- 07:24:46Z   page 2: +1000 items (total 2000); cursor=present
+- 07:24:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986684&limit=1000&mve_filter=exclude&cursor=CgwIgYWF2AYQqLuMlgESGUtYRVRIRC0yNk5PVjIxMDEtVDE2NDkuOTk -> 200, 1,883,757B in 0.8s 
+- 07:24:47Z   page 3: +1000 items (total 3000); cursor=present
+- 07:24:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986684&limit=1000&mve_filter=exclude&cursor=CgwIgYWF2AYQwMzalQESGktYQlRDRC0yNk5PVjIxMDItVDcwMDk5Ljk5 -> 200, 1,890,522B in 0.8s 
+- 07:24:48Z   page 4: +1000 items (total 4000); cursor=present
+- 07:24:49Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986684&limit=1000&mve_filter=exclude&cursor=CgwIgYWF2AYQyOOziAESGktYQlRDRC0yNk5PVjIxMDEtVDY3Njk5Ljk5 -> 200, 1,880,139B in 0.8s 
+- 07:24:49Z   page 5: +1000 items (total 5000); cursor=present
+- 07:24:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986684&limit=1000&mve_filter=exclude&cursor=CgsIgYWF2AYQqMXmaRIYS1hIWVBFLTI2Tk9WMjEwMi1CNzcuMTI1 -> 200, 1,948,085B in 0.8s 
+- 07:24:51Z   page 6: +1000 items (total 6000); cursor=present
+- 07:24:51Z settled markets collected (last 3 days): 6000
+- 07:24:51Z WROTE data/resolved.json (229,418B)
+- 07:24:51Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets/KXPRESPERSON-28-VRAM/orderbook -> 200, 4,318B in 0.2s (orderbook)
+- 07:24:51Z WROTE data/samples/orderbook-sample.json (1,946B)
+- 07:24:51Z WROTE data/samples/market-open-sample.json (1,193B)
+- 07:24:51Z WROTE data/samples/market-settled-sample.json (2,595B)
+- 07:24:51Z WROTE data/meta.json (2,219B)
+- 07:24:51Z WROTE data/collect_status.json (347B)

@@ -1,0 +1,18 @@
+{
+ "run_started_at": "2026-11-21T07:19:44.801126+00:00",
+ "transient_read_failures": 0,
+ "failures_first_20": [],
+ "kept_previous_artifacts": [],
+ "status": "ok",
+ "retry_policy": {
+  "statuses": [
+   429,
+   500,
+   502,
+   503,
+   504
+  ],
+  "max_attempts": 5,
+  "backoff": "Retry-After header if numeric, else 2^attempt seconds (max 60 s)"
+ }
+}

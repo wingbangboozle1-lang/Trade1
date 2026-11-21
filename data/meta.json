@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-21T03:59:57.449609+00:00",
- "finished_at": "2026-11-21T04:03:00.263854+00:00",
+ "generated_at": "2026-11-21T07:19:44.801126+00:00",
+ "finished_at": "2026-11-21T07:24:51.565738+00:00",
  "base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "alt_base": "https://demo-api.kalshi.co/trade-api/v2",
  "pages_origin": "https://wingbangboozle1-lang.github.io",
@@ -11,9 +11,9 @@
    "active": 6000
   },
   "events_open_count": 2400,
-  "markets_open_count": 14678,
+  "markets_open_count": 14646,
   "settled_count_recent": 6000,
-  "event_metadata_and_market_fetches": 263,
+  "event_metadata_and_market_fetches": 261,
   "series_discovered_per_topic": {
    "gas-prices": 200,
    "elections": 200,
