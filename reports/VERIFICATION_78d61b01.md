@@ -105,7 +105,10 @@ every visitor — the alert feeds and topic rankings had no rows to rank.
   `events_open_count 2400`, `markets_open_count 14642`, `settled_count_recent 6000` and
   **200 rows in `data/resolved.json`, all in-scope, with `0` natural-gas rows** — i.e. the leak that
   flagged 9d-1 was about is gone and nothing else dropped. That run predates the guard (see §4), so it
-  demonstrates the classifier state, not the gate; the gate is covered by `tests/test_collect_hardening.py`.
+  demonstrates the classifier state, **not** the gate: `gh run view 44878556490 --json headSha` reports
+  `8e5efa1f`, i.e. that run executed the pre-hardening collector (this session's push had not moved the
+  branch ref — see flagged 78-6). The gate itself is covered by `tests/test_collect_hardening.py` and by
+  the pre-commit check in the `snapshot` job, and is re-run on the pushed head before this PR opens.
   **Flagged 9d-1 is closed on that evidence** (item 78-1 on the Flagged page).
 * `main`'s published data at the time of writing (`459a643c` → data `b08da8b0`) is still the degenerate
   0-row snapshot; the repair path is to merge this branch so the next run either republishes fully or

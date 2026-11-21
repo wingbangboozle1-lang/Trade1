@@ -28,6 +28,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # A committed conflict-marker line is a broken merge that silently ships half of both sides;
+      # main carried three of them in COORDINATION.md on 2026-11-21 (flagged item 78-7).
+      - name: No committed Git conflict markers anywhere in the tree
+        run: |
+          hits=$(git grep -nI -E '^(<{7}( .{0,80})?$|={7}$|>{7}( .{0,80})?$)' -- . || true)
+          if [ -n "$hits" ]; then
+            printf '%s\n' "$hits"
+            echo "FAIL: committed conflict markers - resolve them before publishing"
+            exit 1
+          fi
+          echo "clean: no conflict markers in $(git ls-files | wc -l) tracked files"
       - uses: actions/setup-node@v5
         with:
           node-version: '24'
