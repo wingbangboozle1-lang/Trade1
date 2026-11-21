@@ -1,11 +1,14 @@
 // Pre-deploy checks for the published site (repository root, served by GitHub Pages):
 //  1. every local href/src in **/*.html resolves to an existing file (no broken links);
 //  2. every snapshot row and resolved row carries an official source_url on the configured API base;
-//  3. shared modules import cleanly.
+//  3. shared modules import cleanly;
+//  4. verification-audit gates (2026-11-21): one-topic event grouping, result enums,
+//     rule-set provenance (scripts/topics.json, assets/lib.mjs), and the top-events
+//     totals disclosure on data.html.
 // Exits non-zero on any failure.
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
-import { API_BASES } from '../assets/lib.mjs';
+import { API_BASES, TOPICS as LIB_TOPICS } from '../assets/lib.mjs';
 
 const SITE = '.';
 const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts', '.render-cache']);
@@ -107,6 +110,84 @@ try {
   failures.push(`data/resolved.json unreadable: ${e.message}`);
 }
 
-await import('../assets/lib.mjs');
+// ---- Verification-audit gates (session arena/86c45cd3-trade1, 2026-11-21) ----
+// Brief rules pinned here: topics stay separate and each event is grouped in
+// exactly one topic; published values are never invented (result enum, official
+// URLs only); each file's published rule "definition" is exactly the rule of
+// record in scripts/topics.json; data/snapshot.json topic_rules serializes from
+// assets/lib.mjs TOPICS exactly the way scripts/build_snapshot.mjs maps it; and
+// the "top events" tables on data.html keep their totals disclosure so a reader
+// is never misled about what is (and is not) shown.
+try {
+  const rules = JSON.parse(await readFile('scripts/topics.json', 'utf8'));
+  const ruleById = Object.fromEntries(rules.topics.map(t => [t.id, t]));
+  const seenEvents = new Map();   // event_ticker -> topic id
+  const seenTickers = new Map();  // market ticker -> topic id
+  for (const t of ['gas-prices', 'elections', 'culture', 'crypto', 'golf']) {
+    const f = `data/topics/${t}.json`;
+    const d = JSON.parse(await readFile(f, 'utf8'));
+    const r = ruleById[t];
+    if (!r) { failures.push(`scripts/topics.json: no rule for ${t}`); continue; }
+    // collect.py publishes definition as exactly these three classification
+    // fields (exclusion rules live in scripts/topics.json / methods.html).
+    const want = { categories: r.categories, title_keywords: r.title_keywords, series_prefix: r.series_prefix };
+    if (JSON.stringify(d.definition) !== JSON.stringify(want)) {
+      failures.push(`${f}: definition diverges from scripts/topics.json`);
+    }
+    for (const group of Object.values(d.source_urls || {})) {
+      for (const u of Array.isArray(group) ? group : []) {
+        if (typeof u !== 'string' || !u.startsWith(base + '/')) failures.push(`${f}: foreign source_url ${u}`);
+      }
+    }
+    const events = d.events || [];
+    if (d.event_count != null && d.event_count < events.length) {
+      failures.push(`${f}: event_count ${d.event_count} < stored events ${events.length}`);
+    }
+    if (events.length > 30) failures.push(`${f}: stores ${events.length} events (cap is 30 — collect.py rows[:30])`);
+    for (const ev of events) {
+      if (seenEvents.has(ev.event_ticker)) {
+        failures.push(`${f}: event ${ev.event_ticker} also in ${seenEvents.get(ev.event_ticker)} — events must stay grouped in one topic`);
+      }
+      seenEvents.set(ev.event_ticker, t);
+      for (const m of ev._markets || []) {
+        if (!m.ticker) { failures.push(`${f}: market row without ticker in ${ev.event_ticker}`); continue; }
+        if (seenTickers.has(m.ticker)) failures.push(`${f}: market ${m.ticker} also filed under ${seenTickers.get(m.ticker)}`);
+        seenTickers.set(m.ticker, t);
+        if (!['', 'yes', 'no'].includes(m.result)) {
+          failures.push(`${f}: market ${m.ticker} result not blank/yes/no: ${JSON.stringify(m.result)}`);
+        }
+      }
+    }
+  }
+
+  // data/snapshot.json topic_rules must be the lib.mjs TOPICS serialization
+  // (exact mapping of scripts/build_snapshot.mjs) — pin the derived pair so a
+  // hand edit to either side cannot go unnoticed.
+  const snap2 = JSON.parse(await readFile('data/snapshot.json', 'utf8'));
+  const wantRules = LIB_TOPICS.map(t => ({
+    id: t.id, label: t.label, official_categories: t.categories,
+    keyword_patterns: t.keywords.map(k => k.source),
+  }));
+  if (JSON.stringify(snap2.topic_rules) !== JSON.stringify(wantRules)) {
+    failures.push('data/snapshot.json: topic_rules diverges from assets/lib.mjs TOPICS (build_snapshot.mjs mapping)');
+  }
+  for (const r of [...(snap2.rows || []), ...(snap2.resolved || [])]) {
+    if (r.result != null && !['', 'yes', 'no'].includes(r.result)) {
+      failures.push(`data/snapshot.json: ${r.ticker} result not blank/yes/no: ${JSON.stringify(r.result)}`);
+    }
+    if (r.kalshi_url && !String(r.kalshi_url).startsWith('https://kalshi.com/')) {
+      failures.push(`data/snapshot.json: ${r.ticker} kalshi_url not official: ${r.kalshi_url}`);
+    }
+  }
+
+  // data.html must keep the totals disclosure above its "top events" tables.
+  const page = await readFile('data.html', 'utf8');
+  if (!page.includes('matched open events')) {
+    failures.push('data.html: "top events" tables lost their matched-open-events totals disclosure');
+  }
+} catch (e) {
+  failures.push(`verification-audit gates: ${e.message}`);
+}
+
 console.log(JSON.stringify({ checked, failures: failures.length }));
 if (failures.length) { console.error(failures.slice(0, 50).join('\n')); process.exit(1); }
