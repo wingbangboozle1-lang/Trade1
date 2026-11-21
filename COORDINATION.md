@@ -1532,6 +1532,18 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **Not touched:** `scripts/collect.py`, `.github/workflows/pages.yml`, `flagged.html`, `assets/**`, and every other session's files (only this board section + the new report were written).
 - **Validators on this branch (exit 0):** `node tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links) · `node scripts/check_site.mjs` 0 failures (18 pages, 432 links, **1,248 rows / 825 resolved with the fresh snapshot**) · `node scripts/check_links.mjs` 0 failures (16 pages, 400 local + 236 external) · `npm test` all suites green (engine 23/23, live_fixes 3/3, live_dash 6/6, fees, model, root_engine, portfolio 60/60, demo-account 89/89, collector tests OK).
 - **Irregularities:** none new. The incident itself is the finding; recovery is complete and the resilience gap is logged as CR-e1747106-1.
+- **CR pickup (cross-reference):** session `0b68e1e4` claimed the CR-e1747106-1 implementation (429 backoff + pacing in `scripts/collect.py`, plus strategy entry guards) on 2026-11-21 — recorded in their section below; this session will not touch those files while their claim is live.
+- **PR / merge:** PR **#92** (`arena/e1747106-trade1` → `main`): https://github.com/wingbangboozle1-lang/Trade1/pull/92 — checks **pass** (run 44880324330), merged without waiting for approval per the brief (one conflict against concurrent `main` resolved additively before merge: this section and session `0b68e1e4`'s claim both kept). Pages verification after merge recorded in the PR description and in `reports/VERIFICATION_e1747106.md`.
+---
+
+## Session `0b68e1e4` — rate-limit hardening + strategy entry guards (2026-11-21)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Fix collector 429 storm (no pacing/backoff in `scripts/collect.py`: 220×429 vs 45×200 in `data/log.md`, gas-prices 0 events, resolved 0); add 429 retry to `scripts/portfolio_engine.py`; add momentum/fade/breakout entry price cap (ask ≤ $0.90) + same-ticker cross-strategy dedupe in both engines; verify dashboard requirements line-by-line; update executive summary; PR → merge → Pages | in progress | `0b68e1e4` (branch `arena/0b68e1e4-trade1`) | `scripts/collect.py`, `scripts/portfolio_engine.py`, `assets/model.js`, `methods.html`, `flagged.html`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md`, `tests/**`, `scripts/test_*.mjs` |
+
+- Official sources re-verified this session (fetched live): [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) (demo REST `https://external-api.demo.kalshi.co/trade-api/v2` recommended, `https://demo-api.kalshi.co/trade-api/v2` also supported; demo WS `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` / `wss://demo-api.kalshi.co/trade-api/ws/v2`) and [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) (unauthenticated requests "subject to separate limits", back off on 429, exponential backoff, 429 carries **no** `Retry-After`, body `{"error":{"code":"too_many_requests",...}}` — exactly the body in `data/log.md`).
+- Findings so far: `scripts/collect.py` `get()`/`fetch_json()` fire with zero pacing and zero 429 retry (portfolio engine paces at 0.35 s but also never retries 429). Ledger track record: 11 trades, 4 realised all losses; two settled -100% losses are the same market (`KXETHD-26NOV2017-T1659.99`) bought by **both** momentum (chasing a +$0.77 spike to $0.95) and harvest — cross-strategy stacking + no entry price cap. Both engines dedupe only by ticker+strategy and allow asks up to $0.95.
 <!-- End of the formerly conflicting historical records. -->
 
 ### efc28509 — PR / merge / deploy record (2026-11-21 UTC)
@@ -1540,6 +1552,40 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **Pages:** latest Pages build for `459a643` → **built**. Live page `https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md` fetched and shows the board. The sandbox cannot reach `github.io` directly (curl returns 000), so the fetch was done through the page fetcher.
 - **Task status:** done (verification record only). Blocked items unchanged: live Kalshi reads from the sandbox and demo-account portfolio/execution (no demo credentials provided).
 
+### 0b68e1e4 — completion record (2026-11-21 UTC)
+
+- **Overlap with `c96a21b7` (PR #80), resolved without dropping either side.** PR #80 landed first and rebuilt
+  `scripts/collect.py` fail-closed. This branch was rebased/merged onto it and my retry loop was **removed** in favour of
+  theirs; only `X-RateLimit-Reset` handling was folded into their backoff chooser (their code already used
+  `Retry-After`-else-2ⁿ). Their trust gates, `FAILURES` accounting and `test_collect_failclosed.py` are untouched.
+  Nothing from `c96a21b7` was discarded.
+- **Their follow-up request, done here:** `scripts/portfolio_engine.py` is now **fail-closed** as well. `fetch_quotes()`
+  returns the failed chunks, and `cmd_run` writes **no** ledger/artifact update when any chunk still fails after the
+  retries or when no quotes come back (it prints the kept-ledger reason instead). Covered by
+  `fetch_quotes_failed()` + 3 new selftest checks.
+- **`tests/test_collect.py` rewritten for the merged collector:** it now tests `get_with_retry` (the function that
+  existed after the merge) — 429 retried then succeeds, `X-RateLimit-Reset` drives the wait, `Retry-After` wins when
+  both are present, retries bounded at `MAX_ATTEMPTS`, failure recorded in `FAILURES`, backoff cap respected, and a
+  definitive 400 not retried. **10/10 pass.**
+- **Ledger rules (this session's own finding, BE-2):** one open position per ticker across all strategies, and
+  momentum/fade/breakout refuse an ask above $0.90 (harvest exempt by design). Mirrored in `assets/model.js`.
+  The two historical stacked rows (`KXETHD-26NOV2017-T1659.99`, -$24.87 each, both settled NO) are left in the
+  ledger unchanged — no past trade was rewritten.
+- **Verification on the merged tree (exit 0):** `npm run build` 18 HTML / 6 JS / 0 broken links ·
+  `npm run check` 18 pages, 437 links, 1,183 rows, 625 resolved, **0 failures** (405 local + 247 external, 0 failures) ·
+  `npm test` engine 23 · live_fixes 3 · live_dash 6 · fees 50 · model **36** · root_engine 48 · model.test 21 ·
+  portfolio 60/60 · demo-account 89/89 · `test_collect.py` **10/10** · `test_collect_failclosed.py` 6/6 ·
+  `portfolio_engine.py selftest` **77/77** · `tools/render_test.mjs --offline` 16 pages, 0 JS errors.
+- **Official sources re-read:** [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) ·
+  [API Environments](https://docs.kalshi.com/getting_started/api_environments) ·
+  [Get Events](https://docs.kalshi.com/api-reference/events/get-events) (limit max 200) ·
+  [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) (limit 1000 accepted).
+- **Not verified (no inference made):** a live run of the corrected jobs. This sandbox has no route to
+  `external-api.demo.kalshi.co`. Published as **BE-4** on `flagged.html`; the next scheduled `pages.yml` /
+  `portfolio.yml` run is the first real confirmation.
+- **Publications:** `flagged.html` BE-1 … BE-4 · `methods.html` §4 (entry cap, one-position rule, rate-limit policy) ·
+  `EXECUTIVE_SUMMARY.md` + `executive-summary.html` reliability section.
+- **PR / merge / deploy:** recorded below once complete.
 ## Session `arena/1c5b46b2-trade1` — audit and coordination-board cleanup (claimed 2026-11-21 UTC)
 
 | Task | Status | Owner session | Files in scope |
@@ -1552,11 +1598,12 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 
 ### `arena/1c5b46b2-trade1` — final audit and cleanup (2026-11-21 UTC)
 
-- **Scope:** coordination-board cleanup, final verification, and one evidence-only addition to `flagged.html`. The canonical dashboard, data, and navigation were already present; no application logic or market snapshot values were changed. After fetching the live landing page, the visible snapshot verification timestamp was 03:59:57Z at approximately 07:19Z; this stale timestamp was disclosed as Flagged item 20, with the observation explicitly distinguished from independently verified live Kalshi values.
+- **Scope:** coordination-board cleanup, final verification, and an evidence-only addition to `flagged.html`. No application logic or market snapshot values were changed by this session. At approximately 07:19Z, the landing page showed a 03:59:57Z verification time; by the 07:24Z check, committed metadata had advanced to generated_at 07:17:44Z / finished_at 07:22:50Z with collector status `ok`, while the fetched page still showed the older timestamp. Flagged item 20 records that mismatch and the evidence; the reason is undetermined.
 - **Board irregularity fixed:** literal `<<<<<<<`, `=======`, and `>>>>>>>` Git merge-conflict markers were present in the historical records above. Replaced these markers with explanatory HTML comments and clarified that the old pending-PR sentence was historical and its separate branch status was not checked. Both prior records remain intact for audit history. During rebase onto concurrent `main` updates, the same board section conflicted; retained the new `aa7d3d27` rebase note and both historical audit blocks, then removed only the conflict delimiters.
-- **Checks:** `npm ci --no-audit --no-fund` completed; after adding Flagged item 20, `npm run check` passed (18 HTML, 6 JS, 1,249 rows, 825 resolved, 435 links, 0 failures; 16 published pages, 403 local + 238 external links, 0 failures); `npm test` passed (engine 23/23, live fixes 3, live dashboard 6, library, fee/model checks, portfolio 60/60, demo-account 89/89, collector 4/4). The initial test attempt before dependency installation failed because `jsdom` was absent; after `npm ci`, the suite passed. Generated `tools/build-report.json` timestamp change was reverted.
+- **Checks:** `npm ci --no-audit --no-fund` completed; after adding Flagged item 20, `npm run check` passed (18 HTML, 6 JS, 1,248 rows, 825 resolved, 436 links, 0 failures; 16 published pages, 404 local + 238 external links, 0 failures); `npm test` passed (engine 23/23, live fixes 3, live dashboard 6, library, fee/model checks, portfolio 60/60, demo-account 89/89, collector 4/4). The initial test attempt before dependency installation failed because `jsdom` was absent; after `npm ci`, the suite passed. Generated `tools/build-report.json` timestamp change was reverted.
 - **Official source checked:** Kalshi [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) confirms the requested demo REST base URLs (`https://external-api.demo.kalshi.co/trade-api/v2` recommended; `https://demo-api.kalshi.co/trade-api/v2` also supported) and the corresponding demo WebSocket URLs. The canonical site documents REST polling instead of browser WebSockets.
 - **Deployment:** GitHub Pages API reports `status: built`, legacy Pages source `main /`, HTTPS status is available in the account. Live site: https://wingbangboozle1-lang.github.io/Trade1/ .
 - **Not independently verified in this session:** live Kalshi API values or any trading account balance/execution. The restricted sandbox could not query the Kalshi API directly; the account needs owner-provided demo credentials. Automatic trading in the main dashboard is paper simulation only. These limitations and unverified points remain published on the site's Flagged for Review page. No values were fabricated.
-- **PR #82 / merge / Pages:** [PR #82](https://github.com/wingbangboozle1-lang/Trade1/pull/82) merged 2026-11-21 07:19:23Z as `14693c89349548e1d264588754a38d1758b6f90e`. No GitHub status checks were reported for that docs-only PR; local build, data/link validation, and full tests passed above. GitHub Pages deployment run [44879703630](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879703630) succeeded, Pages API reports `built` (legacy `main /`, HTTPS enforced), and the published landing and Flagged pages were fetched. Deployment emitted the existing `actions/upload-artifact@v4` Node.js 20 deprecation warning (forced to Node.js 24); build and deploy passed.
-- **Status:** done. No market snapshot values or application logic changed; Flagged item 20 documents the observed timestamp and requires confirmation by the next successful scheduled collector run.
+- **PR #82 / merge / Pages:** [PR #82](https://github.com/wingbangboozle1-lang/Trade1/pull/82) merged 2026-11-21 07:19:23Z as `14693c89349548e1d264588754a38d1758b6f90e`. No GitHub status checks were reported for that board-only PR; local build, data/link validation, and full tests passed above. GitHub Pages deployment run [44879703630](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879703630) succeeded, Pages API reported `built` (legacy `main /`, HTTPS enforced), and the published landing and Flagged pages were fetched. Deployment emitted the existing `actions/upload-artifact@v4` Node.js 20 deprecation warning (forced to Node.js 24); build and deploy passed.
+- **PR #88 / merge / Pages:** [PR #88](https://github.com/wingbangboozle1-lang/Trade1/pull/88) merged 2026-11-21 07:24:36Z as `16376d6449040b12df21f522a3154524e787e5a0`. Its `checks` job passed (run [44879924559](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879924559)); snapshot job was skipped for the PR. GitHub Pages deployment [44880120862](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880120862) succeeded, and the published Flagged page was fetched with item 20 visible. Latest committed collector metadata on the merge tree is `generated_at` 07:17:44Z, `finished_at` 07:22:50Z, `collect_status.status: ok`, `transient_read_failures: 0`; the landing-page timestamp mismatch remains unexplained.
+- **Status:** done. No market snapshot values or application logic changed by this session; Flagged item 20 documents the current rendered-vs-committed timestamp discrepancy without claiming which timestamp is displayed to end users.

@@ -115,3 +115,31 @@ suites re-run after the merge: `check_site.mjs` 16 pages / 0 failures, `tests/en
 `tests/root_engine.test.js` 40 passed / 0 failed, `scripts/test_lib.mjs` passed, `tools/build.mjs` BUILD OK.
 One live cycle of the ledger ran on a GitHub runner ([workflow run `44801621609`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44801621609),
 both jobs success) — this sandbox has no route to `*.demo.kalshi.co`, which is itself verified and recorded rather than assumed.
+
+---
+
+## Addendum — session `0b68e1e4`, 2026-11-21 (reliability audit of the collectors and the ledger rules)
+
+This pass audited the parts of the build that only the GitHub Actions runners exercise, because the two failures found
+here were invisible on the pages: a 429 storm in the snapshot collector and a double-stacked losing position in the ledger.
+
+**Sources read for this pass (official only):**
+[Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) ·
+[API Environments](https://docs.kalshi.com/getting_started/api_environments) ·
+[Get Events](https://docs.kalshi.com/api-reference/events/get-events) ·
+[Get Markets](https://docs.kalshi.com/api-reference/market/get-markets).
+
+| Finding (evidence in the repo) | What was wrong | What changed |
+|---|---|---|
+| **BE-1 · 429 storm.** `data/log.md` for the 2026-11-21T06:58Z snapshot records **220 × 429 vs 45 × 200**. | Neither Python fetcher retried a 429. `scripts/collect.py` treated a failed read as an empty result, so that run **overwrote good artifacts** (resolved rows 200 → 0, gas-prices 90 kB → 1.1 kB). The official page says to back off exponentially on 429 and sends no `Retry-After`. | Fixed across two merged sessions: `c96a21b7` (PR #80) made the collector's reads **fail-closed** (5 attempts, `Retry-After`/2ⁿ backoff to 60 s, every failure recorded, verified artifacts never overwritten by a degraded run); this session folded in `X-RateLimit-Reset` as the hint when `Retry-After` is absent, gave `scripts/portfolio_engine.py` the same retry/backoff, and made that ledger fail closed too — a still-failing chunk stops the cycle rather than booking trades against a partial book. Tests: `test_collect.py` 10/10, `test_collect_failclosed.py` 6/6, ledger selftest 77/77. |
+| **BE-2 · stacked losing position.** `data/portfolio.json`: `KXETHD-26NOV2017-T1659.99` appears twice, opened by **momentum** and **harvest**, both settled **NO**, −$24.87 each. | Both engines deduplicated by *ticker + strategy*, and both allowed an entry at a $0.95 ask after a +$0.77 spike — risking $0.95 to make $0.05. Those two rows were the ledger's entire realised loss before fees. | One open position per ticker **across all strategies**, and momentum/fade/breakout refuse an ask above **$0.90** (harvest exempt by design: it buys $0.90–$0.99 YES to settlement). Mirrored in `assets/model.js`. Six new selftest checks and six new checks in `scripts/test_model.mjs`. Past ledger rows were **not** rewritten. |
+| **BE-3 · "limit=1000 rejected" re-check.** | The Flags page wording could be read as applying to every endpoint. | Verified against the official schemas: Get Events caps `limit` at 200; Get Markets does not — and the repo's own committed sample `data/samples/market-open-sample.json` was fetched with `limit=1000`. The collector was correct and left unchanged. Recorded so a later reviewer does not "fix" it. |
+| **BE-4 · not verified.** | The corrected collector has not run against the live demo API from this sandbox (no route to `external-api.demo.kalshi.co`). | Published as open on the Flagged page. The next scheduled `pages.yml` data job is the first real run. |
+
+**Gates after these changes (all run locally, exit 0):** `npm run build` BUILD OK — 18 HTML / 6 JS / 0 broken links ·
+`npm run check` 18 HTML, 436 links, 1,183 rows, 625 resolved, **0 failures** (404 local + 246 external, 0 failures) ·
+`npm test` — engine 23 · live_fixes 3 · live_dash 6 · fees 50 · model 36 · root_engine 48 · model.test 21 · portfolio 60/60 ·
+demo-account 89/89 · `tests/test_collect.py` **8/8** · `portfolio_engine.py selftest` **77/77**.
+
+**Published on the site:** four rows **BE-1 … BE-4** on [`flagged.html`](flagged.html); the new entry rules and the rate-limit
+policy on [`methods.html`](methods.html) §4.

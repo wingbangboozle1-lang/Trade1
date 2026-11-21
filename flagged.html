@@ -75,7 +75,7 @@
       <tr><td>17</td><td><b>Alert cooldown.</b> A ≥ $0.10 move fires at most once per market per 45 s so an oscillating quote cannot flood the chats. A genuine second move inside that window is suppressed (and is not shown in the chat history). The threshold/cooldown are dashboard policy, not a Kalshi alert standard.</td><td>Deliberate project rule; market data timing is subject to API caching</td><td class="src"><a href="methods.html">Methods §3</a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_market_data">Official market-data caching guidance</a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Official rate-limit guidance</a></td></tr>
       <tr><td>18</td><td><b>Asks in the order book are derived, not published.</b> The exchange returns bids only; we show YES ask ≡ 1 − NO bid and NO ask ≡ 1 − YES bid per the official reciprocal rule, and label every such column with an asterisk.</td><td>Derived from published bids</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/orderbook_responses">Orderbook Responses</a></td></tr>
       <tr><td>19</td><td><b>WebSocket hosts confirmed but unused.</b> The official environment page lists the demo WS hosts (<code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code> and <code>wss://demo-api.kalshi.co/trade-api/ws/v2</code>). An earlier copy on this page incorrectly inserted <code>-ws</code> into the supported second hostname; corrected 2026-11-20. The dashboard does not use WebSockets because the handshake requires signed authentication headers; the site uses REST polling for public market data.</td><td>Corrected hostname; REST polling remains the dashboard transport</td><td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">API Environments and Endpoints</a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/quick_start_websockets">Quick Start: WebSockets</a></td></tr>
-      <tr><td>20</td><td><b>Snapshot freshness is behind the page check time.</b> When the public landing page was fetched at approximately 2026-11-21 07:19 UTC, it still reported “last Actions verification 2026-11-21 03:59:57Z”; the committed <code>data/meta.json</code> confirms that timestamp. The collection log records a later upstream HTTP 429 incident and recovery from the earlier snapshot. This is an observation about the published snapshot timestamp, not a claim about current Kalshi market values; this session could not make an independent live API request.</td><td>Freshness remains unconfirmed until a successful scheduled collector run publishes a newer timestamp. Do not treat the snapshot as current-market confirmation.</td><td class="src"><a href="index.html">Observed landing page</a> · <a href="data/meta.json"><code>data/meta.json</code></a> · <a href="data/log.md"><code>data/log.md</code></a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Official Get Events endpoint documentation</a> · <a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&amp;limit=1">Official demo events API</a></td></tr>
+      <tr><td>20</td><td><b>Landing-page snapshot timestamp did not match the committed snapshot metadata.</b> At approximately 2026-11-21 07:24 UTC, the fetched landing page still displayed “last Actions verification 2026-11-21 03:59:57Z”, while the latest committed <code>data/meta.json</code> reports <code>generated_at: 2026-11-21T07:17:44Z</code> and <code>finished_at: 2026-11-21T07:22:50Z</code>; <code>data/collect_status.json</code> reports <code>status: ok</code> and zero transient read failures. The reason for the discrepancy was not determined. This flags the rendered timestamp, not the underlying market values; no independent live API request was made by this session.</td><td>Inspect the live page and committed metadata together; until the rendered timestamp agrees with the metadata, freshness display is unverified. The latest committed collector artifacts indicate a successful run.</td><td class="src"><a href="index.html">Observed landing page</a> · <a href="data/meta.json"><code>data/meta.json</code></a> · <a href="data/collect_status.json"><code>data/collect_status.json</code></a> · <a href="data/log.md"><code>data/log.md</code></a> · <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Official Get Events endpoint documentation</a> · <a target="_blank" rel="noopener" href="https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&amp;limit=1">Official demo events API</a></td></tr>
     </table></div>
   </section>
 
@@ -263,6 +263,58 @@
       <li>cedad5c4's F1–F10 / R1–R9 (recorded in <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/COORDINATION.md">COORDINATION.md</a>) — overlapping sessions and Pages source conflicts; resolved here by publishing one root build and keeping the others in-tree.</li>
       <li>Repo-hygiene flags from those sessions (committed generated data, large snapshots) apply to <code>data/</code> here too; my snapshots are capped (≤8 markets/event, ~1 MB total) and refreshed by the Actions pipeline.</li>
     </ul>
+  </section>
+
+  <section class="box" style="margin-top:14px">
+    <h2>Added by session <code>0b68e1e4</code> — 2026-11-21 (collector rate limits, entry guards)</h2>
+    <p class="small muted">Every row was reproduced from the committed artifacts or the official docs before it was changed.
+      Official sources read for this pass:
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">API Environments</a>.</p>
+    <div class="tablewrap"><table class="small">
+      <thead><tr><th>ID</th><th>Irregularity</th><th>Evidence and official source</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>BE-1</td><td><b>The Python collectors ignored 429 entirely.</b> The 2026-11-21T06:58Z snapshot run logged
+          <b>220 × 429 against 45 × 200</b>; <code>scripts/collect.py</code> treated a failed read as an empty result, so that run
+          overwrote good artifacts (resolved rows 200 → 0, gas-prices 90 kB → 1.1 kB). <code>scripts/portfolio_engine.py</code>
+          paced 0.35 s but never retried a 429. The official rate-limit page says to back off on 429 with exponential backoff and
+          sends <b>no</b> <code>Retry-After</code> header — only <code>X-RateLimit-Reset</code> (seconds) when available.</td>
+          <td><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md</a> (the 429 lines, verbatim) ·
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a></td>
+          <td><b>Fixed across two sessions, merged.</b> Session <code>c96a21b7</code> (PR #80) rebuilt the collector's reads
+            fail-closed: 5 attempts, <code>Retry-After</code> when numeric else 2ⁿ s capped at 60 s, every upstream failure recorded,
+            and a verified artifact is never overwritten by a degraded run. Session <code>0b68e1e4</code> (this one) folded in
+            <code>X-RateLimit-Reset</code> as the backoff hint when <code>Retry-After</code> is absent, gave
+            <code>scripts/portfolio_engine.py</code> the same retry/backoff, and made that ledger <b>fail closed</b> too: a chunk that
+            still fails stops the cycle instead of booking trades against a partial quote set.
+            Tests: <code>tests/test_collect.py</code> 10/10 · <code>tests/test_collect_failclosed.py</code> 6/6 ·
+            <code>portfolio_engine.py selftest</code> 77/77.</td></tr>
+        <tr><td>BE-2</td><td><b>The ledger stacked two strategies on one market and bought near-certainty at $0.95.</b>
+          Both engines deduplicated by <i>ticker + strategy</i>, so momentum and harvest could each open a position on the same ticker.
+          The same market, <code>KXETHD-26NOV2017-T1659.99</code>, was bought by momentum (chasing a +$0.77 spike to a $0.95 ask) and again by
+          harvest; both settled NO, together accounting for the ledger's whole realised loss before fees.</td>
+          <td><a href="data/portfolio.json" target="_blank"><code>data/portfolio.json → trades[]</code></a> (both rows, same ticker, both settled <code>no</code>) ·
+            <a href="portfolio.html">Portfolio ledger</a></td>
+          <td><b>Fixed.</b> One open position per ticker across all strategies, and momentum/fade/breakout now refuse an ask above
+            <b>$0.90</b> (harvest is exempt by design — it buys $0.90–$0.99 YES to settlement). The historical rows are left in the ledger
+            unchanged; no past trade was re-written. Regression: portfolio selftest (6 new checks) and
+            <code>scripts/test_model.mjs</code> (6 new checks) cover both engines.</td></tr>
+        <tr><td>BE-3</td><td><b>Confirmed, not a defect:</b> <code>/events?limit=1000</code> is rejected while <code>/markets?limit=1000</code> is accepted.
+          The Get Events schema caps <code>limit</code> at 200; Get Markets does not. The collector was checked against both and left as-is
+          (200 for events, 1000 for markets/series). This row exists so the difference is not mistaken for a bug in a later review.</td>
+          <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events</a> ·
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> ·
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/samples/market-open-sample.json">committed official sample fetched with limit=1000</a></td>
+          <td><b>Verified — no change needed.</b></td></tr>
+        <tr><td>BE-4</td><td><b>Not verified by this session (no inference made):</b> the corrected collector has <b>not</b> been run against the live
+          demo API from this build sandbox (no route to <code>external-api.demo.kalshi.co</code>). The 429 behaviour was verified with simulated
+          HTTP responses only. The scheduled <code>pages.yml</code> data job in GitHub Actions is the first real run of the new code.</td>
+          <td><code>tests/test_collect.py</code> (simulated 429 / X-RateLimit-Reset / bounded retries / backoff cap)</td>
+          <td><b>Open for review</b> — first live confirmation arrives with the next scheduled snapshot run.</td></tr>
+      </tbody>
+    </table></div>
   </section>
 
   <section class="box" style="margin-top:14px">
