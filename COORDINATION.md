@@ -1161,3 +1161,41 @@ Claim recorded on the active branch. This is a narrow fix to the previously docu
 Rebase overlap note: the `COORDINATION.md` append conflicted with session `arena/504976fa-trade1`'s verification-only entry. Both complete records were retained; no other session's content was removed.
 
 Rebase overlap note: this replay also overlapped with the already merged verification record from session `arena/31a8a56b-trade1`. Both complete records were retained.
+
+---
+
+## Session `arena/725b09a7-trade1` — final integration: line-by-line repo review, official-source re-verification, defect repair, PR → merge → Pages (2026-11-21)
+
+**Claim.** Taken 2026-11-21 ~06:45 UTC on branch `arena/725b09a7-trade1` from `main` @ `a15a941`
+(PR #61, the CI paper-trading ledger commit).
+
+**Files in scope:** `COORDINATION.md`, `reports/REPO_REVIEW_725b09a7.md`,
+`scripts/collect.py`, `scripts/collect_test.py`, `scripts/portfolio_engine.py`,
+`.github/workflows/pages.yml`, `flagged.html`, `README.md`, `EXECUTIVE_SUMMARY.md`,
+`data/resolved.json` (only via the CI collector — never hand-edited).
+
+**Task list (this session):**
+
+| # | Task | Status |
+|---|---|---|
+| 725-T1 | Line-by-line repo review vs official Kalshi sources; irregularities register | in progress |
+| 725-T2 | Take over the stale PR #58 (session `6916270f`, last commit 2026-11-20 20:50Z): per-row official market-record links in the CI ledger | in progress |
+| 725-T3 | Repair defect **D1** — `scripts/collect.py` settled-market fallback ignores `exclude_keywords` and matches `title_keywords` unanchored (4 natural-gas rows published as `gas-prices` in `data/resolved.json`) | in progress |
+| 725-T4 | Add an automated gate for T3 so it cannot silently regress | in progress |
+| 725-T5 | Final integration: re-verify combined data line by line, build with no broken links, PR → merge → Pages deploy verification | pending |
+
+**Not claimed (other sessions' scope, untouched):** `assets/app.js`, `assets/model.js`,
+`assets/portfolio.js`, `assets/site.css`, `dashboard.html`, `trades.html`, `data.html`,
+`methods.html`, `sources.html`, `suggestions.html`, `executive-summary.html`, `index.html`,
+`topics/**`, `demo-account/**`, `data/portfolio*.json`, `data/topics/**`, `tests/**`,
+`tools/**`, `scripts/check_site.mjs`, `scripts/check_links.mjs`, `scripts/demo_account/**`.
+
+**Stale-session takeover.** PR #58 (`arena/6916270f-trade1`, "Portfolio: link each ledger row to
+its own official market record + final coordination record") was open and `CONFLICTING` with
+`main`; its owning session's last commit was 2026-11-20 20:50Z (>60 min before this session
+started). Its substantive change — `api_market_url()` in `scripts/portfolio_engine.py`, so each
+ledger trade / alert / resolution row links *its own* `GET /markets/{ticker}` record instead of
+the 400-ticker batch URL — is taken over into this session and re-applied against the current
+`main`. Its documentation-only edits are reconciled here rather than merged verbatim.
+
+
