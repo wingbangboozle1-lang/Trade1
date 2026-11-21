@@ -158,6 +158,15 @@ def load_topics():
         return json.load(f)["topics"]
 
 
+def keyword_match(pattern, text):
+    """Match configured keywords as words/phrases, not substrings of other words."""
+    return bool(pattern and re.search(rf"(?<!\w)(?:{pattern})(?!\w)", text or "", re.I))
+
+
+def topic_excluded(topic, title, series=""):
+    return keyword_match(topic.get("exclude_keywords"), f"{title} {series}")
+
+
 def classify(event, topics):
     title = f"{event.get('title', '')} {event.get('sub_title', '')}"
     series = event.get("series_ticker", "") or ""
@@ -165,13 +174,25 @@ def classify(event, topics):
     for t in topics:
         if t.get("exclude_categories") and cat and cat in t["exclude_categories"]:
             continue  # e.g. Trump golf-club markets sit in Politics, not Golf (PR #20)
-        if t.get("exclude_keywords") and re.search(t["exclude_keywords"], f"{title} {series}", re.I):
+        if topic_excluded(t, title, series):
             continue
         if cat and cat in t["categories"]:
-            if not t["title_keywords"] or re.search(t["title_keywords"], title, re.I):
+            if not t["title_keywords"] or keyword_match(t["title_keywords"], title):
                 return t["id"], "category"
         if t["series_prefix"] and re.search(t["series_prefix"], series, re.I):
             return t["id"], "series-prefix"
+    return None, None
+
+
+def classify_settled_without_event(title, series, topics):
+    """Fallback for settled rows whose event is absent from the open-event list."""
+    for t in topics:
+        if topic_excluded(t, title, series):
+            continue
+        if t["series_prefix"] and re.search(t["series_prefix"], series or "", re.I):
+            return t["id"], "series-prefix"
+        if keyword_match(t["title_keywords"], title):
+            return t["id"], "title-keyword"
     return None, None
 
 
@@ -257,10 +278,10 @@ def main():
                 if not tick or tick in seen_series:
                     continue
                 hay = f"{sr.get('title') or ''} {tick}"
-                if t.get("exclude_keywords") and re.search(t["exclude_keywords"], hay, re.I):
+                if topic_excluded(t, sr.get("title") or "", tick):
                     continue
                 if t["title_keywords"] and not (
-                        re.search(t["title_keywords"], sr.get("title") or "", re.I)
+                        keyword_match(t["title_keywords"], sr.get("title") or "")
                         or re.search(t["series_prefix"], tick, re.I)):
                     continue
                 seen_series.add(tick)
@@ -405,15 +426,9 @@ def main():
                  "category": e.get("category") if e else None}
         tid, why = classify(probe, topics)
         if not tid and not e:
-            # settled events are absent from the open-events list; fall back to
-            # series-prefix / title-keyword matching only (logged reason)
-            for t in topics:
-                if t["series_prefix"] and re.search(t["series_prefix"], series, re.I):
-                    tid, why = t["id"], "series-prefix"
-                    break
-                if t["title_keywords"] and re.search(t["title_keywords"], title, re.I):
-                    tid, why = t["id"], "title-keyword"
-                    break
+            # Settled events are absent from the open-events list. The fallback
+            # must still honor exclusions and whole-word keyword boundaries.
+            tid, why = classify_settled_without_event(title, series, topics)
         if tid:
             row = trim(m, MARKET_FIELDS)
             row["_topic"] = tid
