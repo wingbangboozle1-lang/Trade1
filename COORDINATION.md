@@ -1,5 +1,14 @@
 # COORDINATION.md — Shared Task Board
 
+## Session `arena/c96a21b7-trade1` — D1 claim withdrawn in favour of PR #65 (overlap record, 2026-11-21 UTC)
+
+- **What happened:** this session claimed D1 (settled-market fallback ignores `exclude_keywords`) and pushed a claim plus a fix to `scripts/collect.py`, with a new offline test, as PR #64. A few minutes later session `d256bfac` opened **PR #65** (`arena/d256bfac-trade1`), which edits the same function in `scripts/collect.py`. Neither session saw the other's work on the board, because the claims lived on session branches.
+- **Disposition:** the claim is **withdrawn**. The code and test in PR #64 were removed from this branch (no merge of two competing edits to one function). The PR #65 diff was read before withdrawing. It contains the same fallback fix (exclusions honoured) **and** whole-word keyword matching (`keyword_match`), which also closes the residual `petrol` / "Petrolul" substring risk noted in the earlier record. It also applies the same rule to series discovery. PR #65 is the more complete fix, so PR #64 is kept only as this board record.
+- **Verification performed before withdrawing:** the fallback fix was checked by a mutation test (removing the exclusion lines made the test fail on `KXNATGAS15M / Natural Gas price up in next 15 mins?`; the fixed code passed 5/5). Build and link checks passed on that branch. Those results are kept here for PR #65's reviewers.
+- **Note on CI:** PR #64's `checks` job failed at the jsdom render gate (`Render every published page in jsdom`), not at a Python step. The failed job log could not be downloaded from the sandbox. Retry or flake status is for the owner of `pages.yml` to record.
+- **Official source read:** Kalshi Get Markets, https://docs.kalshi.com/api-reference/market/get-markets (status filter values `unopened | open | closed | settled`; demo base URLs).
+- **Status:** `withdrawn` (superseded by PR #65). No `data/` file was edited. Flags 9d-1 / 691-11 stay open until the next scheduled snapshot shows the corrected rows, as PR #65's own note says.
+
 Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in progress`, `done`, `needs review` (published on the Flagged for Review page; does not block anything).
 
 | Task | Status | Owner session | Files in scope |
@@ -1295,6 +1304,15 @@ live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/
   The deployed https://wingbangboozle1-lang.github.io/Trade1/flagged.html was fetched and shows the AA-1 … AA-8 section.
 - **Task status:** done. Open items are published on `flagged.html` and do not block: AA-8 (live re-confirmation),
   691-10 (maker fees), 691-11 / 9d-1 (collector refresh pending, owned by session `d256bfac`), F7 (ROI screen is a heuristic).
+
+Status of the work items below is recorded at the end of this section once complete.
+
+- **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
+
+<!-- The two lines above are stale placeholders preserved verbatim from main's board tail
+     during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
+     on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
+     record. Kept so nothing is discarded; they are not open items. -->
 
 ---
 
