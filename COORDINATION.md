@@ -19,6 +19,36 @@
 
 
 
+## Session `arena/446aa8be-trade1` — AA-8 live re-confirmation of demo-API shapes (claimed 2026-11-21 07:18 UTC; status: done — see completion record below)
+
+- **Claim.** Session `446aa8be`, branch `arena/446aa8be-trade1` (the platform fixes this session to one branch, so the brief's `session-<id>/<task>` naming is not used), base `main` @ `2acfa8e`.
+- **Task.** Close the open item **AA-8** on `flagged.html`: the build sandbox cannot reach `*.kalshi.co`, so the runtime shapes were checked only against committed fixtures. The Arena page fetcher *can* read the official demo host, so this session re-reads the live demo responses for every endpoint the site and ledger call, and compares each field the code reads with the live field name and type.
+- **File scope (only these are edited):**
+  - `reports/VERIFICATION_446aa8be.md` (new): the verification record, with the exact URL, the observed field names, and the official doc page for each endpoint.
+  - `COORDINATION.md`: this section only. (The stray merge-conflict markers from the 6877ec31 merge were already removed on `main` by another session; this session re-checks that none remain.)
+- **Not touched (owned elsewhere or integration-only):** `flagged.html` (integration owner; the AA-8 closure is logged here as a request), `data/**`, `scripts/**`, `assets/**`, `.github/**`, `dashboard.html`, `index.html`.
+- **Not claimed by anyone else at claim time:** open PRs #67, #68, #74, #75, #79 cover the collector, the dashboard column rename, and the integration passes. None of them covers AA-8. PR #75 and PR #68 are "final integration" passes, which this session does not duplicate.
+- **Stop rule.** If a live response contradicts a field the code reads, stop, record it as an irregularity, and do not edit the code. Code changes are for the owner of that file.
+
+### 446aa8be — completion record (2026-11-21 UTC)
+
+- **Status: done** (verification record only; no code, data, or site file changed).
+- **Record:** [`reports/VERIFICATION_446aa8be.md`](reports/VERIFICATION_446aa8be.md).
+- **Live reads (official demo host, through the page fetcher; the sandbox cannot reach it):** `exchange/status`; `markets?status=open` (`active`); `markets?status=settled` (`finalized`, `result` yes/no); `events?status=open`; `series?category=Crypto`; `series/KXDEMOFUTHOURLY`; `events/KXDEMOFUTHOURLY-26NOV21H08`; `markets/{ticker}`; `markets/{ticker}/orderbook`; `markets/trades`; `series/{s}/markets/{t}/candlesticks`. Each field the code reads was compared with the payload.
+- **Docs (official):** [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses), [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets), [Get Trades](https://docs.kalshi.com/api-reference/market/get-trades), [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks), [Get Series](https://docs.kalshi.com/api-reference/market/get-series). Endpoint existence for [Get Events](https://docs.kalshi.com/api-reference/events/get-events), [Get Event](https://docs.kalshi.com/api-reference/events/get-event) and [Get Market](https://docs.kalshi.com/api-reference/market/get-market) confirmed from the [official index](https://docs.kalshi.com/llms.txt).
+- **Result:** every field the browser engine, the collector, and the ledger read exists in the live payload, except two legacy fallbacks (I1). The `open`→`active` and `settled`→`finalized` mapping matches the official table. **AA-8 is answered by live evidence.**
+- **Irregularities (new, not on `flagged.html`):**
+  - **I1** — `scripts/collect.py` (lines ~151, 184, 411–413, 518) and `assets/model.js` (line ~135) fall back to `volume` / `volume_24h`. The official Get Markets schema and all live payloads have only `volume_fp` / `volume_24h_fp`. No effect today. Owner: collector and model owners.
+  - **I2** — the official lifecycle page says `result` can be `scalar`. The code records only yes/no, and `data.html` (line ~107) displays anything that is not `yes` as **NO**. Not seen in the 200-row snapshot (196 no / 4 yes), so it is documented but unobserved. Owner: `data.html` owner.
+  - **I3** — `data/resolved.json` has no per-row `source_url` (0 of 200). The page links are built from the ticker at render time (`resolved.html` line ~109, `API + ticker`), so the rendered table is linked. `scripts/check_site.mjs` checks per-row `source_url` only on `data/snapshot.json`. Owner: collector and `check_site.mjs` owners.
+  - **I4 (already on `flagged.html`, live evidence added):** `KXDEMOFUTHOURLY` has official `category` `"Test"` and tag `"Demo"`; the crypto topic maps it via the `DEMOFUT` series prefix on purpose.
+- **Requests logged for other owners (not edited here):**
+  - **Integration owner (`flagged.html`):** close AA-8 with a pointer to `reports/VERIFICATION_446aa8be.md`; publish I1–I3 with their source links.
+  - **Collector / model owners:** remove the legacy `volume` / `volume_24h` fallbacks (I1); add per-row `source_url` to `resolved.json` and extend `check_site.mjs` to cover it (I3).
+  - **`data.html` owner:** show `scalar` (or the raw `result`) and do not default to NO (I2).
+- **Not verified (no inference):** live numeric values (they move every second); the fee formula and `M` source (see `reports/VERIFICATION_6877ec31.md`); the WebSocket channels; the demo account (no keys in this session).
+- **Board note:** this session's first push (`3206474`) raced main's board and was replaced by its rebased commit using `--force-with-lease` on this session's own branch; no other session's commit was affected. Stray merge markers in `COORDINATION.md` were already removed on `main` by `f1f34f3`.
+
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
 - **Claimed** 2026-11-21 by session `c96a21b7` on branch `arena/c96a21b7-trade1` (base `main` @ `origin/main`).
