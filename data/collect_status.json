@@ -1,6 +1,11 @@
 {
- "run_started_at": "2026-11-21T07:17:44.256244+00:00",
+ "run_started_at": "2026-11-21T07:47:41.079983+00:00",
  "transient_read_failures": 0,
+ "request_stats": {
+  "requests": 499,
+  "retried": 0,
+  "throttled_429": 0
+ },
  "failures_first_20": [],
  "kept_previous_artifacts": [],
  "status": "ok",

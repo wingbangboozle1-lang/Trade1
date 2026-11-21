@@ -193,6 +193,23 @@ test('engine source uses integer 4dp comparison for the alert threshold', () => 
   assert.ok(/previous_price_dollars/.test(APP), 'no round-trip swing detection via previous_price_dollars');
 });
 
+test('the second alert detector is labelled as a 24-hour reference, not an intraday swing', () => {
+  // Verified against the official Market schema: previous_price_dollars is
+  // "Price for the last traded YES contract on this market a day ago in dollars"
+  // (https://docs.kalshi.com/api-reference/events/get-events.md), so this branch
+  // can only ever compare against ~24h ago. It must not be presented as a swing
+  // inside one poll window. Regression guard for the 2026-11-21 correction.
+  assert.ok(/vs 24h reference price/.test(APP), 'the reference-price alert is not labelled as a 24h comparison');
+  assert.ok(!/swing \(previous trade\)/.test(APP), 'the old mislabel "swing (previous trade)" is back');
+  assert.ok(!/last trade price before the current one/.test(APP), 'the wrong field definition is back in the comment');
+  assert.ok(/a day ago/.test(APP) && /docs\.kalshi\.com\/api-reference\/events\/get-events/.test(APP),
+    'the comment no longer cites the official definition of previous_price_dollars');
+  // The label has to reach the chat, not just the source: the renderer prints
+  // alert.kind for every non-'sample' alert, which is how a reader tells the two
+  // detectors apart in the scrolling chat.
+  assert.ok(/a\.kind && a\.kind !== 'sample'/.test(APP), 'the chat no longer renders the alert class, so the label is invisible to a trader');
+});
+
 test('no host-specific or placeholder URLs in the shipped engine', () => {
   for (const bad of ['localhost', '127.0.0.1', 'example.com', 'TODO', 'YOUR_API_KEY']) {
     assert.ok(!APP.includes(bad), `engine contains ${bad}`);
