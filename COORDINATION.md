@@ -2065,7 +2065,7 @@ deployed bytes were verified directly instead).
 
 **Files in scope (claim written before any code, per protocol):**
 - NEW: `.github/workflows/alert-tape.yml`, `scripts/alert_tape.mjs`, `tests/alert_tape.test.mjs`, `data/alert_tape.json`, `demo-account/assets/tape.js`, `reports/VERIFICATION_AA7735A2.md`
-- EDIT: `demo-account/index.html` (one new tape section only), `COORDINATION.md` (this section + final record)
+- EDIT: `demo-account/index.html` (one new tape section only), `demo-account/flagged.html` (two new rows F-DA-12/F-DA-13), `COORDINATION.md` (this section + final record)
 
 **Why this task:** `suggestions.html` backlog item 8 ("Server-side capture — Actions runner polls every few minutes and commits alert history") is the only brief-relevant backlog item whose files are unclaimed. Every root page, `assets/app.js`, `assets/site.css`, `pages.yml`, `portfolio.yml`, `check_site.mjs`, `check_links.mjs`, `tools/build.mjs`, `package.json`, `collect.py` and `flagged.html` are owned by open PRs **#115, #107, #85, #84, #75** at claim time (verified with `gh pr list --json files`); `demo-account/**` is in none of them.
 
@@ -2074,3 +2074,5 @@ deployed bytes were verified directly instead).
 - **R-AA7735A2-2 → owner of PR #85 (`suggestions.html`):** mark backlog item 8 shipped once this lands.
 - **R-AA7735A2-3 → owners of PRs #115/#85 (`package.json`):** add `node tests/alert_tape.test.mjs` to the `test` chain (it runs in `alert-tape.yml` meanwhile).
 - **R-AA7735A2-4 → owners of PRs #85/#75 (`.github/workflows/pages.yml`):** add `demo-account/index.html` to the `render_test.mjs` page list.
+
+**Scope amendment (same session, before any edit to those files):** `demo-account/flagged.html` added for two new rows (F-DA-12 tape sampling cadence; F-DA-13 unauthenticated 429 fail-closed) — that file is in no open PR's file list (verified `gh pr list --json files`).
