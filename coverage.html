@@ -174,7 +174,7 @@ and re-reading each linked official page; the full line-by-line verification rec
 <tbody>
 <tr>
   <td>"Automate simulated trades to test different strategies."</td>
-  <td>Four documented paper strategies — momentum, fade, favorite harvest, 50¢ breakout — in <code>assets/model.js</code> <code>runStrategies()</code>; and the same four rules re-run server-side every ~30 min by <code>scripts/portfolio_engine.py</code> in <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/portfolio.yml" target="_blank" rel="noopener">portfolio.yml</a> so the ledger accumulates with no browser open.</td>
+  <td>Four documented paper strategies — momentum, fade, favorite harvest, 50¢ breakout — in <code>assets/model.js</code> <code>runStrategies()</code>; and the same four rules re-run server-side on a 30-minute cron (roughly hourly in practice — flagged 155329c7-6) by <code>scripts/portfolio_engine.py</code> in <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/portfolio.yml" target="_blank" rel="noopener">portfolio.yml</a> so the ledger accumulates with no browser open.</td>
   <td>Rules + their differences from the browser lab are published on <a href="methods.html">Methods §8–§9</a>. Test: <code>tests/portfolio.test.mjs</code> (60 checks), <code>python3 scripts/portfolio_engine.py selftest</code>.</td>
   <td><span class="badge yes">Delivered</span></td>
 </tr>
@@ -199,7 +199,7 @@ and re-reading each linked official page; the full line-by-line verification rec
 <tr>
   <td>"There should be no manual input on my part."</td>
   <td>Nothing on the site requires you to type, log in, or click to keep it running: discovery, polling, alerting, paper trading and the ledger all run on timers, and the Actions workflows refresh data and the ledger on a schedule. The one exception is deliberate: placing <i>real</i> demo orders requires your demo key, because only you should hold it.</td>
-  <td>Workflows: <code>pages.yml</code> (checks on push; snapshot every 3 h), <code>portfolio.yml</code> (ledger twice an hour), <code>demo-account.yml</code> (read-only snapshot every 6 h; orders only on manual dispatch with a key).</td>
+  <td>Workflows: <code>pages.yml</code> (checks on push; snapshot every 3 h), <code>portfolio.yml</code> (30-minute cron; ~hourly in practice), <code>demo-account.yml</code> (read-only snapshot every 6 h; orders only on manual dispatch with a key).</td>
   <td><span class="badge yes">Delivered</span></td>
 </tr>
 </tbody></table></div>
