@@ -170,8 +170,18 @@ Plan: (1) claim (this entry, committed and pushed immediately); (2) conflict-mar
   #84 `0f2d9972`, #85 `155329c7`, #90 `78d61b01`, #91 `1c5b46b2`, #92 `e1747106` (opened during
   this pass). #79 `0b68e1e4` merged meanwhile (`c071599`). Dispositions are for the owners or a
   later integration pass; nothing in those PRs was merged or closed by this session.
-- **PR / merge / Pages record:** appended below as a follow-up board note after the merge (pattern
-  used by `c96a21b7`'s record via PR #89).
+- **PR / merge / Pages record (final, 2026-11-21 UTC):**
+  - **PR [#100](https://github.com/wingbangboozle1-lang/Trade1/pull/100)** (`arena/3193963b-trade1` → `main`):
+    checks **pass** (run [44880930918](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880930918),
+    `checks` 1m57s). **Merged** without waiting for approval, merge commit **`7d8e164`**, state MERGED,
+    2026-11-21T07:37:57Z.
+  - **Pages verified live:** https://wingbangboozle1-lang.github.io/Trade1/reports/VERIFICATION_3193963b.md
+    was fetched through the page fetcher after the merge and serves the merged content — the deploy
+    reached the published site. The Pages REST endpoint could not be read at that moment (shared GitHub
+    API rate limit hit by the parallel sessions at 07:38:18Z; request IDs in the error body), so the
+    deploy is confirmed by the served files themselves, same method as the `da11364a` and `446aa8be`
+    records.
+  - This follow-up board-only note carries the record (pattern of `c96a21b7`'s PR #89).
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
