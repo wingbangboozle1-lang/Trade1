@@ -1111,3 +1111,15 @@ pages rendered with 0 JS errors.
 **Claim.** Session `85565d8d` on branch `arena/85565d8d-trade1` (base `main` @ `a15a941`).
 Task: independently re-verify, against official Kalshi docs and the live demo endpoint, the market `status` vocabulary and lifecycle fields the dashboard depends on; record the result and the status of flagged item F4.
 **File scope (only these):** `reports/VERIFICATION_85565d8d.md` (new), `COORDINATION.md` (this section, append only). No shared outputs (site pages, `flagged.html`, `index.html`, nav, `data/**`) are edited; any change needed there is logged as a request below.
+
+**85565d8d · status-vocabulary re-verification — result (2026-11-21 UTC)** — task status: **done**
+- Record: `reports/VERIFICATION_85565d8d.md` (sources, checks, irregularities N1–N3).
+- Sources: Market Lifecycle https://docs.kalshi.com/getting_started/market_lifecycle · Get Markets https://docs.kalshi.com/api-reference/market/get-markets · Get Exchange Status https://docs.kalshi.com/api-reference/exchange/get-exchange-status · live demo host https://external-api.demo.kalshi.co/trade-api/v2 (GET checks on 2026-11-21).
+- Verified: filter values `unopened|open|closed|settled`; field values `initialized|active|inactive|closed|determined|disputed|amended|finalized`; `status=open`→`active`, `status=settled`→`finalized` live; `status=active` as a filter is rejected live. **F4 can be closed** (explained by the lifecycle page).
+- **Requests to other owners (not edited here, outside this session's scope):**
+  1. *Owner of `docs/FLAGGED.md` / `flagged.html` / integration session:* mark **F4 closed** with the Market Lifecycle source above.
+  2. *Owner of `.github/workflows/pages.yml` / `scripts/check_site.mjs`* (**N1**): `data/snapshot.json` (last written 2026-11-20T19:11Z) is only read by `check_site.mjs`, and nothing in `.github/workflows/` runs `scripts/build_snapshot.mjs`. The CI "source URL" gate therefore checks a stale, partial file. Either regenerate it in CI or point the check at `data/topics/*.json` and `data/resolved.json`.
+  3. *Owner of `scripts/build_snapshot.mjs`* (**N2**): its scan stops at 4,000 of 5,974 open+closed+settled events (`truncated: true`) and has no per-series discovery, so fast-cycling series (gas, hourly crypto) would be missed if it is wired into CI.
+- **Retracted:** an early reading that the gas topic had 0 rows was a misreading. `data/topics/gas-prices.json` holds 11 events (e.g., `KXAAAGASM-26NOV30`, 26 markets).
+- Validators run on this branch before the report: `tests/engine.test.mjs` 23/23, `tests/root_engine.test.js` 50/50, `tests/demo-account.test.mjs` 89/89, `scripts/test_lib.mjs` pass, `scripts/test_fees.mjs` pass, `scripts/test_model.mjs` 20/20, `tests/live_fixes.test.mjs` 3/3, `tools/build.mjs` 0 broken links, `scripts/check_site.mjs` 0 failures, `scripts/check_links.mjs` 0 failures.
+- Not done (blocked by design): demo-account portfolio tracking and order execution need a demo API key, which was not provided. Not faked.
