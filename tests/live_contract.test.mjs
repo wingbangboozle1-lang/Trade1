@@ -50,6 +50,22 @@ async function test(name, fn) {
   catch (e) { failures++; console.log('FAIL ' + name + ' — ' + (e && e.message)); }
 }
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
+/* Poll for a condition instead of sleeping a fixed number of milliseconds.
+ * The client paces itself through a token bucket (3/s, ≤2 in flight), so after a
+ * boot the queued discovery work can hold a book/chart request for a second or two —
+ * long enough that a fixed wait passes on an idle machine and flakes on a loaded CI
+ * runner. Every check here waits for its own precondition and fails only if that
+ * never happens within `capMs`, with the timeout in the message. */
+async function until(label, cond, capMs = 25000) {
+  const t0 = Date.now();
+  for (;;) {
+    let v;
+    try { v = cond(); } catch (e) { v = false; }
+    if (v) return v;
+    if (Date.now() - t0 > capMs) throw new Error('timed out after ' + capMs + 'ms waiting for: ' + label);
+    await wait(25);
+  }
+}
 
 /* One boot, used by every case: nothing is read from data/ (see below), so the result
  * cannot drift with the CI snapshot. The /events wrapper is a test fixture, NOT an API
@@ -103,7 +119,9 @@ function boot() {
 }
 
 const book = boot();
-await wait(700);
+/* the page mounts asynchronously (boot → snapshot/discovery → first poll); wait for
+ * the mount, never a fixed sleep, before touching its state */
+await until('the dashboard to mount', () => book.window.KalshiApp && book.window.KalshiApp.state);
 {
   /* fetchCandles() resolves a market's series through its EVENT record — GET /markets
    * publishes no series_ticker (Flagged 78-3) and the documented candle path is
@@ -119,16 +137,18 @@ await wait(700);
   assert.notEqual(st.mode, 'snapshot', 'this boot must be live, or every live-path test below is vacuous');
 }
 book.window.KalshiApp.select(TICKER);
-await wait(600);
+await until('the order book for ' + TICKER, () => book.window.KalshiApp.state.book);
+/* the candle request is issued on the 60-minute default window; wait for the parse */
+await until('the candlestick parse', () => book.window.KalshiApp.state.candles);
 /* The candles readout is captured before C3 switches the chart window: switching
  * to a seconds window clears S.candles on purpose (candlesticks only exist at
  * 1/60/1440-minute periods), so C4 must look at what the 60-minute window parsed. */
 const CANDLE_READ = (book.window.KalshiApp.state.candles || []).slice();
-function useTapeWindow() {
+async function useTapeWindow() {
   const sel = book.window.document.querySelector('#kx-win');
   sel.value = '60s';
   sel.dispatchEvent(new book.window.Event('change'));
-  return wait(600);
+  await until('the trade tape on the 60s window', () => book.window.KalshiApp.state.trades.length);
 }
 
 await test('C1 — the real order book is read as published: ascending, best bid last', async () => {
@@ -188,9 +208,12 @@ await test('C4 — the candle request is built on the documented path, and the c
 
 await test('C5 — two finalized markets are recorded as resolved NO with their settlement time', async () => {
   const w = boot();
-  await wait(700);
+  await until('the watchlist to be populated from the served rows',
+    () => Object.keys(w.window.KalshiApp.state.watch).length);
   w.window.KalshiApp.pollWatch();
-  await wait(600);
+  const tickersNow = SETTLED.response.markets.map(m => m.ticker);
+  await until('either settled row to be recorded as resolved',
+    () => tickersNow.some(t => w.window.KalshiModel.state.resolved[t]));
   const resolved = w.window.KalshiModel.state.resolved;
   const rows = w.window.document.querySelectorAll('#kx-resolved tr');
   const tickers = SETTLED.response.markets.map(m => m.ticker);

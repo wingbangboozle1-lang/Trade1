@@ -34,7 +34,23 @@ const MODEL = readFileSync(new URL('../assets/model.js', import.meta.url), 'utf8
 const KalshiGovernor = globalThis.KalshiGovernor;
 const create = KalshiGovernor.create;
 
+const WINDOWS = [];
 let failures = 0, passed = 0;
+/* Poll for a condition rather than sleeping a fixed duration: the boots below mount a
+ * real page whose requests are paced by the governor, so the time to reach a state
+ * depends on how loaded the runner is. A fixed sleep passes on an idle machine and
+ * flakes on CI; a wait-for-condition fails only if the state never arrives. */
+const wait = (ms) => new Promise(r => setTimeout(r, ms));
+async function until(label, cond, capMs = 12000) {
+  const t0 = Date.now();
+  for (;;) {
+    let v;
+    try { v = cond(); } catch (e) { v = false; }
+    if (v) return v;
+    if (Date.now() - t0 > capMs) throw new Error('timed out after ' + capMs + 'ms waiting for: ' + label);
+    await wait(20);
+  }
+}
 async function test(name, fn) {
   try { await fn(); passed++; console.log('PASS ' + name); }
   catch (e) { failures++; console.log('FAIL ' + name + ' — ' + (e && e.message)); }
@@ -333,37 +349,61 @@ async function boot(opts) {
     return Promise.resolve({ ok: true, status: 200, url: u, json: () => Promise.resolve(body) }).then(r => { done(); return r; });
   };
   window.HTMLCanvasElement.prototype.getContext = () => null;
+  /* A closed jsdom window still has queued timer callbacks; when they run their
+   * `document` is already gone, and the resulting TypeError aborts the whole suite
+   * between tests (observed: W1 passed, then renderTable threw inside the closed window
+   * and killed the process before W2 ran). Timers are wrapped so that a callback which
+   * throws *only because its page has been torn down* is dropped; any other error still
+   * propagates and fails its own test. */
+  const guard = (raw) => function (fn, ms, ...rest) {
+    if (typeof fn !== 'function') return raw(fn, ms, ...rest);
+    return raw(function () {
+      const doc = window.document;
+      if (!doc) return;                       // page already closed: nothing to render
+      try { return fn.apply(this, arguments); }
+      catch (e) {
+        if (!window.document || !window.document.body) return;   // torn down mid-callback
+        throw e;
+      }
+    }, ms, ...rest);
+  };
+  window.setTimeout = guard(window.setTimeout.bind(window));
+  window.setInterval = guard(window.setInterval.bind(window));
   window.eval(GOV);
   window.eval(MODEL);
   window.eval(APP);
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
+  WINDOWS.push(window);
   return { dom, window, calls, peakConcurrency: () => maxLive };
 }
 
 await test('W1 — app.js routes every call through the governor (concurrency is capped)', async () => {
   const b = await boot({});
-  await new Promise(r => setTimeout(r, 400));
-  const app = b.window.KalshiApp;
+  const app = await until('the dashboard to mount and start polling',
+    () => (b.window.KalshiApp && b.window.KalshiApp.state && b.calls.length >= 2) ? b.window.KalshiApp : false,
+    12000).catch(() => b.window.KalshiApp);
   assert.ok(app, 'the dashboard did not mount');
-  assert.ok(b.calls.length >= 2, 'no API requests were made');
+  assert.ok(b.calls.length >= 2, 'no API requests were made (saw ' + b.calls.length + ')');
   assert.ok(b.peakConcurrency() <= app.CFG.maxInFlight,
     'the page issued ' + b.peakConcurrency() + ' concurrent requests (cap ' + app.CFG.maxInFlight + ') — governor not wired');
   assert.ok(b.calls.every(u => /^https:\/\/(external-api\.demo\.kalshi\.co|demo-api\.kalshi\.co)\/trade-api\/v2\//.test(u) || !/^https?:/.test(u)),
     'a request left the two documented demo hosts');
-  b.window.close();
 });
 
 await test('W2 — a throttled exchange does not fall back to snapshot mode, and the pill says so', async () => {
   const b = await boot({ every429: true });
-  await new Promise(r => setTimeout(r, 500));
   const pill = b.window.document.querySelector('#kx-mode');
   const rate = b.window.document.querySelector('#kx-ratelimit');
+  /* the status line and the governor readout are refreshed on a 2 s interval, so wait
+   * for the throttle to have been rendered at least once before reading them */
+  await until('the pill to report the throttle',
+    () => /throttl|backing off|backing-off/i.test((pill && pill.textContent) || '') &&
+          /throttled/.test((rate && rate.textContent) || ''), 12000);
   const txt = (pill && pill.textContent) || '';
   assert.ok(!/SNAPSHOT/i.test(txt), '429s wrongly reported as an outage: "' + txt + '"');
   assert.ok(/throttl|backing off|backing-off/i.test(txt), 'the pill does not say the page is yielding: "' + txt + '"');
   assert.ok(/throttled/.test((rate && rate.textContent) || ''), 'the governor readout is missing the throttle count');
   assert.ok(b.window.KalshiApp.state.mode !== 'snapshot', 'S.mode fell back to snapshot on a 429');
-  b.window.close();
 });
 
 await test('W3 — the watchlist poll path is the highest priority and re-queues through a throttle', async () => {
@@ -378,5 +418,8 @@ await test('W3 — the watchlist poll path is the highest priority and re-queues
   assert.ok(/if \(cooling\(\)\) \{ S\.modeNote = 'Discovery paused/.test(APP), 'discovery no longer pauses while throttled');
 });
 
+/* Close every booted page at the end and exit explicitly: a live jsdom interval keeps the
+ * event loop busy, so a suite that merely sets process.exitCode would idle forever. */
+WINDOWS.forEach(w => { try { w.close(); } catch (e) { /* already torn down */ } });
 console.log(`\n${passed} passed, ${failures} failed`);
-process.exitCode = failures ? 1 : 0;
+process.exit(failures ? 1 : 0);

@@ -167,7 +167,41 @@ failure count; `npm test` runs the whole chain in 21.6 s with exit code 0. (This
 why an earlier "all green" reading of a `tail`-piped long test run was wrong: a pipeline
 reports the last command's status, so a killed `npm test` looked like exit 0.)
 
-## 6. Review links for manual spot-checking
+## 6. CI feedback loop (why the workflow wraps its test steps)
+
+The first CI run of `.github/workflows/live-client.yml` failed the same suite that passes
+locally, and **the runner log could not be read from this sandbox**: `gh run view --log`
+and the REST log endpoint both redirect to Actions log storage, which is outside the
+sandbox's network allowlist (earlier sessions recorded the same limitation). Job *status*
+and *step* results are served by `api.github.com` and are readable — so the workflow now
+surfaces diagnosis through channels the sandbox can see:
+
+* `.github/workflows/run-and-annotate.sh` runs each offline suite and, on failure, emits a
+  `::error::` check **annotation** containing the failing lines (and a longer tail when the
+  suite crashed rather than asserted). Annotations are readable via
+  `GET /repos/…/check-runs/{id}/annotations`.
+* the probe job writes its per-case table to `$GITHUB_STEP_SUMMARY` and posts it as a **PR
+  comment**, so a live-contract disagreement is reviewable from the pull request itself,
+  from inside or outside the sandbox.
+
+Two real test defects were found this way and fixed, both of which could pass locally and
+fail on a runner:
+
+1. **fixed sleeps instead of preconditions.** The jsdom boots waited 600–700 ms for the page
+   to fetch a book or parse candles. Because the governor paces requests (3/s, ≤2 in flight),
+   a request issued right after boot can legitimately wait on the queue for longer than any
+   constant. Both suites now poll for the state they are about to assert on
+   (`until('the order book for …', () => state.book)`), with the timeout named in the failure
+   message. Deterministic by construction rather than by luck.
+2. **teardown racing callbacks.** Closing a jsdom window while the page's own timers were
+   still queued made a late `renderTable` throw `TypeError: Cannot read properties of undefined
+   (reading 'querySelector')` in a scope with no test around it — the process died between two
+   tests, after printing 13 passes. `boot()` now wraps the window's `setTimeout`/`setInterval`
+   so a callback that throws *only because its document is gone* is dropped, every other error
+   still propagates, and all windows are closed by a single finalizer that then exits with the
+   failure count.
+
+## 7. Review links for manual spot-checking
 
 * [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) — items 1–4
 * [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook) · [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) — items 5–6

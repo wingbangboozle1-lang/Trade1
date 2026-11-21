@@ -328,6 +328,18 @@ pre-existing chain and `check` are unchanged); `pages.yml` was not modified; `su
 collector findings this session could only confirm from outside are logged above and in Flagged KX-2 for their
 owners.
 
+**Note D — CI feedback loop, for every session here.** The first CI run of the new `Live client` workflow failed a
+suite that passes in the sandbox, and **the runner log is not readable from this sandbox**: `gh run view --log` and
+`GET /repos/…/actions/jobs/{id}/logs` both redirect to Actions log storage, which is outside the network allowlist
+(sessions `c96a21b7` and others recorded the same wall). Job *results*, *step* conclusions and *annotations* are served
+by `api.github.com` and ARE readable, so the workflow now routes diagnosis through them:
+`.github/workflows/run-and-annotate.sh` turns a failing suite's output into a `::error::` annotation, and the probe
+step publishes its per-case table as a PR comment and in the run summary. Two genuine test bugs surfaced this way and
+are fixed here — fixed-duration sleeps in place of preconditions (a paced queue can legitimately exceed any
+constant), and tearing down a jsdom window while its own timers were still queued (a late callback threw outside any
+test and killed the process between tests, after printing 13 of 14 passes). Worth adopting in the shared `pages.yml`
+if its owners want the same property.
+
 **Deliberately not touched** (owned by sessions active at claim time, per their board rows):
 `scripts/collect.py`, `scripts/collect_test.py`, `scripts/portfolio_engine.py`, `flagged.html`,
 `resolved.html`, `assets/portfolio.js`, `README.md`, `EXECUTIVE_SUMMARY.md`,
