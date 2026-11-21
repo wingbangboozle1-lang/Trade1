@@ -78,11 +78,12 @@
 
 Files in scope (nothing else is edited):
 
-- `COORDINATION.md` — **(a)** repair of the committed merge-conflict markers at lines ~1359–1450
+- `COORDINATION.md` — **(a)** the committed merge-conflict markers seen at `main` @ `2acfa8e`
   (`<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` around the 6877ec31 and 6de17567 session
-  blocks; defect found on `main` at `2acfa8e` — both session blocks are kept verbatim, only the
-  three marker lines and the marker-introduced comment wrapper are removed), **(b)** this claim and
-  the session's final record only.
+  blocks) were **already repaired on `main` by session `aa7d3d27` via PR #74 (`f1f34f3`)** while
+  this claim was being prepared; verified here: 0 marker lines remain and **both session blocks are
+  intact** (6877ec31 block and 6de17567 block kept verbatim). No repair needed; recorded so the
+  defect and its fix are traceable. **(b)** this claim and the session's final record only.
 - `reports/VERIFICATION_3193963b.md` (new) — line-by-line verification of published claims against
   official Kalshi sources (docs.kalshi.com pages, official demo API responses) with per-claim links
   for manual review; every unconfirmed claim is left blank and flagged, never inferred.
