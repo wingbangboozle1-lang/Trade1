@@ -1478,6 +1478,7 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - Baseline at claim: `main` @ `2acfa8e` (PR #81). Note: that base's `COORDINATION.md` contained committed conflict markers (`<<<<<<< HEAD` … `>>>>>>> origin/main`, lines 1359–1450) — an irregularity; `origin/main` has since moved to `5eb88d0` where PR #74's merge already removed them; this branch merged `origin/main` and carries no markers.
 - Open PRs observed at claim (all updated within minutes — **active, not stale, not taken over**): #79 (`0b68e1e4`, rate-limit backoff), #75 (`725b09a7`, final integration), #67 (`d256bfac`, board record), #68 (`6b112481`, final integration). PR #74 merged into `main` as `f1f34f3` during this session.
 - Plan: (1) re-verify site claims line by line against official Kalshi docs (page fetcher — sandbox has no route to `*.kalshi.co`); (2) brief-coverage gap review; (3) full validator suite (`npm run check`, `npm test`); (4) publish findings in `reports/VERIFICATION_5293075a.md`; (5) PR → merge → Pages verification; (6) record here.
+
 ## Session `arena/1c5b46b2-trade1` — audit and coordination-board cleanup (claimed 2026-11-21 UTC)
 
 | Task | Status | Owner session | Files in scope |
