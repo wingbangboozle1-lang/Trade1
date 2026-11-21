@@ -1812,6 +1812,6 @@ PR #67 was CONFLICTING with `main` and its unique content was not in `main`. Thi
 - **#75 (`725b09a7`)** claims final integration incl. `collect.py` (`classify_settled()` entry point), `flagged.html`, `tests/test_collect.py` (38 checks), `check_row_sources.mjs`, and a `resolved.html` denominator note. Its `resolved.html` edit (new `rs-denom` `<li>` + render() block) and `flagged.html` section are **additive to this PR's FA section and empty-snapshot fix** — keep both sides when reconciling.
 - **#67/#68** — active/within-window; untouched by this session as recorded above.
 
-**PR / merge / Pages:** pending — opened from `arena/fa530a2c-trade1` immediately after this record; result appended below before/at merge.
+**PR / merge / Pages:** [PR #104](https://github.com/wingbangboozle1-lang/Trade1/pull/104) `arena/fa530a2c-trade1` → `main`, opened 2026-11-21 ~07:40Z with the full summary/sources/flagged list in the PR body. Checks then merge (merge without waiting for review, per the brief) and Pages verification: **appended below after merge.**
 
 **Task status:** done (this section's scope). Open items stay published on `flagged.html` (FA-1 refresh pending, AA-8, demo-account credentials) and do not block.
