@@ -31,14 +31,17 @@ values that could not be confirmed are left blank and flagged.
 - **Live site at claim:** https://wingbangboozle1-lang.github.io/Trade1/resolved.html
   fetched 2026-11-21 showed "No resolved markets in the snapshot." — the FA-2
   dead-end (page source returned before `loadScope()`/`pollLive()`).
-- **Restoration:** PR #80 (merged 07:14:53Z) restored the pre-incident
-  03:59:57Z snapshot: `data/resolved.json` now has `settled_total: 6000`,
-  `in_scope_count: 1904`, 200 rows; `data/topics/gas-prices.json` has 11 events.
-  The restored snapshot **still contains 4 pre-fix natural-gas rows**
-  (`KXNATGAS15M-26NOV202300-00`, `…2245-45`, `…2230-30`, `…2215-15` — verified by
-  reading the file), because the 03:59 run used the pre-D1-fix collector. The
-  next successful run with the fixed, fail-closed collector replaces them —
-  **pending**, never hand-edited.
+- **Restoration, then refresh — D1 confirmed:** PR #80 (merged 07:14:53Z)
+  first restored the pre-incident 03:59:57Z snapshot (`settled_total: 6000`,
+  `in_scope_count: 1904`; that restored file **still contained 4 pre-fix
+  natural-gas rows** — `KXNATGAS15M-26NOV202300-00`, `…2245-45`, `…2230-30`,
+  `…2215-15`, verified — because the 03:59 run used the pre-D1-fix collector).
+  The **scheduled 07:17:44Z run** (first with the fixed, fail-closed collector)
+  then regenerated the snapshot: `in_scope_count: 2675`, `gas-prices` 10 events,
+  and **no pre-fix `KXNATGAS15M` / `PLOPIT` rows remain in
+  `data/resolved.json`** (verified by reading the regenerated file). D1's
+  snapshot correction is therefore confirmed, not pending. No snapshot was
+  hand-edited at any point.
 - **Pages:** `gh api repos/wingbangboozle1-lang/Trade1/pages` → `status: built`,
   `build_type: legacy`, source `main /`, https enforced (re-checked during the
   session; re-checked again after this PR merges).
@@ -84,17 +87,21 @@ salvaged additively here. Nothing this session did could regress `main`.
 - `node tools/render_test.mjs --offline` → 16 pages, 0 JS errors.
 - `python3 scripts/portfolio_engine.py selftest` → all checks pass.
 
-## 6. Irregularities carried forward (do not block)
+## 6. Irregularities — final status
 
-- **FA-1 (pending refresh):** the restored snapshot still contains 4 pre-fix
-  `KXNATGAS15M` rows until the next successful scheduled collector run
-  (fail-closed code is on `main`). Published on `flagged.html`.
+- **FA-1 / D1 refresh: RESOLVED 2026-11-21 07:17:44Z** — the scheduled run
+  with the fixed, fail-closed collector regenerated the snapshot with no
+  pre-fix rows (§2). Published on `flagged.html` with the full incident trail
+  (root cause → PR #80 repair → restore → confirmation).
 - **AA-8 (carried):** live demo-API runtime shapes are confirmed by CI runs
   and the browser, not by this sandbox (no route to `*.kalshi.co`).
 - **Demo-account credentials (carried):** real demo balance/positions/orders
   need the owner's demo API key + private key (`KALSHI_DEMO_KEY_ID` /
   `KALSHI_DEMO_PRIVATE_KEY` secrets). The console stays inert without them;
   the paper dashboard needs no credentials.
-- **Open PRs left for their owners:** #67 (active session), #68, #75, #79
-  (its `collect.py` backoff is now redundant with PR #80 — overlap note already
-  recorded in `COORDINATION.md` by `c96a21b7`), #82/#83/#84 (board-only).
+- **Open PRs left for their owners:** #67 (active session; records salvaged
+  here), #68 (within window at review), #75 (final-integration claim — its
+  `resolved.html` denominator note and `flagged.html` section are additive to
+  this PR's changes), #79 (its `collect.py` backoff is redundant with merged
+  PR #80 — overlap note already recorded in `COORDINATION.md` by `c96a21b7`;
+  its unique value is the portfolio entry guards), #82/#83/#84 (board-only).
