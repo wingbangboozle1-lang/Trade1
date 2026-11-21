@@ -890,11 +890,13 @@ window.KalshiApp = (function () {
       return n + (m && (!S.topic || m._topic === S.topic) && isLive(m) ? 1 : 0);
     }, 0);
   }
-  /* Best price = whichever side of the book is worth more per contract.
+  /* "Market favours" = the side with the HIGHER ask.
    * A YES contract bought at yes_ask and a NO contract bought at no_ask are the
-   * two ways to take a position here, so the side with the higher ask is the
-   * side the market currently favours. Values are the exchange's own quotes
-   * (official /markets fields) — nothing is derived. */
+   * two ways to take a position; the higher of the two asks is the side the
+   * market prices as more likely (and the dearer side to buy). The column is
+   * deliberately NOT called "best price": a 100c ask is not a bargain.
+   * Values are the exchange's own quotes (official /markets fields) — nothing
+   * is derived. */
   function bestSide(m) {
     var ya = Number(m.yes_ask_dollars), na = Number(m.no_ask_dollars);
     if (!isFinite(ya) && !isFinite(na)) return null;
@@ -1190,10 +1192,10 @@ window.KalshiApp = (function () {
       '<div class="box"><div class="row spread"><h2 id="kx-title">' + (S.topic ? esc(M.topicById(S.topic).label) + ' · live markets' : 'Live markets · all topics') +
       '</h2><span class="muted small" id="kx-count"></span></div>' +
       '<div class="tablewrap" style="max-height:430px"><table><thead><tr>' +
-      '<th>Event</th><th>Status</th><th>Best price</th><th>YES bid</th><th>YES ask</th><th>Last</th><th>\u0394 sample</th>' +
+      '<th>Event</th><th>Status</th><th>Market favours</th><th>YES bid</th><th>YES ask</th><th>Last</th><th>\u0394 sample</th>' +
       '<th>Bid size</th><th>Ask size</th><th>Vol</th><th>24h vol</th><th>Est. $</th><th>Est 24h $</th><th>Open int.</th><th>Closes</th><th>Source</th>' +
       '</tr></thead><tbody id="kx-rows"></tbody></table></div>' +
-      '<p class="muted small"><b>Open for trading only</b> (status <code>active</code> and <code>close_time</code> still in the future, per the <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">official lifecycle</a>), ranked by <b>estimated traded dollars</b> (total contracts \u00d7 last price), ties broken by estimated 24h dollars \u2014 computed from exchange-reported fields, not exchange-published (blank when the market reports no volume). <b>Best price</b> names the cheaper-to-buy side with the higher exchange ask. <b>Bid size / Ask size</b> are the exchange\u2019s own top-of-book contract counts (<code>yes_bid_size_fp</code>, <code>yes_ask_size_fp</code>). \u0394 sample = change vs the previous poll sample. Every row links the official <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=" target="_blank" rel="noopener">GET /markets?tickers=</a> response that produced it. Closed and settled rows stay on the <a href="'+ (opts.root||'') +'resolved.html">Resolved</a> page.</p></div>' +
+      '<p class="muted small"><b>Open for trading only</b> (status <code>active</code> and <code>close_time</code> still in the future, per the <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">official lifecycle</a>), ranked by <b>estimated traded dollars</b> (total contracts \u00d7 last price), ties broken by estimated 24h dollars \u2014 computed from exchange-reported fields, not exchange-published (blank when the market reports no volume). <b>Market favours</b> names the side with the <b>higher exchange ask</b> — the side the market prices as more likely (a 100\u00a2 YES ask means YES is priced near certain, so it is the <i>dearer</i> side to buy, not a bargain). <b>Bid size / Ask size</b> are the exchange\u2019s own top-of-book contract counts (<code>yes_bid_size_fp</code>, <code>yes_ask_size_fp</code>). \u0394 sample = change vs the previous poll sample. Every row links the official <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=" target="_blank" rel="noopener">GET /markets?tickers=</a> response that produced it. Closed and settled rows stay on the <a href="'+ (opts.root||'') +'resolved.html">Resolved</a> page.</p></div>' +
       '<div class="box"><div class="row spread"><h2>Price chart</h2><span class="muted small" id="kx-chart-name">—</span></div>' +
       '<div class="chartbox" style="position:relative"><canvas id="kx-chart"></canvas>' +
       '<div id="kx-chart-tip" class="muted small" style="display:none;position:absolute;top:4px;right:6px;background:rgba(10,20,22,.86);border:1px solid var(--line);border-radius:6px;padding:2px 8px;pointer-events:none"></div></div>' +
