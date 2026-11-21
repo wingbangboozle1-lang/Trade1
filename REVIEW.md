@@ -244,3 +244,66 @@ labeled estimates); maker fees not modeled; KXAAAGASM empty candles (cause unkno
 heuristic, not verified alpha; session chart samples reset on reload. The previously published
 “status vocabulary” and “undocumented events page-size” flags were **withdrawn** above after
 re-reading the official docs — `flagged.html` already carries the corrected text.
+
+---
+
+## Verification audit — session `arena/86c45cd3-trade1` (2026-11-21 UTC)
+
+Claim and file scope recorded in [COORDINATION.md](COORDINATION.md). Scope for this pass: independent
+line-by-line source-link verification of the published site and the data it renders, on files no in-flight
+parallel session owns (`REVIEW.md`, `data.html`, `scripts/check_site.mjs` + this audit's gates). Hot files
+under active edits by live sessions (`methods.html`, `flagged.html`, `EXECUTIVE_SUMMARY.md`, `assets/*`,
+`scripts/collect.py`, `scripts/portfolio_engine.py`) were audited **read-only** and their irregularities are
+logged here as requests to the owning sessions, not edits.
+
+### Official sources re-read live on 2026-11-21 (not copied from earlier records)
+
+| Official source | What was verified today | Result |
+|---|---|---|
+| [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) | Demo REST `https://external-api.demo.kalshi.co/trade-api/v2` (recommended) and `https://demo-api.kalshi.co/trade-api/v2`; demo WS `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` and `wss://demo-api.kalshi.co/trade-api/ws/v2`; demo credentials are separate from production | Matches the brief and every endpoint string the repo publishes (`assets/lib.mjs` `API_BASES`, `sources.html`) |
+| [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) | Statuses `initialized → active → closed → determined → finalized`; `result` is `yes`, `no`, or **`scalar`**; settled markets end `finalized` with `settlement_ts` set | Matches the recorded YES/NO resolutions in `data/resolved.json` (binary contracts only — see I6) and the closed-vs-settled handling in `assets/app.js` |
+| [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) | Bids-only `orderbook_fp` with `[price_dollars, count_fp]` ascending, best bid last, `depth` = best levels per side, empty arrays (200) for empty/unknown tickers, reciprocal rule (YES ask = 1 − NO bid), spread math | Matches the order-book ladder in `assets/app.js` and the derived-ask asterisks the tables print |
+| [Kalshi Fee Schedule (PDF)](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (effective 2026-07-07) | Taker `round up(M × 0.07 × C × P × (1−P))` (M default 1), maker `round up(M × 0.0175 × …)` (M default 0), no settlement fee, the 21-row General Trading Fees Table ($0.50 × 100 contracts → **$1.75**), and the Non-Standard table (`KXBTCY`/`KXETHY` taker M=0; `KXAAAGASM` M=1) | Matches `assets/model.js` integer fee math and `data/fee_schedule_series.json`; the demo-API `fee_multiplier=1` vs PDF `0` conflict for `KXBTCY`/`KXETHY` remains flagged (flagged.html item 6b) and is still resolved the documented way (environment-matched demo value wins) |
+
+### Line-by-line audit of the published data path
+
+| Artifact / page | Checks performed | Result |
+|---|---|---|
+| `data/topics/*.json` (5 files) | Every `source_urls` entry (events, markets, event_markets_example groups) is on the official demo base; `definition` is exactly the classification fields of `scripts/topics.json` (the rule of record); `event_count` ≥ stored events; stored events ≤ 30 (collect.py `rows[:30]` cap); every market row's `result` ∈ `{'', 'yes', 'no'}` | Pass — 131 events / 811 market rows across 5 topics |
+| Topic grouping (brief: "topics separate, events within topic together") | Each `event_ticker` appears in exactly one topic file; each market ticker is filed once | Pass (0 cross-topic events, 0 duplicate tickers) |
+| `data/resolved.json` | `result` verbatim `yes`/`no` only; file-level `source_urls` official; generated_at present | Pass (825 resolved rows) |
+| `data/snapshot.json` | `topic_rules` is exactly the `assets/lib.mjs` TOPICS serialization with the `scripts/build_snapshot.mjs` mapping; rows/resolved carry official `source_url` + `kalshi.com` `kalshi_url`; result enum | Pass (1,118 rows + 625 resolved; caps documented in `counts`: top 150/topic open, top 200/topic resolved) |
+| `data.html` render code | Per-row links are the official records (`/markets/{ticker}`, `/events/{event_ticker}`, `markets?event_ticker=`) — no bare batch URLs in rows; computed cells labeled “est.”; blanks rendered as blank (`money()`/`fmt()` return `''`); “top events” tables | Pass, with one transparency gap found and **fixed this session** (I4): the top-events tables now disclose “Showing 15 of N matched open events — the top 30 stored…” |
+| Cross-artifact value provenance (topic rows vs snapshot rows, overlapping tickers) | Field-by-field compare of 166 overlapping tickers | All differences explained by collection cadence (I5) or normalization (I2); **no invented values found** |
+| `sources.html` | Every docs link is a real official page (4 re-read live today, above); endpoint strings match `assets/lib.mjs` | Pass |
+| `index.html` claims | Endpoint/fee/CORS/limit claims traced to the sources above or to committed evidence (`data/cors.json`, `data/log.md`) | Pass |
+
+### Irregularities flagged for review (none blocks the live site)
+
+- **I1 — dual topic classifiers.** `assets/lib.mjs` (classifies `data/snapshot.json`; multi-label; keywords like `\bgas prices?\b`, no natural-gas exclusion) and `scripts/topics.json` (classifies `data/topics/*.json` and is mirrored by `assets/model.js`; single-label; excludes `natural gas|natgas|propane|heating oil` for gas, `Politics|Elections` for golf) are two different rule sets. Both are documented in-tree, and the model.js↔topics.json mirror is test-pinned, but the two systems can disagree on edge cases (e.g. “natural gas prices” titles). **Request to the integrator / collector owner:** converge them or publish both rule sets side by side on Methods. (Pre-existing; flagged generally on flagged.html as “keyword heuristics”.)
+- **I2 — `result` normalization differs between artifacts.** Undetermined markets are `result: null` in `data/snapshot.json` but `result: ""` in `data/topics/*.json`; the official response omits/empties the field and the site renders blank either way. No user-visible impact. **Request to `scripts/collect.py` owner (PR #79 session):** normalize one representation.
+- **I3 — topic `_markets` rows omit `series_ticker`** (collect.py `MARKET_FIELDS` trim) although the official market record publishes it and `data/snapshot.json` stores it; the series is shown from the event row instead. Informational — no invented values; consider documenting the trim in methods.
+- **I4 — fixed this session:** the `data.html` “top events” tables showed 15 of up to 30 stored of N matched events with no totals; they now disclose the full counts and the “est.” basis of the ranking.
+- **I5 — artifact cadence, not corruption.** `data/snapshot.json` was generated 2026-11-20T19:11Z while `data/topics/*.json` + `data/resolved.json` were generated 2026-11-21T03:59Z. Same tickers legitimately show different quotes/prices across the two (e.g. `KXPRESNOMD-28-BOBA` last trade 0.003 → 0.88 between cycles; each file keeps its own source URL and cycle timestamp). Reviewers comparing artifacts should compare same-cycle files only.
+- **I6 — `scalar` results exist** in the official lifecycle (`result` ∈ `yes`/`no`/`scalar`). The brief tracks binary YES/NO contracts; the collector keeps binary market types only and the new gates fail on any result outside `blank/yes/no`, so a scalar leak would be caught before publish rather than mislabeled.
+- **I7 — retraction.** This session's working notes initially cited two flagged findings (“hidden URL in methods.html title attribute”, “executive summary claims nine dropdowns”). Neither string exists at any commit of this repository (`git log -S`); both are retracted — nothing to fix, nothing published.
+
+### Gates added to `scripts/check_site.mjs` (run in CI: `node scripts/check_site.mjs`)
+
+1. One-topic event grouping + market-ticker uniqueness across `data/topics/*.json`.
+2. Result enums everywhere (topic rows `''/yes/no`; snapshot rows `null/''/yes/no`; already-enforced resolved `yes/no`).
+3. `data/topics/<id>.definition` ≡ `scripts/topics.json` classification fields (exact); `data/snapshot.json.topic_rules` ≡ `assets/lib.mjs` TOPICS via the `build_snapshot.mjs` mapping (exact).
+4. Every `source_urls` group official-base only (previously only the first group was checked); `kalshi_url` must be on `https://kalshi.com/`.
+5. `data.html` must keep the “matched open events” totals disclosure (guards I4 against regression).
+
+Negative-tested before landing: five injected defects (cross-topic duplicate event, duplicate ticker, `result:"maybe"`, rule divergence, 31-event cap break) were each reported by name; after restore the check returns `failures: 0`.
+
+### Validation runs (this session, `2acfa8e` + the changes above)
+
+- `npm run check` → `BUILD OK — 18 HTML, 6 JS, 0 broken links`; `check_site` 1,249 rows / 825 resolved / **0 failures**; `check_links` 16 pages, 400 local, 236 external, **0 failures**.
+- `npm test` → engine 23/23 · live_fixes 3 · live_dash 6 · lib pass · test_model 30 · root_engine 48 · model.test 21 · portfolio 60/60 · demo-account 89 · test_collect 4/4 (Python) — **all green**.
+
+### Requests to file owners (logged in COORDINATION.md; files not edited here)
+
+- `scripts/collect.py` / `scripts/portfolio_engine.py` owner (`arena/0b68e1e4-trade1`, PR #79): I2, I3.
+- Integrator (`arena/725b09a7-trade1`, PR #75): I1 (converge classifiers or document both on Methods); optional — add I2/I3 to the Flagged page at your next edit of `flagged.html`.
