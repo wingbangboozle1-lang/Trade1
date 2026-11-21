@@ -230,7 +230,145 @@
     </table></div>
   </section>
 
-  <section class="box" style="margin-top:14px">
+    <section class="box" style="margin-top:14px" id="f8bf">
+    <h2>Added by session <code>8bf56985</code> — 2026-11-21 (final integration: publication integrity)</h2>
+    <p class="small muted">This pass audited what the published site <i>tells a reader</i>, not whether its code runs. Every item below was
+      reproduced locally on the deployed tree (<code>main</code> @ <code>f1f34f3</code>), fixed, and now has an automated gate:
+      <code>tests/publication.test.mjs</code> and <code>scripts/check_row_sources.mjs</code>, both run by CI
+      (<code>.github/workflows/pages.yml</code>) and by <code>npm run check</code> / <code>npm test</code>. Each fix was
+      mutation-tested — the gate was run against the <i>broken</i> version and observed to fail before the fix was kept.
+      Official sources re-read 2026-11-21:
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">API Environments</a>.
+      Nothing below is inferred: each statement names the file or run it was read from.</p>
+    <div class="tablewrap"><table class="small">
+      <thead><tr><th>ID</th><th>Irregularity</th><th>Evidence and official source</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>PI-1</td>
+          <td><b>The landing page certified the snapshot as healthy no matter what.</b> The status pill printed
+            <code>snapshot pipeline OK</code> from the mere presence of a <code>generated_at</code> in
+            <code>data/meta.json</code>. It therefore showed "OK" for the snapshot that the 06:58Z run had degraded to
+            33 markets and 0 settled rows, and for the hand-repaired copy restored afterwards. Nothing on the page told a
+            reader how old the snapshot was or whether the collector run that produced it had failed.</td>
+          <td>Reproduced by running the page's own inline script against a degraded <code>data/collect_status.json</code>:
+            pill <code>OK</code>. The failure it should have shown is in
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md</a>
+            (220 × HTTP 429 in one run). Official basis for backing off / reporting on 429:
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a>
+            ("429 responses carry the rate limit headers … but not <code>Retry-After</code> … Apply exponential backoff on 429").</td>
+          <td><b>Fixed</b> — the pill now reports <code>snapshot fresh</code> / <code>snapshot stale</code> /
+            <code>snapshot degraded</code> / <code>snapshot unavailable</code> from two files: <code>data/collect_status.json</code>
+            (the collector's own verdict) and the age of <code>data/meta.json</code> (stale above 8 h, i.e. two missed
+            3-hourly windows). A new <i>Snapshot health</i> panel lists the timestamp, the age, the failure count, any
+            artifacts that were kept instead of rewritten, and links the log, the status file and the scheduling workflow.
+            Regression: <code>tests/publication.test.mjs</code> §4–5, which executes the real script against five
+            synthetic states (fresh+healthy, stale, degraded, missing status file, missing metadata).</td>
+        </tr>
+        <tr>
+          <td>PI-2</td>
+          <td><b>The site stated a refresh cadence that the workflow does not implement.</b> <code>index.html</code> and
+            <code>data.html</code> both said the snapshots refresh <i>twice hourly</i>. The scheduler in
+            <code>.github/workflows/pages.yml</code> is <code>17 */3 * * *</code> — every three hours. (The <i>portfolio
+            ledger</i> is genuinely twice-hourly, <code>13,43 * * * *</code> in <code>portfolio.yml</code>; the sentence was
+            about snapshots, so it was simply wrong.)</td>
+          <td>Read directly from both workflow files in the repository:
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/pages.yml">pages.yml</a> ·
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/portfolio.yml">portfolio.yml</a>.
+            Nothing about Kalshi's API is involved; the claim contradicted the repo's own file.</td>
+          <td><b>Fixed</b> — both pages now say <i>every 3 hours</i> and quote the cron expression, and
+            <code>data.html</code> also names the file that actually exists. Regression:
+            <code>tests/publication.test.mjs</code> §1 parses the cron out of the workflow and fails if any page claims a
+            contradicting snapshot cadence (a twice-hourly claim is still allowed in a sentence that is about the ledger).</td>
+        </tr>
+        <tr>
+          <td>PI-3</td>
+          <td><b>The Data page named a workflow file that does not exist.</b> Its footer credited
+            <code>.github/workflows/verify-and-collect</code> (a file name that no longer exists); the repository has <code>pages.yml</code>,
+            <code>portfolio.yml</code> and <code>demo-account.yml</code>. A reader following the claim finds nothing.</td>
+          <td><code>ls .github/workflows</code> on the deployed tree; the file was renamed in an earlier consolidation and
+            this sentence was missed.</td>
+          <td><b>Fixed</b> — the footer names <code>pages.yml</code>. Regression: <code>tests/publication.test.mjs</code> §2
+            extracts every <code>*.yml</code> a published page names and fails if the file is not in the repository.</td>
+        </tr>
+        <tr>
+          <td>PI-4</td>
+          <td><b>The "every row has an official source" gate could not see the rows that were published.</b>
+            <code>scripts/check_site.mjs</code> proves the rule on <code>data/snapshot.json</code> — an artifact written by a
+            superseded builder that no published page renders (already flagged as item 6b-2). The rows a visitor actually
+            sees on <code>data.html</code>, <code>resolved.html</code> and <code>portfolio.html</code> build their links in
+            JavaScript at render time, so no static check could see them. Before this pass the repository had no gate that
+            rendered those pages and inspected their rows.</td>
+          <td>Test: replacing a per-market link with any other URL left <code>check_site.mjs</code> green. The requirement is
+            the owner's ("every table row must have a source link to an official site"); the official records themselves are
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a>
+            (<code>/markets/{ticker}</code>) and
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events</a>
+            (<code>/events/{event_ticker}</code>) on the
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">demo base URL</a>.</td>
+          <td><b>Fixed</b> — <code>scripts/check_row_sources.mjs</code> renders the real pages in jsdom against the real data
+            files and asserts row by row. It now covers the two data pages <b>and</b> the ledger page:
+            <b>431 rendered rows, 707 official links, 0 failures</b>, including that every trade, open position and
+            resolution in <code>data/portfolio.json</code> is rendered with its own <code>/markets/{ticker}</code> record and
+            not only the batched <code>/markets?tickers=…</code> quote URL that priced the cycle. Wired into
+            <code>npm run check</code> and into the CI <code>checks</code> job.</td>
+        </tr>
+        <tr>
+          <td>PI-5</td>
+          <td><b>Nothing tested the landing page.</b> No suite booted <code>index.html</code>, which is why PI-1, PI-2 and
+            PI-3 all survived a green CI. The render gate lists twelve pages and <code>index.html</code> is not among them
+            (it mounts no engine, so it was assumed trivial — it is the page that makes the site's freshness claim).</td>
+          <td>Read from the page list in the <code>Render every published page in jsdom</code> step of
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/pages.yml">pages.yml</a>.</td>
+          <td><b>Partially closed</b> — <code>tests/publication.test.mjs</code> now executes the landing page's status script
+            in jsdom on every CI run, in five synthetic states, and also checks its links and stated cadence. The render
+            gate's page list is unchanged (that file belongs to no open claim but changing the list is integration work this
+            session did not need), so this item stays <b>needs review</b> until the owner decides whether
+            <code>index.html</code> should join the render gate.</td>
+        </tr>
+        <tr>
+          <td>PI-6</td>
+          <td><b>A candidate fix for the 429 backoff would have produced zero-length waits.</b> An unmerged parallel branch
+            (<code>arena/0b68e1e4-trade1</code>, PR #79) reads <code>X-RateLimit-Reset</code> as a plain number and sleeps
+            for it. The official page defines the header as "seconds, to the millisecond, <b>until the bucket is full
+            again</b>" — a <i>remaining</i> time, not an absolute epoch — but it is also omitted on publicly cacheable
+            market-data responses, which are exactly the responses the collector pages through. The value therefore arrives
+            absent on the calls that matter. <b>This session did not merge that branch and did not edit
+            <code>scripts/collect.py</code> or <code>scripts/portfolio_engine.py</code> (PR #79 owns them).</b></td>
+          <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a>:
+            header table (<code>X-RateLimit-Reset</code> = "seconds … until the bucket is full again"), and "Publicly
+            cacheable responses (<code>Cache-Control: public</code>), which include most market data, carry none of these
+            headers". The merged collector (<code>main</code>) already handles this: it uses <code>Retry-After</code> only
+            when it parses as a number and otherwise backs off exponentially, so it never depends on a header that may be
+            missing.</td>
+          <td><b>Flagged for the PR #79 owner, not applied here.</b> The exponential fallback in that branch is correct; the
+            reset-header shortcut needs re-reading against the two sentences above before it is merged. No live behaviour of
+            the deployed site depends on it — the deployed collector uses <code>main</code>'s logic.</td>
+        </tr>
+        <tr>
+          <td>PI-7</td>
+          <td><b>Duplicate exposure was already in the published ledger when this pass started.</b>
+            <code>data/portfolio.json</code> holds three tickers opened by two strategies each
+            (<code>KXETHD-26NOV2017-T1659.99</code> momentum + harvest, both settled −$24.87;
+            <code>KXBTC50VS100-BTC-26DEC31</code> momentum + breakout; <code>KXPRESNOMD-28-JOSS</code> momentum + breakout),
+            and two of those entries were taken at a <b>$0.95 ask</b> after a large upward spike — risking $0.95 to make $0.05.
+            The performance tables on <a href="portfolio.html">Portfolio</a> therefore count the same market twice in two
+            different strategy buckets, which flatters neither strategy but does distort the topic totals.</td>
+          <td>Read from the committed artifact: <code>data/portfolio.json → trades[]</code>, grouped by <code>ticker</code>.
+            Each row links its own official record, so the doubling is visible on the page itself. Fee basis for the loss
+            figures: <a target="_blank" rel="noopener" href="https://kalshi.com/docs/kalshi-fee-schedule.pdf">fee schedule</a>.</td>
+          <td><b>Published, deliberately not rewritten.</b> History stays as executed; retro-editing a ledger to make it look
+            better is exactly what the verification rule forbids. The fixes that stop it recurring (one open position per
+            ticker across strategies, a $0.90 entry cap for directional strategies) are proposed in PR #79 and were
+            <b>not</b> taken over here because PR #79 owns those two files. Small sample: 12 trades, 4 realised, 0 wins —
+            no performance claim is made anywhere on the site.</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+
+<section class="box" style="margin-top:14px">
     <h2>Added by session <code>aa7d3d27</code> — 2026-11-21 (live-engine repair)</h2>
     <p class="small muted">Every row below was reproduced locally against the published engine before it was changed, and each fix now has a
       regression test in <code>tests/live_dash.test.mjs</code> (run in CI). Official sources re-read 2026-11-21:

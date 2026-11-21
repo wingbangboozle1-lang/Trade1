@@ -61,7 +61,7 @@
     <p class="muted small">Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude" target="_blank" rel="noopener">GET /markets?status=settled&amp;min_settled_ts=now-72h</a> (window noted per snapshot). Result and settlement fields are verbatim from the response.</p>
   </section>
 
-  <p class="footer">Snapshots refresh twice hourly via GitHub Actions after deploy (<code>.github/workflows/verify-and-collect.yml</code>), committed with the exact fetch log in <code>data/log.md</code>.</p>
+  <p class="footer">Snapshots refresh every 3 hours via GitHub Actions after deploy (<code>.github/workflows/pages.yml</code>, cron <code>17 */3 * * *</code>), committed with the exact fetch log in <code>data/log.md</code>. The previous collector run's health is recorded in <code>data/collect_status.json</code>; when an upstream read fails the collector keeps the last verified files rather than overwriting them with partial data.</p>
 </main>
 <script>
 (function(){

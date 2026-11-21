@@ -88,6 +88,10 @@ jobs:
             resolved.html portfolio.html \
             topics/gas-prices.html topics/elections.html topics/culture.html \
             topics/crypto.html topics/golf.html
+      - name: Every rendered table row links its own official record (data, resolved, ledger)
+        run: node scripts/check_row_sources.mjs
+      - name: Publication integrity (stated cadence vs workflow, snapshot health, live links)
+        run: node tests/publication.test.mjs
       - name: Published-page link and nav parity check
         run: node scripts/check_links.mjs
 

@@ -53,7 +53,7 @@
       <li><b>Resolution tracking.</b> Watched markets are re-checked on every poll; when the exchange settles them, the outcome (YES/NO, settlement time, settlement value) is recorded, and paper positions settle at $1 per winning contract.</li>
       <li><b>Strategy lab.</b> Four automated paper strategies (momentum, fade, favorite-harvest, 50¢ breakout) run on live quotes; performance is categorized by strategy and topic with equity, win rate, and ROI tables. Trades persist in the browser (export/import available).</li>
       <li><b>An always-on ledger, so the track record survives.</b> The same four strategies also run inside GitHub Actions every ~30 minutes (<code>scripts/portfolio_engine.py</code>) and commit their trade ledger to the repository, so portfolio performance accumulates across days and every visitor sees the same numbers: <a href="portfolio.html">Portfolio</a>. It is a simulation — no credentials, no orders. The separate, opt-in <a href="demo-account/">Demo Account</a> console is the layer that can read a real demo balance and place guarded demo orders once <i>your</i> demo API key exists (see <a href="flagged.html">Flagged</a> and <a href="suggestions.html">Ideas</a> §2 item 18).</li>
-      <li><b>Verified snapshots.</b> A GitHub Actions pipeline (<code>scripts/collect.py</code>) re-verifies the API and refreshes <code>data/</code> snapshots twice hourly after deploy, with a per-request log (<code>data/log.md</code>) — every table row on the <a href="data.html">Data page</a> links the exact official URL it came from.</li>
+      <li><b>Verified snapshots.</b> A GitHub Actions pipeline (<code>scripts/collect.py</code>) re-verifies the API and refreshes <code>data/</code> snapshots every 3 hours after deploy (<code>.github/workflows/pages.yml</code>, cron <code>17 */3 * * *</code>), with a per-request log (<code>data/log.md</code>) — every table row on the <a href="data.html">Data page</a> links the exact official URL it came from. The collector is fail-closed: if the upstream read fails it keeps the previous verified files and publishes the reason in <code>data/collect_status.json</code>.</li>
       <li><b>Fees modeled from the official schedule.</b> Paper P&amp;L applies the official taker fee <code>roundup(0.07 × C × P × (1−P))</code> from <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">kalshi.com/docs/kalshi-fee-schedule.pdf</a> (verified this session; maker fees not modeled — flagged).</li>
       <li><b>Not implemented on purpose.</b> No account login, no WebSocket (browsers cannot attach Kalshi's required signed handshake headers), no dollar figures presented as exchange-published (traded-notional values are labeled estimates). Full list on <a href="flagged.html">Flagged for Review</a>.</li>
       <li><b>Demo-account trading &amp; portfolio tracking (opt-in).</b> The separate <a href="demo-account/">Demo Account &amp; Strategy Lab</a> adds live demo-account balance/positions and guarded demo order placement (user-supplied API key, official request signing) plus a fee-accurate paper portfolio analyzed by topic × strategy × trigger. Its unverified items are on its own <a href="demo-account/flagged.html">Flagged page</a>.</li>
@@ -95,6 +95,18 @@
   </section>
 
   <section class="box" style="margin-top:14px">
+    <h2>Snapshot health <span class="muted small">— how old is the data you are looking at?</span></h2>
+    <ul class="small" id="snap-health">
+      <li>loading <code>data/meta.json</code>…</li>
+    </ul>
+    <p class="muted small">Every figure on this site is either read live from the official demo API by your browser, or comes from the
+      committed snapshot whose timestamp is shown above. The snapshot is refreshed by a scheduled GitHub Actions job
+      (every 3 hours, <code>17 */3 * * *</code>). When that job fails or is rate-limited, the collector keeps the last verified
+      files instead of overwriting them with partial data, and records the failure in <code>data/collect_status.json</code> —
+      both files are linked above so the freshness claim can be checked without trusting this page.</p>
+  </section>
+
+  <section class="box" style="margin-top:14px">
     <h2>How the live pipeline works</h2>
     <ol class="small">
       <li><b>Bootstrap</b> — the page loads the latest Actions-verified snapshot (<code>data/topics/*.json</code>) so tables are populated instantly.</li>
@@ -112,17 +124,80 @@
 <script src="assets/model.js"></script>
 <script src="assets/app.js"></script>
 <script>
-// landing page status strip (no engine mount)
-fetch('data/meta.json', {cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(m){
-  var pill=document.getElementById('home-mode'), note=document.getElementById('home-snap');
-  if(!pill) return;
-  if(m && m.generated_at){
-    pill.className='pill'; pill.textContent='snapshot pipeline OK';
-    note.textContent='last Actions verification '+m.generated_at.replace('T',' ').slice(0,19)+'Z · markets '+
-      (m.findings && m.findings.markets_open_count !== undefined ? m.findings.markets_open_count : '?')+
-      ' · CORS '+((window.fetch&&'probed')||'?');
-  } else { pill.className='pill warn'; pill.textContent='snapshot unavailable'; }
-});
+// Landing-page status strip + snapshot-health panel. No engine mount.
+// Honest reporting: this must never print "OK" for a snapshot it cannot vouch for.
+// A snapshot is "fresh" only when BOTH of these hold, and each is read from a file:
+//   * data/collect_status.json says the last collector run was not degraded, and
+//   * data/meta.json was generated less than SNAPSHOT_MAX_AGE_H ago.
+// SNAPSHOT_MAX_AGE_H is 8 h: the scheduled refresh is every 3 h (pages.yml cron
+// '17 */3 * * *'), so 8 h means two consecutive refresh windows were missed.
+(function(){
+  var SNAPSHOT_MAX_AGE_H = 8;
+  var pill = document.getElementById('home-mode');
+  var note = document.getElementById('home-snap');
+  var list = document.getElementById('snap-health');
+  var REPO = 'https://github.com/wingbangboozle1-lang/Trade1/blob/main/';
+
+  function getJSON(url){
+    return fetch(url, {cache:'no-store'})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .catch(function(){ return null; });
+  }
+  function iso(at){ return at ? String(at).replace('T',' ').slice(0,19)+'Z' : null; }
+  function li(html){ return '<li>'+html+'</li>'; }
+
+  Promise.all([getJSON('data/meta.json'), getJSON('data/collect_status.json')]).then(function(res){
+    var meta = res[0], st = res[1];
+    var rows = [];
+    if (!pill) return;
+
+    if (!meta || !meta.generated_at) {
+      pill.className = 'pill warn';
+      pill.textContent = 'snapshot unavailable';
+      if (note) note.textContent = 'data/meta.json could not be read';
+      if (list) list.innerHTML = li('No committed snapshot metadata is readable, so the tables on this site cannot be dated. The live dashboard still polls the API directly.');
+      return;
+    }
+
+    var gen = new Date(meta.generated_at);
+    var ageH = (Date.now() - gen.getTime()) / 3600000;
+    var ageText = isFinite(ageH) ? (ageH < 1 ? Math.max(0, Math.round(ageH*60))+' min' : ageH.toFixed(1)+' h') : '?';
+    var degraded = !st || st.status !== 'ok';
+    var stale = !(ageH <= SNAPSHOT_MAX_AGE_H);
+
+    if (degraded) {
+      pill.className = 'pill bad';
+      pill.textContent = 'snapshot degraded';
+    } else if (stale) {
+      pill.className = 'pill warn';
+      pill.textContent = 'snapshot stale (' + ageText + ' old)';
+    } else {
+      pill.className = 'pill';
+      pill.textContent = 'snapshot fresh';
+    }
+
+    if (note) {
+      note.textContent = 'snapshot ' + iso(meta.generated_at) + ' · ' + ageText + ' old · open markets ' +
+        (meta.findings && meta.findings.markets_open_count !== undefined ? meta.findings.markets_open_count : '—');
+    }
+
+    if (list) {
+      rows.push(li('<b>Snapshot generated:</b> ' + iso(meta.generated_at) + ' (' + ageText + ' old, as of ' +
+        new Date().toISOString().replace('T',' ').slice(0,19) + 'Z). ' +
+        '<a href="' + REPO + 'data/meta.json" target="_blank" rel="noopener">data/meta.json</a>'));
+      rows.push(li('<b>Collector status in that run:</b> ' +
+        (st ? '<code>' + st.status + '</code>' + (st.transient_read_failures ? ' — ' + st.transient_read_failures + ' upstream read failure(s)' : ' — no upstream read failures') : '<b>unverified</b> (data/collect_status.json missing or unreadable)') +
+        '. <a href="' + REPO + 'data/collect_status.json" target="_blank" rel="noopener">data/collect_status.json</a>'));
+      if (st && st.kept_previous_artifacts && st.kept_previous_artifacts.length) {
+        rows.push(li('<b>Kept instead of rewritten</b> (their upstream read failed): <code>' + st.kept_previous_artifacts.join('</code>, <code>') + '</code>'));
+      }
+      rows.push(li('<b>Per-request log for that run:</b> <a href="' + REPO + 'data/log.md" target="_blank" rel="noopener">data/log.md</a> — every GET with its HTTP status.'));
+      rows.push(li('<b>Refresh schedule:</b> every 3 hours (<code>17 */3 * * *</code>) — <a href="' + REPO + '.github/workflows/pages.yml" target="_blank" rel="noopener">.github/workflows/pages.yml</a>. A snapshot older than ' + SNAPSHOT_MAX_AGE_H + ' h is reported above as stale.'));
+      if (stale) rows.push(li('<b>Stale:</b> the snapshot is older than two missed refresh windows, so the committed tables may not reflect the current market. The <a href="dashboard.html">live dashboard</a> polls the API directly and does not depend on this snapshot.'));
+      list.innerHTML = rows.join('');
+    }
+  });
+})();
 </script>
 </body>
 </html>
