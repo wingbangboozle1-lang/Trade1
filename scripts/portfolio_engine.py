@@ -906,7 +906,12 @@ def trade_public(t):
                   "reason": t["exit"]["reason"], "fee_usd": usd(t["exit"]["fee_cc"]),
                   "credit_usd": usd(t["exit"].get("credit_cc", 0)),
                   "source": t["exit"].get("source") or api_market_url(t["ticker"])} if t.get("exit") else None),
-        "note": t.get("note", ""), "source": t.get("source") or api_market_url(t["ticker"]),
+        "note": t.get("note", ""),
+        # One row, one link: every projected row links ITS OWN official market
+        # record ({BASE}/markets/{ticker}). Older state rows recorded the batch
+        # quote URL that fetched them; that provenance stays in the state file,
+        # but the published artifact always shows the row's own record.
+        "source": api_market_url(t["ticker"]) or t.get("source"),
     }
 
 
@@ -923,7 +928,7 @@ def alert_public(a):
         "spread_usd": round(a["spread_bits"] / 10000, 4) if a.get("spread_bits") is not None else None,
         "vol24_contracts": (a["vol24_c"] / 100) if a.get("vol24_c") is not None else None,
         "model_pick": a["score"] >= float(MIN_MODEL_SCORE),
-        "source": a.get("source") or api_market_url(a.get("ticker")),
+        "source": api_market_url(a.get("ticker")) or a.get("source"),
     }
 
 
@@ -980,7 +985,9 @@ def write_artifact(st, watch_rows, sources, log_list, status="live", note=""):
         "by_topic": aggregate(st, quotes, "topic"),
         "positions": [trade_public(t) for t in open_positions(st)][-40:],
         "trades": [trade_public(t) for t in st["trades"]][-250:],
-        "resolutions": st["resolutions"][-120:],
+        # resolution rows: same one-row-one-link rule (own market record first)
+        "resolutions": [dict(r, source=api_market_url(r.get("ticker")) or r.get("source"))
+                        for r in st["resolutions"][-120:]],
         "alerts": [alert_public(a) for a in st["alerts"]][-120:],
         "equity_curve": [{"t": e["t"], "equity_usd": usd(e["equity_cc"]),
                           "cash_usd": usd(e["cash_cc"]), "open": e.get("open", 0)}
