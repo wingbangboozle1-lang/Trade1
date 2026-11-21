@@ -91,14 +91,43 @@ window.KalshiModel = (function () {
       exclCats: ['Politics', 'Elections'] } // mirrors scripts/topics.json golf.exclude_categories (PR #20 finding)
   ];
 
+  /* Keyword match with WORD boundaries - the browser twin of
+   * scripts/collect.py keyword_match(), which is `(?<!\w)(?:pattern)(?!\w)`.
+   *
+   * Flagged item 9d-1 / PR #65: the Python collector was corrected to match
+   * keywords as whole words, but this mirror still used a bare substring
+   * regex, so 'petrol' matched inside 'Petrolul' (CSM BBA Petrolul Ploiesti,
+   * a Romanian basketball match) and the event was labelled gas-prices here
+   * while the collector excluded it. The two implementations must agree.
+   *
+   * Implemented without lookbehind so it behaves the same in every browser
+   * the static page runs in: for each candidate hit, the character before
+   * and after the match must not be a word character.
+   */
+  function kwMatch(pattern, text) {
+    if (!pattern) return false;
+    var s = text || '';
+    var re = new RegExp('(?:' + pattern + ')', 'ig');
+    var m;
+    while ((m = re.exec(s)) !== null) {
+      var before = m.index === 0 ? '' : s.charAt(m.index - 1);
+      var after = m.index + m[0].length >= s.length ? '' : s.charAt(m.index + m[0].length);
+      var bOk = before === '' || !/\w/.test(before);
+      var aOk = after === '' || !/\w/.test(after);
+      if (bOk && aOk) return true;
+      if (m.index === re.lastIndex) re.lastIndex++; // zero-length match guard
+    }
+    return false;
+  }
+
   function classify(category, title, series) {
     var hay = (title || '') + ' ' + (series || '');
     for (var i = 0; i < TOPICS.length; i++) {
       var t = TOPICS[i];
       if (t.exclCats && category && t.exclCats.indexOf(category) !== -1) continue; // e.g. Trump golf-club markets sit in Politics (PR #20)
-      if (t.exclRe && new RegExp(t.exclRe, 'i').test(hay)) continue;
+      if (t.exclRe && kwMatch(t.exclRe, hay)) continue;
       if (category && t.categories.indexOf(category) !== -1) {
-        if (!t.titleRe || new RegExp(t.titleRe, 'i').test(title || '')) return t.id;
+        if (!t.titleRe || kwMatch(t.titleRe, title || '')) return t.id;
       }
       if (t.seriesRe && new RegExp(t.seriesRe, 'i').test(series || '')) return t.id;
     }
