@@ -1,257 +1,202 @@
-"""Offline tests for the collector's request discipline and publish gate.
+#!/usr/bin/env python3
+"""Offline checks for the collector's request accounting, publish gate and row
+selection. No network: `collect.get()` is stubbed, `time.sleep` is disabled.
 
-Why these exist: on 2026-11-21T06:58Z a scheduled snapshot run fired ~60 requests in
-two seconds, was rate-limited (`429 too_many_requests`) on every `/markets` call, and
-still WROTE the resulting empty files to `data/`, which CI committed and Pages
-published - the live tables went blank. The official rate-limit page says to
-"back off on 429" (https://docs.kalshi.com/getting_started/rate_limits), and the run
-must not publish an incomplete snapshot. Both are covered here, offline, with no
-network: `python3 tests/test_collect_hardening.py`.
+Why these exist (2026-11-21): a `snapshot` run lost every request after its first
+12 pages to HTTP 429, wrote zero-row files anyway, and CI published them
+(`data/resolved.json` 321 B / 0 rows, `topics/crypto.json` 260 kB -> 4.5 kB). The
+fail-closed reads themselves came from session `c96a21b7` and are covered by
+`tests/test_collect_failclosed.py`; what is covered here is the accounting that
+proves the throttle works, the per-topic selection that keeps the Resolved page
+from becoming a single-topic page, and the two CI steps that refuse to publish an
+incomplete run or a tree with committed conflict markers.
 """
+
 import json
 import os
-import shutil
+import re
 import sys
-import tempfile
+import time
 import unittest
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.argv = [sys.argv[0]]
 
 import scripts.collect as collect  # noqa: E402
 
-
-class FakeClock:
-    """Replace the module clock+sleep so back-off and throttling are observable."""
-
-    def __init__(self):
-        self.now = 1_000.0
-        self.slept = []
-
-    def sleep(self, secs):
-        self.slept.append(secs)
-        self.now += secs
-
-    def time(self):
-        return self.now
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TOPICS = [{"id": "gas-prices"}, {"id": "elections"}, {"id": "culture"},
+          {"id": "crypto"}, {"id": "golf"}]
+IDS = [t["id"] for t in TOPICS]
 
 
-class RetryTest(unittest.TestCase):
-    def setUp(self):
-        self.clock = FakeClock()
-        self._time = collect.time
-        self._attempts, self._base = collect.MAX_ATTEMPTS, collect.BACKOFF_BASE_S
-        collect.time = self.clock            # type: ignore[assignment]
-        collect.STATS.update({"requests": 0, "retried": 0, "throttled_429": 0, "failed": 0})
-        self._real = collect._get_once
-
-    def tearDown(self):
-        collect.time = self._time            # type: ignore[assignment]
-        collect._get_once = self._real
-        collect.MAX_ATTEMPTS, collect.BACKOFF_BASE_S = self._attempts, self._base
-        collect.LOG.clear()
-
-    def _stub(self, codes):
-        calls = {"n": 0}
-
-        def fake(url, origin=None, method="GET", timeout=45):
-            i = min(calls["n"], len(codes) - 1)
-            calls["n"] += 1
-            code, hs = codes[i]
-            return code, hs, json.dumps({"ok": True}).encode(), 0.0
-
-        collect._get_once = fake
-        return calls
-
-    def test_throttles_consecutive_requests(self):
-        collect._last_request_at[0] = self.clock.now
-        collect._throttle()                       # first request: no wait owed yet
-        collect._throttle()                       # second one owes MIN_GAP_S
-        self.assertTrue(any(s >= collect.MIN_GAP_S for s in self.clock.slept),
-                        f"no spacing between requests: slept {self.clock.slept}")
-
-    def test_backs_off_on_429_and_recovers(self):
-        calls = self._stub([(429, {}), (429, {}), (200, {})])
-        code, _hs, body, _dt = collect.get("https://x/1")
-        self.assertEqual(code, 200)
-        self.assertEqual(calls["n"], 3, "expected two retries then success")
-        self.assertEqual(self.clock.slept[0], collect.BACKOFF_BASE_S)
-        self.assertEqual(self.clock.slept[1], collect.BACKOFF_BASE_S * 2)
-        self.assertEqual(collect.STATS["retried"], 2)
-
-    def test_honours_retry_after(self):
-        calls = self._stub([(429, {"retry-after": "7"}), (200, {})])
-        code, _hs, _b, _dt = collect.get("https://x/1")
-        self.assertEqual(code, 200)
-        self.assertIn(7.0, self.clock.slept, self.clock.slept)
-
-    def test_gives_up_after_max_attempts_and_counts_the_failure(self):
-        calls = self._stub([(429, {})] * 9)
-        code, _hs, _b, _dt = collect.get("https://x/1")
-        self.assertEqual(code, 429)
-        self.assertEqual(calls["n"], collect.MAX_ATTEMPTS)
-        self.assertEqual(collect.STATS["failed"], 1)
-        self.assertEqual(collect.STATS["throttled_429"], collect.MAX_ATTEMPTS)
-
-    def test_backoff_is_capped(self):
-        self._stub([(500, {})] * 9)
-        collect.MAX_ATTEMPTS, collect.BACKOFF_BASE_S = 8, 16.0
-        try:
-            collect.get("https://x/1")
-        finally:
-            collect.MAX_ATTEMPTS = self._attempts
-            collect.BACKOFF_BASE_S = self._base
-        self.assertTrue(all(s <= collect.BACKOFF_MAX_S for s in self.clock.slept),
-                        self.clock.slept)
-
-
-class GuardTest(unittest.TestCase):
-    def test_zero_counts_are_refused(self):
-        healthy = {"events": 2200, "markets": 6000, "settled": 6000,
-                   "topic_events": 120, "resolved_rows": 200, "failed": 0}
-        self.assertEqual(collect.snapshot_guard(healthy), [])
-        for key in ("events", "markets", "settled", "topic_events"):
-            bad = dict(healthy)
-            bad[key] = 0
-            self.assertTrue(collect.snapshot_guard(bad), f"{key}=0 must abort the publish")
-        many = dict(healthy)
-        many["failed"] = 5
-        self.assertTrue(any("429" in r or "rate-limit" in r for r in collect.snapshot_guard(many)),
-                        "5 endpoints failing after back-off must abort the publish")
-
-    def test_a_small_nonzero_snapshot_still_publishes(self):
-        # A quiet day is not a broken run: only "the API did not answer us" is refused.
-        self.assertEqual(collect.snapshot_guard({"events": 3, "markets": 1, "settled": 1,
-                                                 "topic_events": 1, "resolved_rows": 0,
-                                                 "failed": 1}), [])
-
-
-class StagingTest(unittest.TestCase):
-    """Outputs must land in data/ only when the run is promoted."""
-
-    def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix="trade1-stage-"))
-        self._out, self._stage, self._written = collect.OUT, collect.STAGE, list(collect.WRITTEN)
-        collect.OUT = str(self.tmp)
-        collect.STAGE = str(self.tmp / ".staging")
-        collect.WRITTEN.clear()
-        collect.begin_run()
-
-    def tearDown(self):
-        collect.OUT, collect.STAGE, collect.WRITTEN[:] = self._out, self._stage, self._written
-        shutil.rmtree(self.tmp, ignore_errors=True)
-        collect.LOG.clear()
-
-    def test_write_is_staged_and_promoted(self):
-        collect.wjson("topics/demo.json", {"hello": "world"})
-        self.assertTrue((self.tmp / ".staging" / "topics" / "demo.json").exists())
-        self.assertFalse((self.tmp / "topics" / "demo.json").exists(),
-                         "data/ must be untouched before promote()")
-        collect.promote()
-        published = json.loads((self.tmp / "topics" / "demo.json").read_text())
-        self.assertEqual(published, {"hello": "world"})
-        self.assertFalse((self.tmp / ".staging").exists(), "staging must be cleaned up")
-
-    def test_discard_leaves_no_trace(self):
-        collect.wjson("resolved.json", {"markets": []})
-        collect.discard("test: incomplete run")
-        self.assertFalse((self.tmp / ".staging").exists())
-        self.assertFalse((self.tmp / "resolved.json").exists())
-        self.assertEqual(collect.read_output("resolved.json"), None)
-
-    def test_read_output_prefers_this_runs_staged_copy(self):
-        collect.promote()                       # publish one version
-        collect.wjson("resolved.json", {"v": 2})
-        collect.promote()
-        collect.wjson("resolved.json", {"v": 3})
-        self.assertEqual(collect.read_output("resolved.json"), {"v": 3})
-
-    def test_label_warnings_flag_a_row_the_topic_excludes(self):
-        topics = [{"id": "gas-prices", "label": "Gas prices", "categories": ["Economics"],
-                   "title_keywords": "gasoline", "series_prefix": "^(KX)?GAS",
-                   "exclude_keywords": "natural gas|propane"}]
-        collect.wjson("resolved.json", {"markets": [
-            {"ticker": "KXNATGAS15M-1-1", "event_ticker": "KXNATGAS15M-1", "_topic": "gas-prices",
-             "title": "Natural Gas price up in next 15 mins?"},
-            {"ticker": "KXGAS-1", "event_ticker": "KXGAS-1", "_topic": "gas-prices",
-             "title": "Average gasoline price in December"},
-        ]})
-        warns = collect.label_warnings(topics)
-        self.assertEqual(len(warns), 1, warns)
-        self.assertIn("KXNATGAS15M-1-1", warns[0])
-
-
-class ClassifierTest(unittest.TestCase):
-    """The published data must agree with the topic rules that produced it."""
-
-    @classmethod
-    def setUpClass(cls):
-        cls.topics = collect.load_topics()
-
-    def test_natural_gas_never_enters_the_retail_gasoline_topic(self):
-        row = {"title": "Natural Gas price up in next 15 mins?",
-               "series_ticker": "KXNATGAS15M"}
-        self.assertEqual(collect.classify(row, self.topics), (None, None))
-        self.assertEqual(collect.classify_settled_without_event(row["title"], "KXNATGAS15M",
-                                                                self.topics), (None, None))
-
-    def test_settled_fallback_uses_the_series_guessed_from_the_event_ticker(self):
-        # GET /markets/{ticker} publishes no series_ticker (official Get Market schema,
-        # re-read 2026-11-21), so the guess is what keeps crypto rows in scope.
-        row_title = "Ethereum price at Nov 20, 2026 at 5pm EST?"
-        self.assertEqual(collect.classify_settled_without_event(row_title,
-                                                                collect.series_guess("KXETHD-26NOV2017"),
-                                                                self.topics),
-                         ("crypto", "series-prefix"))
-
+def rows():
+    """A settled batch shaped like the 2026-11-21 one: a huge recent crypto block,
+    a handful of burst-settling rows in three other topics, one topic with nothing,
+    and two rows whose topic is not configured at all."""
+    out = ([{"_topic": "crypto", "settlement_ts": "2026-11-21T%02d:%02dZ" % (10 + i // 60, i % 60)}
+            for i in range(1000)]
+           + [{"_topic": "golf", "settlement_ts": "2026-11-20T01:00Z"}] * 5
+           + [{"_topic": "elections", "settlement_ts": "2026-11-19T01:00Z"}] * 5
+           + [{"_topic": "culture", "settlement_ts": "2026-11-18T01:00Z"}] * 3
+           + [{"_topic": "unlisted", "settlement_ts": "2026-11-17T01:00Z"}] * 2)
+    out.sort(key=lambda m: m["settlement_ts"], reverse=True)
+    return out
 
 
 class SelectResolvedTest(unittest.TestCase):
-    """The Resolved page used to be 200 rows of one topic; see flagged item 78-8."""
-
-    IDS = ["gas-prices", "elections", "culture", "crypto", "golf"]
-
-    @staticmethod
-    def rows():
-        out = ([{"_topic": "crypto", "settlement_ts": "2026-11-21T%02d:00Z" % (10 + i // 60)}
-                for i in range(1000)]
-               + [{"_topic": "golf", "settlement_ts": "2026-11-20T01:00Z"}] * 5
-               + [{"_topic": "elections", "settlement_ts": "2026-11-19T01:00Z"}] * 5
-               + [{"_topic": "culture", "settlement_ts": "2026-11-18T01:00Z"}] * 3
-               + [{"_topic": "unlisted", "settlement_ts": "2026-11-17T01:00Z"}] * 2)
-        out.sort(key=lambda m: m["settlement_ts"], reverse=True)
-        return out
+    """Flagged item 78-8: the published Resolved rows were 200 of one topic."""
 
     def test_every_topic_with_rows_appears(self):
-        picked = collect.select_resolved(self.rows(), 200, self.IDS)
+        picked = collect.select_resolved(rows(), 200, IDS)
         self.assertEqual(len(picked), 200)
-        seen = {r["_topic"] for r in picked}
-        self.assertEqual(seen, {"crypto", "golf", "elections", "culture"})
+        self.assertEqual({r["_topic"] for r in picked},
+                         {"crypto", "golf", "elections", "culture"})
 
-    def test_small_topics_are_not_squeezed_out_by_the_newest_topic(self):
-        picked = collect.select_resolved(self.rows(), 200, self.IDS)
-        counts = {t: sum(1 for r in picked if r["_topic"] == t) for t in self.IDS}
+    def test_small_topics_keep_their_rows_and_crypto_gets_the_backfill(self):
+        picked = collect.select_resolved(rows(), 200, IDS)
+        counts = {t: sum(1 for r in picked if r["_topic"] == t) for t in IDS}
         self.assertEqual(counts["golf"], 5)
         self.assertEqual(counts["elections"], 5)
         self.assertEqual(counts["culture"], 3)
-        self.assertEqual(counts["gas-prices"], 0)  # it had no settled rows to begin with
-        self.assertEqual(counts["crypto"], 200 - 13)  # its share, then the backfill
+        self.assertEqual(counts["gas-prices"], 0)      # nothing settled in the window
+        self.assertEqual(counts["crypto"], 200 - 13)   # its share, then the backfill
 
-    def test_order_is_still_newest_first_and_length_is_capped(self):
-        picked = collect.select_resolved(self.rows(), 200, self.IDS)
+    def test_order_is_newest_first_and_the_limit_is_exact(self):
+        picked = collect.select_resolved(rows(), 200, IDS)
         self.assertEqual(picked, sorted(picked, key=lambda m: m["settlement_ts"], reverse=True))
-        self.assertEqual(len(collect.select_resolved(self.rows(), 5, self.IDS)), 5)
-        self.assertEqual(len(collect.select_resolved(self.rows()[:7], 200, self.IDS)), 7)
+        self.assertEqual(len(collect.select_resolved(rows(), 5, IDS)), 5)
+        self.assertEqual(len(collect.select_resolved(rows()[:7], 200, IDS)), 7)
 
     def test_degenerate_inputs_never_crash_or_overfill(self):
-        self.assertEqual(collect.select_resolved(self.rows(), 0, self.IDS), [])
-        self.assertEqual(collect.select_resolved([], 200, self.IDS), [])
-        # No topic ids configured: plain recency slice, still exactly `limit`.
-        self.assertEqual(len(collect.select_resolved(self.rows(), 200, [])), 200)
-        # Rows only in topics that are not configured still get published, not dropped.
+        self.assertEqual(collect.select_resolved(rows(), 0, IDS), [])
+        self.assertEqual(collect.select_resolved([], 200, IDS), [])
+        self.assertEqual(len(collect.select_resolved(rows(), 200, [])), 200)  # plain recency slice
         only_other = [{"_topic": "x", "settlement_ts": "2026-11-01T00:00Z"}] * 10
-        self.assertEqual(len(collect.select_resolved(only_other, 200, self.IDS)), 10)
+        self.assertEqual(len(collect.select_resolved(only_other, 200, IDS)), 10)  # not dropped
+
+    def test_the_published_payload_documents_the_selection(self):
+        """`published_per_topic` has to be in the file: the whole point is that the
+        shape is checkable from published data instead of from a code read."""
+        src = open(os.path.join(ROOT, "scripts", "collect.py"), encoding="utf-8").read()
+        for key in ('"published_count"', '"published_per_topic"', '"row_selection"',
+                    '"markets": published'):
+            self.assertIn(key, src, f"resolved.json must publish {key}")
+
+
+class SeriesGuessAtTheCallSiteTest(unittest.TestCase):
+    """Flagged item 78-3: `GET /markets/{ticker}` publishes no `series_ticker`
+    (official Get Market schema, re-read 2026-11-21; 200/200 committed settled rows
+    carry none), so the settled fallback has to fall back on the event ticker."""
+
+    def setUp(self):
+        self.topics = json.load(open(os.path.join(ROOT, "scripts", "topics.json"),
+                                     encoding="utf-8"))["topics"]
+
+    def test_empty_series_loses_the_row_but_the_guess_recovers_it(self):
+        title = "Ethereum price at Nov 20, 2026 at 5pm EST?"
+        self.assertEqual(collect.classify_settled_without_event(title, "", self.topics)[0], None)
+        self.assertEqual(collect.classify_settled_without_event(
+            title, collect.series_guess("KXETHD-26NOV2017"), self.topics),
+            ("crypto", "series-prefix"))
+
+    def test_the_settled_path_passes_the_guess_not_the_raw_field(self):
+        src = open(os.path.join(ROOT, "scripts", "collect.py"), encoding="utf-8").read()
+        call = re.search(r"=\s*classify_settled_without_event\((.*?)\)", src, re.S)
+        self.assertTrue(call, "the settled fallback call site disappeared")
+        self.assertIn("series_guess", call.group(1),
+                      "the fallback must receive `series or series_guess(event_ticker)`")
+
+    def test_exclusions_still_win_over_the_guess(self):
+        # PR #65 behaviour must survive the call-site change: natural gas is not the
+        # retail-gasoline topic, even though the series prefix would otherwise match.
+        title = "Natural Gas price up in next 15 mins?"
+        tid, _why = collect.classify_settled_without_event(
+            title, collect.series_guess("KXNATGAS15M-26NOV202300-00"), self.topics)
+        self.assertNotEqual(tid, "gas-prices")
+
+
+class RequestStatsTest(unittest.TestCase):
+    """The docs claim (EXECUTIVE_SUMMARY "throttling and back-off on 429") is only
+    honest if the run publishes the counters that prove it happened."""
+
+    def setUp(self):
+        self.real_get, self.real_sleep = collect.get, time.sleep
+        self.saved = dict(collect.STATS)
+        collect.STATS.update({"requests": 0, "retried": 0, "throttled_429": 0})
+        collect.time.sleep = lambda *_a, **_k: None   # no wall time in tests
+
+    def tearDown(self):
+        collect.get, collect.time.sleep = self.real_get, self.real_sleep
+        collect.STATS.clear()
+        collect.STATS.update(self.saved)
+
+    def test_counters_track_a_throttled_then_ok_request(self):
+        seq = [(429, {"retry-after": "0"}, b"", 0.0), (200, {}, b"{}", 0.1)]
+
+        def fake_get(url, origin=None, method="GET", timeout=45):
+            return seq.pop(0)
+
+        collect.get = fake_get
+        code, body, _dt, attempts = collect.get_with_retry("https://x/y")
+        self.assertEqual((code, attempts), (200, 2))
+        self.assertEqual(collect.STATS["requests"], 2)
+        self.assertEqual(collect.STATS["retried"], 1)
+        self.assertEqual(collect.STATS["throttled_429"], 1)
+
+    def test_a_clean_request_is_not_counted_as_a_retry(self):
+        collect.get = lambda url, origin=None, method="GET", timeout=45: (200, {}, b"{}", 0.1)
+        collect.get_with_retry("https://x/y")
+        self.assertEqual(collect.STATS, {"requests": 1, "retried": 0, "throttled_429": 0})
+
+    def test_giving_up_records_the_failure_and_counts_every_attempt(self):
+        n = {"calls": 0}
+
+        def always_429(url, origin=None, method="GET", timeout=45):
+            n["calls"] += 1
+            return 429, {}, b"", 0.0
+
+        collect.get = always_429
+        code, _b, _dt, attempts = collect.get_with_retry("https://x/y")
+        self.assertEqual(code, 429)
+        self.assertEqual(attempts, collect.MAX_ATTEMPTS)
+        self.assertEqual(n["calls"], collect.MAX_ATTEMPTS)
+        self.assertEqual(collect.STATS["requests"], collect.MAX_ATTEMPTS)
+
+    def test_the_counters_are_published(self):
+        src = open(os.path.join(ROOT, "scripts", "collect.py"), encoding="utf-8").read()
+        self.assertIn('"request_stats": dict(STATS)', src,
+                      "collect_status.json must carry the request counters")
+
+
+class WorkflowGateTest(unittest.TestCase):
+    """Both CI guards are the cheap part of the fix, so pin them: a workflow edit
+    that drops a step is exactly how the 06:58Z snapshot got committed."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.yml = open(os.path.join(ROOT, ".github", "workflows", "pages.yml"),
+                       encoding="utf-8").read()
+
+    def test_snapshot_job_refuses_an_incomplete_snapshot_before_committing(self):
+        block = self.yml[self.yml.index("Refuse to publish a snapshot"):]
+        block = block[:block.index("Commit refreshed snapshots")]
+        for needle in ("events_open_count", "markets_open_count", "settled_count_recent",
+                       "sys.exit("):
+            self.assertIn(needle, block, f"the gate must check {needle}")
+
+    def test_checks_job_runs_both_collector_test_files(self):
+        for step in ("tests/test_collect.py", "tests/test_collect_hardening.py",
+                     "tests/test_collect_failclosed.py"):
+            self.assertIn(step, self.yml, f"checks must run {step}")
+
+    def test_checks_job_rejects_committed_conflict_markers(self):
+        self.assertRegex(self.yml, r"No committed Git conflict markers anywhere in the tree")
+        self.assertIn("git grep -nI -E", self.yml)
+
+    def test_test_package_script_runs_the_hardening_tests(self):
+        pkg = json.load(open(os.path.join(ROOT, "package.json"), encoding="utf-8"))
+        self.assertIn("test_collect_hardening.py", pkg["scripts"]["test"])
 
 
 if __name__ == "__main__":

@@ -70,28 +70,48 @@ The collector treated each 429 as "no data", wrote the files, `check_site.mjs` f
 **Blast radius.** Pages republished within a minute, so the live tables were blank/degenerate for
 every visitor — the alert feeds and topic rankings had no rows to rank.
 
-**Fix (this session, `scripts/collect.py` + `pages.yml`).**
-1. `get()` is the single choke point for every request: it now spaces consecutive calls
-   (`MIN_GAP_S` = 0.45 s by default) and retries `429` / `5xx` / network errors with exponential
-   back-off (2 s, 4 s, 8 s, capped at 30 s), honouring `Retry-After` when the response carries it.
-2. Output is staged in `data/.staging` and moved into `data/` only by `promote()`, after the run is
-   known to be complete; `discard()` deletes the staged files, so an aborted run changes nothing.
-3. `snapshot_guard()` refuses to publish when the open-events, open-markets or settled sweeps
-   returned nothing, when no topic received an event, or when 5+ endpoints still failed after
-   back-off. `scripts/collect.py` then exits non-zero, the commit step never runs, and the last
-   good snapshot stays published with its own honest `generated_at`.
-4. The `snapshot` job independently re-checks the counts before committing (defense in depth), so a
-   future refactor of the collector cannot silently remove the gate.
-5. **Measured in CI after the change** — run
-   [`44879449386`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879449386) on this branch,
-   data commit `f019584e`: `request stats: {'requests': 504, 'retried': 0, 'throttled_429': 0, 'failed': 0}`
-   and `PUBLISHED 13 file(s)` — 504 spaced requests with **no** 429 at all, 2,400 open events, 14,647 open
-   markets, 6,000 settled markets, 2,374 topic events, `data/resolved.json` 229 kB. The run that broke
-   (§4 opening) collected the same sweep in ~2 s and lost every request after it.
-5. `tests/test_collect_hardening.py` — 13 offline checks (spacing, back-off growth, `Retry-After`,
-   give-up accounting, back-off cap, guard matrix, staging/promote/discard, label warning, and the
-   two classification cases) — plus the existing `tests/test_collect.py` (4) and the whole
-   `npm test` suite, all green; both are wired into `npm test` and into the `checks` job.
+**Fix — two sessions, merged additively.**
+
+*The read side (session `c96a21b7`, on `main`):*
+
+1. `get_with_retry()` paces every call (`PACE_S = 0.25`), retries `429 / 500 / 502 / 503 / 504`
+   up to `MAX_ATTEMPTS = 5`, and waits on `Retry-After`, else `X-RateLimit-Reset`, else `2 ** attempt`,
+   capped at `BACKOFF_CAP_S = 60`.
+2. `FAILURES` records every read that never succeeded and `KEPT` lists the artifacts the run therefore
+   **did not rewrite** (`topics/*.json`, `categories.json`, `resolved.json`, plus `samples/*` and
+   `meta.json` via `wjson`) — so an empty read can no longer replace good data. Covered by
+   `tests/test_collect_failclosed.py`.
+
+*What this branch adds on top of it:*
+
+3. `STATS = {requests, retried, throttled_429}` incremented inside the retry loop and published as
+   `request_stats` in `data/collect_status.json` — the artifact that makes "we back off on 429" a
+   checkable claim instead of a sentence.
+4. A pre-commit gate in the `snapshot` job (`Refuse to publish a snapshot the API left incomplete`) that
+   re-reads `data/meta.json` and exits non-zero when `events_open_count`, `markets_open_count` or
+   `settled_count_recent` is zero, or when no topic file received an event. The collector's own
+   `KEPT` logic already preserves the previous files; this is what makes a degraded run **red** in the
+   Actions tab instead of green-and-silently-stale, and it survives a refactor of the collector because
+   it reads the published artifacts, not the code. Deliberately **not** a gate on small-but-nonzero
+   snapshots.
+5. `classify_settled_without_event()` receives `series or series_guess(event_ticker)` at its call site,
+   because a Market record publishes no `series_ticker` (finding 78-3) — the exclusion fix from PR #65
+   could otherwise silently cost the Resolved page its rows.
+6. `select_resolved()` replaces the `in_scope[:200]` recency slice, which published 200 crypto rows and
+   zero rows for the other four topics (finding 78-8). `resolved.json` now also carries
+   `published_count`, `published_per_topic` and `row_selection`.
+7. `checks` runs `tests/test_collect.py`, `tests/test_collect_hardening.py` (16 cases) and main's
+   `tests/test_collect_failclosed.py`, and fails on any committed Git conflict marker in the tree.
+
+*Measured in CI:* run
+[`44879449386`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879449386) on this branch
+(data commit `f019584e`) logged `request stats: {'requests': 504, 'retried': 0, 'throttled_429': 0,
+'failed': 0}` and `PUBLISHED 13 file(s)` — 504 spaced requests with **no** 429 at all, 2,400 open events,
+14,647 open markets, 6,000 settled markets, 2,374 topic events, `data/resolved.json` back to 229 kB.
+That run executed this branch's earlier implementation (a `data/.staging` + `promote()` design, since
+replaced by `c96a21b7`'s per-artifact `KEPT` logic so the merge does not ship two ways of doing the same
+thing); the request numbers are its measurements, and they are what the pacing is for. The run that broke
+(§4 opening) attempted the same sweep in ~2 s and lost every request after it.
 
 ## 5. Topic-label state (the item D1 / 9d-1 / 691-11 history)
 
@@ -123,7 +143,8 @@ every visitor — the alert feeds and topic rankings had no rows to rank.
   **Flagged 9d-1 is closed on that evidence** (item 78-1 on the Flagged page).
 * `main`'s published data at the time of writing (`459a643c` → data `b08da8b0`) is still the degenerate
   0-row snapshot; the repair path is to merge this branch so the next run either republishes fully or
-  fails red, and **not** to dispatch `pages.yml` on `main` before `snapshot_guard` exists there.
+  fails red. Note that `main`'s own fail-closed reads (from `c96a21b7`) already prevent publishing an
+  empty snapshot; a dispatch is still a **write** to the ref it runs on — see flagged item 78-6.
 
 ## 6. Overlap, collisions and dispositions (for the owner)
 
