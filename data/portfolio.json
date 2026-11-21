@@ -9,7 +9,7 @@
   "max_open_positions": 8,
   "alert_threshold_usd": 0.1,
   "fee_rule": "taker: fees = roundup(M x 0.07 x C x P x (1-P)) where M is the per-series fee_multiplier published by the demo API on GET /series/{ticker} (official Get Series schema: https://docs.kalshi.com/api-reference/market/get-series), cached in series_fees and defaulting to 1 when a series record has not been fetched (fee schedule PDF https://kalshi.com/docs/kalshi-fee-schedule.pdf, effective 2026-07-07: 'default is 1 unless otherwise indicated'). The production PDF's Non-Standard table lists taker M=0 for KXBTCY/KXETHY while the demo API publishes fee_multiplier=1 for them - that official-source conflict is published on flagged.html and the environment-matched demo value is the one modelled. The model fee is rounded up to 6 decimals - the official Fee Rounding page states 'trade fee = ceil_6dp(model fee)' - and the resulting balance change is then floored to the $0.01 alignment used for non-direct members, with the difference booked as the rounding fee (https://docs.kalshi.com/getting_started/fee_rounding). Settlement is free: 'There is no settlement fee.' Resting-order (maker) fees are not modeled because every simulated fill crosses the spread.",
-  "series_fees_cached": 21,
+  "series_fees_cached": 23,
   "score_formula": "score = 0.30*min(vol24/2000,1) + 0.25*min(vol/10000,1) + 0.20*max(0,1-spread/0.15) + 0.25*min(|delta|/0.25,1)",
   "min_model_score": 0.45,
   "rules": {
@@ -51,10 +51,10 @@
    }
   }
  },
- "generated_at": "2026-11-21T03:58:20Z",
+ "generated_at": "2026-11-21T05:01:49Z",
  "status": "live",
  "note": "cycle complete",
- "watchlist_size": 134,
+ "watchlist_size": 138,
  "summary": {
   "trades_total": 11,
   "open": 8,
@@ -1558,6 +1558,12 @@
    "equity_usd": 935.45,
    "cash_usd": 747.8,
    "open": 8
+  },
+  {
+   "t": "2026-11-21T05:01:49Z",
+   "equity_usd": 935.45,
+   "cash_usd": 747.8,
+   "open": 8
   }
  ],
  "watchlist": [
@@ -1570,13 +1576,13 @@
    "kalshi_url": "https://kalshi.com/markets/kxaaagasd",
    "last_usd": 0.95,
    "yes_bid_usd": 0.0,
-   "yes_ask_usd": 0.99,
-   "status": "active",
+   "yes_ask_usd": 1.0,
+   "status": "closed",
    "result": "",
    "close_time": "2026-11-21T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550"
   },
   {
@@ -1587,14 +1593,14 @@
    "series_ticker": "KXAAAGASD",
    "kalshi_url": "https://kalshi.com/markets/kxaaagasd",
    "last_usd": 0.22,
-   "yes_bid_usd": 0.21,
-   "yes_ask_usd": 0.24,
-   "status": "active",
+   "yes_bid_usd": 0.0,
+   "yes_ask_usd": 1.0,
+   "status": "closed",
    "result": "",
    "close_time": "2026-11-21T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6600"
   },
   {
@@ -1610,9 +1616,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-31T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26DEC31-3.30"
   },
   {
@@ -1628,9 +1634,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.40"
   },
   {
@@ -1646,9 +1652,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.50"
   },
   {
@@ -1664,9 +1670,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.70"
   },
   {
@@ -1682,9 +1688,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.80"
   },
   {
@@ -1700,9 +1706,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-3.90"
   },
   {
@@ -1718,9 +1724,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-4.40"
   },
   {
@@ -1736,9 +1742,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-4.60"
   },
   {
@@ -1754,9 +1760,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASM-26NOV30-4.80"
   },
   {
@@ -1772,9 +1778,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.5800"
   },
   {
@@ -1790,9 +1796,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6000"
   },
   {
@@ -1804,13 +1810,13 @@
    "kalshi_url": "https://kalshi.com/markets/kxaaagasw",
    "last_usd": 0.97,
    "yes_bid_usd": 0.96,
-   "yes_ask_usd": 1.0,
+   "yes_ask_usd": 0.97,
    "status": "active",
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6200"
   },
   {
@@ -1826,9 +1832,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6400"
   },
   {
@@ -1844,9 +1850,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-23T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASW-26NOV23-3.6600"
   },
   {
@@ -1862,9 +1868,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTC15M-26NOV201400-00"
   },
   {
@@ -1880,9 +1886,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:15:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTC15M-26NOV201415-15"
   },
   {
@@ -1898,10 +1904,28 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T04:59:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTC50VS100-BTC-26DEC31"
+  },
+  {
+   "ticker": "KXBTCMINMON-BTC-26NOV30-5750000",
+   "topic": "crypto",
+   "title": "Will BTC trimmed mean be below $57500.00 by 11:59 PM ET on Nov 30, 2026?",
+   "event_ticker": "KXBTCMINMON-BTC-26NOV30",
+   "series_ticker": "KXBTCMINMON",
+   "kalshi_url": "https://kalshi.com/markets/kxbtcminmon",
+   "last_usd": 0.39,
+   "yes_bid_usd": 0.38,
+   "yes_ask_usd": 0.4,
+   "status": "active",
+   "result": "",
+   "close_time": "2026-12-01T04:59:59Z",
+   "samples": 2,
+   "first_seen": "2026-11-21T05:01:47Z",
+   "last_seen": "2026-11-21T05:01:47Z",
+   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINMON-BTC-26NOV30-5750000"
   },
   {
    "ticker": "KXBTCMINY-27JAN01-40000.00",
@@ -1916,9 +1940,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINY-27JAN01-40000.00"
   },
   {
@@ -1934,9 +1958,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINY-27JAN01-45000.00"
   },
   {
@@ -1952,9 +1976,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINY-27JAN01-50000.00"
   },
   {
@@ -1970,9 +1994,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINY-27JAN01-55000.00"
   },
   {
@@ -1988,9 +2012,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCMINY-27JAN01-60000.00"
   },
   {
@@ -2002,13 +2026,13 @@
    "kalshi_url": "https://kalshi.com/markets/kxbtcy",
    "last_usd": 0.01,
    "yes_bid_usd": 0.0,
-   "yes_ask_usd": 0.01,
+   "yes_ask_usd": 1.0,
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B117500"
   },
   {
@@ -2024,9 +2048,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B42500"
   },
   {
@@ -2042,9 +2066,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B47500"
   },
   {
@@ -2060,9 +2084,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B52500"
   },
   {
@@ -2072,15 +2096,15 @@
    "event_ticker": "KXBTCY-27JAN0100",
    "series_ticker": "KXBTCY",
    "kalshi_url": "https://kalshi.com/markets/kxbtcy",
-   "last_usd": 0.21,
+   "last_usd": 0.2,
    "yes_bid_usd": 0.19,
-   "yes_ask_usd": 0.21,
+   "yes_ask_usd": 0.2,
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B57500"
   },
   {
@@ -2096,9 +2120,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B62500"
   },
   {
@@ -2114,9 +2138,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B67500"
   },
   {
@@ -2132,9 +2156,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B72500"
   },
   {
@@ -2150,9 +2174,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-01T05:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTCY-27JAN0100-B97500"
   },
   {
@@ -2168,9 +2192,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-07T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDANCINGWITHTHESTARS-26DEC31-AGLE"
   },
   {
@@ -2186,9 +2210,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDANCINGWITHTHESTARS-26DEC31-CWOO"
   },
   {
@@ -2204,9 +2228,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDANCINGWITHTHESTARS-26DEC31-EFRE"
   },
   {
@@ -2222,9 +2246,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-01-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDANCINGWITHTHESTARS-26DEC31-MHIG"
   },
   {
@@ -2240,9 +2264,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDEMOFUTHOURLY-26NOV20H19-UP"
   },
   {
@@ -2258,9 +2282,9 @@
    "status": "finalized",
    "result": "yes",
    "close_time": "2026-11-20T20:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDEMOFUTHOURLY-26NOV20H20-UP"
   },
   {
@@ -2276,9 +2300,9 @@
    "status": "finalized",
    "result": "yes",
    "close_time": "2026-11-20T22:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDEMOFUTHOURLY-26NOV20H22-UP"
   },
   {
@@ -2294,10 +2318,28 @@
    "status": "finalized",
    "result": "yes",
    "close_time": "2026-11-21T02:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDEMOFUTHOURLY-26NOV21H02-UP"
+  },
+  {
+   "ticker": "KXDOGED-26NOV2117-T0.0499999",
+   "topic": "crypto",
+   "title": "Dogecoin price on Nov 21, 2026?",
+   "event_ticker": "KXDOGED-26NOV2117",
+   "series_ticker": "KXDOGED",
+   "kalshi_url": "https://kalshi.com/markets/kxdoged",
+   "last_usd": 0.88,
+   "yes_bid_usd": 0.0,
+   "yes_ask_usd": 1.0,
+   "status": "active",
+   "result": "",
+   "close_time": "2026-11-21T22:00:00Z",
+   "samples": 2,
+   "first_seen": "2026-11-21T05:01:47Z",
+   "last_seen": "2026-11-21T05:01:47Z",
+   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXDOGED-26NOV2117-T0.0499999"
   },
   {
    "ticker": "KXETHD-26NOV2014-T1614.99",
@@ -2312,9 +2354,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1614.99"
   },
   {
@@ -2330,9 +2372,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1619.99"
   },
   {
@@ -2348,9 +2390,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1634.99"
   },
   {
@@ -2366,9 +2408,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1639.99"
   },
   {
@@ -2384,9 +2426,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T19:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2014-T1644.99"
   },
   {
@@ -2402,9 +2444,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T20:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2015-T1599.99"
   },
   {
@@ -2420,9 +2462,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T20:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2015-T1604.99"
   },
   {
@@ -2438,9 +2480,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T20:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2015-T1619.99"
   },
   {
@@ -2456,9 +2498,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T20:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2015-T1624.99"
   },
   {
@@ -2474,9 +2516,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T22:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2017-T1579.99"
   },
   {
@@ -2492,9 +2534,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T22:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2017-T1619.99"
   },
   {
@@ -2510,9 +2552,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T22:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2017-T1659.99"
   },
   {
@@ -2528,9 +2570,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T22:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2017-T1739.99"
   },
   {
@@ -2546,9 +2588,9 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-20T22:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2017-T1779.99"
   },
   {
@@ -2564,10 +2606,28 @@
    "status": "finalized",
    "result": "no",
    "close_time": "2026-11-21T02:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2021-T1609.99"
+  },
+  {
+   "ticker": "KXETHD-26NOV2117-T1499.99",
+   "topic": "crypto",
+   "title": "Ethereum price at Nov 21, 2026 at 5pm EST?",
+   "event_ticker": "KXETHD-26NOV2117",
+   "series_ticker": "KXETHD",
+   "kalshi_url": "https://kalshi.com/markets/kxethd",
+   "last_usd": 0.74,
+   "yes_bid_usd": 0.0,
+   "yes_ask_usd": 1.0,
+   "status": "active",
+   "result": "",
+   "close_time": "2026-11-21T22:00:00Z",
+   "samples": 2,
+   "first_seen": "2026-11-21T05:01:47Z",
+   "last_seen": "2026-11-21T05:01:47Z",
+   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2117-T1499.99"
   },
   {
    "ticker": "KXETHD-26NOV2117-T1579.99",
@@ -2582,9 +2642,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-21T22:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXETHD-26NOV2117-T1579.99"
   },
   {
@@ -2592,18 +2652,36 @@
    "topic": "elections",
    "title": "Will Bruno Retailleau win the 2027 French presidential election?",
    "event_ticker": "KXFRENCHPRES-27",
-   "series_ticker": null,
-   "kalshi_url": null,
+   "series_ticker": "KXFRENCHPRES",
+   "kalshi_url": "https://kalshi.com/markets/kxfrenchpres",
    "last_usd": 0.02,
    "yes_bid_usd": 0.01,
    "yes_ask_usd": 0.02,
    "status": "active",
    "result": "",
    "close_time": "2028-05-30T14:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXFRENCHPRES-27-BRET"
+  },
+  {
+   "ticker": "KXFRENCHPRES-27-DLIS",
+   "topic": "elections",
+   "title": "Will David Lisnard win the 2027 French presidential election?",
+   "event_ticker": "KXFRENCHPRES-27",
+   "series_ticker": "KXFRENCHPRES",
+   "kalshi_url": "https://kalshi.com/markets/kxfrenchpres",
+   "last_usd": 0.17,
+   "yes_bid_usd": 0.16,
+   "yes_ask_usd": 0.17,
+   "status": "active",
+   "result": "",
+   "close_time": "2028-05-30T14:00:00Z",
+   "samples": 2,
+   "first_seen": "2026-11-21T05:01:47Z",
+   "last_seen": "2026-11-21T05:01:47Z",
+   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXFRENCHPRES-27-DLIS"
   },
   {
    "ticker": "KXFRENCHPRES-27-MLEP",
@@ -2618,9 +2696,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-05-30T14:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXFRENCHPRES-27-MLEP"
   },
   {
@@ -2631,14 +2709,14 @@
    "series_ticker": "KXFRENCHPRES",
    "kalshi_url": "https://kalshi.com/markets/kxfrenchpres",
    "last_usd": 0.02,
-   "yes_bid_usd": 0.01,
-   "yes_ask_usd": 0.02,
+   "yes_bid_usd": 0.0,
+   "yes_ask_usd": 1.0,
    "status": "active",
    "result": "",
    "close_time": "2028-05-30T14:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXFRENCHPRES-27-TRIN"
   },
   {
@@ -2654,9 +2732,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-ALIKIM"
   },
   {
@@ -2672,9 +2750,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-AUSKIM"
   },
   {
@@ -2690,9 +2768,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-CHAHUL"
   },
   {
@@ -2708,9 +2786,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-HAERYU"
   },
   {
@@ -2726,9 +2804,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-HYECHO"
   },
   {
@@ -2744,9 +2822,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-MIYYAM"
   },
   {
@@ -2762,9 +2840,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-NELKOR"
   },
   {
@@ -2780,9 +2858,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-PAJANA"
   },
   {
@@ -2798,9 +2876,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-PATTAV"
   },
   {
@@ -2816,9 +2894,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXLPGATOUR-CMEGTC26-ROSZHA"
   },
   {
@@ -2834,9 +2912,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-12-31T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXOSCARPIC-27-ODY"
   },
   {
@@ -2852,9 +2930,9 @@
    "status": "active",
    "result": "",
    "close_time": "2027-12-31T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXOSCARPIC-27-WIL"
   },
   {
@@ -2870,9 +2948,9 @@
    "status": "closed",
    "result": "",
    "close_time": "2026-11-21T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGAR2LEAD-THRC26-HLEB"
   },
   {
@@ -2888,9 +2966,9 @@
    "status": "closed",
    "result": "",
    "close_time": "2026-11-21T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGAR2LEAD-THRC26-JSVE"
   },
   {
@@ -2906,9 +2984,9 @@
    "status": "closed",
    "result": "",
    "close_time": "2026-11-21T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGAR2LEAD-THRC26-KMIT"
   },
   {
@@ -2924,9 +3002,9 @@
    "status": "closed",
    "result": "",
    "close_time": "2026-11-21T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGAR2LEAD-THRC26-MTHO"
   },
   {
@@ -2942,9 +3020,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T19:20:01Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOP20-THRC26-EGRI"
   },
   {
@@ -2960,9 +3038,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T19:20:01Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOP20-THRC26-PCOO"
   },
   {
@@ -2978,9 +3056,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T19:20:01Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOP20-THRC26-RCAM"
   },
   {
@@ -2996,9 +3074,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-ADUM"
   },
   {
@@ -3014,9 +3092,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-HENG"
   },
   {
@@ -3032,9 +3110,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-JSVE"
   },
   {
@@ -3045,14 +3123,14 @@
    "series_ticker": "KXPGATOUR",
    "kalshi_url": "https://kalshi.com/markets/kxpgatour",
    "last_usd": 0.003,
-   "yes_bid_usd": 0.002,
-   "yes_ask_usd": 0.003,
+   "yes_bid_usd": 0.0,
+   "yes_ask_usd": 1.0,
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-KMIT"
   },
   {
@@ -3068,9 +3146,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-LHOD"
   },
   {
@@ -3086,9 +3164,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-MGRE"
   },
   {
@@ -3104,9 +3182,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-MPEN"
   },
   {
@@ -3122,9 +3200,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-MTHO"
   },
   {
@@ -3140,9 +3218,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-RCAS"
   },
   {
@@ -3158,9 +3236,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-SSTR"
   },
   {
@@ -3176,9 +3254,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-06T00:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPGATOUR-THRC26-TMOO"
   },
   {
@@ -3194,9 +3272,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-AKLO"
   },
   {
@@ -3212,9 +3290,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-AOC"
   },
   {
@@ -3224,15 +3302,15 @@
    "event_ticker": "KXPRESNOMD-28",
    "series_ticker": "KXPRESNOMD",
    "kalshi_url": "https://kalshi.com/markets/kxpresnomd",
-   "last_usd": 0.88,
+   "last_usd": 0.882,
    "yes_bid_usd": 0.001,
-   "yes_ask_usd": 0.88,
+   "yes_ask_usd": 0.882,
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-BOBA"
   },
   {
@@ -3248,9 +3326,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-HBID"
   },
   {
@@ -3266,9 +3344,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-JOSS"
   },
   {
@@ -3284,9 +3362,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-JP"
   },
   {
@@ -3302,9 +3380,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-KH"
   },
   {
@@ -3320,9 +3398,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMD-28-RW"
   },
   {
@@ -3338,9 +3416,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-GY"
   },
   {
@@ -3356,9 +3434,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-JDV"
   },
   {
@@ -3374,9 +3452,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-MR"
   },
   {
@@ -3392,9 +3470,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-RDS"
   },
   {
@@ -3410,9 +3488,9 @@
    "status": "active",
    "result": "",
    "close_time": "2028-11-07T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESNOMR-28-TCAR"
   },
   {
@@ -3428,9 +3506,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-AOCA"
   },
   {
@@ -3446,9 +3524,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-GABB"
   },
   {
@@ -3464,9 +3542,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-GNEWS"
   },
   {
@@ -3482,9 +3560,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-GWHI"
   },
   {
@@ -3500,9 +3578,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-JOSS"
   },
   {
@@ -3518,9 +3596,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-JVAN"
   },
   {
@@ -3536,9 +3614,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-KHAR"
   },
   {
@@ -3554,9 +3632,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:39:56Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-MRUB"
   },
   {
@@ -3572,9 +3650,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-RDES"
   },
   {
@@ -3590,9 +3668,9 @@
    "status": "active",
    "result": "",
    "close_time": "2029-11-07T15:00:00Z",
-   "samples": 12,
+   "samples": 13,
    "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXPRESPERSON-28-VRAM"
   },
   {
@@ -3608,9 +3686,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-21T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-AVE-55"
   },
   {
@@ -3626,9 +3704,9 @@
    "status": "active",
    "result": "",
    "close_time": "2026-12-21T15:00:00Z",
-   "samples": 7,
+   "samples": 8,
    "first_seen": "2026-11-20T22:26:53Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-AVE-80"
   },
   {
@@ -3644,82 +3722,10 @@
    "status": "active",
    "result": "",
    "close_time": "2026-11-30T15:00:00Z",
-   "samples": 4,
+   "samples": 5,
    "first_seen": "2026-11-21T01:54:16Z",
-   "last_seen": "2026-11-21T03:58:20Z",
+   "last_seen": "2026-11-21T05:01:47Z",
    "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FOC-45"
-  },
-  {
-   "ticker": "KXRT-FOC-50",
-   "topic": "culture",
-   "title": "Focker-In-Law Rotten Tomatoes score?",
-   "event_ticker": "KXRT-FOC",
-   "series_ticker": null,
-   "kalshi_url": null,
-   "last_usd": 0.74,
-   "yes_bid_usd": 0.72,
-   "yes_ask_usd": 0.74,
-   "status": "active",
-   "result": "",
-   "close_time": "2026-11-30T15:00:00Z",
-   "samples": 12,
-   "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
-   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FOC-50"
-  },
-  {
-   "ticker": "KXRT-FUR-70",
-   "topic": "culture",
-   "title": "The Further Mis-Adventures of Cliff Booth Rotten Tomatoes score?",
-   "event_ticker": "KXRT-FUR",
-   "series_ticker": "KXRT",
-   "kalshi_url": "https://kalshi.com/markets/kxrt",
-   "last_usd": 0.99,
-   "yes_bid_usd": 0.96,
-   "yes_ask_usd": 0.97,
-   "status": "active",
-   "result": "",
-   "close_time": "2026-11-30T15:00:00Z",
-   "samples": 12,
-   "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
-   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FUR-70"
-  },
-  {
-   "ticker": "KXRT-FUR-75",
-   "topic": "culture",
-   "title": "The Further Mis-Adventures of Cliff Booth Rotten Tomatoes score?",
-   "event_ticker": "KXRT-FUR",
-   "series_ticker": "KXRT",
-   "kalshi_url": "https://kalshi.com/markets/kxrt",
-   "last_usd": 0.94,
-   "yes_bid_usd": 0.93,
-   "yes_ask_usd": 0.94,
-   "status": "active",
-   "result": "",
-   "close_time": "2026-11-30T15:00:00Z",
-   "samples": 12,
-   "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
-   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FUR-75"
-  },
-  {
-   "ticker": "KXRT-FUR-85",
-   "topic": "culture",
-   "title": "The Further Mis-Adventures of Cliff Booth Rotten Tomatoes score?",
-   "event_ticker": "KXRT-FUR",
-   "series_ticker": "KXRT",
-   "kalshi_url": "https://kalshi.com/markets/kxrt",
-   "last_usd": 0.07,
-   "yes_bid_usd": 0.06,
-   "yes_ask_usd": 0.07,
-   "status": "active",
-   "result": "",
-   "close_time": "2026-11-30T15:00:00Z",
-   "samples": 12,
-   "first_seen": "2026-11-20T19:25:54Z",
-   "last_seen": "2026-11-21T03:58:20Z",
-   "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXRT-FUR-85"
   }
  ],
  "runs": [
@@ -3853,19 +3859,33 @@
    "t": "2026-11-21T02:55:01Z"
   },
   {
-   "t": "2026-11-21T03:58:20Z",
-   "mode": "live",
-   "quotes": 134,
    "events": 2,
-   "requests": 1,
    "log": [
     "- 03:58:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550%2CKXAAAGASD-26NOV21-3.6600%2CKXAAAGASM-26DEC31-3.30%2CKXAAAGASM-26NOV30-3.40%2CKXAAAGASM-26NOV30-3.50%2CKXAAAGASM-26NOV30-3.70%2CKXAAAGASM-26NOV30-3.80%2CKXAAAGASM-26NOV30-3.90%2CKXAAAGASM-26NOV30-4.40%2CKXAAAGASM-26NOV30-4.60%2CKXAAAGASM-26NOV30-4.80%2CKXAAAGASW-26NOV23-3.5800%2CKXAAAGASW-26NOV23-3.6000%2CKXAAAGASW-26NOV23-3.6200%2CKXAAAGASW-26NOV23-3.6400%2CKXAAAGASW-26NOV23-3.6600%2CKXBTC15M-26NOV201400-00%2CKXBTC15M-26NOV201415-15%2CKXBTC50VS100-BTC-26DEC31%2CKXBTCMINY-27JAN01-40000.00%2CKXBTCMINY-27JAN01-45000.00%2CKXBTCMINY-27JAN01-50000.00%2CKXBTCMINY-27JAN01-55000.00%2CKXBTCMINY-27JAN01-60000.00%2CKXBTCY-27JAN0100-B117500%2CKXBTCY-27JAN0100-B42500%2CKXBTCY-27JAN0100-B47500%2CKXBTCY-27JAN0100-B52500%2CKXBTCY-27JAN0100-B57500%2CKXBTCY-27JAN0100-B62500%2CKXBTCY-27JAN0100-B67500%2CKXBTCY-27JAN0100-B72500%2CKXBTCY-27JAN0100-B97500%2CKXDANCINGWITHTHESTARS-26DEC31-AGLE%2CKXDANCINGWITHTHESTARS-26DEC31-CWOO%2CKXDANCINGWITHTHESTARS-26DEC31-EFRE%2CKXDANCINGWITHTHESTARS-26DEC31-MHIG%2CKXDEMOFUTHOURLY-26NOV20H19-UP%2CKXDEMOFUTHOURLY-26NOV20H20-UP%2CKXDEMOFUTHOURLY-26NOV20H22-UP%2CKXDEMOFUTHOURLY-26NOV21H02-UP%2CKXETHD-26NOV2014-T1614.99%2CKXETHD-26NOV2014-T1619.99%2CKXETHD-26NOV2014-T1634.99%2CKXETHD-26NOV2014-T1639.99%2CKXETHD-26NOV2014-T1644.99%2CKXETHD-26NOV2015-T1599.99%2CKXETHD-26NOV2015-T1604.99%2CKXETHD-26NOV2015-T1619.99%2CKXETHD-26NOV2015-T1624.99%2CKXETHD-26NOV2017-T1579.99%2CKXETHD-26NOV2017-T1619.99%2CKXETHD-26NOV2017-T1659.99%2CKXETHD-26NOV2017-T1739.99%2CKXETHD-26NOV2017-T1779.99%2CKXETHD-26NOV2021-T1609.99%2CKXETHD-26NOV2117-T1579.99%2CKXFRENCHPRES-27-BRET%2CKXFRENCHPRES-27-MLEP%2CKXFRENCHPRES-27-TRIN%2CKXLPGATOUR-CMEGTC26-ALIKIM%2CKXLPGATOUR-CMEGTC26-AUSKIM%2CKXLPGATOUR-CMEGTC26-CHAHUL%2CKXLPGATOUR-CMEGTC26-HAERYU%2CKXLPGATOUR-CMEGTC26-HYECHO%2CKXLPGATOUR-CMEGTC26-MIYYAM%2CKXLPGATOUR-CMEGTC26-NELKOR%2CKXLPGATOUR-CMEGTC26-PAJANA%2CKXLPGATOUR-CMEGTC26-PATTAV%2CKXLPGATOUR-CMEGTC26-ROSZHA%2CKXOSCARPIC-27-ODY%2CKXOSCARPIC-27-WIL%2CKXPGAR2LEAD-THRC26-HLEB%2CKXPGAR2LEAD-THRC26-JSVE%2CKXPGAR2LEAD-THRC26-KMIT%2CKXPGAR2LEAD-THRC26-MTHO%2CKXPGATOP20-THRC26-EGRI%2CKXPGATOP20-THRC26-PCOO%2CKXPGATOP20-THRC26-RCAM%2CKXPGATOUR-THRC26-ADUM%2CKXPGATOUR-THRC26-HENG%2CKXPGATOUR-THRC26-JSVE%2CKXPGATOUR-THRC26-KMIT%2CKXPGATOUR-THRC26-LHOD%2CKXPGATOUR-THRC26-MGRE%2CKXPGATOUR-THRC26-MPEN%2CKXPGATOUR-THRC26-MTHO%2CKXPGATOUR-THRC26-RCAS%2CKXPGATOUR-THRC26-SSTR%2CKXPGATOUR-THRC26-TMOO%2CKXPRESNOMD-28-AKLO%2CKXPRESNOMD-28-AOC%2CKXPRESNOMD-28-BOBA%2CKXPRESNOMD-28-HBID%2CKXPRESNOMD-28-JOSS%2CKXPRESNOMD-28-JP%2CKXPRESNOMD-28-KH%2CKXPRESNOMD-28-RW%2CKXPRESNOMR-28-GY%2CKXPRESNOMR-28-JDV%2CKXPRESNOMR-28-MR%2CKXPRESNOMR-28-RDS%2CKXPRESNOMR-28-TCAR%2CKXPRESPERSON-28-AOCA%2CKXPRESPERSON-28-GABB%2CKXPRESPERSON-28-GNEWS%2CKXPRESPERSON-28-GWHI%2CKXPRESPERSON-28-JOSS%2CKXPRESPERSON-28-JVAN%2CKXPRESPERSON-28-KHAR%2CKXPRESPERSON-28-MRUB%2CKXPRESPERSON-28-RDES%2CKXPRESPERSON-28-VRAM%2CKXRT-AVE-55%2CKXRT-AVE-80%2CKXRT-FOC-45%2CKXRT-FOC-50%2CKXRT-FUR-70%2CKXRT-FUR-75%2CKXRT-FUR-85%2CKXRT-HUN-60%2CKXRT-HUN-65%2CKXRT-HUN-70%2CKXRT-HUN-72%2CKXRT-HUN-77%2CKXRT-IPL-85%2CKXRT-IPL-90%2CKXTIME-26-ABD%2CKXTIME-26-DAR%2CKXTIME-26-JAME%2CKXTIME-26-JDV%2CKXTIME-26-JOS%2CKXTIME-26-PET%2CKXTIME-26-ZOH -> 200 (134 markets)"
+   ],
+   "mode": "live",
+   "quotes": 134,
+   "requests": 1,
+   "t": "2026-11-21T03:58:20Z"
+  },
+  {
+   "t": "2026-11-21T05:01:49Z",
+   "mode": "live",
+   "quotes": 138,
+   "events": 0,
+   "requests": 3,
+   "log": [
+    "- 05:01:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550%2CKXAAAGASD-26NOV21-3.6600%2CKXAAAGASM-26DEC31-3.30%2CKXAAAGASM-26NOV30-3.40%2CKXAAAGASM-26NOV30-3.50%2CKXAAAGASM-26NOV30-3.70%2CKXAAAGASM-26NOV30-3.80%2CKXAAAGASM-26NOV30-3.90%2CKXAAAGASM-26NOV30-4.40%2CKXAAAGASM-26NOV30-4.60%2CKXAAAGASM-26NOV30-4.80%2CKXAAAGASW-26NOV23-3.5800%2CKXAAAGASW-26NOV23-3.6000%2CKXAAAGASW-26NOV23-3.6200%2CKXAAAGASW-26NOV23-3.6400%2CKXAAAGASW-26NOV23-3.6600%2CKXBTC15M-26NOV201400-00%2CKXBTC15M-26NOV201415-15%2CKXBTC50VS100-BTC-26DEC31%2CKXBTCMINY-27JAN01-40000.00%2CKXBTCMINY-27JAN01-45000.00%2CKXBTCMINY-27JAN01-50000.00%2CKXBTCMINY-27JAN01-55000.00%2CKXBTCMINY-27JAN01-60000.00%2CKXBTCY-27JAN0100-B117500%2CKXBTCY-27JAN0100-B42500%2CKXBTCY-27JAN0100-B47500%2CKXBTCY-27JAN0100-B52500%2CKXBTCY-27JAN0100-B57500%2CKXBTCY-27JAN0100-B62500%2CKXBTCY-27JAN0100-B67500%2CKXBTCY-27JAN0100-B72500%2CKXBTCY-27JAN0100-B97500%2CKXDANCINGWITHTHESTARS-26DEC31-AGLE%2CKXDANCINGWITHTHESTARS-26DEC31-CWOO%2CKXDANCINGWITHTHESTARS-26DEC31-EFRE%2CKXDANCINGWITHTHESTARS-26DEC31-MHIG%2CKXDEMOFUTHOURLY-26NOV20H19-UP%2CKXDEMOFUTHOURLY-26NOV20H20-UP%2CKXDEMOFUTHOURLY-26NOV20H22-UP%2CKXDEMOFUTHOURLY-26NOV21H02-UP%2CKXETHD-26NOV2014-T1614.99%2CKXETHD-26NOV2014-T1619.99%2CKXETHD-26NOV2014-T1634.99%2CKXETHD-26NOV2014-T1639.99%2CKXETHD-26NOV2014-T1644.99%2CKXETHD-26NOV2015-T1599.99%2CKXETHD-26NOV2015-T1604.99%2CKXETHD-26NOV2015-T1619.99%2CKXETHD-26NOV2015-T1624.99%2CKXETHD-26NOV2017-T1579.99%2CKXETHD-26NOV2017-T1619.99%2CKXETHD-26NOV2017-T1659.99%2CKXETHD-26NOV2017-T1739.99%2CKXETHD-26NOV2017-T1779.99%2CKXETHD-26NOV2021-T1609.99%2CKXETHD-26NOV2117-T1579.99%2CKXFRENCHPRES-27-BRET%2CKXFRENCHPRES-27-MLEP%2CKXFRENCHPRES-27-TRIN%2CKXLPGATOUR-CMEGTC26-ALIKIM%2CKXLPGATOUR-CMEGTC26-AUSKIM%2CKXLPGATOUR-CMEGTC26-CHAHUL%2CKXLPGATOUR-CMEGTC26-HAERYU%2CKXLPGATOUR-CMEGTC26-HYECHO%2CKXLPGATOUR-CMEGTC26-MIYYAM%2CKXLPGATOUR-CMEGTC26-NELKOR%2CKXLPGATOUR-CMEGTC26-PAJANA%2CKXLPGATOUR-CMEGTC26-PATTAV%2CKXLPGATOUR-CMEGTC26-ROSZHA%2CKXOSCARPIC-27-ODY%2CKXOSCARPIC-27-WIL%2CKXPGAR2LEAD-THRC26-HLEB%2CKXPGAR2LEAD-THRC26-JSVE%2CKXPGAR2LEAD-THRC26-KMIT%2CKXPGAR2LEAD-THRC26-MTHO%2CKXPGATOP20-THRC26-EGRI%2CKXPGATOP20-THRC26-PCOO%2CKXPGATOP20-THRC26-RCAM%2CKXPGATOUR-THRC26-ADUM%2CKXPGATOUR-THRC26-HENG%2CKXPGATOUR-THRC26-JSVE%2CKXPGATOUR-THRC26-KMIT%2CKXPGATOUR-THRC26-LHOD%2CKXPGATOUR-THRC26-MGRE%2CKXPGATOUR-THRC26-MPEN%2CKXPGATOUR-THRC26-MTHO%2CKXPGATOUR-THRC26-RCAS%2CKXPGATOUR-THRC26-SSTR%2CKXPGATOUR-THRC26-TMOO%2CKXPRESNOMD-28-AKLO%2CKXPRESNOMD-28-AOC%2CKXPRESNOMD-28-BOBA%2CKXPRESNOMD-28-HBID%2CKXPRESNOMD-28-JOSS%2CKXPRESNOMD-28-JP%2CKXPRESNOMD-28-KH%2CKXPRESNOMD-28-RW%2CKXPRESNOMR-28-GY%2CKXPRESNOMR-28-JDV%2CKXPRESNOMR-28-MR%2CKXPRESNOMR-28-RDS%2CKXPRESNOMR-28-TCAR%2CKXPRESPERSON-28-AOCA%2CKXPRESPERSON-28-GABB%2CKXPRESPERSON-28-GNEWS%2CKXPRESPERSON-28-GWHI%2CKXPRESPERSON-28-JOSS%2CKXPRESPERSON-28-JVAN%2CKXPRESPERSON-28-KHAR%2CKXPRESPERSON-28-MRUB%2CKXPRESPERSON-28-RDES%2CKXPRESPERSON-28-VRAM%2CKXRT-AVE-55%2CKXRT-AVE-80%2CKXRT-FOC-45%2CKXRT-FOC-50%2CKXRT-FUR-70%2CKXRT-FUR-75%2CKXRT-FUR-85%2CKXRT-HUN-60%2CKXRT-HUN-65%2CKXRT-HUN-70%2CKXRT-HUN-72%2CKXRT-HUN-77%2CKXRT-IPL-85%2CKXRT-IPL-90%2CKXTIME-26-ABD%2CKXTIME-26-DAR%2CKXTIME-26-JAME%2CKXTIME-26-JDV%2CKXTIME-26-JOS%2CKXTIME-26-PET%2CKXTIME-26-ZOH%2CKXFRENCHPRES-27-DLIS%2CKXBTCMINMON-BTC-26NOV30-5750000%2CKXDOGED-26NOV2117-T0.0499999%2CKXETHD-26NOV2117-T1499.99 -> 200 (138 markets)",
+    "- 05:01:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCMINMON -> 200 fee_multiplier=1 fee_type=quadratic",
+    "- 05:01:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/series/KXDOGED -> 200 fee_multiplier=1 fee_type=quadratic"
    ]
   }
  ],
  "sources": {
   "quote_endpoints": [
-   "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550%2CKXAAAGASD-26NOV21-3.6600%2CKXAAAGASM-26DEC31-3.30%2CKXAAAGASM-26NOV30-3.40%2CKXAAAGASM-26NOV30-3.50%2CKXAAAGASM-26NOV30-3.70%2CKXAAAGASM-26NOV30-3.80%2CKXAAAGASM-26NOV30-3.90%2CKXAAAGASM-26NOV30-4.40%2CKXAAAGASM-26NOV30-4.60%2CKXAAAGASM-26NOV30-4.80%2CKXAAAGASW-26NOV23-3.5800%2CKXAAAGASW-26NOV23-3.6000%2CKXAAAGASW-26NOV23-3.6200%2CKXAAAGASW-26NOV23-3.6400%2CKXAAAGASW-26NOV23-3.6600%2CKXBTC15M-26NOV201400-00%2CKXBTC15M-26NOV201415-15%2CKXBTC50VS100-BTC-26DEC31%2CKXBTCMINY-27JAN01-40000.00%2CKXBTCMINY-27JAN01-45000.00%2CKXBTCMINY-27JAN01-50000.00%2CKXBTCMINY-27JAN01-55000.00%2CKXBTCMINY-27JAN01-60000.00%2CKXBTCY-27JAN0100-B117500%2CKXBTCY-27JAN0100-B42500%2CKXBTCY-27JAN0100-B47500%2CKXBTCY-27JAN0100-B52500%2CKXBTCY-27JAN0100-B57500%2CKXBTCY-27JAN0100-B62500%2CKXBTCY-27JAN0100-B67500%2CKXBTCY-27JAN0100-B72500%2CKXBTCY-27JAN0100-B97500%2CKXDANCINGWITHTHESTARS-26DEC31-AGLE%2CKXDANCINGWITHTHESTARS-26DEC31-CWOO%2CKXDANCINGWITHTHESTARS-26DEC31-EFRE%2CKXDANCINGWITHTHESTARS-26DEC31-MHIG%2CKXDEMOFUTHOURLY-26NOV20H19-UP%2CKXDEMOFUTHOURLY-26NOV20H20-UP%2CKXDEMOFUTHOURLY-26NOV20H22-UP%2CKXDEMOFUTHOURLY-26NOV21H02-UP%2CKXETHD-26NOV2014-T1614.99%2CKXETHD-26NOV2014-T1619.99%2CKXETHD-26NOV2014-T1634.99%2CKXETHD-26NOV2014-T1639.99%2CKXETHD-26NOV2014-T1644.99%2CKXETHD-26NOV2015-T1599.99%2CKXETHD-26NOV2015-T1604.99%2CKXETHD-26NOV2015-T1619.99%2CKXETHD-26NOV2015-T1624.99%2CKXETHD-26NOV2017-T1579.99%2CKXETHD-26NOV2017-T1619.99%2CKXETHD-26NOV2017-T1659.99%2CKXETHD-26NOV2017-T1739.99%2CKXETHD-26NOV2017-T1779.99%2CKXETHD-26NOV2021-T1609.99%2CKXETHD-26NOV2117-T1579.99%2CKXFRENCHPRES-27-BRET%2CKXFRENCHPRES-27-MLEP%2CKXFRENCHPRES-27-TRIN%2CKXLPGATOUR-CMEGTC26-ALIKIM%2CKXLPGATOUR-CMEGTC26-AUSKIM%2CKXLPGATOUR-CMEGTC26-CHAHUL%2CKXLPGATOUR-CMEGTC26-HAERYU%2CKXLPGATOUR-CMEGTC26-HYECHO%2CKXLPGATOUR-CMEGTC26-MIYYAM%2CKXLPGATOUR-CMEGTC26-NELKOR%2CKXLPGATOUR-CMEGTC26-PAJANA%2CKXLPGATOUR-CMEGTC26-PATTAV%2CKXLPGATOUR-CMEGTC26-ROSZHA%2CKXOSCARPIC-27-ODY%2CKXOSCARPIC-27-WIL%2CKXPGAR2LEAD-THRC26-HLEB%2CKXPGAR2LEAD-THRC26-JSVE%2CKXPGAR2LEAD-THRC26-KMIT%2CKXPGAR2LEAD-THRC26-MTHO%2CKXPGATOP20-THRC26-EGRI%2CKXPGATOP20-THRC26-PCOO%2CKXPGATOP20-THRC26-RCAM%2CKXPGATOUR-THRC26-ADUM%2CKXPGATOUR-THRC26-HENG%2CKXPGATOUR-THRC26-JSVE%2CKXPGATOUR-THRC26-KMIT%2CKXPGATOUR-THRC26-LHOD%2CKXPGATOUR-THRC26-MGRE%2CKXPGATOUR-THRC26-MPEN%2CKXPGATOUR-THRC26-MTHO%2CKXPGATOUR-THRC26-RCAS%2CKXPGATOUR-THRC26-SSTR%2CKXPGATOUR-THRC26-TMOO%2CKXPRESNOMD-28-AKLO%2CKXPRESNOMD-28-AOC%2CKXPRESNOMD-28-BOBA%2CKXPRESNOMD-28-HBID%2CKXPRESNOMD-28-JOSS%2CKXPRESNOMD-28-JP%2CKXPRESNOMD-28-KH%2CKXPRESNOMD-28-RW%2CKXPRESNOMR-28-GY%2CKXPRESNOMR-28-JDV%2CKXPRESNOMR-28-MR%2CKXPRESNOMR-28-RDS%2CKXPRESNOMR-28-TCAR%2CKXPRESPERSON-28-AOCA%2CKXPRESPERSON-28-GABB%2CKXPRESPERSON-28-GNEWS%2CKXPRESPERSON-28-GWHI%2CKXPRESPERSON-28-JOSS%2CKXPRESPERSON-28-JVAN%2CKXPRESPERSON-28-KHAR%2CKXPRESPERSON-28-MRUB%2CKXPRESPERSON-28-RDES%2CKXPRESPERSON-28-VRAM%2CKXRT-AVE-55%2CKXRT-AVE-80%2CKXRT-FOC-45%2CKXRT-FOC-50%2CKXRT-FUR-70%2CKXRT-FUR-75%2CKXRT-FUR-85%2CKXRT-HUN-60%2CKXRT-HUN-65%2CKXRT-HUN-70%2CKXRT-HUN-72%2CKXRT-HUN-77%2CKXRT-IPL-85%2CKXRT-IPL-90%2CKXTIME-26-ABD%2CKXTIME-26-DAR%2CKXTIME-26-JAME%2CKXTIME-26-JDV%2CKXTIME-26-JOS%2CKXTIME-26-PET%2CKXTIME-26-ZOH"
+   "https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550%2CKXAAAGASD-26NOV21-3.6600%2CKXAAAGASM-26DEC31-3.30%2CKXAAAGASM-26NOV30-3.40%2CKXAAAGASM-26NOV30-3.50%2CKXAAAGASM-26NOV30-3.70%2CKXAAAGASM-26NOV30-3.80%2CKXAAAGASM-26NOV30-3.90%2CKXAAAGASM-26NOV30-4.40%2CKXAAAGASM-26NOV30-4.60%2CKXAAAGASM-26NOV30-4.80%2CKXAAAGASW-26NOV23-3.5800%2CKXAAAGASW-26NOV23-3.6000%2CKXAAAGASW-26NOV23-3.6200%2CKXAAAGASW-26NOV23-3.6400%2CKXAAAGASW-26NOV23-3.6600%2CKXBTC15M-26NOV201400-00%2CKXBTC15M-26NOV201415-15%2CKXBTC50VS100-BTC-26DEC31%2CKXBTCMINY-27JAN01-40000.00%2CKXBTCMINY-27JAN01-45000.00%2CKXBTCMINY-27JAN01-50000.00%2CKXBTCMINY-27JAN01-55000.00%2CKXBTCMINY-27JAN01-60000.00%2CKXBTCY-27JAN0100-B117500%2CKXBTCY-27JAN0100-B42500%2CKXBTCY-27JAN0100-B47500%2CKXBTCY-27JAN0100-B52500%2CKXBTCY-27JAN0100-B57500%2CKXBTCY-27JAN0100-B62500%2CKXBTCY-27JAN0100-B67500%2CKXBTCY-27JAN0100-B72500%2CKXBTCY-27JAN0100-B97500%2CKXDANCINGWITHTHESTARS-26DEC31-AGLE%2CKXDANCINGWITHTHESTARS-26DEC31-CWOO%2CKXDANCINGWITHTHESTARS-26DEC31-EFRE%2CKXDANCINGWITHTHESTARS-26DEC31-MHIG%2CKXDEMOFUTHOURLY-26NOV20H19-UP%2CKXDEMOFUTHOURLY-26NOV20H20-UP%2CKXDEMOFUTHOURLY-26NOV20H22-UP%2CKXDEMOFUTHOURLY-26NOV21H02-UP%2CKXETHD-26NOV2014-T1614.99%2CKXETHD-26NOV2014-T1619.99%2CKXETHD-26NOV2014-T1634.99%2CKXETHD-26NOV2014-T1639.99%2CKXETHD-26NOV2014-T1644.99%2CKXETHD-26NOV2015-T1599.99%2CKXETHD-26NOV2015-T1604.99%2CKXETHD-26NOV2015-T1619.99%2CKXETHD-26NOV2015-T1624.99%2CKXETHD-26NOV2017-T1579.99%2CKXETHD-26NOV2017-T1619.99%2CKXETHD-26NOV2017-T1659.99%2CKXETHD-26NOV2017-T1739.99%2CKXETHD-26NOV2017-T1779.99%2CKXETHD-26NOV2021-T1609.99%2CKXETHD-26NOV2117-T1579.99%2CKXFRENCHPRES-27-BRET%2CKXFRENCHPRES-27-MLEP%2CKXFRENCHPRES-27-TRIN%2CKXLPGATOUR-CMEGTC26-ALIKIM%2CKXLPGATOUR-CMEGTC26-AUSKIM%2CKXLPGATOUR-CMEGTC26-CHAHUL%2CKXLPGATOUR-CMEGTC26-HAERYU%2CKXLPGATOUR-CMEGTC26-HYECHO%2CKXLPGATOUR-CMEGTC26-MIYYAM%2CKXLPGATOUR-CMEGTC26-NELKOR%2CKXLPGATOUR-CMEGTC26-PAJANA%2CKXLPGATOUR-CMEGTC26-PATTAV%2CKXLPGATOUR-CMEGTC26-ROSZHA%2CKXOSCARPIC-27-ODY%2CKXOSCARPIC-27-WIL%2CKXPGAR2LEAD-THRC26-HLEB%2CKXPGAR2LEAD-THRC26-JSVE%2CKXPGAR2LEAD-THRC26-KMIT%2CKXPGAR2LEAD-THRC26-MTHO%2CKXPGATOP20-THRC26-EGRI%2CKXPGATOP20-THRC26-PCOO%2CKXPGATOP20-THRC26-RCAM%2CKXPGATOUR-THRC26-ADUM%2CKXPGATOUR-THRC26-HENG%2CKXPGATOUR-THRC26-JSVE%2CKXPGATOUR-THRC26-KMIT%2CKXPGATOUR-THRC26-LHOD%2CKXPGATOUR-THRC26-MGRE%2CKXPGATOUR-THRC26-MPEN%2CKXPGATOUR-THRC26-MTHO%2CKXPGATOUR-THRC26-RCAS%2CKXPGATOUR-THRC26-SSTR%2CKXPGATOUR-THRC26-TMOO%2CKXPRESNOMD-28-AKLO%2CKXPRESNOMD-28-AOC%2CKXPRESNOMD-28-BOBA%2CKXPRESNOMD-28-HBID%2CKXPRESNOMD-28-JOSS%2CKXPRESNOMD-28-JP%2CKXPRESNOMD-28-KH%2CKXPRESNOMD-28-RW%2CKXPRESNOMR-28-GY%2CKXPRESNOMR-28-JDV%2CKXPRESNOMR-28-MR%2CKXPRESNOMR-28-RDS%2CKXPRESNOMR-28-TCAR%2CKXPRESPERSON-28-AOCA%2CKXPRESPERSON-28-GABB%2CKXPRESPERSON-28-GNEWS%2CKXPRESPERSON-28-GWHI%2CKXPRESPERSON-28-JOSS%2CKXPRESPERSON-28-JVAN%2CKXPRESPERSON-28-KHAR%2CKXPRESPERSON-28-MRUB%2CKXPRESPERSON-28-RDES%2CKXPRESPERSON-28-VRAM%2CKXRT-AVE-55%2CKXRT-AVE-80%2CKXRT-FOC-45%2CKXRT-FOC-50%2CKXRT-FUR-70%2CKXRT-FUR-75%2CKXRT-FUR-85%2CKXRT-HUN-60%2CKXRT-HUN-65%2CKXRT-HUN-70%2CKXRT-HUN-72%2CKXRT-HUN-77%2CKXRT-IPL-85%2CKXRT-IPL-90%2CKXTIME-26-ABD%2CKXTIME-26-DAR%2CKXTIME-26-JAME%2CKXTIME-26-JDV%2CKXTIME-26-JOS%2CKXTIME-26-PET%2CKXTIME-26-ZOH%2CKXFRENCHPRES-27-DLIS%2CKXBTCMINMON-BTC-26NOV30-5750000%2CKXDOGED-26NOV2117-T0.0499999%2CKXETHD-26NOV2117-T1499.99",
+   "https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCMINMON",
+   "https://external-api.demo.kalshi.co/trade-api/v2/series/KXDOGED"
   ],
   "watchlist_snapshot": [
    "data/topics/gas-prices.json",
@@ -3886,6 +3906,8 @@
  },
  "disclaimer": "Simulation only. No orders are placed and no account is contacted. Demo prices may not reflect real markets (official demo-environment note). Real demo-account tracking requires the owner's own demo API key — see flagged.html.",
  "log": [
-  "- 03:58:20Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550%2CKXAAAGASD-26NOV21-3.6600%2CKXAAAGASM-26DEC31-3.30%2CKXAAAGASM-26NOV30-3.40%2CKXAAAGASM-26NOV30-3.50%2CKXAAAGASM-26NOV30-3.70%2CKXAAAGASM-26NOV30-3.80%2CKXAAAGASM-26NOV30-3.90%2CKXAAAGASM-26NOV30-4.40%2CKXAAAGASM-26NOV30-4.60%2CKXAAAGASM-26NOV30-4.80%2CKXAAAGASW-26NOV23-3.5800%2CKXAAAGASW-26NOV23-3.6000%2CKXAAAGASW-26NOV23-3.6200%2CKXAAAGASW-26NOV23-3.6400%2CKXAAAGASW-26NOV23-3.6600%2CKXBTC15M-26NOV201400-00%2CKXBTC15M-26NOV201415-15%2CKXBTC50VS100-BTC-26DEC31%2CKXBTCMINY-27JAN01-40000.00%2CKXBTCMINY-27JAN01-45000.00%2CKXBTCMINY-27JAN01-50000.00%2CKXBTCMINY-27JAN01-55000.00%2CKXBTCMINY-27JAN01-60000.00%2CKXBTCY-27JAN0100-B117500%2CKXBTCY-27JAN0100-B42500%2CKXBTCY-27JAN0100-B47500%2CKXBTCY-27JAN0100-B52500%2CKXBTCY-27JAN0100-B57500%2CKXBTCY-27JAN0100-B62500%2CKXBTCY-27JAN0100-B67500%2CKXBTCY-27JAN0100-B72500%2CKXBTCY-27JAN0100-B97500%2CKXDANCINGWITHTHESTARS-26DEC31-AGLE%2CKXDANCINGWITHTHESTARS-26DEC31-CWOO%2CKXDANCINGWITHTHESTARS-26DEC31-EFRE%2CKXDANCINGWITHTHESTARS-26DEC31-MHIG%2CKXDEMOFUTHOURLY-26NOV20H19-UP%2CKXDEMOFUTHOURLY-26NOV20H20-UP%2CKXDEMOFUTHOURLY-26NOV20H22-UP%2CKXDEMOFUTHOURLY-26NOV21H02-UP%2CKXETHD-26NOV2014-T1614.99%2CKXETHD-26NOV2014-T1619.99%2CKXETHD-26NOV2014-T1634.99%2CKXETHD-26NOV2014-T1639.99%2CKXETHD-26NOV2014-T1644.99%2CKXETHD-26NOV2015-T1599.99%2CKXETHD-26NOV2015-T1604.99%2CKXETHD-26NOV2015-T1619.99%2CKXETHD-26NOV2015-T1624.99%2CKXETHD-26NOV2017-T1579.99%2CKXETHD-26NOV2017-T1619.99%2CKXETHD-26NOV2017-T1659.99%2CKXETHD-26NOV2017-T1739.99%2CKXETHD-26NOV2017-T1779.99%2CKXETHD-26NOV2021-T1609.99%2CKXETHD-26NOV2117-T1579.99%2CKXFRENCHPRES-27-BRET%2CKXFRENCHPRES-27-MLEP%2CKXFRENCHPRES-27-TRIN%2CKXLPGATOUR-CMEGTC26-ALIKIM%2CKXLPGATOUR-CMEGTC26-AUSKIM%2CKXLPGATOUR-CMEGTC26-CHAHUL%2CKXLPGATOUR-CMEGTC26-HAERYU%2CKXLPGATOUR-CMEGTC26-HYECHO%2CKXLPGATOUR-CMEGTC26-MIYYAM%2CKXLPGATOUR-CMEGTC26-NELKOR%2CKXLPGATOUR-CMEGTC26-PAJANA%2CKXLPGATOUR-CMEGTC26-PATTAV%2CKXLPGATOUR-CMEGTC26-ROSZHA%2CKXOSCARPIC-27-ODY%2CKXOSCARPIC-27-WIL%2CKXPGAR2LEAD-THRC26-HLEB%2CKXPGAR2LEAD-THRC26-JSVE%2CKXPGAR2LEAD-THRC26-KMIT%2CKXPGAR2LEAD-THRC26-MTHO%2CKXPGATOP20-THRC26-EGRI%2CKXPGATOP20-THRC26-PCOO%2CKXPGATOP20-THRC26-RCAM%2CKXPGATOUR-THRC26-ADUM%2CKXPGATOUR-THRC26-HENG%2CKXPGATOUR-THRC26-JSVE%2CKXPGATOUR-THRC26-KMIT%2CKXPGATOUR-THRC26-LHOD%2CKXPGATOUR-THRC26-MGRE%2CKXPGATOUR-THRC26-MPEN%2CKXPGATOUR-THRC26-MTHO%2CKXPGATOUR-THRC26-RCAS%2CKXPGATOUR-THRC26-SSTR%2CKXPGATOUR-THRC26-TMOO%2CKXPRESNOMD-28-AKLO%2CKXPRESNOMD-28-AOC%2CKXPRESNOMD-28-BOBA%2CKXPRESNOMD-28-HBID%2CKXPRESNOMD-28-JOSS%2CKXPRESNOMD-28-JP%2CKXPRESNOMD-28-KH%2CKXPRESNOMD-28-RW%2CKXPRESNOMR-28-GY%2CKXPRESNOMR-28-JDV%2CKXPRESNOMR-28-MR%2CKXPRESNOMR-28-RDS%2CKXPRESNOMR-28-TCAR%2CKXPRESPERSON-28-AOCA%2CKXPRESPERSON-28-GABB%2CKXPRESPERSON-28-GNEWS%2CKXPRESPERSON-28-GWHI%2CKXPRESPERSON-28-JOSS%2CKXPRESPERSON-28-JVAN%2CKXPRESPERSON-28-KHAR%2CKXPRESPERSON-28-MRUB%2CKXPRESPERSON-28-RDES%2CKXPRESPERSON-28-VRAM%2CKXRT-AVE-55%2CKXRT-AVE-80%2CKXRT-FOC-45%2CKXRT-FOC-50%2CKXRT-FUR-70%2CKXRT-FUR-75%2CKXRT-FUR-85%2CKXRT-HUN-60%2CKXRT-HUN-65%2CKXRT-HUN-70%2CKXRT-HUN-72%2CKXRT-HUN-77%2CKXRT-IPL-85%2CKXRT-IPL-90%2CKXTIME-26-ABD%2CKXTIME-26-DAR%2CKXTIME-26-JAME%2CKXTIME-26-JDV%2CKXTIME-26-JOS%2CKXTIME-26-PET%2CKXTIME-26-ZOH -> 200 (134 markets)"
+  "- 05:01:47Z GET https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXAAAGASD-26NOV21-3.6550%2CKXAAAGASD-26NOV21-3.6600%2CKXAAAGASM-26DEC31-3.30%2CKXAAAGASM-26NOV30-3.40%2CKXAAAGASM-26NOV30-3.50%2CKXAAAGASM-26NOV30-3.70%2CKXAAAGASM-26NOV30-3.80%2CKXAAAGASM-26NOV30-3.90%2CKXAAAGASM-26NOV30-4.40%2CKXAAAGASM-26NOV30-4.60%2CKXAAAGASM-26NOV30-4.80%2CKXAAAGASW-26NOV23-3.5800%2CKXAAAGASW-26NOV23-3.6000%2CKXAAAGASW-26NOV23-3.6200%2CKXAAAGASW-26NOV23-3.6400%2CKXAAAGASW-26NOV23-3.6600%2CKXBTC15M-26NOV201400-00%2CKXBTC15M-26NOV201415-15%2CKXBTC50VS100-BTC-26DEC31%2CKXBTCMINY-27JAN01-40000.00%2CKXBTCMINY-27JAN01-45000.00%2CKXBTCMINY-27JAN01-50000.00%2CKXBTCMINY-27JAN01-55000.00%2CKXBTCMINY-27JAN01-60000.00%2CKXBTCY-27JAN0100-B117500%2CKXBTCY-27JAN0100-B42500%2CKXBTCY-27JAN0100-B47500%2CKXBTCY-27JAN0100-B52500%2CKXBTCY-27JAN0100-B57500%2CKXBTCY-27JAN0100-B62500%2CKXBTCY-27JAN0100-B67500%2CKXBTCY-27JAN0100-B72500%2CKXBTCY-27JAN0100-B97500%2CKXDANCINGWITHTHESTARS-26DEC31-AGLE%2CKXDANCINGWITHTHESTARS-26DEC31-CWOO%2CKXDANCINGWITHTHESTARS-26DEC31-EFRE%2CKXDANCINGWITHTHESTARS-26DEC31-MHIG%2CKXDEMOFUTHOURLY-26NOV20H19-UP%2CKXDEMOFUTHOURLY-26NOV20H20-UP%2CKXDEMOFUTHOURLY-26NOV20H22-UP%2CKXDEMOFUTHOURLY-26NOV21H02-UP%2CKXETHD-26NOV2014-T1614.99%2CKXETHD-26NOV2014-T1619.99%2CKXETHD-26NOV2014-T1634.99%2CKXETHD-26NOV2014-T1639.99%2CKXETHD-26NOV2014-T1644.99%2CKXETHD-26NOV2015-T1599.99%2CKXETHD-26NOV2015-T1604.99%2CKXETHD-26NOV2015-T1619.99%2CKXETHD-26NOV2015-T1624.99%2CKXETHD-26NOV2017-T1579.99%2CKXETHD-26NOV2017-T1619.99%2CKXETHD-26NOV2017-T1659.99%2CKXETHD-26NOV2017-T1739.99%2CKXETHD-26NOV2017-T1779.99%2CKXETHD-26NOV2021-T1609.99%2CKXETHD-26NOV2117-T1579.99%2CKXFRENCHPRES-27-BRET%2CKXFRENCHPRES-27-MLEP%2CKXFRENCHPRES-27-TRIN%2CKXLPGATOUR-CMEGTC26-ALIKIM%2CKXLPGATOUR-CMEGTC26-AUSKIM%2CKXLPGATOUR-CMEGTC26-CHAHUL%2CKXLPGATOUR-CMEGTC26-HAERYU%2CKXLPGATOUR-CMEGTC26-HYECHO%2CKXLPGATOUR-CMEGTC26-MIYYAM%2CKXLPGATOUR-CMEGTC26-NELKOR%2CKXLPGATOUR-CMEGTC26-PAJANA%2CKXLPGATOUR-CMEGTC26-PATTAV%2CKXLPGATOUR-CMEGTC26-ROSZHA%2CKXOSCARPIC-27-ODY%2CKXOSCARPIC-27-WIL%2CKXPGAR2LEAD-THRC26-HLEB%2CKXPGAR2LEAD-THRC26-JSVE%2CKXPGAR2LEAD-THRC26-KMIT%2CKXPGAR2LEAD-THRC26-MTHO%2CKXPGATOP20-THRC26-EGRI%2CKXPGATOP20-THRC26-PCOO%2CKXPGATOP20-THRC26-RCAM%2CKXPGATOUR-THRC26-ADUM%2CKXPGATOUR-THRC26-HENG%2CKXPGATOUR-THRC26-JSVE%2CKXPGATOUR-THRC26-KMIT%2CKXPGATOUR-THRC26-LHOD%2CKXPGATOUR-THRC26-MGRE%2CKXPGATOUR-THRC26-MPEN%2CKXPGATOUR-THRC26-MTHO%2CKXPGATOUR-THRC26-RCAS%2CKXPGATOUR-THRC26-SSTR%2CKXPGATOUR-THRC26-TMOO%2CKXPRESNOMD-28-AKLO%2CKXPRESNOMD-28-AOC%2CKXPRESNOMD-28-BOBA%2CKXPRESNOMD-28-HBID%2CKXPRESNOMD-28-JOSS%2CKXPRESNOMD-28-JP%2CKXPRESNOMD-28-KH%2CKXPRESNOMD-28-RW%2CKXPRESNOMR-28-GY%2CKXPRESNOMR-28-JDV%2CKXPRESNOMR-28-MR%2CKXPRESNOMR-28-RDS%2CKXPRESNOMR-28-TCAR%2CKXPRESPERSON-28-AOCA%2CKXPRESPERSON-28-GABB%2CKXPRESPERSON-28-GNEWS%2CKXPRESPERSON-28-GWHI%2CKXPRESPERSON-28-JOSS%2CKXPRESPERSON-28-JVAN%2CKXPRESPERSON-28-KHAR%2CKXPRESPERSON-28-MRUB%2CKXPRESPERSON-28-RDES%2CKXPRESPERSON-28-VRAM%2CKXRT-AVE-55%2CKXRT-AVE-80%2CKXRT-FOC-45%2CKXRT-FOC-50%2CKXRT-FUR-70%2CKXRT-FUR-75%2CKXRT-FUR-85%2CKXRT-HUN-60%2CKXRT-HUN-65%2CKXRT-HUN-70%2CKXRT-HUN-72%2CKXRT-HUN-77%2CKXRT-IPL-85%2CKXRT-IPL-90%2CKXTIME-26-ABD%2CKXTIME-26-DAR%2CKXTIME-26-JAME%2CKXTIME-26-JDV%2CKXTIME-26-JOS%2CKXTIME-26-PET%2CKXTIME-26-ZOH%2CKXFRENCHPRES-27-DLIS%2CKXBTCMINMON-BTC-26NOV30-5750000%2CKXDOGED-26NOV2117-T0.0499999%2CKXETHD-26NOV2117-T1499.99 -> 200 (138 markets)",
+  "- 05:01:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTCMINMON -> 200 fee_multiplier=1 fee_type=quadratic",
+  "- 05:01:48Z GET https://external-api.demo.kalshi.co/trade-api/v2/series/KXDOGED -> 200 fee_multiplier=1 fee_type=quadratic"
  ]
 }
