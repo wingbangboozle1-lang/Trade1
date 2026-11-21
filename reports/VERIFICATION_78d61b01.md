@@ -115,6 +115,14 @@ thing); the request numbers are its measurements, and they are what the pacing i
 
 ## 5. Topic-label state (the item D1 / 9d-1 / 691-11 history)
 
+* **After the merge** (`main` @ `900b640d`, dispatched run `44881737325`, data commit `fa3771ed` at
+  07:52:11Z): `collect_status.json` → `status: ok`, `transient_read_failures: 0`,
+  `kept_previous_artifacts: []`, `request_stats: {requests: 499, retried: 0, throttled_429: 0}`;
+  `resolved.json` 222,825 B with `in_scope_count 2726`, `settled_total 6000`, `published_count 200` and
+  `published_per_topic {"crypto": 200}`; the CI gate step ran and passed. The per-topic selection is
+  therefore **live and correct but a no-op on today's data** — in this window the only settled in-scope
+  markets were crypto — which is recorded as measured rather than as an improvement in the tables.
+  `data/log.md` L557 prints `resolved row selection: 200 of 2726 in-scope rows; per topic {"crypto": 200}`.
 * The combined Resolved view then had a different defect (**flagged 78-8**): `in_scope[:200]` over a list
   sorted newest-first meant **200 of 200 published rows were crypto** and the other four topics had zero,
   because continuous 15-minute/hourly crypto settlement outranks everything else in a recency cut.
@@ -171,3 +179,17 @@ Six sessions worked the same area within ~90 minutes. This session's disposition
   intervals) were **not re-tested** by this session — row #11 is carried from earlier
   verifications, not re-confirmed today.
 * **Production fee schedule vs demo multipliers** remain in documented conflict (flagged 6b).
+
+---
+
+## 8. Landing record
+
+| Item | Result |
+|---|---|
+| PR | [#90](https://github.com/wingbangboozle1-lang/Trade1/pull/90) — checks pass (run `44881340895`), merged without waiting for approval |
+| Merge commit | `900b640d` (2026-11-21T07:45:31Z), `main`'s head at that moment |
+| Rebase cost | 3 rebases onto a `main` moving every few minutes; one CI data commit (`f019584e`) dropped instead of merged, all board conflicts resolved additively (main's 21 sections → 27, no line lost) |
+| Supersession | this branch's staging/`promote()`/`snapshot_guard()` design was **deleted** in favour of `c96a21b7`'s `KEPT` fail-closed reads; only the non-duplicating pieces shipped |
+| Pages | `status: built`, latest build `07:52:51Z` (after data commit `fa3771ed` at `07:52:11Z`); `commit_id` is null on this API, so verification used the served artifacts |
+| Live verification | `data/collect_status.json` → `status: ok`, `request_stats {requests: 499, retried: 0, throttled_429: 0}`, `kept_previous_artifacts: []`; `data/meta.json` → 2,400 events / 14,647 markets / 6,000 settled / 200 series per topic for all five topics; `data/resolved.json` → 222,825 B, `published_per_topic {"crypto": 200}` of 2,726 in-scope |
+| Honest limits | the per-topic selection is live but changed nothing today (only crypto settled in the window); nothing here asserts demo-account performance, news causality, model profitability, or the endpoint ceilings re-tested by other sessions only |
