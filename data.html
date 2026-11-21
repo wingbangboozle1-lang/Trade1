@@ -50,6 +50,16 @@
   </section>
 
   <section class="box" style="margin-top:14px">
+    <h2>Coverage by topic</h2>
+    <p class="muted small">How much live inventory exists in each of the five tracked topics in this snapshot. Counts are the snapshot's own
+      (<code>data/topics/&lt;topic&gt;.json</code>), not an exchange total; a low count is a coverage fact, not an error. Where a topic
+      is thin, the <a href="dashboard.html">live dashboard</a> discovers events directly from the API.</p>
+    <div class="tablewrap"><table class="small"><thead><tr>
+      <th>Topic</th><th>Open in-scope events</th><th>Events with markets in the snapshot</th><th>Snapshot</th><th>Source</th>
+    </tr></thead><tbody id="cov-body"><tr><td colspan="5" class="muted">loading…</td></tr></tbody></table></div>
+  </section>
+
+  <section class="box" style="margin-top:14px">
     <h2>Top in-scope live events by estimated traded notional</h2>
     <div id="topic-tables"></div>
     <p class="muted small">“Est. $” = contracts × last price (computed here; the API does not publish a per-market dollar-notional field — flagged). Blank cells = value not present in the response.</p>
@@ -70,6 +80,7 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){retur
 function money(v){return (v===''||v==null||!isFinite(Number(v)))?'':'$'+Number(v).toFixed(2);}
 function fmt(v){var n=Number(v);return isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:2}):'';}
 var API='https://external-api.demo.kalshi.co/trade-api/v2';
+var REPO_DATA='https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/';
 /* Official per-row sources. The market page pattern in the official Quick Start
  * guide is https://kalshi.com/markets/{series_ticker}; building it from a bare
  * event ticker does not resolve, so rows link the official API record instead
@@ -109,6 +120,27 @@ fetch('data/resolved.json',{cache:'no-store'}).then(function(r){return r.ok?r.js
 });
 
 var TOPICS=['gas-prices','elections','culture','crypto','golf'];
+/* coverage-by-topic table: counts read straight from the committed snapshot files */
+(function(){
+  var TOPICS=[['gas-prices','Gas prices'],['elections','Elections'],['culture','Culture'],['crypto','Crypto'],['golf','Golf']];
+  var body=document.getElementById('cov-body'); if(!body) return;
+  Promise.all(TOPICS.map(function(t){
+    return fetch('data/topics/'+t[0]+'.json',{cache:'no-store'})
+      .then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+      .then(function(d){return {id:t[0],label:t[1],d:d};});
+  })).then(function(res){
+    body.innerHTML = res.map(function(x){
+      if(!x.d){ return '<tr><td><b>'+esc(x.label)+'</b></td><td colspan="4" class="muted">snapshot file unreadable — treated as unverified, not as zero</td></tr>'; }
+      var ev=x.d.events||[];
+      var withMkt=ev.filter(function(e){return (e._markets&&e._markets.length)||e._market_count;}).length;
+      return '<tr><td><b>'+esc(x.label)+'</b><br><small class="muted"><a href="topics/'+x.id+'.html">topic page →</a></small></td>'+
+        '<td>'+ev.length+'</td><td>'+withMkt+'</td><td>'+esc((x.d.generated_at||'').replace('T',' ').slice(0,19))+'Z</td>'+
+        '<td><a target="_blank" rel="noopener" href="'+API+'/events?status=open&limit=200">GET /events</a> · '+
+        '<a target="_blank" rel="noopener" href="'+REPO_DATA+'topics/'+x.id+'.json">data/topics/'+x.id+'.json</a></td></tr>';
+    }).join('');
+  });
+})();
+
 var box=document.getElementById('topic-tables');
 TOPICS.forEach(function(id){
   fetch('data/topics/'+id+'.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(d){
