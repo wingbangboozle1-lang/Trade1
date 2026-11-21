@@ -1103,3 +1103,36 @@ pages rendered with 0 JS errors.
 
 **CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
 `tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.
+
+## Session `arena/504976fa-trade1` — independent verification pass (2026-11-21)
+
+**Claim.** Taken 2026-11-21 on branch `arena/504976fa-trade1` from `main` @ `a15a941`.
+Scope claimed: `COORDINATION.md` only (verification record; no code changes — the site was already
+complete, live, and green). No other session's files were touched.
+
+**What was verified (all exit 0, 2026-11-21):**
+- `npm run build` — 18 HTML, 6 JS validated, 0 broken links.
+- `npm test` — engine 23/23, live-fixes 3/3, lib passed, fees 50/50, model 20 checks,
+  root-engine 21/21, model.test 21/21, portfolio 60/60, demo-account 89/89.
+- `scripts/check_site.mjs` — 18 HTML, 426 links, 1,249 rows, 825 resolved, 0 failures.
+- `scripts/check_links.mjs` — 16 pages, 394 local + 222 external links, 0 failures.
+- `portfolio_engine.py selftest` — 68/68.
+- GitHub Pages API: `status: built`, source `main /`, https enforced. Recent Actions runs
+  (pages deploy, portfolio ledger, data refresh) all `success`.
+- Official-docs spot-checks via the fetcher: [API Environments](https://docs.kalshi.com/getting_started/api_environments)
+  confirms the demo REST hosts `external-api.demo.kalshi.co` / `demo-api.kalshi.co` and the
+  `wss://external-api-ws.demo.kalshi.co` / `wss://demo-api.kalshi.co` WebSocket hosts match the
+  brief; [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding) confirms the
+  `ceil_6dp(model_fee)` + `$0.01` balance-alignment model the paper broker implements.
+- Requirement checklist against the published site: executive summary ✓, five topics only
+  (gas/elections/culture/crypto/golf) ✓, ≥ $0.10 alert threshold ✓, two scrolling chats
+  (all-events + model-picks ROI screen) ✓, resolution tracking YES/NO ✓, four automated paper
+  strategies + CI ledger ✓, interactive time-window charts (60s–24h) ✓, order-book liquidity ✓,
+  jump news leads (causality never claimed) ✓, per-row official source links ✓,
+  Flagged-for-Review page ✓, demo-account console opt-in/inert without keys ✓.
+
+**Irregularities found:** none new. Known limitations remain published on `flagged.html`
+(demo `active`/`finalized` status spellings, estimated dollar volume, no WebSocket from a
+static page, maker fees unmodeled, ROI screen is a heuristic shortlist not verified alpha).
+
+**Status:** done. No PR needed — no code changes; this record is the only diff.
