@@ -1104,6 +1104,67 @@ pages rendered with 0 JS errors.
 **CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
 `tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.
 
+### PR, merge and Pages record (final), 2026-11-20 UTC
+
+- **PR #55** `arena/6916270f-trade1` → `main`: final integration (D1–D11, the fee-table
+  transcription, the audit report, the CI gates). Checks **pass** (run 44811463798), mergeable
+  clean, merged **2026-11-20T20:29:58Z**, merge commit **`26d8b8d`**.
+- **PR #56** `arena/6916270f-trade1` → `main`: the per-series fee wording on `flagged.html` (row
+  6b) and `methods.html` §4 was made consistent with the decision that was implemented (the
+  published schedule defines `M`; the demo API's `fee_multiplier` disagrees — both are published).
+  Checks **pass** (run 44812431969), merged **2026-11-20T20:37:12Z**, merge commit **`826cefb`**.
+- **PR #57** `arena/6916270f-trade1` → `main`: the Resolved page's live-refresh rows were wiped
+  by the snapshot render (the counter still said "+10 live"); the page now renders from one row
+  list and the live poll is chained after the snapshot render. Checks **pass** (run 44813556063),
+  merged **2026-11-20T20:46:09Z**, merge commit **`723b6d4`**.
+- **Pages:** `gh api repos/wingbangboozle1-lang/Trade1/pages/builds/latest` → `status: built`
+  for `723b6d4`; the deploy run and the site-checks run both completed **success**. HTTPS
+  enforced, source `main /`.
+- **Live verification (page fetcher, 2026-11-20):**
+  - https://wingbangboozle1-lang.github.io/Trade1/ — the consolidated landing page with the
+    executive summary, the feature list, the pipeline description and the snapshot/CORS status.
+  - `dashboard.html` — 810 watchlist markets, the seconds/minutes/hours window selector, the
+    ≥ $0.10 alert rule, rows linked to `https://kalshi.com/markets/{series}` **and** the official
+    API record.
+  - `resolved.html` — "200 markets in the snapshot … settled in window: 6000 … in scope: 3213",
+    the cap disclosed ("200 of 3213 in-scope settled markets + 10 live"), the live rows now
+    visible and marked "· live", every row carrying its official API record link.
+  - `portfolio.html` — the ledger (96-market watchlist, 4 open positions, equity $995.44), each
+    row linked to a series page and its API record.
+  - `flagged.html` — the `6916270f` section with items 691-1 … 691-11, each with an official
+    source link.
+- **Still open at close:** none of this session's own PRs. PRs #32 and #35 were closed unmerged by
+  the repository owner; their still-needed parts were taken over into PR #55 (recorded above).
+- **Task status:** done. The only remaining gap is the demo-account layer, which needs the owner's
+  demo API key (flagged item 9d-5 / I5) — it stays inert and is not faked.
+
+### Reconciliation with session `9ff00ee3` (PR #59) and the final per-series fee policy
+
+Session `9ff00ee3` merged PR #59 (2026-11-20T20:53Z) while this branch was open, and it changed
+the same files this session had changed (`assets/model.js`, `scripts/portfolio_engine.py`,
+`flagged.html`, `methods.html`). It re-read the official **Get Series** schema and found that
+`fee_multiplier` **is** documented — a *required* Series field, “a floating point multiplier
+applied to the fee calculations”, with `fee_type: "quadratic"` “described by the General Trading
+Fees Table”. That corrects session `6916270f`'s note that the field is undefined.
+
+**Both sides kept; one policy, implemented identically in both engines:**
+
+| Order | Source | Where it comes from | Why |
+|---|---|---|---|
+| 1 | the demo API's published `fee_multiplier` | `GET /series/{ticker}` (cached, capped) | environment-matched — these brokers paper **demo** fills |
+| 2 | the published schedule's per-series multiplier | “Non-Standard Fees” table, transcribed at `data/fee_schedule_series.json` | the schedule is the document that defines `M` in the formula |
+| 3 | the documented default `M = 1` | the schedule's own default | fallback |
+
+A record without a numeric `fee_multiplier` is never inferred, and the two official sources are
+published side by side on the Flagged page (items **6b** and **691-1**) — neither is silently
+dropped. `scripts/test_fees.mjs` asserts that the browser's fallback map and the published
+transcription agree, so the two engines cannot drift apart silently.
+
+The conflict resolution kept **both** sides: this session's per-row source links (each ledger row
+now links its own official market record and its series page), the takeover of PR #32's test
+tooling and the jsdom render gate — **and** session `9ff00ee3`'s multiplier resolution order, the
+`series_fees` cache in both engines, and the `reports/VERIFICATION_9ff00ee3.md` record.
+
 ## Session `arena/504976fa-trade1` — independent verification pass (2026-11-21)
 
 **Claim.** Taken 2026-11-21 on branch `arena/504976fa-trade1` from `main` @ `a15a941`.
