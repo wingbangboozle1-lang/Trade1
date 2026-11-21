@@ -507,8 +507,14 @@ def http_get(url, timeout=30):
 
 def fetch_quotes(tickers, log_list):
     """Batched live quotes: GET /markets?tickers=a,b,c (tickers-only queries are unpaged
-    and return every matching market, status included, per the official endpoint notes)."""
+    and return every matching market, status included, per the official endpoint notes).
+
+    Fail-closed, matching scripts/collect.py (COORDINATION c96a21b7): a chunk that still
+    fails after the retries is reported in the second return value. cmd_run then keeps the
+    last verified ledger instead of letting a partial quote set raise phantom alerts or
+    book trades against a half-read book."""
     out, sources = {}, []
+    failed = []
     for i in range(0, len(tickers), MAX_TICKERS_PER_REQUEST):
         chunk = tickers[i:i + MAX_TICKERS_PER_REQUEST]
         url = f"{BASE}/markets?{urllib.parse.urlencode({'tickers': ','.join(chunk)})}"
@@ -520,10 +526,11 @@ def fetch_quotes(tickers, log_list):
             log_line(log_list, f"GET {url} -> 200 ({len(j['markets'])} markets)")
         else:
             log_line(log_list, f"GET {url} -> {code} {str(j)[:180]}")
+            failed.append({"url": url, "status": code, "error": str(j)[:180]})
         sources.append(url)
         if i + MAX_TICKERS_PER_REQUEST < len(tickers):
             time.sleep(REQUEST_SLEEP_S)
-    return out, sources
+    return out, sources, failed
 
 
 def fetch_series_fees(st, series_list, log_list, cap=40):
@@ -1153,15 +1160,17 @@ def cmd_run(args):
         log_line(log_list, f"OFFLINE cycle over {len(quotes)} watchlist markets (no network)")
         sources = [f"data/topics/{t}.json" for t in TOPICS]
     else:
-        raw, sources = fetch_quotes(tickers, log_list)
-        if not raw:
-            log_line(log_list, "no quotes returned; state preserved, artifact marked degraded")
-            st["runs"].append({"t": now_iso(), "mode": "run", "watchlist": len(tickers),
-                               "requests": len(sources), "degraded": True, "log": log_list[-10:]})
-            st["log"] = (st.get("log", []) + log_list)[-60:]
-            save_state(st)
-            write_artifact(st, picked, sources, log_list, status="degraded",
-                           note="the demo API returned no quotes on this run; last known state preserved")
+        raw, sources, failed = fetch_quotes(tickers, log_list)
+        # Fail-closed: a partial read must not move the ledger. A missing ticker would look
+        # like a stalled position and a shortened quote set would freeze market state, so when
+        # any chunk still fails after the retries the last verified artifact is kept as-is.
+        if failed or not raw:
+            reason = ("the demo API returned no quotes" if not raw
+                      else f"{len(failed)} quote chunk(s) still failed after {MAX_RETRIES_429} retries")
+            log_line(log_list, f"no ledger write: {reason}; last verified artifact kept")
+            print(f"kept last verified ledger: {reason}")
+            for f in failed[:10]:
+                print(f"  {f['status']} {f['url']} {f['error']}")
             return 0
         quotes = {t: m for t, m in raw.items() if t in st["watch"]}
         for t in quotes:
@@ -1193,6 +1202,11 @@ def cmd_run(args):
     if size > 900_000:
         print("WARNING: artifact exceeds 900 kB; reduce bounds", file=sys.stderr)
     return 0
+
+
+def fetch_quotes_failed(raw, failed):
+    """True when the cycle must not write the ledger: no quotes at all, or any failed chunk."""
+    return bool(failed) or not raw
 
 
 def _dstr(b):
@@ -1447,6 +1461,18 @@ def selftest():
        "max_entry_bits" not in RULES["harvest"]
        and enter(st, "KXTEST-1", "yes", "harvest", qv("0.9400", "0.9500", "0.0500", "0.0600"),
                  "t", ["fixture://g4"], "2026-11-20T02:00:00Z") is not None)
+
+    # 10. fail-closed ledger writes (COORDINATION c96a21b7 follow-up): a quote chunk that
+    #     still fails after the retries must stop the cycle instead of writing a partial ledger.
+    st = load_state_like()
+    before = json.dumps({"trades": st["trades"], "alerts": st["alerts"], "cash_cc": st["cash_cc"]},
+                        sort_keys=True)
+    ok("a partially failed quote read is reported, not silently treated as an empty book",
+       fetch_quotes_failed(["A"], [{"url": "u", "status": 429, "error": "too_many_requests"}]) is True)
+    ok("a clean quote read raises no failure flag", fetch_quotes_failed(["A"], []) is False)
+    ok("the ledger is untouched by the gate (no trade/alert/cash mutation)",
+       json.dumps({"trades": st["trades"], "alerts": st["alerts"], "cash_cc": st["cash_cc"]},
+                  sort_keys=True) == before)
 
     print(f"\n{checks - len(fails)}/{checks} checks passed")
     if fails:

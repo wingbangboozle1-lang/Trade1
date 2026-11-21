@@ -137,5 +137,119 @@ class SettledTopicClassificationTests(unittest.TestCase):
         )
 
 
+class RateLimitBackoffTests(unittest.TestCase):
+    """https://docs.kalshi.com/getting_started/rate_limits — 429 means back off; no Retry-After
+    header is sent, and X-RateLimit-Reset (seconds) is available when the API includes it.
+    The 2026-11-21 run logged 220x 429 with no retry (Flag BE-1)."""
+
+    def setUp(self):
+        self._urlopen = collect.urllib.request.urlopen
+        self._sleep = collect.time.sleep
+        collect.time.sleep = lambda _s: None      # tests must never really sleep
+        collect.LOG.clear()
+        collect.FAILURES.clear()
+
+    def tearDown(self):
+        collect.urllib.request.urlopen = self._urlopen
+        collect.time.sleep = self._sleep
+
+    @staticmethod
+    def _err(code=429, headers=None):
+        err = urllib.error.HTTPError("https://x", code, "err", headers or {}, io.BytesIO(b"{}"))
+        err.read = lambda: b'{"error":{"code":"too_many_requests"}}'
+        return err
+
+    @staticmethod
+    def _resp():
+        class R:
+            status = 200
+            headers = {}
+            def read(self): return b'{"ok":true}'
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+        return R()
+
+    def test_429_is_retried_then_succeeds(self):
+        calls = []
+
+        def fake(req, timeout=0):
+            calls.append(1)
+            if len(calls) < 3:
+                raise self._err()
+            return self._resp()
+
+        collect.urllib.request.urlopen = fake
+        code, body, _, attempts = collect.get_with_retry("https://x")
+        self.assertEqual(code, 200)
+        self.assertEqual(attempts, 3)
+        self.assertEqual(body, b'{"ok":true}')
+        self.assertEqual(collect.FAILURES, [])
+
+    def test_x_ratelimit_reset_drives_the_backoff(self):
+        waited = []
+        collect.time.sleep = waited.append
+        calls = []
+
+        def fake(req, timeout=0):
+            calls.append(1)
+            if len(calls) == 1:
+                raise self._err(headers={"X-RateLimit-Reset": "0.75"})
+            return self._resp()
+
+        collect.urllib.request.urlopen = fake
+        code, _, _, _ = collect.get_with_retry("https://x")
+        self.assertEqual(code, 200)
+        self.assertIn(0.75, waited)          # the reset value, not 2**1 = 2s
+
+    def test_retry_after_wins_over_reset_when_present(self):
+        waited = []
+        collect.time.sleep = waited.append
+        calls = []
+
+        def fake(req, timeout=0):
+            calls.append(1)
+            if len(calls) == 1:
+                raise self._err(headers={"Retry-After": "3", "X-RateLimit-Reset": "0.75"})
+            return self._resp()
+
+        collect.urllib.request.urlopen = fake
+        collect.get_with_retry("https://x")
+        self.assertIn(3.0, waited)
+
+    def test_retries_are_bounded_and_the_failure_is_recorded(self):
+        calls = []
+
+        def fake(req, timeout=0):
+            calls.append(1)
+            raise self._err()
+
+        collect.urllib.request.urlopen = fake
+        code, _, _, attempts = collect.get_with_retry("https://x")
+        self.assertEqual(code, 429)
+        self.assertEqual(attempts, collect.MAX_ATTEMPTS)
+        self.assertEqual(len(calls), collect.MAX_ATTEMPTS)
+        collect.fetch_json("https://x")      # a failed read must reach FAILURES
+        self.assertTrue(any(f["url"] == "https://x" and f["reason"] == "transient" for f in collect.FAILURES))
+
+    def test_backoff_cap_is_applied(self):
+        waited = []
+        collect.time.sleep = waited.append
+        collect.urllib.request.urlopen = lambda req, timeout=0: (_ for _ in ()).throw(
+            self._err(headers={"X-RateLimit-Reset": "999"}))
+        collect.get_with_retry("https://x")
+        self.assertTrue(all(w <= collect.BACKOFF_CAP_S for w in waited), waited)
+
+    def test_a_definitive_4xx_is_not_retried(self):
+        calls = []
+
+        def fake(req, timeout=0):
+            calls.append(1)
+            raise self._err(code=400)
+
+        collect.urllib.request.urlopen = fake
+        code, _, _, attempts = collect.get_with_retry("https://x")
+        self.assertEqual((code, attempts, len(calls)), (400, 1, 1))
+
+
 if __name__ == "__main__":
     unittest.main()

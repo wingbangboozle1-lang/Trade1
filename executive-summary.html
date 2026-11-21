@@ -166,11 +166,14 @@
         <tr><td><b>429 storm in the snapshot collector.</b> <code>data/log.md</code> for the 2026-11-21T06:58Z run records
           <b>220 × 429</b> against <b>45 × 200</b>, leaving <code>data/topics/gas-prices.json</code> with 0 open events and the
           snapshot partial.</td>
-          <td>Neither Python fetcher retried a 429, and the collector had no pacing at all. The official
+          <td>The collector treated a failed read as an empty result, and neither Python fetcher retried a 429. The official
             <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a>
             page says to back off exponentially on 429 and sends no <code>Retry-After</code>.</td>
-          <td>Both fetchers pace requests (0.4 s) and retry 429 up to 5 times, 1→2→4→8→16 s capped at 30 s, honouring
-            <code>X-RateLimit-Reset</code>. Five simulated-429 tests in <code>tests/test_collect.py</code>.</td></tr>
+          <td>Fixed across two merged sessions: session <code>c96a21b7</code> (PR #80) made the collector's reads
+            <b>fail-closed</b> — 5 attempts, <code>Retry-After</code> else 2ⁿ s capped at 60 s, every failure recorded, and a verified
+            artifact is never overwritten by a degraded run. This session added <code>X-RateLimit-Reset</code> as the hint when
+            <code>Retry-After</code> is absent, gave <code>scripts/portfolio_engine.py</code> the same retry/backoff, and made that
+            ledger fail closed too.</td></tr>
         <tr><td><b>A losing position was stacked twice.</b> <code>data/portfolio.json</code> holds
           <code>KXETHD-26NOV2017-T1659.99</code> opened by <b>momentum</b> and again by <b>harvest</b>; both settled NO, −$24.87 each —
           the ledger's whole realised loss before fees.</td>
@@ -182,7 +185,7 @@
     </table></div>
     <p class="small">Gates after the change, all exit 0: build 18 HTML / 0 broken links · <code>npm run check</code> 1,183 rows /
       625 resolved / 0 failures · <code>npm test</code> engine 23, model 36, root_engine 48, portfolio 60/60, demo-account 89/89,
-      <code>tests/test_collect.py</code> 8/8 · <code>portfolio_engine.py selftest</code> 74/74.
+      <code>tests/test_collect.py</code> 10/10, <code>test_collect_failclosed.py</code> 6/6 · <code>portfolio_engine.py selftest</code> 77/77.
       <b>Not verified here:</b> a live run of the corrected collector — this sandbox has no route to
       <code>external-api.demo.kalshi.co</code>, so the next scheduled Actions data job is the first real run (Flag BE-4).</p>
   </section>

@@ -34,18 +34,17 @@ OUT = "data"
 MAX_PAGES = 6
 UA = "Trade1-verify/1.0 (github.com/wingbangboozle1-lang/Trade1)"
 
-# Rate-limit pacing. Unauthenticated public requests are "subject to separate
-# limits" (https://docs.kalshi.com/getting_started/rate_limits) and the docs
-# say to back off on 429 with exponential backoff; 429 responses carry no
-# Retry-After header. The 2026-11-21 run fired with zero pacing and logged
-# 220x 429 vs 45x 200, which starved the series-discovery and resolved
-# sweeps. Pace every request and retry 429s with exponential backoff,
-# honouring X-RateLimit-Reset (seconds until the bucket is full) when the
-# API sends it, capped so one throttled sweep cannot stall the job.
-REQUEST_SLEEP_S = 0.4
-MAX_RETRIES_429 = 5
-BACKOFF_CAP_S = 30.0
-_last_req_at = 0.0
+# Fail-closed reads (COORDINATION c96a21b7): a 429 / 5xx / network error is retried with
+# backoff; if it still fails, the run records it and does NOT overwrite the artifact it feeds.
+# Session 0b68e1e4 added X-RateLimit-Reset handling: the official
+# https://docs.kalshi.com/getting_started/rate_limits page says to back off on 429 and that
+# no Retry-After header is sent, so a reset header (seconds) is the only server hint available.
+RETRY_STATUSES = {429, 500, 502, 503, 504}
+MAX_ATTEMPTS = 5
+PACE_S = 0.25          # small pause before each API call, to stay under the demo rate limit
+BACKOFF_CAP_S = 60.0   # ceiling for one backoff, so a throttled sweep cannot stall the job
+FAILURES = []          # every transient upstream failure this run (url, status, attempts)
+KEPT = []              # artifacts deliberately NOT rewritten because their inputs failed
 
 LOG = []
 
@@ -56,62 +55,67 @@ def log(msg):
     print(line, flush=True)
 
 
-def _pace():
-    """Keep at least REQUEST_SLEEP_S between requests (burst pacing)."""
-    global _last_req_at
-    wait = REQUEST_SLEEP_S - (time.time() - _last_req_at)
-    if wait > 0:
-        time.sleep(wait)
-    _last_req_at = time.time()
-
-
 def get(url, origin=None, method="GET", timeout=45):
     headers = {"User-Agent": UA, "Accept": "application/json"}
     if origin:
         headers["Origin"] = origin
+    req = urllib.request.Request(url, headers=headers, method=method)
     t0 = time.time()
-    delay = 1.0
-    for attempt in range(MAX_RETRIES_429 + 1):
-        _pace()
-        req = urllib.request.Request(url, headers=headers, method=method)
-        try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                body = r.read()
-                hs = {k.lower(): v for k, v in r.headers.items()}
-                code = r.status
-        except urllib.error.HTTPError as e:
-            body = e.read()
-            hs = {k.lower(): v for k, v in e.headers.items()}
-            code = e.code
-        except Exception as e:  # network-level failure
-            log(f"NET-FAIL {method} {url} :: {type(e).__name__}: {e}")
-            return None, {}, b"", time.time() - t0
-        if code == 429 and attempt < MAX_RETRIES_429:
-            reset = hs.get("x-ratelimit-reset")
-            try:
-                wait = min(float(reset), BACKOFF_CAP_S) if reset else delay
-            except (TypeError, ValueError):
-                wait = delay
-            log(f"429 {method} {url} (attempt {attempt + 1}/{MAX_RETRIES_429})"
-                f" — backing off {wait:.1f}s")
-            time.sleep(wait)
-            delay = min(delay * 2, BACKOFF_CAP_S)
-            continue
-        return code, hs, body, time.time() - t0
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            body = r.read()
+            hs = {k.lower(): v for k, v in r.headers.items()}
+            code = r.status
+    except urllib.error.HTTPError as e:
+        body = e.read()
+        hs = {k.lower(): v for k, v in e.headers.items()}
+        code = e.code
+    except Exception as e:  # network-level failure
+        log(f"NET-FAIL {method} {url} :: {type(e).__name__}: {e}")
+        return None, {}, b"", time.time() - t0
     return code, hs, body, time.time() - t0
 
 
+def get_with_retry(url):
+    """GET with backoff on 429 / 5xx / network failure. Returns (code, body, dt, attempts)."""
+    code, body, dt = None, b"", 0.0
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        time.sleep(PACE_S)
+        code, hs, body, dt = get(url)
+        if code == 200 or (code is not None and code not in RETRY_STATUSES):
+            return code, body, dt, attempt
+        if attempt < MAX_ATTEMPTS:
+            ra = (hs.get("retry-after") or "").strip()
+            if re.fullmatch(r"\d+(\.\d+)?", ra):
+                wait = float(ra)
+            else:
+                # no Retry-After is sent on 429 (official rate-limit page); use the published
+                # X-RateLimit-Reset (seconds) when present, else exponential backoff
+                reset = (hs.get("x-ratelimit-reset") or "").strip()
+                wait = float(reset) if re.fullmatch(r"\d+(\.\d+)?", reset) else 2 ** attempt
+            wait = min(float(wait), BACKOFF_CAP_S)
+            log(f"RETRY {attempt}/{MAX_ATTEMPTS - 1} in {wait:.0f}s: {code or 'NET-FAIL'} {url}")
+            time.sleep(wait)
+    return code, body, dt, MAX_ATTEMPTS
+
+
 def fetch_json(url, note=""):
-    code, hs, body, dt = get(url)
+    code, body, dt, attempts = get_with_retry(url)
     if code == 200 and body:
         try:
             j = json.loads(body)
         except Exception as e:
             log(f"BAD-JSON {url} :: {e}")
+            FAILURES.append({"url": url, "status": code, "attempts": attempts, "reason": "bad-json"})
             return None
         log(f"GET {url} -> 200, {len(body):,}B in {dt:.1f}s {note}")
         return j
-    log(f"GET {url} -> {code} ({len(body)}B) {note}"
+    if code == 200 and not body:  # a 200 with no body is not a valid read
+        FAILURES.append({"url": url, "status": code, "attempts": attempts, "reason": "empty-body"})
+    # a definitive 4xx (other than 429) is an answer, not a failed read; transient codes are failures
+    elif code is None or code in RETRY_STATUSES:
+        FAILURES.append({"url": url, "status": code, "attempts": attempts, "reason": "transient"})
+    log(f"GET {url} -> {code} ({len(body)}B) after {attempts} attempt(s) {note}"
         + (f" body={body[:220]!r}" if body else ""))
     return None
 
@@ -138,6 +142,9 @@ def paged(path, params, key, max_pages=MAX_PAGES):
 
 
 def wjson(path, obj):
+    if KEPT and (path.startswith("samples/") or path == "meta.json"):
+        log(f"SKIP WRITE {path}: this run kept previous artifacts ({len(KEPT)}); last verified copy stays")
+        return
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8") as f:
@@ -267,6 +274,7 @@ def main():
         wjson("exchange-status.json", {"fetched_from": f"{BASE}/exchange/status", "response": ex})
 
     # ---------- 3. open events (paged) ----------
+    base_fail = len(FAILURES)  # failures from here on make this run's discovery untrustworthy
     events, event_urls = paged("/events", {"status": "open", "limit": "200"}, "events", max_pages=12)
     events_status_open_ok = bool(events) or len(event_urls) > 0
     log(f"open events collected: {len(events)}")
@@ -345,6 +353,11 @@ def main():
     log(f"markets after series discovery: {len(markets)}")
 
     # rank each bucket by provisional est dollar volume from sweep membership,
+    # Trust gate for this run: no transient read failure in events/markets/series discovery,
+    # and the open sweeps returned data. Otherwise topic and category files are not rewritten.
+    discovery_ok = (len(FAILURES) == base_fail) and bool(events) and bool(markets)
+    log(f"discovery trusted: {discovery_ok} (transient failures this run so far: {len(FAILURES)})")
+
     # then fetch official metadata + complete market set per event (per-topic budget)
     for tid, pairs in buckets.items():
         def provisional(pe):
@@ -354,7 +367,9 @@ def main():
         pairs.sort(key=provisional, reverse=True)
 
     ev_fetch_count, ev_fetch_urls = 0, []
+    topic_ok = {}
     for tid, pairs in buckets.items():
+        nt = len(FAILURES)
         budget = 60
         for e, why in pairs:
             if budget <= 0:
@@ -378,6 +393,7 @@ def main():
                         have_tickers.add(m["ticker"])
                         markets.append(m)
         log(f"topic {tid}: event fetch budget used {60 - budget}")
+        topic_ok[tid] = discovery_ok and len(FAILURES) == nt
     log(f"markets after per-event fetch: {len(markets)}")
 
     # market-level classification pass: derive a series guess from the event
@@ -431,27 +447,37 @@ def main():
             "event_count": len(rows),
             "events": rows[:30],
         }
-        wjson(f"topics/{tid}.json", payload)
-        topic_files[tid] = payload
+        if topic_ok.get(tid):
+            wjson(f"topics/{tid}.json", payload)
+            topic_files[tid] = payload
+        else:
+            KEPT.append(f"topics/{tid}.json")
+            log(f"KEEP data/topics/{tid}.json: upstream read failed during this run; last verified snapshot kept")
 
     categories = {}
     for e in events:
         c = e.get("category") or "(none)"
         categories[c] = categories.get(c, 0) + 1
-    wjson("categories.json", {
-        "generated_at": started.isoformat(),
-        "source_urls": event_urls[:3],
-        "open_event_count": len(events),
-        "categories": dict(sorted(categories.items(), key=lambda kv: -kv[1])),
-        "unclassified_events": unclassified,
-    })
+    if discovery_ok:
+        wjson("categories.json", {
+            "generated_at": started.isoformat(),
+            "source_urls": event_urls[:3],
+            "open_event_count": len(events),
+            "categories": dict(sorted(categories.items(), key=lambda kv: -kv[1])),
+            "unclassified_events": unclassified,
+        })
+    else:
+        KEPT.append("categories.json")
+        log("KEEP data/categories.json: discovery not trusted this run")
     log(f"categories observed: {categories}; unclassified events: {unclassified}")
 
     # ---------- 6. settled markets (recent) -> resolution outcomes ----------
     since = int(time.time()) - 3 * 24 * 3600
+    n_set = len(FAILURES)
     settled, settled_urls = paged("/markets", {
         "status": "settled", "min_settled_ts": str(since), "limit": "1000",
         "mve_filter": "exclude"}, "markets")
+    settled_ok = len(FAILURES) == n_set
     log(f"settled markets collected (last 3 days): {len(settled)}")
     in_scope = []
     for m in settled:
@@ -472,14 +498,27 @@ def main():
             row["_event_title"] = e.get("title") if e else None
             in_scope.append(row)
     in_scope.sort(key=lambda m: m.get("settlement_ts") or "", reverse=True)
-    wjson("resolved.json", {
-        "generated_at": started.isoformat(),
-        "window": "last 3 days (min_settled_ts = now-72h)",
-        "source_urls": settled_urls[:3],
-        "settled_total": len(settled),
-        "in_scope_count": len(in_scope),
-        "markets": in_scope[:200],
-    })
+    prev_rows = 0
+    prev_path = os.path.join(OUT, "resolved.json")
+    if os.path.exists(prev_path):
+        try:
+            with open(prev_path, encoding="utf-8") as f:
+                prev_rows = len((json.load(f) or {}).get("markets") or [])
+        except Exception:
+            prev_rows = 0
+    if settled_ok and (settled or prev_rows == 0):
+        wjson("resolved.json", {
+            "generated_at": started.isoformat(),
+            "window": "last 3 days (min_settled_ts = now-72h)",
+            "source_urls": settled_urls[:3],
+            "settled_total": len(settled),
+            "in_scope_count": len(in_scope),
+            "markets": in_scope[:200],
+        })
+    else:
+        KEPT.append("resolved.json")
+        why = "read failed" if not settled_ok else f"0 settled rows returned while {prev_rows} were on file"
+        log(f"KEEP data/resolved.json: {why}; last verified snapshot kept")
 
     # ---------- 7. samples for field-level verification ----------
     open_in_scope = [m for t in topic_files.values() for ev in t["events"]
@@ -552,6 +591,16 @@ def main():
             "_est_dollar_volume is computed (contracts x last price); it is not an exchange-published field.",
             "Fields absent from responses are omitted, never defaulted.",
         ],
+    })
+
+    wjson("collect_status.json", {
+        "run_started_at": started.isoformat(),
+        "transient_read_failures": len(FAILURES),
+        "failures_first_20": FAILURES[:20],
+        "kept_previous_artifacts": KEPT,
+        "status": "degraded: previous verified artifacts kept" if KEPT else "ok",
+        "retry_policy": {"statuses": sorted(RETRY_STATUSES), "max_attempts": MAX_ATTEMPTS,
+                         "backoff": "Retry-After header if numeric, else 2^attempt seconds (max 60 s)"},
     })
 
     with open(os.path.join(OUT, "log.md"), "w", encoding="utf-8") as f:
