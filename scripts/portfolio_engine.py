@@ -249,6 +249,13 @@ def taker_multiplier(series):
     return FEE_MULTIPLIERS.get(str(series).upper(), Fraction(1))
 
 
+def api_market_url(ticker):
+    """The official per-market record: {BASE}/markets/{ticker} - one row, one link."""
+    if not ticker:
+        return None
+    return BASE + "/markets/" + str(ticker)
+
+
 def kalshi_series_url(series_ticker):
     """Kalshi's series page: https://kalshi.com/markets/{series_ticker}
     (the pattern shown in the official Quick Start guide and verified live on
@@ -618,7 +625,7 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
         "rounding_cc": rounding,
         "fee_m": float(fee_m), "series": series_of(ticker),
         "strategy": strategy, "status": "open", "mark_bits": bid, "samples": 0,
-        "note": note, "source": sources[0] if sources else None,
+        "note": note, "source": api_market_url(ticker),
     }
     st["trades"].append(trade)
     return trade
@@ -727,7 +734,7 @@ def run_cycle(st, quotes, sources, when, log_list):
                     "kalshi_url": w.get("kalshi_url") or kalshi_series_url(res_series),
                     "title": q.get("title") or w.get("title"), "topic": w.get("topic"),
                     "result": res, "settlement_ts": q.get("settlement_ts"),
-                    "source": sources[0] if sources else None,
+                    "source": api_market_url(ticker),
                 })
                 events.append(f"RESOLVED {ticker} {res.upper()}")
 
@@ -762,7 +769,7 @@ def run_cycle(st, quotes, sources, when, log_list):
                 "gap_minutes": round((parse_ts(when) - (parse_ts(prev_t) or parse_ts(when))) / 60000, 1),
                 "dir": "up" if delta > 0 else "down", "score": score,
                 "spread_bits": sp, "vol24_c": q["vol24"],
-                "source": sources[0] if sources else None,
+                "source": api_market_url(ticker),
             }
             st["alerts"].append(alert)
             new_alerts.append(alert)
@@ -898,8 +905,13 @@ def trade_public(t):
         "exit": ({"t": t["exit"]["t"], "price_usd": round(t["exit"]["price_bits"] / 10000, 4),
                   "reason": t["exit"]["reason"], "fee_usd": usd(t["exit"]["fee_cc"]),
                   "credit_usd": usd(t["exit"].get("credit_cc", 0)),
-                  "source": t["exit"].get("source")} if t.get("exit") else None),
-        "note": t.get("note", ""), "source": t.get("source"),
+                  "source": t["exit"].get("source") or api_market_url(t["ticker"])} if t.get("exit") else None),
+        "note": t.get("note", ""),
+        # One row, one link: every projected row links ITS OWN official market
+        # record ({BASE}/markets/{ticker}). Older state rows recorded the batch
+        # quote URL that fetched them; that provenance stays in the state file,
+        # but the published artifact always shows the row's own record.
+        "source": api_market_url(t["ticker"]) or t.get("source"),
     }
 
 
@@ -915,7 +927,8 @@ def alert_public(a):
         "wide_gap": bool(a.get("gap_minutes") is not None and a["gap_minutes"] > 90),
         "spread_usd": round(a["spread_bits"] / 10000, 4) if a.get("spread_bits") is not None else None,
         "vol24_contracts": (a["vol24_c"] / 100) if a.get("vol24_c") is not None else None,
-        "model_pick": a["score"] >= float(MIN_MODEL_SCORE), "source": a.get("source"),
+        "model_pick": a["score"] >= float(MIN_MODEL_SCORE),
+        "source": api_market_url(a.get("ticker")) or a.get("source"),
     }
 
 
@@ -972,7 +985,9 @@ def write_artifact(st, watch_rows, sources, log_list, status="live", note=""):
         "by_topic": aggregate(st, quotes, "topic"),
         "positions": [trade_public(t) for t in open_positions(st)][-40:],
         "trades": [trade_public(t) for t in st["trades"]][-250:],
-        "resolutions": st["resolutions"][-120:],
+        # resolution rows: same one-row-one-link rule (own market record first)
+        "resolutions": [dict(r, source=api_market_url(r.get("ticker")) or r.get("source"))
+                        for r in st["resolutions"][-120:]],
         "alerts": [alert_public(a) for a in st["alerts"]][-120:],
         "equity_curve": [{"t": e["t"], "equity_usd": usd(e["equity_cc"]),
                           "cash_usd": usd(e["cash_cc"]), "open": e.get("open", 0)}

@@ -49,11 +49,15 @@ tracking, and every table row linked to the official API record it came from.
 - **Paper trading**: four strategies in `assets/model.js` fill against official quotes with the
   official taker fee `roundup(M × 0.07 × C × P × (1−P))` from the
   [fee schedule](https://kalshi.com/docs/kalshi-fee-schedule.pdf), where `M` is the per-series
-  taker multiplier from the schedule's Non-Standard Fees table (default 1; e.g. `KXBTCY`/`KXETHY`
-  are published as *no fees*, so `M = 0`). The transcribed table is published for review at
-  [`data/fee_schedule_series.json`](data/fee_schedule_series.json); rows that could not be read
-  unambiguously are listed there as not transcribed and fall back to `M = 1`. Paper trades settle
-  at $1 per winning contract. `localStorage` only — no orders, no credentials.
+  multiplier. It resolves in official-source order: (1) the demo API's published
+  `fee_multiplier` when a Series record for that series has been seen (environment-matched —
+  the site papers demo fills), (2) else the schedule's Non-Standard Fees table, transcribed for
+  review at [`data/fee_schedule_series.json`](data/fee_schedule_series.json) (rows that could not
+  be read unambiguously are listed there as not transcribed), (3) else the schedule's documented
+  default `M = 1`. A record without a numeric `fee_multiplier` is never inferred; the two
+  official sources disagree for some series, which is published on
+  [`flagged.html`](flagged.html) (items 6b and 691-1). Paper trades settle at $1 per winning
+  contract. `localStorage` only — no orders, no credentials.
 
 ## Checks
 

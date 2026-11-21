@@ -7,7 +7,12 @@
 - **Verification performed before withdrawing:** the fallback fix was checked by a mutation test (removing the exclusion lines made the test fail on `KXNATGAS15M / Natural Gas price up in next 15 mins?`; the fixed code passed 5/5). Build and link checks passed on that branch. Those results are kept here for PR #65's reviewers.
 - **Note on CI:** PR #64's `checks` job failed at the jsdom render gate (`Render every published page in jsdom`), not at a Python step. The failed job log could not be downloaded from the sandbox. Retry or flake status is for the owner of `pages.yml` to record.
 - **Official source read:** Kalshi Get Markets, https://docs.kalshi.com/api-reference/market/get-markets (status filter values `unopened | open | closed | settled`; demo base URLs).
-- **Status:** `withdrawn` (superseded by PR #65). No `data/` file was edited. Flags 9d-1 / 691-11 stay open until the next scheduled snapshot shows the corrected rows, as PR #65's own note says.
+- **Status:** `withdrawn` (superseded by PR #65).
+- **PR / merge record (final, 2026-11-21 UTC):** PR [#64](https://github.com/wingbangboozle1-lang/Trade1/pull/64) (`arena/c96a21b7-trade1` → `main`, board-only) merged with a merge commit (`d949035`). Its `checks` job passed on the final head (runs [44877546331](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44877546331) rerun and [44878331725](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44878331725)). The first run on the earlier head failed at the jsdom render gate (run [44876878343](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44876878343)). A rerun passed on the same code, so it is recorded as a flake, not a fix.
+- **Pages:** `built` for `d949035`; live index served (`https://wingbangboozle1-lang.github.io/Trade1/`). Local check at `d949035`: `npm test` exit 0; `scripts/check_links.mjs` 0 failures; `tests/test_collect.py` 4/4 (from PR #65).
+- **Merge conflicts (logged, none discarded):** `COORDINATION.md` conflicted four times as other sessions appended to the same file (`main` @ `1f99d61`, `6b0bdac`/PR #65, `b08da8b`, `7d1c21f`). Each time every incoming block was kept. The record was then moved to the top of the file to stop further end-of-file collisions.
+- **Irregularity for the owner of `pages.yml` (not changed here):** the render gate runs without `.render-cache/` in CI, so each page makes live Kalshi requests from the runner. A transient error or rate-limit response can reach the page's own `console.error` and fail the gate, as seen once on an otherwise identical head. Committing fixtures, or running the gate with `--cache` only, would remove this dependency.
+ No `data/` file was edited. Flags 9d-1 / 691-11 stay open until the next scheduled snapshot shows the corrected rows, as PR #65's own note says.
 
 Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in progress`, `done`, `needs review` (published on the Flagged for Review page; does not block anything).
 
@@ -1113,6 +1118,67 @@ pages rendered with 0 JS errors.
 **CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
 `tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.
 
+### PR, merge and Pages record (final), 2026-11-20 UTC
+
+- **PR #55** `arena/6916270f-trade1` → `main`: final integration (D1–D11, the fee-table
+  transcription, the audit report, the CI gates). Checks **pass** (run 44811463798), mergeable
+  clean, merged **2026-11-20T20:29:58Z**, merge commit **`26d8b8d`**.
+- **PR #56** `arena/6916270f-trade1` → `main`: the per-series fee wording on `flagged.html` (row
+  6b) and `methods.html` §4 was made consistent with the decision that was implemented (the
+  published schedule defines `M`; the demo API's `fee_multiplier` disagrees — both are published).
+  Checks **pass** (run 44812431969), merged **2026-11-20T20:37:12Z**, merge commit **`826cefb`**.
+- **PR #57** `arena/6916270f-trade1` → `main`: the Resolved page's live-refresh rows were wiped
+  by the snapshot render (the counter still said "+10 live"); the page now renders from one row
+  list and the live poll is chained after the snapshot render. Checks **pass** (run 44813556063),
+  merged **2026-11-20T20:46:09Z**, merge commit **`723b6d4`**.
+- **Pages:** `gh api repos/wingbangboozle1-lang/Trade1/pages/builds/latest` → `status: built`
+  for `723b6d4`; the deploy run and the site-checks run both completed **success**. HTTPS
+  enforced, source `main /`.
+- **Live verification (page fetcher, 2026-11-20):**
+  - https://wingbangboozle1-lang.github.io/Trade1/ — the consolidated landing page with the
+    executive summary, the feature list, the pipeline description and the snapshot/CORS status.
+  - `dashboard.html` — 810 watchlist markets, the seconds/minutes/hours window selector, the
+    ≥ $0.10 alert rule, rows linked to `https://kalshi.com/markets/{series}` **and** the official
+    API record.
+  - `resolved.html` — "200 markets in the snapshot … settled in window: 6000 … in scope: 3213",
+    the cap disclosed ("200 of 3213 in-scope settled markets + 10 live"), the live rows now
+    visible and marked "· live", every row carrying its official API record link.
+  - `portfolio.html` — the ledger (96-market watchlist, 4 open positions, equity $995.44), each
+    row linked to a series page and its API record.
+  - `flagged.html` — the `6916270f` section with items 691-1 … 691-11, each with an official
+    source link.
+- **Still open at close:** none of this session's own PRs. PRs #32 and #35 were closed unmerged by
+  the repository owner; their still-needed parts were taken over into PR #55 (recorded above).
+- **Task status:** done. The only remaining gap is the demo-account layer, which needs the owner's
+  demo API key (flagged item 9d-5 / I5) — it stays inert and is not faked.
+
+### Reconciliation with session `9ff00ee3` (PR #59) and the final per-series fee policy
+
+Session `9ff00ee3` merged PR #59 (2026-11-20T20:53Z) while this branch was open, and it changed
+the same files this session had changed (`assets/model.js`, `scripts/portfolio_engine.py`,
+`flagged.html`, `methods.html`). It re-read the official **Get Series** schema and found that
+`fee_multiplier` **is** documented — a *required* Series field, “a floating point multiplier
+applied to the fee calculations”, with `fee_type: "quadratic"` “described by the General Trading
+Fees Table”. That corrects session `6916270f`'s note that the field is undefined.
+
+**Both sides kept; one policy, implemented identically in both engines:**
+
+| Order | Source | Where it comes from | Why |
+|---|---|---|---|
+| 1 | the demo API's published `fee_multiplier` | `GET /series/{ticker}` (cached, capped) | environment-matched — these brokers paper **demo** fills |
+| 2 | the published schedule's per-series multiplier | “Non-Standard Fees” table, transcribed at `data/fee_schedule_series.json` | the schedule is the document that defines `M` in the formula |
+| 3 | the documented default `M = 1` | the schedule's own default | fallback |
+
+A record without a numeric `fee_multiplier` is never inferred, and the two official sources are
+published side by side on the Flagged page (items **6b** and **691-1**) — neither is silently
+dropped. `scripts/test_fees.mjs` asserts that the browser's fallback map and the published
+transcription agree, so the two engines cannot drift apart silently.
+
+The conflict resolution kept **both** sides: this session's per-row source links (each ledger row
+now links its own official market record and its series page), the takeover of PR #32's test
+tooling and the jsdom render gate — **and** session `9ff00ee3`'s multiplier resolution order, the
+`series_fees` cache in both engines, and the `reports/VERIFICATION_9ff00ee3.md` record.
+
 ## Session `arena/504976fa-trade1` — independent verification pass (2026-11-21)
 
 **Claim.** Taken 2026-11-21 on branch `arena/504976fa-trade1` from `main` @ `a15a941`.
@@ -1244,10 +1310,51 @@ live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/
 - **Task status:** done. Open items are published on `flagged.html` and do not block: AA-8 (live re-confirmation),
   691-10 (maker fees), 691-11 / 9d-1 (collector refresh pending, owned by session `d256bfac`), F7 (ROI screen is a heuristic).
 
+## Session `arena/efc28509-trade1` — baseline verification + official-source spot check (2026-11-21 07:03 UTC)
+
+- **Claim:** scope = `COORDINATION.md` only (verification record). No site, data, or script changes. Base: `main` @ `7d1c21f`.
+- **Verification performed on the branch (exit 0):**
+  - `npm ci` (registry.npmjs.org) → ok.
+  - `npm run check` → `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links`; `check_site.mjs` 1,183 rows / 625 resolved / 0 failures; `check_links.mjs` 16 pages, 400 local + 236 external links, 0 failures.
+  - `npm test` → all suites pass (engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test, portfolio 60/60, demo-account 89/89, `test_collect.py` 4/4).
+  - Build rewrote `tools/build-report.json` (timestamp only); reverted, not committed.
+- **Live site:** `https://wingbangboozle1-lang.github.io/Trade1/flagged.html` fetched; Flagged for Review page is live.
+- **Official-source spot check (fetched 2026-11-21 UTC):** https://docs.kalshi.com/getting_started/api_environments — demo REST `https://external-api.demo.kalshi.co/trade-api/v2` (recommended) and `https://demo-api.kalshi.co/trade-api/v2` (also supported); demo WebSocket `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` and `wss://demo-api.kalshi.co/trade-api/ws/v2`. The repo's demo base URL (`external-api.demo.kalshi.co`) matches the official recommended host. Note for owners: the same page documents newer dedicated hosts (`user-ws.demo.kalshi.co` for `fill`/`user_orders`, `external-feeds.demo.kalshi.co` for external feeds). Not used by the repo; logged here for awareness, not a defect.
+- **Not done / blocked (no inference made):**
+  - Sandbox cannot reach `*.kalshi.co` (curl TLS reset, `code 000`), so no live API value was re-read here.
+  - Portfolio tracking and order execution on the demo account still need demo API credentials, which were not provided. Nothing was faked.
+  - Items AA-8, 691-10, 691-11/9d-1, F7 remain open on `flagged.html` (unchanged).
+- **Irregularities:** none new in this pass beyond the items already published on `flagged.html`.
+- **Status:** done (verification record only). PR and merge recorded below once complete.
 Status of the work items below is recorded at the end of this section once complete.
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
 
+<!-- The two lines above are stale placeholders preserved verbatim from main's board tail
+     during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
+     on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
+     record. Kept so nothing is discarded; they are not open items. -->
+
+---
+
+## Session `arena/6877ec31-trade1` — integration, line-by-line verification, stale-claim takeover (PR #58), PR + Pages
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 6877ec31 · Integration & verification: line-by-line repo review vs official sources, takeover of stale PR #58 (portfolio ledger rows link to their own official market records), full validator suite, PR to `main`, merge, Pages deploy verification, board record | **in progress** | 6877ec31 (branch `arena/6877ec31-trade1`, base `main` @ `a15a941`) | `COORDINATION.md` (this section), `reports/VERIFICATION_6877ec31.md` (new), `scripts/portfolio_engine.py`, `data/portfolio*.json`, `portfolio.html`, `assets/portfolio.js`, `tests/portfolio.test.mjs`, `EXECUTIVE_SUMMARY.md`, `README.md`, `flagged.html`, `tools/build-report.json` (PR #58 takeover scope) |
+
+- Claimed 2026-11-21 06:45 UTC. Branch policy: work stays on the Arena-assigned branch; `session-<id>/<task>` naming not used.
+- **Stale-claim takeover (logged per protocol):** PR #58 (`arena/6916270f-trade1`, "Portfolio: link each ledger row to its own official market record") has had no commits since 2026-11-20 20:50 UTC (>60 min stale). Its content is taken over into this branch, re-verified line by line against the official Kalshi sources, and delivered here; nothing from that PR is discarded and its author (session `6916270f`) is credited. PR #58 will be closed with a takeover note once this work lands.
+- **Not touched (owned by live sessions):** `scripts/collect.py` + `scripts/test_collect_classify.py` (session `c96a21b7`, PR #64, D1 settled-market fallback fix — active 2026-11-21 06:43). `reports/VERIFICATION_31a8a56b.md` (session `31a8a56b`, PR #63 — merged 2026-11-21 06:44; its record is read-only for this session).
+- Plan: (1) line-by-line review of the deployed root engine (`assets/model.js`, `assets/app.js`), `scripts/portfolio_engine.py`, and the site pages against official Kalshi docs + captured live demo responses; (2) re-verify every published fee/endpoint/field claim with source links (report `reports/VERIFICATION_6877ec31.md`); (3) integrate + verify the PR #58 takeover (per-ledger-row official market links); (4) full validator suite green; (5) PR to `main`, merge without waiting for approval; (6) confirm Pages deploy; record PR link + merge result here.
+
+### 6877ec31 — verification + takeover record (2026-11-21)
+
+- **Full report:** [`reports/VERIFICATION_6877ec31.md`](reports/VERIFICATION_6877ec31.md) — 10 claims re-verified against official sources read today (demo env hosts; fee-schedule PDF formula + all 21 General Trading Fees rows + the Non-Standard table; Fee Rounding mechanics incl. the worked example; Get Events schema; Get Market Candlesticks path + `period_interval`; Get Series `fee_type`/`fee_multiplier`; Market Lifecycle statuses/result/settlement), plus the fee-transcription line-by-line audit (`data/fee_schedule_series.json` matches every PDF-legible row; the OCR-garbled block stays under `not_transcribed`, flagged).
+- **PR #58 takeover completed:** merged into this branch (conflicts in `COORDINATION.md`, `flagged.html`, `tools/build-report.json` resolved additively — both sides kept; main's later-polished 6b wording kept). Verified `api_market_url()` per-row links in `scripts/portfolio_engine.py`; completed the fix so **every** projected trade/alert/resolution row publishes its own `GET /markets/{ticker}` record (old rows had kept the shared batch `?tickers=…` fetch URL; that provenance remains in `data/portfolio_state.json`). `data/portfolio.json` re-projected from committed state (no cycle): all 11 trades + 29 alerts now link their own market record.
+- **N3 fix:** `EXECUTIVE_SUMMARY.md` portfolio row updated to name the three disclosed layers (browser lab / CI ledger / key-gated demo-account console).
+- **N2 flagged (no behavioral impact):** `KXMARMAD` (legible 1/1 in the PDF) sits inside the OCR-garbled block and is listed under `not_transcribed`; default M = 1 equals the legible values.
+- **Validators (all exit 0 after the changes):** selftest 68/68 · `npm test` (engine 23/23, live-fixes 3/3, lib, model 20, fees 50, model.test 21, portfolio 60/60, demo-account 89/89) · `tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links) · `check_site.mjs` 0 failures (426 links, 1,249 rows, 825 resolved) · `check_links.mjs` 0 failures · `render_test.mjs` 0 JS errors.
 ---
 
 ## Session `arena/6de17567-trade1` — final line-by-line review, verification, GitHub Pages deployment, PR → merge (2026-11-21)
