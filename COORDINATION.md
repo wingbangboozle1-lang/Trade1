@@ -1,5 +1,23 @@
 # COORDINATION.md — Shared Task Board
 
+## Session `arena/ab412ad1-trade1` — board repair + official-source re-verification (2026-11-21 UTC)
+
+- **Claim:** taken 2026-11-21 on branch `arena/ab412ad1-trade1`, base `main` @ `2acfa8e`. Branch name is fixed by the platform (the brief's `session-<id>/<task>` form is not used; same constraint recorded above).
+- **Scope (only these files):** `COORDINATION.md` (this section and the marker repair). No site page, data file, or script is edited. Integration-owned files are not touched.
+- **Defect fixed:** `COORDINATION.md` on `main` contained three unresolved git conflict markers (`<<<<<<< HEAD`, `=======`, `>>>>>>> origin/main`, around the `6877ec31` / `6de17567` blocks). The markers were removed; both sides were kept verbatim (no text dropped). Count of marker lines after the fix: 0.
+- **Verification performed:**
+  - `npm install` + `npm test` → exit 0 (engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test, portfolio, demo-account, `test_collect.py` 4/4).
+  - `npm run check` → `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links`; `check_site.mjs` → `failures: 0` (1,249 rows, 825 resolved); `check_links.mjs` → 16 pages, 400 local links, 236 external, 0 failures.
+  - Live site fetched through the page fetcher: https://wingbangboozle1-lang.github.io/Trade1/ (the sandbox cannot reach `github.io` directly).
+  - Official Kalshi docs re-read 2026-11-21 UTC:
+    - API Environments, https://docs.kalshi.com/getting_started/api_environments — demo REST bases `https://external-api.demo.kalshi.co/trade-api/v2` and `https://demo-api.kalshi.co/trade-api/v2` match the site's `data/meta.json`. The page also lists demo WebSocket hosts `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` and `wss://demo-api.kalshi.co/trade-api/ws/v2`, which match the board's WebSocket note.
+    - Market Lifecycle, https://docs.kalshi.com/getting_started/market_lifecycle — REST statuses `initialized/active/inactive/closed/determined/disputed/amended/finalized`; filter map `unopened→initialized`, `open→active`, `paused→inactive`, `closed`, `settled→finalized`. Matches `assets/model.js` (paper entries require `status === 'active'`) and `assets/app.js` (`finalized` + `result` yes/no = settlement). The earlier board flag "demo status values differ from docs" is resolved as **not an irregularity**: the docs confirm the demo REST values.
+    - Get Markets, https://docs.kalshi.com/api-reference/market/get-markets — base URLs match; response fields include `status`, `result`, `settlement_ts`, `yes_bid_dollars`, `yes_ask_dollars`, `last_price_dollars`, `volume_24h_fp`, `open_interest_fp`, `close_time`, `expected_expiration_time`.
+- **Not verified (blocked, no inference):** live demo responses from the sandbox (no route to `*.kalshi.co`; `curl` SSL_ERROR_SYSCALL, rc 35). Demo-account portfolio and order execution need demo API credentials, which are not in this session. Both remain on `flagged.html` and are not blocking.
+- **Irregularities:** (1) the conflict markers above (fixed here). (2) `tools/build.mjs` rewrites `tools/build-report.json` on every run, so a local build dirties the tree. Reverted here, not changed in code; owner of `tools/` should decide whether it is committed.
+- **Task status:** done. This record is the only change in this session.
+
+
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
