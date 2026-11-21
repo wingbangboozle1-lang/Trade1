@@ -1422,3 +1422,9 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
 >>>>>>> origin/main
+
+### efc28509 — PR / merge / deploy record (2026-11-21 UTC)
+
+- **PR:** [#72](https://github.com/wingbangboozle1-lang/Trade1/pull/72) `arena/efc28509-trade1` → `main` (board-only). Checks: `checks` **pass** on the final head. Merge conflict in `COORDINATION.md` (end-of-file append with `d949035`) was resolved by keeping both sides; nothing was dropped. Merged with a merge commit, **`459a643`**, without waiting for approval.
+- **Pages:** latest Pages build for `459a643` → **built**. Live page `https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md` fetched and shows the board. The sandbox cannot reach `github.io` directly (curl returns 000), so the fetch was done through the page fetcher.
+- **Task status:** done (verification record only). Blocked items unchanged: live Kalshi reads from the sandbox and demo-account portfolio/execution (no demo credentials provided).
