@@ -30,6 +30,7 @@
     <a href="methods.html">Methods</a>
     <a href="suggestions.html">Ideas</a>
     <a href="flagged.html">Flagged</a>
+    <a href="coverage.html">Coverage</a>
     <a href="sources.html">Sources</a>
   </nav>
 </header>
@@ -37,6 +38,8 @@
 
 <h2>Resolved markets</h2>
 <p class="small" id="rs-meta">Loading the snapshot…</p>
+<p class="small muted" id="rs-live">Live sweep: waiting to contact the official demo API…</p>
+<p class="small muted" id="rs-run">Collector run status: loading…</p>
 
 <div class="notice"><b>How the result is set.</b> Kalshi sets <code>result</code> (yes / no) when a market is determined; it pays out at settlement and the REST status becomes <code>finalized</code>. Source: <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market Lifecycle</a> · <a href="https://docs.kalshi.com/getting_started/market_settlement" target="_blank" rel="noopener">Market Settlement</a>. Every row's <b>Source</b> link is the official API record for that market; the row's values are the ones in that record at snapshot time.</div>
 
@@ -62,7 +65,10 @@
   var body = document.getElementById('rs-body');
   var meta = document.getElementById('rs-meta');
   var cap = document.getElementById('rs-cap');
-  var LIVE_URL = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude';
+  /* Documented combination: status=settled is compatible with min_settled_ts
+   (Get Markets filter table). Same window as the collector (72 h). */
+  var LIVE_URL = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts='
+    + Math.floor(Date.now() / 1000 - 3 * 24 * 3600) + '&limit=1000&mve_filter=exclude';
   var TOPIC_IDS = ['gas-prices', 'elections', 'culture', 'crypto', 'golf'];
   var TOPIC_LABEL = { 'gas-prices': 'gas-prices', elections: 'elections', culture: 'culture', crypto: 'crypto', golf: 'golf' };
   var rows = [];          // every row shown: snapshot rows + live rows
@@ -72,6 +78,37 @@
   var snapshot = null;
 
   function cell(text) { var td = document.createElement('td'); td.textContent = (text === null || text === undefined || text === '') ? '—' : String(text); return td; }
+
+  /* data/collect_status.json is written by scripts/collect.py on every run (c96a21b7).
+   * It is the only place that says whether the LAST run was degraded — i.e. whether it
+   * refused to overwrite a verified artifact because upstream reads failed — and whether
+   * it reached the settled sweep at all. Showing it here keeps this page honest about
+   * how old / how trustworthy the snapshot above it actually is. */
+  var RUN_STATUS = null;
+  function renderRunStatus() {
+    var box = document.getElementById('rs-run');
+    if (!box) return;
+    if (!RUN_STATUS) {
+      // Not the same as "absent": the fetch may not have completed yet, or the file may
+      // predate the collector that writes it. Say both, so nobody reads this as a fact.
+      box.textContent = 'Collector run status: not available in this page load. data/collect_status.json is written by scripts/collect.py on every run; if it is missing, the snapshot below predates that collector.';
+      return;
+    }
+    var s = RUN_STATUS;
+    var kept = (s.kept_previous_artifacts || []);
+    var bits = [
+      'Collector run started ' + (s.run_started_at || '—'),
+      'status ' + (s.status || '—'),
+      (s.transient_read_failures || 0) + ' transient read failure(s)',
+      kept.length ? 'kept previous verified: ' + kept.join(', ') : 'no artifact kept (all inputs read cleanly)'
+    ];
+    if (s.series_stage_verified_points !== undefined) {
+      bits.push('reached the series stage ' + s.series_stage_verified_points + ' time(s)'
+        + (s.series_stage_verified_points === 0 ? ' — it never got that far, so the settled sweep was never asked' : ''));
+    }
+    box.textContent = bits.join(' · ');
+    box.className = (s.status && s.status.indexOf('degraded') === 0) ? 'small' : 'small muted';
+  }
   function fail(msg) { body.innerHTML = ''; var tr = document.createElement('tr'); var td = cell(msg); td.colSpan = 7; tr.appendChild(td); body.appendChild(tr); meta.textContent = msg; }
   function seriesPrefix(t) { var s = String(t || ''); var i = s.indexOf('-'); return i === -1 ? s : s.slice(0, i); }
   function seriesUrl(series) { return series ? 'https://kalshi.com/markets/' + encodeURIComponent(String(series).toLowerCase()) : ''; }
@@ -97,7 +134,11 @@
       }
       t.appendChild(document.createTextNode(' '));
       var code = document.createElement('code'); code.textContent = m.ticker; t.appendChild(code);
-      if (m.live) { var badge = document.createElement('span'); badge.className = 'muted small'; badge.textContent = ' · live'; t.appendChild(badge); }
+      if (m.live) {
+        var badge = document.createElement('span'); badge.className = 'muted small';
+        badge.textContent = ' · confirmed live by the official API on this page load';
+        t.appendChild(badge);
+      }
       tr.appendChild(t);
       tr.appendChild(cell(m._topic));
       tr.appendChild(cell(m.result));
@@ -116,6 +157,22 @@
       ' in-scope settled markets' + (liveCount ? ' + ' + liveCount + ' live' : '');
   }
 
+  /* Honest state for the live sweep: an empty result, a failed request, and
+   * "still loading" must not look the same on a page about resolution. */
+  function renderLiveState(kind) {
+    var box = document.getElementById('rs-live');
+    if (!box) return;
+    if (kind === 'ok') {
+      box.textContent = 'Live sweep: ' + liveCount + ' settled market(s) confirmed in scope by the official API on this page load.';
+    } else if (kind === 'none') {
+      box.textContent = 'Live sweep: the official API answered, and it returned no settled in-scope markets in the requested window. '
+        + 'That is the exchange\u2019s answer, not a page error.';
+    } else {
+      box.textContent = 'Live sweep unavailable: this browser could not reach the official demo API '
+        + '(offline, blocked, or rate-limited). The snapshot above is shown unchanged.';
+    }
+  }
+
   function addRow(m, topic, live) {
     if (!m.ticker || seen[m.ticker]) return false;
     seen[m.ticker] = true;
@@ -127,7 +184,21 @@
     return true;
   }
 
-  /* --- snapshot (Actions-collected, source-linked) --- */
+  /* --- snapshot (Actions-collected, source-linked) ---
+   * An empty or incomplete snapshot is shown as such — it never replaces the
+   * live in-scope sweep below. Found 2026-11-21 (session 155329c7): the old
+   * `if (!rows.length) { fail(...); return; }` returned BEFORE loadScope() and
+   * pollLive(), so the one page whose job is resolution tracking showed
+   * "No resolved markets in the snapshot." and never asked the official API.
+   * That mattered in production: the committed snapshot was built during a
+   * throttled collector run (220 x HTTP 429 in data/log.md), so its
+   * settled_total: 0 was a rate-limit artifact, not an exchange fact. */
+  fetch('data/collect_status.json', { cache: 'no-store' }).then(function (r) {
+    return r.ok ? r.json() : null;
+  }).catch(function () { return null; }).then(function (j) {
+    RUN_STATUS = j; renderRunStatus();
+  });
+
   fetch('data/resolved.json', { cache: 'no-store' }).then(function (r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
@@ -138,15 +209,32 @@
                settlement_ts: m.settlement_ts, settlement_value_dollars: m.settlement_value_dollars },
              m._topic, false);
     });
+    var incomplete = d.request_complete === false || (d.retry_gave_up || 0) > 0;
     meta.textContent = (d.markets || []).length + ' markets in the snapshot · snapshot generated ' + (d.generated_at || '—') +
       ' · window: ' + (d.window || '—') +
       ' · settled in window: ' + (d.settled_total != null ? d.settled_total : '—') +
+      (incomplete ? ' (INCOMPLETE — collector was rate-limited)' : '') +
       ' · in scope: ' + (d.in_scope_count != null ? d.in_scope_count : '—');
-    if (!rows.length) { fail('No resolved markets in the snapshot.'); return; }
-    render();
+    if (incomplete && !rows.length) {
+      // Do not let an incomplete collector run look like "nothing resolved".
+      body.innerHTML = '';
+      var tr = document.createElement('tr');
+      var td = document.createElement('td');
+      td.colSpan = 7;
+      td.className = 'muted';
+      td.textContent = 'The committed snapshot was produced while the collector was rate-limited '
+        + '(HTTP 429 — see data/log.md), so it could not confirm any settled market. '
+        + 'This is not evidence that nothing settled. The live official sweep is running now.';
+      tr.appendChild(td); body.appendChild(tr);
+    } else if (!rows.length) {
+      render();   // renders the empty state, then the live sweep below fills it
+    } else {
+      render();
+    }
     return loadScope();
   }).catch(function (e) {
     fail('Could not load data/resolved.json (' + e.message + ').');
+    return loadScope();
   });
 
   /* --- topic scope from the committed topic snapshots (each event carries the
@@ -180,11 +268,13 @@
         if (!topic) return;
         if (addRow(m, topic, true)) added++;
       });
-      if (added) { liveCount += added; render(); }
-    }).catch(function () { /* the snapshot stays the source of truth */ });
+      liveCount += added;
+      if (added) { render(); renderLiveState('ok'); }
+      else { render(); renderLiveState('none'); }
+    }).catch(function () { renderLiveState('error'); });
   }
 
-  setInterval(function () { loadScope(); }, 60000);
+  setInterval(function () { loadScope(); }, 60000);  // loadScope() ends in pollLive()
 })();
 </script>
 </body>

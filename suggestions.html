@@ -30,6 +30,7 @@
     <a href="methods.html">Methods</a>
     <a href="suggestions.html" class="active">Ideas</a>
     <a href="flagged.html">Flagged</a>
+    <a href="coverage.html">Coverage</a>
     <a href="sources.html">Sources</a>
   </nav>
 </header>
@@ -149,7 +150,7 @@
       <tr><th>Status</th><th>Idea</th><th>What it does now</th></tr>
       <tr><td><b>live</b></td><td>One glance answers "what can I trade right now?"</td>
         <td>The market table ranks <b>open-for-trading markets first</b>, adds a <code>Status</code> badge (with a “closing &lt;6h” flag), a
-          <code>Best price</code> column naming the side with the higher exchange ask, and <code>Bid size</code>/<code>Ask size</code> contract counts.
+          <code>Market favours</code> column naming the side with the higher exchange ask (renamed from “Best price” on 2026-11-21 — a 100¢ ask is the dearer side, not a bargain — see <a href="flagged.html">Flagged AA-2</a>), and <code>Bid size</code>/<code>Ask size</code> contract counts.
           The KPI strip gained “Live now (open for trading)”. Closed rows are dimmed, not deleted — the brief asks for events tracked until they resolve.</td></tr>
       <tr><td><b>live</b></td><td>An order book a buyer can act on</td>
         <td>Best-first YES/NO ask and bid ladders with contracts per level, the running contract total a buyer could take, and the cash that sweep would cost.
@@ -164,7 +165,7 @@
         <td>The model score is damped by resting size at the top of book, so a 10¢ jump on an empty book no longer ranks alongside the same jump in a deep market.
           Still a shortlist heuristic, still flagged as not verified alpha.</td></tr>
       <tr><td>next</td><td>Depth for the whole watchlist in one call</td>
-        <td>Unchanged and still the highest-value next step: batch <code>/markets/orderbooks?tickers=</code> (≤ 100 tickers) would let “Best price” and the size
+        <td>Unchanged and still the highest-value next step: batch <code>/markets/orderbooks?tickers=</code> (≤ 100 tickers) would let “Market favours” and the size
           columns be computed from full books rather than the top-of-book sizes in the batched market response.</td></tr>
       <tr><td>next</td><td>Sparklines in the table</td>
         <td>A 12-point session sparkline drawn from the samples the engine already holds per ticker would show direction without opening the chart panel.</td></tr>

@@ -39,7 +39,7 @@ tracking, and every table row linked to the official API record it came from.
   Actions (the runner can reach Kalshi; the build sandbox cannot), refreshes `data/` and commits it
   with a per-request log in `data/log.md`.
 - **Always-on ledger** (this is the part that survives a reload): `.github/workflows/portfolio.yml` runs
-  `scripts/portfolio_engine.py` twice an hour — offline self-tests first, then one live cycle. It compares each priced
+  `scripts/portfolio_engine.py` on a 30-minute cron (`13,43 * * * *`; GitHub's scheduler starts roughly one run an hour in practice — see flagged item 155329c7-6) — offline self-tests first, then one live cycle. It compares each priced
   cycle with the previous one, books fills at the official quotes with the official taker fee (`ceil_6dp` model fee plus
   the $0.01 balance alignment per [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding)), settles on the
   exchange's YES/NO result, and commits `data/portfolio.json` + `data/portfolio_state.json` to `main` with `[skip ci]`.

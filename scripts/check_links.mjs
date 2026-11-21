@@ -22,11 +22,12 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const OFFICIAL = [
   'docs.kalshi.com', 'kalshi.com', 'help.kalshi.com', 'support.kalshi.com',
   'external-api.demo.kalshi.co', 'demo-api.kalshi.co', 'external-api-ws.demo.kalshi.co',
-  'demo.kalshi.co', 'kalshi.com/docs', 'github.com', 'news.google.com'
+  'demo.kalshi.co', 'kalshi.com/docs', 'github.com', 'news.google.com',
+  'wingbangboozle1-lang.github.io'   // this site's own published origin (self-links)
 ];
 const NAV_TARGETS = ['index.html', 'executive-summary.html', 'dashboard.html', 'trades.html', 'portfolio.html',
   'topics/gas-prices.html', 'topics/elections.html', 'topics/culture.html', 'topics/crypto.html',
-  'topics/golf.html', 'data.html', 'resolved.html', 'methods.html', 'suggestions.html', 'flagged.html', 'sources.html'];
+  'topics/golf.html', 'data.html', 'resolved.html', 'methods.html', 'suggestions.html', 'flagged.html', 'sources.html', 'coverage.html'];
 
 const failures = [], warnings = [];
 const counts = { pages: 0, links: 0, external: 0, datarefs: 0 };
@@ -43,6 +44,7 @@ async function publishedPages() {
 }
 
 const STRICT = new Set(NAV_TARGETS.concat(['portfolio.html', 'suggestions.html']));
+// coverage.html is a published page inside the navigation; it is in NAV_TARGETS above.
 const allPages = await publishedPages();
 const pages = allPages.slice();
 const legacy = allPages.filter((f) => !STRICT.has(f));

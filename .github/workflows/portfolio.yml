@@ -9,7 +9,8 @@ name: CI paper-trading ledger (portfolio)
 
 on:
   schedule:
-    - cron: "13,43 * * * *"     # between the market-snapshot runs (7,37) to stay well under any limit
+    - cron: "13,43 * * * *"     # twice an hour at :13 and :43 as requested; GitHub's scheduler throttles this
+                             # high-frequency cron and in practice starts ~one run an hour (flagged 155329c7-6)
   workflow_dispatch:
     inputs:
       mode:

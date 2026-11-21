@@ -70,7 +70,7 @@ jobs:
           node tools/render_test.mjs --offline --wait=6000 \
             index.html dashboard.html trades.html data.html methods.html \
             flagged.html sources.html suggestions.html executive-summary.html \
-            resolved.html portfolio.html \
+            resolved.html portfolio.html coverage.html \
             topics/gas-prices.html topics/elections.html topics/culture.html \
             topics/crypto.html topics/golf.html
       - name: Published-page link and nav parity check

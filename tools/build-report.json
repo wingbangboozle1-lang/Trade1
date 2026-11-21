@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-21T07:19:12.153Z",
-  "files": 24,
+  "checkedAt": "2026-11-21T07:29:09.748Z",
+  "files": 25,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
@@ -15,6 +15,7 @@
     "resolved.html",
     "executive-summary.html",
     "suggestions.html",
+    "coverage.html",
     "topics/crypto.html",
     "topics/culture.html",
     "topics/elections.html",

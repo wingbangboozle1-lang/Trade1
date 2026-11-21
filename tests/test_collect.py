@@ -253,3 +253,88 @@ class RateLimitBackoffTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RetryAndTelemetryTests(unittest.TestCase):
+    """The 2026-11-21T06:58:35Z incident, from the read side.
+
+    That run issued ~295 requests in three seconds, was answered with 220 x HTTP 429, and the
+    settled-markets sweep -- the collector's last data stage -- stopped on its first 429, so
+    data/resolved.json was rewritten with settled_total: 0 and markets: [].
+
+    Two sessions fixed it independently and both fixes are in scripts/collect.py now:
+      * c96a21b7: retry 429/5xx with backoff, and never overwrite a verified artifact with a
+        degraded one (tests/test_collect_failclosed.py);
+      * 155329c7: record whether the run reached the settled sweep at all, so a zero can be
+        read as a transport symptom rather than an exchange fact.
+    Official guidance (docs.kalshi.com/getting_started/rate_limits): back off on 429.
+
+    These tests pin the 155329c7 telemetry on top of the c96a21b7 retry path.
+    """
+
+    def setUp(self):
+        import importlib
+        import scripts.collect as collect
+        self.c = importlib.reload(collect)
+        # Both retry paths sleep for real; patch the clock so the suite stays offline AND fast.
+        self.c.time.sleep = lambda *_a, **_k: None
+        self.c.PACE_S = 0.0
+
+    def test_retry_statuses_include_429_and_5xx(self):
+        self.assertIn(429, self.c.RETRY_STATUSES)
+        for code in (500, 502, 503, 504):
+            self.assertIn(code, self.c.RETRY_STATUSES)
+
+    def test_every_attempt_is_counted_retries_included(self):
+        import io
+        import urllib.error
+        seq = [429, 200]
+
+        class Resp:
+            status = 200
+            headers = {}
+            def read(self):
+                return b'{"ok":true}'
+            def __enter__(self):
+                return self
+            def __exit__(self, *a):
+                return False
+
+        def fake_urlopen(req, timeout=None):
+            code = seq.pop(0)
+            if code == 200:
+                return Resp()
+            raise urllib.error.HTTPError(req.full_url, code, "err", {}, io.BytesIO(b"{}"))
+
+        before = self.c.ATTEMPTS[0]
+        self.c.urllib.request.urlopen = fake_urlopen
+        code, _body, _dt, attempts = self.c.get_with_retry("https://example.invalid/markets")
+        self.assertEqual(code, 200)
+        self.assertEqual(attempts, 2, "a retried read must report both attempts")
+        self.assertEqual(self.c.ATTEMPTS[0] - before, 2, "the attempt counter must see both")
+
+    def test_exhausted_retries_report_failure_and_do_not_raise(self):
+        import io
+        import urllib.error
+
+        def always_429(req, timeout=None):
+            raise urllib.error.HTTPError(req.full_url, 429, "err", {}, io.BytesIO(b"{}"))
+
+        self.c.urllib.request.urlopen = always_429
+        code, _body, _dt, attempts = self.c.get_with_retry("https://example.invalid/markets")
+        self.assertEqual(code, 429)
+        self.assertEqual(attempts, self.c.MAX_ATTEMPTS)
+        self.assertIn("RETRY", "\n".join(self.c.LOG))
+
+    def test_series_stage_counter_starts_at_zero(self):
+        # 0 means the run never reached the series stage; resolved.json must not
+        # present that as evidence about the exchange.
+        src = open("scripts/collect.py", encoding="utf-8").read()
+        self.assertIn("verified_points = [0]", src)
+        self.assertIn('"series_stage_verified_points": verified_points[0]', src)
+
+    def test_failed_sweep_is_not_published_as_complete(self):
+        self.c.fetch_json = lambda url, note="": None      # every request fails
+        settled, urls = self.c.paged("/markets", {"status": "settled"}, "markets", max_pages=1)
+        self.assertEqual(settled, [])
+        self.assertTrue(urls)
