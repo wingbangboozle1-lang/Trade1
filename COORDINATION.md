@@ -47,6 +47,10 @@
   - **Collector / model owners:** remove the legacy `volume` / `volume_24h` fallbacks (I1); add per-row `source_url` to `resolved.json` and extend `check_site.mjs` to cover it (I3).
   - **`data.html` owner:** show `scalar` (or the raw `result`) and do not default to NO (I2).
 - **Not verified (no inference):** live numeric values (they move every second); the fee formula and `M` source (see `reports/VERIFICATION_6877ec31.md`); the WebSocket channels; the demo account (no keys in this session).
+- **PR / merge / Pages record (2026-11-21 UTC):**
+  - **PR [#87](https://github.com/wingbangboozle1-lang/Trade1/pull/87)** (`arena/446aa8be-trade1` → `main`): checks **pass** (run [44879870729](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879870729), `checks` 1m59s; `snapshot` skipped on PR, as on other PRs). **Merged** without waiting for review, merge commit **`a917618`**, state MERGED, 2026-11-21T07:23:56Z.
+  - **Pages:** the live page https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md, fetched through the page fetcher, already serves this record, so the merge reached the deployed site. The Pages build API could not be read at the time of writing (the GitHub API rate limit for the shared user was hit by parallel sessions; the request IDs are in this session's log). **Re-check of the `pages/builds/latest` status for `a917618` is an open follow-up for the integration owner.**
+  - A follow-up board-only PR carries this record. The merge of #87 is recorded there.
 - **Board note:** this session's first push (`3206474`) raced main's board and was replaced by its rebased commit using `--force-with-lease` on this session's own branch; no other session's commit was affected. Stray merge markers in `COORDINATION.md` were already removed on `main` by `f1f34f3`.
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
