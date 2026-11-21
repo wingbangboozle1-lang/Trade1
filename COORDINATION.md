@@ -1633,3 +1633,36 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **PR #91 / merge / Pages:** [PR #91](https://github.com/wingbangboozle1-lang/Trade1/pull/91) merged 2026-11-21 07:28:57Z as `409250e0fcfb17f749671d76c463380e37543711`. Its `checks` job passed (run [44880275000](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880275000)); snapshot job was skipped for the PR. Pages deployment [44880443795](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880443795) succeeded. A post-deployment fetch of the public landing page displayed `2026-11-21 07:17:44Z`, matching `data/meta.json`; Flagged item 20 was updated in the subsequent PR #96 to record the transient mismatch as resolved.
 - **PR #96 / merge / Pages:** [PR #96](https://github.com/wingbangboozle1-lang/Trade1/pull/96) merged 2026-11-21 07:32:35Z as `6be56c93fe67a8a81a5f2715b58a8ff1346fa109`; its checks passed (run [44880540629](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880540629)). The immediate Pages run [44880730903](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880730903) was canceled because a higher-priority main deployment was queued. Descendant commit `cd7108f` includes PR #96; Pages run [44880757783](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880757783) succeeded, and the deployed landing page displays `07:17:44Z` while Flagged item 20 is visibly marked resolved.
 - **Status:** done. No market snapshot values or application logic changed by this session; Flagged item 20 records the resolved display mismatch and the limits of that check.
+---
+
+
+---
+
+## Session `arena/1d71a602-trade1` — final integration & verification (claim, 2026-11-21)
+
+**Claim** taken 2026-11-21 on branch `arena/1d71a602-trade1`, base `main` @ `7d1c21f` (PR #71 merge).
+This is the final integration session per the brief: line-by-line re-verification against official
+Kalshi sources, fresh-numbers executive summary, flagged irregularities, build/link/render gates,
+PR → merge → Pages verification. No manual input requested from the owner at any step.
+
+Files in scope (nothing else edited):
+- `COORDINATION.md` (this section only)
+- `EXECUTIVE_SUMMARY.md` (addendum with fresh verified numbers)
+- `executive-summary.html` (matching addendum box)
+- `flagged.html` (new section `1d71a602`, items NEW-1 … NEW-6 — published, do not block)
+- `reports/VERIFICATION_1d71a602.md` (new verification record)
+
+Deliberately **not** touched: `assets/**`, `scripts/**`, `data/**`, `tests/**`, workflows, topic
+pages, dashboard engine. Open PRs #70/#68/#67/#64/#58 (other sessions, stale/conflicting) are
+not merged or edited by this session; their state is recorded in the verification report for the
+owner to close.
+
+Baseline at claim (run locally on `7d1c21f`): `npm run check` → BUILD OK 18 HTML / 6 JS,
+`check_site.mjs` 1,183 rows 0 failures, `check_links.mjs` 16 pages 0 failures; `npm test` →
+all suites pass (engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test,
+portfolio 60/60, demo-account 89/89, test_collect 4/4) after `npm install jsdom@26.1.0`.
+Pages API: `status: built`, `build_type: legacy`, source `main /`, commit `7d1c21f`.
+Sandbox has no route to `*.demo.kalshi.co` (curl 000) — live API re-verification is via official
+docs fetched 2026-11-21 + committed CI logs/samples, recorded as NEW-5 (AA-8 stands).
+
+**Status: in progress.**
