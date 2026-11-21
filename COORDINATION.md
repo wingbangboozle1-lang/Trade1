@@ -1229,7 +1229,7 @@ static page, maker fees unmodeled, ROI screen is a heuristic shortlist not verif
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Repair settled-market fallback topic exclusions and keyword boundaries; add offline regression coverage; publish snapshot caveat and verification record | in progress | `arena/d256bfac-trade1` | `scripts/collect.py`, `tests/test_collect.py`, `package.json`, `resolved.html`, `flagged.html`, `reports/VERIFICATION_D256BFAC.md`, `COORDINATION.md` |
+| Repair settled-market fallback topic exclusions and keyword boundaries; add offline regression coverage; publish snapshot caveat and verification record | done (PR #65 merged; Pages built; snapshot refresh pending) | `arena/d256bfac-trade1` | `scripts/collect.py`, `tests/test_collect.py`, `package.json`, `resolved.html`, `flagged.html`, `reports/VERIFICATION_D256BFAC.md`, `COORDINATION.md` |
 
 Claim recorded on the active branch. This is a narrow fix to the previously documented resolved-topic defect (9d-1 / 691-11); no Kalshi endpoints or snapshots will be modified because this sandbox cannot reach Kalshi. The committed snapshot remains explicitly flagged until the scheduled collector refresh confirms corrected rows.
 
@@ -1330,7 +1330,6 @@ Status of the work items below is recorded at the end of this section once compl
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
 
-<<<<<<< HEAD
 <!-- The two lines above are stale placeholders preserved verbatim from main's board tail
      during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
      on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
@@ -1364,7 +1363,6 @@ Status of the work items below is recorded at the end of this section once compl
   - https://wingbangboozle1-lang.github.io/Trade1/data/portfolio.json — the CI ledger's live run (generated 2026-11-21T07:08:16Z, i.e. built on top of this merge) serves **every trade/position row with its own official `GET /markets/{ticker}` record as `source`** (e.g. `…/markets/KXBTC50VS100-BTC-26DEC31`) — the takeover fix is live in production and durable (the live cycle used the merged engine).
 - **PR #58 closed with a takeover note** (content delivered here; author `6916270f` credited).
 - **Task status: done.** Open items remain published on `flagged.html` and do not block: 6b/691-1 (fee-source conflict, open by design), N2 (`KXMARMAD` transcription note), I7 (news leads), 9d-1/D1 collector refresh (owner `d256bfac`, PR #65 merged — snapshot refresh pending), 9d-5 (demo-account keys, owner input).
-=======
 ---
 
 ## Session `arena/6de17567-trade1` — final line-by-line review, verification, GitHub Pages deployment, PR → merge (2026-11-21)
@@ -1421,4 +1419,18 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 **PR / merge:** pending. Create PR `arena/6de17567-trade1` → `main`, merge without waiting for approval, verify GitHub Pages deploys, record PR link and merge result here.
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
->>>>>>> origin/main
+
+### d256bfac — completion, PR, and Pages record (2026-11-21 UTC)
+
+- **Sources:** official [Get Markets API](https://docs.kalshi.com/api-reference/market/get-markets) reference and the two exact demo market records cited in [`reports/VERIFICATION_D256BFAC.md`](reports/VERIFICATION_D256BFAC.md). This session did not fetch Kalshi endpoints directly; the report marks that evidence limitation explicitly.
+- **Verification:** `python3 tests/test_collect.py` (4/4); `python3 -m py_compile scripts/collect.py tests/test_collect.py`; `npm test` (all suites passed); `npm run check` (18 HTML, 426 links, 1,249 rows, 825 resolved, zero failures); `git diff --check`. The GitHub Actions PR checks also passed: [run 44877167769](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44877167769).
+- **Irregularity remains flagged:** the committed `data/resolved.json` was not regenerated in this environment. The natural-gas / Petrolul topic-label cases remain on [`flagged.html`](https://wingbangboozle1-lang.github.io/Trade1/flagged.html) until the next scheduled official collector run confirms the correction. No market value or source record was changed or inferred.
+- **PR:** [#65](https://github.com/wingbangboozle1-lang/Trade1/pull/65), merged 2026-11-21 06:49:55 UTC, merge commit `a006b5eb91b413434d543db88008a0c416fd4440`.
+- **Pages:** deployment run [44877397735](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44877397735) succeeded. GitHub Pages API reported `status: built`, commit `a006b5eb91b413434d543db88008a0c416fd4440`, legacy source `main /`, HTTPS enforced. Live site: https://wingbangboozle1-lang.github.io/Trade1/.
+- **Concurrent-work resolution:** PR #65 initially conflicted after sessions `31a8a56b` PRs #63/#66 advanced `main`; all concurrent verification/report content was retained. The branch was rebased/merged against current `main`, CI reran successfully, and the final PR merged cleanly.
+
+Rebase overlap note: session `aa7d3d27`'s full completion/PR/Pages report and the D256 completion record are both retained. The collector retry/empty-snapshot request is recorded in D256's follow-up below; this session did not edit PR #68's overlapping source files.
+
+Rebase overlap note: D256's completion summary and the incoming `31a8a56b` delivery record are both retained.
+
+Rebase overlap note: the full `6de17567` final-review block and D256 completion record are both retained without dropping any integration-session evidence.
