@@ -1462,3 +1462,13 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **PR:** [#72](https://github.com/wingbangboozle1-lang/Trade1/pull/72) `arena/efc28509-trade1` → `main` (board-only). Checks: `checks` **pass** on the final head. Merge conflict in `COORDINATION.md` (end-of-file append with `d949035`) was resolved by keeping both sides; nothing was dropped. Merged with a merge commit, **`459a643`**, without waiting for approval.
 - **Pages:** latest Pages build for `459a643` → **built**. Live page `https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md` fetched and shows the board. The sandbox cannot reach `github.io` directly (curl returns 000), so the fetch was done through the page fetcher.
 - **Task status:** done (verification record only). Blocked items unchanged: live Kalshi reads from the sandbox and demo-account portfolio/execution (no demo credentials provided).
+
+## Session `arena/1c5b46b2-trade1` — audit and coordination-board cleanup (claimed 2026-11-21 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Final audit of the existing canonical Kalshi dashboard and cleanup of the unresolved conflict markers in this shared board; preserve the established site and data, record verifications and remaining limitations | **in progress** | `arena/1c5b46b2-trade1` (platform-assigned branch) | `COORDINATION.md` only |
+
+- Read the shared task board before starting. No active claim for this scope was present. Existing dashboard, data, and integration tasks are already recorded as completed; this is not a second site implementation.
+- Scope excludes site pages, shared tables/data, application code, and workflow changes. Do not overwrite earlier sessions' records.
+- Verification plan: run the published build/site/link checks and test suite, inspect the official Kalshi environment documentation, verify Pages status via GitHub, identify and resolve the literal merge markers in this file, then record findings and any non-blocking limitations.
