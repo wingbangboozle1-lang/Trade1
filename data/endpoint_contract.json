@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-21T08:57:14.455440+00:00",
- "finished_at": "2026-11-21T08:57:28.692280+00:00",
+ "generated_at": "2026-11-21T08:59:48.919021+00:00",
+ "finished_at": "2026-11-21T08:59:58.378966+00:00",
  "base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "origin_sent": "https://wingbangboozle1-lang.github.io",
  "sample_market": {
@@ -28,8 +28,8 @@
   "settlement": "https://docs.kalshi.com/getting_started/market_settlement"
  },
  "summary": {
-  "cases": 20,
-  "ok": 20,
+  "cases": 22,
+  "ok": 22,
   "failed": 0,
   "informative": 2,
   "all_ok": true
@@ -40,8 +40,8 @@
    "expected_status": 200,
    "note": "status=open is the documented listing filter (values: unopened|open|paused|closed|settled); the market object's own status field reads 'active' — filter value and field value differ by design.",
    "http_status": 200,
-   "latency_ms": 891.5,
-   "bytes": 2240289,
+   "latency_ms": 281.4,
+   "bytes": 2240292,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "markets-open",
    "doc": "https://docs.kalshi.com/api-reference/market/get-markets",
@@ -73,7 +73,7 @@
    "expected_status": 200,
    "note": "watchlist polling shape: with tickers as the only filter every matching market is returned in one response and the cursor is empty (documented), so one request can carry 200 tickers.",
    "http_status": 200,
-   "latency_ms": 311.3,
+   "latency_ms": 81.1,
    "bytes": 2401,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "markets-tickers-batch",
@@ -95,7 +95,7 @@
    "expected_status": 200,
    "note": "event expansion: one request returns every market of the event.",
    "http_status": 200,
-   "latency_ms": 490.6,
+   "latency_ms": 118.6,
    "bytes": 140039,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "markets-event",
@@ -115,7 +115,7 @@
    "expected_status": 200,
    "note": "series discovery: the sweep that catches fast-cycling series /events paging misses. NOTE the field this case used to require — market rows carry no `series_ticker`, and the documented Market schema has no such property either (its required list names `event_ticker` instead), so the client derives the series from the event it already has or from the ticker prefix; that is the assumption the UI codes to. `status=open` is a filter value; the row's own `status` reads `active`.",
    "http_status": 200,
-   "latency_ms": 560.4,
+   "latency_ms": 148.7,
    "bytes": 391264,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "markets-series",
@@ -164,7 +164,7 @@
    "expected_status": 200,
    "note": "depth = price levels per side, counted from the best bid; 1-100 valid; bids only (asks are the documented reciprocal). Ascending order with the best bid LAST is what the ladder in the UI assumes.",
    "http_status": 200,
-   "latency_ms": 239.0,
+   "latency_ms": 79.2,
    "bytes": 51,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
@@ -186,7 +186,7 @@
    "expected_status": 400,
    "note": "documented: values above 100 are rejected with 400.",
    "http_status": 400,
-   "latency_ms": 313.7,
+   "latency_ms": 78.1,
    "bytes": 158,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "orderbook-depth-rejected",
@@ -195,11 +195,11 @@
    "verdict": "ok"
   },
   {
-   "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets/trades?ticker=KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1&limit=1000&min_ts=1795247834&max_ts=1795251434",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets/trades?ticker=KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1&limit=1000&min_ts=1795247988&max_ts=1795251588",
    "expected_status": 200,
    "note": "the seconds/minutes chart windows are built from this tape (candlesticks have no sub-minute period).",
    "http_status": 200,
-   "latency_ms": 244.2,
+   "latency_ms": 78.8,
    "bytes": 337,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
@@ -228,11 +228,11 @@
    "verdict": "ok"
   },
   {
-   "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets/trades?ticker=KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1&min_ts=1795251434000",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets/trades?ticker=KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1&min_ts=1795251588000",
    "expected_status": 400,
    "note": "documented: min_ts/max_ts are seconds; millisecond values are rejected with 400.",
    "http_status": 400,
-   "latency_ms": 259.8,
+   "latency_ms": 79.9,
    "bytes": 123,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
@@ -247,18 +247,18 @@
    "verdict": "ok"
   },
   {
-   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1795229834&end_ts=1795251434&period_interval=1",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1795229988&end_ts=1795251588&period_interval=1",
    "expected_status": 200,
    "note": "1-min candles: the only intervals the endpoint accepts (1, 60, 1440).",
    "http_status": 200,
-   "latency_ms": 259.7,
+   "latency_ms": 82.8,
    "bytes": 1445,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
     "x-ratelimit-cost": "50",
     "x-ratelimit-limit": "600",
-    "x-ratelimit-remaining": "540",
-    "x-ratelimit-reset": "0.3"
+    "x-ratelimit-remaining": "550",
+    "x-ratelimit-reset": "0.25"
    },
    "id": "candles-1",
    "doc": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
@@ -275,11 +275,11 @@
    "verdict": "ok"
   },
   {
-   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1793955434&end_ts=1795251434&period_interval=60",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1793955588&end_ts=1795251588&period_interval=60",
    "expected_status": 200,
    "note": "60-min candles: the only intervals the endpoint accepts (1, 60, 1440).",
    "http_status": 200,
-   "latency_ms": 264.8,
+   "latency_ms": 52.1,
    "bytes": 69,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
@@ -299,18 +299,18 @@
    "verdict": "ok"
   },
   {
-   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1764147434&end_ts=1795251434&period_interval=1440",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1764147588&end_ts=1795251588&period_interval=1440",
    "expected_status": 200,
    "note": "daily candles: the only intervals the endpoint accepts (1, 60, 1440).",
    "http_status": 200,
-   "latency_ms": 261.8,
+   "latency_ms": 54.5,
    "bytes": 69,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
     "x-ratelimit-cost": "50",
     "x-ratelimit-limit": "600",
-    "x-ratelimit-remaining": "550",
-    "x-ratelimit-reset": "0.25"
+    "x-ratelimit-remaining": "540",
+    "x-ratelimit-reset": "0.3"
    },
    "id": "candles-1440",
    "doc": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
@@ -323,11 +323,11 @@
    "verdict": "ok"
   },
   {
-   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1795247834&end_ts=1795251434&period_interval=0",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNBA3PT/markets/KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1/candlesticks?start_ts=1795247988&end_ts=1795251588&period_interval=0",
    "expected_status": 400,
    "note": "period_interval 0 is not one of 1/60/1440 — the request the chart used to make, before the fix.",
    "http_status": 400,
-   "latency_ms": 259.1,
+   "latency_ms": 73.7,
    "bytes": 187,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "candles-interval-rejected",
@@ -340,7 +340,7 @@
    "expected_status": 200,
    "note": "the discovery sweep's page size.",
    "http_status": 200,
-   "latency_ms": 471.6,
+   "latency_ms": 89.2,
    "bytes": 144036,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
@@ -373,7 +373,7 @@
    ],
    "note": "documented maximum is 200; the docs do not say whether an over-limit page size is clamped or rejected, so this case only records which it is (the client keeps to 200 either way).",
    "http_status": 400,
-   "latency_ms": 239.1,
+   "latency_ms": 77.7,
    "bytes": 56,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
@@ -394,7 +394,7 @@
    ],
    "note": "the /markets status FILTER enum is unopened|open|paused|closed|settled — 'active' is a market's own status VALUE, not a filter value. Recorded so a future API change is visible.",
    "http_status": 400,
-   "latency_ms": 268.2,
+   "latency_ms": 45.7,
    "bytes": 90,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "rate_limit_headers": {
@@ -409,11 +409,11 @@
    "verdict": "ok"
   },
   {
-   "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794992234&limit=1000&mve_filter=exclude",
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794992388&limit=1000&mve_filter=exclude",
    "expected_status": 200,
    "note": "the Resolved page's source: settled markets must carry the official result (yes/no) and settlement fields, which is how a resolution is recorded without a websocket.",
    "http_status": 200,
-   "latency_ms": 856.6,
+   "latency_ms": 191.1,
    "bytes": 1991717,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "settled-resolutions",
@@ -437,11 +437,67 @@
    "settled_rows": 1000
   },
   {
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNCAAFB12REGTOP/markets/KXNCAAFB12REGTOP-27T3-ISU/candlesticks?start_ts=1784664362&end_ts=1795253752&period_interval=60",
+   "expected_status": 200,
+   "note": "60-min candles across the whole life of a settled market (KXNCAAFB12REGTOP-27T3-ISU): the interval the chart actually uses, over a window that can contain rows, so the candle object's fields are checked against real data rather than an empty array.",
+   "http_status": 200,
+   "latency_ms": 53.5,
+   "bytes": 475,
+   "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
+   "rate_limit_headers": {
+    "x-ratelimit-cost": "50",
+    "x-ratelimit-limit": "600",
+    "x-ratelimit-remaining": "550",
+    "x-ratelimit-reset": "0.25"
+   },
+   "id": "candles-60-settled",
+   "doc": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+   "informative": false,
+   "missing_top_level_fields": [],
+   "items_seen": 1,
+   "item_fields_present": [
+    "end_period_ts",
+    "price",
+    "volume_fp",
+    "open_interest_fp"
+   ],
+   "item_fields_missing": [],
+   "verdict": "ok"
+  },
+  {
+   "url": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXNCAAFB12REGTOP/markets/KXNCAAFB12REGTOP-27T3-ISU/candlesticks?start_ts=1784664362&end_ts=1795336552&period_interval=1440",
+   "expected_status": 200,
+   "note": "daily candles across the whole life of a settled market (KXNCAAFB12REGTOP-27T3-ISU): the interval the chart actually uses, over a window that can contain rows, so the candle object's fields are checked against real data rather than an empty array.",
+   "http_status": 200,
+   "latency_ms": 81.2,
+   "bytes": 475,
+   "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
+   "rate_limit_headers": {
+    "x-ratelimit-cost": "50",
+    "x-ratelimit-limit": "600",
+    "x-ratelimit-remaining": "550",
+    "x-ratelimit-reset": "0.25"
+   },
+   "id": "candles-1440-settled",
+   "doc": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+   "informative": false,
+   "missing_top_level_fields": [],
+   "items_seen": 1,
+   "item_fields_present": [
+    "end_period_ts",
+    "price",
+    "volume_fp",
+    "open_interest_fp"
+   ],
+   "item_fields_missing": [],
+   "verdict": "ok"
+  },
+  {
    "url": "https://external-api.demo.kalshi.co/trade-api/v2/series?category=Crypto&include_volume=true&limit=1000",
    "expected_status": 200,
    "note": "per-topic series listing: carries the official volume, the per-series fee multiplier the paper broker uses, and the settlement sources the alert chats link.",
    "http_status": 200,
-   "latency_ms": 623.0,
+   "latency_ms": 117.6,
    "bytes": 287851,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "series-list",
@@ -464,7 +520,7 @@
    "expected_status": 200,
    "note": "one series record. The documented GetSeriesResponse is { \"series\": Series } — an OBJECT under a required `series` key, not a bare object and not a list — and the fields listed are the documented required members of Series. fee_multiplier/fee_type drive the paper broker; settlement_sources drive the alert links. (An earlier revision of this case expected `ticker`/`title` at the TOP level, which the wrapper shape makes impossible: a wrong expectation, not an API break.)",
    "http_status": 200,
-   "latency_ms": 255.8,
+   "latency_ms": 49.7,
    "bytes": 1593,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "series-detail",
@@ -494,7 +550,7 @@
    "expected_status": 200,
    "note": "exchange/trading flags the status strip reads.",
    "http_status": 200,
-   "latency_ms": 237.4,
+   "latency_ms": 71.9,
    "bytes": 632,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "exchange-status",
@@ -508,8 +564,8 @@
    "expected_status": 200,
    "note": "browser fetch from the Pages origin: the demo API reflects the caller's Origin, which is what makes an unauthenticated live dashboard from a static page possible.",
    "http_status": 200,
-   "latency_ms": 239.2,
-   "bytes": 2259,
+   "latency_ms": 82.3,
+   "bytes": 2267,
    "access_control_allow_origin": "https://wingbangboozle1-lang.github.io",
    "id": "cors-origin",
    "doc": "https://docs.kalshi.com/getting_started/api_environments",
@@ -519,27 +575,29 @@
   }
  ],
  "log": [
-  "08:57:14Z endpoint contract probe start base=https://external-api.demo.kalshi.co/trade-api/v2",
-  "08:57:15Z markets-open: 200 -> ok",
-  "08:57:15Z markets-open items: 1000; sample market for per-market cases: KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1",
-  "08:57:16Z markets-tickers-batch: 200 -> ok",
-  "08:57:17Z markets-event: 200 -> ok",
-  "08:57:18Z markets-series: 200 -> ok",
-  "08:57:18Z orderbook: 200 -> ok",
-  "08:57:19Z orderbook-depth-rejected: 400 -> ok",
-  "08:57:19Z trades: 200 -> ok",
-  "08:57:20Z trades-ms-rejected: 400 -> ok",
-  "08:57:21Z candles-1: 200 -> ok",
-  "08:57:21Z candles-60: 200 -> ok",
-  "08:57:22Z candles-1440: 200 -> ok",
-  "08:57:23Z candles-interval-rejected: 400 -> ok",
-  "08:57:23Z events-open: 200 -> ok",
-  "08:57:24Z events-limit-1000: 400 -> ok",
-  "08:57:25Z markets-status-active-filter: 400 -> ok",
-  "08:57:26Z settled-resolutions: 200 -> ok",
-  "08:57:27Z series-list: 200 -> ok",
-  "08:57:27Z series-detail: 200 -> ok",
-  "08:57:28Z exchange-status: 200 -> ok",
-  "08:57:28Z cors-origin: 200 -> ok (allow-origin='https://wingbangboozle1-lang.github.io')"
+  "08:59:48Z endpoint contract probe start base=https://external-api.demo.kalshi.co/trade-api/v2",
+  "08:59:49Z markets-open: 200 -> ok",
+  "08:59:49Z markets-open items: 1000; sample market for per-market cases: KXNBA3PT-26NOV21PORNYK-NYKMBRIDGES25-1",
+  "08:59:49Z markets-tickers-batch: 200 -> ok",
+  "08:59:50Z markets-event: 200 -> ok",
+  "08:59:50Z markets-series: 200 -> ok",
+  "08:59:51Z orderbook: 200 -> ok",
+  "08:59:51Z orderbook-depth-rejected: 400 -> ok",
+  "08:59:52Z trades: 200 -> ok",
+  "08:59:52Z trades-ms-rejected: 400 -> ok",
+  "08:59:53Z candles-1: 200 -> ok",
+  "08:59:53Z candles-60: 200 -> ok",
+  "08:59:53Z candles-1440: 200 -> ok",
+  "08:59:54Z candles-interval-rejected: 400 -> ok",
+  "08:59:54Z events-open: 200 -> ok",
+  "08:59:55Z events-limit-1000: 400 -> ok",
+  "08:59:55Z markets-status-active-filter: 400 -> ok",
+  "08:59:56Z settled-resolutions: 200 -> ok",
+  "08:59:56Z candles-60-settled: 200 -> ok",
+  "08:59:57Z candles-1440-settled: 200 -> ok",
+  "08:59:57Z series-list: 200 -> ok",
+  "08:59:57Z series-detail: 200 -> ok",
+  "08:59:58Z exchange-status: 200 -> ok",
+  "08:59:58Z cors-origin: 200 -> ok (allow-origin='https://wingbangboozle1-lang.github.io')"
  ]
 }
