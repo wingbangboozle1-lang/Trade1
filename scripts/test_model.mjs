@@ -115,6 +115,32 @@ ok('note: no settlement fee is charged, matching the official schedule', () => {
 });
 
 
+/* ---- 4c. entry guards: one position per ticker, $0.90 cap --------------- */
+// The CI ledger settled two -100% losses that were momentum + harvest stacked on
+// the same market (KXETHD-26NOV2017-T1659.99). Both engines now allow one open
+// position per ticker and cap directional entries at a $0.90 ask.
+M.reset(1000);
+const stack = mkMarket('STACK-1', '0.5000', '0.5100');
+M.runStrategies([{ ticker: 'STACK-1', delta: 0.20, dir: 'up' }], { 'STACK-1': stack }, ['STACK-1'], Date.now());
+ok('the first momentum fill on a ticker opens', () => assert.equal(M.state.trades.length, 1));
+const hot = mkMarket('STACK-1', '0.9400', '0.9500', { last_price_dollars: '0.9500' });
+M.runStrategies([{ ticker: 'STACK-1', delta: 0.20, dir: 'up' }], { 'STACK-1': hot }, ['STACK-1'], Date.now());
+ok('a second entry on the same ticker is refused (any strategy)',
+  () => assert.equal(M.state.trades.filter((x) => x.ticker === 'STACK-1').length, 1));
+
+M.reset(1000);
+const spike = mkMarket('SPIKE-1', '0.9400', '0.9500', { last_price_dollars: '0.9500' });
+M.runStrategies([{ ticker: 'SPIKE-1', delta: 0.25, dir: 'up' }], { 'SPIKE-1': spike }, ['SPIKE-1'], Date.now());
+ok('momentum refuses an ask above $0.90 (no chasing a near-certain spike)',
+  () => assert.equal(M.state.trades.filter((x) => x.strategy === 'momentum').length, 0));
+ok('harvest may still buy that $0.95 near-expiry YES (its documented entry rule)',
+  () => assert.ok(M.state.trades.every((x) => x.strategy === 'harvest')));
+ok('breakout and fade publish the same $0.90 entry cap',
+  () => assert.equal(M.state.bot.strategies.breakout.maxEntry, 0.90) &&
+        assert.equal(M.state.bot.strategies.fade.maxEntry, 0.90));
+ok('harvest carries no entry cap (it buys $0.90-$0.99 YES by design)',
+  () => assert.equal(M.state.bot.strategies.harvest.maxEntry, undefined));
+
 /* ---- 5. tradeability guard (official market lifecycle) ------------------ */
 // https://docs.kalshi.com/getting_started/market_lifecycle — only `active`
 // (and before close_time) is tradeable; initialized/closed/inactive/determined/

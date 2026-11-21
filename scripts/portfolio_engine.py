@@ -88,22 +88,22 @@ REQUEST_SLEEP_S = 0.35          # stay far below any published limit; unauthenti
 # printed on portfolio.html so a reader can audit the rule behind each trade.
 RULES = {
     "momentum": {
-        "enter": "a sampled >= $0.10 move whose model score >= 0.45 and YES spread <= $0.06; buy the side the move points to (up -> YES, down -> NO)",
+        "enter": "a sampled >= $0.10 move whose model score >= 0.45 and YES spread <= $0.06; buy the side the move points to (up -> YES, down -> NO), only if that side's ask is <= $0.90 (never chase a spike into a near-certain price)",
         "exit": "take-profit +$0.15, stop-loss -$0.10, else max 12 samples (~6 h) at the official bid, else settlement",
         "take_profit_bits": 1500, "stop_loss_bits": 1000, "max_samples": 12,
-        "max_spread_bits": 600, "min_score": 0.45,
+        "max_spread_bits": 600, "min_score": 0.45, "max_entry_bits": 9000,
     },
     "fade": {
-        "enter": "a sampled >= $0.10 move whose model score < 0.45, spread <= $0.04 and 24 h volume >= 100 contracts; buy the opposite side",
+        "enter": "a sampled >= $0.10 move whose model score < 0.45, spread <= $0.04 and 24 h volume >= 100 contracts; buy the opposite side, only if that side's ask is <= $0.90",
         "exit": "take-profit +$0.08, stop-loss -$0.08, else max 4 samples (~2 h) at the official bid, else settlement",
         "take_profit_bits": 800, "stop_loss_bits": 800, "max_samples": 4,
-        "max_spread_bits": 400, "min_vol24h_contracts": 100,
+        "max_spread_bits": 400, "min_vol24h_contracts": 100, "max_entry_bits": 9000,
     },
     "breakout": {
-        "enter": "last price crosses the 50c line between two samples, with 24 h volume >= 500 contracts and spread <= $0.05; buy the side it crossed to",
+        "enter": "last price crosses the 50c line between two samples, with 24 h volume >= 500 contracts and spread <= $0.05; buy the side it crossed to, only if that side's ask is <= $0.90",
         "exit": "take-profit +$0.12, stop-loss -$0.10, else max 48 samples (~24 h) at the official bid, else settlement",
         "take_profit_bits": 1200, "stop_loss_bits": 1000, "max_samples": 48,
-        "max_spread_bits": 500, "min_vol24h_contracts": 500,
+        "max_spread_bits": 500, "min_vol24h_contracts": 500, "max_entry_bits": 9000,
     },
     "harvest": {
         "enter": "last price between $0.90 and $0.99, spread <= $0.03, market closes within 72 h; buy YES to settlement (no take-profit, no stop)",
@@ -455,19 +455,54 @@ def pick_watchlist(rows, per_topic=16, total=72):
 
 
 # -------------------------------------------------------------------------- HTTP layer
+# 429 handling mirrors scripts/collect.py: the official rate-limit doc says to back
+# off with exponential backoff on 429, no Retry-After header is sent, and
+# X-RateLimit-Reset (seconds) is available when the API includes it.
+MAX_RETRIES_429 = 5
+BACKOFF_CAP_S = 30.0
+_last_req_at = 0.0
+
+
+def _pace():
+    global _last_req_at
+    wait = REQUEST_SLEEP_S - (time.time() - _last_req_at)
+    if wait > 0:
+        time.sleep(wait)
+    _last_req_at = time.time()
+
+
 def http_get(url, timeout=30):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status, json.loads(r.read())
-    except urllib.error.HTTPError as e:
+    global _last_req_at
+    headers = {"User-Agent": UA, "Accept": "application/json"}
+    delay = 1.0
+    code, j, hs = 0, {}, {}
+    for attempt in range(MAX_RETRIES_429 + 1):
+        _pace()
+        req = urllib.request.Request(url, headers=headers)
         try:
-            body = e.read()[:300].decode("utf-8", "replace")
-        except Exception:
-            body = ""
-        return e.code, {"_error": body}
-    except Exception as e:                      # network-level failure (the dev sandbox has no route)
-        return 0, {"_error": f"{type(e).__name__}: {e}"}
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                code, j = r.status, json.loads(r.read())
+                hs = {k.lower(): v for k, v in r.headers.items()}
+        except urllib.error.HTTPError as e:
+            try:
+                body = e.read()[:300].decode("utf-8", "replace")
+            except Exception:
+                body = ""
+            code, j = e.code, {"_error": body}
+            hs = {k.lower(): v for k, v in e.headers.items()}
+        except Exception as e:                  # network-level failure (the dev sandbox has no route)
+            return 0, {"_error": f"{type(e).__name__}: {e}"}
+        if code != 429:
+            return code, j
+        if attempt >= MAX_RETRIES_429:
+            break
+        try:
+            wait = min(float(hs.get("x-ratelimit-reset", "")), BACKOFF_CAP_S) if hs.get("x-ratelimit-reset") else delay
+        except (TypeError, ValueError):
+            wait = delay
+        time.sleep(wait)
+        delay = min(delay * 2, BACKOFF_CAP_S)
+    return code, j
 
 
 def fetch_quotes(tickers, log_list):
@@ -589,9 +624,14 @@ def open_positions(st):
     return [t for t in st["trades"] if t["status"] == "open"]
 
 
-def find_open(st, ticker, strategy):
+def find_open(st, ticker, strategy=None):
+    """An open position on this ticker blocks any second entry on it, from any
+    strategy. (Previously the check was ticker+strategy, which let momentum and
+    harvest stack two same-side positions on one market — the ledger's two
+    settled -100% losses were exactly that double-stack on
+    KXETHD-26NOV2017-T1659.99.)"""
     for t in st["trades"]:
-        if t["status"] == "open" and t["ticker"] == ticker and t["strategy"] == strategy:
+        if t["status"] == "open" and t["ticker"] == ticker:
             return t
     return None
 
@@ -599,10 +639,16 @@ def find_open(st, ticker, strategy):
 def enter(st, ticker, side, strategy, q, note, sources, when):
     if len(open_positions(st)) >= MAX_OPEN_POSITIONS:
         return None
-    if find_open(st, ticker, strategy):
+    if find_open(st, ticker):
         return None
     bid, ask = bid_ask(q, side)
     if ask is None or ask < 500 or ask > 9500:      # unfillable edges, same guard as the browser lab
+        return None
+    # Entry price cap for the directional strategies: buying the side the move
+    # points to at a $0.95 ask risks $0.95 to make $0.05. Harvest is exempt by
+    # design (it buys $0.90-$0.99 YES near expiry and holds to settlement).
+    cap = RULES.get(strategy, {}).get("max_entry_bits")
+    if cap is not None and ask > cap:
         return None
     fee_m = series_multiplier(st, ticker)           # demo fee_multiplier, default 1
     budget = min(st["cash_cc"], PER_TRADE_BITS)
@@ -1369,6 +1415,38 @@ def selftest():
         run_cycle(s, {tk: m1}, ["fixture://d"], "2026-11-20T01:00:00Z", l2)
         return json.dumps({"alerts": s["alerts"], "trades": s["trades"]}, sort_keys=True)
     ok("deterministic given fixed clock", run_once() == run_once())
+
+    # 9. entry guards: one position per ticker across strategies, and a price cap on
+    #    directional entries (mirrors assets/model.js tryEnter). The ledger double-stacked
+    #    momentum + harvest on KXETHD-26NOV2017-T1659.99 and both settled -100%.
+    def qv(yb, ya, nb, na):
+        return quote_view({"yes_bid_dollars": yb, "yes_ask_dollars": ya,
+                           "no_bid_dollars": nb, "no_ask_dollars": na,
+                           "volume_24h_fp": "9000.00", "volume_fp": "30000.00",
+                           "close_time": _hours_ahead(30), "status": "active"})
+
+    st = load_state_like()
+    first = enter(st, "KXTEST-1", "yes", "momentum", qv("0.5000", "0.5100", "0.4900", "0.5000"),
+                  "t", ["fixture://g1"], "2026-11-20T02:00:00Z")
+    ok("a plain momentum entry on a fresh state fills", first is not None)
+    second = enter(st, "KXTEST-1", "yes", "harvest", qv("0.9100", "0.9200", "0.0800", "0.0900"),
+                   "t", ["fixture://g2"], "2026-11-20T02:00:00Z")
+    ok("an open position blocks a second entry on the same ticker (any strategy)", second is None,
+       "a stacked same-ticker entry was allowed")
+    ok("the first entry is the momentum position", first is not None and first["strategy"] == "momentum")
+
+    st = load_state_like()
+    hot = qv("0.9400", "0.9500", "0.0500", "0.0600")
+    ok("momentum refuses an ask above $0.90 (no chasing a >$0.90 spike)",
+       enter(st, "KXTEST-1", "yes", "momentum", hot, "t", ["fixture://g3"], "2026-11-20T02:00:00Z") is None
+       and len(st["trades"]) == 0)
+    ok("breakout and fade share the same $0.90 entry cap",
+       RULES["breakout"].get("max_entry_bits") == 9000 and RULES["fade"].get("max_entry_bits") == 9000)
+    st = load_state_like()
+    ok("harvest is exempt from the cap by design (buys $0.90-$0.99 YES)",
+       "max_entry_bits" not in RULES["harvest"]
+       and enter(st, "KXTEST-1", "yes", "harvest", qv("0.9400", "0.9500", "0.0500", "0.0600"),
+                 "t", ["fixture://g4"], "2026-11-20T02:00:00Z") is not None)
 
     print(f"\n{checks - len(fails)}/{checks} checks passed")
     if fails:

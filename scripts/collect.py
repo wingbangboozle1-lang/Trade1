@@ -34,6 +34,19 @@ OUT = "data"
 MAX_PAGES = 6
 UA = "Trade1-verify/1.0 (github.com/wingbangboozle1-lang/Trade1)"
 
+# Rate-limit pacing. Unauthenticated public requests are "subject to separate
+# limits" (https://docs.kalshi.com/getting_started/rate_limits) and the docs
+# say to back off on 429 with exponential backoff; 429 responses carry no
+# Retry-After header. The 2026-11-21 run fired with zero pacing and logged
+# 220x 429 vs 45x 200, which starved the series-discovery and resolved
+# sweeps. Pace every request and retry 429s with exponential backoff,
+# honouring X-RateLimit-Reset (seconds until the bucket is full) when the
+# API sends it, capped so one throttled sweep cannot stall the job.
+REQUEST_SLEEP_S = 0.4
+MAX_RETRIES_429 = 5
+BACKOFF_CAP_S = 30.0
+_last_req_at = 0.0
+
 LOG = []
 
 
@@ -43,24 +56,48 @@ def log(msg):
     print(line, flush=True)
 
 
+def _pace():
+    """Keep at least REQUEST_SLEEP_S between requests (burst pacing)."""
+    global _last_req_at
+    wait = REQUEST_SLEEP_S - (time.time() - _last_req_at)
+    if wait > 0:
+        time.sleep(wait)
+    _last_req_at = time.time()
+
+
 def get(url, origin=None, method="GET", timeout=45):
     headers = {"User-Agent": UA, "Accept": "application/json"}
     if origin:
         headers["Origin"] = origin
-    req = urllib.request.Request(url, headers=headers, method=method)
     t0 = time.time()
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            body = r.read()
-            hs = {k.lower(): v for k, v in r.headers.items()}
-            code = r.status
-    except urllib.error.HTTPError as e:
-        body = e.read()
-        hs = {k.lower(): v for k, v in e.headers.items()}
-        code = e.code
-    except Exception as e:  # network-level failure
-        log(f"NET-FAIL {method} {url} :: {type(e).__name__}: {e}")
-        return None, {}, b"", time.time() - t0
+    delay = 1.0
+    for attempt in range(MAX_RETRIES_429 + 1):
+        _pace()
+        req = urllib.request.Request(url, headers=headers, method=method)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                body = r.read()
+                hs = {k.lower(): v for k, v in r.headers.items()}
+                code = r.status
+        except urllib.error.HTTPError as e:
+            body = e.read()
+            hs = {k.lower(): v for k, v in e.headers.items()}
+            code = e.code
+        except Exception as e:  # network-level failure
+            log(f"NET-FAIL {method} {url} :: {type(e).__name__}: {e}")
+            return None, {}, b"", time.time() - t0
+        if code == 429 and attempt < MAX_RETRIES_429:
+            reset = hs.get("x-ratelimit-reset")
+            try:
+                wait = min(float(reset), BACKOFF_CAP_S) if reset else delay
+            except (TypeError, ValueError):
+                wait = delay
+            log(f"429 {method} {url} (attempt {attempt + 1}/{MAX_RETRIES_429})"
+                f" — backing off {wait:.1f}s")
+            time.sleep(wait)
+            delay = min(delay * 2, BACKOFF_CAP_S)
+            continue
+        return code, hs, body, time.time() - t0
     return code, hs, body, time.time() - t0
 
 
