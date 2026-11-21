@@ -4,3 +4,5 @@ __pycache__/
 node_modules/
 node_modules
 .render-cache/
+# Collector staging: only promoted, verified output may be committed
+data/.staging/
