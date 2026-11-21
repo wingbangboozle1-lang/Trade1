@@ -108,6 +108,43 @@ requirements it called "not built", plus the verification this session performed
   three layers and their comparability are defined in [Methods §8](methods.html) and [Flagged E9](flagged.html). Draft PR #2 (the same
   work, superseded by #39) should now be closed rather than merged.
 
+
+## Quality gates added 2026-11-21 by session `8bf56985` (publication integrity)
+
+The deployed site was already green on `npm test` and `npm run check`, so this pass audited what the
+pages *tell a reader* rather than whether the code runs. Four defects were reproduced on the deployed
+tree, fixed, and are now gated by tests that were mutation-tested (each gate was run against the broken
+version and observed to fail first). Findings are published as items **PI-1 … PI-7** on
+[Flagged for Review](flagged.html#f8bf).
+
+| Gate | What it proves | Where it runs |
+|---|---|---|
+| [`scripts/check_row_sources.mjs`](scripts/check_row_sources.mjs) | Every rendered table row on `data.html`, `resolved.html` **and** `portfolio.html` carries its **own** official record (`/markets/{ticker}`, `/events/{event_ticker}`) on the demo base — not just the batched `/markets?tickers=…` quote URL. **431 rows, 707 official links, 0 failures.** | `npm run check`, CI `checks` |
+| [`tests/publication.test.mjs`](tests/publication.test.mjs) | (1) the snapshot cadence a page states matches the cron in `pages.yml`; (2) every workflow file a page names exists; (3) every local link resolves; (4) the landing-page status script is *executed* against five synthetic snapshot states and must not report a fresh snapshot when the collector reported a degraded run or the snapshot is older than 8 h; (5) the per-row gate stays wired into `npm run check`. **16/16.** | `npm test`, CI `checks` |
+
+What was corrected:
+
+- **The landing page certified every snapshot as "OK".** It now reports `fresh` / `stale` / `degraded` /
+  `unavailable` from `data/collect_status.json` (the collector's own verdict) plus the age of
+  `data/meta.json`, and a new *Snapshot health* panel lists the timestamp, age, upstream failure count,
+  any artifacts kept instead of rewritten, and links the per-request log and the scheduling workflow (PI-1).
+- **The site stated a refresh cadence the workflow does not implement** — "twice hourly" for snapshots;
+  `pages.yml` is `17 */3 * * *` (every 3 h). The portfolio ledger is the twice-hourly job (PI-2).
+- **`data.html` credited a workflow file that does not exist** (PI-3).
+- **The row-source gate could not see the published rows** — it checked `data/snapshot.json`, which no page
+  renders. It now renders the real pages (PI-4).
+- **Duplicate exposure already in the published ledger** (three tickers opened twice, two of them at a
+  $0.95 ask) is published, not rewritten: retro-editing a ledger to improve it is what the verification
+  rule forbids. The preventive fix lives in PR #79, which owns those two engine files (PI-7).
+- **A candidate 429 backoff in an unmerged branch reads `X-RateLimit-Reset` as an absolute value**; the
+  official page defines it as seconds *until the bucket is full again* and says publicly cacheable
+  market-data responses carry none of these headers. Recorded for that branch's owner, not merged here (PI-6).
+
+Official sources re-read for this pass: [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) ·
+[Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) ·
+[Get Events](https://docs.kalshi.com/api-reference/events/get-events) ·
+[API Environments](https://docs.kalshi.com/getting_started/api_environments).
+
 **Quality gates added by this session** (all runnable offline, all green on 2026-11-20):
 `python3 scripts/portfolio_engine.py selftest` → 50/50 · `node tests/portfolio.test.mjs` → 60/60 (34/34 without jsdom) ·
 `node scripts/check_links.mjs` → 16 published pages, 329 local links, 168 external links, 0 failures · and the pre-existing

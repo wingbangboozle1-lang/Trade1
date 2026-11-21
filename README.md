@@ -35,9 +35,12 @@ tracking, and every table row linked to the official API record it came from.
   (200 is the documented maximum), batched prices via `GET /markets?tickers=…`, depth via
   `GET /markets/{ticker}/orderbook`, seconds-windows via `GET /markets/trades`, longer windows via
   `GET /series/{s}/markets/{t}/candlesticks` (`period_interval` accepts 1, 60 or 1440 minutes; the chart uses 1 and 60).
-- **Snapshots**: `.github/workflows/pages.yml` runs `scripts/collect.py` on a schedule from GitHub
-  Actions (the runner can reach Kalshi; the build sandbox cannot), refreshes `data/` and commits it
-  with a per-request log in `data/log.md`.
+- **Snapshots**: `.github/workflows/pages.yml` runs `scripts/collect.py` on a schedule (every 3 hours,
+  `17 */3 * * *`) from GitHub Actions (the runner can reach Kalshi; the build sandbox cannot), refreshes
+  `data/` and commits it with a per-request log in `data/log.md`. The collector is fail-closed: if an
+  upstream read fails after retries it keeps the previous verified files and records the failure in
+  `data/collect_status.json`. The landing page reads that file plus the snapshot's age to label the
+  snapshot `fresh` / `stale` / `degraded` — never unconditionally `OK` (flagged item PI-1).
 - **Always-on ledger** (this is the part that survives a reload): `.github/workflows/portfolio.yml` runs
   `scripts/portfolio_engine.py` twice an hour — offline self-tests first, then one live cycle. It compares each priced
   cycle with the previous one, books fills at the official quotes with the official taker fee (`ceil_6dp` model fee plus
@@ -66,6 +69,8 @@ npm install --no-audit --no-fund jsdom   # test dependency only
 npm run build    # JS syntax + internal links + nav targets
 npm run test     # 23 jsdom/page-engine assertions plus offline library tests
 node scripts/check_site.mjs   # every snapshot row carries an official source URL
+node scripts/check_row_sources.mjs  # renders data/resolved/portfolio pages in jsdom: every RENDERED row links its own official record (431 rows)
+node tests/publication.test.mjs     # stated cadence vs pages.yml, named workflow files exist, snapshot-health pill honesty (16 checks)
 
 # the CI ledger's own checks (all offline, no credentials, no network needed)
 python3 scripts/portfolio_engine.py selftest   # 50 checks: fee math, alert boundary, sizing, settlement, determinism
