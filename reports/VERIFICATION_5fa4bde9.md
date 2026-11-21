@@ -71,7 +71,7 @@ Two findings came directly out of this live traffic and are recorded on
 | 7 HTML pages | `<script src="assets/governor.js">` before `assets/model.js` (`methods/suggestions/flagged` carry no engine script and were skipped) |
 | `assets/site.css` | `.small.warn` (amber) for the throttled pill |
 | `tests/rate_governor.test.mjs` | **new** — 14 checks (G1–G11, G1b, W1–W3) on a deterministic clock + three jsdom boots of the real `dashboard.html` |
-| `tests/live_contract.test.mjs` | **new** — C1–C5, the real client parsing the verbatim live responses |
+| `tests/live_contract.test.mjs` | **new** — C1–C5: the real client parsing the verbatim live responses, plus the candlestick request the client builds (path, `period_interval`, integer-second window) checked against the documented endpoint |
 | `scripts/api_contract.py` | **new** — ~20-case live endpoint-contract probe + `--selftest` (9 offline checks of its assertion helpers, run in CI) |
 | `.github/workflows/live-client.yml` | **new** — job `client` (offline gates, no network ⇒ cannot flake) + job `contract` (the probe, from a runner, publishing `data/endpoint_contract.json` on `main`; a documented contract break fails the job *after* its evidence is committed) |
 | `data.html` | "Live endpoint contract" panel: per-case status vs documented status, verdict, what was checked, doc link; explicit "Not probed yet" state |
@@ -105,28 +105,34 @@ Two findings came directly out of this live traffic and are recorded on
 ## 5. Commands run, with the output that matters
 
 ```
-$ npm test            # full chain (11 pre-existing suites + 3 added), real exit code 0
+$ npm test            # the merged chain (14 pre-existing suites + the 3 added here), real exit code 0
 3 passed, 0 failed            # tests/engine.test.mjs
 6 passed, 0 failed            # tests/live_fixes.test.mjs
 RESULT: 48 passed, 0 failed   # tests/live_dash.test.mjs
 RESULT: 21 passed, 0 failed   # scripts/test_fees.mjs / test_model.mjs
-60/60 portfolio checks passed
+60/60 portfolio checks passed # tests/portfolio.test.mjs
 demo-account tests: 89 passed, 0 failed
-Ran 4 tests in 0.001s / OK    # python3 tests/test_collect.py
+Ran 10 tests / OK             # python3 tests/test_collect.py
+Ran 16 tests / OK             # python3 tests/test_collect_hardening.py
+Ran 6 tests / OK              # python3 tests/test_collect_failclosed.py
 14 passed, 0 failed           # tests/rate_governor.test.mjs
 5 passed, 0 failed            # tests/live_contract.test.mjs
 selftest: ok                  # scripts/api_contract.py --selftest  (9 checks)
-real 0m21.6s
+real 0m26.4s   exit=0         # (verified with (time npm test) > log, not piped through tail)
 
 $ npm run check
 BUILD OK — 18 HTML, 7 JS files validated, 0 broken links.
-{"checked":{"html":18,"links":440,"rows":1183,"resolved":625},"failures":0}
-{"pages":16,"links":400,"external":238,"datarefs":4}
-16 published pages, 400 local links, 238 external links, 0 failures
+{"checked":{"html":18,"links":470,"rows":1248,"resolved":825},"failures":0}
+{"pages":16,"links":430,"external":386,"datarefs":8}
+16 published pages, 430 local links, 386 external links, 0 failures
+every rendered row links its own official record (431 rows, 707 official links)
 
-$ node tools/render_test.mjs --offline --wait=6000   # index, dashboard, topics/crypto, resolved, portfolio
-errors: [] on all five pages (rows/links: 0/42, 18/55, 2/7, 1/20, 194/603)
-# /markets?tickers=… is requested twice and served once — the coalescing path, live in the render gate
+$ node tools/render_test.mjs --offline --wait=5000   # index, dashboard, topics/crypto, resolved,
+                                                     # portfolio, data, sources, methods, flagged
+errors: [] on all nine pages (rows/links: 0/46, 121/364, 121/364, 200/421, 199/628,
+182/509, 58/82, 31/82, 110/264)
+# the render gate's apiRequests list shows /markets?tickers=… requested twice for the same
+# URL and served once — the coalescing path, observed on the shipped client
 
 $ python3 scripts/api_contract.py --selftest          # offline, uses the committed live samples
 pass the verbatim live ladder satisfies the documented order
@@ -140,6 +146,15 @@ pass the documented single-response paging shape is accepted
 pass a cursor on a tickers-only request breaks the polling assumption
 selftest: ok
 ```
+
+One integration lesson worth recording: an earlier version of `tests/live_contract.test.mjs` booted the page
+**with** `data/topics/*.json` read from disk, so the candlestick case depended on whichever markets the last CI
+snapshot happened to contain. It passed on this branch and failed minutes after rebasing onto `main`, because the
+snapshot had refreshed and the fixture ticker was no longer in the watchlist. The boot no longer reads `data/` at
+all — it links the one event→series mapping the candle path needs, with the strings taken verbatim from the live
+capture URL, and asserts `mode !== 'snapshot'` so a live-path test can never pass vacuously. Deterministic across
+three back-to-back runs afterwards. (Any test that reads the published snapshots should state that dependency the
+same way.)
 
 One process-level defect was found and fixed **in the new test file itself**: a passing
 suite that never exits. A jsdom boot keeps the dashboard's `setInterval` timers alive, so

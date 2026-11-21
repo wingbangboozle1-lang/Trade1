@@ -197,7 +197,13 @@ score = raw · damp                          (rounded to 3 dp)</pre>
   concurrent <code>fetch</code> never exceeds the in-flight cap and that an all-429 boot never relabels the site
   <code>SNAPSHOT</code>). <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/tests/live_contract.test.mjs" target="_blank" rel="noopener"><code>tests/live_contract.test.mjs</code></a>
   then feeds the client verbatim demo-API responses (booked in <code>data/samples/*-live-sample.json</code>) and
-  asserts the parsed numbers, so a documented field change breaks a test instead of quietly changing a price.</p>
+  asserts both the parsed numbers — best bid, derived ask, spread, tape re-sort, candle close, settled-NO rows — and
+  the request the client builds for candlesticks (documented path, <code>period_interval</code> ∈ 1/60/1440,
+  integer-second window under the 5,000-period cap). These boots deliberately do <b>not</b> read
+  <code>data/topics/*.json</code>: a test that depends on the newest snapshot would pass or fail according to which
+  markets the last collector run captured, so the one event→series link the candle path needs is set by the harness
+  and an explicit assertion keeps the boot out of snapshot mode. A documented field change therefore breaks a test
+  instead of quietly changing a price.</p>
   <p class="small"><b>Endpoint contract probe.</b> <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/api_contract.py" target="_blank" rel="noopener"><code>scripts/api_contract.py</code></a>
   issues ~20 requests once per scheduled run of the “Live client” workflow (paced 0.35 s apart, one retry after a
   429 — a rounding error against any documented budget) and records, per endpoint: HTTP status vs the documented

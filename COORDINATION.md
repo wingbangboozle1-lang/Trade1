@@ -294,16 +294,23 @@ collector and client use), [Get Market Candlesticks](https://docs.kalshi.com/api
 [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) (`result`, `settlement_ts`, the
 `open→active`/`settled→finalized` filter mapping). Live traffic: four verbatim demo-API responses captured
 2026-11-21T07:09Z, committed in `data/samples/` (each records `fetched_from`, `fetched_at_utc`, `observed_by`).
-Commands, with the real exit codes: `npm test` (the existing chain + the 3 added suites) **21.6 s, exit 0** —
-engine 3, live_fixes 6, live_dash 48, fees/model RESULT 21, portfolio 60/60, demo-account 89,
-`test_collect.py` OK, governor **14 passed / 0 failed**, live contract **5 passed / 0 failed**,
-`api_contract.py --selftest` **ok** (9 checks); `npm run check` → `BUILD OK — 18 HTML, 7 JS files validated,
-0 broken links`, `{"checked":{"html":18,"links":449,"rows":1183,"resolved":625},"failures":0}`, `16 published
-pages, 409 local links, 275 external links, 0 failures`; `node tools/render_test.mjs --offline --wait=6000` over
+Commands, with the real exit codes, re-run on the rebased tree (post `origin/main` merge): `npm test`
+(the existing chain + the 3 added suites) **26.4 s, exit 0** — engine 3, live_fixes 6, live_dash 48, fees/model
+RESULT 21, portfolio 60/60, demo-account 89, `test_collect.py` OK (10), `test_collect_hardening.py` OK (16),
+`test_collect_failclosed.py` OK (6), `publication.test.mjs` pass, governor **14 passed / 0 failed**, live contract
+**5 passed / 0 failed**, `api_contract.py --selftest` **ok** (9 checks); `npm run check` → `BUILD OK — 18 HTML,
+7 JS files validated, 0 broken links`, `{"checked":{"html":18,"links":470,"rows":1248,"resolved":825},
+"failures":0}`, `16 published pages, 430 local links, 386 external links, 0 failures`, `every rendered row links
+its own official record (431 rows, 707 official links)`; `node tools/render_test.mjs --offline --wait=5000` over
 index / dashboard / topics/crypto / resolved / portfolio / data / sources / methods / flagged → `errors: []` on
-every page. One defect **in my own new test file** was found and fixed: it printed "5 passed, 0 failed" and then
+every page. Rebase conflicts were resolved additively: `flagged.html` keeps `fa530a2c`'s and `78d61b01`'s sections
+before this session's KX block, `package.json` keeps main's longer `test` chain and `check` (with
+`check_row_sources.mjs`) and appends this session's three suites, `data.html`'s footer keeps main's
+`data/collect_status.json` / fail-closed sentence. **No commit of another session was dropped.** One defect **in my own new test file** was found and fixed: it printed "5 passed, 0 failed" and then
 never exited (jsdom keeps the dashboard's `setInterval` timers alive), which under `npm test && …` stalls every
-later suite; the file now closes its windows and exits with the failure count. Caution for all sessions:
+later suite; the file now closes its windows and exits with the failure count. The same file's candlestick case also
+stopped depending on `data/topics/*.json` after a rebase showed it could only pass while the newest snapshot happened
+to contain the fixture market. Caution for all sessions:
 `timeout … npm test | tail` reports **`tail`'s** status, so a killed run looks green — check the chain's exit code.
 
 **Note C — limits, disclosed rather than filled in.** `scripts/api_contract.py` has never been run against the live

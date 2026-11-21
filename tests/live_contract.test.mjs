@@ -51,20 +51,13 @@ async function test(name, fn) {
 }
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
-/* Two boots:
- *   A) with data/ served from disk — the page takes its real bootstrap path
- *      (loadSnapshot over the CI-collected data/topics/*.json), which is what puts a
- *      live market in the watchlist with its series ticker; then the selected
- *      market's book / tape / candles are answered from the verbatim fixtures.
- *   B) without data/ — the settled rows are brought into scope through a
- *      synthetic /events wrapper. The wrapper is a test fixture, NOT an API
- *      response; the market rows behind it are verbatim, and every assertion is
- *      about those rows.
+/* One boot, used by every case: nothing is read from data/ (see below), so the result
+ * cannot drift with the CI snapshot. The /events wrapper is a test fixture, NOT an API
+ * response — it exists only to bring the verbatim settled market rows into the
+ * watchlist's scope; every assertion is about those rows.
  * A fixture is only served at the path it was fetched from, so a client asking for
  * something else gets an empty-but-valid answer, never a guess. */
-const ROOT = new URL('../', import.meta.url);
-function boot(opts) {
-  opts = opts || {};
+function boot() {
   const dom = new JSDOM('<!doctype html><html><body><main><div id="kalshi-app" data-page="dashboard"></div></main></body></html>',
     { url: 'https://example.test/dashboard.html', runScripts: 'outside-only' });
   const { window } = dom;
@@ -74,15 +67,10 @@ function boot(opts) {
     const u = String(url);
     asked.push(u);
     if (!/^https?:/.test(u)) {
-      if (!opts.serveData) {
-        return Promise.resolve({ ok: false, status: 404, url: u, json: () => Promise.reject(new Error('404')) });
-      }
-      try {
-        const body = JSON.parse(readFileSync(ROOT.pathname + u, 'utf8'));
-        return Promise.resolve({ ok: true, status: 200, url: u, json: () => Promise.resolve(body) });
-      } catch (e) {
-        return Promise.resolve({ ok: false, status: 404, url: u, json: () => Promise.reject(new Error('404')) });
-      }
+      /* Local files are deliberately NOT served: the CI snapshot under data/ changes every
+       * few hours, and a test that reads it would pass or fail depending on which markets
+       * the last collector run happened to capture. */
+      return Promise.resolve({ ok: false, status: 404, url: u, json: () => Promise.reject(new Error('404')) });
     }
     const p = new URL(u).pathname.replace('/trade-api/v2', '');
     let body = { markets: [], cursor: '' };
@@ -114,8 +102,22 @@ function boot(opts) {
   return { window, asked };
 }
 
-const book = boot({ serveData: true });
+const book = boot();
 await wait(700);
+{
+  /* fetchCandles() resolves a market's series through its EVENT record — GET /markets
+   * publishes no series_ticker (Flagged 78-3) and the documented candle path is
+   * /series/{series_ticker}/markets/{ticker}/candlesticks. The watchlist normally learns
+   * the series from topic discovery, i.e. from whichever markets the CI snapshot happened
+   * to contain; this boot links it by hand so the assertion does not drift with the
+   * snapshot. Both strings are verbatim from the live capture URL recorded in
+   * data/samples/candlesticks-live-sample.json; 'harness-link' is plumbing, not an
+   * observed event ticker. */
+  const st = book.window.KalshiApp.state;
+  st.watch[TICKER] = { ticker: TICKER, event_ticker: 'harness-link' };
+  st.events['harness-link'] = { event_ticker: 'harness-link', series_ticker: 'KXBTC50VS100' };
+  assert.notEqual(st.mode, 'snapshot', 'this boot must be live, or every live-path test below is vacuous');
+}
 book.window.KalshiApp.select(TICKER);
 await wait(600);
 /* The candles readout is captured before C3 switches the chart window: switching
@@ -166,7 +168,17 @@ await test('C3 — the trade tape is re-sorted ascending (the API answers newest
   assert.equal(pts[0].p, 0.43);
 });
 
-await test('C4 — candlestick closes come from price.close_dollars at end_period_ts', async () => {
+await test('C4 — the candle request is built on the documented path, and the closes parse', async () => {
+  const url = book.asked.filter(u => u.includes('/candlesticks')).pop();
+  assert.ok(url, 'no candlestick request was made for the selected market');
+  const u = new URL(url);
+  assert.equal(u.pathname, '/trade-api/v2/series/KXBTC50VS100/markets/' + TICKER + '/candlesticks',
+    'not the documented path /series/{series_ticker}/markets/{ticker}/candlesticks');
+  assert.ok(['1', '60', '1440'].includes(u.searchParams.get('period_interval')),
+    'period_interval must be one of the three documented values, got ' + u.searchParams.get('period_interval'));
+  const st = Number(u.searchParams.get('start_ts')), en = Number(u.searchParams.get('end_ts'));
+  assert.ok(Number.isInteger(st) && Number.isInteger(en) && st < en && en - st <= 5000 * 60,
+    'start_ts/end_ts must be integer seconds (window far under 5,000 periods), got ' + st + '..' + en);
   const c = CANDLES.response.candlesticks[0];
   const pts = CANDLE_READ;
   assert.equal(pts.length, CANDLES.response.candlesticks.length, 'candle not parsed');
@@ -175,7 +187,7 @@ await test('C4 — candlestick closes come from price.close_dollars at end_perio
 });
 
 await test('C5 — two finalized markets are recorded as resolved NO with their settlement time', async () => {
-  const w = boot({});
+  const w = boot();
   await wait(700);
   w.window.KalshiApp.pollWatch();
   await wait(600);
