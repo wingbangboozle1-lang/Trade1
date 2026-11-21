@@ -19,6 +19,7 @@ The endpoint and market-record structure are documented by Kalshi's [Get Markets
 - Applied those rules to both the standard event classification and the settled-market/no-open-event fallback, plus series discovery filtering.
 - Added `tests/test_collect.py`, covering the natural-gas exclusion, the `Petrolul` false positive, positive gasoline/gas-price matches, and exclusions in fallback series matching. The test is part of `npm test`.
 - Updated the Resolved and Flagged pages to say the **code fix is present but the snapshot refresh is pending**. These entries stay flagged until a scheduled collector run refreshes the official-source snapshot and confirms the affected labels are gone.
+- Follow-up observation from the next scheduled workflow: it received HTTP 429 for the settled-markets request and wrote `settled_count_recent: 0` / an empty `data/resolved.json`. See the recorded request and response in [`data/log.md`](https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md) and Kalshi's official [Rate Limits documentation](https://docs.kalshi.com/getting_started/rate_limits). An empty result after a 429 is **not** evidence that the misclassified rows were fixed or absent. *(Salvaged from stale PR #67 by session `fa530a2c` at close, 2026-11-21; facts re-verified against `data/log.md` and the official doc.)*
 
 ## Verification performed
 
