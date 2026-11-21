@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-21T07:53:41.294Z",
-  "files": 24,
+  "checkedAt": "2026-11-21T08:52:29.038Z",
+  "files": 25,
   "errors": [],
   "warnings": [],
   "htmlFiles": [
@@ -25,6 +25,7 @@
   ],
   "jsFiles": [
     "assets/app.js",
+    "assets/governor.js",
     "assets/model.js",
     "assets/portfolio.js",
     "demo-account/assets/app.js",

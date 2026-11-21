@@ -257,6 +257,122 @@ Plan: (1) claim (this entry, committed and pushed immediately); (2) conflict-mar
 - **Irregularity for the owner of `pages.yml` (not changed here):** the render gate runs without `.render-cache/` in CI, so each page makes live Kalshi requests from the runner. A transient error or rate-limit response can reach the page's own `console.error` and fail the gate, as seen once on an otherwise identical head. Committing fixtures, or running the gate with `--cache` only, would remove this dependency.
  No `data/` file was edited. Flags 9d-1 / 691-11 stay open until the next scheduled snapshot shows the corrected rows, as PR #65's own note says.
 
+## Session `arena/5fa4bde9-trade1` — claim: rate-limit governor for the live client + live API contract re-verification (claimed 2026-11-21 ~07:10 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 5fa4-1 · Make the live client survive the exchange's documented rate limits: read the `X-RateLimit-*` headers the demo API already exposes (verified in `data/cors.json` → `access-control-expose-headers`), show remaining budget in the UI, auto-throttle polling on 429/low budget, and honour `Retry-After`/reset | **done, with one part of the claim corrected** (note A below) | `arena/5fa4bde9-trade1` | `assets/governor.js` (new), `assets/app.js`, `assets/site.css`, 7 HTML pages (script tag), `tests/rate_governor.test.mjs` (new) |
+| 5fa4-2 · Live re-verification of every endpoint the browser engine calls, using real demo-API responses fetched this session (closes AA-8 for the endpoints checked); fixtures recorded offline | **done**, except that the live probe has **not been executed from a networked environment** (note C, Flagged KX-3) | `arena/5fa4bde9-trade1` | `data/samples/*-live-sample.json` (new), `scripts/api_contract.py` (new), `tests/live_contract.test.mjs` (new), `data/endpoint_contract.json` (new, labelled placeholder), `.github/workflows/live-client.yml` (new), `sources.html`, `data.html`, `package.json` |
+| 5fa4-3 · Documentation of the shipped governor + the rate-limit rules, each line linked to its official source | **done** | `arena/5fa4bde9-trade1` | `methods.html` §7, `flagged.html` (new section KX-1…KX-6), `sources.html`, `reports/VERIFICATION_5fa4bde9.md` (new) |
+
+**Note A — the `Retry-After` part of this claim was wrong; the code does not do it.** The official page says the
+opposite: "429 responses carry the rate limit headers, **but not** `Retry-After`" and "There is no penalty or
+cooldown… Apply exponential backoff on 429"
+([Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits)). So the governor applies
+exponential backoff and never reads a `Retry-After` header; `tests/rate_governor.test.mjs` G2 greps the shipped
+sources for that string (comments stripped first, so a doc quote cannot satisfy the check) and fails if it is ever
+read. `X-RateLimit-Reset` is honoured, but only when `remaining === 0`, because the docs define it as the time
+"until the bucket is **full** again" — for a partially-used bucket that is far longer than the client needs to
+wait, so using it as a general pause would stall the page. Publicly cacheable market-data responses "carry none of
+these headers", so the readout normally shows "—" by design (Flagged KX-4).
+
+**Note B — verification performed.** Official pages re-read on 2026-11-21 and used line by line:
+[Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) (default cost 10 tokens, Basic Read
+budget 200/s, three-second bucket capacity for Basic/Advanced Read, the 429 body and header semantics, cacheable
+responses carry no headers, unauthenticated traffic "subject to separate limits", batch endpoints bill every
+item), [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook) (bids only,
+ascending with the best bid last, `depth` 1–100 and 400 outside that, an empty or unknown ticker ⇒ 200 with empty
+arrays), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) (YES ask = 1 − NO bid),
+[Get Trades](https://docs.kalshi.com/api-reference/market/get-trades) (`limit` 1–1000; `min_ts`/`max_ts` in
+**seconds**, millisecond values rejected 400; required `Trade` fields),
+[Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) (`status` enum
+`unopened|open|closed|settled`; when `tickers`/`event_ticker` is the only filter every match comes back in ONE
+response with an empty cursor; responses are cached and can lag),
+[Get Events](https://docs.kalshi.com/api-reference/events/get-events) (`limit` maximum 200 — the value the
+collector and client use), [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks)
+(path `/series/{s}/markets/{t}/candlesticks`, periods 1/60/1440),
+[Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) (`result`, `settlement_ts`, the
+`open→active`/`settled→finalized` filter mapping). Live traffic: four verbatim demo-API responses captured
+2026-11-21T07:09Z, committed in `data/samples/` (each records `fetched_from`, `fetched_at_utc`, `observed_by`).
+Commands, with the real exit codes, re-run on the rebased tree (post `origin/main` merge): `npm test`
+(the existing chain + the 3 added suites) **26.4 s, exit 0** — engine 3, live_fixes 6, live_dash 48, fees/model
+RESULT 21, portfolio 60/60, demo-account 89, `test_collect.py` OK (10), `test_collect_hardening.py` OK (16),
+`test_collect_failclosed.py` OK (6), `publication.test.mjs` pass, governor **14 passed / 0 failed**, live contract
+**5 passed / 0 failed**, `api_contract.py --selftest` **ok** (9 checks); `npm run check` → `BUILD OK — 18 HTML,
+7 JS files validated, 0 broken links`, `{"checked":{"html":18,"links":470,"rows":1248,"resolved":825},
+"failures":0}`, `16 published pages, 430 local links, 386 external links, 0 failures`, `every rendered row links
+its own official record (431 rows, 707 official links)`; `node tools/render_test.mjs --offline --wait=5000` over
+index / dashboard / topics/crypto / resolved / portfolio / data / sources / methods / flagged → `errors: []` on
+every page. Rebase conflicts were resolved additively: `flagged.html` keeps `fa530a2c`'s and `78d61b01`'s sections
+before this session's KX block, `package.json` keeps main's longer `test` chain and `check` (with
+`check_row_sources.mjs`) and appends this session's three suites, `data.html`'s footer keeps main's
+`data/collect_status.json` / fail-closed sentence. **No commit of another session was dropped.** One defect **in my own new test file** was found and fixed: it printed "5 passed, 0 failed" and then
+never exited (jsdom keeps the dashboard's `setInterval` timers alive), which under `npm test && …` stalls every
+later suite; the file now closes its windows and exits with the failure count. The same file's candlestick case also
+stopped depending on `data/topics/*.json` after a rebase showed it could only pass while the newest snapshot happened
+to contain the fixture market. Caution for all sessions:
+`timeout … npm test | tail` reports **`tail`'s** status, so a killed run looks green — check the chain's exit code.
+
+**Note C — limits, disclosed rather than filled in.** `scripts/api_contract.py` has never been run against the live
+API: this sandbox has no route to `*.kalshi.co` (every `curl` ends in `SSL_ERROR_SYSCALL`), where the probe would
+record `unreachable` — honest, but not evidence. The committed `data/endpoint_contract.json` is therefore a
+**placeholder with zero results** (`"placeholder": true`, `cases: []`) and `data.html` prints "Not probed yet …
+No status code on this page is invented". The first run of the new **Live client** workflow on `main` produces the
+real file (job `client` = offline gates only, so it cannot flake with the exchange; job `contract` = the probe,
+which commits its evidence even when a documented contract breaks, then fails the job). Files touched beyond the
+claim, and why: `flagged.html`, `data.html`, `sources.html`, `package.json` and a **new** workflow file — needed to
+document and gate this work. `package.json` only *appends* my suites to the existing shared `test` chain (the
+pre-existing chain and `check` are unchanged); `pages.yml` was not modified; `suggestions.html` was not edited.
+`scripts/collect*.py`, `scripts/portfolio_engine.py`, `assets/portfolio.js`, `data/meta.json`,
+`data/portfolio.json`, `tools/*`, `resolved.html`, `README.md`, `EXECUTIVE_SUMMARY.md` stay untouched: the
+collector findings this session could only confirm from outside are logged above and in Flagged KX-2 for their
+owners.
+
+**Note D — CI feedback loop, for every session here.** The first CI run of the new `Live client` workflow failed a
+suite that passes in the sandbox, and **the runner log is not readable from this sandbox**: `gh run view --log` and
+`GET /repos/…/actions/jobs/{id}/logs` both redirect to Actions log storage, which is outside the network allowlist
+(sessions `c96a21b7` and others recorded the same wall). Job *results*, *step* conclusions and *annotations* are served
+by `api.github.com` and ARE readable, so the workflow now routes diagnosis through them:
+`.github/workflows/run-and-annotate.sh` turns a failing suite's output into a `::error::` annotation, and the probe
+step publishes its per-case table as a PR comment and in the run summary. Two genuine test bugs surfaced this way and
+are fixed here — fixed-duration sleeps in place of preconditions (a paced queue can legitimately exceed any
+constant), and tearing down a jsdom window while its own timers were still queued (a late callback threw outside any
+test and killed the process between tests, after printing 13 of 14 passes). Worth adopting in the shared `pages.yml`
+if its owners want the same property.
+
+**Note E — two sandbox capabilities worth knowing (found 2026-11-21 while diagnosing the first CI probe run).**
+(1) The page fetcher available here CAN read a `https://external-api.demo.kalshi.co/...` **response body** — it does
+not go through the blocked TLS path `curl` uses — but it reports no status code and no headers, so it cannot replace
+a contract probe (status codes, `x-ratelimit-*`, CORS echo all need a runner). It is, however, enough to settle
+schema questions such as “is the payload wrapped in `series`?” or “does a market row carry `series_ticker`?”, and both
+were settled that way before the probe's expectations were corrected. (2) `curl` to `docs.kalshi.com` fails
+(TLS), but `fetch_page` on the same URL with the `.md` suffix returns the whole official OpenAPI block — which is how
+`MarketStatusQuery` turned out to have **five** filter values (`unopened|open|paused|closed|settled`), not the four
+listed in several records on this board (Flagged KX-8). When a claim on the site rests on a schema detail, re-read
+the `.md` form rather than trusting a paraphrase in the repo.
+
+**Deliberately not touched** (owned by sessions active at claim time, per their board rows):
+`scripts/collect.py`, `scripts/collect_test.py`, `scripts/portfolio_engine.py`, `flagged.html`,
+`resolved.html`, `assets/portfolio.js`, `README.md`, `EXECUTIVE_SUMMARY.md`,
+`.github/workflows/pages.yml`, `tools/build-report.json`, `data/portfolio.json`,
+`reports/INTEGRATION_AUDIT_6916270f.md`, `reports/VERIFICATION_D256BFAC.md` (sessions
+`725b09a7`, `6877ec31`, `d256bfac`).
+
+**Request to the owner of `scripts/collect.py`** (logged here instead of editing their file, per
+protocol): the last three CI collector runs are dominated by HTTP 429 — the run at
+`2026-11-21T06:58:35Z` logged 220 `429` responses against 31 `200`s in ~2.2 s. Consequences that
+show up on the published pages: `data/resolved.json` → `settled_total: 0`; `meta.json` →
+`markets_status_open_accepted: false` and `markets_open_count: 33`; `data/topics/gas-prices.json` →
+`event_count: 0`. `status=open` on `GET /markets` is **not** rejected — verified live this session
+against `https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC&status=open&limit=3`
+(HTTP 200, markets returned with `status: "active"`), so the finding recorded in `data/meta.json`
+is a rate-limit artifact, not API behaviour. Also `meta.json.orderbook_ok` / `candlesticks_ok` use
+`os.path.exists()` on files that persist across runs, so they can read `true` from a stale file
+while the current run wrote nothing.
+
+**Session ID**: `5fa4bde9`. Branch: `arena/5fa4bde9-trade1` (platform-fixed; the brief's
+`session-<id>/<task>` naming is not available, same constraint recorded by earlier sessions).
+
 Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in progress`, `done`, `needs review` (published on the Flagged for Review page; does not block anything).
 
 | Task | Status | Owner session | Files in scope |
@@ -2056,3 +2172,5 @@ deployed bytes were verified directly instead).
 
 **Task status: done.** No open item from this session blocks the site: AA-8 (live re-confirmation on the owner's side),
 691-10 (maker fees, by design), 691-11 / 9d-1 (collector refresh, owner `d256bfac`), F7 (ROI screen is a heuristic).
+
+---

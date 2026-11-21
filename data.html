@@ -44,6 +44,12 @@
   </section>
 
   <section class="box" style="margin-top:14px">
+    <h2>Live endpoint contract</h2>
+    <div class="tablewrap" style="max-height:460px"><table id="t-contract"></table></div>
+    <p class="muted small" id="contract-note">Checking whether every endpoint this dashboard calls still answers the way the official documentation describes — status code, required fields, order-book ordering, paging shape, rate-limit headers and the CORS answer. <code>scripts/api_contract.py</code> runs it on a schedule from a GitHub runner (the build sandbox cannot reach kalshi.co); a documented break fails CI and is published here. Evidence file: <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/endpoint_contract.json" target="_blank" rel="noopener">data/endpoint_contract.json</a>.</p>
+  </section>
+
+  <section class="box" style="margin-top:14px">
     <h2>Observed event categories on open demo events</h2>
     <div class="tablewrap"><table id="t-cats"></table></div>
     <p class="muted small">Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/events?status=open&limit=200" target="_blank" rel="noopener">GET /events?status=open&amp;limit=200</a> (paged). Category counts decide the topic mapping shown in <a href="methods.html">Methods</a>.</p>
@@ -71,7 +77,7 @@
     <p class="muted small">Source: <a href="https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude" target="_blank" rel="noopener">GET /markets?status=settled&amp;min_settled_ts=now-72h</a> (window noted per snapshot). Result and settlement fields are verbatim from the response.</p>
   </section>
 
-  <p class="footer">Snapshots refresh every 3 hours via GitHub Actions after deploy (<code>.github/workflows/pages.yml</code>, cron <code>17 */3 * * *</code>), committed with the exact fetch log in <code>data/log.md</code>. The previous collector run's health is recorded in <code>data/collect_status.json</code>; when an upstream read fails the collector keeps the last verified files rather than overwriting them with partial data.</p>
+  <p class="footer">Snapshots refresh every 3 hours via GitHub Actions after deploy (<code>.github/workflows/pages.yml</code>, cron <code>17 */3 * * *</code>), committed with the exact fetch log in <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md" target="_blank" rel="noopener"><code>data/log.md</code></a>. The previous collector run's health is recorded in <code>data/collect_status.json</code>; when an upstream read fails the collector keeps the last verified files rather than overwriting them with partial data. The endpoint-contract probe above re-runs on the same cadence from <code>.github/workflows/live-client.yml</code>.</p>
 </main>
 <script>
 (function(){
@@ -101,6 +107,44 @@ fetch('data/cors.json',{cache:'no-store'}).then(function(r){return r.ok?r.json()
   var t=document.getElementById('t-cors');
   t.innerHTML='<tr><th>Probe</th><th>Origin sent</th><th>HTTP</th><th>access-control-allow-origin (verbatim)</th><th>Source</th></tr>'+
     (c?c.probes.map(function(p){return '<tr><td>'+esc(p.label)+'</td><td>'+esc(p.request_origin)+'</td><td>'+p.http_status+'</td><td>'+esc(p.response_headers['access-control-allow-origin']||'(not present)')+'</td><td class="src"><a target="_blank" rel="noopener" href="'+esc(p.url)+'">endpoint</a></td></tr>';}).join(''):'<tr><td colspan="5" class="muted">unavailable</td></tr>');
+});
+
+fetch('data/endpoint_contract.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(d){
+  var t=document.getElementById('t-contract');
+  if(!d||!d.cases||!d.cases.length||d.placeholder){ t.innerHTML='<tr><td colspan="6" class="muted">Not probed yet — this file is a placeholder with zero results until the first scheduled run of the <a href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/live-client.yml" target="_blank" rel="noopener">Live client</a> workflow, which needs a runner that can reach the API. No status code on this page is invented in the meantime.</td></tr>'; return; }
+  var VERD={ok:'matches the documented contract','status-mismatch':'unexpected HTTP status','field-mismatch':'a required field is missing',
+            'ladder-order-mismatch':'order book is not ascending (the ladder assumption)',unreachable:'endpoint unreachable from the runner',
+            'bad-json':'body was not JSON','no-body':'no body to check','no-sample':'skipped: no market was discovered to build the request from',
+            'paging-shape-mismatch':'tickers-only request returned a cursor (polling assumption broken)','cors-missing':'no CORS header returned',
+            'origin-not-echoed':'the caller origin was not echoed'};
+  document.getElementById('contract-note').innerHTML='<b>Probe '+String(d.generated_at).replace('T',' ').slice(0,19)+
+    'Z</b> · '+d.summary.ok+'/'+d.summary.cases+' cases match the documented contract · '+d.summary.failed+
+    ' mismatched · '+d.summary.informative+' recorded for information only · sample market '+
+    (d.sample_market?('<a target="_blank" rel="noopener" href="'+esc(API+'/markets/'+encodeURIComponent(d.sample_market.ticker))+'">'+esc(d.sample_market.ticker)+'</a>'):'(none)')+
+    ' · one request per '+d.policy.pace_s+' s, single retry after a 429.';
+  t.innerHTML='<tr><th>Endpoint case</th><th>HTTP</th><th>Expected</th><th>Verdict</th><th>What was checked</th><th>Official rule</th></tr>'+
+    d.cases.map(function(c){
+      var extra=[];
+      if(c.items_seen!=null) extra.push(c.items_seen+' items');
+      if(c.returned!=null) extra.push('returned '+c.returned);
+      if(c.cursor_empty_as_documented!=null) extra.push('empty cursor: '+c.cursor_empty_as_documented);
+      if(c.yes_dollars_levels!=null) extra.push('levels yes/no '+c.yes_dollars_levels+'/'+c.no_dollars_levels);
+      if(c.settled_rows!=null) extra.push('settled rows '+c.settled_rows+' ('+c.rows_with_settlement_ts+' with settlement_ts)');
+      if(c.result_values_seen) extra.push('results '+c.result_values_seen.join('|'));
+      if(c.rate_limit_headers) extra.push('X-RateLimit '+Object.keys(c.rate_limit_headers).length+' present');
+      else extra.push('no X-RateLimit headers (normal for cacheable market data)');
+      if(c.access_control_allow_origin) extra.push('allow-origin '+c.access_control_allow_origin);
+      var bad=(c.item_fields_missing||[]).concat(c.missing_top_level_fields||[]);
+      if(bad.length) extra.push('missing fields: '+bad.join(', '));
+      if(c.error) extra.push(String(c.error).slice(0,120));
+      var v=c.verdict;
+      var cls=v==='ok'?'up':(c.informative?'muted':'down');
+      return '<tr><td><a target="_blank" rel="noopener" href="'+esc(c.url)+'">'+esc(c.id)+'</a><br><small class="muted">'+esc(String(c.url).replace(API,''))+'</small></td>'+
+        '<td>'+(c.http_status==null?'':esc(c.http_status))+'</td><td>'+esc(Array.isArray(c.expected_status)?c.expected_status.join('|'):String(c.expected_status==null?'':c.expected_status))+'</td>'+
+        '<td class="'+cls+'">'+esc(VERD[v]||v||'')+(c.informative?' (informative)':'')+'</td>'+
+        '<td class="small">'+esc(c.note||'')+(extra.length?'<br><small class="muted">'+esc(extra.join(' · '))+'</small>':'')+'</td>'+
+        '<td class="src"><a target="_blank" rel="noopener" href="'+esc(c.doc)+'">docs</a></td></tr>';
+    }).join('');
 });
 
 fetch('data/categories.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(c){

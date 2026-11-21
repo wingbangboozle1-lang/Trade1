@@ -1,0 +1,45 @@
+{
+ "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTC50VS100-BTC-26DEC31/orderbook?depth=5",
+ "fetched_at_utc": "2026-11-21T07:09:00Z",
+ "observed_by": "Observed by an Arena page fetch of the official demo endpoint on 2026-11-21 (the build sandbox cannot reach kalshi.co). Body below is verbatim from the response.",
+ "response": {
+  "orderbook_fp": {
+   "no_dollars": [
+    [
+     "0.5500",
+     "370.37"
+    ],
+    [
+     "0.5600",
+     "378.78"
+    ],
+    [
+     "0.5700",
+     "358.13"
+    ]
+   ],
+   "yes_dollars": [
+    [
+     "0.2400",
+     "694.44"
+    ],
+    [
+     "0.2500",
+     "666.66"
+    ],
+    [
+     "0.3900",
+     "427.35"
+    ],
+    [
+     "0.4000",
+     "416.66"
+    ],
+    [
+     "0.4100",
+     "406.50"
+    ]
+   ]
+  }
+ }
+}

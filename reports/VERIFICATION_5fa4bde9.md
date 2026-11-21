@@ -1,0 +1,235 @@
+# Verification record — session `5fa4bde9` (rate-limit governor + live endpoint re-verification)
+
+Date: 2026-11-21 (UTC). Branch `arena/5fa4bde9-trade1`, branched from `7d1c21f`.
+Scope agreed on `COORDINATION.md`: the live browser client's request pacing, the
+"429 is not an outage" behaviour, and re-verification of the demo-API endpoints the
+pages actually call. Deliberately **not** touched: `scripts/collect*.py`,
+`scripts/portfolio_engine.py`, `assets/portfolio.js`, `data/portfolio.json`,
+`data/meta.json`, `resolved.html`, `tools/*`, `README.md`, `EXECUTIVE_SUMMARY.md`,
+`.github/workflows/pages.yml` — all claimed by other sessions.
+
+Every claim below is either (a) an official page quoted verbatim, (b) a live response
+captured this session and committed as a fixture, or (c) a command output reproduced
+here. Nothing is inferred to fill a gap; where a thing could not be verified from this
+sandbox it says so.
+
+---
+
+## 1. What was verified, and against which official source
+
+| # | Claim in the code/UI | Official source (re-read 2026-11-21) | What was checked |
+|---|---|---|---|
+| 1 | A 429 carries `X-RateLimit-*` headers **but not `Retry-After`**; "There is no penalty or cooldown"; "Apply exponential backoff on 429" | [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) § *When you hit the limit* | The governor never reads `Retry-After` (a test greps the shipped sources for the string, comments stripped, and fails if it appears); backoff is `1.2 s · 2^(streak−1)` capped at 30 s |
+| 2 | Publicly cacheable responses — "which include most market data" — "carry none of these headers" | same page, § *Rate limit headers*, bullet 4 | Absent headers are treated as the normal case, never as a throttle (test G3); the readout shows "—" |
+| 3 | `X-RateLimit-Reset` = "Seconds, to the millisecond, until the bucket is full again" | same page, header table | The governor waits on `reset` **only** when `remaining === 0`; a partial budget is display-only, because waiting for a *full* bucket would be far longer than the client needs (test G4) |
+| 4 | Unauthenticated public requests "are subject to separate limits" | same page, § *Unauthenticated requests* | No equivalence is claimed between the local 3 req/s budget and the exchange's anonymous ceiling; the tier table (Basic 200 Read tokens/s, default cost 10 tokens) is quoted as the *authenticated* floor and disclosed as a deliberate choice — see Flagged **KX-4** |
+| 5 | Order books return bids only; arrays "sorted by price in ascending order, so the best (highest) bid is the last element"; `depth` 1–100, "Values below 0 or above 100 are rejected with 400"; an unknown ticker answers 200 with empty arrays | [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) | Confirmed against the live capture: `yes_dollars` = `0.24, 0.25, 0.39, 0.40, 0.41` — ascending, best last; the panel's best bid is the **last** element, asks are derived (test C1/C2, probe case `orderbook`, `depth=101 → 400` recorded as informative) |
+| 6 | YES ask ≡ $1.00 − NO bid (asks not published) | [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) | $1.00 − 0.57 = **$0.43** best YES ask, spread $0.02 against the 0.41 bid, asserted from the live fixture (test C2) |
+| 7 | `limit` for trades is 1–1000; `min_ts`/`max_ts` are **seconds** and millisecond values are rejected 400 `bad_request`; an unknown ticker returns 200 with an empty list | [Get Trades](https://docs.kalshi.com/api-reference/market/get-trades) | The client sends seconds only; the probe records `trades-ms-min-ts` → 400 as informative; tape parsing is asserted on the live fixture (test C3, which also pins the re-sort because the response arrived newest-first) |
+| 8 | Candlesticks live at `/series/{series_ticker}/markets/{ticker}/candlesticks`, `period_interval` ∈ {1, 60, 1440} | [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks) | The client path matches; the probe asks 1/60/1440 and records `interval=0 → 400`; C4 pins `price.close_dollars` at `end_period_ts × 1000` |
+| 9 | `/markets` `status` filter enum is **`unopened \| open \| paused \| closed \| settled`** — five values, `paused` included (corrected after re-reading `MarketStatusQuery` in the official OpenAPI block; an earlier revision of this record listed four). The response's own `status` enum is `initialized \| inactive \| active \| closed \| determined \| disputed \| amended \| finalized`; `limit` is 0–1000 (default 100); `min_updated_ts`/`max_updated_ts` may combine with `series_ticker` **only** alongside `mve_filter=exclude`; "when `event_ticker` or `tickers` is the only filter, every match is returned in ONE response, `limit` is not applied and the cursor is empty"; responses "are cached for a short time" | [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) | The batched watchlist request relies on the single-response shape; the probe asserts it (`markets-by-tickers` + `batch_check`, which fails the contract if a cursor ever appears), and the caching sentence is what justifies "prices can lag several seconds" in the UI notes |
+| 10 | `/events` `limit` maximum **200**, default 200 | [Get Events](https://docs.kalshi.com/api-reference/events/get-events) | The client and collector use 200, i.e. the cap, not over it; the probe records `events?limit=1000 → 400` as informative (this is Flagged item 2 on the site, already corrected by an earlier session) |
+| 11 | A settled market carries `result` and `settlement_ts`; result ∈ yes/no | [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) | Test C5 feeds the verbatim settled response through the real client and asserts both rows are recorded as **NO** with their settlement time — a `result:"no"` must never be skipped as "no result" |
+| 12 | 429 must not be presented as an outage or as empty data (project rule, from the brief: no inferred/filled values) | rule 12 of the task brief, implemented per sources 1–3 | `bail()` classifies `throttled` / `dropped` separately from a real failure; only a real failure may use the on-disk snapshot; discovery pauses with an explicit note; the pill reads `LIVE · throttled, backing off N.Ns`. Tests W1–W3 boot the real `dashboard.html` in jsdom and fail if an all-429 run relabels the site `SNAPSHOT` |
+
+## 2. Live traffic actually observed this session
+
+The build sandbox has **no route to `*.kalshi.co`**: every `curl` to
+`external-api.demo.kalshi.co` ends in `SSL_ERROR_SYSCALL`, so the collector cannot be
+re-run here and `api_contract.py` cannot be executed from it (see §4). Live responses
+were obtained from a browser session and are committed **verbatim** — nothing in them
+is synthetic, and the exact URL plus capture time is inside each file:
+
+| Fixture (under `data/samples/`) | Captured | Response |
+|---|---|---|
+| `orderbook-live-sample.json` | 2026-11-21T07:09Z | 200, `orderbook_fp` with 5 YES / 3 NO levels for `KXBTC50VS100-BTC-26DEC31` |
+| `trades-live-sample.json` | 2026-11-21T07:09Z | 200, 3 trades, newest-first, `yes_price_dollars:"0.4300"` |
+| `candlesticks-live-sample.json` | 2026-11-21T07:09Z | 200, 1 candle at `period_interval=60` |
+| `settled-markets-live-sample.json` | 2026-11-21T07:09Z | 200, 2 settled `KXDOTA2GAME` markets, both `result:"no"`, both with `settlement_ts` (field excerpt; see `excerpt_note` in the file) |
+
+Two findings came directly out of this live traffic and are recorded on
+[Flagged](../flagged.html) rather than quietly fixed:
+
+1. **`GET /markets?series_ticker=KXBTC&status=open&limit=3` answers 200** with
+   `status:"active"` rows. So `data/meta.json`'s `markets_status_open_accepted:false`,
+   `markets_open_count:33`, `settled_total:0` and the zero `gas-prices` event count are
+   artifacts of a throttled collector run — [data/log.md](../data/log.md) for that run
+   records **220 lines with `429` against 31 with `200`** — not API behaviour.
+   Flagged as **KX-2**; the collector itself is another session's claim, so no count is
+   asserted here that this session did not observe.
+2. The pre-existing `data/samples/orderbook-sample.json` (produced by CI) contains an
+   **empty** book under `orderbook_fp_capped_to_40_levels_per_side`, so any ordering
+   assertion written against it is vacuous. Flagged as **KX-6**; the sample is left in
+   place and the live captures are used instead.
+
+## 3. What changed
+
+| File | Change |
+|---|---|
+| `assets/governor.js` | **new** — `KalshiGovernor`: continuous-refill token bucket, 4 strict-priority FIFO queues under `maxInFlight`, per-URL coalescing, per-URL requeue budget on 429, exponential backoff decayed by any clean response, overflow shedding that never touches the alert path, opportunistic rate-header use. Float-guard `EPS` in the refill arithmetic (without it every wait rounded up and the whole schedule drifted). |
+| `assets/app.js` | `api()` routed through the governor; `priFor()`/`retryFor()` derive priority from the path in one place; `bail()` classifies `throttled`/`dropped` vs a real failure; snapshot fallback restricted to real failures; host failover on ≥5xx only, never on 429; discovery clamps/pauses while cooling; `renderStatus()` cooldown branch above the mode check; `#kx-ratelimit` readout refreshed every 2 s while visible; the response body is parsed by the caller, never by the governor. |
+| 7 HTML pages | `<script src="assets/governor.js">` before `assets/model.js` (`methods/suggestions/flagged` carry no engine script and were skipped) |
+| `assets/site.css` | `.small.warn` (amber) for the throttled pill |
+| `tests/rate_governor.test.mjs` | **new** — 14 checks (G1–G11, G1b, W1–W3) on a deterministic clock + three jsdom boots of the real `dashboard.html` |
+| `tests/live_contract.test.mjs` | **new** — C1–C5: the real client parsing the verbatim live responses, plus the candlestick request the client builds (path, `period_interval`, integer-second window) checked against the documented endpoint |
+| `scripts/api_contract.py` | **new** — ~20-case live endpoint-contract probe + `--selftest` (9 offline checks of its assertion helpers, run in CI) |
+| `.github/workflows/live-client.yml` | **new** — job `client` (offline gates, no network ⇒ cannot flake) + job `contract` (the probe, from a runner, publishing `data/endpoint_contract.json` on `main`; a documented contract break fails the job *after* its evidence is committed) |
+| `data.html` | "Live endpoint contract" panel: per-case status vs documented status, verdict, what was checked, doc link; explicit "Not probed yet" state |
+| `data/endpoint_contract.json` | labelled **placeholder**, `cases: []`, zero results — see §4 |
+| `methods.html` §7 | rewritten to document the governor and the probe (the numbers, the header semantics, and the "429 is never an outage" rule) |
+| `flagged.html` | new section, items **KX-1 … KX-6** |
+| `package.json` | my suites **appended** to the shared `test` chain (the pre-existing chain was left intact); new `test:rate` script; `jsdom` declared as a devDependency |
+
+## 4. Honest limits — what is *not* verified
+
+* **The live probe has never been executed from a networked environment.** It compiles,
+  its helpers pass their self-tests, and its output file is committed as a placeholder
+  that states it contains no probe results. The first run of the `Live client` workflow
+  on `main` produces the real file; nothing on the site was back-filled meanwhile.
+  Flagged as **KX-3**.
+* The local budget (3 req/s, burst 6, ≤2 in flight, queue cap 150) is an **engineering
+  choice**, not a documented limit for anonymous traffic (**KX-4**).
+* The governor's 150-entry queue cap and shedding are approximations of what a real
+  per-IP budget does under a burst; they protect the alert path, they do not model the
+  exchange's bucket.
+* `tools/render_test.mjs --offline` does **not** enforce the promise in its own
+  docstring (`__offlineHits` is written once and read nowhere) — flagged as **KX-5**
+  with a one-line fix suggested, but not edited here because `tools/` is another
+  session's claim.
+* `data/samples/settled-markets-live-sample.json` is a **field excerpt** of a real
+  response (long `rules_primary`/`rules_secondary` text trimmed); the file says so in
+  `excerpt_note`. The events wrapper in `tests/live_contract.test.mjs` C5 is a **test
+  fixture, not an API response**, and is labelled as such in the code; the market rows
+  it carries are verbatim.
+
+## 5. Commands run, with the output that matters
+
+```
+$ npm test            # the merged chain (14 pre-existing suites + the 3 added here), real exit code 0
+3 passed, 0 failed            # tests/engine.test.mjs
+6 passed, 0 failed            # tests/live_fixes.test.mjs
+RESULT: 48 passed, 0 failed   # tests/live_dash.test.mjs
+RESULT: 21 passed, 0 failed   # scripts/test_fees.mjs / test_model.mjs
+60/60 portfolio checks passed # tests/portfolio.test.mjs
+demo-account tests: 89 passed, 0 failed
+Ran 10 tests / OK             # python3 tests/test_collect.py
+Ran 16 tests / OK             # python3 tests/test_collect_hardening.py
+Ran 6 tests / OK              # python3 tests/test_collect_failclosed.py
+14 passed, 0 failed           # tests/rate_governor.test.mjs
+5 passed, 0 failed            # tests/live_contract.test.mjs
+selftest: ok                  # scripts/api_contract.py --selftest  (9 checks)
+real 0m26.4s   exit=0         # (verified with (time npm test) > log, not piped through tail)
+
+$ npm run check
+BUILD OK — 18 HTML, 7 JS files validated, 0 broken links.
+{"checked":{"html":18,"links":470,"rows":1248,"resolved":825},"failures":0}
+{"pages":16,"links":430,"external":386,"datarefs":8}
+16 published pages, 430 local links, 386 external links, 0 failures
+every rendered row links its own official record (431 rows, 707 official links)
+# the table/link counts move with every snapshot refresh — these are this session's run;
+# re-running `npm run check` after a collector commit is expected to shift them slightly
+
+$ node tools/render_test.mjs --offline --wait=5000   # index, dashboard, topics/crypto, resolved,
+                                                     # portfolio, data, sources, methods, flagged
+errors: [] on all nine pages (rows/links: 0/46, 121/364, 121/364, 200/421, 199/628,
+182/509, 58/82, 31/82, 110/264)
+# the render gate's apiRequests list shows /markets?tickers=… requested twice for the same
+# URL and served once — the coalescing path, observed on the shipped client
+
+$ python3 scripts/api_contract.py --selftest          # offline, uses the committed live samples
+pass the verbatim live ladder satisfies the documented order
+pass level counts read from the live book
+pass a descending book is reported, not silently plotted
+pass the verbatim settled rows satisfy the result/settlement_ts contract
+pass results stay inside the documented enum
+pass an undocumented result value fails the contract
+pass an empty settled window is not by itself a mismatch (it may be a quiet hour)
+pass the documented single-response paging shape is accepted
+pass a cursor on a tickers-only request breaks the polling assumption
+selftest: ok
+```
+
+One integration lesson worth recording: an earlier version of `tests/live_contract.test.mjs` booted the page
+**with** `data/topics/*.json` read from disk, so the candlestick case depended on whichever markets the last CI
+snapshot happened to contain. It passed on this branch and failed minutes after rebasing onto `main`, because the
+snapshot had refreshed and the fixture ticker was no longer in the watchlist. The boot no longer reads `data/` at
+all — it links the one event→series mapping the candle path needs, with the strings taken verbatim from the live
+capture URL, and asserts `mode !== 'snapshot'` so a live-path test can never pass vacuously. Deterministic across
+three back-to-back runs afterwards. (Any test that reads the published snapshots should state that dependency the
+same way.)
+
+One process-level defect was found and fixed **in the new test file itself**: a passing
+suite that never exits. A jsdom boot keeps the dashboard's `setInterval` timers alive, so
+`tests/live_contract.test.mjs` printed "5 passed, 0 failed" and then idled — under
+`npm test && …` that stalls every later suite and, in CI, burns the job timeout while
+looking green in the log. The finalizer now closes every window and exits with the
+failure count; `npm test` runs the whole chain in 21.6 s with exit code 0. (This is also
+why an earlier "all green" reading of a `tail`-piped long test run was wrong: a pipeline
+reports the last command's status, so a killed `npm test` looked like exit 0.)
+
+## 6. CI feedback loop (why the workflow wraps its test steps)
+
+The first CI run of `.github/workflows/live-client.yml` failed the same suite that passes
+locally, and **the runner log could not be read from this sandbox**: `gh run view --log`
+and the REST log endpoint both redirect to Actions log storage, which is outside the
+sandbox's network allowlist (earlier sessions recorded the same limitation). Job *status*
+and *step* results are served by `api.github.com` and are readable — so the workflow now
+surfaces diagnosis through channels the sandbox can see:
+
+* `.github/workflows/run-and-annotate.sh` runs each offline suite and, on failure, emits a
+  `::error::` check **annotation** containing the failing lines (and a longer tail when the
+  suite crashed rather than asserted). Annotations are readable via
+  `GET /repos/…/check-runs/{id}/annotations`.
+* the probe job writes its per-case table to `$GITHUB_STEP_SUMMARY` and posts it as a **PR
+  comment**, so a live-contract disagreement is reviewable from the pull request itself,
+  from inside or outside the sandbox.
+
+Two real test defects were found this way and fixed, both of which could pass locally and
+fail on a runner:
+
+1. **fixed sleeps instead of preconditions.** The jsdom boots waited 600–700 ms for the page
+   to fetch a book or parse candles. Because the governor paces requests (3/s, ≤2 in flight),
+   a request issued right after boot can legitimately wait on the queue for longer than any
+   constant. Both suites now poll for the state they are about to assert on
+   (`until('the order book for …', () => state.book)`), with the timeout named in the failure
+   message. Deterministic by construction rather than by luck.
+2. **teardown racing callbacks.** Closing a jsdom window while the page's own timers were
+   still queued made a late `renderTable` throw `TypeError: Cannot read properties of undefined
+   (reading 'querySelector')` in a scope with no test around it — the process died between two
+   tests, after printing 13 passes. `boot()` now wraps the window's `setTimeout`/`setInterval`
+   so a callback that throws *only because its document is gone* is dropped, every other error
+   still propagates, and all windows are closed by a single finalizer that then exits with the
+   failure count.
+
+## 6a. What the first live run of the probe found (CI, 2026-11-21T08:44Z)
+
+Run `44886293135`, job *Live endpoint contract probe*: **16 of 20 cases matched, 4 did not, 2 recorded for
+information**. All four disagreements were **wrong expectations in my probe, not changes at the exchange** — which is
+exactly what publishing the evidence rather than a bare red cross buys:
+
+| case | what the probe demanded | what the official schema actually says | fix |
+|---|---|---|---|
+| `series-detail` | `ticker`, `title` at the **top level** | `GetSeriesResponse` is `{ "series": Series }` — `series` is a **required** key and the payload is an **object**, not a list. The Series required members are `ticker, frequency, title, category, categories, tags, settlement_sources, contract_url, contract_terms_url, fee_type, fee_multiplier, additional_prohibitions` | the checker now reads a mapping as a single item, and the case demands the documented required list |
+| `markets-series` | `series_ticker` on each market row | the documented `Market` schema has **no `series_ticker` property at all** (its required list names `event_ticker`); the live rows agree | the case demands the documented required list instead, and its note records that the client must therefore take the series from the event it already has or from the ticker prefix — which is what `assets/app.js` does (`seriesFrom()` falls back deliberately) |
+| `candles-60`, `candles-1440` | non-empty item field checks satisfied | HTTP 200 with `candlesticks: []`, because the sample market had been **created 44 minutes earlier** (`KXDEMOFUTHOURLY-26NOV21H09-UP`, `created_time 2026-11-21T08:00:04Z`) and had no hourly or daily period yet — an empty array is a legitimate answer, and the sample was picked as the busiest row of a listing that is sorted newest-first | zero items is now recorded as `items_empty` and never a *field* violation; where the query itself defines the answer set (`min_items=1`) an empty answer **is** a violation; and the sample market is chosen as the **oldest traded** row so the longer windows have data |
+
+Two of these were only discoverable from the live response, and both the runner (annotations + PR comment, §6) and the
+sandbox contributed: `fetch_page` in this sandbox **can read a demo-API response body** — it reported the
+`{"series": …}` wrapper and the exact key set of a market row — while it cannot report status codes or headers, which
+is why the probe still has to run on a runner. Four new offline self-tests pin the new rules
+(`an empty array … is not a field mismatch`, `a request whose answer set is defined by the query itself must not come
+back empty`, `a single-record response documented as an object is read as one item`, and one proving a genuinely
+missing required field is still reported), so the fix cannot quietly regress into blanket tolerance.
+
+## 7. Review links for manual spot-checking
+
+* [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) — items 1–4
+* [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook) · [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) — items 5–6
+* [Get Trades](https://docs.kalshi.com/api-reference/market/get-trades) — item 7
+* [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks) — item 8
+* [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) — item 9
+* [Get Events](https://docs.kalshi.com/api-reference/events/get-events) — item 10
+* [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) — item 11
+* Live endpoints as called by the client: [orderbook `depth=5`](https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTC50VS100-BTC-26DEC31/orderbook?depth=5) · [trades `limit=3`](https://external-api.demo.kalshi.co/trade-api/v2/markets/trades?ticker=KXBTC50VS100-BTC-26DEC31&limit=3) · [candlesticks `period_interval=60`](https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTC50VS100/markets/KXBTC50VS100-BTC-26DEC31/candlesticks?start_ts=1763568000&end_ts=1763654400&period_interval=60) · [settled markets](https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1763568000&limit=2&mve_filter=exclude) · [batched tickers](https://external-api.demo.kalshi.co/trade-api/v2/markets?tickers=KXBTC50VS100-BTC-26DEC31) · [depth=101 (documented 400)](https://external-api.demo.kalshi.co/trade-api/v2/markets/KXBTC50VS100-BTC-26DEC31/orderbook?depth=101)
+* Code: [assets/governor.js](https://github.com/wingbangboozle1-lang/Trade1/blob/main/assets/governor.js) · [scripts/api_contract.py](https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/api_contract.py) · [tests/rate_governor.test.mjs](https://github.com/wingbangboozle1-lang/Trade1/blob/main/tests/rate_governor.test.mjs) · [tests/live_contract.test.mjs](https://github.com/wingbangboozle1-lang/Trade1/blob/main/tests/live_contract.test.mjs) · [live-client.yml](https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/live-client.yml)
+* Site pages carrying the same content: [Methods §7](../methods.html) · [Flagged KX-1…KX-6](../flagged.html) · [Data → Live endpoint contract](../data.html)
