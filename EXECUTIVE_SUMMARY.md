@@ -161,27 +161,30 @@ Official sources re-read 2026-11-21: [API Environments](https://docs.kalshi.com/
 | Artifact | Generated | Headline (source in file) |
 |---|---|---|
 | `data/snapshot.json` | 2026-11-20T19:11Z | 17,753 matched rows → 1,118 open kept + 625 resolved kept (494 NO / 131 YES). Open by topic: elections 7,954 · crypto 440 · culture 329 · golf 67 · gas-prices **0** |
-| `data/topics/*.json` + `data/meta.json` + `data/resolved.json` | 2026-11-21T03:59Z (run restored by PR #80) | Events: elections 2,163 · crypto 89 · culture 68 · golf 46 · gas 11 (75 embedded market rows, 74 `active`). Largest estimated event dollars: `KXPRESNOMD-28` $1,272,018,312.83 · `KXBTCY-27JAN0100` $140,647,984.60 · `KXOSCARPIC-27` $2,769,757.45 · `KXPGATOUR-THRC26` $202,021.80 · `KXAAAGASM-26NOV30` $61,840.01 — all computed `contracts × last price` sums, labelled as estimates in the artifact itself. `meta.findings`: 14,678 open markets · 6,000 settled in the recent window (1,904 in scope, 200 rows published) |
-| `data/portfolio.json` (CI ledger) | 2026-11-21T07:08Z | 12 trades (8 open, 4 realised, 2 settled), 0W/4L, realised −$59.59 on $99.30 cost (ROI −60.01%), equity $933.48 / $1,000 (−6.65%), cash $744.17, peak $995.44, max drawdown −$61.96, 30 alerts, 21 resolutions. Per strategy (trades / closed / realised P&L): momentum 7 / 2 / −$29.17 · fade 1 / 1 / −$5.55 · harvest 1 / 1 / −$24.87 · breakout 3 / 0 / $0. Per topic: crypto 7 / 3 / −$55.29 · culture 3 / 1 / −$4.30 · elections 2 / 0 / $0 · gas and golf 0 trades |
+| `data/topics/*.json` + `data/meta.json` + `data/resolved.json` | 2026-11-21T07:17:44Z (collector run measured at `main` @ `52478f1`) | Events: elections 2,163 · crypto 88 · culture 68 · golf 45 · gas 10 (embedded market rows 199 / 204 / 189 / 132 / 67, active 186 / 185 / 176 / 131 / 66). Largest estimated event dollars: `KXPRESNOMD-28` $1,275,432,790.95 · `KXBTCY-27JAN0100` $209,916,569.15 · `KXOSCARPIC-27` $2,785,537.52 · `KXPGATOUR-THRC26` $203,846.00 · `KXAAAGASM-26NOV30` $61,771.79 — computed `contracts × last price` sums, labelled as estimates in the artifact itself. `meta.findings`: 14,646 open markets · 2,400 open events in the capped scan · 6,000 settled in the recent window (2,675 in scope, 200 rows published) |
+| `data/portfolio.json` (CI ledger) | 2026-11-21T07:28:04Z | 12 trades (8 open, 4 realised, 2 settled), 0W/4L, realised −$59.59 on $99.30 cost (ROI −60.01%), equity $933.48 / $1,000 (−6.65%), cash $744.17, peak $995.44, max drawdown −$61.96, 34 alerts, 21 resolutions, 17 runs. Per strategy (trades / closed / realised P&L): momentum 7 / 2 / −$29.17 · fade 1 / 1 / −$5.55 · harvest 1 / 1 / −$24.87 · breakout 3 / 0 / $0. Per topic: crypto 7 / 3 / −$55.29 · culture 3 / 1 / −$4.30 · elections 2 / 0 / $0 · gas and golf 0 trades |
 | `data/demo_account/status.json` | 2026-11-20T19:37Z | `configured: false` — no demo-account balance/positions to report; execution log is `dry_run`/`not_sent` only. No account performance is claimed |
 
 **New irregularities (published on [Flagged](flagged.html), do not block):** NEW-1 two snapshot
-pipelines and three clocks (`snapshot.json` 2026-11-20T19:11Z · topic/meta/resolved 2026-11-21T03:59Z ·
-`data/log.md`'s newest run 06:58Z, whose files PR #80 later rolled back; freshness stated per file) · NEW-2
+pipelines on different clocks — `data/snapshot.json` is still 2026-11-20T19:11Z (nothing regenerates
+it) while the collector files are 2026-11-21T07:17:44Z, and different pages read different ones · NEW-2
 `notional_value_dollars` is $1/contract payout, so snapshot selection (≈ open interest) and live
 ranking (estimated traded dollars) are two different "highest dollar" definitions, both labelled ·
-NEW-3 the two pipelines disagree about gas prices (snapshot 0 markets vs 11 events / 74 active markets in the newer collector run) · NEW-4 portfolio sample
+NEW-3 the two pipelines disagree about gas prices (snapshot 0 markets vs 10 events / 66 active markets in the newer collector run) · NEW-4 portfolio sample
 (12 trades, 0 wins, only 4 closed) too small to judge strategies (backtest F7 + [Flagged item 8](flagged.html#f8) stand) · NEW-5 sandbox has no route to
 Kalshi (curl 000; verification via docs + committed CI evidence, AA-8 stands) · NEW-6 other sessions' PRs were
 left alone (at claim #70/#68/#67/#64/#58 were open; their authors have since merged #64 and #70 and closed
 #58; #79/#75/#68/#67 remain open and conflicting — nothing merged, edited or closed by this session) ·
 NEW-7 a dangling `#f7` anchor on the Flagged page was repaired (real ids added, stale reference
-re-pointed) · NEW-8 the newest collector run in `data/log.md` is 220 × `429` against 31 × `200`
-(its files were rolled back, and `scripts/collect.py` now reads fail-closed) — a `429` means the
-collector could not read that page, never that no market exists.
+re-pointed) · NEW-8 upstream rate-limiting, found and then verified fixed: the run logged at this
+session's base commit recorded 220 × `429` against 31 × `200`, its files were rolled back by PR #80,
+and the next scheduled run (07:17:44Z) logs 503 × `200`, 1 × `204` and **no `429` at all** with the
+collector now failing closed. A `429` means "the collector could not read that page", never
+"no such market exists".
 
 **Gates (this session, exit 0):** `npm run check` BUILD OK 18 HTML/6 JS, `check_site.mjs`
-1,249 rows/825 resolved/0 failures, `check_links.mjs` 16 pages/408 local/272 external links/0 failures · `npm test` all suites
-pass (portfolio 60/60, demo-account 89/89, test_collect 4/4) · `render_test.mjs --offline` with all
+1,248 rows/825 resolved/0 failures, `check_links.mjs` 16 pages/418 local/285 external links/0 failures · `npm test` all suites
+pass (engine 23/23, model.test 21/21, portfolio 60/60, demo-account 89/89, `tests/test_collect.py`
+after its rewrite by session `0b68e1e4`; `portfolio_engine.py selftest` 77/77) · `render_test.mjs --offline` with all
 16 pages named explicitly → 16 pages rendered / 0 JS errors · Pages `built` on `main` @ `7d1c21f` at claim; post-merge Pages
 verification recorded in `COORDINATION.md`.
