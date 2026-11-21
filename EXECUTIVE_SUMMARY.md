@@ -65,7 +65,7 @@ A live, interactive monitoring and paper-trading dashboard for the Kalshi **demo
 
 ## 5. Risks & limitations
 
-- Observation happens only while a page is open (no server-side capture yet — backlog item #8 on the Ideas page); localStorage persistence is per-browser.
+- **Live** observation happens only while a page is open (the browser lab's localStorage persistence is per-browser), but the **CI ledger** samples the demo API on a schedule with no browser open, so the trade record survives a reload — see [Methods §8](methods.html).
 - Simulated fills assume execution at observed quotes with no slippage; real resting orders may not fill the same way.
 - Demo behavior need not match production (per Kalshi's official documentation).
 - Everything here is educational; **nothing is financial advice**. Demo environment only (play money).
@@ -115,3 +115,35 @@ suites re-run after the merge: `check_site.mjs` 16 pages / 0 failures, `tests/en
 `tests/root_engine.test.js` 40 passed / 0 failed, `scripts/test_lib.mjs` passed, `tools/build.mjs` BUILD OK.
 One live cycle of the ledger ran on a GitHub runner ([workflow run `44801621609`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44801621609),
 both jobs success) — this sandbox has no route to `*.demo.kalshi.co`, which is itself verified and recorded rather than assumed.
+
+---
+
+## Addendum — session `3c017782`, 2026-11-21 (final integration: re-verification, reconciliation of the parallel branches, and the corrections it found)
+
+This pass is the integration step: five parallel branches were open, their content was read line by line, the parts that
+were verified were kept and the parts that would have *reverted* a later fix were dropped, and the combined tree was
+re-verified against the official Kalshi documentation — which was re-read directly for this pass (the
+[Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) page and the
+[fee-schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) were fetched and quoted verbatim in
+[Flagged](flagged.html) items BE-1 and 725-10).
+
+| What the pass found | What changed | Where it is published |
+|---|---|---|
+| **The shared board shipped unresolved conflict markers.** `COORDINATION.md` — which the site publishes — held `<<<<<<< HEAD` … `>>>>>>> origin/main` at lines 1359–1450, committed by an earlier merge. | The markers are removed and **both** sides are preserved. A new gate fails the build if any tracked file carries a merge marker (mutation-tested: injecting a marker makes the gate fail). | [Flagged 3c-1 / 3c-6](flagged.html) · `scripts/check_site.mjs` |
+| **The browser classifier and the Python collector disagreed.** The collector matched topic keywords as whole words; the live browser mirror matched them as bare substrings, so “petrol” matched inside “**Petrolul**” (a Romanian basketball match) and the live dashboard labelled it **gas-prices**. | `assets/model.js` now mirrors the collector's word-boundary semantics. Both implementations are tested against one shared corpus of official records. | [Flagged 3c-2](flagged.html) · `tests/collector.test.mjs` (18 checks) · `tests/fixtures/topic_cases.json` |
+| **The settled sweep was truncated but presented as a total.** The collector's own log records `page 6: +1000 items (total 6000); cursor=present` — the cursor was still present when the 6-page cap was reached — so `settled_total: 6000` and `in_scope_count: 1904` were **lower bounds**, not the exchange's totals for the 72-hour window. | The cap is raised to 20 pages, `paged()` reports truncation, the snapshot publishes `settled_pagination` and the two `*_is_lower_bound` flags, and the Resolved page says **“at least”**. | [Flagged 725-3 / 3c-3](flagged.html) · `data/resolved.json` · [Resolved](resolved.html) |
+| **The published “Gas prices” resolved section was entirely natural gas.** All four gas rows in the committed snapshot were `KXNATGAS15M-*` markets — “Natural Gas price up in next 15 mins?” — which the gas topic explicitly excludes. | The 4 rows were removed offline by re-applying the collector's own rule to the verbatim rows; no value was altered and the correction is recorded inside the data file. The collector now publishes a **topic-balanced** slice so all five topics appear instead of a slice the demo's continuous crypto settlement filled with crypto. | [Flagged 3c-3 / 3c-8](flagged.html) · `data/resolved.json → removed_out_of_scope` |
+| **Nothing checked that a published row links its own official record.** The pages that are actually published build each row's link in JavaScript at render time, so a static HTML check could not see it. | A new gate renders `data.html` and `resolved.html` in jsdom against the real data files and asserts row by row that each row carries its own `/events/{event_ticker}` or `/markets/{ticker}` link on the official demo base, and that nothing is silently dropped. It currently passes with **271 rendered rows / 413 official links**. | [Flagged 3c-5](flagged.html) · `scripts/check_row_sources.mjs` |
+| **Two positions were stacked on one market, and both lost everything.** The committed ledger held `KXETHD-26NOV2017-T1659.99` twice (momentum **and** harvest), both entered at `$0.95`, both settled **NO**, `−$24.87` each. | One open position per ticker **across all strategies**, and the directional strategies refuse an ask above **$0.90** (buying at $0.95 risks $0.95 to make $0.05). Harvest is exempt by design. Past ledger rows were **not** rewritten — the two losses stand in the record. | [Flagged BE-2](flagged.html) · `scripts/portfolio_engine.py` · `assets/model.js` |
+| **Ledger exit rows pointed at the cycle's batch quote URL** instead of the market's own record. | Every published ledger row (trade, exit, alert, resolution, position) now links its own `GET /markets/{ticker}` record; the batch URL stays published as the provenance of the prices. The committed artifact was re-sourced offline — no price, size, P&L or timestamp changed. | [Flagged 3c-4](flagged.html) · `portfolio_engine.py resource` |
+| **The fee schedule's Non-Standard table is partly OCR-garbled.** | The official PDF was re-read directly: 13 further rows whose ticker, title and multipliers align unambiguously were transcribed (`KXMARMAD` + 12 `KXNFL*`/`KXNHL*` rows), taking the untranscribed count from 42 to **29**. Every transcribed row has taker M = 1 — the default the brokers already used — so **no published fee changed**. The remaining 29 rows are still interleaved in the PDF's text layer and are left untranscribed rather than guessed. | [Flagged 725-10](flagged.html) · `data/fee_schedule_series.json` |
+
+**Gates after these changes (all local, exit 0):** `npm test` → engine 23/23 · live_fixes 3/3 · live_dash 6/6 · lib ok ·
+fees 50 · model 36 · root_engine 48/48 · model.test 21/21 · portfolio 60/60 · demo-account 89/89 · `tests/test_collect.py` **38/38** ·
+`tests/test_collect_failclosed.py` **6/6** · `tests/collector.test.mjs` **18/18** · `portfolio_engine.py selftest` **84/84** ·
+`tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links) · `check_site.mjs` 434 links / 1,249 rows / 821 resolved / **0 failures** ·
+`check_links.mjs` 400 local + 236 external links, **0 failures** · `check_row_sources.mjs` 271 rows / 413 official links / **0 failures**.
+
+**Still not verified (no inference made):** live demo-API *market values* from the build sandbox, which has no route to
+`*.demo.kalshi.co`. The official **documentation** was re-read directly and is quoted verbatim; only live market data
+remains unconfirmed. That limitation is published, not hidden — [Flagged 3c-7](flagged.html).

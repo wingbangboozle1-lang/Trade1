@@ -108,5 +108,35 @@ try {
 }
 
 await import('../assets/lib.mjs');
+
+// Conflict-marker gate.
+// `COORDINATION.md` is published on the live site, and an earlier merge committed
+// unresolved conflict markers into it (flagged item 3c-1). Nothing else caught it,
+// because an HTML/JSON check passes on a file that contains both sides of a
+// conflict. Any tracked text file that still carries a merge marker now fails
+// the build.
+const MERGE_MARKERS = /^(<<<<<<< |>>>>>>> |=======$)/m;
+const TEXT_EXT = new Set(['.html', '.md', '.json', '.js', '.mjs', '.css', '.yml', '.yaml', '.txt', '.py']);
+{
+  const files = [];
+  async function scan(dir) {
+    for (const e of await readdir(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.name === '.git' || e.name === 'node_modules' || e.name === '.render-cache') continue;
+      if (e.isDirectory()) { await scan(p); continue; }
+      if (TEXT_EXT.has(path.extname(e.name))) files.push(p);
+    }
+  }
+  await scan(SITE);
+  for (const f of files) {
+    let text;
+    try { text = await readFile(f, 'utf8'); } catch { continue; }
+    if (MERGE_MARKERS.test(text)) {
+      const line = text.split('\n').findIndex((l) => MERGE_MARKERS.test(l + '\n')) + 1;
+      failures.push(`unresolved merge conflict marker in ${f} (line ${line})`);
+    }
+  }
+}
+
 console.log(JSON.stringify({ checked, failures: failures.length }));
 if (failures.length) { console.error(failures.slice(0, 50).join('\n')); process.exit(1); }

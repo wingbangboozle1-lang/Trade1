@@ -43,6 +43,9 @@ tracking, and every table row linked to the official API record it came from.
   cycle with the previous one, books fills at the official quotes with the official taker fee (`ceil_6dp` model fee plus
   the $0.01 balance alignment per [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding)), settles on the
   exchange's YES/NO result, and commits `data/portfolio.json` + `data/portfolio_state.json` to `main` with `[skip ci]`.
+  Every ledger row (trade, exit, resolution, alert) carries its **own** official market record,
+  `GET /markets/{ticker}`, as its row source; the batched quote endpoint that produced the cycle
+  is published separately in `sources.quote_endpoints` and in `data/log.md`.
   Simulation only: nothing authenticates and no order is ever sent. Its rules and its differences from the browser lab
   are documented in [methods.html](methods.html) §8–§9. (The account-capable layer is separate: `demo-account.yml` +
   `scripts/demo_account/**`, which stays inert until the owner adds the demo-key secrets.)
@@ -65,15 +68,47 @@ tracking, and every table row linked to the official API record it came from.
 npm install --no-audit --no-fund jsdom   # test dependency only
 npm run build    # JS syntax + internal links + nav targets
 npm run test     # 23 jsdom/page-engine assertions plus offline library tests
-node scripts/check_site.mjs   # every snapshot row carries an official source URL
+node scripts/check_site.mjs   # every snapshot row carries an official source URL; no merge-conflict marker in any tracked file
 
 # the CI ledger's own checks (all offline, no credentials, no network needed)
-python3 scripts/portfolio_engine.py selftest   # 50 checks: fee math, alert boundary, sizing, settlement, determinism
+python3 scripts/portfolio_engine.py selftest   # 84 checks: fee math, alert boundary, sizing, settlement, determinism,
+                                               #   entry guards (one position per ticker, $0.90 entry cap), per-row sources
 node tests/portfolio.test.mjs                  # ledger invariants + portfolio.html boot in jsdom (skips the DOM part without it)
 node scripts/check_links.mjs                   # every published page: nav parity, local links, external links are https+official
+
+# re-source every committed ledger row with its own official market record
+# (offline, deterministic: the row's `source` is a pure function of its ticker)
+python3 scripts/portfolio_engine.py resource
+# the collector's classification + pagination regression gate (offline, no network)
+python3 tests/test_collect.py                 # 38 checks: topic exclusions, keyword word boundaries,
+                                               #   snapshot regressions, pagination facts
+python3 tests/test_collect_failclosed.py      # an upstream 429 must NOT overwrite a verified artifact
+node tests/collector.test.mjs                  # the browser classifier (assets/model.js) matches the collector
+                                               #   on the same official corpus (tests/fixtures/topic_cases.json)
+node scripts/check_row_sources.mjs            # renders the published data/resolved pages in jsdom and
+                                               #   proves every rendered row links ITS OWN official record
 ```
 
-CI (`.github/workflows/pages.yml`) runs all three on every push and pull request.
+CI (`.github/workflows/pages.yml`) runs all of them on every push and pull request.
+
+## Verification records
+
+Every published number traces back to an official Kalshi endpoint. The verification records for
+this repository, each with the official links it was checked against:
+
+| Record | What it covers |
+|---|---|
+| [`reports/VERIFICATION_3c017782.md`](reports/VERIFICATION_3c017782.md) | The final integration pass: the official docs re-read directly, the five parallel branches reconciled, the conflict-marker / classifier / pagination / stacking defects found and fixed, and the provenance fingerprint |
+| [`reports/REPO_REVIEW_725b09a7.md`](reports/REPO_REVIEW_725b09a7.md) | Line-by-line review of the site, engine, collector and ledger; 16 API claims re-verified against the official docs; the fee-schedule transcription compared row by row with the official PDF |
+| [`reports/INTEGRATION_AUDIT_6916270f.md`](reports/INTEGRATION_AUDIT_6916270f.md) | The previous final integration: defects D1–D11, the fee-table transcription, the CI gates |
+| [`reports/VERIFICATION_9ff00ee3.md`](reports/VERIFICATION_9ff00ee3.md) | Re-verification of the per-series fee multiplier and the `fee_multiplier` schema |
+| [`reports/VERIFICATION_a53ab816.md`](reports/VERIFICATION_a53ab816.md) | Audit of the deployed site; corrections to stale review and safety claims |
+| [`reports/VERIFICATION_9d4380a2.md`](reports/VERIFICATION_9d4380a2.md) | Independent re-verification; the Resolved-page repair |
+| [`reports/COVERAGE_9d4380a2.md`](reports/COVERAGE_9d4380a2.md) | Brief requirement → delivered / partial / blocked matrix |
+| [`data/log.md`](data/log.md) | One line per API request the collector made (time, method, URL, status, bytes) |
+| [`data/fee_schedule_series.json`](data/fee_schedule_series.json) | The transcribed per-series fee table, with the rows that could not be read listed as not transcribed |
+| [`flagged.html`](flagged.html) | Everything that could not be verified, is a deliberate limitation, or is a known defect — with source links |
+| [`sources.html`](sources.html) | The official documentation pages used |
 
 ## Safety & scope
 

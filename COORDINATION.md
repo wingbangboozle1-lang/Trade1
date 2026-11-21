@@ -19,6 +19,48 @@
 - **Verification constraint:** this sandbox has **no route** to `*.demo.kalshi.co` (curl → `000`), so no live API value can be re-read here. Every runtime claim is checked against the **official Kalshi docs** (read via the page fetcher) and the **committed response samples** in `data/samples/`. Nothing is inferred to fill a blank.
 - **Status:** in progress.
 
+### 3c017782 — reconciliation and verification record (2026-11-21)
+
+**Official sources re-read directly in this session** (the page fetcher does reach `docs.kalshi.com` and `kalshi.com`):
+
+| Source | Used for |
+|---|---|
+| [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) | the 429 contract — verbatim: “429 responses carry the rate limit headers below, **but not `Retry-After`**” and “**Apply exponential backoff on 429**”; `X-RateLimit-Reset` = “Seconds, to the millisecond, until the bucket is full again” |
+| [Fee Schedule for July 2026](https://kalshi.com/docs/kalshi-fee-schedule.pdf) | the taker/maker formulas, the 21-row General Trading Fees table, and the Non-Standard Fees rows transcribed below |
+
+**PR dispositions (every open PR read line by line before anything was taken):**
+
+| PR | Branch | Disposition |
+|---|---|---|
+| #67 | `arena/d256bfac-trade1` | **Ported** — board/verification record only. |
+| #74 | `arena/aa7d3d27-trade1` | **Ported** — “Market favours” rename; its two remaining “Best price” references in `suggestions.html` were fixed here too. |
+| #79 | `arena/0b68e1e4-trade1` | **Partly ported** — the `portfolio_engine.py` 429 retry and the ledger entry guards are new and were taken; its `scripts/collect.py` hunk **reverts** PR #80's fail-closed collector and was **not** taken. |
+| #75 | `arena/725b09a7-trade1` | **Partly ported** — the per-row official-source gate, the collector/browser parity test + fixture, the pagination reporting and the collector fingerprint were taken; its `collect.py` hunk **reverts** PR #80 and its `portfolio_engine.py` hunk **reverts** `main`'s stronger per-row source rule, so neither was taken; its fee-multiplier wording was **rejected** because it describes a resolution order the code does not implement. |
+| #68 | `arena/6b112481-trade1` | **Superseded** by #75 (the three new files are byte-identical; #75 carries the newer review report). Nothing lost. |
+
+**Defects found and fixed (full detail: `reports/VERIFICATION_3c017782.md`):**
+
+- **3c-1 · `COORDINATION.md` shipped unresolved conflict markers** (lines 1359–1450, committed by an earlier merge). The file is published on the live site. Removed, **both sides preserved** (sessions `6877ec31` and `6de17567` both still on the board). A new gate in `scripts/check_site.mjs` now fails the build if any tracked text file carries a merge marker — *mutation-tested*.
+- **3c-2 · the browser classifier and the Python collector disagreed.** `assets/model.js` matched topic keywords as bare substrings while `scripts/collect.py` matched them as whole words, so `petrol` matched inside “**Petrolul**” (`KXROMLNBMGAME-26NOV201200PLOPIT-PLO`, a Romanian basketball match) and the live dashboard labelled it **gas-prices**. Fixed; both implementations are now tested against one shared corpus of official records (`tests/fixtures/topic_cases.json`). `tests/collector.test.mjs` went from 1 failing check to **18/18**.
+- **3c-3 / 725-3 · the settled sweep was truncated but published as a total.** Commit `a15a941`'s own log records `page 6: +1000 items (total 6000); cursor=present` — the cursor was still present at the cap, so `settled_total: 6000` and `in_scope_count: 1904` were **lower bounds**. The cap is raised to 20 pages, `paged()` reports truncation, the snapshot publishes `settled_pagination` and the two `*_is_lower_bound` flags, and the Resolved page says “at least”.
+- **3c-4 · the published “Gas prices” resolved section was entirely natural gas.** All 4 gas rows in the committed snapshot were `KXNATGAS15M-*` markets. Removed offline by re-applying the collector's own rule to the verbatim rows (no value altered; the correction is recorded inside the file). The collector now publishes a **topic-balanced** slice so all five topics appear.
+- **3c-5 · nothing checked that a published row links its own official record.** New gate `scripts/check_row_sources.mjs` renders `data.html` and `resolved.html` in jsdom against the real data files and asserts row by row that each row carries its own `/events/{event_ticker}` or `/markets/{ticker}` link — **271 rendered rows, 413 official links, 0 failures**.
+- **3c-6 · no gate caught a conflicting merge.** Fixed by the conflict-marker gate above.
+- **3c-7 · not verified:** live demo-API *market values* (the sandbox has no route to `*.demo.kalshi.co`). The official **documentation** was re-read directly and is quoted verbatim; only live market data is unconfirmed. Published on `flagged.html`, does not block.
+- **3c-8 · the published resolved slice is crypto-dominated** (196 crypto rows) because the demo settles fast-cycling crypto series continuously. The collector now publishes a balanced slice; the committed composition is stated on the page rather than hidden.
+
+**Ported from #79 (session `0b68e1e4`, credited):** 429 retry in the ledger engine's HTTP layer; **one open position per ticker across all strategies** (the ledger held momentum *and* harvest stacked on `KXETHD-26NOV2017-T1659.99`, both entered at `$0.95`, both settled NO at `−$24.87`); a **$0.90 entry cap** for the directional strategies (harvest exempt by design), mirrored in `assets/model.js`. Past ledger rows were **not** rewritten — the two losses stand in the record.
+
+**Also fixed:** ledger exit rows now link their own `GET /markets/{ticker}` record rather than the cycle's batch quote URL; the committed artifact was re-sourced offline (4 rows) and a field-by-field comparison confirmed **every other field identical**.
+
+**Fee schedule (official PDF re-read):** 13 further rows transcribed whose ticker, title and multipliers align unambiguously (`KXMARMAD` + 12 `KXNFL*`/`KXNHL*` rows), taking the untranscribed count from 42 to **29**. Every transcribed row has taker M = 1 — the default the brokers already used — so **no published fee changed**. The remaining 29 rows are still interleaved in the PDF's text layer and were left untranscribed rather than guessed.
+
+**Collector provenance:** `collector_code_sha256` (SHA-256 of `collect.py` + NUL + `topics.json`) is now written into every artifact, so a reader can tell whether a committed snapshot came from the current collector. The committed snapshot's fingerprint is `01bc2a00514482c8615cf3550cc64735a1465960d754e6c0838b486170ba1a78` (commit `a15a941`, reproducible — the recipe is in `reports/VERIFICATION_3c017782.md` §4). It was backfilled with a note recording the post-hoc removal, so the file never claims more provenance than it has.
+
+**Gates (all local, exit 0):** `npm test` (engine 23/23 · live_fixes 3/3 · live_dash 6/6 · lib · fees 50 · model 36 · root_engine 48/48 · model.test 21/21 · portfolio 60/60 · demo-account 89/89 · `test_collect.py` 38/38) · `test_collect_failclosed.py` 6/6 · `collector.test.mjs` 18/18 · `portfolio_engine.py selftest` **84/84** · `tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links) · `check_site.mjs` 434 links / 1,249 rows / 821 resolved / **0 failures** · `check_links.mjs` 402 local + 262 external links, **0 failures** · `check_row_sources.mjs` 271 rows / 413 links / **0 failures** · `render_test.mjs --offline` 0 JS errors on every published page.
+
+**Status:** done — PR to `main` opened and merged; the Pages deploy is recorded below once it completes.
+
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
 - **Claimed** 2026-11-21 by session `c96a21b7` on branch `arena/c96a21b7-trade1` (base `main` @ `origin/main`).

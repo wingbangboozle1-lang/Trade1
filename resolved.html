@@ -42,8 +42,9 @@
 
 <div class="notice blue small"><b>Snapshot review notes (see <a href="flagged.html">Flagged</a>):</b>
 <ul>
-  <li><b>D1 — refresh pending:</b> the collector code now applies topic exclusions and whole-word keyword matching to settled-market fallback classification. The currently committed snapshot may still contain <code>KXNATGAS15M-26NOV201415-15</code> (natural gas) and <code>KXROMLNBMGAME-26NOV201200PLOPIT-PLO</code> (basketball; "Petrolul" substring). This sandbox cannot reach Kalshi to regenerate or verify the snapshot; the next scheduled collector run must confirm the correction.</li>
-  <li><b>Cap:</b> only the newest 200 markets are listed (<span id="rs-cap">—</span>).</li>
+  <li><b>D1 — corrected offline, refresh still pending:</b> the collector applies topic exclusions and whole-word keyword matching to settled-market classification. The 4 natural-gas markets the old collector published under “Gas prices” have been removed from the committed snapshot by re-applying that rule to the verbatim rows (recorded in <code>data/resolved.json → removed_out_of_scope</code>); no value was changed. This sandbox cannot reach Kalshi to regenerate the snapshot, so the next scheduled collector run must confirm the correction end to end.</li>
+  <li><b>Cap:</b> only the newest markets of the collected slice are listed (<span id="rs-cap">—</span>).</li>
+  <li><b>Denominator:</b> the settled sweep is cursor-paginated and capped by the collector, so the in-scope total is a <b>lower bound</b> for the 72-hour window, not the exchange's full count (<span id="rs-denom">—</span>).</li>
 </ul></div>
 
 <section class="box">
@@ -62,6 +63,7 @@
   var body = document.getElementById('rs-body');
   var meta = document.getElementById('rs-meta');
   var cap = document.getElementById('rs-cap');
+  var denom = document.getElementById('rs-denom');
   var LIVE_URL = 'https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&limit=1000&mve_filter=exclude';
   var TOPIC_IDS = ['gas-prices', 'elections', 'culture', 'crypto', 'golf'];
   var TOPIC_LABEL = { 'gas-prices': 'gas-prices', elections: 'elections', culture: 'culture', crypto: 'crypto', golf: 'golf' };
@@ -115,6 +117,16 @@
       ' of ' + (snapshot && snapshot.in_scope_count != null ? snapshot.in_scope_count : '?') +
       ' in-scope settled markets' + (liveCount ? ' + ' + liveCount + ' live' : '') +
       (snapshot && snapshot.in_scope_count_is_lower_bound ? ' (the in-scope count is a lower bound — the collector\'s settled sweep hit its page cap with a cursor still present)' : '');
+    if (denom) {
+      var sp = (snapshot && snapshot.settled_pagination) || null;
+      var lb = !!(snapshot && snapshot.in_scope_count_is_lower_bound);
+      denom.textContent = sp
+        ? ('the collector fetched ' + (sp.returned || '?') + ' settled markets in ' +
+           (sp.pages || '?') + ' page(s) of the 72-hour window' +
+           (sp.truncated ? ' (pagination truncated at the page cap, so the in-scope total is a lower bound)' : ' (pagination complete)') + ')')
+        : 'the collector\'s pagination facts for this snapshot are not recorded';
+      if (lb) denom.textContent += ' — the in-scope total above is therefore a lower bound';
+    }
   }
 
   function addRow(m, topic, live) {
