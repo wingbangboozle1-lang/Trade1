@@ -35,6 +35,7 @@
 - **Not verified (blocked, no inference):** live demo responses from the sandbox (no route to `*.kalshi.co`; `curl` SSL_ERROR_SYSCALL, rc 35). Demo-account portfolio and order execution need demo API credentials, which are not in this session. Both remain on `flagged.html` and are not blocking.
 - **Irregularities:** (1) the conflict markers above (fixed here). (2) `tools/build.mjs` rewrites `tools/build-report.json` on every run, so a local build dirties the tree. Reverted here, not changed in code; owner of `tools/` should decide whether it is committed.
 - **Task status:** done. This record is the only change in this session.
+- **PR / merge / deploy record:** PR [#83](https://github.com/wingbangboozle1-lang/Trade1/pull/83) (`arena/ab412ad1-trade1` → `main`), merged with a merge commit `daf0333` (2026-11-21T07:21:31Z) without waiting for review. The PR showed `MERGEABLE` / `CLEAN`; the PR-triggered Site checks run was still in progress when the GitHub API began returning HTTP 403 rate-limit errors, so its result could not be read from the sandbox. Pages: the `pages-build-deployment` run for `main` succeeded, and the live URL https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md serves this record.
 
 
 
