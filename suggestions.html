@@ -141,6 +141,37 @@
   </section>
 
   <section class="box" style="margin-top:14px">
+    <h2>2c. Shipped 2026-11-21 — live-engine pass</h2>
+    <p class="small muted">Added by session <code>aa7d3d27</code>. Each item below changes what a trader sees on the
+      <a href="dashboard.html">Dashboard</a>; the rule behind it is documented on <a href="methods.html">Methods</a> and the defect it fixed is
+      listed on <a href="flagged.html">Flagged</a> (AA-1 … AA-8).</p>
+    <div class="tablewrap"><table>
+      <tr><th>Status</th><th>Idea</th><th>What it does now</th></tr>
+      <tr><td><b>live</b></td><td>One glance answers "what can I trade right now?"</td>
+        <td>The market table ranks <b>open-for-trading markets first</b>, adds a <code>Status</code> badge (with a “closing &lt;6h” flag), a
+          <code>Best price</code> column naming the side with the higher exchange ask, and <code>Bid size</code>/<code>Ask size</code> contract counts.
+          The KPI strip gained “Live now (open for trading)”. Closed rows are dimmed, not deleted — the brief asks for events tracked until they resolve.</td></tr>
+      <tr><td><b>live</b></td><td>An order book a buyer can act on</td>
+        <td>Best-first YES/NO ask and bid ladders with contracts per level, the running contract total a buyer could take, and the cash that sweep would cost.
+          Top-of-book spread and per-side liquidity sit above the ladders.</td></tr>
+      <tr><td><b>live</b></td><td>The chats survive a reload</td>
+        <td>Both alert chats open with a session note, and a <i>Recent ≥ $0.10 moves (persisted)</i> board lists stored moves newest-first with score and a
+          per-row official API link, so an empty first screen is no longer possible.</td></tr>
+      <tr><td><b>live</b></td><td>Alerts only on markets that can trade</td>
+        <td>Price sampling stops at <code>close_time</code> and outside <code>status: active</code>, which removes phantom post-close swings from both chats and
+          from the paper broker's exits.</td></tr>
+      <tr><td><b>live</b></td><td>A more honest ROI screen</td>
+        <td>The model score is damped by resting size at the top of book, so a 10¢ jump on an empty book no longer ranks alongside the same jump in a deep market.
+          Still a shortlist heuristic, still flagged as not verified alpha.</td></tr>
+      <tr><td>next</td><td>Depth for the whole watchlist in one call</td>
+        <td>Unchanged and still the highest-value next step: batch <code>/markets/orderbooks?tickers=</code> (≤ 100 tickers) would let “Best price” and the size
+          columns be computed from full books rather than the top-of-book sizes in the batched market response.</td></tr>
+      <tr><td>next</td><td>Sparklines in the table</td>
+        <td>A 12-point session sparkline drawn from the samples the engine already holds per ticker would show direction without opening the chart panel.</td></tr>
+    </table></div>
+  </section>
+
+  <section class="box" style="margin-top:14px">
     <h2>3. Continuous organization &amp; simplification</h2>
     <ul class="small">
       <li><b>Keep topics separate.</b> One subpage per topic (gas / elections / culture / crypto / golf); never mix events across topics.</li>
