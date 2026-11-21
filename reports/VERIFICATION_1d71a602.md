@@ -3,7 +3,7 @@
 Branch `arena/1d71a602-trade1`, base `main` @ `7d1c21f` (PR #71 merge).
 Every claim below was checked line-by-line against an official Kalshi source read on
 2026-11-21, or against a committed artifact whose own source URL is cited. Anything that
-could not be confirmed is left blank and flagged (NEW-1 … NEW-7 on `flagged.html`).
+could not be confirmed is left blank and flagged (NEW-1 … NEW-8 on `flagged.html`).
 No values were inferred.
 
 ## 1. Official sources re-read this session (all `docs.kalshi.com` unless noted)
@@ -43,11 +43,23 @@ No values were inferred.
   9,847 open, 8,645 resolved; kept 1,118 open + 625 resolved. By topic (open): elections 7,954 ·
   crypto 440 · culture 329 · golf 67 · **gas-prices 0**. Coverage pages truncated=true for
   open/closed/settled (caps recorded in the file). Source: `data/snapshot.json` → `counts`/`topics`/`coverage`.
-- `data/topics/*.json` + `data/meta.json` (`generated_at` **2026-11-21T06:58:35Z**, `scripts/collect.py`):
-  events per topic — elections 1,942 · culture 28 · crypto 4 · golf 3 · gas-prices 0.
-  Top estimated event dollars: elections `KXRHOUSESEATS-27` $1,579,719.60 · crypto
-  `KXBTC50VS100-BTC-26DEC31` $1,480,017.12 (both `contracts × last price`, labelled estimates).
-  Source: `data/topics/*.json` → `_est_dollar_volume`; `data/meta.json`.
+- `data/topics/*.json` + `data/meta.json` (`generated_at` **2026-11-21T03:59:57Z** — the run
+  currently committed on `main`; PR #80 restored it after a degraded later run), written by
+  `scripts/collect.py` on the `pages.yml` schedule: events per topic — elections 2,163 · crypto 89 ·
+  culture 68 · golf 46 · **gas-prices 11**. Embedded market rows per file (active / finalized):
+  elections 199 (186/13) · crypto 211 (192/19) · culture 189 (176/13) · golf 137 (136/1) ·
+  gas 75 (74/1). Largest estimated event dollars: elections `KXPRESNOMD-28` $1,272,018,312.83 ·
+  crypto `KXBTCY-27JAN0100` $140,647,984.60 · culture `KXOSCARPIC-27` $2,769,757.45 · golf
+  `KXPGATOUR-THRC26` $202,021.80 · gas `KXAAAGASM-26NOV30` $61,840.01 — every one of them a
+  computed sum of `contracts × last price`, and `data/meta.json` → `notes[1]` states that plainly
+  ("_est_dollar_volume is computed … not an exchange-published field").
+  `meta.findings` for the same run: `markets_open_count` 14,678 · `events_open_count` 2,400 (capped
+  page sample) · `settled_count_recent` 6,000 · `orderbook_ok` / `candlesticks_ok` true.
+  Source: `data/topics/*.json` → `_est_dollar_volume`; `data/meta.json` → `findings`/`notes`.
+- `data/resolved.json` (same 03:59:57Z run): window "last 3 days (`min_settled_ts` = now−72h)",
+  `settled_total` 6,000, `in_scope_count` 1,904, **200** published rows — the published subset is
+  capped, which is exactly what Flagged I4 records. Each row carries the official `result` and its own
+  `source_url`. Source: `data/resolved.json` → `window`/`settled_total`/`in_scope_count`/`markets`.
 - `data/portfolio.json` (`generated_at` **2026-11-21T07:08:16Z**, CI ledger — the newest run on
   `main` after this session's rebase): 12 trades (8 open, 4 realised, 2 settled), 0 wins / 4 losses,
   realised P&L **−$59.5891** on $99.2991 cost (ROI −60.01%), equity **$933.48** of the $1,000
@@ -65,9 +77,9 @@ No values were inferred.
 
 ## 4. Gates run this session (all exit 0 unless noted)
 
-- `npm run check` → BUILD OK 18 HTML / 6 JS / 0 broken links; `check_site.mjs` 1,183 rows /
-  625 resolved / 0 failures; `check_links.mjs` 16 pages / 408 local / 270 external / 0 failures (after
-  this session's edits; the pre-edit run showed 400 local / 236 external). V4's schema example was re-read directly:
+- `npm run check`, re-run on the rebased branch: BUILD OK 18 HTML / 6 JS / 0 broken links;
+  `check_site.mjs` 1,249 rows / 825 resolved / 0 failures (counts moved because PR #80 restored a
+  larger collector run under this session); `check_links.mjs` 16 pages / 408 local / 272 external / 0 failures (the pre-edit baseline was 400 local / 236 external). V4's schema example was re-read directly:
   `"notional_value_dollars": "0.5600"` sits next to `"last_price_dollars": "0.5600"`, and `limit` on
   `/markets` is documented max 1000 (default 100).
 - `npm test` → engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test,
@@ -77,23 +89,36 @@ No values were inferred.
 - `node tools/render_test.mjs --offline <all 16 published pages>` → 16 pages rendered, 0 JS errors
   (the tool defaults to `index.html` alone, so every page was named explicitly this session).
 - Sandbox → Kalshi: `curl https://external-api.demo.kalshi.co/trade-api/v2/exchange/status` → `000`
-  (no route). Live shapes re-verified via §1 docs + committed `data/samples/` + CI `data/log.md`
-  (2026-11-21T06:58 run, all 200s). Recorded as NEW-5; AA-8 stands.
+  (no route). Live shapes were therefore re-verified from the §1 docs, the committed
+  `data/samples/` responses, and the collector's own `data/log.md`. Recorded as NEW-5; AA-8 stands.
+- `data/log.md` read line by line (297 lines, the 06:58:35Z run): **31 × `-> 200`, 1 × `-> 204`
+  (CORS preflight), 220 × `-> 429`** — 212 on `/markets`, 7 on `/series`, 1 on `/events`, with
+  `{"error":{"code":"too_many_requests", …}}` bodies. That is why that run's files were rolled back
+  and why `scripts/collect.py` now reads fail-closed (retry on 429/5xx, keep the verified artifacts
+  when upstream fails) as of PR #80. Recorded as NEW-8; nothing on the site claims a complete census.
 - Pages API at claim: `status: built`, `build_type: legacy`, source `main /`, commit `7d1c21f`.
   Post-merge verification recorded in `COORDINATION.md` after the PR merges.
 
 ## 5. Irregularities found (published on `flagged.html`, do not block)
 
-- **NEW-1** Two snapshot pipelines, two clocks: `data/snapshot.json` (2026-11-20) vs
-  `data/topics/*.json`/`data/meta.json` (2026-11-21). The Data page reads the newer set; the
-  older file is still checked by `check_site.mjs`. Freshness is stated per file, never merged.
+- **NEW-1** Two snapshot pipelines, three clocks: `data/snapshot.json` is 2026-11-20T19:11Z;
+  `data/topics/*.json` + `data/meta.json` + `data/resolved.json` are 2026-11-21T03:59:57Z; and
+  `data/log.md`'s newest recorded run is 2026-11-21T06:58:35Z — a run whose written files were later
+  rolled back by PR #80, so the log describes a collection that is no longer the committed data.
+  The Data page reads the topic set, `check_site.mjs` reads the snapshot. Freshness is stated per file
+  and never merged into one "as of" claim.
 - **NEW-2** `notional_value_dollars` is $1.00/contract (payout), not total dollars (V4). The
   snapshot's `open_interest_notional_derived` (= open interest × $1) is therefore max-payout
   dollars, and snapshot row selection sorts by it (≈ open-interest contracts), while the live
   dashboard ranks by estimated traded dollars (volume × last price). Two different "highest
   dollar" definitions coexist and are now both labelled where they appear.
-- **NEW-3** Gas prices has **0** open markets in both pipelines. Genuine demo state (series exist,
-  no open events), not missing data. Elections dominates open coverage (7,954 of 9,847).
+- **NEW-3** The two pipelines **disagree about gas prices**: `data/snapshot.json` (2026-11-20T19:11Z)
+  records 0 gas markets, while `data/topics/gas-prices.json` (2026-11-21T03:59:57Z) holds 11 gas
+  events with 75 embedded market rows, 74 of them `active` (e.g. `KXAAAGASM-26NOV30-3.90`, last price
+  $0.7500, `close_time` 2026-11-30T04:59:00Z). Both are true of their own run — the snapshot builder
+  simply had not seen those events at 19:11Z. The topic pages render from the newer file, so the gas
+  page is populated; a page reading the older snapshot would show an empty state. Elections still
+  dominates open coverage (7,954 of 9,847 rows before caps).
 - **NEW-4** Portfolio sample is 12 trades with 0 wins and only 4 closed — too small to judge any
   strategy (the backtest's F7 and Flagged item 8 say the same). The −60% realised ROI is reported
   as-is; no strategy is recommended.
@@ -105,6 +130,12 @@ No values were inferred.
   no element carried that id, and the `F7` label actually belongs to `reports/FLAGGED_FOR_REVIEW.md`
   (where it means the backtest sample). Fixed here: the ROI-model row carries `id="f8"`, the stale
   reference points at it, and every NEW row has a real id.
+- **NEW-8** The newest collector run in `data/log.md` (2026-11-21T06:58:35Z) is mostly upstream
+  rate-limiting: 220 × `429 too_many_requests` against 31 × `200`, concentrated on `/markets`.
+  Its output was rolled back (PR #80) and the collector is now fail-closed, so a future 429 storm
+  leaves the last verified files in place instead of a half-filled snapshot. Consequence for a
+  reader: `429` in the log means "the collector could not see that page", never "the market does not
+  exist"; the site's coverage-cap disclosures already refuse census language.
 
 ## 6. Other sessions' PRs — disposition (no merge by this session)
 
