@@ -345,6 +345,18 @@ mismatches were this session's wrong expectations, corrected against the publish
 (60/1440 over a settled market's lifetime) exist so the longer intervals are checked against real candle objects
 rather than an empty array.
 
+**PR / merge / deploy (result).** **PR #115** (`arena/5fa4bde9-trade1` → `main`) — governor, both new suites, the
+probe, the `Live client` workflow, the verbatim samples, `data.html` panel, `methods.html` §7, `flagged.html`
+KX-1…KX-6, `sources.html`, `reports/VERIFICATION_5fa4bde9.md` — **merged without waiting for review as `0f1843a`**;
+its three checks were green before the merge (*Live endpoint contract probe* 20/20 ok / *Offline gates (no network)*
+pass / shared `checks` pass; `snapshot` correctly skipped on a PR). **PR #116** (this follow-up: the settled-lifetime
+candle cases + the corrected counts) is the PR that carries this line, so its merge commit is the record: merged with
+`gh pr merge --merge` on 2026-11-21, checks green on the same head. Pages: the merge of #115 triggered the
+`pages build and deployment` job for `0f1843a`; the deployed HTML is verified in the final status note of
+`reports/VERIFICATION_5fa4bde9.md` (the Actions log itself is not reachable from this sandbox — see note D).
+**Task status for 5fa4-1 / 5fa4-2 / 5fa4-3: done**, with the disclosed limits in notes A and C and the open items
+KX-2 (collector owner), KX-3 (first scheduled probe run), KX-5 (`tools/` owner) and KX-6 (sample left as-is).
+
 **Note E — two sandbox capabilities worth knowing (found 2026-11-21 while diagnosing the first CI probe run).**
 (1) The page fetcher available here CAN read a `https://external-api.demo.kalshi.co/...` **response body** — it does
 not go through the blocked TLS path `curl` uses — but it reports no status code and no headers, so it cannot replace
