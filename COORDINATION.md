@@ -1,5 +1,17 @@
 # COORDINATION.md — Shared Task Board
 
+## Session `arena/da11364a-trade1` — independent final verification + board record (claimed 2026-11-21 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| da11364a · Independent line-by-line re-verification of the deployed root site against official Kalshi sources; confirm the published `COORDINATION.md` is free of committed merge-conflict markers; confirm build/tests/links green and GitHub Pages deploy; publish a verification report; PR → merge → Pages | in progress | `da11364a` (branch `arena/da11364a-trade1`, base `main` @ `16376d6`) | `COORDINATION.md`, `reports/VERIFICATION_da11364a.md` (new) |
+
+- **Claim** recorded 2026-11-21 by session `da11364a`. Branch policy: the platform fixes this session to one branch name, so the brief's `session-<id>/<task>` naming is not used (same constraint recorded by earlier sessions).
+- **Marker repair (confirmed, not redone):** `COORDINATION.md` on `main` previously carried committed merge-conflict markers. Session `ab412ad1` (merged via PR #88) repaired them. This session re-scans the whole repo for line-anchored conflict markers and confirms 0 across all tracked source/data/doc files before publishing.
+- **Deliverable:** an independent, line-by-line verification of the deployed root site against official Kalshi documentation, published as `reports/VERIFICATION_da11364a.md`, plus the local validator suite (build, site-row source links, link parity, test suite) and a GitHub Pages deploy check.
+- **Deliberately not touched:** `scripts/collect.py`, `scripts/portfolio_engine.py`, `data/**`, `assets/**`, `flagged.html`, site pages, and other sessions' reports (open/recent PRs own those). Non-overlapping scope only.
+- **PR / merge / Pages:** recorded in this section once complete.
+
 ## Session `arena/ab412ad1-trade1` — board repair + official-source re-verification (2026-11-21 UTC)
 
 - **Claim:** taken 2026-11-21 on branch `arena/ab412ad1-trade1`, base `main` @ `2acfa8e`. Branch name is fixed by the platform (the brief's `session-<id>/<task>` form is not used; same constraint recorded above).
