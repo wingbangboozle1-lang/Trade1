@@ -84,7 +84,7 @@ produced it; a later `main` can legitimately show a newer run. Nothing below was
 
 - `npm run check`, re-run on the rebased branch: BUILD OK 18 HTML / 6 JS / 0 broken links;
   `check_site.mjs` 1,248 rows / 825 resolved / 0 failures (row counts move with every collector run
-  that lands under this session); `check_links.mjs` 16 pages / 420 local / 302 external / 0 failures
+  that lands under this session); `check_links.mjs` 16 pages / 421 local / 303 external / 0 failures
   (the pre-edit baseline on `7d1c21f` was 400 local / 236 external — other sessions added sourced
   rows meanwhile). V4's schema example was re-read directly:
   `"notional_value_dollars": "0.5600"` sits next to `"last_price_dollars": "0.5600"`, and `limit` on

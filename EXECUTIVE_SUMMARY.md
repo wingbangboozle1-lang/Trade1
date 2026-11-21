@@ -185,7 +185,7 @@ summary claimed `data/collect_status.json` publishes request counters that the c
 not have yet — corrected in place to "from the first run after `b7ee4c0`".
 
 **Gates (this session, exit 0):** `npm run check` BUILD OK 18 HTML/6 JS, `check_site.mjs`
-1,248 rows/825 resolved/0 failures, `check_links.mjs` 16 pages/420 local/302 external links/0 failures · `npm test` all suites
+1,248 rows/825 resolved/0 failures, `check_links.mjs` 16 pages/421 local/303 external links/0 failures · `npm test` all suites
 pass (engine 23/23, model.test 21/21, portfolio 60/60, demo-account 89/89, `tests/test_collect.py`
 after its rewrite by session `0b68e1e4`; `portfolio_engine.py selftest` 77/77) · `render_test.mjs --offline` with all
 18 pages named explicitly (incl. `data.html` and both `demo-account/` pages) → 18 pages rendered / 0 JS errors · Pages `built` on `main` @ `7d1c21f` at claim; post-merge Pages

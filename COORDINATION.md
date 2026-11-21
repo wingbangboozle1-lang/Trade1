@@ -1868,4 +1868,51 @@ Pages API: `status: built`, `build_type: legacy`, source `main /`, commit `7d1c2
 Sandbox has no route to `*.demo.kalshi.co` (curl 000) — live API re-verification is via official
 docs fetched 2026-11-21 + committed CI logs/samples, recorded as NEW-5 (AA-8 stands).
 
-**Status: in progress.**
+**Status: done** — PR #107 merged into `main`; completion record appended below.
+
+### Completion record — session `1d71a602` (2026-11-21)
+
+- **PR:** #107 `arena/1d71a602-trade1` → `main` — "Final integration: line-by-line re-verification vs
+  official sources, fresh numbers, Flagged NEW-1…NEW-9".
+- **Merged as:** the merge commit of PR #107; the exact SHA and the Pages build status are written into
+  the follow-up board commit this session pushes right after the merge (the `9d29ddcc` pattern — a second
+  small PR, since a session cannot know its own merge SHA in advance).
+- **Branch commits now on `main`:** the claim commit, the verification report + summary addendum, the
+  CI-numbers refresh, PR dispositions + NEW-7 anchor repair, the re-measure + NEW-8 pass, and this
+  merge — rebased over `main` as it moved under the session (`43ae3c1` → `f1f34f3` → `52478f1` →
+  `900b640`), additive conflict resolutions only (three `COORDINATION.md` clashes and one
+  `executive-summary.html`/`EXECUTIVE_SUMMARY.md` clash: both sides kept, sections split into siblings).
+- **Scope actually touched:** `reports/VERIFICATION_1d71a602.md` (new), `EXECUTIVE_SUMMARY.md`,
+  `executive-summary.html`, `flagged.html`, `COORDINATION.md`. No `assets/**`, `scripts/**`,
+  `data/**`, `tests/**`, workflow or topic-page change. `executive-summary.html#verification` and
+  `#data-freshness` added as anchor targets; `flagged.html` rows carry real ids `new-1`…`new-9`.
+- **Gates at the merged tree:** `npm run check` BUILD OK 18 HTML / 6 JS / 0 broken links;
+  `check_site.mjs` 1,248 rows / 825 resolved / 0 failures; `check_links.mjs` 16 pages / 421 local /
+  303 external / 0 failures; `npm test` exit 0 (engine 23/23, live_fixes 3/3, live_dash 6/6, model
+  30 checks, model.test 21/21, portfolio 60/60, demo-account 89/89, `tests/test_collect.py`);
+  `node tools/render_test.mjs --offline` over all 18 published pages → 0 JS errors.
+- **Figures published (re-parsed from the committed artifacts, not recalled):** collector run
+  2026-11-21T07:17:44Z — events elections 2,163 / crypto 88 / culture 68 / golf 45 / gas-prices 10,
+  embedded market rows 199 / 204 / 189 / 132 / 67 (active 186 / 185 / 176 / 131 / 66), top estimated
+  event dollars `KXPRESNOMD-28` $1,275,432,790.95 · `KXBTCY-27JAN0100` $209,916,569.15 ·
+  `KXOSCARPIC-27` $2,785,537.52 · `KXPGATOUR-THRC26` $203,846.00 · `KXAAAGASM-26NOV30` $61,771.79;
+  `meta.findings` 14,646 open markets / 2,400 events scanned / 6,000 settled (2,675 in scope, 200 rows
+  published); `data/portfolio.json` 2026-11-21T07:28:04Z — 12 trades (8 open, 4 realised, 0W/4L,
+  realised −$59.5891, ROI −60.01%), equity $933.48 on $1,000 (−6.652%), 34 alerts, 21 resolutions,
+  17 ledger runs; `data/snapshot.json` unchanged at 2026-11-20T19:11:17Z (1,118 open + 625 resolved).
+- **Sources:** official Kalshi pages re-read 2026-11-21 — API Environments, Demo Environment, Get
+  Markets, Orderbook Responses, Get Market Candlesticks, WebSockets quick start, Market Lifecycle,
+  Market Settlement, Rate Limits — all linked from `flagged.html` and the report; every request from
+  this sandbox to `*.kalshi.co` still fails at the network layer (NEW-5 / AA-8 stand).
+- **Flagged page additions:** NEW-1 two pipelines on different clocks; NEW-2 snapshot row *selection*
+  ranks per-contract notional (=1 on demo) i.e. open-interest contracts, while the live ranking
+  estimates traded dollars; NEW-3 the pipelines disagree about gas (0 vs 10 events); NEW-4 12-trade
+  sample cannot rank strategies; NEW-5 no live fetch from the build sandbox; NEW-6 other sessions' PRs
+  untouched; NEW-7 dangling `flagged.html#f7` repaired; NEW-8 the 06:58:35Z 429 storm (220 × `429` vs
+  31 × `200`) → the next run clean (503 × `200` + 1 × `204`, 0 × `429`), i.e. PR #80's fail-closed
+  collector verified; NEW-9 the summary claimed request counters in `data/collect_status.json` that the
+  committed file does not have until the first post-`b7ee4c0` run — corrected in place.
+- **Pages:** verified after the merge with `gh api repos/wingbangboozle1-lang/Trade1/pages/builds` (the
+  build must be `built` on the merge commit) — status recorded in that same follow-up commit, because the
+  board on `main` is rewritten by every session and a pre-merge claim would be stale on arrival.
+
