@@ -27,7 +27,7 @@ async function walk(dir) {
 const PUBLISHED = new Set(['index.html','executive-summary.html','dashboard.html','trades.html',
   'data.html','methods.html','flagged.html','sources.html','suggestions.html','resolved.html','portfolio.html',
   'topics/gas-prices.html','topics/elections.html','topics/culture.html','topics/crypto.html','topics/golf.html',
-  'demo-account/index.html','demo-account/flagged.html']);
+  'demo-account/index.html','demo-account/flagged.html','coverage.html']);
 const allFiles = (await walk(SITE)).map(f => f.replace(/^\.\//, ''));
 const files = allFiles.filter(f => PUBLISHED.has(f) || !f.endsWith('.html'));
 const unknown = allFiles.filter(f => f.endsWith('.html') && !PUBLISHED.has(f));

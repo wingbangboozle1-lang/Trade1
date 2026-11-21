@@ -30,6 +30,7 @@
     <a href="methods.html">Methods</a>
     <a href="suggestions.html">Ideas</a>
     <a href="flagged.html" class="active">Flagged</a>
+    <a href="coverage.html">Coverage</a>
     <a href="sources.html">Sources</a>
   </nav>
 </header>
@@ -256,7 +257,34 @@
   </section>
 
   <section class="box" style="margin-top:14px">
-    <h2>Carried from previous parallel sessions (their files remain in this repo)</h2>
+    <h2 id="s155329c7">Added by session <code>155329c7</code> (2026-11-21) — requirements coverage and pre-launch verification</h2>
+<p class="small muted">Each item below was reproduced from files in this repository or from the official documentation; none of them is an estimate. They are published here so they can be reviewed after the site is live, and they do not block anything.</p>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:8%">ID</th><th style="width:34%">Finding</th><th>Evidence and official source</th><th style="width:12%">State</th></tr></thead>
+<tbody>
+<tr><td><b>155329c7-1</b></td>
+  <td><b>Resolved tracking was showing a rate-limit artifact, and the Resolved page could not recover from it.</b> The committed <code>data/resolved.json</code> carried <code>settled_total: 0</code> and <code>markets: []</code>. That zero came from the collector run of 2026-11-21 06:58:37Z, which issued ~295 requests in three seconds, was answered with <b>220 × HTTP 429</b>, and stopped the settled-markets sweep on its first 429. Separately, <code>resolved.html</code> returned before it ran its live settled sweep whenever the snapshot was empty, so the page could only ever say "No resolved markets in the snapshot."</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">Rate Limits and Tiers</a> — "A rate-limited request returns 429 Too Many Requests … back off on <code>429</code>"; unauthenticated public requests are "subject to separate limits" and no number is published. Repository evidence: <code>data/log.md</code> (the 429 lines), <code>scripts/collect.py</code>, <code>resolved.html</code>. <b>Fixed this session:</b> request pacing + 429 retry with <code>Retry-After</code>, <code>request_complete</code>/<code>retry_gave_up</code> recorded, page shows "INCOMPLETE — collector was rate-limited" and always runs the live sweep. Regression tests: <code>tests/test_collect.py</code> (9 checks).</td>
+  <td><span class="badge partial">Fixed; live re-confirmation pending</span></td></tr>
+<tr><td><b>155329c7-2</b></td>
+  <td><b>The record of which rows have settled is produced by a scheduled job, so it is only as good as that job's run.</b> The page now states its own completeness, but until the next scheduled <code>pages.yml</code> run the committed snapshot stays empty. This is published so the empty table is not mistaken for "nothing has settled on the demo exchange".</td>
+  <td>Workflow: <code>.github/workflows/pages.yml</code> → job <code>snapshot</code> (cron <code>17 */3 * * *</code>) runs <code>python3 scripts/collect.py</code>. Watch the first run after this merge: <code>request_complete</code> must read <code>true</code> and <code>retry_gave_up</code> <code>0</code>.</td>
+  <td><span class="badge partial">Open — review after next scheduled run</span></td></tr>
+<tr><td><b>155329c7-3</b></td>
+  <td><b>Open pull requests from earlier sessions contain regressions and were not merged.</b> PR #68 (<code>arena/6b112481-trade1</code>) would delete <code>isTradeable()</code> (so paper fills could book on closed markets, undoing AA-1), delete the order-book-depth term from the ROI score (undoing AA-6), restore the 300-alert cap (undoing AA-5), and remove both <code>tests/live_dash.test.mjs</code> and <code>--offline</code> from the CI gates (undoing AA-7). PRs #67 and #70 are conflicting with <code>main</code>. None of them was merged by this session.</td>
+  <td>Official source for the behaviour #68 would break: <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market Lifecycle</a> — past <code>close_time</code> "no new orders accepted". Repository evidence: <code>gh pr view 68 --json files</code> and the diff of <code>assets/model.js</code>. Recommendation: close #67/#68/#70 after review; their unique content (one row → one official market link) is worth re-proposing against current <code>main</code>.</td>
+  <td><span class="badge no">Open — owner decision</span></td></tr>
+<tr><td><b>155329c7-4</b></td>
+  <td><b>Live runtime behaviour from this sandbox could not be observed.</b> The build sandbox has no network route to <code>external-api.demo.kalshi.co</code> (<code>curl</code> returns 000), so this session verified the code against the official documentation and the committed response samples only. The parts that depend on the live API at runtime (CORS headers from the Pages origin, latency, actual price sampling) are evidenced by the Actions collector log, not by a direct observation here.</td>
+  <td>Evidence used instead: <code>data/cors.json</code> (probe from a GitHub runner: <code>access-control-allow-origin</code> echoes <code>https://wingbangboozle1-lang.github.io</code> with HTTP 200) and <code>data/samples/*.json</code> (verbatim API responses). Official: <a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">Test In The Demo Environment</a>.</td>
+  <td><span class="badge partial">Not observable here</span></td></tr>
+<tr><td><b>155329c7-5</b></td>
+  <td><b>"Highest dollar amount" events cannot be ranked on an exchange-published dollar figure, because the API publishes none.</b> The dashboard ranks by contracts × last price and labels it an estimate; the same limitation was already published as #5/E6 and is repeated here because the brief asks for a dollar ranking specifically.</td>
+  <td>Official: <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a> schema — <code>volume_fp</code>, <code>volume_24h_fp</code>, <code>open_interest_fp</code>, <code>last_price_dollars</code>; no traded-notional field. <a href="https://docs.kalshi.com/api-reference/market/get-trades" target="_blank" rel="noopener">Get Trades</a> would allow a measured figure but requires paging the whole tape per market.</td>
+  <td><span class="badge partial">Published limitation</span></td></tr>
+</tbody></table></div>
+
+<h2>Carried from previous parallel sessions (their files remain in this repo)</h2>
     <p class="small muted">Several parallel sessions merged full site builds into this repo before this integration (PR #1 ee533bdf prototype; PR #5/#7/#12/#14/#18 builds: <code>live.html</code>/<code>resolved.html</code>/<code>strategies.html</code>/<code>pages/*</code>/<code>js/*</code>/<code>categories/*</code>/<code>assets/app.mjs</code>). Their published pages are superseded by this build (one coherent root site), but their verification documents stay in-tree for review and their findings were checked when building this page. <b>Removal record (2026-11-20):</b> the two remaining superseded pages (<code>live.html</code>, <code>strategies.html</code>) were deleted — everything they showed is on <a href="dashboard.html">Dashboard</a> and <a href="trades.html">Strategy Lab</a>, they had no navigation entry, and one of them still pulled a second engine; the now-unreferenced second engine (<code>assets/app.mjs</code> + <code>assets/js/app.js</code> + <code>assets/css/style.css</code>), the stale <code>tests/engine.test.js</code>/<code>tests/smoke.test.js</code> (they read the already-deleted <code>monitor/assets/app.js</code> and could not pass), and the one-off probes/builders (<code>scripts/build_site.py</code>, <code>kalshi_api.py</code>, <code>backtest.py</code>, <code>render_site.py</code>, <code>check_site.py</code>, <code>trade1_collect.py</code>, <code>trade1_check.py</code>, <code>probe_discovery*.py</code>, <code>config/topics.json</code>, <code>config/sources.json</code>) were deleted so exactly one engine and one check suite remain. The findings they produced are kept here and in <code>reports/</code>.</p>
     <ul class="small">
       <li><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/FLAGGED.md">docs/FLAGGED.md</a> (ed8bbdf4) and <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/docs/verification.md">docs/verification.md</a> — overlap with items 5–11 above (no credentials/portfolio, fees/spread modeling, keyword heuristics, unattributed causes).</li>

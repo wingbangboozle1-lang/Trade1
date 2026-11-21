@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Requirements coverage · Kalshi Demo Monitor</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">K</div>
+    <div><h1>Kalshi Demo · Requirements coverage</h1>
+    <p>Every line of the project brief, mapped to where it is delivered, how it was checked, and what is honestly missing</p></div>
+  </div>
+  <nav class="mainnav">
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Summary</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="trades.html">Strategy Lab</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="demo-account/">Demo Account</a>
+    <a href="topics/gas-prices.html">Gas</a>
+    <a href="topics/elections.html">Elections</a>
+    <a href="topics/culture.html">Culture</a>
+    <a href="topics/crypto.html">Crypto</a>
+    <a href="topics/golf.html">Golf</a>
+    <a href="resolved.html">Resolved</a>
+    <a href="data.html">Data</a>
+    <a href="methods.html">Methods</a>
+    <a href="suggestions.html">Ideas</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="coverage.html" class="active">Coverage</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main class="wrap">
+
+<h2>Requirements coverage matrix</h2>
+<p class="small muted">
+  Read this page top to bottom: each row is one requirement line from the brief, quoted, with the page or file that
+  delivers it, the exact rule it runs, and the evidence a reviewer can open. Status meanings:
+  <span class="badge yes">Delivered</span> built and covered by an offline test or an official source;
+  <span class="badge partial">Delivered, with a stated limit</span> built, but something real constrains it and the
+  limit is published (never hidden);
+  <span class="badge no">Not delivered</span> not built, with the reason stated.
+  Values that could not be confirmed from an official source are left blank here and listed on
+  <a href="flagged.html">Flagged for Review</a>. Nothing on this page is estimated.
+</p>
+
+<div class="notice"><b>How to read the evidence column.</b> <b>Official</b> = a Kalshi documentation or fee-schedule
+page, linked. <b>Code</b> = the file and function that actually runs. <b>Test</b> = an offline check that fails if the
+behaviour regresses. This matrix was compiled on 2026-11-21 (session <code>155329c7</code>) by reading the shipped code
+and re-reading each linked official page; the full line-by-line verification record is
+<a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/reports/VERIFICATION_155329c7.md" target="_blank" rel="noopener">reports/VERIFICATION_155329c7.md</a>.</p>
+
+<h2>1. Endpoints the brief names</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>REST Trade API <code>https://external-api.demo.kalshi.co/trade-api/v2</code></td>
+  <td>Every read on the site uses this host first. Configured in <code>assets/app.js</code> <code>CFG.bases</code> and <code>assets/lib.mjs</code> <code>API_BASES.demo</code>.</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/api_environments" target="_blank" rel="noopener">API Environments</a> — demo REST root matches the brief exactly.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>REST also supported <code>https://demo-api.kalshi.co/trade-api/v2</code></td>
+  <td>Second base in <code>CFG.bases</code>; the client falls back to it once if the first host errors.</td>
+  <td>Official: same page lists it as "also supported" for demo.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>WebSocket <code>wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2</code> and <code>wss://demo-api.kalshi.co/trade-api/ws/v2</code></td>
+  <td><b>Not used for data.</b> The dashboard polls REST every ~12 s. The URLs are recorded on <a href="sources.html">Sources</a> and on <a href="flagged.html">Flagged</a> (#13, #19).</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/quick_start_websockets" target="_blank" rel="noopener">Quick Start: WebSockets</a> — the handshake <i>requires</i> <code>KALSHI-ACCESS-KEY</code>/<code>-SIGNATURE</code>/<code>-TIMESTAMP</code> headers, which a browser page cannot attach. Reason is published, not hidden.</td>
+  <td><span class="badge partial">Delivered with limit</span></td>
+</tr>
+<tr>
+  <td>Quote the brief supplies are the demo environment</td>
+  <td>No production host is ever called. The site says "demo only" on every page footer and in the header notice.</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">Test In The Demo Environment</a> — "credentials are not shared", "price and behavior … may not be reflective".</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>2. Executive summary</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"Create an executive summary outlining important details."</td>
+  <td><a href="executive-summary.html">executive-summary.html</a> (published) plus <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/EXECUTIVE_SUMMARY.md" target="_blank" rel="noopener">EXECUTIVE_SUMMARY.md</a> and <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/reports/EXECUTIVE_SUMMARY.md" target="_blank" rel="noopener">reports/EXECUTIVE_SUMMARY.md</a>. The landing page <a href="index.html">index.html</a> carries the short version.</td>
+  <td>Contains a requirement → delivery table, the data pipeline, the fee model with its official source, and the list of things deliberately not built.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>3. Dashboard: topics and ranking</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"…tracks highest dollar amount live events…"</td>
+  <td><a href="dashboard.html">dashboard.html</a> market table. <code>assets/app.js</code> → <code>rowsFor()</code> ranks by estimated traded dollars = contracts × last price, ties broken by 24h estimate. Live rows are split from closed rows (<code>isLive()</code>).</td>
+  <td>Official: <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a> publishes <code>volume_fp</code> (contracts), <code>volume_24h_fp</code>, <code>last_price_dollars</code> — <b>no traded-dollar field exists</b>, so the rank is labelled an estimate (<a href="flagged.html">Flagged #5</a>). Nothing is presented as exchange-published.</td>
+  <td><span class="badge partial">Delivered with limit</span></td>
+</tr>
+<tr>
+  <td>Topics: gas prices, elections, culture, crypto, golf <b>only</b></td>
+  <td>Five topic pages: <a href="topics/gas-prices.html">gas</a> · <a href="topics/elections.html">elections</a> · <a href="topics/culture.html">culture</a> · <a href="topics/crypto.html">crypto</a> · <a href="topics/golf.html">golf</a>. Rules in <code>scripts/topics.json</code> (collector) mirrored in <code>assets/model.js</code> <code>classify()</code> (browser).</td>
+  <td>Code: <code>scripts/collect.py</code> <code>classify()</code> / <code>classify_settled_without_event()</code>. Test: <code>tests/test_collect.py</code> (whole-word boundaries, exclusions). Classification is a heuristic — <a href="flagged.html">Flagged #9</a>, 9d-1.</td>
+  <td><span class="badge partial">Delivered with limit</span></td>
+</tr>
+<tr>
+  <td>"Keep topics separate but keep events within the same topic organized together."</td>
+  <td>Each topic page renders only its own topic (<code>?topic=</code> filter in <code>mountDashboard()</code>); events and their child markets are grouped in the snapshot (<code>data/topics/&lt;id&gt;.json</code> → <code>events[].markets</code>).</td>
+  <td>Test: <code>tests/engine.test.mjs</code> — "topic subpage is scoped to its own topic (the 'a' regression)".</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>4. Alerting: the ≥ $0.10 rule and the two chats</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"…live alerting system to sudden swings in contract prices greater than or equal to $0.10 in either direction."</td>
+  <td><code>assets/app.js</code> <code>checkAlert()</code> on every ~12 s poll, plus a fallback against the exchange's own <code>previous_price_dollars</code> so a swing that reverses between polls is still caught. Threshold compared in integer 1/10000-dollar units (<code>assets/model.js</code> <code>alertMove()</code>, <code>ALERT_UNITS = 1000</code>) so <code>0.10</code> cannot be lost to float rounding.</td>
+  <td>Code + Test: <code>tests/root_engine.test.js</code> and <code>scripts/test_model.mjs</code> assert the boundary in both directions. Official field: <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a> <code>previous_price_dollars</code>.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"…simplified scrolling chat so someone can view in real time."</td>
+  <td>Left chat "≥10¢ alerts · all in-scope events" (<code>#kx-chat-all</code>): every alert, timestamped, newest at bottom, auto-scrolls only when you are already at the bottom. A persisted "Recent ≥ $0.10 moves" board sits under it so the feed is not empty on first load.</td>
+  <td>Code: <code>pushChat()</code>, <code>chatMsg()</code>, <code>renderChats()</code>. Test: <code>tests/live_dash.test.mjs</code> A5 — "the chats open with a session note and a persisted-moves board".</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"…second scrolling chat … selective filter based on events that our model likes as high ROI."</td>
+  <td>Right chat "Model picks · high-ROI screen" (<code>#kx-chat-model</code>). Only alerts whose documented score ≥ 0.45 (the momentum strategy's <code>minScore</code>) are posted.</td>
+  <td>Formula and weights published in <a href="methods.html">Methods §3</a>; the score is a <b>heuristic screen, not verified alpha</b> — <a href="flagged.html">Flagged #8 / AA-6</a>. Test: <code>scripts/test_model.mjs</code> §6.</td>
+  <td><span class="badge partial">Delivered with limit</span></td>
+</tr>
+<tr>
+  <td>"…include events and website links that may have caused a sharp jump… greater than or equal to $0.10."</td>
+  <td>Each alert and the jump list under the chart carry: the official Kalshi market/series page, the event's <b>published settlement sources</b> from the API, and a news-search <b>lead</b>. Jumps ≥ $0.10 for the selected market are drawn on the chart inside the chosen window.</td>
+  <td>Official: <a href="https://docs.kalshi.com/api-reference/market/get-series" target="_blank" rel="noopener">Get Series</a> schema field <code>settlement_sources</code>. Leads only — causality is never asserted (<a href="flagged.html">Flagged I7 / 9d-3</a>).</td>
+  <td><span class="badge partial">Delivered with limit</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>5. Resolution tracking until the event resolves</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"Focus on tracking live events until the events have resolved. How the event was resolved either yes or no."</td>
+  <td>Two paths: (1) every poll re-reads the watched markets and records <code>result</code> + <code>settlement_ts</code> when the exchange sets them (<code>handleMarketBatch()</code> → <code>M.applyResolutions()</code>); (2) the Actions collector writes the settled universe to <code>data/resolved.json</code>, rendered by <a href="resolved.html">resolved.html</a>. Paper positions settle at $1 per winning contract.</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/market_lifecycle" target="_blank" rel="noopener">Market Lifecycle</a> — <code>result</code> is <code>yes</code>/<code>no</code>/<code>scalar</code>; settled markets end at <code>finalized</code> with <code>settlement_ts</code>. Tests: <code>tests/live_fixes.test.mjs</code> D3; <code>tests/live_dash.test.mjs</code> A1b.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>The committed resolved snapshot is trustworthy</td>
+  <td><b>Fixed this session.</b> The snapshot in the repo was written by a collector run that was rate-limited (220 × HTTP 429, <code>data/log.md</code>), so its <code>settled_total: 0</code> was an artifact. The collector now paces requests, retries 429 with backoff, and records <code>request_complete</code>; the page shows "INCOMPLETE — collector was rate-limited" instead of "nothing resolved", and no longer skips the live sweep.</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/rate_limits" target="_blank" rel="noopener">Rate Limits</a> — "back off on <code>429</code>". Code: <code>scripts/collect.py</code> <code>get()</code>/<code>_pace()</code>. Test: <code>tests/test_collect.py</code> (5 new tests). Open item: the next scheduled collector run must confirm it live — <a href="flagged.html">Flagged 155329c7-1</a>.</td>
+  <td><span class="badge partial">Fixed, live re-confirmation pending</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>6. Automated trading and portfolio analysis</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"Automate simulated trades to test different strategies."</td>
+  <td>Four documented paper strategies — momentum, fade, favorite harvest, 50¢ breakout — in <code>assets/model.js</code> <code>runStrategies()</code>; and the same four rules re-run server-side every ~30 min by <code>scripts/portfolio_engine.py</code> in <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/.github/workflows/portfolio.yml" target="_blank" rel="noopener">portfolio.yml</a> so the ledger accumulates with no browser open.</td>
+  <td>Rules + their differences from the browser lab are published on <a href="methods.html">Methods §8–§9</a>. Test: <code>tests/portfolio.test.mjs</code> (60 checks), <code>python3 scripts/portfolio_engine.py selftest</code>.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"Track the portfolio performance using the kalshi demo account on the site."</td>
+  <td>Two layers, both published: (1) <a href="portfolio.html">portfolio.html</a> — the always-on CI ledger (<code>data/portfolio.json</code>); (2) <a href="trades.html">trades.html</a> — the in-browser Strategy Lab.</td>
+  <td><b>Read the distinction:</b> both are <i>simulations</i> priced from official quotes with the official taker fee. They do not read your demo account balance. Reading the account requires an authenticated demo key.</td>
+  <td><span class="badge partial">Simulated ledger delivered; account read needs a key</span></td>
+</tr>
+<tr>
+  <td>"…analyze the results of the trades and categorize trades and create strategies based on the type of trade."</td>
+  <td><a href="trades.html">Strategy Lab</a> and <a href="portfolio.html">Portfolio</a> show P&amp;L, win rate and ROI <b>by strategy</b> and <b>by topic</b>, with an equity curve and a per-trade ledger whose rows carry strategy, topic, side, entry, exit reason and the official record link.</td>
+  <td>Code: <code>byStrategy()</code>, <code>byTopic()</code>, <code>summary()</code>. Sample size is currently small, so the strategy ranking is <b>not</b> evidence of edge — <a href="flagged.html">Flagged F7</a>.</td>
+  <td><span class="badge partial">Delivered with limit</span></td>
+</tr>
+<tr>
+  <td>"Execute trades on events and track the performance."</td>
+  <td>Paper execution is automatic on both layers (fills at the official quote, official taker fee, settle on the exchange's YES/NO). <b>Order placement against the demo account</b> exists only in the separate opt-in <a href="demo-account/">Demo Account</a> console, and it is <b>inert until you add your own demo API key</b> as repository secrets.</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/api_keys" target="_blank" rel="noopener">API Keys</a> (signing) · <a href="https://docs.kalshi.com/getting_started/demo_env" target="_blank" rel="noopener">Demo Environment</a> (keys are demo-only). No credential is bundled; <code>data/demo_account/status.json</code> records <code>configured: false</code>. Test: <code>tests/demo-account.test.mjs</code> (89 checks).</td>
+  <td><span class="badge partial">Paper auto; real demo orders need your key</span></td>
+</tr>
+<tr>
+  <td>"There should be no manual input on my part."</td>
+  <td>Nothing on the site requires you to type, log in, or click to keep it running: discovery, polling, alerting, paper trading and the ledger all run on timers, and the Actions workflows refresh data and the ledger on a schedule. The one exception is deliberate: placing <i>real</i> demo orders requires your demo key, because only you should hold it.</td>
+  <td>Workflows: <code>pages.yml</code> (checks on push; snapshot every 3 h), <code>portfolio.yml</code> (ledger twice an hour), <code>demo-account.yml</code> (read-only snapshot every 6 h; orders only on manual dispatch with a key).</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>7. Live charts and liquidity</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"X axis should be time, and can choose between seconds, minutes, hours timestamp graph length. Y axis is current contract price."</td>
+  <td>Chart window selector: Last 60 s, 5 min, 15 min, 1 h, 6 h, 24 h. X is time (ms), Y is the YES price in dollars (0–1). Seconds/minutes windows use the official trade tape (<code>GET /markets/trades</code>); longer windows use official candlesticks (<code>GET /series/{s}/markets/{t}/candlesticks</code>). Hover shows the exact official print.</td>
+  <td>Official: <a href="https://docs.kalshi.com/api-reference/market/get-trades" target="_blank" rel="noopener">Get Trades</a> (<code>yes_price_dollars</code>, <code>created_time</code>, <code>min_ts</code>/<code>max_ts</code>, limit ≤ 1000) · <a href="https://docs.kalshi.com/api-reference/market/get-market-candlesticks" target="_blank" rel="noopener">Get Market Candlesticks</a> (<code>period_interval</code> ∈ {1, 60, 1440} minutes).</td>
+      <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"We should be able to see current liquidity amounts, how many contracts are available at a given price."</td>
+  <td>Order-book ladder for the selected market: bids at each price with resting contracts and cumulative sweep cost, plus derived asks and the best-price summary. Refreshed every ~8 s, <code>depth=10</code> price levels per side.</td>
+  <td>Official: <a href="https://docs.kalshi.com/getting_started/orderbook_responses" target="_blank" rel="noopener">Orderbook Responses</a> — <code>orderbook_fp</code> → <code>yes_dollars</code>/<code>no_dollars</code>, each <code>[price_dollars, count_fp]</code>, sorted ascending, best bid <b>last</b>; asks are <b>derived</b> by the reciprocal rule. Test: <code>tests/live_dash.test.mjs</code> A3.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"It should have simplified graphs and charts."</td>
+  <td>Two canvas charts only: the price chart and the equity curve. Both draw axes, a labelled legend, and a hover readout; no library, no animation churn.</td>
+  <td>Code: <code>drawChart()</code>, <code>drawEquity()</code>. Render gate covers every page (<code>tools/render_test.mjs</code>).</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>8. Suggestions to make the site more live and interactive</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"Make suggestions on how to make the site more live and interactive."</td>
+  <td><a href="suggestions.html">suggestions.html</a>: what is already live, a prioritised backlog where each item names the official endpoint it would use, and what has shipped since.</td>
+  <td>Every proposal names a documented endpoint or a stated browser constraint (e.g. the WebSocket handshake), so no idea is speculative about API capability.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>9. Review, verification and publication</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Brief line</th><th>Where it is delivered</th><th style="width:34%">Evidence</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>"Review the repo. Work line by line … Flag any irregularities."</td>
+  <td><a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/REVIEW.md" target="_blank" rel="noopener">REVIEW.md</a>, <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/reports/REPO_REVIEW.md" target="_blank" rel="noopener">reports/REPO_REVIEW.md</a>; live list on <a href="flagged.html">Flagged for Review</a>.</td>
+  <td>This session added <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/reports/VERIFICATION_155329c7.md" target="_blank" rel="noopener">reports/VERIFICATION_155329c7.md</a> — a fresh line-by-line re-read of the official pages with the defect found in <code>scripts/collect.py</code> and <code>resolved.html</code>.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"Every table row must have a source link to an official site."</td>
+  <td>Data, topic, resolved, portfolio and alert rows each link the official API record that produced them.</td>
+  <td>Gate: <code>scripts/check_site.mjs</code> fails the build if any snapshot or resolved row lacks an <code>external-api.demo.kalshi.co/trade-api/v2/markets/…</code> source URL. <code>scripts/check_links.mjs</code> fails on any non-official external host.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"If a value can't be confirmed from an official source, leave it blank and flag it as unverified. Never infer."</td>
+  <td><a href="flagged.html">flagged.html</a> lists every value left blank and every limitation, grouped by session, each with its evidence.</td>
+  <td>The collector keeps only fields present in the response (<code>MARKET_FIELDS</code> trimming, absent → omitted, never defaulted).</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+<tr>
+  <td>"Create a github page live site … clean landing page and subpages organized by category … simple table format."</td>
+  <td>Live: <a href="https://wingbangboozle1-lang.github.io/Trade1/" target="_blank" rel="noopener">wingbangboozle1-lang.github.io/Trade1</a>. Landing page + one subtitle per category + table-first pages for data, resolved, trades, portfolio, methods, sources, flagged.</td>
+  <td>Deployment source: branch <code>main</code>, path <code>/</code> (legacy Pages source), verified by the GitHub Pages API — see the deployment record in <code>COORDINATION.md</code>.</td>
+  <td><span class="badge yes">Delivered</span></td>
+</tr>
+</tbody></table></div>
+
+<h2>10. What is not delivered, stated plainly</h2>
+<div class="tablewrap"><table>
+<thead><tr><th style="width:26%">Item</th><th>Why</th><th style="width:34%">Where it is tracked</th><th style="width:9%">Status</th></tr></thead>
+<tbody>
+<tr>
+  <td>Live WebSocket streaming in the page</td>
+  <td>The handshake requires signed headers a browser cannot set. Polling every ~12 s is the documented-compliant alternative; sub-second swings are therefore not observable.</td>
+  <td><a href="flagged.html">Flagged #13, #15, #19</a> · <a href="suggestions.html">Ideas</a> proposes a small server-side bridge as the real fix.</td>
+  <td><span class="badge no">Not delivered</span></td>
+</tr>
+<tr>
+  <td>Reading your demo account balance / positions by default</td>
+  <td>Requires an authenticated demo API key. None is bundled, and the site must not ask you for one in a page. The opt-in console exists and is documented.</td>
+  <td><a href="flagged.html">Flagged 9d-5, I5, #12, E9</a> · <a href="demo-account/">Demo Account</a>.</td>
+  <td><span class="badge no">Not delivered by default</span></td>
+</tr>
+<tr>
+  <td>Exchange-published traded-dollar amounts</td>
+  <td>The API publishes no such field. Dollar figures are computed and labelled estimates.</td>
+  <td><a href="flagged.html">Flagged #5, E6</a>.</td>
+  <td><span class="badge no">Not possible</span></td>
+</tr>
+<tr>
+  <td>Verified predictive "high ROI" model</td>
+  <td>The score is a documented heuristic screen. Claiming alpha would be an unsupported inference.</td>
+  <td><a href="flagged.html">Flagged #8, AA-6, F7</a> · <a href="methods.html">Methods §3</a>.</td>
+  <td><span class="badge no">Not claimed</span></td>
+</tr>
+<tr>
+  <td>Maker-fee modelling</td>
+  <td>Paper fills assume immediate matching (taker). The maker formula exists in the official schedule but the paper engines do not charge it.</td>
+  <td><a href="flagged.html">Flagged #6, E3, 691-10</a>.</td>
+  <td><span class="badge no">Not modelled</span></td>
+</tr>
+</tbody></table></div>
+
+<p class="footer">
+  Compiled 2026-11-21 by session <code>155329c7</code>. Sources are linked inline; the verification record with the exact
+  quotes read from each official page is <code>reports/VERIFICATION_155329c7.md</code>. This page states no value that is
+  not either computed by the shipped code or quoted from an official Kalshi page.
+</p>
+
+</main>
+</body>
+</html>

@@ -46,7 +46,7 @@ async function walk(dir) {
 const ROOT_PAGES = [
   "index.html", "dashboard.html", "trades.html", "portfolio.html", "data.html",
   "methods.html", "flagged.html", "sources.html",
-  "resolved.html", "executive-summary.html", "suggestions.html",
+  "resolved.html", "executive-summary.html", "suggestions.html", "coverage.html",
 ];
 const HTML_GLOB = ROOT_PAGES.concat(["topics", "demo-account"]);
 const JS_GLOB = ["assets", "demo-account/assets"];
