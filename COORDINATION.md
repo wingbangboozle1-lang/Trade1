@@ -1581,3 +1581,27 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **PR #82 / merge / Pages:** [PR #82](https://github.com/wingbangboozle1-lang/Trade1/pull/82) merged 2026-11-21 07:19:23Z as `14693c89349548e1d264588754a38d1758b6f90e`. No GitHub status checks were reported for that board-only PR; local build, data/link validation, and full tests passed above. GitHub Pages deployment run [44879703630](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879703630) succeeded, Pages API reported `built` (legacy `main /`, HTTPS enforced), and the published landing and Flagged pages were fetched. Deployment emitted the existing `actions/upload-artifact@v4` Node.js 20 deprecation warning (forced to Node.js 24); build and deploy passed.
 - **PR #88 / merge / Pages:** [PR #88](https://github.com/wingbangboozle1-lang/Trade1/pull/88) merged 2026-11-21 07:24:36Z as `16376d6449040b12df21f522a3154524e787e5a0`. Its `checks` job passed (run [44879924559](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879924559)); snapshot job was skipped for the PR. GitHub Pages deployment [44880120862](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880120862) succeeded, and the published Flagged page was fetched with item 20 visible. Latest committed collector metadata on the merge tree is `generated_at` 07:17:44Z, `finished_at` 07:22:50Z, `collect_status.status: ok`, `transient_read_failures: 0`; the landing-page timestamp mismatch remains unexplained.
 - **Status:** done. No market snapshot values or application logic changed by this session; Flagged item 20 documents the current rendered-vs-committed timestamp discrepancy without claiming which timestamp is displayed to end users.
+
+## Session `arena/155329c7-trade1` — requirements coverage, line-by-line review, final integration (claim, 2026-11-21 UTC)
+
+**Claim** taken 2026-11-21 ~07:05 UTC on branch `arena/155329c7-trade1`, base `main` @ `7d1c21f`.
+Branch-policy note (same constraint recorded by earlier sessions): the platform fixes this session to one
+branch name, so the brief's `session-<id>/<task>` naming is not used.
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| 155329c7 · Requirements coverage matrix (every brief line → where it is delivered → evidence) | in progress | `155329c7` | `coverage.html` (new), `EXECUTIVE_SUMMARY.md`, `COORDINATION.md` (this section) |
+| 155329c7 · Line-by-line live re-verification against the official Kalshi docs recorded in this session | in progress | `155329c7` | `reports/VERIFICATION_155329c7.md` (new) |
+| 155329c7 · Flagged irregularity triage: publish each item's current state (open / resolved) without re-inferring values | in progress | `155329c7` | `flagged.html` (triage column only), `reports/VERIFICATION_155329c7.md` |
+| 155329c7 · Pre-launch verification of the browser runtime path (CORS from the Pages origin, demo REST reachability, committed-snapshot fallback) — recorded from CI evidence only, never inferred | in progress | `155329c7` | `reports/VERIFICATION_155329c7.md`, `flagged.html` |
+| 155329c7 · Integration: build + link gates green, PR → `main`, merge without waiting, Pages deploy verified, board record | in progress | `155329c7` | `COORDINATION.md` (this section) |
+
+Deliberately **not** touched (other sessions' scopes at claim time): `scripts/collect.py`,
+`tests/test_collect.py` (session `d256bfac` / `c96a21b7`, PRs #64/#67), `reports/VERIFICATION_6877ec31.md`
+and the per-row market-link projection in `data/portfolio.json` (session `6877ec31`, PR #70).
+No value on any page is re-derived by this session: it only re-reads the published rules and the
+committed data and links the official source for each claim.
+
+Baseline at claim (this branch = `main` @ `7d1c21f`, all run locally, exit 0):
+`tools/build.mjs` BUILD OK 18 HTML / 6 JS / 0 broken links · `check_site.mjs` 18 HTML / 432 links /
+1,183 rows / 625 resolved / 0 failures · `check_links.mjs` 16 pages / 400 local + 236 external / 0 failures.
