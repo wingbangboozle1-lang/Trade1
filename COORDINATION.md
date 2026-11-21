@@ -1103,3 +1103,27 @@ pages rendered with 0 JS errors.
 
 **CI additions.** `pages.yml` now also runs `scripts/test_fees.mjs`, `scripts/test_model.mjs`,
 `tests/live_fixes.test.mjs` and the jsdom render gate over all 15 published pages.
+
+---
+
+## Session `arena/6b112481-trade1` — final integration, line-by-line repo review, D1 collector fix, takeover of stale PR #58, PR → merge → Pages (2026-11-21)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 6b112481 · T1 | Repo review, line by line, against official Kalshi sources; irregularities logged with official links | in progress | 6b112481 | `reports/REPO_REVIEW_6b112481.md` (new), `COORDINATION.md` (this section) |
+| 6b112481 · T2 | Fix flagged item 9d-1 / D1 — settled-market topic fallback in `scripts/collect.py` matches gas keywords without the topic's exclusion rules and without word boundaries (mis-labels natural-gas and "Petrolul" basketball markets as `gas-prices`); add a regression test | in progress | 6b112481 | `scripts/collect.py`, `scripts/topics.json`, `tests/collector.test.mjs` (new), `scripts/collect.py` CI wiring |
+| 6b112481 · T3 | Takeover of stale PR #58 (`arena/6916270f-trade1`, last commit 2026-11-20T20:58Z — stale, CONFLICTING): land "each ledger row links to its own official market record" in `scripts/portfolio_engine.py` and the fee-multiplier precedence docs it carries | in progress | 6b112481 | `scripts/portfolio_engine.py`, `data/fee_schedule_series.json`, `README.md`, `EXECUTIVE_SUMMARY.md`, `flagged.html`, `reports/INTEGRATION_AUDIT_6916270f.md` |
+| 6b112481 · T4 | Final integration: re-verify combined data line by line, confirm the site builds with no broken links, PR → `main` → merge → confirm GitHub Pages deploy | in progress | 6b112481 | `COORDINATION.md` (this section), plus the files above |
+
+**Claim.** Taken 2026-11-21 UTC by session `6b112481` on branch `arena/6b112481-trade1`, based on `main` @ `a15a941`.
+This session takes the **final integration** role described in the brief: it re-verifies the combined
+site line by line against official Kalshi sources, fixes the defects it finds, merges the one stale
+open branch, and publishes to GitHub Pages. It does not edit files that another *live* session has
+claimed; the only other open PR (#58, session `6916270f`) is stale (>60 min with no commits — last
+commit 2026-11-20T20:58Z, ~10 h before this claim), so it is taken over here with the takeover noted
+in T3.
+
+**Rules honoured.** No value is inferred: anything that cannot be confirmed from an official Kalshi
+source stays blank and is published on the Flagged for Review page with its source link. Every
+published table row keeps its official API link. Conflict resolution is additive — no other session's
+committed work is discarded.
