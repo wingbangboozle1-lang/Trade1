@@ -40,7 +40,9 @@ Offline validators re-run in this session (all exit 0):
 | `node scripts/test_model.mjs` | 20 checks |
 | `node scripts/test_lib.mjs` | passed |
 | `python3 scripts/portfolio_engine.py selftest` | **76/76** (was 68/68 — 8 added this session) |
-| `python3 scripts/collect_test.py` | **23 checks** (new this session) — see §4 |
+| `python3 tests/test_collect.py` | **39 checks** (33 taken over from session `6b112481`, 6 added here) — see §3 |
+| `node tests/collector.test.mjs` | 18/18 — the browser classifier against the shared official corpus |
+| `node scripts/check_row_sources.mjs` | 271 rendered rows, 413 official links, **0 failures** |
 | `node tools/render_test.mjs --wait=9000 <15 published pages>` | 15 pages rendered, **0 JS errors** |
 
 ---
@@ -83,6 +85,17 @@ default `M = 1` and are disclosed. No discrepancy was found.
 
 ### D1 — settled markets were classified without the topic's exclusion rules *(fixed)*
 
+> **Reconciliation note.** Three sessions found this defect independently while it was open
+> (flagged items 9d-1 and 691-11). Session `d256bfac` had already merged a fix (PR #65,
+> `6b0bdac`) before this session's branch was rebased onto it; sessions `c96a21b7` (PR #64) and
+> `6b112481` (PR #68) had the same fix open in parallel. This session therefore **did not add a
+> second implementation**: it adopted the merged `keyword_match()` / `topic_excluded()` /
+> `classify_settled_without_event()` code, kept its one genuine improvement (the fallback now
+> receives the series guessed from the event ticker, so the series-prefix rule can still match a
+> settled row whose event is gone), and added the single `classify_settled()` entry point that
+> both the collector and the regression gate call. The parallel PRs' unique work was taken over
+> rather than duplicated — see §7.
+
 **Where:** `scripts/collect.py`, the settled-market fallback (the branch used when a settled
 event is no longer returned by `GET /events?status=open`, so no category is available).
 
@@ -101,9 +114,14 @@ why "Petrolul" (a Romanian basketball club) matched the gas keyword "petrol" —
 **Fix.** The fallback now honours `exclude_keywords` and matches `title_keywords` on word
 boundaries (`scripts/collect.py` → `classify_settled_fallback()`, `keyword_regex()`).
 
-**Gate.** `scripts/collect_test.py` (new, 23 checks, run on every push and pull request) pins
-both rules against the four published tickers and against the "Petrolul" case, and fails if the
-published snapshot still contains a gas row the gas rule excludes.
+**Gate.** `tests/test_collect.py` (taken over from session `6b112481`'s PR #68 and extended
+here) runs 39 checks on every push and pull request. It pins both rules against the four
+published tickers and against the "Petrolul" case, proves that **only** the natural-gas rows
+change topic ("no other resolved row changed topic"), and fails if the published snapshot still
+contains a gas row the gas rule excludes. `tests/collector.test.mjs` runs the same official
+corpus (`tests/fixtures/topic_cases.json`) through the **browser** classifier
+(`assets/model.js`), so the two implementations that must stay in sync are checked against
+identical inputs — and `assets/model.js` was given the same word-boundary treatment.
 
 **Status in this repo:** the code is fixed; the *published snapshot* still carries the four
 stale rows until the collector regenerates `data/`. That regeneration is part of this session's
@@ -186,11 +204,14 @@ collector run.
 | File | Lines | Reviewed for | Result |
 |---|---|---|---|
 | `assets/app.js` | 1,277 | endpoint/parameter correctness, escaping, null-safety, settlement detection, chart windows | No defect found. All `innerHTML` insertions of market titles pass through `esc()`; the canvas context is null-guarded; the settlement check covers `finalized / determined / amended / settled / closed` with a `yes`/`no` result, matching the documented lifecycle. |
-| `assets/model.js` | 470 | fee arithmetic, topic classification, alert threshold | No defect found. The classifier already honours `exclRe` before the category branch (the live path was not affected by D1). The fee function computes in integer arithmetic and reproduces all 21 published table rows. |
+| `assets/model.js` | 490 | fee arithmetic, topic classification, alert threshold | The classifier honoured `exclRe` before the category branch, so the live path was not affected by D1 — but its **title** keywords were matched as raw substrings while the collector now matches them on word boundaries. **Fixed here** (word-bounded `boundedRe()`), with `tests/collector.test.mjs` locking the two implementations together. The fee function computes in integer arithmetic and reproduces all 21 published table rows. |
 | `assets/portfolio.js` | 485 | row sources, live polling, escaping | **D2 fixed** (per-market record + labels). |
-| `scripts/collect.py` | 582 | classification rules, pagination, source recording | **D1 and D3 fixed.** |
+| `scripts/collect.py` | 613 | classification rules, pagination, source recording | **D1 and D3 fixed.** The D1 implementation is the one merged by session `d256bfac`; this session added the `classify_settled()` entry point and the pagination facts. |
 | `scripts/portfolio_engine.py` | 1,443 | fee maths, alert threshold, ledger invariants, row sources | **D2 fixed**; self-test extended 68 → 76 checks. |
-| `scripts/collect_test.py` | 173 | **new** — regression gate for D1/D3 | 23 checks. |
+| `tests/test_collect.py` | 239 | **taken over** from session `6b112481` and extended — regression gate for D1/D3 | 39 checks (33 taken over + 6 added here). |
+| `tests/collector.test.mjs` | 80 | **taken over** — the browser classifier against the same official corpus | 18 checks. |
+| `tests/fixtures/topic_cases.json` | 105 | **taken over** — the shared official corpus (every case carries its official source URL) | 10 cases. |
+| `scripts/check_row_sources.mjs` | 180 | **taken over** — renders the published pages in jsdom and proves each rendered row links its own official record | 271 rows, 413 official links, 0 failures. |
 | `scripts/check_site.mjs` | 112 | per-row official source enforcement | No defect found. 1,249 rows + 825 resolved rows verified. |
 | `scripts/check_links.mjs` | — | local links, nav parity, external-link domain enforcement | No defect found. |
 | `data/fee_schedule_series.json` | 102 | transcription vs the official PDF | All 42 rows + 10 multipliers confirmed (§2). |
@@ -218,7 +239,32 @@ collector run.
 
 ---
 
-## 7. Sources
+## 7. Reconciliation with the concurrent sessions
+
+Four other sessions were active on this repository at the same time. Their work was **taken
+over, not discarded**; nothing of theirs was reverted.
+
+| Session | PR | What it did | How it was reconciled |
+|---|---|---|---|
+| `d256bfac` | #65 (merged), #67 (open) | Repaired the settled-market topic fallback: `keyword_match()`, `topic_excluded()`, `classify_settled_without_event()`; added `tests/test_collect.py`; disclosed the stale snapshot on the Resolved page | **Adopted.** Its implementation is the one in `scripts/collect.py` now. This session added the `classify_settled()` entry point, the series-guess improvement, and the pagination facts on top. |
+| `c96a21b7` | #64 (open) | The same D1 fix, with a board record | **Superseded** by the merged PR #65 and by this branch. Its board record is additive and is merged with the rest of `COORDINATION.md`. |
+| `6b112481` | #68 (open, `CONFLICTING`) | Repo review, the D1 fix, a per-row official-link gate, a collector↔browser classifier parity test, and the takeover of stale PR #58 | **Taken over** — `scripts/check_row_sources.mjs`, `tests/collector.test.mjs`, `tests/fixtures/topic_cases.json` and the extended `tests/test_collect.py` are now in this branch, plus the browser-side word-boundary fix in `assets/model.js`. Its `scripts/portfolio_engine.py` change (the per-row market record) is identical to this session's and was re-applied here against the current `main`. Its duplicate D1 implementation was not taken over (the merged one is in place). |
+| `6916270f` | #58 (open, stale since 2026-11-20 20:50Z) | Per-row official market-record links in the CI ledger + a final coordination record | **Taken over** — the substantive change is `api_market_url()` in `scripts/portfolio_engine.py`, which this session implemented identically and extended with 8 self-test checks. PR #58 is closed by this session's PR. |
+
+**Merge conflicts encountered and how they were resolved** (nothing was dropped):
+
+1. `COORDINATION.md` — every session appended its own block at the end of the file, so the
+   rebases conflicted. Resolved **additively**: main's blocks (sessions `504976fa`, `31a8a56b`,
+   `d256bfac`) and this session's block are all kept, in order.
+2. `scripts/collect.py` — this session's duplicate D1 implementation conflicted with the merged
+   one. Resolved in favour of the merged implementation; the duplicate was removed.
+3. `flagged.html` and `resolved.html` — the D1 rows were updated by more than one session.
+   Resolved in favour of main's wording (which already records the fix and the pending snapshot
+   refresh); this session's D3 "Denominator" disclosure was kept alongside it.
+
+---
+
+## 8. Sources
 
 All official, all read on 2026-11-21 (or, where a date is given, on the date shown):
 

@@ -18,6 +18,7 @@ Outputs (all under data/):
   resolved.json              - recently settled in-scope markets with result (yes/no)
   samples/*.json             - raw sample objects for line-by-line field verification
 """
+import hashlib
 import json
 import os
 import re
@@ -119,9 +120,41 @@ def paged(path, params, key, max_pages=MAX_PAGES):
     return items, urls, stats
 
 
+def collector_code_sha256():
+    """Fingerprint of the code that produced a snapshot.
+
+    The collector writes this into every file it generates, so a reader can
+    tell whether the committed snapshot was produced by the CURRENT collector
+    code or by an older revision. That distinction matters: a snapshot taken
+    before a classification fix legitimately still contains the rows the fix
+    removes, and a gate must report "stale snapshot" rather than "the
+    collector produced bad data". See tests/test_collect.py section 7.
+
+    The fingerprint covers scripts/collect.py and scripts/topics.json - the
+    two files that determine which rows are collected and how they are
+    labelled."""
+    h = hashlib.sha256()
+    for name in ("collect.py", "topics.json"):
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
+        try:
+            with open(path, "rb") as f:
+                h.update(f.read())
+        except OSError:
+            h.update(b"<missing:" + name.encode() + b">")
+        h.update(b"\0")
+    return h.hexdigest()
+
+
+COLLECTOR_CODE_SHA256 = collector_code_sha256()
+
+
 def wjson(path, obj):
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
+    if isinstance(obj, dict):
+        # Provenance: which collector code produced this file.
+        obj = dict(obj)
+        obj["collector_code_sha256"] = COLLECTOR_CODE_SHA256
     with open(full, "w", encoding="utf-8") as f:
         json.dump(obj, f, indent=1, ensure_ascii=False)
     log(f"WROTE {full} ({os.path.getsize(full):,}B)")
@@ -214,6 +247,38 @@ def classify_settled_without_event(title, series, topics):
 
             return t["id"], "title-keyword"
     return None, None
+
+
+def classify_settled(market, event, topics):
+    """Classify a SETTLED market row.
+
+    `market` is a market object from `GET /markets` (the settled sweep);
+    `event` is the matching event object when that event is still in the
+    open-events list, else None.
+
+    A settled event is no longer returned by `GET /events?status=open`, so for
+    most settled rows there is no event - and therefore no category - to
+    classify against. `classify_settled_without_event()` then matches on the
+    series prefix and the topic's title keywords, while applying the topic's
+    exclusion rules and whole-word keyword boundaries exactly as `classify()`
+    does.
+
+    When the event IS known, `classify()` is authoritative and the fallback is
+    not used: the event's own category then decides.
+
+    Official defect reference: flagged item 9d-1 - a natural-gas market and a
+    basketball match matched on the substring "petrol" were labelled
+    `gas-prices` before this rule existed.
+    """
+    title = f"{market.get('title', '')} {event.get('title', '') if event else ''}"
+    series = (market.get("series_ticker")
+              or (event.get("series_ticker", "") if event else "")
+              or series_guess(market.get("event_ticker")))
+    if event:
+        return classify({"event_ticker": market.get("event_ticker"), "title": title,
+                         "series_ticker": series,
+                         "category": event.get("category")}, topics)
+    return classify_settled_without_event(title, series, topics)
 
 
 def main():
@@ -439,19 +504,11 @@ def main():
     in_scope = []
     for m in settled:
         e = ev_by_ticker.get(m.get("event_ticker"))
-        title = (m.get("title") or "") + " " + (e.get("title", "") if e else "")
-        series = m.get("series_ticker") or (e.get("series_ticker", "") if e else "") or ""
-        probe = {"event_ticker": m.get("event_ticker"), "title": title,
-                 "series_ticker": series or series_guess(m.get("event_ticker")),
-                 "category": e.get("category") if e else None}
-        tid, why = classify(probe, topics)
-        if not tid and not e:
-            # Settled events are absent from the open-events list. The fallback
-            # must still honor exclusions and whole-word keyword boundaries.
-            # probe["series_ticker"] is the series guessed from the event ticker
-            # when the settled event has no record, so the series-prefix rule
-            # can still match here.
-            tid, why = classify_settled_without_event(title, probe["series_ticker"], topics)
+        # One entry point for both cases: the event is known (classify() is
+        # authoritative) or it is gone (the fallback matches the series prefix
+        # and the title keywords, and still honours the topic exclusions and
+        # whole-word keyword boundaries). See classify_settled().
+        tid, why = classify_settled(m, e, topics)
         if tid:
             row = trim(m, MARKET_FIELDS)
             row["_topic"] = tid

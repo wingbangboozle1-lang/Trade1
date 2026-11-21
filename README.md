@@ -71,8 +71,16 @@ python3 scripts/portfolio_engine.py selftest   # 76 checks: fee math, alert boun
 node tests/portfolio.test.mjs                  # ledger invariants + portfolio.html boot in jsdom (skips the DOM part without it)
 node scripts/check_links.mjs                   # every published page: nav parity, local links, external links are https+official
 
-# the collector's classification regression gate (offline, no network)
-python3 scripts/collect_test.py               # 23 checks: topic exclusions, keyword word boundaries, pagination facts
+# re-source every committed ledger row with its own official market record
+# (offline, deterministic: the row's `source` is a pure function of its ticker)
+python3 scripts/portfolio_engine.py resource
+# the collector's classification + pagination regression gate (offline, no network)
+python3 tests/test_collect.py                 # 39 checks: topic exclusions, keyword word boundaries,
+                                              #   snapshot regressions, pagination facts
+node tests/collector.test.mjs                  # the browser classifier (assets/model.js) matches the collector
+                                              #   on the same official corpus (tests/fixtures/topic_cases.json)
+node scripts/check_row_sources.mjs            # renders the published data/resolved pages in jsdom and
+                                              #   proves every rendered row links ITS OWN official record
 ```
 
 CI (`.github/workflows/pages.yml`) runs all of them on every push and pull request.
@@ -112,10 +120,12 @@ data/         verified snapshots: topics/*, resolved.json, meta.json, cors.json,
               portfolio.json + portfolio_state.json (written by the ledger workflow, not by hand)
 scripts/      collect.py (collector/verifier), build_snapshot.mjs, topics.json (topic rules),
               check_site.mjs, check_links.mjs (nav parity + external links), test_lib.mjs,
-              collect_test.py (offline classification/pagination regression gate),
-              portfolio_engine.py (the CI ledger: self-tests, seed, one live cycle)
+              check_row_sources.mjs (renders the published pages and proves each row links its
+              own official record), portfolio_engine.py (the CI ledger: self-tests, seed, one live cycle)
 tests/        engine.test.mjs (jsdom tests of the published pages), root_engine.test.js (fee/alert/unit
-              math), portfolio.test.mjs (ledger invariants + portfolio.html boot, DOM part self-skips)
+              math), portfolio.test.mjs (ledger invariants + portfolio.html boot, DOM part self-skips),
+              test_collect.py (collector classification + pagination gate), collector.test.mjs
+              (browser/collector classifier parity), fixtures/topic_cases.json (shared official corpus)
 tools/        build.mjs (syntax + link + nav checks)
 .github/      workflows/pages.yml (site checks, snapshot collection, Pages), portfolio.yml (the ledger)
 topics/       one topic page per tracked topic

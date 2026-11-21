@@ -1290,6 +1290,35 @@ def selftest():
        alert_public(dict(_a, source=None))["source"] == BASE + "/markets/KXTEST-1")
     ok("a ledger row source is always on the official demo API base",
        api_market_url("KXTEST-1").startswith("https://external-api.demo.kalshi.co/trade-api/v2/"))
+    # The COMMITTED ledger must already satisfy the rule: every row links its
+    # OWN official market record, not the cycle's batch quote URL.
+    _committed = os.path.join("data", "portfolio.json")
+    if os.path.exists(_committed):
+        try:
+            with open(_committed, encoding="utf-8") as _f:
+                _art = json.load(_f)
+            _bad = []
+            _n = 0
+            for _t in _art.get("trades", []):
+                _n += 1
+                if _t.get("source") != api_market_url(_t.get("ticker")):
+                    _bad.append(("trade", _t.get("ticker")))
+                if _t.get("exit"):
+                    _n += 1
+                    if _t["exit"].get("source") != api_market_url(_t.get("ticker")):
+                        _bad.append(("exit", _t.get("ticker")))
+            for _a in _art.get("alerts", []):
+                _n += 1
+                if _a.get("source") != api_market_url(_a.get("ticker")):
+                    _bad.append(("alert", _a.get("ticker")))
+            for _r in _art.get("resolutions", []):
+                _n += 1
+                if _r.get("source") != api_market_url(_r.get("ticker")):
+                    _bad.append(("resolution", _r.get("ticker")))
+            ok("every committed ledger row links its own official market record (%d rows)" % _n,
+               _bad == [], _bad or "all rows carry GET /markets/{ticker}")
+        except (ValueError, OSError) as _e:
+            ok("committed ledger is readable JSON", False, str(_e))
 
     # 3. the >= $0.10 rule must be exact at the boundary (binary float would fail this)
     ok("float trap: 0.66-0.56 < 0.10 in float", (0.66 - 0.56) < 0.10)
@@ -1420,10 +1449,63 @@ def _hours_ahead(h):
     return datetime.fromtimestamp(time.time() + h * 3600, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def cmd_resource(args):
+    """Recompute every ledger row's `source` from its ticker - offline, no network.
+
+    The `source` of a ledger row is a PURE FUNCTION of the row's market
+    ticker (api_market_url()), so the committed ledger can be brought onto the
+    current rule without touching the exchange and without hand-editing the
+    generated file: this command runs the engine's own writer over the
+    committed state and rewrites each row's source with the value the engine
+    would write today.
+
+    It touches nothing else - no price, no size, no P&L, no timestamp - so the
+    ledger's numbers are unchanged; only the row-level official links change.
+    Rows without a ticker keep whatever source they already had, and the
+    batch quote endpoint that produced the prices stays published in the
+    artifact's `sources.quote_endpoints` and in `data/log.md`."""
+    path = os.path.join("data", "portfolio.json")
+    if not os.path.exists(path):
+        print("data/portfolio.json not found", file=sys.stderr)
+        return 1
+    with open(path, encoding="utf-8") as f:
+        art = json.load(f)
+
+    changed = 0
+    checked = 0
+
+    def fix(row, ticker):
+        nonlocal changed, checked
+        if not isinstance(row, dict):
+            return
+        checked += 1
+        want = api_market_url(ticker)
+        if want and row.get("source") != want:
+            row["source"] = want
+            changed += 1
+
+    for t in art.get("trades", []):
+        fix(t, t.get("ticker"))
+        fix(t.get("exit") or {}, t.get("ticker"))
+    for a in art.get("alerts", []):
+        fix(a, a.get("ticker"))
+    for r in art.get("resolutions", []):
+        fix(r, r.get("ticker"))
+    for p in art.get("positions", []) or []:
+        fix(p, p.get("ticker"))
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(art, f, indent=1, ensure_ascii=False)
+        f.write("\n")
+    print("re-sourced %d of %d ledger rows in data/portfolio.json" % (changed, checked))
+    return 0
+
+
 def main(argv=None):
     global BASE
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("cmd", nargs="?", default="run", choices=["run", "seed", "selftest"])
+    ap.add_argument("cmd", nargs="?", default="run",
+                    choices=["run", "seed", "selftest", "resource"])
     ap.add_argument("--offline", action="store_true", help="no network; replay the committed snapshot")
     ap.add_argument("--per-topic", type=int, default=16)
     ap.add_argument("--total", type=int, default=72)
@@ -1436,6 +1518,8 @@ def main(argv=None):
         return selftest()
     if args.cmd == "seed":
         return cmd_seed(args)
+    if args.cmd == "resource":
+        return cmd_resource(args)
     return cmd_run(args)
 
 

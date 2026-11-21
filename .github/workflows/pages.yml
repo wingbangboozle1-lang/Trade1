@@ -41,8 +41,26 @@ jobs:
         run: node scripts/test_lib.mjs
       - name: Unit checks — engine math (fees, alert threshold, classifier)
         run: node tests/root_engine.test.js
+      # ORDERING (deliberate): the snapshot is refreshed from the official demo
+      # API BEFORE the gate runs, so the gate checks FRESHLY COLLECTED data
+      # instead of the committed snapshot (which may predate a classification
+      # fix). The collector is public, read-only and needs no credentials.
+      # If the refresh fails the committed snapshot is restored and the gate
+      # reports the snapshot as stale rather than blaming the collector.
+      - name: Refresh the snapshot from the official demo API (public, read-only)
+        run: |
+          if python3 scripts/collect.py; then
+            echo "snapshot refreshed from the official demo API"
+          else
+            echo "::warning::collector refresh failed; continuing with the committed snapshot"
+            git checkout -- data || true
+          fi
       - name: "Collector classification and pagination regression gate (defects D1 and D3)"
         run: python3 tests/test_collect.py
+      - name: Topic-classification parity (collector vs the browser mirror, flagged item 9d-1)
+        run: node tests/collector.test.mjs
+      - name: Every rendered table row links its own official record (data.html, resolved.html)
+        run: node scripts/check_row_sources.mjs
       - name: Unit checks — demo-account track (official fee table, signing, paper portfolio)
         run: node tests/demo-account.test.mjs
       - name: JS syntax, internal links, nav targets
@@ -81,6 +99,14 @@ jobs:
           ref: ${{ github.ref_name }}
       - name: Collect verified snapshots from the official demo API
         run: python3 scripts/collect.py
+      # ORDERING (deliberate): the gate runs AFTER the collection and BEFORE
+      # the commit, so data that violates the topic rules can never be
+      # published. REQUIRE_FRESH_SNAPSHOT=1 makes a stale snapshot a hard
+      # failure here.
+      - name: "Collector classification and pagination regression gate (defects D1 and D3)"
+        env:
+          REQUIRE_FRESH_SNAPSHOT: '1'
+        run: python3 tests/test_collect.py
       - name: Check links and source links
         run: node scripts/check_site.mjs
       - name: Commit refreshed snapshots

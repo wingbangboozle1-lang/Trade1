@@ -1,0 +1,105 @@
+{
+  "$comment": "Official Kalshi demo records used to check that scripts/collect.py (Python) and assets/model.js (browser) classify identically. Every title, category and series_ticker below is verbatim from the official demo API; the source URL for each case is given in `source`. The two natural-gas / Petrolul cases are flagged item 9d-1: they must NOT be labelled gas-prices.",
+  "cases": [
+    {
+      "id": "natural-gas-15m",
+      "title": "Natural Gas price up in next 15 mins?",
+      "sub_title": "",
+      "category": "Economics",
+      "series_ticker": "KXNATGAS15M",
+      "expect_topic": null,
+      "why": "NATURAL gas. The gas-prices topic excludes 'natural gas|natgas|propane|heating oil'. The old substring match read 'gas price' inside 'Natural Gas price'.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXNATGAS15M-26NOV201415-15"
+    },
+    {
+      "id": "petrolul-basketball",
+      "title": "CSM BBA Petrolul Ploiesti wins",
+      "sub_title": "",
+      "category": "Sports",
+      "series_ticker": "KXROMLNBMW",
+      "expect_topic": null,
+      "why": "Romanian basketball match. 'petrol' must not match inside 'Petrolul' (word boundary).",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/markets/KXROMLNBMGAME-26NOV201200PLOPIT-PLO"
+    },
+    {
+      "id": "gas-us-nov-2026",
+      "title": "Gas prices in the US in Nov 2026?",
+      "sub_title": "On Nov 30, 2026",
+      "category": "Economics",
+      "series_ticker": "KXAAAGASM",
+      "expect_topic": "gas-prices",
+      "why": "Positive control: a real gasoline event.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASM-26NOV30"
+    },
+    {
+      "id": "gas-us-this-week",
+      "title": "US gas prices this week",
+      "sub_title": "Nov 23 - Nov 29, 2026",
+      "category": "Economics",
+      "series_ticker": "KXAAAGASW",
+      "expect_topic": "gas-prices",
+      "why": "Positive control: a real gasoline event.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASW"
+    },
+    {
+      "id": "gas-texas-low",
+      "title": "How low will gas prices in Texas get this year?",
+      "sub_title": "2026",
+      "category": "Economics",
+      "series_ticker": "KXAAAGASMINTX",
+      "expect_topic": "gas-prices",
+      "why": "Positive control: a real gasoline event.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events/KXAAAGASMINTX"
+    },
+    {
+      "id": "elections-nominee",
+      "title": "Who will be the Democratic nominee in 2028?",
+      "sub_title": "",
+      "category": "Elections",
+      "series_ticker": "KXPRESNOMD",
+      "expect_topic": "elections",
+      "why": "Positive control.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events/KXPRESNOMD-28"
+    },
+    {
+      "id": "crypto-btc-eoy",
+      "title": "Bitcoin price at the end of 2026",
+      "sub_title": "",
+      "category": "Crypto",
+      "series_ticker": "KXBTCY",
+      "expect_topic": "crypto",
+      "why": "Positive control.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events/KXBTCY-27JAN0100"
+    },
+    {
+      "id": "golf-rsm-classic",
+      "title": "The RSM Classic Winner",
+      "sub_title": "2026 The RSM Classic",
+      "category": "Sports",
+      "series_ticker": "KXPGATOUR",
+      "expect_topic": "golf",
+      "why": "Positive control.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events/KXPGATOUR-THRC26"
+    },
+    {
+      "id": "culture-oscar",
+      "title": "Oscar for Best Picture?",
+      "sub_title": "",
+      "category": "Entertainment",
+      "series_ticker": "KXOSCARPIC",
+      "expect_topic": "culture",
+      "why": "Positive control.",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events/KXOSCARPIC-27"
+    },
+    {
+      "id": "golf-trump-politics",
+      "title": "Will Donald Trump play golf at his own course?",
+      "sub_title": "",
+      "category": "Politics",
+      "series_ticker": "KXPGATOUR",
+      "expect_topic": null,
+      "why": "A golf-club market whose official category is Politics - excluded from the golf topic by exclude_categories (PR #20 finding, mirrored in scripts/topics.json).",
+      "source": "https://external-api.demo.kalshi.co/trade-api/v2/events?category=Politics&limit=200"
+    }
+  ]
+}
