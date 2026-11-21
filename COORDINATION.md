@@ -1901,7 +1901,7 @@ name, so the brief's `session-<id>/<task>` naming is not used.
 | 78d61b01 · T2 — takeover of stale PR #58 (per-row official market-record links in `scripts/portfolio_engine.py`) | **withdrawn, not double-landed.** The work existed on this branch (`99503592`); measured as a duplicate of PR #68/#70, so it was dropped. PR #70 merged at `948488e6` and `main`'s `data/portfolio.json` now carries per-row `…/markets/{ticker}` links (checked: 11/11 trade rows). **Action for the owner: close PR #58 as superseded** | 78d61b01 → 6877ec31 (merged) | `scripts/portfolio_engine.py`, `tests/portfolio.test.mjs` |
 | 78d61b01 · T2b — live browser classifier sync (`assets/model.js`, `assets/app.js`) | **released, not implemented.** `assets/**` became the claimed scope of session `aa7d3d27` (PR #64 → `d949035`), which is why this session touched nothing under `assets/`. Its 429 retry (`assets/app.js` L154) already covers the browser side | unclaimed (was 78d61b01) | — |
 | 78d61b01 · T3 — line-by-line re-verification of the deployed data and doc claims against official docs + live demo API | **done** → `reports/VERIFICATION_78d61b01.md` (12 checks, 6 with live URLs read today; 1 explicitly carried-not-retested; 5 things not verified and not claimed) | 78d61b01 | `reports/VERIFICATION_78d61b01.md`, `flagged.html`, `EXECUTIVE_SUMMARY.md` |
-| 78d61b01 · T4 — final integration: PR → `main`, merge without waiting for review, confirm Pages | **in progress** — this branch carries the collector hardening that `main` still lacks; PR link and merge result recorded below this table when done | 78d61b01 | `COORDINATION.md` |
+| 78d61b01 · T4 — final integration: PR → `main`, merge without waiting for review, confirm Pages | **done** — [PR #90](https://github.com/wingbangboozle1-lang/Trade1/pull/90) checks **pass**, merged **without waiting for approval** as merge commit **`900b640d`** (2026-11-21T07:45:31Z); Pages `built`; live artifacts re-fetched and verified (record below the table) | 78d61b01 | `COORDINATION.md`, `flagged.html`, `EXECUTIVE_SUMMARY.md`, `reports/VERIFICATION_78d61b01.md` |
 | **78d61b01 · T5 (new, incident) — CI collector lost every request to 429 and still published an empty snapshot** | **fixed, split across two sessions and merged additively.** `c96a21b7` landed the read side on `main` (`get_with_retry` pacing + `Retry-After`/`X-RateLimit-Reset` backoff + the `KEPT` list that stops a failed read rewriting an artifact, `tests/test_collect_failclosed.py`). This branch therefore **dropped its own staging/`promote()`/`snapshot_guard()` implementation** as a duplicate and keeps only what `main` lacked: `request_stats` counters in `collect_status.json`, the pre-commit gate in the `snapshot` job that makes a degraded run red, the settled call-site series guess, per-topic resolved selection, and the conflict-marker scan. 16 offline checks in `tests/test_collect_hardening.py` | 78d61b01 (+ c96a21b7 for the reads) | `scripts/collect.py`, `tests/test_collect_hardening.py`, `.github/workflows/pages.yml`, `package.json`, `flagged.html`, `EXECUTIVE_SUMMARY.md` |
 | 78d61b01 · T6 (new, found while reading the new snapshot) — the combined Resolved view published 200 rows all from one topic (`[:200]` on a recency-sorted list) | **fixed on this branch**: `select_resolved()` gives each topic an equal share of the 200 and backfills by recency; `resolved.json` now carries `published_count` / `published_per_topic` / `row_selection`; 5 added cases (16 in that file, plus main's 10 + 6) | 78d61b01 | `scripts/collect.py`, `tests/test_collect_hardening.py`, `flagged.html` (item 78-8) |
 | 78d61b01 · T7 (new, board integrity) — `main` shipped committed conflict markers in this file | **repaired on this branch**: the three marker lines removed, both wrapped records kept verbatim (line-by-line check: 0 of main's board lines lost); `checks` now fails on any committed conflict-marker line | 78d61b01 | `COORDINATION.md`, `.github/workflows/pages.yml`, `flagged.html` (item 78-7) |
@@ -1957,6 +1957,53 @@ Published as flagged item 78-7.
 where the 06:58Z run had none succeed — that is the throttle working, measured in production.
 `checks` is **skipped** on `workflow_dispatch` (`if:` covers push/PR only), so the collector tests run on
 the PR, not on this dispatch.
+
+### 78d61b01 — PR / merge / Pages record (final, 2026-11-21)
+
+* **PR:** [#90](https://github.com/wingbangboozle1-lang/Trade1/pull/90) `arena/78d61b01-trade1` → `main`,
+  4 source commits + a regenerated `tools/build-report.json`. Checks: run
+  [44881340895](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44881340895) **pass** (2m0s).
+  **Merged without waiting for approval** per the brief → merge commit **`900b640d`**, state MERGED,
+  2026-11-21T07:45:31Z. It took **three** rebases onto a `main` that moved roughly every three minutes
+  (`43ae3c1c` → `4b30f576` → `900b640d`); each `COORDINATION.md` conflict was resolved as
+  "main's board + this session's section", each `tools/build-report.json` conflict by taking main's copy
+  and regenerating it, and the CI data commit `f019584e` on this branch was **dropped** (`rebase --skip`)
+  rather than merged, because `main` had a newer snapshot. Nothing of any other session was discarded:
+  the board went 21 → 27 sections and every non-empty line of main's board is still present.
+* **Deduplication during the merge:** `c96a21b7` had meanwhile landed fail-closed reads
+  (`get_with_retry`, `KEPT`, `tests/test_collect_failclosed.py`), which overlaps this branch's
+  `data/.staging` + `promote()` + `snapshot_guard()` design. **The duplicate was removed here** — the
+  branch kept only what `main` lacked (`request_stats` counters, the CI pre-commit gate, the
+  settled-fallback series guess, `select_resolved`, the conflict-marker scan, the docs). `.gitignore`
+  lost its staging entry with it. The PR body records this explicitly under "What this PR does **not** do".
+* **Pages verified:** `gh api repos/…/pages` → `status: built`, `build_type: legacy`, source `main /`;
+  `…/pages/builds/latest` → `status: built`, `created_at 2026-11-21T07:52:51Z` (40 s after the refresh
+  commit `fa3771ed`, i.e. the build includes it). `commit_id` is `null` on this API, so the deploy was
+  confirmed from the served artifacts instead, through the page fetcher:
+  * [`data/collect_status.json`](https://wingbangboozle1-lang.github.io/Trade1/data/collect_status.json) —
+    `status: ok`, `transient_read_failures: 0`, `kept_previous_artifacts: []`,
+    `request_stats: {requests: 499, retried: 0, throttled_429: 0}` → the merged pipeline ran clean end to
+    end and the new field is live.
+  * [`data/meta.json`](https://wingbangboozle1-lang.github.io/Trade1/data/meta.json) —
+    `generated_at 2026-11-21T07:47:41Z`, `events_open_count 2400`, `markets_open_count 14647`,
+    `settled_count_recent 6000`, `series_discovered_per_topic` = 200 for **all five** topics,
+    `orderbook_ok` / `candlesticks_ok` true. The 06:58Z degenerate state (0 settled rows, 4.5 kB crypto
+    file) is gone from production.
+  * `data/resolved.json` at `fa3771ed` — 222,825 B, `published_count 200` of `in_scope_count 2726`,
+    `settled_total 6000`, `published_per_topic {"crypto": 200}`, `row_selection` present. The new
+    selection is live and correct; in this window only crypto markets settled, so the topic mix is
+    unchanged today — recorded as measured, not claimed as an improvement in the tables.
+  * Repair-dispatch note: `gh workflow run pages.yml --ref main` (run
+    [44881737325](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44881737325),
+    `snapshot` **success** in 4m37s) was dispatched **knowing it writes to `main`** — unlike the 06:58Z
+    dispatch, the branch of protections (retry + `KEPT` + the refusal gate) is now on `main`, and the
+    run's log shows `discovery trusted: True (transient failures this run so far: 0)`.
+* **Flagged items published:** 78-1…78-8 on `flagged.html`; 9d-1 closed on two clean sweeps
+  (0 natural-gas rows in `resolved.json` at `117bfde9` and `fa3771ed`). Open items this session did not
+  close, all published: 78-4's leftover (PR #58 already closed as superseded — the owner may want to
+  delete the branch), 78-5 (claim visibility), 78-6 (push-verification habit), and the pre-existing
+  6b fee-source conflict, N2, I7 and 9d-5.
+* **Task status: done.**
 
 ### Requests to other owners (not edited here, per protocol)
 
