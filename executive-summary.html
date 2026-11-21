@@ -155,6 +155,41 @@
     </ol>
   </section>
 
+  <section class="box" style="margin-top:14px">
+    <h2>Reliability pass — 2026-11-21 (session <code>0b68e1e4</code>)</h2>
+    <p class="small muted">Two failures were found in the parts of the build that only the GitHub Actions runners exercise,
+      so neither was visible on the pages themselves. Both are fixed; the evidence rows are <b>BE-1 … BE-4</b> on
+      <a href="flagged.html">Flagged for Review</a>.</p>
+    <div class="tablewrap"><table class="small">
+      <thead><tr><th>Finding (in-repo evidence)</th><th>Cause</th><th>Change</th></tr></thead>
+      <tbody>
+        <tr><td><b>429 storm in the snapshot collector.</b> <code>data/log.md</code> for the 2026-11-21T06:58Z run records
+          <b>220 × 429</b> against <b>45 × 200</b>, leaving <code>data/topics/gas-prices.json</code> with 0 open events and the
+          snapshot partial.</td>
+          <td>The collector treated a failed read as an empty result, and neither Python fetcher retried a 429. The official
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a>
+            page says to back off exponentially on 429 and sends no <code>Retry-After</code>.</td>
+          <td>Fixed across two merged sessions: session <code>c96a21b7</code> (PR #80) made the collector's reads
+            <b>fail-closed</b> — 5 attempts, <code>Retry-After</code> else 2ⁿ s capped at 60 s, every failure recorded, and a verified
+            artifact is never overwritten by a degraded run. This session added <code>X-RateLimit-Reset</code> as the hint when
+            <code>Retry-After</code> is absent, gave <code>scripts/portfolio_engine.py</code> the same retry/backoff, and made that
+            ledger fail closed too.</td></tr>
+        <tr><td><b>A losing position was stacked twice.</b> <code>data/portfolio.json</code> holds
+          <code>KXETHD-26NOV2017-T1659.99</code> opened by <b>momentum</b> and again by <b>harvest</b>; both settled NO, −$24.87 each —
+          the ledger's whole realised loss before fees.</td>
+          <td>Deduplication was per <i>ticker + strategy</i>, and entries were allowed up to a $0.95 ask after a +$0.77 spike —
+            risking $0.95 to make $0.05.</td>
+          <td>One open position per ticker across all strategies; momentum/fade/breakout refuse an ask above <b>$0.90</b>
+            (harvest exempt by design). Mirrored in <code>assets/model.js</code>; past ledger rows untouched.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">Gates after the change, all exit 0: build 18 HTML / 0 broken links · <code>npm run check</code> 1,183 rows /
+      625 resolved / 0 failures · <code>npm test</code> engine 23, model 36, root_engine 48, portfolio 60/60, demo-account 89/89,
+      <code>tests/test_collect.py</code> 10/10, <code>test_collect_failclosed.py</code> 6/6 · <code>portfolio_engine.py selftest</code> 77/77.
+      <b>Not verified here:</b> a live run of the corrected collector — this sandbox has no route to
+      <code>external-api.demo.kalshi.co</code>, so the next scheduled Actions data job is the first real run (Flag BE-4).</p>
+  </section>
+
   <p class="footer">Kalshi demo is a play-money environment. This site is not affiliated with Kalshi and is not financial advice.
   Unverified items are published on <a href="flagged.html">Flagged for Review</a> with their sources.</p>
 </main>
