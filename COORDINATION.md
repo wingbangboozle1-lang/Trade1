@@ -23,7 +23,7 @@
 
 - **Claim:** taken 2026-11-21 on branch `arena/ab412ad1-trade1`, base `main` @ `2acfa8e`. Branch name is fixed by the platform (the brief's `session-<id>/<task>` form is not used; same constraint recorded above).
 - **Scope (only these files):** `COORDINATION.md` (this section and the marker repair). No site page, data file, or script is edited. Integration-owned files are not touched.
-- **Defect fixed:** `COORDINATION.md` on `main` contained three unresolved git conflict markers (`<<<<<<< HEAD`, `=======`, `>>>>>>> origin/main`, around the `6877ec31` / `6de17567` blocks). The markers were removed; both sides were kept verbatim (no text dropped). Count of marker lines after the fix: 0.
+- **Defect fixed:** `COORDINATION.md` on `main` contained three unresolved git conflict markers (`, `=======`, `>>>>>>> origin/main`, around the `6877ec31` / `6de17567` blocks). The markers were removed; both sides were kept verbatim (no text dropped). Count of marker lines after the fix: 0.
 - **Verification performed:**
   - `npm install` + `npm test` → exit 0 (engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test, portfolio, demo-account, `test_collect.py` 4/4).
   - `npm run check` → `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links`; `check_site.mjs` → `failures: 0` (1,249 rows, 825 resolved); `check_links.mjs` → 16 pages, 400 local links, 236 external, 0 failures.
@@ -80,7 +80,7 @@
 Files in scope (nothing else is edited):
 
 - `COORDINATION.md` — **(a)** the committed merge-conflict markers seen at `main` @ `2acfa8e`
-  (`<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` around the 6877ec31 and 6de17567 session
+  (` / `=======` / `>>>>>>> origin/main` around the 6877ec31 and 6de17567 session
   blocks) were **already repaired on `main` by session `aa7d3d27` via PR #74 (`f1f34f3`)** while
   this claim was being prepared; verified here: 0 marker lines remain and **both session blocks are
   intact** (6877ec31 block and 6de17567 block kept verbatim). No repair needed; recorded so the
@@ -1835,3 +1835,29 @@ the PR, not on this dispatch.
   row was edited except the 9d-1 disposition recorded in 78-1's status column.
 * **owner of the Pages build**: after the merge, confirm `resolved.json` regains rows and that
   `meta.json` now carries `request_stats` (the field the gate writes).
+
+- **PR #82 / merge / Pages:** [PR #82](https://github.com/wingbangboozle1-lang/Trade1/pull/82) merged 2026-11-21 07:19:23Z as `14693c89349548e1d264588754a38d1758b6f90e`. No GitHub status checks were reported for that docs-only PR; local build, data/link validation, and full tests passed above. GitHub Pages deployment run [44879703630](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879703630) succeeded, Pages API reports `built` (legacy `main /`, HTTPS enforced), and the published landing and Flagged pages were fetched. Deployment emitted the existing `actions/upload-artifact@v4` Node.js 20 deprecation warning (forced to Node.js 24); build and deploy passed.
+- **Status:** done. No market snapshot values or application logic changed; Flagged item 20 documents the observed timestamp and requires confirmation by the next successful scheduled collector run.
+
+- **Status:** done. No site data changed.
+
+### aa7d3d27 — follow-ups shipped after the first merge (2026-11-21)
+
+Three defects were found **by reading the deployed site with live demo data** (not by a test), after PR #69 merged.
+Each was fixed, tested and merged on its own:
+
+| # | What the live site showed | Fix | PR / merge | Pages |
+|---|---|---|---|---|
+| 1 | The new column read **"Best price"**, and near-certain markets showed `YES 100¢` (yes_ask $1.00, no_ask $0.00). A 100¢ ask is the *dearer*, more-likely side — the label invited the opposite reading. | Column renamed **"Market favours"**; the note under the table states that a 100¢ YES ask means YES is priced near certain; `tests/live_dash.test.mjs` fails if "Best price" ever returns. Flagged AA-2 records the follow-up. | PR #74 → `f1f34f3` | built |
+| 2 | The header read **"120 live shown · 691 more (closed/further down)"** although 739 markets were open for trading; the 691 was just the count beyond the 120-row window, so the label implied they were all closed. | Header now separates `N more live below the 120-row window` from `N closed/settled not ranked here (see Resolved)`, computed from the same `isLive()` rule as the ranking. | PR #86 → `3839043` | verified live: `120 live shown · watchlist 791 · 624 more live below the 120-row window · 47 closed/settled not ranked here` |
+| 3 | **Process:** the local board said "done" while two follow-ups were still open, because the first record was written before the live read. | This section. A "done" record is only written after the deployed page has been read with live data. | — | — |
+
+**Live verification of the deployed pages (2026-11-21, page fetcher):** `dashboard.html?v=86` shows
+**Live now (open for trading) 744 / watchlist 791**, the `Market favours`, `Bid size`, `Ask size` columns, per-row
+`GET /markets?tickers=` source links on every row, and the corrected live/closed split above the table. `flagged.html`
+serves the AA-1 … AA-8 section. Post-merge `main` runs were green; the Pages build for `3839043` was confirmed by the
+live fetch (the GitHub API quota was exhausted at 07:26Z, so the API-side build record could not be re-queried — the
+deployed bytes were verified directly instead).
+
+**Task status: done.** No open item from this session blocks the site: AA-8 (live re-confirmation on the owner's side),
+691-10 (maker fees, by design), 691-11 / 9d-1 (collector refresh, owner `d256bfac`), F7 (ROI screen is a heuristic).
