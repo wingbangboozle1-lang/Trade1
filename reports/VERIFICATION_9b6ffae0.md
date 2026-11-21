@@ -162,7 +162,21 @@ they were **not** applied because the files are claimed by open PRs (#74, #75, #
   documented as the last traded YES price **a day ago**), which catches moves that happened outside the
   sampling window; the sudden-move detector is the sampled one."
 
-- **R2 — `scripts/collect.py` request budget (owner: `0b68e1e4` PR #79 / `d256bfac`, next in line for that file).**
+- **R2a — ✅ already delivered while this audit was in flight.** The first half of R2 landed from a
+  different session: `scripts/collect.py` now prefers the published reset hint —
+  "no Retry-After is sent on 429 (official rate-limit page); use the published `X-RateLimit-Reset`
+  (seconds) when present, else exponential backoff" — reached from the same official sentence this report
+  cites. Recorded as **convergent verification**: two sessions reading one official page and changing the
+  same thing in the same direction. Not re-edited here.
+- **R7 — `scripts/collect.py`, one-line accuracy fix (owner: open PRs #75 / #85 claim that file).**
+  The self-description written into `data/collect_status.json` still reads
+  `"backoff": "Retry-After header if numeric, else 2^attempt seconds (max 60 s)"`, which describes the
+  policy **before** R2a. The code order is now `Retry-After → X-RateLimit-Reset → 2^attempt`, and the
+  artifact is quoted by the site as the collector's own statement of its behaviour, so it should not lag
+  the code. Suggested string:
+  `"Retry-After if numeric, else X-RateLimit-Reset seconds, else 2^attempt (max 60 s)"`.
+  Logged, not edited — `scripts/collect.py` is inside two open PRs.
+- **R2b — `scripts/collect.py` request budget (still open; owner: #75 / #85).**
   The 429 storms every session hit are avoidable in part: `GET /markets/candlesticks` accepts **up to 100
   tickers** per call (≤ 10,000 total periods), and `GET /markets?tickers=a,b,c` batches market reads,
   so the per-event `markets?event_ticker=` loop can be collapsed. Also replace the inert `Retry-After`
