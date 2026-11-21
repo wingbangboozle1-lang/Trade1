@@ -291,12 +291,49 @@ def main(argv):
     add("markets-status-active-filter", f"{BASE}/markets?status=active&limit=10", [400], DOCS["get_markets"],
         "the /markets status FILTER enum is unopened|open|paused|closed|settled — 'active' is a market's own "
         "status VALUE, not a filter value. Recorded so a future API change is visible.", informative=True)
-    add("settled-resolutions", f"{BASE}/markets?status=settled&min_settled_ts={now - 72 * 3600}&limit=1000&mve_filter=exclude",
+    sj = add("settled-resolutions", f"{BASE}/markets?status=settled&min_settled_ts={now - 72 * 3600}&limit=1000&mve_filter=exclude",
         200, DOCS["get_markets"],
         "the Resolved page's source: settled markets must carry the official result (yes/no) and settlement "
         "fields, which is how a resolution is recorded without a websocket.",
         ["markets", "cursor"], ["ticker", "status", "result"],
         mutate=result_check, needs_sample=True)
+
+    # The interval cases above can legitimately answer with an EMPTY array on demo: open
+    # markets are minted by the minute, and the sample row is often minutes old, so it has no
+    # completed hourly or daily period yet (that is what the first live run showed). A recently
+    # SETTLED market gives the longer intervals a window that spans its whole life, so the
+    # candlestick ITEM shape gets checked against real candle objects at 60 and 1440 too, not
+    # only at 1 minute. Emptiness still never fails these cases — it is recorded as items_empty.
+    def span(m):
+        try:
+            a = int(datetime.fromisoformat(str(m.get("created_time")).replace("Z", "+00:00")).timestamp())
+            b = int(datetime.fromisoformat(str(m.get("settlement_ts") or m.get("close_time")).replace("Z", "+00:00")).timestamp())
+        except Exception:
+            return None
+        return (a, b) if b > a else None
+
+    widest = None
+    for m in ((sj or {}).get("markets") or []):
+        sp = span(m)
+        if sp and (widest is None or sp[1] - sp[0] > widest[1] - widest[0]):
+            widest = (sp[0], sp[1], m)
+    if widest:
+        w_start, w_end, w_m = widest
+        w_series = str(w_m.get("event_ticker") or "").split("-")[0]
+        for interval, label in (("60", "60-min"), ("1440", "daily")):
+            step = int(interval) * 60
+            start = max(w_start, w_end - 4000 * step)   # the documented 5,000-period cap, with headroom
+            add(f"candles-{interval}-settled",
+                f"{BASE}/series/{urllib.parse.quote(w_series)}/markets/{urllib.parse.quote(w_m['ticker'])}"
+                f"/candlesticks?start_ts={start}&end_ts={w_end + step}&period_interval={interval}",
+                200, DOCS["candlesticks"],
+                f"{label} candles across the whole life of a settled market ({w_m['ticker']}): the interval the "
+                f"chart actually uses, over a window that can contain rows, so the candle object's fields are "
+                f"checked against real data rather than an empty array.",
+                ["candlesticks"], ["end_period_ts", "price", "volume_fp", "open_interest_fp"])
+    else:
+        say("candles-*-settled: skipped (no settled row carried a usable created→settlement span)")
+
     add("series-list", f"{BASE}/series?category=Crypto&include_volume=true&limit=1000", 200,
         DOCS["get_series_list"],
         "per-topic series listing: carries the official volume, the per-series fee multiplier the paper "

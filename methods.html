@@ -205,7 +205,7 @@ score = raw · damp                          (rounded to 3 dp)</pre>
   and an explicit assertion keeps the boot out of snapshot mode. A documented field change therefore breaks a test
   instead of quietly changing a price.</p>
   <p class="small"><b>Endpoint contract probe.</b> <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/api_contract.py" target="_blank" rel="noopener"><code>scripts/api_contract.py</code></a>
-  issues ~20 requests once per scheduled run of the “Live client” workflow (paced 0.35 s apart, one retry after a
+  issues its 22 cases once per scheduled run of the “Live client” workflow (paced 0.35 s apart, one retry after a
   429 — a rounding error against any documented budget) and records, per endpoint: HTTP status vs the documented
   status, byte size, latency, verbatim <code>x-ratelimit-*</code> keys, observed required fields, the order-book
   ascending check, the <code>tickers</code>-only “single response, empty cursor” shape, and the CORS answer. The
