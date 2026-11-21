@@ -126,6 +126,8 @@ BUILD OK — 18 HTML, 7 JS files validated, 0 broken links.
 {"pages":16,"links":430,"external":386,"datarefs":8}
 16 published pages, 430 local links, 386 external links, 0 failures
 every rendered row links its own official record (431 rows, 707 official links)
+# the table/link counts move with every snapshot refresh — these are this session's run;
+# re-running `npm run check` after a collector commit is expected to shift them slightly
 
 $ node tools/render_test.mjs --offline --wait=5000   # index, dashboard, topics/crypto, resolved,
                                                      # portfolio, data, sources, methods, flagged
