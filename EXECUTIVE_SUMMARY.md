@@ -162,7 +162,7 @@ Official sources re-read 2026-11-21: [API Environments](https://docs.kalshi.com/
 |---|---|---|
 | `data/snapshot.json` | 2026-11-20T19:11Z | 17,753 matched rows → 1,118 open kept + 625 resolved kept (494 NO / 131 YES). Open by topic: elections 7,954 · crypto 440 · culture 329 · golf 67 · gas-prices **0** |
 | `data/topics/*.json` + `data/meta.json` | 2026-11-21T06:58Z | Events: elections 1,942 · culture 28 · crypto 4 · golf 3 · gas 0. Top est. dollars: `KXRHOUSESEATS-27` $1,579,719.60 · `KXBTC50VS100-BTC-26DEC31` $1,480,017.12 (contracts × last price, labelled estimates) |
-| `data/portfolio.json` (CI ledger) | 2026-11-21T06:00Z | 11 trades (7 open, 4 realised, 2 settled), 0W/4L, realised −$59.59 (ROI −60.01%), equity $934.77 / $1,000 (−6.52%), 29 alerts, 21 resolutions. By strategy: momentum −$29.17 · harvest −$24.87 · fade −$5.55 · breakout open. By topic: crypto −$55.29 · culture −$4.30 · elections open |
+| `data/portfolio.json` (CI ledger) | 2026-11-21T07:08Z | 12 trades (8 open, 4 realised, 2 settled), 0W/4L, realised −$59.59 on $99.30 cost (ROI −60.01%), equity $933.48 / $1,000 (−6.65%), cash $744.17, peak $995.44, max drawdown −$61.96, 30 alerts, 21 resolutions. Per strategy (trades / closed / realised P&L): momentum 7 / 2 / −$29.17 · fade 1 / 1 / −$5.55 · harvest 1 / 1 / −$24.87 · breakout 3 / 0 / $0. Per topic: crypto 7 / 3 / −$55.29 · culture 3 / 1 / −$4.30 · elections 2 / 0 / $0 · gas and golf 0 trades |
 | `data/demo_account/status.json` | 2026-11-20T19:37Z | `configured: false` — no demo-account balance/positions to report; execution log is `dry_run`/`not_sent` only. No account performance is claimed |
 
 **New irregularities (published on [Flagged](flagged.html), do not block):** NEW-1 two snapshot
@@ -170,7 +170,7 @@ pipelines/two clocks (2026-11-20 vs 2026-11-21, freshness stated per file) · NE
 `notional_value_dollars` is $1/contract payout, so snapshot selection (≈ open interest) and live
 ranking (estimated traded dollars) are two different "highest dollar" definitions, both labelled ·
 NEW-3 gas-prices genuinely empty on demo (0 open in both pipelines) · NEW-4 portfolio sample
-(11 trades, 0 wins) too small to judge strategies (backtest F7 + [Flagged item 8](flagged.html#f8) stand) · NEW-5 sandbox has no route to
+(12 trades, 0 wins, only 4 closed) too small to judge strategies (backtest F7 + [Flagged item 8](flagged.html#f8) stand) · NEW-5 sandbox has no route to
 Kalshi (curl 000; verification via docs + committed CI evidence, AA-8 stands) · NEW-6 open PRs
 #70/#68/#67/#64/#58 predate this integration and were not merged here (owner to close).
 
