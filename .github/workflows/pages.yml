@@ -55,6 +55,8 @@ jobs:
         run: node tests/live_fixes.test.mjs
       - name: Live-dashboard regressions (closed markets, live/closed table split, order-book ladder, chat boards)
         run: node tests/live_dash.test.mjs
+      - name: Collector fail-closed regression (offline; HTTP 429 must keep verified artifacts)
+        run: python3 tests/test_collect_failclosed.py
       - name: Render every published page in jsdom (empty-render / JS-error gate)
         # jsdom ships no canvas backend, so the canvas guard in assets/app.js keeps the
         # page alive there; every other JS error still fails the run. This is what
