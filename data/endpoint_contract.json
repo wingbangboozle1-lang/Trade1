@@ -1,0 +1,19 @@
+{
+ "placeholder": true,
+ "generated_at": null,
+ "base": "https://external-api.demo.kalshi.co/trade-api/v2",
+ "policy": {
+  "pace_s": 0.35,
+  "note": "no probe has run yet"
+ },
+ "sample_market": null,
+ "cors": null,
+ "summary": {
+  "cases": 0,
+  "ok": 0,
+  "failed": 0,
+  "informative": 0
+ },
+ "cases": [],
+ "note": "PLACEHOLDER \u2014 zero probe results, by design. Nothing in this file is evidence about the exchange: it exists only so the Data page and the link checker have a real artifact to read before the first run of .github/workflows/live-client.yml, which executes scripts/api_contract.py against the live demo API from a GitHub runner and overwrites this file with its results. The build sandbox cannot reach kalshi.co, so no probe output could honestly be produced here."
+}

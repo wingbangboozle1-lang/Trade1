@@ -1,0 +1,104 @@
+name: Live client (governor + endpoint contract)
+
+# Scope: the live browser client (assets/governor.js + assets/app.js) and the demo-API
+# contracts it depends on. Split out from pages.yml so this session's checks never
+# contend with the shared site workflow.
+#
+#  client    — offline only: governor unit tests, verbatim-response contract tests,
+#              probe self-tests. No network, so it cannot flake with the exchange.
+#  contract  — one run of scripts/api_contract.py against the live DEMO API from a
+#              runner (the build sandbox cannot reach kalshi.co), publishing
+#              data/endpoint_contract.json: for every endpoint the dashboard calls,
+#              the HTTP status, the required fields, the observed X-RateLimit-*
+#              headers and the CORS answer. A documented contract breaking makes
+#              this job red, and the evidence is committed either way so the Data
+#              page shows what changed rather than going stale silently.
+
+on:
+  schedule:
+    - cron: '37 */3 * * *'          # 20 minutes after the collector's :17 run
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/governor.js'
+      - 'assets/app.js'
+      - 'assets/model.js'
+      - 'assets/site.css'
+      - 'tests/rate_governor.test.mjs'
+      - 'tests/live_contract.test.mjs'
+      - 'scripts/api_contract.py'
+      - 'data/samples/**'
+      - '.github/workflows/live-client.yml'
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-client-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  client:
+    name: Offline gates (no network)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Install the test dependency (jsdom)
+        run: npm install --no-audit --no-fund jsdom@26.1.0
+      - name: Syntax
+        run: node --check assets/governor.js && node --check assets/app.js && node --check assets/model.js
+      - name: Request governor (pacing, priority, coalescing, 429 backoff, shedding)
+        run: node tests/rate_governor.test.mjs
+      - name: Live-response contract tests (verbatim demo-API fixtures)
+        run: node tests/live_contract.test.mjs
+      - name: Probe self-tests (offline)
+        run: python3 scripts/api_contract.py --selftest
+
+  contract:
+    name: Live endpoint contract probe
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+      - name: Probe the documented endpoints on the live demo API
+        # continue-on-error: a contract break must still publish its evidence.
+        continue-on-error: true
+        run: python3 scripts/api_contract.py --out data/endpoint_contract.json
+      - name: Publish the evidence (main only)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/endpoint_contract.json
+          if git diff --cached --quiet; then
+            echo "endpoint contract unchanged"
+          else
+            git commit -m "data: endpoint contract probe $(date -u '+%Y-%m-%dT%H:%M:%SZ') [skip ci]"
+            git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
+      - name: Fail the job if a documented contract broke
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          try:
+              d = json.load(open('data/endpoint_contract.json', encoding='utf-8'))
+          except Exception as e:
+              print('the probe produced no evidence:', e); sys.exit(1)
+          bad = [c for c in d['cases'] if c.get('verdict') != 'ok' and not c.get('informative')]
+          print('endpoint contract:', d['summary']['ok'], 'ok /', d['summary']['cases'], 'cases;',
+                d['summary']['failed'], 'failed;', d['summary']['informative'], 'informative')
+          for c in bad:
+              print('  MISMATCH', c['id'], '->', c.get('verdict'), 'status', c.get('http_status'),
+                    'expected', c.get('expected_status'), c.get('doc'))
+          sys.exit(1 if bad else 0)
+          PY

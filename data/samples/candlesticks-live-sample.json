@@ -1,0 +1,35 @@
+{
+ "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/series/KXBTC50VS100/markets/KXBTC50VS100-BTC-26DEC31/candlesticks?start_ts=1795241340&end_ts=1795244940&period_interval=60",
+ "fetched_at_utc": "2026-11-21T07:09:00Z",
+ "observed_by": "Observed by an Arena page fetch of the official demo endpoint on 2026-11-21 (the build sandbox cannot reach kalshi.co). Body below is verbatim from the response.",
+ "response": {
+  "candlesticks": [
+   {
+    "end_period_ts": 1795244400,
+    "open_interest_fp": "2053415.95",
+    "price": {
+     "close_dollars": "0.4300",
+     "high_dollars": "0.4400",
+     "low_dollars": "0.4300",
+     "mean_dollars": "0.4301",
+     "open_dollars": "0.4300",
+     "previous_dollars": "0.4300"
+    },
+    "volume_fp": "398.56",
+    "yes_ask": {
+     "close_dollars": "0.4300",
+     "high_dollars": "1.0000",
+     "low_dollars": "0.4300",
+     "open_dollars": "0.4300"
+    },
+    "yes_bid": {
+     "close_dollars": "0.4100",
+     "high_dollars": "0.4100",
+     "low_dollars": "0.2500",
+     "open_dollars": "0.4100"
+    }
+   }
+  ],
+  "ticker": "KXBTC50VS100-BTC-26DEC31"
+ }
+}

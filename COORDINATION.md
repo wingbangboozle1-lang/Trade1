@@ -261,9 +261,65 @@ Plan: (1) claim (this entry, committed and pushed immediately); (2) conflict-mar
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| 5fa4-1 · Make the live client survive the exchange's documented rate limits: read the `X-RateLimit-*` headers the demo API already exposes (verified in `data/cors.json` → `access-control-expose-headers`), show remaining budget in the UI, auto-throttle polling on 429/low budget, and honour `Retry-After`/reset | in progress | `arena/5fa4bde9-trade1` | `assets/app.js`, `assets/site.css`, `dashboard.html`, `topics/*.html`, `tests/rate_governor.test.mjs` (new) |
-| 5fa4-2 · Live re-verification of every endpoint the browser engine calls, using real demo-API responses fetched this session (closes AA-8 for the endpoints checked); fixtures recorded offline | in progress | `arena/5fa4bde9-trade1` | `data/samples/live-*.json` (new), `reports/VERIFICATION_5fa4bde9.md` (new), `sources.html` |
-| 5fa4-3 · Documentation of the shipped governor + the rate-limit rules, each line linked to its official source | in progress | `arena/5fa4bde9-trade1` | `methods.html`, `suggestions.html` |
+| 5fa4-1 · Make the live client survive the exchange's documented rate limits: read the `X-RateLimit-*` headers the demo API already exposes (verified in `data/cors.json` → `access-control-expose-headers`), show remaining budget in the UI, auto-throttle polling on 429/low budget, and honour `Retry-After`/reset | **done, with one part of the claim corrected** (note A below) | `arena/5fa4bde9-trade1` | `assets/governor.js` (new), `assets/app.js`, `assets/site.css`, 7 HTML pages (script tag), `tests/rate_governor.test.mjs` (new) |
+| 5fa4-2 · Live re-verification of every endpoint the browser engine calls, using real demo-API responses fetched this session (closes AA-8 for the endpoints checked); fixtures recorded offline | **done**, except that the live probe has **not been executed from a networked environment** (note C, Flagged KX-3) | `arena/5fa4bde9-trade1` | `data/samples/*-live-sample.json` (new), `scripts/api_contract.py` (new), `tests/live_contract.test.mjs` (new), `data/endpoint_contract.json` (new, labelled placeholder), `.github/workflows/live-client.yml` (new), `sources.html`, `data.html`, `package.json` |
+| 5fa4-3 · Documentation of the shipped governor + the rate-limit rules, each line linked to its official source | **done** | `arena/5fa4bde9-trade1` | `methods.html` §7, `flagged.html` (new section KX-1…KX-6), `sources.html`, `reports/VERIFICATION_5fa4bde9.md` (new) |
+
+**Note A — the `Retry-After` part of this claim was wrong; the code does not do it.** The official page says the
+opposite: "429 responses carry the rate limit headers, **but not** `Retry-After`" and "There is no penalty or
+cooldown… Apply exponential backoff on 429"
+([Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits)). So the governor applies
+exponential backoff and never reads a `Retry-After` header; `tests/rate_governor.test.mjs` G2 greps the shipped
+sources for that string (comments stripped first, so a doc quote cannot satisfy the check) and fails if it is ever
+read. `X-RateLimit-Reset` is honoured, but only when `remaining === 0`, because the docs define it as the time
+"until the bucket is **full** again" — for a partially-used bucket that is far longer than the client needs to
+wait, so using it as a general pause would stall the page. Publicly cacheable market-data responses "carry none of
+these headers", so the readout normally shows "—" by design (Flagged KX-4).
+
+**Note B — verification performed.** Official pages re-read on 2026-11-21 and used line by line:
+[Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) (default cost 10 tokens, Basic Read
+budget 200/s, three-second bucket capacity for Basic/Advanced Read, the 429 body and header semantics, cacheable
+responses carry no headers, unauthenticated traffic "subject to separate limits", batch endpoints bill every
+item), [Get Market Orderbook](https://docs.kalshi.com/api-reference/market/get-market-orderbook) (bids only,
+ascending with the best bid last, `depth` 1–100 and 400 outside that, an empty or unknown ticker ⇒ 200 with empty
+arrays), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) (YES ask = 1 − NO bid),
+[Get Trades](https://docs.kalshi.com/api-reference/market/get-trades) (`limit` 1–1000; `min_ts`/`max_ts` in
+**seconds**, millisecond values rejected 400; required `Trade` fields),
+[Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) (`status` enum
+`unopened|open|closed|settled`; when `tickers`/`event_ticker` is the only filter every match comes back in ONE
+response with an empty cursor; responses are cached and can lag),
+[Get Events](https://docs.kalshi.com/api-reference/events/get-events) (`limit` maximum 200 — the value the
+collector and client use), [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks)
+(path `/series/{s}/markets/{t}/candlesticks`, periods 1/60/1440),
+[Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) (`result`, `settlement_ts`, the
+`open→active`/`settled→finalized` filter mapping). Live traffic: four verbatim demo-API responses captured
+2026-11-21T07:09Z, committed in `data/samples/` (each records `fetched_from`, `fetched_at_utc`, `observed_by`).
+Commands, with the real exit codes: `npm test` (the existing chain + the 3 added suites) **21.6 s, exit 0** —
+engine 3, live_fixes 6, live_dash 48, fees/model RESULT 21, portfolio 60/60, demo-account 89,
+`test_collect.py` OK, governor **14 passed / 0 failed**, live contract **5 passed / 0 failed**,
+`api_contract.py --selftest` **ok** (9 checks); `npm run check` → `BUILD OK — 18 HTML, 7 JS files validated,
+0 broken links`, `{"checked":{"html":18,"links":449,"rows":1183,"resolved":625},"failures":0}`, `16 published
+pages, 409 local links, 275 external links, 0 failures`; `node tools/render_test.mjs --offline --wait=6000` over
+index / dashboard / topics/crypto / resolved / portfolio / data / sources / methods / flagged → `errors: []` on
+every page. One defect **in my own new test file** was found and fixed: it printed "5 passed, 0 failed" and then
+never exited (jsdom keeps the dashboard's `setInterval` timers alive), which under `npm test && …` stalls every
+later suite; the file now closes its windows and exits with the failure count. Caution for all sessions:
+`timeout … npm test | tail` reports **`tail`'s** status, so a killed run looks green — check the chain's exit code.
+
+**Note C — limits, disclosed rather than filled in.** `scripts/api_contract.py` has never been run against the live
+API: this sandbox has no route to `*.kalshi.co` (every `curl` ends in `SSL_ERROR_SYSCALL`), where the probe would
+record `unreachable` — honest, but not evidence. The committed `data/endpoint_contract.json` is therefore a
+**placeholder with zero results** (`"placeholder": true`, `cases: []`) and `data.html` prints "Not probed yet …
+No status code on this page is invented". The first run of the new **Live client** workflow on `main` produces the
+real file (job `client` = offline gates only, so it cannot flake with the exchange; job `contract` = the probe,
+which commits its evidence even when a documented contract breaks, then fails the job). Files touched beyond the
+claim, and why: `flagged.html`, `data.html`, `sources.html`, `package.json` and a **new** workflow file — needed to
+document and gate this work. `package.json` only *appends* my suites to the existing shared `test` chain (the
+pre-existing chain and `check` are unchanged); `pages.yml` was not modified; `suggestions.html` was not edited.
+`scripts/collect*.py`, `scripts/portfolio_engine.py`, `assets/portfolio.js`, `data/meta.json`,
+`data/portfolio.json`, `tools/*`, `resolved.html`, `README.md`, `EXECUTIVE_SUMMARY.md` stay untouched: the
+collector findings this session could only confirm from outside are logged above and in Flagged KX-2 for their
+owners.
 
 **Deliberately not touched** (owned by sessions active at claim time, per their board rows):
 `scripts/collect.py`, `scripts/collect_test.py`, `scripts/portfolio_engine.py`, `flagged.html`,

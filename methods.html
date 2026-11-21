@@ -149,11 +149,68 @@ score = raw · damp                          (rounded to 3 dp)</pre>
 </section>
 
 <section class="box" style="margin-top:14px">
-  <h2>7. Rate-limit care</h2>
-  <p class="small">Unauthenticated public requests have their own (undocumented) limits; the client backs off exponentially on HTTP 429, polls while the tab is visible only, batches tickers ≤200 per request, and pauses polling when hidden. See <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a>.</p>
+  <h2>7. Rate-limit care: the request governor</h2>
+  <p class="small">Unauthenticated public requests have their own limits and the docs say only
+  “subject to separate limits … authenticate requests where supported and back off on
+  <code>429</code>” (<a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate
+  Limits and Tiers</a>). Because a browser page cannot hold credentials, every request here is unauthenticated, so
+  the client paces itself instead of discovering the ceiling by hammering it. All traffic goes through one
+  component, <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/assets/governor.js" target="_blank" rel="noopener"><code>assets/governor.js</code></a>:</p>
+  <ul class="small">
+    <li><b>Local token bucket, continuous refill.</b> 3 requests/second, capacity 6, i.e. a 2-second burst — a
+    deliberate fraction of the smallest documented authenticated budget (Basic: 200 Read tokens per second,
+    10 tokens for most <code>GET</code>s ⇒ ~20 reads/second sustained, ~60 in a 3-second burst). No number is
+    claimed for the unauthenticated budget.</li>
+    <li><b>Four priority queues, strictly ordered.</b> <code>0</code> batched watch prices (the alert path) →
+    <code>1</code> the selected order book → <code>2</code> trades and candlesticks (chart) → <code>3</code>
+    discovery (events, series, fee lookups). The priority of a request is derived from its path in one function,
+    <code>priFor()</code>, so it cannot drift per call site. At most 2 requests are in flight; a queue over 150
+    entries sheds only priority ≥ 1, so the alert path is never the thing that gets dropped.</li>
+    <li><b>Coalescing.</b> Two callers wanting the same URL share one in-flight request (key = path + query), so
+    the table refresh and a chart refresh do not double-bill.</li>
+    <li><b>Exponential backoff on <code>429</code>.</b> <code>1.2 s · 2^(streak−1)</code>, capped at 30 s, with the
+    streak decaying by one level whenever a request succeeds. The docs are explicit that a 429 “carries the rate
+    limit headers, but not <code>Retry-After</code>” and that there is “no penalty or cooldown … apply exponential
+    backoff on 429” — so the client does not look for a <code>Retry-After</code> header (a test asserts the string
+    never appears in the shipped code) and it never treats one 429 as a permanent failure.</li>
+    <li><b>Rate headers are display, not control.</b> <code>GET /markets</code>, <code>/events</code>,
+    <code>/orderbook</code> and candlesticks are publicly cacheable, and the docs state such responses “carry none
+    of these headers”; so the governor reads <code>x-ratelimit-limit/remaining/reset</code> when they happen to be
+    there (a 429 body, for instance) and pauses until <code>reset</code> <em>only</em> when
+    <code>remaining === 0</code>, because <code>X-RateLimit-Reset</code> is documented as “seconds … until the
+    bucket is full again”, which for a partially-used bucket is later than the client needs to wait. The readout
+    under the header shows the values verbatim or “—” when absent, and is refreshed every 2 s while the tab is
+    visible.</li>
+    <li><b><code>429</code> is never an outage.</b> Host failover fires only on <code>5xx</code>; a throttled
+    response re-queues instead. Only a real network/server failure may fall back to the on-disk snapshot. Discovery
+    pauses with an explicit note (“Discovery paused: yielding to the exchange (HTTP 429 backoff)”) rather than
+    rendering an empty topic, and the status pill reads “LIVE · throttled, backing off 3.4 s”. A row that could not
+    be fetched stays blank — a rate limit must never look like “no data” (see
+    <a href="flagged.html">Flagged</a> item KX-1).</li>
+    <li><b>Polling only while visible, batched tickers ≤ 200 per request</b>, per the earlier rule, plus
+    <code>if-modified</code>-style restraint: the book is polled for the selected market only, and discovery runs on
+    a ~6-minute cadence.</li>
+  </ul>
+  <p class="small"><b>Coverage:</b> <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/tests/rate_governor.test.mjs" target="_blank" rel="noopener"><code>tests/rate_governor.test.mjs</code></a>
+  runs 14 checks against a deterministic clock (retry spacing, queue drainage, coalescing, streak decay, shedding
+  order, absence of rate headers, and three jsdom boots of the real <code>dashboard.html</code> that assert peak
+  concurrent <code>fetch</code> never exceeds the in-flight cap and that an all-429 boot never relabels the site
+  <code>SNAPSHOT</code>). <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/tests/live_contract.test.mjs" target="_blank" rel="noopener"><code>tests/live_contract.test.mjs</code></a>
+  then feeds the client verbatim demo-API responses (booked in <code>data/samples/*-live-sample.json</code>) and
+  asserts the parsed numbers, so a documented field change breaks a test instead of quietly changing a price.</p>
+  <p class="small"><b>Endpoint contract probe.</b> <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/scripts/api_contract.py" target="_blank" rel="noopener"><code>scripts/api_contract.py</code></a>
+  issues ~20 requests once per scheduled run of the “Live client” workflow (paced 0.35 s apart, one retry after a
+  429 — a rounding error against any documented budget) and records, per endpoint: HTTP status vs the documented
+  status, byte size, latency, verbatim <code>x-ratelimit-*</code> keys, observed required fields, the order-book
+  ascending check, the <code>tickers</code>-only “single response, empty cursor” shape, and the CORS answer. The
+  result is published on <a href="data.html">Data</a> and in
+  <a href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/endpoint_contract.json" target="_blank" rel="noopener"><code>data/endpoint_contract.json</code></a>.
+  Requests whose rejection is itself documented (e.g. <code>depth=101</code> → 400) are recorded for information
+  and cannot fail the build; only a documented contract breaking does. The probe could not be executed from the
+  build sandbox — that sandbox has no route to <code>*.kalshi.co</code> — so until the first workflow run the file
+  is a labelled placeholder with zero results and the Data page says “Not probed yet”. See
+  <a href="reports/VERIFICATION_5fa4bde9.md"><code>reports/VERIFICATION_5fa4bde9.md</code></a>.</p>
 </section>
-
-
 <section class="box" style="margin-top:14px">
   <h2>8. The always-on CI ledger (<a href="portfolio.html">portfolio.html</a>) — how it differs from the browser lab</h2>
   <p class="small">The same four strategies run twice an hour inside GitHub Actions

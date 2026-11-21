@@ -41,8 +41,21 @@ window.KalshiApp = (function () {
     maxWatch: 400,
     alertThreshold: 0.10,        // >= $0.10 either direction (integer-cent compare, see checkAlert)
     alertCooldownMs: 45000,      // per-market cooldown so oscillation does not spam the chats
-    chunk: 200                   // tickers per batched request
+    chunk: 200,                  // tickers per batched request
+    /* Client-side pacing (our choice, not an official limit — see assets/governor.js).
+     * Kalshi documents token buckets, exponential backoff on 429, and separate
+     * unpublished limits for unauthenticated traffic; it publishes budgets only for
+     * authenticated tiers (Basic Read = 200 tokens/s at 10 tokens/request = 20 req/s).
+     * We stay far below that and yield on the first 429. */
+    ratePerSec: 3, rateBurst: 6, maxInFlight: 2, queueCap: 150,
+    backoffMs: 1200, backoffMaxMs: 30000,
+    baseOkAt: 0                  // when the current base last answered cleanly
   };
+
+  /* A yield is not a failure: the governor backed off (429) or shed background
+   * work while throttled. Neither means "the API is unreachable", so neither may
+   * drop the page into snapshot mode. */
+  function isYield(e) { return !!(e && (e.code === 'throttled' || e.code === 'dropped')); }
 
   /* ---------- tiny helpers ---------- */
   function $(sel, root) { return (root || document).querySelector(sel); }
@@ -139,36 +152,120 @@ window.KalshiApp = (function () {
     lastDiscovery: 0,
     degraded: false,
     lastCandleFetch: 0,
+    throttledAt: 0,          // last HTTP 429 seen from the exchange
+    droppedAt: 0,            // last background job the governor shed
     timer: null
   };
 
-  /* ---------- API client ---------- */
-  function api(path, params, cb, retries) {
-    retries = retries || 0;
-    var base = CFG.bases[CFG.baseIdx];
+  /* ---------- API client (paced by the request governor) ----------
+   * Every Kalshi call goes through assets/governor.js, which
+   *   · paces dispatch (token bucket, the exchange's own documented model),
+   *   · coalesces identical URLs that are already queued or in flight,
+   *   · applies exponential backoff after a 429 (official instruction; the
+   *     response carries no Retry-After, so there is nothing else to honour),
+   *   · reads X-RateLimit-* only when a response actually includes them (most
+   *     cacheable market-data responses do not), and
+   *   · sheds background work (discovery) instead of the alert path when the
+   *     queue overflows.
+   * Priorities: 0 watchlist poll (the alerting path) · 1 order book ·
+   * 2 chart (trade tape / candlesticks) · 3 discovery, series sweeps, fee lookups.
+   * Failover to the other documented demo host happens on a 5xx or a network
+   * failure only — never on a 429, because both demo hosts meter the same caller
+   * and a failover would just double the load on a throttled exchange.
+   */
+  var PRI = { poll: 0, book: 1, chart: 2, discover: 3 };
+  var G = (window.KalshiGovernor && window.KalshiGovernor.create)
+    ? window.KalshiGovernor.create({
+        ratePerSec: CFG.ratePerSec, burst: CFG.rateBurst, maxInFlight: CFG.maxInFlight,
+        queueCap: CFG.queueCap, backoffMs: CFG.backoffMs, backoffMaxMs: CFG.backoffMaxMs
+      })
+    : null;
+  function govStats() { return G ? G.stats() : { queued: 0, inflight: 0, sent: 0, throttled429: 0, dropped: 0, cooldownMs: 0, ratePerSec: CFG.ratePerSec }; }
+  function cooling() { return !!(G && G.cooling()); }
+  /* Which queue a request belongs to is a property of the endpoint, not of the
+   * call site, so the rule is stated once here (a call site may still override
+   * it through api(..., {pri})). */
+  function priFor(rel) {
+    if (rel.indexOf('/markets?tickers=') === 0) return PRI.poll;      // the alerting path
+    if (/\/orderbook(\?|$)/.test(rel)) return PRI.book;              // selected book
+    if (rel.indexOf('/markets/trades') === 0 ||
+        rel.indexOf('/candlesticks') >= 0) return PRI.chart;          // chart windows
+    return PRI.discover;   // /events paging, /series listing, series + event sweeps, fee lookups
+  }
+  /* The alert path may wait out two throttle cooldowns before giving up; the book
+   * one; background work is simply re-submitted by the next cycle. */
+  function retryFor(pri) { return pri === PRI.poll ? 2 : (pri === PRI.book ? 1 : 0); }
+  function httpErr(status, url) {
+    var e = new Error(status === 429 ? 'throttled (HTTP 429)' : 'HTTP ' + status);
+    e.status = status;
+    e.code = status === 429 ? 'throttled' : 'http';
+    e.url = url || '';
+    return e;
+  }
+  function api(path, params, cb, opts) {
+    opts = opts || {};
     var qs = params ? ('?' + Object.keys(params).map(function (k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
     }).join('&')) : '';
-    var url = base + path + qs;
-    fetch(url, { cache: 'no-store' }).then(function (r) {
-      if (r.status === 429 && retries < 3) {       // documented: back off on 429
-        setTimeout(function () { api(path, params, cb, retries + 1); }, 1500 * (retries + 1) * 2);
-        return null;
-      }
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    }).then(function (j) {
-      if (j) { if (CFG.baseIdx !== 0) { CFG.baseIdx = 0; } cb(null, j, url); }
-    }).catch(function (e) {
-      // try the alternate demo host once, then report
-      if (retries === 0 && CFG.bases.length > 1) {
-        CFG.baseIdx = 1;
-        api(path, params, cb, 1);
-      } else {
-        CFG.baseIdx = 0;
-        cb(e, null, url);
-      }
-    });
+    var rel = path + qs;
+
+    /* The governor sees only the status and the rate-limit headers; the body is
+     * read once, by the winner, so a request that gets re-queued after a 429
+     * never has its (single-use) body consumed by the losing attempt. */
+    function tryHost(ix) {
+      return fetch(CFG.bases[ix] + rel, { cache: 'no-store' }).then(function (r) {
+        /* 5xx: that host is unhealthy, so the other documented demo host is a
+         * legitimate fallback. 4xx (including 429) is the request's problem, not
+         * the host's — retrying it elsewhere would only add load to a throttled
+         * exchange, and both demo hosts meter the same caller. */
+        if (ix === 0 && r.status >= 500 && CFG.bases.length > 1) return tryHost(1);
+        CFG.baseIdx = ix;
+        return { status: r.status, ok: r.ok, headers: r.headers, res: r,
+                 url: r.url || (CFG.bases[ix] + rel) };
+      });
+    }
+    function worker() {
+      var startIdx = (CFG.baseIdx !== 0 && Date.now() - CFG.baseOkAt < 60000) ? 1 : 0;
+      return tryHost(startIdx).catch(function (e) {
+        if (startIdx === 0 || CFG.bases.length < 2) throw e;
+        return tryHost(0);
+      });
+    }
+    function parse(o) {
+      if (!o || typeof o.status !== 'number') return cb(mkNoResp(), null, CFG.bases[0] + rel);
+      if (!o.ok) { CFG.baseOkAt = o.status < 500 ? Date.now() : CFG.baseOkAt; return cb(httpErr(o.status, o.url), null, o.url); }
+      var body = o.res && typeof o.res.json === 'function'
+        ? o.res.json()
+        : Promise.reject(new Error('response has no JSON body'));
+      return body.then(function (j) {
+        CFG.baseOkAt = Date.now();
+        cb(null, j, o.url);
+      }, function () { cb(new Error('invalid JSON from ' + o.url), null, o.url); });
+    }
+    function mkNoResp() { var e = new Error('no response from ' + CFG.bases[0] + rel); e.code = 'network'; return e; }
+    function bail(e) {
+      /* Always settle the caller (its batch counters depend on it), but classify
+       * the failure so callers can tell "yielding to the exchange" apart from
+       * "API unreachable": 'throttled' = still live, backing off; 'dropped' =
+       * background work the governor shed while throttled, which the next cycle
+       * re-submits. Only a network/HTTP error may trigger the snapshot fallback —
+       * callers test for the yielding cases with isYield(). */
+      var url = (e && e.url) || (CFG.bases[0] + rel);
+      if (e && e.code === 'throttled') { S.throttledAt = Date.now(); renderStatus(); }
+      else if (e && e.code === 'dropped') { S.droppedAt = Date.now(); renderStatus(); }
+      else { S.lastError = String((e && e.message) || e); }
+      cb(e, null, url);
+    }
+    var pri = opts.pri === undefined ? priFor(rel) : opts.pri;
+    if (G) {
+      G.submit({ pri: pri, key: rel,
+                 retry429: opts.retry429 === undefined ? retryFor(pri) : opts.retry429,
+                 worker: worker }).then(parse, bail);
+      return;
+    }
+    /* governor script not loaded: no pacing, no coalescing, no backoff — the
+     * page still works, which is why this fallback is kept. */
+    worker().then(parse, function (e) { cb(e, null, CFG.bases[0] + rel); });
   }
 
   /* ---------- local snapshot fallback ---------- */
@@ -211,7 +308,7 @@ window.KalshiApp = (function () {
     seriesFeeAsked[key] = 1;
     api('/series/' + encodeURIComponent(st), null, function (err, j, url) {
       if (!err && j && j.series) M.noteSeriesFee(j.series, url || undefined);
-    });
+    }, { pri: PRI.discover });
   }
 
   function discover() {
@@ -221,7 +318,10 @@ window.KalshiApp = (function () {
       var params = { status: 'open', limit: String(CFG.eventsLimit) };
       if (cursor) params.cursor = cursor;
       api('/events', params, function (err, j) {
-        if (err) { S.lastError = String(err.message || err); maybeLive(); return; }
+        /* While the governor is cooling, stop paging the listing: the watchlist
+         * poll (priority 0) is what produces alerts, and a half-finished discovery
+         * sweep is worthless compared with keeping that path clear. */
+        if (err) { if (!isYield(err)) S.lastError = String(err.message || err); maybeLive(); return; }
         page++;
         all = all.concat(j.events || []);
         if (j.cursor && page < CFG.eventsMaxPages) return nextPage(j.cursor);
@@ -249,6 +349,10 @@ window.KalshiApp = (function () {
    * cycling series (hourly crypto, daily AAA gas) that /events paging misses. */
   function discoverSeries() {
     if (S.mode === 'snapshot') return;
+    /* Never start a 60-request background sweep while the exchange is throttling
+     * us: it is the sweep that gets throttled, and it would sit in front of the
+     * watchlist poll that produces alerts. The next discovery cycle picks it up. */
+    if (cooling()) { S.modeNote = 'Discovery paused: yielding to the exchange (HTTP 429 backoff).'; renderStatus(); return; }
     M.TOPICS.forEach(function (t) {
       var seen = {}, srs = [], left = t.categories.length;
       if (!t.categories.length) return;
@@ -312,7 +416,11 @@ window.KalshiApp = (function () {
   }
   function fetchQueuedEvents(depth) {
     if (S.mode === 'snapshot') return;
-    var batch = S.eventQueue.splice(0, CFG.eventQueuePerCycle - depth);
+    /* Under throttle pressure, expand fewer events this cycle (they stay queued
+     * for the next one) so the sweep cannot monopolise the request budget. */
+    var budget = CFG.eventQueuePerCycle - depth;
+    if (cooling()) budget = Math.min(budget, 4);
+    var batch = S.eventQueue.splice(0, Math.max(0, budget));
     var done = 0;
     if (!batch.length) return;
     batch.forEach(function (et) {
@@ -371,7 +479,7 @@ window.KalshiApp = (function () {
     var pending = chunks.length, failed = 0;
     chunks.forEach(function (slice) {
       api('/markets', { tickers: slice.join(',') }, function (err, j) {
-        if (err) { failed++; S.lastError = String(err.message || err); }
+        if (err && !isYield(err)) { failed++; S.lastError = String(err.message || err); }
         else handleMarketBatch(j);
         if (--pending === 0) { if (failed) degrade(); else maybeLive(); }
       });
@@ -1101,9 +1209,19 @@ window.KalshiApp = (function () {
 
   /* ---------- status banner ---------- */
   function renderStatus() {
+    var g = govStats();
+    var coolMs = g.cooldownMs || 0;
     var b = $('#kx-mode'); if (!b) return;
-    if (S.mode === 'live') {
-      b.className = 'pill'; b.textContent = 'LIVE · REST poll ' + (CFG.watchPollMs / 1000) + 's';
+    /* A 429 is not an outage: the page is live, it is yielding. Saying so keeps the
+     * trader from reading a backoff as a dead feed — and it says so even during
+     * boot, when the very first request was the one that got throttled. */
+    if (coolMs > 0 && S.mode !== 'snapshot') {
+      b.className = 'pill warn';
+      b.textContent = (S.mode === 'live' ? 'LIVE · throttled, backing off ' : 'BACKING OFF · exchange rate limit · ') +
+        (coolMs / 1000).toFixed(1) + 's';
+    } else if (S.mode === 'live') {
+      b.className = 'pill';
+      b.textContent = 'LIVE · REST poll ' + (CFG.watchPollMs / 1000) + 's';
     } else if (S.mode === 'snapshot') {
       b.className = 'pill warn'; b.textContent = 'SNAPSHOT MODE (live API unreachable)';
     } else if (S.mode === 'boot') {
@@ -1111,6 +1229,20 @@ window.KalshiApp = (function () {
     } else { b.className = 'pill bad'; b.textContent = 'ERROR'; }
     var note = $('#kx-mode-note');
     if (note) note.textContent = S.modeNote || (S.lastError ? ('Last API error: ' + S.lastError) : '');
+    /* Request-governor readout: what the page is spending on the API right now.
+     * X-RateLimit-* are shown only when a response actually carried them (most
+     * cacheable market-data responses do not — official docs), never as 0/—. */
+    var rl = $('#kx-ratelimit');
+    if (rl) {
+      var bits = [g.ratePerSec + ' req/s cap', (g.queued || 0) + ' queued',
+        (g.sent || 0) + ' sent', (g.throttled429 || 0) + ' throttled'];
+      if (g.dropped) bits.push(g.dropped + ' background jobs shed');
+      if (g.remaining !== null && g.remaining !== undefined && g.limit) {
+        bits.push('exchange budget ' + g.remaining + '/' + g.limit + ' tokens');
+      }
+      rl.textContent = bits.join(' · ');
+      rl.className = 'muted small' + (coolMs > 0 || g.throttled429 ? ' warn' : '');
+    }
   }
   function degrade() {
     if (!S.degraded) {
@@ -1131,6 +1263,9 @@ window.KalshiApp = (function () {
 
   /* ---------- loops ---------- */
   function loops() {
+    /* Keep the governor readout honest while a backoff counts down (the pill would
+     * otherwise sit on "backing off 3.0s" until the next poll). */
+    setInterval(function () { if (!document.hidden) renderStatus(); }, 2000);
     setInterval(function () { if (!document.hidden) pollWatch(); }, CFG.watchPollMs);
     setInterval(function () {
       // selected market: trade tape for the seconds windows, independent of the
@@ -1183,7 +1318,7 @@ window.KalshiApp = (function () {
     var tabs = '<div class="tabs" id="kx-tabs">' + [{ id: '', label: 'All' }].concat(M.TOPICS.map(function (t) { return { id: t.id, label: t.label }; }))
       .map(function (t) { return '<button class="tab' + (S.topic === t.id ? ' active' : '') + '" data-topic="' + t.id + '">' + t.label + '</button>'; }).join('') + '</div>';
     node.innerHTML =
-      '<div class="row spread"><div class="row"><span class="pill" id="kx-mode">Connecting…</span><span class="muted small" id="kx-mode-note"></span></div>' +
+      '<div class="row spread"><div class="row"><span class="pill" id="kx-mode">Connecting…</span><span class="muted small" id="kx-mode-note"></span>' + '<span class="muted small" id="kx-ratelimit"></span>' + '</div>' +
       '<div class="row"><select id="kx-win">' + WINDOWS.map(function (w) {
         return '<option value="' + w.id + '"' + (w.id === S.window ? ' selected' : '') + '>' + w.label + '</option>';
       }).join('') + '</select><button id="kx-refresh">Refresh now</button></div></div>' +
@@ -1352,7 +1487,7 @@ window.KalshiApp = (function () {
   }
   function mountTrades(node, opts) {
     node.innerHTML =
-      '<div class="row spread"><div class="row"><span class="pill" id="kx-mode">…</span><span class="muted small" id="kx-mode-note"></span></div>' +
+      '<div class="row spread"><div class="row"><span class="pill" id="kx-mode">…</span><span class="muted small" id="kx-mode-note"></span>' + '<span class="muted small" id="kx-ratelimit"></span>' + '</div>' +
       '<div class="row"><button id="kx-bot-toggle">Bot: —</button><button id="kx-export">Export JSON</button>' +
       '<button id="kx-import">Import JSON</button><button id="kx-clear" class="danger">Reset</button></div></div>' +
       '<p class="notice blue small">Automated <b>paper</b> trading: when the bot is ON it evaluates the documented strategies every poll cycle against live demo quotes and records local-only fills. No orders are sent to Kalshi; nothing here can touch a real or demo account. Fees use the official taker formula <code>roundup(M &times; 0.07 &times; C &times; P &times; (1&minus;P))</code> from the <a href="https://kalshi.com/docs/kalshi-fee-schedule.pdf" target="_blank" rel="noopener">official fee schedule</a> (verified 2026-11-20, effective July 7 2026), where M is the per-series <code>fee_multiplier</code> the demo API publishes on <a href="https://docs.kalshi.com/api-reference/market/get-series" target="_blank" rel="noopener">GET /series/{ticker}</a> (default 1 until a series record is seen; the production-schedule conflict for KXBTCY/KXETHY is published on <a href="flagged.html">Flagged</a>). Maker fees are not modelled because paper fills assume an immediately-matched order — see <a href="flagged.html">Flagged</a>.</p>' +

@@ -1,0 +1,33 @@
+{
+ "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794985740&limit=2&mve_filter=exclude",
+ "fetched_at_utc": "2026-11-21T07:09:00Z",
+ "observed_by": "Observed by an Arena page fetch of the official demo endpoint on 2026-11-21 (the build sandbox cannot reach kalshi.co). Body below is verbatim from the response.",
+ "response": {
+  "cursor": "CgwI8IaF2AYQkNHIsgMSHktYRE9UQTJHQU1FLTI2Tk9WMTkwMjAwUkdEQi1EQg",
+  "markets": [
+   {
+    "result": "no",
+    "settlement_ts": "2026-11-21T07:08:32.911354Z",
+    "settlement_value_dollars": "0.0000",
+    "status": "finalized",
+    "ticker": "KXDOTA2GAME-26NOV190200RGDB-RG",
+    "event_ticker": "KXDOTA2GAME-26NOV190200RGDB",
+    "title": "Resp Gaming wins",
+    "close_time": "2026-11-21T07:00:00Z",
+    "last_price_dollars": "0.0000"
+   },
+   {
+    "result": "no",
+    "settlement_ts": "2026-11-21T07:08:32.911354Z",
+    "settlement_value_dollars": "0.0000",
+    "status": "finalized",
+    "ticker": "KXDOTA2GAME-26NOV190200RGDB-DB",
+    "event_ticker": "KXDOTA2GAME-26NOV190200RGDB",
+    "title": "Direborn wins",
+    "close_time": "2026-11-21T07:00:00Z",
+    "last_price_dollars": "0.0000"
+   }
+  ]
+ },
+ "excerpt_note": "Field excerpt of the response: the two market objects are trimmed to the identification and settlement fields this repo consumes (ticker, event_ticker, title, status, result, settlement_ts, settlement_value_dollars, last_price_dollars, close_time) — those values are verbatim; the full response also carries long rules_primary/rules_secondary text that is not used by these tests."
+}
