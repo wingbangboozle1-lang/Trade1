@@ -1547,3 +1547,16 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **Deployment:** GitHub Pages API reports `status: built`, legacy Pages source `main /`, HTTPS status is available in the account. Live site: https://wingbangboozle1-lang.github.io/Trade1/ .
 - **Not independently verified in this session:** live Kalshi API values or any trading account balance/execution. The restricted sandbox could not query the Kalshi API directly; the account needs owner-provided demo credentials. Automatic trading in the main dashboard is paper simulation only. These limitations and unverified points remain published on the site's Flagged for Review page. No values were fabricated.
 - **Status:** done. No site data changed.
+- **PR / merge / deploy (final, 2026-11-21 UTC):** PR [#79](https://github.com/wingbangboozle1-lang/Trade1/pull/79)
+  (`arena/0b68e1e4-trade1` → `main`), `checks` **pass** (run 44880042839) and `snapshot` skipped, **merged without
+  waiting for approval** → merge commit **`c071599`**. Two merge passes were needed because PRs #80/#83 landed while this
+  branch was open; both `COORDINATION.md` conflicts were resolved additively (every incoming session block kept, including
+  main's "end of formerly conflicting historical records" marker) and `scripts/collect.py`'s conflict was resolved in
+  favour of `c96a21b7`'s implementation with only the reset-header handling added. Full suite re-run green on each
+  merged tree before push.
+- **Pages verified:** the deployed https://wingbangboozle1-lang.github.io/Trade1/flagged.html was fetched after the
+  merge and carries the **"Added by session `0b68e1e4`"** section with BE-1 … BE-4, and `methods.html` carries the
+  fail-closed rate-limit policy. (The sandbox has no direct TLS route to `*.github.io`; the fetch went through the page
+  fetcher.)
+- **Task status:** done. Open items published on `flagged.html` and non-blocking: **BE-4** (live re-run of the corrected
+  jobs), plus the pre-existing AA-8, 691-10, 691-11/9d-1, F7.
