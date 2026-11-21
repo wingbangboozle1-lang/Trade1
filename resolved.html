@@ -89,7 +89,9 @@
     var box = document.getElementById('rs-run');
     if (!box) return;
     if (!RUN_STATUS) {
-      box.textContent = 'Collector run status: data/collect_status.json not present yet (it is written by the next scheduled collector run).';
+      // Not the same as "absent": the fetch may not have completed yet, or the file may
+      // predate the collector that writes it. Say both, so nobody reads this as a fact.
+      box.textContent = 'Collector run status: not available in this page load. data/collect_status.json is written by scripts/collect.py on every run; if it is missing, the snapshot below predates that collector.';
       return;
     }
     var s = RUN_STATUS;

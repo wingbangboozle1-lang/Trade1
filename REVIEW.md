@@ -81,7 +81,9 @@ their own verification notes stay in-tree for review.
   rate-limited — `data/log.md` shows **220 × HTTP 429** and the settled sweep stopping on its first one, so
   `settled_count_recent: 0` in that file is an artifact, not an exchange fact. `scripts/collect.py` now paces
   requests and retries 429 with backoff, and `resolved.json` carries `request_complete`. Published as flagged item
-  `155329c7-1`.
+  `155329c7-1`. **Verified recovery (2026-11-21T07:17:44Z on `main`):** the fixed collector ran with
+  `status: ok`, 0 transient read failures, nothing kept, 14,646 open markets (vs 33 degraded) and a
+  2,675-row in-scope settled universe (up from 1,904).
 - `topics/*.json` — per-topic ranked events with `_match_reason` (`category` / `series-prefix` /
   `series-discovery`) and per-row source URLs.
 - `resolved.json` — recently settled in-scope markets with the official `result` (yes/no), settlement timestamp
