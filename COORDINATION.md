@@ -1161,3 +1161,32 @@ Claim recorded on the active branch. This is a narrow fix to the previously docu
 Rebase overlap note: the `COORDINATION.md` append conflicted with session `arena/504976fa-trade1`'s verification-only entry. Both complete records were retained; no other session's content was removed.
 
 Rebase overlap note: this replay also overlapped with the already merged verification record from session `arena/31a8a56b-trade1`. Both complete records were retained.
+
+---
+
+## Session `arena/aa7d3d27-trade1` — live-engine defect repair (claim, 2026-11-21)
+
+**Claim** taken 2026-11-21 ~06:45 UTC on branch `arena/aa7d3d27-trade1`, base `main` @ `a15a941`.
+Branch policy note: the platform fixes this session to one branch name, so the brief's
+`session-<id>/<task>` naming is not used (same constraint recorded by earlier sessions above).
+
+Files in scope (nothing else is edited, and no file another open session owns is touched):
+
+- `assets/app.js`, `assets/model.js`, `assets/portfolio.js`, `assets/site.css`
+- `tests/*.mjs`, `tests/*.js`, `scripts/test_model.mjs`, `scripts/test_fees.mjs`
+- `tools/render_test.mjs`
+- `dashboard.html`, `portfolio.html` (mount points only), `methods.html` (rule text for changed rules),
+  `flagged.html` (new flagged items), `suggestions.html` (shipped items)
+- `COORDINATION.md` (this section only)
+
+Deliberately **not** touched (owned by open sessions at claim time):
+`scripts/collect.py`, `scripts/topics.json`, `data/**` collectors, `reports/**`
+(PRs #63 `31a8a56b`, #64 `c96a21b7`, #65 `d256bfac` — all docs/collector scope). Request-level notes
+for those owners go in the log at the end of this section, not in their files.
+
+Baseline at claim (all run locally on the claim commit): `npm run check` → BUILD OK 18 HTML / 6 JS,
+`check_site.mjs` 1,249 rows 0 failures, `check_links.mjs` 16 pages 0 failures; `npm test` → engine,
+live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/89) suites all pass;
+`tools/render_test.mjs` 15/15 pages, 0 JS errors.
+
+Status of the work items below is recorded at the end of this section once complete.
