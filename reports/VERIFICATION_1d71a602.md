@@ -3,7 +3,7 @@
 Branch `arena/1d71a602-trade1`, base `main` @ `7d1c21f` (PR #71 merge).
 Every claim below was checked line-by-line against an official Kalshi source read on
 2026-11-21, or against a committed artifact whose own source URL is cited. Anything that
-could not be confirmed is left blank and flagged (NEW-1 … NEW-8 on `flagged.html`).
+could not be confirmed is left blank and flagged (NEW-1 … NEW-9 on `flagged.html`).
 No values were inferred.
 
 ## 1. Official sources re-read this session (all `docs.kalshi.com` unless noted)
@@ -84,7 +84,7 @@ produced it; a later `main` can legitimately show a newer run. Nothing below was
 
 - `npm run check`, re-run on the rebased branch: BUILD OK 18 HTML / 6 JS / 0 broken links;
   `check_site.mjs` 1,248 rows / 825 resolved / 0 failures (row counts move with every collector run
-  that lands under this session); `check_links.mjs` 16 pages / 418 local / 285 external / 0 failures
+  that lands under this session); `check_links.mjs` 16 pages / 420 local / 302 external / 0 failures
   (the pre-edit baseline on `7d1c21f` was 400 local / 236 external — other sessions added sourced
   rows meanwhile). V4's schema example was re-read directly:
   `"notional_value_dollars": "0.5600"` sits next to `"last_price_dollars": "0.5600"`, and `limit` on
@@ -106,7 +106,22 @@ produced it; a later `main` can legitimately show a newer run. Nothing below was
   07:17:44Z run: **503 × `200` + 1 × `204`, no `429` at all**. So the fail-closed collector that
   PR #80 landed (`scripts/collect.py`: retry on 429/5xx, never overwrite a verified artifact with a
   degraded run) is verified working on the next scheduled run, and §3's figures come from that clean
-  run. Nothing on the site claims a complete census.
+  run. That run also writes `data/collect_status.json` — `status: "ok"`,
+  `transient_read_failures: 0`, `kept_previous_artifacts: []`, retry policy `429/500/502/503/504`,
+  `max_attempts: 5` — which is what makes the claim checkable without reading 564 log lines. The same
+  incident is published on `flagged.html` as **78-1** (session `78d61b01`) and **BE-1** (session
+  `0b68e1e4`); NEW-8 re-verifies it at integration time rather than claiming it, and its row now
+  cross-references both. Nothing on the site claims a complete census.
+- **NEW-9 — a published claim runs one commit ahead of its artifact.** `EXECUTIVE_SUMMARY.md` line 33
+  says `data/collect_status.json` publishes "the request counters (`requests` / `retried` /
+  `throttled_429`)". Those keys are written by `scripts/collect.py:644-647` (added in `b7ee4c0`, merged
+  with PR #90 at `900b640`), but the committed `data/collect_status.json` — last rewritten by
+  `2ba763f data: verified snapshot 2026-11-21T07:22:51Z` for the 07:17:44Z run — has only
+  `run_started_at`, `transient_read_failures`, `failures_first_20`, `kept_previous_artifacts`, `status`,
+  `retry_policy`: no `request_stats`. So as of this merge the sentence is true of the code and of the
+  *next* scheduled run, not of the file in the tree. The summary now says so in place (same correction
+  `AA-9` applied to the 1 Hz claim, and the same rule 78-4 records for the ledger's "batched" source
+  note); no number was changed and the collectors were not touched.
 - Pages API at claim: `status: built`, `build_type: legacy`, source `main /`, commit `7d1c21f`.
   Post-merge verification recorded in `COORDINATION.md` after the PR merges.
 

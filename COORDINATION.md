@@ -72,6 +72,86 @@
   - **Pages:** the live page https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md, fetched through the page fetcher, already serves this record, so the merge reached the deployed site. The Pages build API could not be read at the time of writing (the GitHub API rate limit for the shared user was hit by parallel sessions; the request IDs are in this session's log). **Re-check of the `pages/builds/latest` status for `a917618` is an open follow-up for the integration owner.**
   - A follow-up board-only PR carries this record. The merge of #87 is recorded there.
 - **Board note:** this session's first push (`3206474`) raced main's board and was replaced by its rebased commit using `--force-with-lease` on this session's own branch; no other session's commit was affected. Stray merge markers in `COORDINATION.md` were already removed on `main` by `f1f34f3`.
+## Session `arena/3193963b-trade1` — final integration pass: board repair, official-source verification, PR disposition review (claim, 2026-11-21 07:20 UTC)
+
+**Claim** taken 2026-11-21 07:20 UTC on branch `arena/3193963b-trade1`, base `main` @ `5eb88d0`
+(branch policy: Arena fixes this session to one branch name; `session-<id>/<task>` naming not used).
+
+Files in scope (nothing else is edited):
+
+- `COORDINATION.md` — **(a)** the committed merge-conflict markers seen at `main` @ `2acfa8e`
+  (`<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` around the 6877ec31 and 6de17567 session
+  blocks) were **already repaired on `main` by session `aa7d3d27` via PR #74 (`f1f34f3`)** while
+  this claim was being prepared; verified here: 0 marker lines remain and **both session blocks are
+  intact** (6877ec31 block and 6de17567 block kept verbatim). No repair needed; recorded so the
+  defect and its fix are traceable. **(b)** this claim and the session's final record only.
+- `reports/VERIFICATION_3193963b.md` (new) — line-by-line verification of published claims against
+  official Kalshi sources (docs.kalshi.com pages, official demo API responses) with per-claim links
+  for manual review; every unconfirmed claim is left blank and flagged, never inferred.
+
+Deliberately **not** touched (owned by live/open sessions at claim time): `scripts/collect.py`,
+`scripts/portfolio_engine.py`, `assets/model.js`, `assets/portfolio.js`, `flagged.html`, `methods.html`,
+`executive-summary.html`, `EXECUTIVE_SUMMARY.md`, `README.md`, `data/**`, `tests/**`, workflows —
+open PRs #67 (`d256bfac`), #68 (`6b112481`), #75 (`725b09a7`), #79 (`0b68e1e4`) all claim those files
+and were updated within the last 30 minutes (not stale; no takeover). Their disposition is **reviewed
+and logged** on this board by this session (checks status, conflicts, overlap), but their branches are
+not edited.
+
+Plan: (1) claim (this entry, committed and pushed immediately); (2) conflict-marker repair;
+(3) full local validator suite on the branch (build, check_site, check_links, npm test, render gate);
+(4) official-source + live demo-API verification pass with links → `reports/VERIFICATION_3193963b.md`;
+(5) PR → `main`, merge without waiting for approval, Pages deploy verified, board record below.
+
+**Status: done (2026-11-21 ~07:35 UTC).** Sources, verification, and irregularities:
+
+- **Sources (all fetched 2026-11-21 UTC, exact URLs in [`reports/VERIFICATION_3193963b.md`](reports/VERIFICATION_3193963b.md) §1):**
+  [API Environments](https://docs.kalshi.com/getting_started/api_environments) ·
+  [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) ·
+  [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) ·
+  [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks) ·
+  [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding) ·
+  [docs index](https://docs.kalshi.com/llms.txt) ·
+  live demo API reads (each URL re-checkable by hand): `/exchange/status`,
+  `/markets?event_ticker=KXAAAGASM-26NOV30`, `/markets/KXAAAGASM-26NOV30-3.90/orderbook?depth=5`,
+  `/markets?status=settled&limit=3`, `/markets/KXBTC15M-26NOV202300-00`,
+  `/markets/KXXRP15M-26NOV202300-00`, `/events/KXPGATOUR-THRC26`, `/events/KXOSCARPIC-27`.
+- **Verification performed:** 12 published claims (C1–C12) re-checked against the sources above;
+  5 committed data rows compared field-by-field with live responses (all identity/status/settlement
+  fields match; live prices legitimately differ from the 03:59:57Z snapshot). Full local suite on the
+  branch, all exit 0: `npm run check` (BUILD OK 18 HTML/6 JS/0 broken links; check_site 1,249 rows /
+  825 resolved / 0 failures; check_links 16 pages / 0 failures) · `npm test` (engine 23, live_fixes 3,
+  live_dash 6, lib, fees 50, model 30, root_engine 48, model.test 21, portfolio 60/60,
+  demo-account 89/89, test_collect.py 4/4) · `tools/render_test.mjs --offline` 16 pages / 0 JS errors.
+- **Irregularities (V-1…V-8 in the report; none block):** V-1 committed snapshot stale at
+  03:59:57Z (post-429 restore; scheduled refresh `cron 17 */3` will rewrite) · V-2 9d-1/691-11
+  still visible in committed `data/resolved.json`: 4 `KXNATGAS15M-*` rows labelled `_topic:
+  gas-prices` (natural-gas ≠ gasoline; code fix merged via PR #65, refresh pending; live link in
+  the report) · V-3 Resolved-page topic imbalance (196/200 rows crypto in the 3-day window; open
+  PR #90 addresses it — not edited here) · V-4 demo-account credentials not provided (9d-5, owner
+  input; nothing faked) · V-5 AA-8 partially re-confirmed by this pass's live reads · V-6 fee
+  disclosures unchanged (691-10, 6b/691-1, F7 open by design) · V-7 docs list newer dedicated WS
+  hosts (user-ws / external-feeds), informational · V-8 board conflict markers seen at `2acfa8e`
+  were repaired by `aa7d3d27` via PR #74 (`f1f34f3`) before this claim landed; re-checked intact.
+- **Open-PR disposition snapshot (2026-11-21 07:30 UTC — reviewed, NOT edited, no takeover):**
+  all owners had committed within the last 60 minutes, so per protocol their branches were left
+  alone: #67 `d256bfac` (board record; checks pass) · #68 `6b112481` and #75 `725b09a7`
+  (overlapping "final integration" scopes: `scripts/collect.py`, `check_row_sources.mjs`,
+  `tests/test_collect.py` — each owner should rebase on `main` and reconcile with the other) ·
+  #84 `0f2d9972`, #85 `155329c7`, #90 `78d61b01`, #91 `1c5b46b2`, #92 `e1747106` (opened during
+  this pass). #79 `0b68e1e4` merged meanwhile (`c071599`). Dispositions are for the owners or a
+  later integration pass; nothing in those PRs was merged or closed by this session.
+- **PR / merge / Pages record (final, 2026-11-21 UTC):**
+  - **PR [#100](https://github.com/wingbangboozle1-lang/Trade1/pull/100)** (`arena/3193963b-trade1` → `main`):
+    checks **pass** (run [44880930918](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880930918),
+    `checks` 1m57s). **Merged** without waiting for approval, merge commit **`7d8e164`**, state MERGED,
+    2026-11-21T07:37:57Z.
+  - **Pages verified live:** https://wingbangboozle1-lang.github.io/Trade1/reports/VERIFICATION_3193963b.md
+    was fetched through the page fetcher after the merge and serves the merged content — the deploy
+    reached the published site. The Pages REST endpoint could not be read at that moment (shared GitHub
+    API rate limit hit by the parallel sessions at 07:38:18Z; request IDs in the error body), so the
+    deploy is confirmed by the served files themselves, same method as the `da11364a` and `446aa8be`
+    records.
+  - This follow-up board-only note carries the record (pattern of `c96a21b7`'s PR #89).
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
@@ -1633,6 +1713,129 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **PR #91 / merge / Pages:** [PR #91](https://github.com/wingbangboozle1-lang/Trade1/pull/91) merged 2026-11-21 07:28:57Z as `409250e0fcfb17f749671d76c463380e37543711`. Its `checks` job passed (run [44880275000](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880275000)); snapshot job was skipped for the PR. Pages deployment [44880443795](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880443795) succeeded. A post-deployment fetch of the public landing page displayed `2026-11-21 07:17:44Z`, matching `data/meta.json`; Flagged item 20 was updated in the subsequent PR #96 to record the transient mismatch as resolved.
 - **PR #96 / merge / Pages:** [PR #96](https://github.com/wingbangboozle1-lang/Trade1/pull/96) merged 2026-11-21 07:32:35Z as `6be56c93fe67a8a81a5f2715b58a8ff1346fa109`; its checks passed (run [44880540629](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880540629)). The immediate Pages run [44880730903](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880730903) was canceled because a higher-priority main deployment was queued. Descendant commit `cd7108f` includes PR #96; Pages run [44880757783](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880757783) succeeded, and the deployed landing page displays `07:17:44Z` while Flagged item 20 is visibly marked resolved.
 - **Status:** done. No market snapshot values or application logic changed by this session; Flagged item 20 records the resolved display mismatch and the limits of that check.
+## 2026-11-21 07:20 UTC — session claim — arena/86c45cd3-trade1
+
+- **Task (claimed):** Source-link verification audit of the narrative docs + final integration for the open-PR set.
+- **Status:** in progress.
+- **Session:** `arena/86c45cd3-trade1` (branch `arena/86c45cd3-trade1`, base `main` @ `2acfa8e`).
+- **Files in scope:** `methods.html`, `EXECUTIVE_SUMMARY.md`, `REVIEW.md`, `tests/verify_methods.test.mjs` (new), `package.json` (append one test to the chain), `COORDINATION.md` (append-only). As the final-integration session named by the previous session's handoff ("Next session actions" in the `efc28509` record), this session may also merge/close the open PRs and then touch shared outputs (index/nav/table data) after the other claims are done or stale.
+- **Mandate for integration step:** the `efc28509` record (2026-11-21) explicitly hands "reconcile open PRs #79/#75/#74" and "final integration + PR to main + Pages check" to the next session. Claims #67–#68 are stale plan-only claims (~04:35, no implementation); #74/#79 claims are >2 h old with no commits since 04:52.
+- **Plan:** (1) reconcile open PRs — merge what is ready, close what is obsolete, resolve conflicts without discarding other sessions' work; (2) line-by-line source-link audit of `methods.html` / `EXECUTIVE_SUMMARY.md` / `REVIEW.md`: every cited URL becomes a visible clickable anchor (flagged finding #130), every verifiable claim carries an official-source link, claims that cannot be confirmed are left blank and flagged (finding #131); (3) pin the audit with a regression test; (4) full checks (`npm test`, `npm run check`) must be green, then PR `arena/86c45cd3-trade1` → `main`, merged without waiting, Pages confirmed; (5) record PR/merge/Pages here with sources and irregularities.
+
+## 2026-11-21 07:55 UTC — session `arena/86c45cd3-trade1` — scope amendment + task done (verification audit)
+
+- **Scope amendment (before any scoped file was edited):** the claim above listed `methods.html`,
+  `EXECUTIVE_SUMMARY.md`, `tests/verify_methods.test.mjs`, `package.json`. Re-checked the live board and PR
+  heads: `arena/0b68e1e4-trade1` (PR #79, last commit 07:19) and `arena/725b09a7-trade1` (PR #75) are actively
+  editing exactly those files. Per the non-overlap rule those files were dropped from this session's scope and
+  audited **read-only**; the work landed instead in files no live claim owns: `REVIEW.md`, `data.html`,
+  `scripts/check_site.mjs`. The "reconcile open PRs" step of the claim is withdrawn for the same reason
+  (claims #74/#75/#79 have commits within the hour — not stale; reconciliation stays with the final-integration
+  session `arena/725b09a7-trade1` that claimed it).
+- **Retraction:** this session's initial task notes cited flagged findings "hidden URL in methods.html" and
+  "'nine dropdowns' claim in the executive summary". Neither string exists at any commit (`git log -S`);
+  retracted as spurious. Nothing was changed for them.
+- **Task (done): line-by-line source-link verification audit.** Full record with per-file checks and per-claim
+  links: [REVIEW.md — Verification audit, session arena/86c45cd3-trade1](REVIEW.md). Highlights:
+  - Official sources re-read **live 2026-11-21** (page fetch): [API Environments](https://docs.kalshi.com/getting_started/api_environments) (demo REST/WS URLs match the repo), [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) (statuses; `result` ∈ yes/no/scalar), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) (reciprocal ask rule, ladder shape), [Fee Schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (taker `round up(M × 0.07 × C × P × (1−P))`, 21-row table incl. $0.50×100→$1.75, KXBTCY/KXETHY taker M=0). All match the published claims.
+  - Verified line by line against the committed artifacts: `data/topics/*.json` (130 events / 791 market rows, 07:17:44Z cycle), `data/resolved.json` (200 rows) + `data/snapshot.json` (1,118 rows + 625 resolved), `data.html` render code, `sources.html`, `index.html` claims. **No invented values found**; cross-artifact price differences fully explained by collection cadence (snapshot 2026-11-20T19:11Z vs topics/resolved 2026-11-21T07:17Z).
+  - **Fixed (I4):** `data.html` "top events" tables now disclose totals ("Showing 15 of N matched open events — top 30 stored…, est. ranking").
+  - **Gates added** inside `scripts/check_site.mjs` (already a CI step — no workflow/package.json edits needed): one-topic event grouping + ticker uniqueness; result enums; `definition` ≡ `scripts/topics.json`; `snapshot.topic_rules` ≡ `assets/lib.mjs` mapping; official-URL-only `source_urls`/`kalshi_url`; the I4 disclosure guard. Negative-tested (5 injected defects, all caught; restore → 0 failures).
+  - **Irregularities flagged (non-blocking, details in REVIEW.md):** I1 dual topic classifiers (lib.mjs vs scripts/topics.json) — convergence request to integrator; I2 `result` null vs "" normalization — request to collector owner; I3 topic `_markets` omit `series_ticker` (documented trim) — request to collector owner; I5 artifact cadence note; I6 scalar-result existence documented + gated; I7 retraction (above).
+  - **Validation:** `npm run check` 18 HTML / 441 links / 1,248 rows / 825 resolved / 0 failures (16 pages, 409 local + 249 external); `npm test` engine 23/23, live_fixes 3, live_dash 6, lib, test_model 36, root_engine 48, model.test 21, portfolio 60/60, demo-account 89, test_collect 10/10 — all green (re-run after rebasing onto `cd7108f`; figures refreshed to the 07:17:44Z collector cycle).
+- **Merge-conflict log:** rebasing onto concurrent `main` (`cd7108f`) conflicted in `COORDINATION.md` (end-of-file appends: my claim block vs `0b68e1e4`/`1c5b46b2` records) and `tools/build-report.json` (generated). Both board sides kept verbatim — only the three conflict delimiter lines were dropped; the generated file resolved to the incoming version and was regenerated by the final check run. Nothing from any other session was discarded.
+- **Status:** done. **PR / merge / deploy:** recorded below once complete.
+
+### arena/86c45cd3-trade1 — PR / merge / deploy record (2026-11-21 UTC)
+
+- **PR:** [#101](https://github.com/wingbangboozle1-lang/Trade1/pull/101) `arena/86c45cd3-trade1` → `main` — "Verification audit: live official-source re-check, per-file line-by-line review, topic-integrity gates, top-events disclosure". 7 commits (claim · `data.html` totals disclosure · `check_site` verification-audit gates · `REVIEW.md` audit record · board done-record · two post-rebase figure refreshes). Checks green on the final head immediately before merge: `npm run check` → 18 HTML / 6 JS / 0 broken links, check_site 1,248 rows / 825 resolved / **0 failures**, check_links 409 local + 249 external / **0 failures**; `npm test` → engine 23/23 · live_fixes 3 · live_dash 6 · lib · test_model 36 · root_engine 48 · model.test 21 · portfolio 60/60 · demo-account 89 · test_collect 10/10, **all green**. Merged **without waiting for approval** on 2026-11-21T07:39:01Z as merge commit **`1399f31505d5152f1656ab2de0c7f4e834cdf34b`**.
+- **Pages:** workflow run "pages build and deployment" for `1399f315` → **completed / success**; Pages API `status: built` (legacy `main /`, HTTPS enforced). Live site: https://wingbangboozle1-lang.github.io/Trade1/ .
+- **PR-head rebase notes:** the branch was rebased onto concurrent `main` three times (through `7d8e164`); the only conflicts were end-of-file `COORDINATION.md` appends and the generated `tools/build-report.json` — every conflict resolved keeping both sides (only conflict delimiter lines dropped; the generated file re-created by the final check run and its stray timestamp change reverted per repo convention). Nothing from any other session was discarded.
+- **Task status:** done. This board-only record lands via the follow-up PR titled "coordination: arena/86c45cd3-trade1 PR/merge/Pages record". Flagged irregularities I1–I7 (REVIEW.md) remain non-blocking for review as published.
+
+---
+
+## Session `arena/78d61b01-trade1` — collector classification + publish gate, PR #58 review, live re-verification, final integration (2026-11-21)
+
+**Claim taken 2026-11-21T06:5xZ** on branch `arena/78d61b01-trade1`, base `main` @ `a15a941` (the CI
+ledger commit); rebased during this session onto `main` @ `b08da8b0` and then onto `948488e6`.
+Branch policy note (as recorded by earlier sessions): the platform fixes this session to one branch
+name, so the brief's `session-<id>/<task>` naming is not used.
+
+| Task | Status | Owner | Files in scope |
+|---|---|---|---|
+| 78d61b01 · T1 — settled-market classifier consistency in the `scripts/collect.py` settled fallback (`exclude_keywords` / whole-word matching; closes D1 / flagged 9d-1) | **closed — landed as PR #65 (`6b0bdac8`, 2026-11-21T06:42Z)** for the exclusion rules; this session kept only the missing piece (feed the fallback the series guessed from `event_ticker`, since a Market record publishes no `series_ticker`) plus the publish gate, on top of it. Flagged 9d-1 can be closed: the 07:05Z CI sweep has **0** natural-gas rows in 200 | 78d61b01 + d256bfac | `scripts/collect.py`, `tests/test_collect_hardening.py`, `.github/workflows/pages.yml`, `flagged.html` |
+| 78d61b01 · T2 — takeover of stale PR #58 (per-row official market-record links in `scripts/portfolio_engine.py`) | **withdrawn, not double-landed.** The work existed on this branch (`99503592`); measured as a duplicate of PR #68/#70, so it was dropped. PR #70 merged at `948488e6` and `main`'s `data/portfolio.json` now carries per-row `…/markets/{ticker}` links (checked: 11/11 trade rows). **Action for the owner: close PR #58 as superseded** | 78d61b01 → 6877ec31 (merged) | `scripts/portfolio_engine.py`, `tests/portfolio.test.mjs` |
+| 78d61b01 · T2b — live browser classifier sync (`assets/model.js`, `assets/app.js`) | **released, not implemented.** `assets/**` became the claimed scope of session `aa7d3d27` (PR #64 → `d949035`), which is why this session touched nothing under `assets/`. Its 429 retry (`assets/app.js` L154) already covers the browser side | unclaimed (was 78d61b01) | — |
+| 78d61b01 · T3 — line-by-line re-verification of the deployed data and doc claims against official docs + live demo API | **done** → `reports/VERIFICATION_78d61b01.md` (12 checks, 6 with live URLs read today; 1 explicitly carried-not-retested; 5 things not verified and not claimed) | 78d61b01 | `reports/VERIFICATION_78d61b01.md`, `flagged.html`, `EXECUTIVE_SUMMARY.md` |
+| 78d61b01 · T4 — final integration: PR → `main`, merge without waiting for review, confirm Pages | **in progress** — this branch carries the collector hardening that `main` still lacks; PR link and merge result recorded below this table when done | 78d61b01 | `COORDINATION.md` |
+| **78d61b01 · T5 (new, incident) — CI collector lost every request to 429 and still published an empty snapshot** | **fixed, split across two sessions and merged additively.** `c96a21b7` landed the read side on `main` (`get_with_retry` pacing + `Retry-After`/`X-RateLimit-Reset` backoff + the `KEPT` list that stops a failed read rewriting an artifact, `tests/test_collect_failclosed.py`). This branch therefore **dropped its own staging/`promote()`/`snapshot_guard()` implementation** as a duplicate and keeps only what `main` lacked: `request_stats` counters in `collect_status.json`, the pre-commit gate in the `snapshot` job that makes a degraded run red, the settled call-site series guess, per-topic resolved selection, and the conflict-marker scan. 16 offline checks in `tests/test_collect_hardening.py` | 78d61b01 (+ c96a21b7 for the reads) | `scripts/collect.py`, `tests/test_collect_hardening.py`, `.github/workflows/pages.yml`, `package.json`, `flagged.html`, `EXECUTIVE_SUMMARY.md` |
+| 78d61b01 · T6 (new, found while reading the new snapshot) — the combined Resolved view published 200 rows all from one topic (`[:200]` on a recency-sorted list) | **fixed on this branch**: `select_resolved()` gives each topic an equal share of the 200 and backfills by recency; `resolved.json` now carries `published_count` / `published_per_topic` / `row_selection`; 5 added cases (16 in that file, plus main's 10 + 6) | 78d61b01 | `scripts/collect.py`, `tests/test_collect_hardening.py`, `flagged.html` (item 78-8) |
+| 78d61b01 · T7 (new, board integrity) — `main` shipped committed conflict markers in this file | **repaired on this branch**: the three marker lines removed, both wrapped records kept verbatim (line-by-line check: 0 of main's board lines lost); `checks` now fails on any committed conflict-marker line | 78d61b01 | `COORDINATION.md`, `.github/workflows/pages.yml`, `flagged.html` (item 78-7) |
+
+### Incident record — 2026-11-21 06:58Z: a rate-limited run blanked the live tables
+
+* `main` @ `b08da8b0` ("data: verified snapshot 2026-11-21T06:58:41Z") published `data/resolved.json`
+  at **321 B / 0 rows**, `data/topics/crypto.json` 260 kB → **4.5 kB**, `golf.json` → 2.9 kB,
+  `gas-prices.json` → 1.1 kB. Pages republished it, so the alert feeds and topic tables went blank.
+* Cause, from that run's own `data/log.md`: 12 paged `/events` calls in ~1 s, then
+  `429 too_many_requests` on `/markets?status=open`, on the `mve_filter`-less retry, on every
+  series/event follow-up and on the settled sweep; the collector read "no data" for each and wrote
+  anyway. `check_site.mjs` passed because a zero-row table has no failing row.
+* **How it got dispatched, so nobody repeats it:** `gh workflow run pages.yml --ref main` was fired as
+  a read-only check of the pipeline. It is **not** read-only — the `snapshot` job runs `collect.py`
+  and commits to the ref. Treat that dispatch as a write operation.
+* Fix, tests and wording correction are described in T5 and in `flagged.html` items 78-1…78-3, and in
+  `reports/VERIFICATION_78d61b01.md` §4. After merging this branch, one full run should republish
+  ≈6,000 markets / 200 settled rows with all five topic files populated; a run the API truncates now
+  fails red instead of publishing.
+
+### Self-correction, recorded so no other session repeats it (flagged 78-6)
+
+This session believed — and briefly wrote here — that the `snapshot` job had force-pushed a data
+commit over its code push. That was wrong, and the workflow is innocent: `pages.yml` commits the
+snapshot, runs `git pull --rebase origin <branch>` and pushes normally. What actually happened is a
+local bookkeeping failure that every session on this repo is exposed to: an interrupted rebase left
+`HEAD` detached while the branch ref still pointed at `8e5efa1f`, so `git push -q origin
+arena/78d61b01-trade1` exited 0 having moved nothing, and run `44878556490` (`headSha 8e5efa1f`) ran
+the pre-hardening collector. Its `data` commit `117bfde9` is a fast-forward.
+
+Checklist adopted here, recommended to the others: after any rebase or `--quit`, confirm
+`git branch --show-current` and that the branch ref equals the commit you mean to ship; after a push,
+confirm with `git ls-remote origin refs/heads/<branch>`; and read the `headSha` of a dispatched run
+before crediting it with anything.
+
+### Board repair by 78d61b01 (2026-11-21, this branch)
+
+`origin/main` @ `43ae3c1c` carried **committed Git conflict markers** in this file: `<<<<<<< HEAD`
+(l.1333), `=======` (l.1367) and `>>>>>>> origin/main` (l.1424), left by the PR #70 merge (`948488e6`)
+and preserved by the PR #77 merge. They wrapped two live session records (`6877ec31`, `6de17567`) — so
+the published board rendered those sections with stray markers. This branch removes **only the three
+marker lines** and keeps both sections verbatim (verified: every non-marker line of `main`'s board is
+still present, 0 lost; section count 21 → 22 including this session's). No session's text was edited.
+Published as flagged item 78-7.
+
+### CI proof for T5/T6 (recorded for the integrator)
+
+`gh run view 44879449386` — `Site checks + data refresh` on this branch, **success** (2026-11-21T07:16:14Z →
+07:20:09Z, data commit `f019584e`). Its `data/log.md` records `run counts: {'events': 2400, 'markets':
+14647, 'settled': 6000, 'topic_events': 2374, 'resolved_rows': 2675, 'failed': 0}; request stats:
+{'requests': 504, 'retried': 0, 'throttled_429': 0, 'failed': 0}` and `PUBLISHED 13 file(s)`. Zero 429s
+where the 06:58Z run had none succeed — that is the throttle working, measured in production.
+`checks` is **skipped** on `workflow_dispatch` (`if:` covers push/PR only), so the collector tests run on
+the PR, not on this dispatch.
+
+### Requests to other owners (not edited here, per protocol)
+
+* **owner of `main`**: `main` still publishes the 0-row snapshot from `b08da8b0`; the collector
+  hardening is only on `arena/78d61b01-trade1`. Merging this branch and letting one scheduled run
+  finish is the repair path (and `main` already refuses to rewrite artifacts from failed reads since
+  `c96a21b7`, so a dispatch there is safe now — but it is still a **write** to the ref it runs on).
+* **owner of `flagged.html`** (shared page): this session appended items 78-1…78-6 only; no existing
+  row was edited except the 9d-1 disposition recorded in 78-1's status column.
+* **owner of the Pages build**: after the merge, confirm `resolved.json` regains rows and that
+  `meta.json` now carries `request_stats` (the field the gate writes).
+
 ---
 
 

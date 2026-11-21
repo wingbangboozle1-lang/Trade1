@@ -216,13 +216,16 @@
     verdict on any strategy — it is a sample too small to rank them, and it is reported that way
     (<a href="flagged.html#new-4">NEW-4</a>, <a href="flagged.html#f8">Flagged item 8</a>).
     The two data pipelines run on different clocks and can even disagree: <code>data/snapshot.json</code>
-    (2026-11-20T19:11Z) records no gas markets at all, while the newer collector run holds 11 gas events with
-    74 active markets — so freshness is stated per file and never merged into a single "as of" claim
+    (2026-11-20T19:11Z) records no gas markets at all, while the newer collector run holds 10 gas events with
+    66 active markets — so freshness is stated per file and never merged into a single "as of" claim
     (<a href="flagged.html#new-1">NEW-1</a>, <a href="flagged.html#new-3">NEW-3</a>).
     Gates for this integration: <code>npm run check</code> (BUILD OK, 18 HTML / 6 JS / 0 broken links; <code>check_site.mjs</code>
-    1,248 rows / 825 resolved / 0 failures; <code>check_links.mjs</code> 16 pages / 418 local / 285 external / 0 failures),
+    1,248 rows / 825 resolved / 0 failures; <code>check_links.mjs</code> 16 pages / 420 local / 302 external / 0 failures),
     <code>npm test</code> all suites green (engine 23/23, model.test 21/21, portfolio 60/60, demo-account 89/89; <code>portfolio_engine.py selftest</code> 77/77), and
-    <code>render_test.mjs --offline</code>, with all 16 pages named explicitly (the tool otherwise renders only <code>index.html</code>) → 16 pages rendered / 0 JS errors.</p>
+    <code>render_test.mjs --offline</code>, with all 18 pages named explicitly (the tool otherwise renders only <code>index.html</code>) → 18 pages rendered / 0 JS errors.
+    One published claim was found ahead of its artifact — the summary said <code>data/collect_status.json</code> carries
+    request counters that the committed file does not have yet — and is corrected in place
+    (<a href="flagged.html#new-9">NEW-9</a>).</p>
   </section>
 
   <p class="footer">Kalshi demo is a play-money environment. This site is not affiliated with Kalshi and is not financial advice.

@@ -131,7 +131,11 @@ TOPICS.forEach(function(id){
     } else {
       rows='<tr><td colspan="8" class="muted">No open in-scope events in this snapshot'+(d?(' (collected '+d.generated_at.slice(0,10)+')'):' — snapshot unavailable')+'. Topic rules are in Methods; an empty topic is not an error.</td></tr>';
     }
-    sec.innerHTML='<h2>'+esc(label)+' — top events</h2><div class="tablewrap"><table><tr><th>#</th><th>Event</th><th>Best YES bid</th><th>Best YES ask</th><th>Volume (contracts)</th><th>Est. traded $</th><th>Closes</th><th>Source</th></tr>'+rows+'</table></div>';
+    var stored=(d.events||[]).length, shown=Math.min(15,stored);
+    var matched=(d.event_count!=null)?d.event_count:stored;
+    var collected=d.generated_at?String(d.generated_at).replace('T',' ').slice(0,19)+'Z':'';
+    var note='<p class="muted small">Showing '+shown+' of '+esc(String(matched))+' matched open events — the top '+stored+' stored in this snapshot, ranked by estimated traded $ (est., not exchange-published)'+(collected?' · collected '+esc(collected):'')+'. Every row links its exact official record.</p>';
+    sec.innerHTML='<h2>'+esc(label)+' — top events</h2>'+note+'<div class="tablewrap"><table><tr><th>#</th><th>Event</th><th>Best YES bid</th><th>Best YES ask</th><th>Volume (contracts)</th><th>Est. traded $</th><th>Closes</th><th>Source</th></tr>'+rows+'</table></div>';
     box.appendChild(sec);
   });
 });
