@@ -1214,6 +1214,8 @@ session therefore did NOT add a second implementation:
 | `c96a21b7` | #64 (open) | **Superseded** by the merged PR #65 and by this branch; its board record is retained in this file. PR #64 is closed with that rationale. |
 | `6b112481` | #68 (open, conflicting) | **Taken over** — `scripts/check_row_sources.mjs`, `tests/collector.test.mjs`, `tests/fixtures/topic_cases.json`, the extended `tests/test_collect.py` and the browser word-boundary fix are in this branch. Its duplicate D1 implementation is not taken over. PR #68 is closed with that rationale. |
 | `6916270f` | #58 (open, stale) | **Taken over** — the substantive change (`api_market_url()`) is in this branch. PR #58 is closed with that rationale. |
+| `6877ec31` | #70 (open) | **Taken over** — its ledger re-projection is equivalent to this session's `resource` mode (same per-row URLs; this session keeps the original cycle timestamp). Its two findings were acted on: **N2** (`KXMARMAD` is legible in the official fee-schedule PDF) was re-verified against the PDF here and transcribed; **N3** (the executive summary still said the paper portfolio was "local only") was fixed. PR #70 is closed with that rationale. |
+| `efc28509` | #72 (open) | Coordination-only record. Its board entry is additive and is merged with the rest of this file. PR #72 is closed as superseded by this branch's final integration. |
 
 **Stale generated data — resolved by workflow ordering, never by hand-editing.**
 `data/resolved.json` still holds the four natural-gas rows, because this sandbox has no route to

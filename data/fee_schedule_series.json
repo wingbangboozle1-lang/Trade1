@@ -69,6 +69,7 @@
     "KXLALIGA": { "maker": 1, "taker": 1, "title": "LA LIGA", "seen_in": ["fee-schedule-pdf"] },
     "KXLAYOFFSYINFO": { "maker": 0, "taker": 0, "title": "Tech layoffs", "seen_in": ["fee-schedule-pdf"] },
     "KXLLM1": { "maker": 1, "taker": 1, "title": "Year-end top LLM", "seen_in": ["fee-schedule-pdf"] },
+    "KXMARMAD": { "maker": 1, "taker": 1, "title": "College Basketball Champion", "seen_in": ["fee-schedule-pdf"] },
     "KXPAHLAVIHEAD": { "maker": 0, "taker": 0, "title": "Will Pahlavi lead Iran?", "seen_in": ["fee-schedule-pdf"] },
     "KXPAYROLLS": { "maker": 1, "taker": 1, "title": "Jobs numbers", "seen_in": ["fee-schedule-pdf"] },
     "KXPGARYDER": { "maker": 1, "taker": 1, "title": "Ryder Cup", "seen_in": ["fee-schedule-pdf"] },
@@ -87,8 +88,9 @@
   },
   "not_transcribed": {
     "reason": "The PDF's middle pages are OCR-garbled (series names and multipliers interleaved), and the public fee-schedule page paginates client-side, so these rows could not be read unambiguously. They are treated as the default multiplier (taker M = 1) and flagged for manual review.",
+    "note_removed": "KXMARMAD was moved into `series` on 2026-11-21 (session 725b09a7): its own row in the official PDF reads cleanly - 'KXMARMAD | College Basketball Champion | 1 | 1' - so the values are transcribed from the source rather than inferred. The rows still listed here remain OCR-garbled.",
     "series": [
-      "KXMARMAD", "KXMEANRWMAODRLDCUP", "KXMLEBNWORLDCUP", "KXMLBAL", "KXMLBASGAME",
+      "KXMEANRWMAODRLDCUP", "KXMLEBNWORLDCUP", "KXMLBAL", "KXMLBASGAME",
       "KXMLBGAME", "KXMLBNL", "KXMVE", "KXNASDAQ100Y", "KXNBA", "KXNBAEAST",
       "KXNBAMVP", "KXNBAROY", "KXNBAWEST", "KXNCAAF", "KXNCAAFACC", "KXNFLGAME",
       "KXNFLMVP", "KXNFLNFCCHAMP", "KXNFLNFCEAST", "KXNFLNFCNORTH", "KXNFLNFCSOUTH",

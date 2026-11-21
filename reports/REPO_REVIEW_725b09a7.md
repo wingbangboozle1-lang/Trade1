@@ -250,6 +250,7 @@ over, not discarded**; nothing of theirs was reverted.
 | `c96a21b7` | #64 (open) | The same D1 fix, with a board record | **Superseded** by the merged PR #65 and by this branch. Its board record is additive and is merged with the rest of `COORDINATION.md`. |
 | `6b112481` | #68 (open, `CONFLICTING`) | Repo review, the D1 fix, a per-row official-link gate, a collector↔browser classifier parity test, and the takeover of stale PR #58 | **Taken over** — `scripts/check_row_sources.mjs`, `tests/collector.test.mjs`, `tests/fixtures/topic_cases.json` and the extended `tests/test_collect.py` are now in this branch, plus the browser-side word-boundary fix in `assets/model.js`. Its `scripts/portfolio_engine.py` change (the per-row market record) is identical to this session's and was re-applied here against the current `main`. Its duplicate D1 implementation was not taken over (the merged one is in place). |
 | `6916270f` | #58 (open, stale since 2026-11-20 20:50Z) | Per-row official market-record links in the CI ledger + a final coordination record | **Taken over** — the substantive change is `api_market_url()` in `scripts/portfolio_engine.py`, which this session implemented identically and extended with 8 self-test checks. PR #58 is closed by this session's PR. |
+| `6877ec31` | #70 (open) | An independent verification report; the per-row ledger re-projection; two findings of its own | **Taken over** — its ledger re-projection is equivalent to this session's `resource` mode (same per-row URLs; this session keeps the original cycle timestamp instead of overwriting it); its finding **N2** (`KXMARMAD` is legible in the PDF and can be transcribed) was **re-verified against the official PDF here** and acted on; its finding **N3** (the executive summary still said "local only") was **taken over and fixed**. Its report `reports/VERIFICATION_6877ec31.md` is a parallel artifact to this one — this report supersedes it rather than duplicating it. |
 
 **Merge conflicts encountered and how they were resolved** (nothing was dropped):
 
@@ -261,6 +262,39 @@ over, not discarded**; nothing of theirs was reverted.
 3. `flagged.html` and `resolved.html` — the D1 rows were updated by more than one session.
    Resolved in favour of main's wording (which already records the fix and the pending snapshot
    refresh); this session's D3 "Denominator" disclosure was kept alongside it.
+
+---
+
+### N2 → fixed — `KXMARMAD` is legible in the official fee schedule *(taken over from session `6877ec31`, re-verified here)*
+
+`data/fee_schedule_series.json` listed 42 series under `not_transcribed` because the PDF's middle
+pages are OCR-garbled. Session `6877ec31` observed that one of them, `KXMARMAD`, has its own row
+readable in the PDF. That claim was **re-verified here against the official PDF**
+(`https://kalshi.com/docs/kalshi-fee-schedule.pdf`, Non-Standard Fees table): the extracted text
+contains
+
+```
+KXMARMAD
+College Basketball
+1 1
+Champion
+```
+
+— i.e. series `KXMARMAD`, title "College Basketball Champion", maker multiplier 1, taker
+multiplier 1. It is now transcribed rather than defaulted, and the `not_transcribed` list keeps
+the 41 rows that are still garbled. The default treatment was M = 1 for the taker, so no published
+fee changes; the transcription additionally pins the maker multiplier, which the paper brokers do
+not model (they assume immediately-matched fills = taker).
+
+### N3 → fixed — the executive summary described the paper portfolio as "local only" *(taken over from session `6877ec31`)*
+
+`EXECUTIVE_SUMMARY.md` row "Portfolio performance" said the paper portfolio was *local only
+(localStorage)*, while the site also publishes a persistent CI ledger (`portfolio.html`, refreshed
+twice an hour by `.github/workflows/portfolio.yml`). The row now names all three disclosed layers
+— the browser Strategy Lab (local only), the persistent CI ledger (published, every row linked to
+its own official record) and the demo-account console (inert without owner-supplied keys) — and
+says they are never mixed. Two related statements (the numbered limitation and the
+"no server-side capture yet" risk bullet) were corrected the same way.
 
 ---
 
