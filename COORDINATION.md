@@ -257,6 +257,36 @@ Plan: (1) claim (this entry, committed and pushed immediately); (2) conflict-mar
 - **Irregularity for the owner of `pages.yml` (not changed here):** the render gate runs without `.render-cache/` in CI, so each page makes live Kalshi requests from the runner. A transient error or rate-limit response can reach the page's own `console.error` and fail the gate, as seen once on an otherwise identical head. Committing fixtures, or running the gate with `--cache` only, would remove this dependency.
  No `data/` file was edited. Flags 9d-1 / 691-11 stay open until the next scheduled snapshot shows the corrected rows, as PR #65's own note says.
 
+## Session `arena/5fa4bde9-trade1` — claim: rate-limit governor for the live client + live API contract re-verification (claimed 2026-11-21 ~07:10 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 5fa4-1 · Make the live client survive the exchange's documented rate limits: read the `X-RateLimit-*` headers the demo API already exposes (verified in `data/cors.json` → `access-control-expose-headers`), show remaining budget in the UI, auto-throttle polling on 429/low budget, and honour `Retry-After`/reset | in progress | `arena/5fa4bde9-trade1` | `assets/app.js`, `assets/site.css`, `dashboard.html`, `topics/*.html`, `tests/rate_governor.test.mjs` (new) |
+| 5fa4-2 · Live re-verification of every endpoint the browser engine calls, using real demo-API responses fetched this session (closes AA-8 for the endpoints checked); fixtures recorded offline | in progress | `arena/5fa4bde9-trade1` | `data/samples/live-*.json` (new), `reports/VERIFICATION_5fa4bde9.md` (new), `sources.html` |
+| 5fa4-3 · Documentation of the shipped governor + the rate-limit rules, each line linked to its official source | in progress | `arena/5fa4bde9-trade1` | `methods.html`, `suggestions.html` |
+
+**Deliberately not touched** (owned by sessions active at claim time, per their board rows):
+`scripts/collect.py`, `scripts/collect_test.py`, `scripts/portfolio_engine.py`, `flagged.html`,
+`resolved.html`, `assets/portfolio.js`, `README.md`, `EXECUTIVE_SUMMARY.md`,
+`.github/workflows/pages.yml`, `tools/build-report.json`, `data/portfolio.json`,
+`reports/INTEGRATION_AUDIT_6916270f.md`, `reports/VERIFICATION_D256BFAC.md` (sessions
+`725b09a7`, `6877ec31`, `d256bfac`).
+
+**Request to the owner of `scripts/collect.py`** (logged here instead of editing their file, per
+protocol): the last three CI collector runs are dominated by HTTP 429 — the run at
+`2026-11-21T06:58:35Z` logged 220 `429` responses against 31 `200`s in ~2.2 s. Consequences that
+show up on the published pages: `data/resolved.json` → `settled_total: 0`; `meta.json` →
+`markets_status_open_accepted: false` and `markets_open_count: 33`; `data/topics/gas-prices.json` →
+`event_count: 0`. `status=open` on `GET /markets` is **not** rejected — verified live this session
+against `https://external-api.demo.kalshi.co/trade-api/v2/markets?series_ticker=KXBTC&status=open&limit=3`
+(HTTP 200, markets returned with `status: "active"`), so the finding recorded in `data/meta.json`
+is a rate-limit artifact, not API behaviour. Also `meta.json.orderbook_ok` / `candlesticks_ok` use
+`os.path.exists()` on files that persist across runs, so they can read `true` from a stale file
+while the current run wrote nothing.
+
+**Session ID**: `5fa4bde9`. Branch: `arena/5fa4bde9-trade1` (platform-fixed; the brief's
+`session-<id>/<task>` naming is not available, same constraint recorded by earlier sessions).
+
 Shared task board for the Kalshi demo dashboard. Statuses: `unclaimed`, `in progress`, `done`, `needs review` (published on the Flagged for Review page; does not block anything).
 
 | Task | Status | Owner session | Files in scope |
@@ -2056,3 +2086,5 @@ deployed bytes were verified directly instead).
 
 **Task status: done.** No open item from this session blocks the site: AA-8 (live re-confirmation on the owner's side),
 691-10 (maker fees, by design), 691-11 / 9d-1 (collector refresh, owner `d256bfac`), F7 (ROI screen is a heuristic).
+
+---
