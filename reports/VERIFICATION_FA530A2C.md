@@ -58,6 +58,9 @@ values that could not be confirmed are left blank and flagged.
 | `flagged.html` | **Unique:** new FA-1…FA-4 section, each row with evidence + official source, written after the integration review (statuses reflect actual PR outcomes, not intentions). | `npm run check` green (nav parity + links). |
 | `COORDINATION.md` | Claim (pushed at start) + salvage of PR #67's unique records + completion record. | See §4/§6. |
 | `reports/VERIFICATION_D256BFAC.md` | Salvaged one line from PR #67 (the 429 follow-up observation), attributed; facts re-verified against `data/log.md` and the official rate-limits doc. | File diff shown in this PR. |
+| `reports/REPO_REVIEW_6b112481.md` | **Salvage:** PR #68's 287-line line-by-line review, copied verbatim from its branch (`origin/arena/6b112481-trade1`) after the PR closed unmerged — otherwise lost to the site. | File committed verbatim; provenance noted in `flagged.html`. |
+| `flagged.html` (salvage table) | **Salvage:** PR #68's 7 findings (6b-7…6b-13) published verbatim with their own source links, in a table labelled with provenance and verification status. | Local spot-checks by this session on 4 of 7 (documented in the table note): `build_snapshot.mjs` absent from workflows; `KXDSENATESEATS-27` + `Politics` category in `data/topics/elections.json`; `docs/` present; `price_level_structure` in `data/samples/`. |
+| `tests/test_collect.py` | **FA-5 fix:** removed the stale duplicate `RateLimitBackoffTests` class left by PR #79's merge (`31734e7`) — its 4 methods were silently shadowed and referenced removed API symbols. | `python3 tests/test_collect.py` → 10/10 (was: 14 defined, 10 ran). |
 | `reports/VERIFICATION_FA530A2C.md` | This record. | — |
 | ~~`scripts/collect.py`~~ | **Dropped during rebase** — superseded by PR #80's fail-closed implementation (exponential backoff on 429/5xx/network, 0.25 s pacing, `FAILURES`/`KEPT` preservation). This session's parallel version (backoff + `paged()` ok-flag + clobber guards) was equivalent in intent and is not shipped to avoid a conflicting second implementation. | Equivalence checked by diffing both versions and reading PR #80's `tests/test_collect_failclosed.py` (6 tests: retry-then-success, retry-gives-up, definitive-4xx, empty-200-body, **all-429 incident keeps every verified artifact**, empty-200 don't-wipe — a superset of this session's planned tests). |
 | ~~`tests/test_collect.py`~~ | **Dropped during rebase** — this session's 6 backoff tests targeted its own removed helpers; PR #80's incident test file covers the same ground against the shipped code. Main's 4 classification tests are untouched. | `python3 tests/test_collect.py` → 4/4 OK on this branch. |
@@ -68,8 +71,8 @@ values that could not be confirmed are left blank and flagged.
 |---|---|---|---|
 | #58 `arena/6916270f-trade1` | OPEN, CONFLICTING, stale since 2026-11-20 20:58Z | Unique content: per-row `api_market_url()` source links (batched `?tickers=…` URL on every trade/alert/resolution row). Not in `main` at review time — my initial "superseded" reading was corrected by diffing the branch. | **MERGED 07:08:09Z, merge commit `fdd4af3a`** — taken over per the board's 60-minute rule by `6877ec31` (PR #70) and landed; `data/portfolio.json` re-projected (11 trades + 29 alerts per-row links). Not merged or closed by this session. |
 | #64 `arena/c96a21b7-trade1` | OPEN, MERGEABLE | Board record only (claim-withdrawal note for #65). | **MERGED 07:04:32Z, merge commit `d949035c`** by its own session. |
-| #67 `arena/d256bfac-trade1` | OPEN, CONFLICTING | Unique records: d256bfac completion (PR #65 merge `a006b5eb`, Pages run 44877397735, CI run 44877167769) + the 429 follow-up observation — **not in `main`**. All four GitHub facts re-verified by API before salvage. | **Left OPEN** — its session pushed a new commit at 07:10:51Z ("docs: record collector rate-limit follow-up"), i.e. it is active; the takeover rule does not apply. Unique records **salvaged additively** into `COORDINATION.md` and `reports/VERIFICATION_D256BFAC.md` by this session; nothing discarded, nothing closed. |
-| #68 `arena/6b112481-trade1` | OPEN, CONFLICTING | D1 collector fix already in `main` via PR #65; broader site/verify changes would conflict with several merged PRs. | **Left OPEN** — last commit 06:51:44Z (inside the 60-minute window at review time); left for its owner or a later integrator, noted in `COORDINATION.md`. |
+| #67 `arena/d256bfac-trade1` | OPEN, CONFLICTING | Unique records: d256bfac completion (PR #65 merge `a006b5eb`, Pages run 44877397735, CI run 44877167769) + the 429 follow-up observation — **not in `main`**. All four GitHub facts re-verified by API before salvage. | **CLOSED unmerged 07:30:45Z** (by another actor, after this session's salvage). Not closed by this session — while under review its session pushed a new commit at 07:10:51Z, so the takeover rule did not apply. Unique records **salvaged additively** into `COORDINATION.md` and `reports/VERIFICATION_D256BFAC.md`; nothing discarded. |
+| #68 `arena/6b112481-trade1` | OPEN, CONFLICTING | D1 collector fix already in `main` via PR #65; **unique content found**: `reports/REPO_REVIEW_6b112481.md` (287-line line-by-line review) + 7 findings 6b-7…6b-13 on its `flagged.html` — none of it on `main`. | **CLOSED unmerged 07:30:44Z** (by another actor). This session **salvaged both in full**: the report committed alongside this PR, the 7 rows published verbatim (with their own source links) in a labelled salvage table on `flagged.html`, plus local spot-checks of 4 of 7 (documented there). |
 | #70 `arena/6877ec31-trade1` | OPEN, CONFLICTING | Takeover of #58 + EXECUTIVE_SUMMARY N3 correction + `reports/VERIFICATION_6877ec31.md`. | **MERGED 07:08:07Z, merge commit `948488e6`** by its own session. |
 
 No stale branch was merged by this session: each was diffed against `main`, and
@@ -99,9 +102,12 @@ salvaged additively here. Nothing this session did could regress `main`.
   need the owner's demo API key + private key (`KALSHI_DEMO_KEY_ID` /
   `KALSHI_DEMO_PRIVATE_KEY` secrets). The console stays inert without them;
   the paper dashboard needs no credentials.
-- **Open PRs left for their owners:** #67 (active session; records salvaged
-  here), #68 (within window at review), #75 (final-integration claim — its
-  `resolved.html` denominator note and `flagged.html` section are additive to
-  this PR's changes), #79 (its `collect.py` backoff is redundant with merged
-  PR #80 — overlap note already recorded in `COORDINATION.md` by `c96a21b7`;
-  its unique value is the portfolio entry guards), #82/#83/#84 (board-only).
+- **PRs closed during/after review with content preserved:** #67 (closed
+  unmerged 07:30:45Z — records salvaged in `COORDINATION.md` +
+  `reports/VERIFICATION_D256BFAC.md`), #68 (closed unmerged 07:30:44Z —
+  review report + 7 findings salvaged, see §3/§4).
+- **Open PRs left for their owners at time of writing:** #75 (final-integration
+  claim — its `resolved.html` denominator note and `flagged.html` section are
+  additive to this PR's changes), #84/#85/#90/#92/#95/#96 (various; #90 and
+  #85 also touch `collect.py`/`flagged.html`/`resolved.html` — reconcile
+  additively with the FA section and the empty-snapshot fix).
