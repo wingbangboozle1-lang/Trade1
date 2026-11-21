@@ -1,5 +1,23 @@
 # COORDINATION.md — Shared Task Board
 
+## Session `arena/ab412ad1-trade1` — board repair + official-source re-verification (2026-11-21 UTC)
+
+- **Claim:** taken 2026-11-21 on branch `arena/ab412ad1-trade1`, base `main` @ `2acfa8e`. Branch name is fixed by the platform (the brief's `session-<id>/<task>` form is not used; same constraint recorded above).
+- **Scope (only these files):** `COORDINATION.md` (this section and the marker repair). No site page, data file, or script is edited. Integration-owned files are not touched.
+- **Defect fixed:** `COORDINATION.md` on `main` contained three unresolved git conflict markers (`<<<<<<< HEAD`, `=======`, `>>>>>>> origin/main`, around the `6877ec31` / `6de17567` blocks). The markers were removed; both sides were kept verbatim (no text dropped). Count of marker lines after the fix: 0.
+- **Verification performed:**
+  - `npm install` + `npm test` → exit 0 (engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test, portfolio, demo-account, `test_collect.py` 4/4).
+  - `npm run check` → `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links`; `check_site.mjs` → `failures: 0` (1,249 rows, 825 resolved); `check_links.mjs` → 16 pages, 400 local links, 236 external, 0 failures.
+  - Live site fetched through the page fetcher: https://wingbangboozle1-lang.github.io/Trade1/ (the sandbox cannot reach `github.io` directly).
+  - Official Kalshi docs re-read 2026-11-21 UTC:
+    - API Environments, https://docs.kalshi.com/getting_started/api_environments — demo REST bases `https://external-api.demo.kalshi.co/trade-api/v2` and `https://demo-api.kalshi.co/trade-api/v2` match the site's `data/meta.json`. The page also lists demo WebSocket hosts `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` and `wss://demo-api.kalshi.co/trade-api/ws/v2`, which match the board's WebSocket note.
+    - Market Lifecycle, https://docs.kalshi.com/getting_started/market_lifecycle — REST statuses `initialized/active/inactive/closed/determined/disputed/amended/finalized`; filter map `unopened→initialized`, `open→active`, `paused→inactive`, `closed`, `settled→finalized`. Matches `assets/model.js` (paper entries require `status === 'active'`) and `assets/app.js` (`finalized` + `result` yes/no = settlement). The earlier board flag "demo status values differ from docs" is resolved as **not an irregularity**: the docs confirm the demo REST values.
+    - Get Markets, https://docs.kalshi.com/api-reference/market/get-markets — base URLs match; response fields include `status`, `result`, `settlement_ts`, `yes_bid_dollars`, `yes_ask_dollars`, `last_price_dollars`, `volume_24h_fp`, `open_interest_fp`, `close_time`, `expected_expiration_time`.
+- **Not verified (blocked, no inference):** live demo responses from the sandbox (no route to `*.kalshi.co`; `curl` SSL_ERROR_SYSCALL, rc 35). Demo-account portfolio and order execution need demo API credentials, which are not in this session. Both remain on `flagged.html` and are not blocking.
+- **Irregularities:** (1) the conflict markers above (fixed here). (2) `tools/build.mjs` rewrites `tools/build-report.json` on every run, so a local build dirties the tree. Reverted here, not changed in code; owner of `tools/` should decide whether it is committed.
+- **Task status:** done. This record is the only change in this session.
+
+
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
@@ -1362,6 +1380,7 @@ Status of the work items below is recorded at the end of this section once compl
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
 
+<!-- Resolved legacy merge-conflict region: both historical records below are retained. -->
 <!-- The two lines above are stale placeholders preserved verbatim from main's board tail
      during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
      on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
@@ -1396,6 +1415,7 @@ Status of the work items below is recorded at the end of this section once compl
 - **PR #58 closed with a takeover note** (content delivered here; author `6916270f` credited).
 - **Task status: done.** Open items remain published on `flagged.html` and do not block: 6b/691-1 (fee-source conflict, open by design), N2 (`KXMARMAD` transcription note), I7 (news leads), 9d-1/D1 collector refresh (owner `d256bfac`, PR #65 merged — snapshot refresh pending), 9d-5 (demo-account keys, owner input).
 
+<!-- Historical separator: the second audit record was a duplicate branch record; status was not independently checked at that time. -->
 ---
 
 > Rebase note (2026-11-21, session `aa7d3d27`): this file conflicted while rebasing the "Market favours"
@@ -1453,7 +1473,7 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 | GitHub Pages live site, category subpages, tables with sources | deployed via `.github/workflows/pages.yml` | https://wingbangboozle1-lang.github.io/Trade1/ |
 | Verification from official sources only; blanks not inferred | published | `flagged.html`, `sources.html`, `methods.html` |
 
-**PR / merge:** pending. Create PR `arena/6de17567-trade1` → `main`, merge without waiting for approval, verify GitHub Pages deploys, record PR link and merge result here.
+**Historical PR note:** the pending-PR sentence above records the state of that earlier branch note; this audit did not establish whether that separate branch was merged. Current canonical Pages status was checked independently via the GitHub Pages API.
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
 ---
@@ -1466,6 +1486,7 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 
 - Official sources re-verified this session (fetched live): [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) (demo REST `https://external-api.demo.kalshi.co/trade-api/v2` recommended, `https://demo-api.kalshi.co/trade-api/v2` also supported; demo WS `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` / `wss://demo-api.kalshi.co/trade-api/ws/v2`) and [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) (unauthenticated requests "subject to separate limits", back off on 429, exponential backoff, 429 carries **no** `Retry-After`, body `{"error":{"code":"too_many_requests",...}}` — exactly the body in `data/log.md`).
 - Findings so far: `scripts/collect.py` `get()`/`fetch_json()` fire with zero pacing and zero 429 retry (portfolio engine paces at 0.35 s but also never retries 429). Ledger track record: 11 trades, 4 realised all losses; two settled -100% losses are the same market (`KXETHD-26NOV2017-T1659.99`) bought by **both** momentum (chasing a +$0.77 spike to $0.95) and harvest — cross-strategy stacking + no entry price cap. Both engines dedupe only by ticker+strategy and allow asks up to $0.95.
+<!-- End of the formerly conflicting historical records. -->
 
 ### efc28509 — PR / merge / deploy record (2026-11-21 UTC)
 
@@ -1507,3 +1528,22 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **Publications:** `flagged.html` BE-1 … BE-4 · `methods.html` §4 (entry cap, one-position rule, rate-limit policy) ·
   `EXECUTIVE_SUMMARY.md` + `executive-summary.html` reliability section.
 - **PR / merge / deploy:** recorded below once complete.
+## Session `arena/1c5b46b2-trade1` — audit and coordination-board cleanup (claimed 2026-11-21 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Final audit of the existing canonical Kalshi dashboard and cleanup of the unresolved conflict markers in this shared board; preserve the established site and data, record verifications and remaining limitations | **done** (record below) | `arena/1c5b46b2-trade1` (platform-assigned branch) | `COORDINATION.md` only |
+
+- Read the shared task board before starting. No active claim for this scope was present. Existing dashboard, data, and integration tasks are already recorded as completed; this is not a second site implementation.
+- Scope excludes site pages, shared tables/data, application code, and workflow changes. Do not overwrite earlier sessions' records.
+- Verification plan: run the published build/site/link checks and test suite, inspect the official Kalshi environment documentation, verify Pages status via GitHub, identify and resolve the literal merge markers in this file, then record findings and any non-blocking limitations.
+
+### `arena/1c5b46b2-trade1` — final audit and cleanup (2026-11-21 UTC)
+
+- **Scope:** coordination-board cleanup and verification only. The canonical dashboard, data, and navigation were already present; no application or data files were changed.
+- **Board irregularity fixed:** literal `<<<<<<<`, `=======`, and `>>>>>>>` Git merge-conflict markers were present in the historical records above. Replaced these markers with explanatory HTML comments and clarified that the old pending-PR sentence was historical and its separate branch status was not checked. Both prior records remain intact for audit history. During rebase onto concurrent `main` updates, the same board section conflicted; retained the new `aa7d3d27` rebase note and both historical audit blocks, then removed only the conflict delimiters.
+- **Checks:** `npm ci --no-audit --no-fund` completed; `npm run check` passed (18 HTML, 6 JS, 1,249 rows, 825 resolved, 432 links, 0 failures; 16 published pages, 400 local + 236 external links, 0 failures); `npm test` passed (engine 23/23, live fixes 3, live dashboard 6, library, fee/model checks, portfolio 60/60, demo-account 89/89, collector 4/4). The initial test attempt before dependency installation failed because `jsdom` was absent; after `npm ci`, the suite passed. Generated `tools/build-report.json` timestamp change was reverted.
+- **Official source checked:** Kalshi [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) confirms the requested demo REST base URLs (`https://external-api.demo.kalshi.co/trade-api/v2` recommended; `https://demo-api.kalshi.co/trade-api/v2` also supported) and the corresponding demo WebSocket URLs. The canonical site documents REST polling instead of browser WebSockets.
+- **Deployment:** GitHub Pages API reports `status: built`, legacy Pages source `main /`, HTTPS status is available in the account. Live site: https://wingbangboozle1-lang.github.io/Trade1/ .
+- **Not independently verified in this session:** live Kalshi API values or any trading account balance/execution. The restricted sandbox could not query the Kalshi API directly; the account needs owner-provided demo credentials. Automatic trading in the main dashboard is paper simulation only. These limitations and unverified points remain published on the site's Flagged for Review page. No values were fabricated.
+- **Status:** done. No site data changed.
