@@ -127,7 +127,7 @@ Changes verified line by line:
 | 2 | `GET /events?limit=1000` → 400; page size 200 used. |
 | 3 | Candlestick path: legacy `/markets/{t}/candlesticks` not served; the documented series-scoped path is used (verified both ways, live). |
 | 4 | Some demo `settlement_sources` contain template gaps — shown verbatim. |
-| 5 | No exchange-published per-market dollar-notional field → every “$” figure is a labeled estimate. |
+| 5 | No exchange-published per-market **traded**-dollar field (`volume_fp` / `volume_24h_fp` are contract counts) → every “$” figure is a labeled estimate. Corrected 2026-11-21 by session 6b112481: the Market schema does publish `notional_value_dollars` (the contract's notional value), which is not traded volume. |
 | 6 | Taker fee verified and now exact; maker fees and the per-series override table are not applied. |
 | 6b | Per-series fee structure verified from the demo API (`fee_type`/`fee_multiplier`); the published PDF's production overrides differ for some series. |
 | 6c | Fee rounding granularity: PDF "centicent" vs the newer 6-decimal Fee Rounding doc — we use the published table (never lower than the exchange). |
@@ -202,7 +202,7 @@ source → result. Anything not confirmed is left on [flagged.html](flagged.html
 4. **Winning side receives $1 per contract; settlement fee zero for yes/no** — [market_settlement](https://docs.kalshi.com/getting_started/market_settlement) — **match** with paper settlement in `assets/model.js`.
 5. **Public unauthenticated market data; Kalshi UI pattern `kalshi.com/markets/<series>`** — [quick start market data](https://docs.kalshi.com/getting_started/quick_start_market_data) — **match** with the row links rendered by `data.html`/`assets/app.js`.
 6. **Alert rule ≥ $0.10 either direction compared in whole 1/10000-dollar units** — official prices are 4-dp fixed-point strings (observed live: `"0.4500"`; [fixed-point docs](https://docs.kalshi.com/getting_started/fixed_point_migration)) — **match** with `M.alertMove()`; exact-$0.10 float trap covered by tests.
-7. **Estimated dollar figures labeled estimates** — no official per-market dollar-notional field in the live responses (observed field set above; Get Events schema shows none) — **match** (labeling present on dashboard, data page, methods).
+7. **Estimated dollar figures labeled estimates** — no official per-market **traded**-dollar field in the live responses (`volume_fp` / `volume_24h_fp` are contract counts) — **match** (labeling present on dashboard, data page, methods). Correction 2026-11-21 (session 6b112481): the official Market schema and the live demo responses DO include `notional_value_dollars` (e.g. `"1.0000"` on KXAAAGASM-26NOV30-3.90 and KXPGATOUR-THRC26-SSTR); it is the contract's notional value, not traded volume, so the estimate labelling still stands but the earlier "no dollar-notional field exists" wording was wrong.
 8. **No WebSocket in the browser** — WS handshake requires signed auth headers ([WS quick start](https://docs.kalshi.com/getting_started/quick_start_websockets), cited in `assets/app.js`) — **flagged, not a bug**.
 9. **CORS: demo API reflects any browser origin** — `data/cors.json` (GitHub-runner probes with verbatim headers, 2026-11-20) — **recorded evidence**; not re-probeable from this sandbox.
 10. **Market status vocabulary** — [market lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) documents REST statuses `initialized/active/inactive/closed/determined/disputed/amended/finalized` with filters `open→active`, `settled→finalized` — the site’s observed `status:"active"` / `"finalized"` values are **documented**; the older “status mismatch” flag is withdrawn (this session re-read the doc; the correction is already on `flagged.html`).
@@ -238,7 +238,7 @@ rewrite. Merge resolved **without discarding either side** (21 conflicted files)
 
 Demo-account portfolio/execution needs owner-provided demo API keys (never requested in chat —
 dormant `scripts/demo_account/` track exists in PR #2); WebSocket requires signed headers (no
-browser feed); REST cache lag (alerts lag seconds); no official dollar-notional (rankings are
+browser feed); REST cache lag (alerts lag seconds); no official traded-dollar field (rankings are
 labeled estimates); maker fees not modeled; KXAAAGASM empty candles (cause unknown); placeholder
 `settlement_sources` URLs; unauthenticated rate limits unpublished; ROI screen is a documented
 heuristic, not verified alpha; session chart samples reset on reload. The previously published

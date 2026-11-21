@@ -47,6 +47,8 @@ jobs:
         run: node tools/build.mjs
       - name: Every page link resolves and every snapshot row has an official source URL
         run: node scripts/check_site.mjs
+      - name: Every rendered table row links its own official record (data.html, resolved.html)
+        run: node scripts/check_row_sources.mjs
       - name: Fee model vs the official fee schedule table (42 published rows + per-series multipliers)
         run: node scripts/test_fees.mjs
       - name: Dashboard model checks (alert threshold, classifier, ROI screen, fill band)

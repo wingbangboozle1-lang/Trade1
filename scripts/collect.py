@@ -119,6 +119,11 @@ MARKET_FIELDS = [
     "liquidity", "notional_volume", "open_time", "close_time",
     "expected_expiration_time", "latest_expiration_time", "can_close_early",
     "strike_type", "price_level_structure", "settlement_ts", "settlement_value_dollars",
+    # Official per-contract notional value. It IS published by the demo API
+    # (official Market schema + observed responses, e.g. "1.0000" on binary
+    # markets); it is the contract's notional value, NOT traded volume, so it is
+    # captured verbatim here but is not used for any dollar ranking.
+    "notional_value_dollars",
 ]
 EVENT_FIELDS = [
     "event_ticker", "series_ticker", "title", "sub_title", "category",

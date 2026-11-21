@@ -52,7 +52,7 @@
   <section class="box" style="margin-top:14px">
     <h2>Top in-scope live events by estimated traded notional</h2>
     <div id="topic-tables"></div>
-    <p class="muted small">“Est. $” = contracts × last price (computed here; the API does not publish a per-market dollar-notional field — flagged). Blank cells = value not present in the response.</p>
+    <p class="muted small">“Est. $” = contracts × last price (computed here; the API publishes no per-market <b>traded</b>-dollar field — `volume_fp` / `volume_24h_fp` are contract counts — so this is an estimate, flagged). Blank cells = value not present in the response.</p>
   </section>
 
   <section class="box" style="margin-top:14px">

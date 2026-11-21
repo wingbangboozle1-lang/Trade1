@@ -80,7 +80,7 @@ CI (`.github/workflows/pages.yml`) runs all three on every push and pull request
 - Demo environment only (play money); demo prices may not match production.
 - The dashboard and paper engines use public read-only market data without authentication; paper trades never submit orders or call account endpoints. The separate opt-in [`demo-account/`](demo-account/index.html) console can read a real demo balance/positions and submit guarded demo orders only after the account owner supplies a demo API key ID and private key. No credentials are bundled, no live account request is sent by default, and the optional connection is not required for the automatic paper dashboard.
 - Dollar figures are computed estimates (contracts × price) and labelled as such; the API publishes
-  no per-market dollar-notional field.
+  no per-market traded-dollar field (`volume_fp` / `volume_24h_fp` are contract counts).
 - WebSocket is not used: the official docs require signed `KALSHI-ACCESS-*` headers **during the
   handshake**, which a browser cannot attach. Polling is used and the resulting lag is stated.
 
