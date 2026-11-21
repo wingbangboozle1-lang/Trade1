@@ -72,7 +72,7 @@ Two findings came directly out of this live traffic and are recorded on
 | `assets/site.css` | `.small.warn` (amber) for the throttled pill |
 | `tests/rate_governor.test.mjs` | **new** — 14 checks (G1–G11, G1b, W1–W3) on a deterministic clock + three jsdom boots of the real `dashboard.html` |
 | `tests/live_contract.test.mjs` | **new** — C1–C5: the real client parsing the verbatim live responses, plus the candlestick request the client builds (path, `period_interval`, integer-second window) checked against the documented endpoint |
-| `scripts/api_contract.py` | **new** — ~20-case live endpoint-contract probe + `--selftest` (9 offline checks of its assertion helpers, run in CI) |
+| `scripts/api_contract.py` | **new** — 22-case live endpoint-contract probe + `--selftest` (13 offline checks of its assertion helpers, run in CI) |
 | `.github/workflows/live-client.yml` | **new** — job `client` (offline gates, no network ⇒ cannot flake) + job `contract` (the probe, from a runner, publishing `data/endpoint_contract.json` on `main`; a documented contract break fails the job *after* its evidence is committed) |
 | `data.html` | "Live endpoint contract" panel: per-case status vs documented status, verdict, what was checked, doc link; explicit "Not probed yet" state |
 | `data/endpoint_contract.json` | labelled **placeholder**, `cases: []`, zero results — see §4 |
@@ -117,7 +117,7 @@ Ran 16 tests / OK             # python3 tests/test_collect_hardening.py
 Ran 6 tests / OK              # python3 tests/test_collect_failclosed.py
 14 passed, 0 failed           # tests/rate_governor.test.mjs
 5 passed, 0 failed            # tests/live_contract.test.mjs
-selftest: ok                  # scripts/api_contract.py --selftest  (9 checks)
+selftest: ok                  # scripts/api_contract.py --selftest  (13 checks)
 real 0m26.4s   exit=0         # (verified with (time npm test) > log, not piped through tail)
 
 $ npm run check
@@ -204,7 +204,8 @@ fail on a runner:
 ## 6a. What the first live run of the probe found (CI, 2026-11-21T08:44Z)
 
 Run `44886293135`, job *Live endpoint contract probe*: **16 of 20 cases matched, 4 did not, 2 recorded for
-information**. All four disagreements were **wrong expectations in my probe, not changes at the exchange** — which is
+information**. After the corrections below, run `44886913088` on the same job reported **20 of 20 ok, 0 mismatched,
+2 informative** (that run predates the two added settled-window candle cases, which bring the file to 22). All four disagreements were **wrong expectations in my probe, not changes at the exchange** — which is
 exactly what publishing the evidence rather than a bare red cross buys:
 
 | case | what the probe demanded | what the official schema actually says | fix |

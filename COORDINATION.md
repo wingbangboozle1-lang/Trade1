@@ -298,7 +298,7 @@ Commands, with the real exit codes, re-run on the rebased tree (post `origin/mai
 (the existing chain + the 3 added suites) **26.4 s, exit 0** — engine 3, live_fixes 6, live_dash 48, fees/model
 RESULT 21, portfolio 60/60, demo-account 89, `test_collect.py` OK (10), `test_collect_hardening.py` OK (16),
 `test_collect_failclosed.py` OK (6), `publication.test.mjs` pass, governor **14 passed / 0 failed**, live contract
-**5 passed / 0 failed**, `api_contract.py --selftest` **ok** (9 checks); `npm run check` → `BUILD OK — 18 HTML,
+**5 passed / 0 failed**, `api_contract.py --selftest` **ok** (13 checks after the CI findings below); `npm run check` → `BUILD OK — 18 HTML,
 7 JS files validated, 0 broken links`, `{"checked":{"html":18,"links":470,"rows":1248,"resolved":825},
 "failures":0}`, `16 published pages, 430 local links, 386 external links, 0 failures`, `every rendered row links
 its own official record (431 rows, 707 official links)`; `node tools/render_test.mjs --offline --wait=5000` over
@@ -338,7 +338,12 @@ step publishes its per-case table as a PR comment and in the run summary. Two ge
 are fixed here — fixed-duration sleeps in place of preconditions (a paced queue can legitimately exceed any
 constant), and tearing down a jsdom window while its own timers were still queued (a late callback threw outside any
 test and killed the process between tests, after printing 13 of 14 passes). Worth adopting in the shared `pages.yml`
-if its owners want the same property.
+if its owners want the same property.  **Followed through:** the corrected probe was re-run by CI (`44886913088`) and reported **20/20 ok, 0 mismatched,
+2 informative**; the *Offline gates* job and the shared `checks` job pass on the same head. The four original
+mismatches were this session's wrong expectations, corrected against the published schema — recorded on
+[Flagged](flagged.html) KX-7/KX-8 and in `reports/VERIFICATION_5fa4bde9.md` §6a, and the two extra candle cases
+(60/1440 over a settled market's lifetime) exist so the longer intervals are checked against real candle objects
+rather than an empty array.
 
 **Note E — two sandbox capabilities worth knowing (found 2026-11-21 while diagnosing the first CI probe run).**
 (1) The page fetcher available here CAN read a `https://external-api.demo.kalshi.co/...` **response body** — it does
