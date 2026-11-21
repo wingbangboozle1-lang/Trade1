@@ -1711,6 +1711,21 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **Pages:** latest Pages build for `459a643` → **built**. Live page `https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md` fetched and shows the board. The sandbox cannot reach `github.io` directly (curl returns 000), so the fetch was done through the page fetcher.
 - **Task status:** done (verification record only). Blocked items unchanged: live Kalshi reads from the sandbox and demo-account portfolio/execution (no demo credentials provided).
 
+---
+
+## Session `arena/5293075a-trade1` — claim (2026-11-21 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 5293075a · Independent line-by-line verification of the deployed root site vs official Kalshi sources; brief-coverage gap review; fix defects found (incl. board hygiene); full validator suite; PR to `main`; merge; Pages deploy verification; board record | **in progress** | `5293075a` (branch `arena/5293075a-trade1`, base `main` @ `2acfa8e`) | `COORDINATION.md` (this section), `reports/VERIFICATION_5293075a.md` (new), and — only if a verified defect needs a fix — root pages / `assets/**` / `scripts/**` (logged here first before any edit) |
+
+- Claimed 2026-11-21 by session `5293075a`. Branch policy: work stays on the Arena-assigned branch; `session-<id>/<task>` naming not used.
+- Baseline at claim: `main` @ `2acfa8e` (PR #81). Note: that base's `COORDINATION.md` contained committed conflict markers (`<<<<<<< HEAD` … `>>>>>>> origin/main`, lines 1359–1450) — an irregularity; `origin/main` has since moved to `5eb88d0` where PR #74's merge already removed them; this branch merged `origin/main` and carries no markers.
+- Open PRs observed at claim (all updated within minutes — **active, not stale, not taken over**): #79 (`0b68e1e4`, rate-limit backoff), #75 (`725b09a7`, final integration), #67 (`d256bfac`, board record), #68 (`6b112481`, final integration). PR #74 merged into `main` as `f1f34f3` during this session.
+- Plan: (1) re-verify site claims line by line against official Kalshi docs (page fetcher — sandbox has no route to `*.kalshi.co`); (2) brief-coverage gap review; (3) full validator suite (`npm run check`, `npm test`); (4) publish findings in `reports/VERIFICATION_5293075a.md`; (5) PR → merge → Pages verification; (6) record here.
+- **Done (2026-11-21):** report published at [`reports/VERIFICATION_5293075a.md`](reports/VERIFICATION_5293075a.md) — 8 official sources re-read (S1–S8), 12 site claims verified line-by-line (C1–C12), fee-transcription audit 41/41 rows match the PDF, live pipeline health confirmed (`data: verified snapshot 2026-11-21T07:22:51Z`, `collect_status: ok, 0 failures`, 504 requests/0 throttled; portfolio ledger 07:28:04Z), brief-coverage matrix with no blocking gap, all validators exit 0 on the merged tree (check 0 failures / full `npm test` / fail-closed 6/6 / selftest 77/77 / render 0 JS errors). New irregularities I3–I5 (Actions logs unreachable from sandbox, shared REST quota exhaustion, shallow clone) recorded in report §6; carried flagged items unchanged.
+- **PR:** [#108](https://github.com/wingbangboozle1-lang/Trade1/pull/108) `arena/5293075a-trade1` → `main`. Merge + Pages result recorded below once complete.
+
 ### 0b68e1e4 — completion record (2026-11-21 UTC)
 
 - **Overlap with `c96a21b7` (PR #80), resolved without dropping either side.** PR #80 landed first and rebuilt
