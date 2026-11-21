@@ -3,7 +3,7 @@
 Branch `arena/1d71a602-trade1`, base `main` @ `7d1c21f` (PR #71 merge).
 Every claim below was checked line-by-line against an official Kalshi source read on
 2026-11-21, or against a committed artifact whose own source URL is cited. Anything that
-could not be confirmed is left blank and flagged (NEW-1 … NEW-6 on `flagged.html`).
+could not be confirmed is left blank and flagged (NEW-1 … NEW-7 on `flagged.html`).
 No values were inferred.
 
 ## 1. Official sources re-read this session (all `docs.kalshi.com` unless noted)
@@ -66,7 +66,7 @@ No values were inferred.
 ## 4. Gates run this session (all exit 0 unless noted)
 
 - `npm run check` → BUILD OK 18 HTML / 6 JS / 0 broken links; `check_site.mjs` 1,183 rows /
-  625 resolved / 0 failures; `check_links.mjs` 16 pages / 408 local / 269 external / 0 failures (after
+  625 resolved / 0 failures; `check_links.mjs` 16 pages / 408 local / 270 external / 0 failures (after
   this session's edits; the pre-edit run showed 400 local / 236 external). V4's schema example was re-read directly:
   `"notional_value_dollars": "0.5600"` sits next to `"last_price_dollars": "0.5600"`, and `limit` on
   `/markets` is documented max 1000 (default 100).
@@ -95,20 +95,33 @@ No values were inferred.
 - **NEW-3** Gas prices has **0** open markets in both pipelines. Genuine demo state (series exist,
   no open events), not missing data. Elections dominates open coverage (7,954 of 9,847).
 - **NEW-4** Portfolio sample is 12 trades with 0 wins and only 4 closed — too small to judge any
-  strategy (F7
-  stands). The −60% realised ROI is reported as-is; no strategy is recommended.
+  strategy (the backtest's F7 and Flagged item 8 say the same). The −60% realised ROI is reported
+  as-is; no strategy is recommended.
 - **NEW-5** Sandbox cannot reach Kalshi (curl 000). No live API value was re-fetched from this
   sandbox; verification rests on official docs + committed CI evidence. AA-8 stands.
-- **NEW-6** Open PRs #70 (mergeable), #64 (mergeable), #68/#67/#58 (conflicting) from other
-  sessions predate this integration and were not merged here. Owner to close after review;
-  this PR is the final integration on top of `main` @ `7d1c21f`.
+- **NEW-6** Other sessions' PRs overlapping this integration — nothing merged, edited or closed by
+  this session (details in §6).
+- **NEW-7** Dangling in-page anchor on `flagged.html`: an earlier row linked to `flagged.html#f7` but
+  no element carried that id, and the `F7` label actually belongs to `reports/FLAGGED_FOR_REVIEW.md`
+  (where it means the backtest sample). Fixed here: the ROI-model row carries `id="f8"`, the stale
+  reference points at it, and every NEW row has a real id.
 
-## 6. Open PRs at claim (for the owner)
+## 6. Other sessions' PRs — disposition (no merge by this session)
 
-| PR | Head branch | State | This session's action |
+At claim (≈2026-11-21T06:55Z) the open set was **#70, #68, #67, #64, #58**. While this session worked,
+their own authors landed them: **#64 → merged `d949035`** (collector fix), **#70 → merged `948488e`**
+(final-integration pass, with **#58 closed** after its content was taken over), plus #65/#66/#69/#71–#81
+and #74. Re-checked at **2026-11-21T07:17Z** (`gh pr list`): still open are **#79, #75, #68, #67 — all
+CONFLICTING with `main`**. None of them is this session's work; none was merged, edited or closed here.
+They are listed for the owner to close after review, since `main` already carries the consolidated site
+and this integration on top of it.
+
+| PR | Head branch | State at last check | This session's action |
 |---|---|---|---|
-| #70 | `arena/6877ec31-trade1` | OPEN, mergeable | Not merged (superseded by #71 + this integration); recommend close |
-| #68 | `arena/6b112481-trade1` | OPEN, conflicting | Not merged; recommend close |
-| #67 | `arena/d256bfac-trade1` | OPEN, conflicting | Not merged; recommend close |
-| #64 | `arena/c96a21b7-trade1` | OPEN, mergeable | Not merged; collector fix — owner to cherry-pick or close |
-| #58 | `arena/6916270f-trade1` | OPEN, conflicting | Not merged (taken over by #70, itself superseded); recommend close |
+| #79 | `arena/0b68e1e4-trade1` | OPEN, CONFLICTING | Not touched — owner to review/close |
+| #75 | `arena/725b09a7-trade1` | OPEN, CONFLICTING | Not touched — owner to review/close |
+| #68 | `arena/6b112481-trade1` | OPEN, CONFLICTING | Not touched — owner to review/close |
+| #67 | `arena/d256bfac-trade1` | OPEN, CONFLICTING | Not touched — owner to review/close |
+| #64 | `arena/c96a21b7-trade1` | MERGED `d949035` (by its author) | Not touched by this session |
+| #70 | `arena/6877ec31-trade1` | MERGED `948488e` (by its author) | Not touched by this session |
+| #58 | `arena/6916270f-trade1` | CLOSED with a takeover note (session `6877ec31`) | Not touched by this session |

@@ -171,11 +171,13 @@ pipelines/two clocks (2026-11-20 vs 2026-11-21, freshness stated per file) · NE
 ranking (estimated traded dollars) are two different "highest dollar" definitions, both labelled ·
 NEW-3 gas-prices genuinely empty on demo (0 open in both pipelines) · NEW-4 portfolio sample
 (12 trades, 0 wins, only 4 closed) too small to judge strategies (backtest F7 + [Flagged item 8](flagged.html#f8) stand) · NEW-5 sandbox has no route to
-Kalshi (curl 000; verification via docs + committed CI evidence, AA-8 stands) · NEW-6 open PRs
-#70/#68/#67/#64/#58 predate this integration and were not merged here (owner to close).
+Kalshi (curl 000; verification via docs + committed CI evidence, AA-8 stands) · NEW-6 other sessions' PRs were
+left alone (at claim #70/#68/#67/#64/#58 were open; their authors have since merged #64 and #70 and closed
+#58; #79/#75/#68/#67 remain open and conflicting — nothing merged, edited or closed by this session) ·
+NEW-7 a dangling `#f7` anchor on the Flagged page was repaired (real ids added, stale reference re-pointed).
 
 **Gates (this session, exit 0):** `npm run check` BUILD OK 18 HTML/6 JS, `check_site.mjs`
-1,183 rows/625 resolved/0 failures, `check_links.mjs` 16 pages/408 local/269 external links/0 failures · `npm test` all suites
+1,183 rows/625 resolved/0 failures, `check_links.mjs` 16 pages/408 local/270 external links/0 failures · `npm test` all suites
 pass (portfolio 60/60, demo-account 89/89, test_collect 4/4) · `render_test.mjs --offline` with all
 16 pages named explicitly → 16 pages rendered / 0 JS errors · Pages `built` on `main` @ `7d1c21f` at claim; post-merge Pages
 verification recorded in `COORDINATION.md`.
