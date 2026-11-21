@@ -192,6 +192,7 @@ def classify_settled_without_event(title, series, topics):
         if t["series_prefix"] and re.search(t["series_prefix"], series or "", re.I):
             return t["id"], "series-prefix"
         if keyword_match(t["title_keywords"], title):
+
             return t["id"], "title-keyword"
     return None, None
 
@@ -428,7 +429,10 @@ def main():
         if not tid and not e:
             # Settled events are absent from the open-events list. The fallback
             # must still honor exclusions and whole-word keyword boundaries.
-            tid, why = classify_settled_without_event(title, series, topics)
+            # probe["series_ticker"] is the series guessed from the event ticker
+            # when the settled event has no record, so the series-prefix rule
+            # can still match here.
+            tid, why = classify_settled_without_event(title, probe["series_ticker"], topics)
         if tid:
             row = trim(m, MARKET_FIELDS)
             row["_topic"] = tid

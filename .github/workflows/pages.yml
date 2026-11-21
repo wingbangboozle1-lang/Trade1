@@ -41,6 +41,8 @@ jobs:
         run: node scripts/test_lib.mjs
       - name: Unit checks — engine math (fees, alert threshold, classifier)
         run: node tests/root_engine.test.js
+      - name: Collector classification regression gate (defect D1: exclude_keywords + word boundaries)
+        run: python3 scripts/collect_test.py
       - name: Unit checks — demo-account track (official fee table, signing, paper portfolio)
         run: node tests/demo-account.test.mjs
       - name: JS syntax, internal links, nav targets

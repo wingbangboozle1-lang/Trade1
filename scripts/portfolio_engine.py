@@ -257,6 +257,22 @@ def kalshi_series_url(series_ticker):
         return None
     return "https://kalshi.com/markets/" + str(series_ticker).lower()
 
+
+def api_market_url(ticker):
+    """The official per-market record: {BASE}/markets/{ticker}.
+
+    Official Get Market endpoint (https://docs.kalshi.com/api-reference/market/get-market)
+    - "Endpoint for getting data about a specific market by its ticker".
+
+    Every ledger row (trade, exit, resolution, alert) carries this URL as its
+    own row source, so one row links to one official record instead of to the
+    400-ticker batch quote URL that the whole cycle was fetched with. The
+    batch endpoint that produced the quote is still published in the artifact's
+    `sources.quote_endpoints` list and in `data/log.md`."""
+    if not ticker:
+        return None
+    return BASE + "/markets/" + str(ticker)
+
 FEE_RULE_TEXT = (
     "taker: fees = roundup(M x 0.07 x C x P x (1-P)) where M is the per-series fee_multiplier "
     "published by the demo API on GET /series/{ticker} (official Get Series schema: "
@@ -618,7 +634,7 @@ def enter(st, ticker, side, strategy, q, note, sources, when):
         "rounding_cc": rounding,
         "fee_m": float(fee_m), "series": series_of(ticker),
         "strategy": strategy, "status": "open", "mark_bits": bid, "samples": 0,
-        "note": note, "source": sources[0] if sources else None,
+        "note": note, "source": api_market_url(ticker),
     }
     st["trades"].append(trade)
     return trade
@@ -727,7 +743,7 @@ def run_cycle(st, quotes, sources, when, log_list):
                     "kalshi_url": w.get("kalshi_url") or kalshi_series_url(res_series),
                     "title": q.get("title") or w.get("title"), "topic": w.get("topic"),
                     "result": res, "settlement_ts": q.get("settlement_ts"),
-                    "source": sources[0] if sources else None,
+                    "source": api_market_url(ticker),
                 })
                 events.append(f"RESOLVED {ticker} {res.upper()}")
 
@@ -762,7 +778,7 @@ def run_cycle(st, quotes, sources, when, log_list):
                 "gap_minutes": round((parse_ts(when) - (parse_ts(prev_t) or parse_ts(when))) / 60000, 1),
                 "dir": "up" if delta > 0 else "down", "score": score,
                 "spread_bits": sp, "vol24_c": q["vol24"],
-                "source": sources[0] if sources else None,
+                "source": api_market_url(ticker),
             }
             st["alerts"].append(alert)
             new_alerts.append(alert)
@@ -780,7 +796,7 @@ def run_cycle(st, quotes, sources, when, log_list):
             t["mark_bits"] = bid
         # settlement is applied from the pass above - no extra request needed
         if t["ticker"] in settled_now:
-            settle(st, t, settled_now[t["ticker"]], when, source=sources[0] if sources else None)
+            settle(st, t, settled_now[t["ticker"]], when, source=api_market_url(t["ticker"]))
             events.append(f"SETTLE {t['ticker']} {settled_now[t['ticker']]} ({t['strategy']})")
             continue
         cfg = RULES.get(t["strategy"], {})
@@ -788,13 +804,13 @@ def run_cycle(st, quotes, sources, when, log_list):
             continue
         pl = bid - t["entry_bits"]
         if pl >= cfg.get("take_profit_bits", 1 << 30):
-            close(st, t, bid, "take-profit", when, source=sources[0] if sources else None)
+            close(st, t, bid, "take-profit", when, source=api_market_url(t["ticker"]))
             events.append(f"EXIT {t['ticker']} {t['strategy']} take-profit")
         elif pl <= -cfg.get("stop_loss_bits", 1 << 30):
-            close(st, t, bid, "stop-loss", when, source=sources[0] if sources else None)
+            close(st, t, bid, "stop-loss", when, source=api_market_url(t["ticker"]))
             events.append(f"EXIT {t['ticker']} {t['strategy']} stop-loss")
         elif cfg.get("max_samples") and t["samples"] >= cfg["max_samples"]:
-            close(st, t, bid, "max-hold", when, source=sources[0] if sources else None)
+            close(st, t, bid, "max-hold", when, source=api_market_url(t["ticker"]))
             events.append(f"EXIT {t['ticker']} {t['strategy']} max-hold")
 
     # 3. entries
@@ -898,8 +914,8 @@ def trade_public(t):
         "exit": ({"t": t["exit"]["t"], "price_usd": round(t["exit"]["price_bits"] / 10000, 4),
                   "reason": t["exit"]["reason"], "fee_usd": usd(t["exit"]["fee_cc"]),
                   "credit_usd": usd(t["exit"].get("credit_cc", 0)),
-                  "source": t["exit"].get("source")} if t.get("exit") else None),
-        "note": t.get("note", ""), "source": t.get("source"),
+                  "source": t["exit"].get("source") or api_market_url(t["ticker"])} if t.get("exit") else None),
+        "note": t.get("note", ""), "source": t.get("source") or api_market_url(t["ticker"]),
     }
 
 
@@ -915,7 +931,8 @@ def alert_public(a):
         "wide_gap": bool(a.get("gap_minutes") is not None and a["gap_minutes"] > 90),
         "spread_usd": round(a["spread_bits"] / 10000, 4) if a.get("spread_bits") is not None else None,
         "vol24_contracts": (a["vol24_c"] / 100) if a.get("vol24_c") is not None else None,
-        "model_pick": a["score"] >= float(MIN_MODEL_SCORE), "source": a.get("source"),
+        "model_pick": a["score"] >= float(MIN_MODEL_SCORE),
+        "source": a.get("source") or api_market_url(a.get("ticker")),
     }
 
 
@@ -1246,6 +1263,33 @@ def selftest():
        trade_multiplier(st_fee, {"ticker": "KXHALF-1"}) == Fraction(1, 2))
     ok("bool is not accepted as a multiplier", series_multiplier(
         {"series_fees": {"KXBAD": {"fee_multiplier": True}}}, "KXBAD-1") == 1)
+
+    # 2b. every ledger row links its OWN official market record
+    #     (official Get Market endpoint, https://docs.kalshi.com/api-reference/market/get-market)
+    ok("api_market_url builds the per-market record URL",
+       api_market_url("KXTEST-1") == BASE + "/markets/KXTEST-1", api_market_url("KXTEST-1"))
+    ok("api_market_url is None without a ticker", api_market_url(None) is None)
+    ok("api_market_url is None for an empty ticker", api_market_url("") is None)
+    _t = {"id": "x", "t": now_iso(), "ticker": "KXTEST-1", "event_ticker": "KXTEST",
+          "series_ticker": "KXTEST", "title": "T", "topic": "crypto", "side": "yes",
+          "qty_c": 100, "strategy": "momentum", "status": "open", "entry_bits": 5000,
+          "mark_bits": 5000, "samples": 1, "cost_cc": 50_000, "fee_cc": 100,
+          "rounding_cc": 0, "pnl_cc": 0, "note": "n", "source": api_market_url("KXTEST-1")}
+    ok("a trade row's source is its own market record",
+       trade_public(_t)["source"] == BASE + "/markets/KXTEST-1", trade_public(_t)["source"])
+    _a = {"t": now_iso(), "ticker": "KXTEST-1", "event_ticker": "KXTEST",
+          "series_ticker": "KXTEST", "title": "T", "topic": "crypto",
+          "from_bits": 6000, "to_bits": 5000, "delta_bits": -1000, "dir": "down",
+          "score": 0.5, "prev_t": now_iso(), "gap_minutes": 1.0, "spread_bits": 100,
+          "vol24_c": 1000, "source": api_market_url("KXTEST-1")}
+    ok("an alert row's source is its own market record",
+       alert_public(_a)["source"] == BASE + "/markets/KXTEST-1", alert_public(_a)["source"])
+    ok("a trade row falls back to its market record when the source is missing",
+       trade_public(dict(_t, source=None))["source"] == BASE + "/markets/KXTEST-1")
+    ok("an alert row falls back to its market record when the source is missing",
+       alert_public(dict(_a, source=None))["source"] == BASE + "/markets/KXTEST-1")
+    ok("a ledger row source is always on the official demo API base",
+       api_market_url("KXTEST-1").startswith("https://external-api.demo.kalshi.co/trade-api/v2/"))
 
     # 3. the >= $0.10 rule must be exact at the boundary (binary float would fail this)
     ok("float trap: 0.66-0.56 < 0.10 in float", (0.66 - 0.56) < 0.10)

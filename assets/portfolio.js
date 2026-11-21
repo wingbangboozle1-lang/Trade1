@@ -66,7 +66,10 @@
     return i === -1 ? t : t.slice(0, i);
   }
   function newsUrl(title) { return 'https://news.google.com/search?q=' + encodeURIComponent(title || '') + '&hl=en-US'; }
-  function apiUrl(ticker) { return API + '/markets?tickers=' + encodeURIComponent(ticker || ''); }
+  /* The official per-market record: GET /markets/{ticker}
+   * (https://docs.kalshi.com/api-reference/market/get-market - "Endpoint for
+   * getting data about a specific market by its ticker"). One row, one record. */
+  function apiUrl(ticker) { return API + '/markets/' + encodeURIComponent(ticker || ''); }
   function srcLink(url, label) {
     if (!url) return '<span class="muted">no source recorded</span>';
     var external = /^https?:/.test(url);
@@ -176,7 +179,7 @@
       { label: 'Mark (bid)', render: function (r) { return plain(r.mark_usd, 4); } },
       { label: 'Unrealised', render: function (r) { return usd(r.pnl_usd); } },
       { label: 'Opened', render: function (r) { return '<span class="small">' + esc(mdhm(r.t)) + '</span>'; } },
-      { label: 'Row source', render: function (r) { return srcLink(r.source, 'fill quote') + ' · ' + srcLink(r.exit && r.exit.source, 'exit quote'); } }
+      { label: 'Row source', render: function (r) { return srcLink(r.source, 'market record') + ' · ' + srcLink(r.exit && r.exit.source, 'exit record'); } }
     ];
     $('#pf-positions').innerHTML = table(cols, rows, 'No open paper positions. Entries appear when a market the engine watches moves ≥ $0.10 between two cycles, or a scan rule (breakout / harvest) fires.');
   }
@@ -208,7 +211,7 @@
       { label: 'P&L', k: 'pnl_usd', sortable: true, render: function (r) { return usd(r.pnl_usd); } },
       { label: 'Opened', k: 't', sortable: true, render: function (r) { return '<span class="small">' + esc(mdhm(r.t)) + '</span>'; } },
       { label: 'Why', render: function (r) { return '<span class="small muted">' + esc(r.note || '') + '</span>'; } },
-      { label: 'Row source', render: function (r) { return srcLink(r.source, 'fill') + ' · ' + srcLink(r.exit && r.exit.source, 'exit') + '<br>' + srcLink(apiUrl(r.ticker), 'current quote'); } }
+      { label: 'Row source', render: function (r) { return srcLink(r.source, 'market record') + ' · ' + srcLink(r.exit && r.exit.source, 'exit record') + '<br>' + srcLink(apiUrl(r.ticker), 'current record'); } }
     ];
     $('#pf-ledger-note').textContent = 'showing ' + rows.length + ' of ' + all.length + ' ledger rows · click a header to sort';
     $('#pf-trades').innerHTML = table(cols, rows, 'No trades recorded yet. The engine needs at least two priced cycles before it can detect a ≥ $0.10 move.');
@@ -273,7 +276,7 @@
         ' · score ' + a.score + (a.model_pick ? ' · model pick' : '') +
         (a.gap_minutes !== null && a.gap_minutes !== undefined
           ? ' · over ' + Number(a.gap_minutes).toFixed(0) + ' min' + (a.wide_gap ? ' <span class=\"flag\">(wide gap)</span>' : '') : '') + '</span>' +
-        '<div class="links">' + srcLink(a.source, 'quote response') +
+        '<div class="links">' + srcLink(a.source, 'market record') +
         ' · <a href="' + esc(newsUrl(cleanTitle(a.title))) + '" target="_blank" rel="noopener">news search (lead, not a cause)</a>' +
         ' · <a href="' + esc(apiUrl(a.ticker)) + '" target="_blank" rel="noopener">official API record</a></div></div>';
     }).join('');
@@ -288,7 +291,7 @@
       { label: 'Resolved', render: function (r) { return '<b class="' + (r.result === 'yes' ? 'up' : 'down') + '">' + esc(String(r.result || '').toUpperCase()) + '</b>'; } },
       { label: 'Settlement time', render: function (r) { return '<span class="small">' + esc(tstr(r.settlement_ts) || '—') + '</span>'; } },
       { label: 'Logged', render: function (r) { return '<span class="small">' + esc(tstr(r.t)) + '</span>'; } },
-      { label: 'Row source', render: function (r) { return srcLink(r.source, 'status+result'); } }
+      { label: 'Row source', render: function (r) { return srcLink(r.source, 'market record'); } }
     ], rows, 'Nothing has settled yet in the current watchlist. Settlements are picked up from the same quote response — no extra request.');
   }
 
@@ -315,7 +318,7 @@
         return esc(s || '—') + (res ? ' · <b class="' + (res === 'yes' ? 'up' : 'down') + '">' + esc(res.toUpperCase()) + '</b>' : ''); } },
       { label: 'Closes (UTC)', render: function (r) { return '<span class="small">' + esc(tstr(r.close_time) || '—') + '</span>'; } },
       { label: 'Samples', render: function (r) { return String(r.samples || 0); } },
-      { label: 'Row source', render: function (r) { return srcLink(r.source, 'snapshot fetch') + ' · ' + srcLink(apiUrl(r.ticker), 'live'); } }
+      { label: 'Row source', render: function (r) { return srcLink(r.source, 'market record') + ' · ' + srcLink(apiUrl(r.ticker), 'live record'); } }
     ];
     $('#pf-watchlist').innerHTML = table(cols, rows, 'No watchlist yet — run the engine (seed mode) once the data pipeline has written data/topics/*.json.');
   }
