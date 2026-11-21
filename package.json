@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node tools/build.mjs",
     "check": "node tools/build.mjs && node scripts/check_site.mjs && node scripts/check_links.mjs",
-    "test": "node tests/engine.test.mjs && node tests/live_fixes.test.mjs && node tests/live_dash.test.mjs && node scripts/test_lib.mjs && node scripts/test_fees.mjs && node scripts/test_model.mjs && node tests/root_engine.test.js && node tests/model.test.js && node tests/portfolio.test.mjs && node tests/demo-account.test.mjs && python3 tests/test_collect.py"
+    "test": "node tests/engine.test.mjs && node tests/live_fixes.test.mjs && node tests/live_dash.test.mjs && node scripts/test_lib.mjs && node scripts/test_fees.mjs && node scripts/test_model.mjs && node tests/root_engine.test.js && node tests/model.test.js && node tests/portfolio.test.mjs && node tests/demo-account.test.mjs && python3 tests/test_collect.py && python3 tests/test_collect_hardening.py && python3 tests/test_collect_failclosed.py"
   },
   "license": "UNLICENSED",
   "devDependencies": {
