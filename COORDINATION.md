@@ -1149,3 +1149,16 @@ static page, maker fees unmodeled, ROI screen is a heuristic shortlist not verif
 - **Validators (all exit 0):** `tools/build.mjs` BUILD OK (18 HTML, 6 JS, 0 broken links); `check_site.mjs` 18 HTML / 426 links / 1,249 rows / 825 resolved / 0 failures; `check_links.mjs` 16 pages / 394 local + 222 external / 0 failures; `npm test` green (engine 23/23, root_engine 40/40, portfolio 60/60, demo-account 89/89, fees/model/libs all pass).
 - **Claim rule honored:** no other session's files edited outside this scope; shared outputs (index/navigation) not touched.
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
+
+---
+
+## Session `arena/6877ec31-trade1` — integration, line-by-line verification, stale-claim takeover (PR #58), PR + Pages
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| 6877ec31 · Integration & verification: line-by-line repo review vs official sources, takeover of stale PR #58 (portfolio ledger rows link to their own official market records), full validator suite, PR to `main`, merge, Pages deploy verification, board record | **in progress** | 6877ec31 (branch `arena/6877ec31-trade1`, base `main` @ `a15a941`) | `COORDINATION.md` (this section), `reports/VERIFICATION_6877ec31.md` (new), `scripts/portfolio_engine.py`, `data/portfolio*.json`, `portfolio.html`, `assets/portfolio.js`, `tests/portfolio.test.mjs`, `EXECUTIVE_SUMMARY.md`, `README.md`, `flagged.html`, `tools/build-report.json` (PR #58 takeover scope) |
+
+- Claimed 2026-11-21 06:45 UTC. Branch policy: work stays on the Arena-assigned branch; `session-<id>/<task>` naming not used.
+- **Stale-claim takeover (logged per protocol):** PR #58 (`arena/6916270f-trade1`, "Portfolio: link each ledger row to its own official market record") has had no commits since 2026-11-20 20:50 UTC (>60 min stale). Its content is taken over into this branch, re-verified line by line against the official Kalshi sources, and delivered here; nothing from that PR is discarded and its author is credited below. PR #58 will be closed with a takeover note once this work lands.
+- **Not touched (owned by live sessions):** `scripts/collect.py` + `scripts/test_collect_classify.py` (session `c96a21b7`, PR #64, D1 settled-market fallback fix — active 2026-11-21 06:43). `reports/VERIFICATION_31a8a56b.md` (session `31a8a56b`, PR #63 — merged 2026-11-21 06:44; its record is read-only for this session).
+- Plan: (1) line-by-line review of the deployed root engine (`assets/model.js`, `assets/app.js`), `scripts/portfolio_engine.py`, and the site pages against official Kalshi docs + captured live demo responses; (2) re-verify every published fee/endpoint/field claim with source links (report `reports/VERIFICATION_6877ec31.md`); (3) integrate + verify the PR #58 takeover (per-ledger-row official market links); (4) full validator suite green; (5) PR to `main`, merge without waiting for approval; (6) confirm Pages deploy; record PR link + merge result here.
