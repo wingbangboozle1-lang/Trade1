@@ -1,5 +1,28 @@
 # COORDINATION.md — Shared Task Board
 
+
+## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
+
+- **Claimed** 2026-11-21 by session `c96a21b7` on branch `arena/c96a21b7-trade1` (base `main` @ `origin/main`).
+- **Problem (data integrity, found after PR #64/#65 merged):** the scheduled snapshot run at `2026-11-21T06:58:35Z` (commit `b08da8b`) hit HTTP 429 `too_many_requests` on the settled-markets query and on most per-event fetches. `scripts/collect.py` treats a failed request as an empty result and wrote it over the last good files: `data/resolved.json` 200 rows → 0 (`settled_total: 0`), `data/topics/*.json` shrank (e.g. gas-prices 90 kB → 1.1 kB, elections 252 kB → 35 kB), and `data/meta.json` reported `markets 33`. `check_site.mjs` still passed, because an empty table has no broken rows.
+- **Scope:** `scripts/collect.py` (retry/backoff on 429/5xx/network errors; record every upstream failure; do not overwrite an artifact whose inputs failed in that run; write the failure count into `meta.json`), `data/resolved.json`, `data/topics/*.json`, `data/categories.json`, `data/meta.json`, `data/samples/*` (restore from the last good commit `a15a941` only where the 06:58 run degraded them), and this `COORDINATION.md` section.
+- **Not touched:** `pages.yml`, `portfolio.yml`, HTML pages, `flagged.html` (integration owner).
+- **Scope amended:** `.github/workflows/pages.yml` — one added step in the `checks` job runs `python3 tests/test_collect_failclosed.py`. No other step changed. The file has no active claim (its owning session is done). `portfolio.yml` and HTML pages were not touched.
+- **Change (done):**
+  - `scripts/collect.py`: GET retries on HTTP 429/500/502/503/504 and network errors (max 5 attempts, `Retry-After` if numeric, else 2^n s, max 60 s, 0.25 s pacing). Transient failures and 200-with-empty-body are recorded in `FAILURES`. A definitive 4xx other than 429 is not counted as a failed read.
+  - Trust gate: topic files need a clean read of events, markets, and series discovery for their own topic, otherwise they are kept. `categories.json` needs clean discovery. `resolved.json` needs a clean settled read, and a 0-row read is refused while rows are on file. `samples/*` and `meta.json` are not rewritten in a run that kept anything. `data/collect_status.json` (new) reports `ok` or `degraded` with the kept artifacts and the first 20 failures.
+  - `tests/test_collect_failclosed.py` (6 tests, offline, stdlib only). It reproduces the 06:58Z incident with every call returning 429 and checks the verified artifacts are byte-identical. It also covers retry-then-success, give-up, a definitive 404, empty-list 200s, and the empty-body 200.
+- **Verification:**
+  - New test: 6/6 pass. Mutation check: with the three trust guards disabled, `test_incident_all_429_keeps_every_verified_artifact` and `test_empty_200_responses_do_not_wipe_data` fail.
+  - `python3 tests/test_collect.py` (PR #65) 4/4; `npm test` exit 0; `tools/build.mjs` BUILD OK; `scripts/check_site.mjs` 0 failures; `scripts/check_links.mjs` 0 failures.
+  - Live collector run: not possible from the sandbox (no route to Kalshi). The first real verification is the next scheduled `pages.yml` snapshot.
+- **Data repair (logged, not invented):** the 06:58:35Z run (`b08da8b`) had overwritten the last verified snapshot with empty or partial results. Restored from `a15a941` (the 03:59:57Z snapshot, the last commit with good data): `data/resolved.json` (200 rows, `in_scope_count` 1,904), `data/categories.json`, `data/meta.json`, `data/topics/*.json` (gas-prices 90 kB, elections 252 kB, and the others), `data/samples/*`. Kept as they were: `data/log.md` (the full history, including the 429 lines), `data/cors.json`, `data/exchange-status.json`, `data/portfolio*.json`, `data/demo_account/*`. `scripts/check_site.mjs` passes on the restored data.
+- **Irregularities / follow-ups (for the integration owner and `flagged.html`; not edited here):**
+  - The 429s came from the shared demo API under burst load: the snapshot job, the 30-min portfolio job, the 6-hourly demo job, and every CI render-gate run all call the same API from GitHub runners. The retry and pacing reduce this; they do not remove the cause.
+  - `scripts/portfolio_engine.py` also calls the API and was not audited in this change. Its 07:08Z run grew the ledger normally (runs 14→15, trades 11→12), but it has the same read-then-write pattern. Requested to the owner of that file.
+  - The CI render gate uses live API responses (no fixtures in CI), so it can fail intermittently. Recorded earlier in this section.
+  - Restored data is from 03:59:57Z, so the site shows that timestamp until the next good snapshot.
+
 ## Session `arena/c96a21b7-trade1` — D1 claim withdrawn in favour of PR #65 (overlap record, 2026-11-21 UTC)
 
 - **What happened:** this session claimed D1 (settled-market fallback ignores `exclude_keywords`) and pushed a claim plus a fix to `scripts/collect.py`, with a new offline test, as PR #64. A few minutes later session `d256bfac` opened **PR #65** (`arena/d256bfac-trade1`), which edits the same function in `scripts/collect.py`. Neither session saw the other's work on the board, because the claims lived on session branches.
