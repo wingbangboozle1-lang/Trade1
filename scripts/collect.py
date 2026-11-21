@@ -44,6 +44,7 @@ MAX_ATTEMPTS = 5
 PACE_S = 0.25          # small pause before each API call, to stay under the demo rate limit
 BACKOFF_CAP_S = 60.0   # ceiling for one backoff, so a throttled sweep cannot stall the job
 FAILURES = []          # every transient upstream failure this run (url, status, attempts)
+ATTEMPTS = [0]         # every HTTP attempt this run, retries included (155329c7 telemetry)
 KEPT = []              # artifacts deliberately NOT rewritten because their inputs failed
 
 LOG = []
@@ -60,6 +61,7 @@ def get(url, origin=None, method="GET", timeout=45):
     if origin:
         headers["Origin"] = origin
     req = urllib.request.Request(url, headers=headers, method=method)
+    ATTEMPTS[0] += 1
     t0 = time.time()
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
@@ -247,6 +249,14 @@ def main():
 
     topics = load_topics()
 
+    # Both sessions that found the 2026-11-21T06:58:35Z incident fixed different halves of it.
+    # c96a21b7 (above, merged first) retries 429/5xx and refuses to overwrite a verified
+    # artifact with a degraded one. What that fix cannot report is whether a run *reached*
+    # the settled sweep at all: the sweep is the collector's last data stage, behind ~14
+    # independent requests, so a client throttled early never asks the question. This counter
+    # answers it, so a zero row count can be read as transport, never as an exchange fact.
+    verified_points = [0]
+
     # ---------- 1. CORS probes (exact response headers, verbatim) ----------
     cors = {"probed_at": started.isoformat(), "endpoints": [BASE, ALT], "probes": []}
     for label, url, origin, method in [
@@ -318,6 +328,8 @@ def main():
         for cat in t["categories"]:
             j = fetch_json(f"{BASE}/series?category={urllib.parse.quote(cat)}"
                            f"&include_volume=true&limit=1000", "(series list)")
+            if j is not None:
+                verified_points[0] += 1   # a 200 here proves this run reached the series stage
             for sr in (j or {}).get("series") or []:
                 tick = sr.get("ticker")
                 if not tick or tick in seen_series:
@@ -511,6 +523,11 @@ def main():
             "generated_at": started.isoformat(),
             "window": "last 3 days (min_settled_ts = now-72h)",
             "source_urls": settled_urls[:3],
+            "request_complete": True,
+            # 0 here means the run never reached the series stage: a transport symptom,
+            # never evidence about the exchange (see flagged.html 155329c7-1).
+            "series_stage_verified_points": verified_points[0],
+            "requests_attempted": ATTEMPTS[0],
             "settled_total": len(settled),
             "in_scope_count": len(in_scope),
             "markets": in_scope[:200],
@@ -598,6 +615,8 @@ def main():
         "transient_read_failures": len(FAILURES),
         "failures_first_20": FAILURES[:20],
         "kept_previous_artifacts": KEPT,
+        "series_stage_verified_points": verified_points[0],
+        "requests_attempted": ATTEMPTS[0],
         "status": "degraded: previous verified artifacts kept" if KEPT else "ok",
         "retry_policy": {"statuses": sorted(RETRY_STATUSES), "max_attempts": MAX_ATTEMPTS,
                          "backoff": "Retry-After header if numeric, else 2^attempt seconds (max 60 s)"},

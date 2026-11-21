@@ -59,7 +59,14 @@ Reproduced from repository files before the fix:
 3. `scripts/collect.py` `get()` had no retry and no pacing, and `paged()` breaks on the first non-200, so the settled
    sweep's very first 429 ended it: `- 06:58:37Z GET …/markets?status=settled&min_settled_ts=… -> 429` followed by
    `settled markets collected (last 3 days): 0`.
-4. `data/resolved.json` therefore held `settled_total: 0`, `markets: []` — and `resolved.html` printed
+4. This was a **regression from a working state**, not a long-standing empty file. `git log --follow data/resolved.json`
+   shows 200 in-scope rows with `settled_total: 6000` in every run from `39b6815` (2026-11-20T13:19Z) through
+   `f3037f3` (2026-11-21T04:03Z); the drop to 0 rows is commit `b08da8b` (2026-11-21T06:58Z) — the rate-limited run.
+   The same starvation left `data/topics/*.json` nearly empty in that commit (33 markets total).
+5. Because the settled sweep is the last data stage, a client that is throttled early never reaches it — so the zero
+   was doubly misleading. `scripts/collect.py` now records `series_stage_verified_points` (200s obtained before the
+   sweep) and `requests_attempted` so a reader can tell "the exchange settled nothing" from "we never got to ask".
+6. `data/resolved.json` therefore held `settled_total: 0`, `markets: []` — and `resolved.html` printed
    "No resolved markets in the snapshot." and returned **before** `loadScope()`/`pollLive()`, so the one page dedicated
    to resolution tracking never contacted the API.
 

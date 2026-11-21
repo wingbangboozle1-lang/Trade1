@@ -6,6 +6,7 @@
   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986563&limit=1000&mve_filter=exclude&cursor=CgwImYWF2AYQqOKt1AMSJktYTkJBMkRQUk9ULTI2Tk9WMjBTQUNMQUwtU0FDREhVTlRFUjE1",
   "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986563&limit=1000&mve_filter=exclude&cursor=CgwIgYWF2AYQqLuMlgESGUtYRVRIRC0yNk5PVjIxMDEtVDE2NDkuOTk"
  ],
+<<<<<<< HEAD
  "settled_total": 6000,
  "in_scope_count": 2675,
  "markets": [
@@ -6806,4 +6807,14 @@
    "_event_title": null
   }
  ]
+=======
+ "settled_total": 0,
+ "in_scope_count": 0,
+ "markets": [],
+ "request_complete": false,
+ "retry_gave_up": 1,
+ "settled_total_note": "INCOMPLETE: the collector's settled-markets request answered HTTP 429 too_many_requests in the run that wrote this file (data/log.md, 2026-11-21 06:58:37Z) and the collector of that version did not retry. settled_total 0 is a rate-limit artifact, not an exchange fact; scripts/collect.py now paces requests, retries 429 with backoff, and records request_complete here on every run. History: this file held 200 in-scope rows (settled_total 6,000) in every run from 2026-11-20T13:19Z to 2026-11-21T04:03Z (git commits 39b6815..f3037f3) and dropped to 0 rows at 2026-11-21T06:58Z (commit b08da8b) in the rate-limited run. A zero row count is therefore a transport symptom to be checked against request_complete, never read on its own.",
+ "series_stage_verified_points": 0,
+ "requests_attempted": null
+>>>>>>> 9a5062f (collector/resolved: prove whether the settled sweep was reached; document the 200->0 regression)
 }
