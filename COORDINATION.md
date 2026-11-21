@@ -1362,6 +1362,7 @@ Status of the work items below is recorded at the end of this section once compl
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
 
+<!-- Resolved legacy merge-conflict region: both historical records below are retained. -->
 <!-- The two lines above are stale placeholders preserved verbatim from main's board tail
      during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
      on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
@@ -1396,6 +1397,7 @@ Status of the work items below is recorded at the end of this section once compl
 - **PR #58 closed with a takeover note** (content delivered here; author `6916270f` credited).
 - **Task status: done.** Open items remain published on `flagged.html` and do not block: 6b/691-1 (fee-source conflict, open by design), N2 (`KXMARMAD` transcription note), I7 (news leads), 9d-1/D1 collector refresh (owner `d256bfac`, PR #65 merged — snapshot refresh pending), 9d-5 (demo-account keys, owner input).
 
+<!-- Historical separator: the second audit record was a duplicate branch record; status was not independently checked at that time. -->
 ---
 
 > Rebase note (2026-11-21, session `aa7d3d27`): this file conflicted while rebasing the "Market favours"
@@ -1453,9 +1455,10 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 | GitHub Pages live site, category subpages, tables with sources | deployed via `.github/workflows/pages.yml` | https://wingbangboozle1-lang.github.io/Trade1/ |
 | Verification from official sources only; blanks not inferred | published | `flagged.html`, `sources.html`, `methods.html` |
 
-**PR / merge:** pending. Create PR `arena/6de17567-trade1` → `main`, merge without waiting for approval, verify GitHub Pages deploys, record PR link and merge result here.
+**Historical PR note:** the pending-PR sentence above records the state of that earlier branch note; this audit did not establish whether that separate branch was merged. Current canonical Pages status was checked independently via the GitHub Pages API.
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
+<!-- End of the formerly conflicting historical records. -->
 
 ### efc28509 — PR / merge / deploy record (2026-11-21 UTC)
 
@@ -1467,8 +1470,18 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Final audit of the existing canonical Kalshi dashboard and cleanup of the unresolved conflict markers in this shared board; preserve the established site and data, record verifications and remaining limitations | **in progress** | `arena/1c5b46b2-trade1` (platform-assigned branch) | `COORDINATION.md` only |
+| Final audit of the existing canonical Kalshi dashboard and cleanup of the unresolved conflict markers in this shared board; preserve the established site and data, record verifications and remaining limitations | **done** (record below) | `arena/1c5b46b2-trade1` (platform-assigned branch) | `COORDINATION.md` only |
 
 - Read the shared task board before starting. No active claim for this scope was present. Existing dashboard, data, and integration tasks are already recorded as completed; this is not a second site implementation.
 - Scope excludes site pages, shared tables/data, application code, and workflow changes. Do not overwrite earlier sessions' records.
 - Verification plan: run the published build/site/link checks and test suite, inspect the official Kalshi environment documentation, verify Pages status via GitHub, identify and resolve the literal merge markers in this file, then record findings and any non-blocking limitations.
+
+### `arena/1c5b46b2-trade1` — final audit and cleanup (2026-11-21 UTC)
+
+- **Scope:** coordination-board cleanup and verification only. The canonical dashboard, data, and navigation were already present; no application or data files were changed.
+- **Board irregularity fixed:** literal `<<<<<<<`, `=======`, and `>>>>>>>` Git merge-conflict markers were present in the historical records above. Replaced these markers with explanatory HTML comments and clarified that the old pending-PR sentence was historical and its separate branch status was not checked. Both prior records remain intact for audit history. During rebase onto concurrent `main` updates, the same board section conflicted; retained the new `aa7d3d27` rebase note and both historical audit blocks, then removed only the conflict delimiters.
+- **Checks:** `npm ci --no-audit --no-fund` completed; `npm run check` passed (18 HTML, 6 JS, 1,249 rows, 825 resolved, 432 links, 0 failures; 16 published pages, 400 local + 236 external links, 0 failures); `npm test` passed (engine 23/23, live fixes 3, live dashboard 6, library, fee/model checks, portfolio 60/60, demo-account 89/89, collector 4/4). The initial test attempt before dependency installation failed because `jsdom` was absent; after `npm ci`, the suite passed. Generated `tools/build-report.json` timestamp change was reverted.
+- **Official source checked:** Kalshi [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) confirms the requested demo REST base URLs (`https://external-api.demo.kalshi.co/trade-api/v2` recommended; `https://demo-api.kalshi.co/trade-api/v2` also supported) and the corresponding demo WebSocket URLs. The canonical site documents REST polling instead of browser WebSockets.
+- **Deployment:** GitHub Pages API reports `status: built`, legacy Pages source `main /`, HTTPS status is available in the account. Live site: https://wingbangboozle1-lang.github.io/Trade1/ .
+- **Not independently verified in this session:** live Kalshi API values or any trading account balance/execution. The restricted sandbox could not query the Kalshi API directly; the account needs owner-provided demo credentials. Automatic trading in the main dashboard is paper simulation only. These limitations and unverified points remain published on the site's Flagged for Review page. No values were fabricated.
+- **Status:** done. No site data changed.
