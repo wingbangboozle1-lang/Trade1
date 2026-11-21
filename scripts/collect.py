@@ -158,20 +158,97 @@ def load_topics():
         return json.load(f)["topics"]
 
 
+_BOUNDED_CACHE = {}
+
+
+def bounded_re(pattern):
+    """Compile a '|'-separated keyword pattern with word boundaries.
+
+    Plain substring matching is too loose: 'petrol' matched the Romanian
+    basketball club "CSM BBA Petrolul Ploiesti" and 'gas price' matched
+    "Natural Gas price ..." (flagged item 9d-1). Word boundaries keep
+    multi-word phrases ('gas price') intact but require a real word edge, so
+    'petrol' no longer matches 'Petrolul'. The source patterns themselves are
+    unchanged - only the matching semantics - so scripts/topics.json and
+    assets/model.js stay in sync.
+    """
+    if not pattern:
+        return None
+    rx = _BOUNDED_CACHE.get(pattern)
+    if rx is None:
+        parts = [p.strip() for p in pattern.split("|") if p.strip()]
+        rx = re.compile(r"\b(?:" + "|".join(re.escape(p) for p in parts) + r")\b", re.I)
+        _BOUNDED_CACHE[pattern] = rx
+    return rx
+
+
+def topic_excluded(topic, title, series, category):
+    """True when a topic's OWN exclusion rules reject this title / series.
+
+    A topic's exclude_keywords are intentionally matched as substrings (not
+    word-bounded) so a ticker fragment such as 'natgas' in 'KXNATGAS15M' is
+    caught as well as the phrase 'natural gas' in a title.
+    """
+    if topic.get("exclude_categories") and category and category in topic["exclude_categories"]:
+        return True
+    excl = topic.get("exclude_keywords")
+    if excl and re.search(excl, f"{title} {series}", re.I):
+        return True
+    return False
+
+
+def topic_title_hit(topic, title):
+    """The keyword that matched the title (word-bounded), or None."""
+    rx = bounded_re(topic.get("title_keywords"))
+    if not rx:
+        return None
+    m = rx.search(title or "")
+    return m.group(0) if m else None
+
+
 def classify(event, topics):
     title = f"{event.get('title', '')} {event.get('sub_title', '')}"
     series = event.get("series_ticker", "") or ""
     cat = event.get("category") or ""
     for t in topics:
-        if t.get("exclude_categories") and cat and cat in t["exclude_categories"]:
+        if topic_excluded(t, title, series, cat):
             continue  # e.g. Trump golf-club markets sit in Politics, not Golf (PR #20)
-        if t.get("exclude_keywords") and re.search(t["exclude_keywords"], f"{title} {series}", re.I):
-            continue
         if cat and cat in t["categories"]:
-            if not t["title_keywords"] or re.search(t["title_keywords"], title, re.I):
+            if not t["title_keywords"] or topic_title_hit(t, title):
                 return t["id"], "category"
         if t["series_prefix"] and re.search(t["series_prefix"], series, re.I):
             return t["id"], "series-prefix"
+    return None, None
+
+
+def classify_settled(m, e, topics):
+    """Classify one SETTLED market. `e` is its event object when the event is
+    still in the open-events list, otherwise None (settled events age out of
+    it, which is the normal case).
+
+    Returns (topic_id, reason) or (None, None).
+
+    The fallback branch (event not in the open list) applies the topic's OWN
+    exclusion rules and matches title keywords on word boundaries - without
+    both, 'Natural Gas price up in next 15 mins?' (natural gas, which the
+    gas-prices topic excludes) and 'CSM BBA Petrolul Ploiesti wins' ('petrol'
+    inside 'Petrolul') were both labelled gas-prices (flagged item 9d-1).
+    """
+    title = (m.get("title") or "") + " " + (e.get("title", "") if e else "")
+    series = m.get("series_ticker") or (e.get("series_ticker", "") if e else "") or ""
+    probe = {"event_ticker": m.get("event_ticker"), "title": title,
+             "series_ticker": series or series_guess(m.get("event_ticker")),
+             "category": e.get("category") if e else None}
+    tid, why = classify(probe, topics)
+    if tid or e:
+        return tid, why
+    for t in topics:
+        if topic_excluded(t, title, probe["series_ticker"], None):
+            continue
+        if t["series_prefix"] and re.search(t["series_prefix"], probe["series_ticker"], re.I):
+            return t["id"], "series-prefix"
+        if topic_title_hit(t, title):
+            return t["id"], "title-keyword"
     return None, None
 
 
@@ -247,6 +324,7 @@ def main():
     # paging cannot reach; series carry settlement_sources + official volume.
     have_tickers = {m.get("ticker") for m in markets if m.get("ticker")}
     series_stats = {}
+    series_per_topic = {}
     for t in topics:
         seen_series, matched = set(), []
         for cat in t["categories"]:
@@ -260,12 +338,13 @@ def main():
                 if t.get("exclude_keywords") and re.search(t["exclude_keywords"], hay, re.I):
                     continue
                 if t["title_keywords"] and not (
-                        re.search(t["title_keywords"], sr.get("title") or "", re.I)
+                        topic_title_hit(t, sr.get("title") or "")
                         or re.search(t["series_prefix"], tick, re.I)):
                     continue
                 seen_series.add(tick)
                 matched.append(sr)
         matched.sort(key=lambda sr: fnum(sr.get("volume_fp")) or 0, reverse=True)
+        series_per_topic[t["id"]] = len(matched)
         log(f"topic {t['id']}: {len(matched)} series matched (categories {t['categories']}); fetching top {min(40, len(matched))} by volume")
         for sr in matched[:40]:
             j = fetch_json(f"{BASE}/markets?series_ticker={urllib.parse.quote(sr['ticker'])}"
@@ -399,21 +478,7 @@ def main():
     for m in settled:
         e = ev_by_ticker.get(m.get("event_ticker"))
         title = (m.get("title") or "") + " " + (e.get("title", "") if e else "")
-        series = m.get("series_ticker") or (e.get("series_ticker", "") if e else "") or ""
-        probe = {"event_ticker": m.get("event_ticker"), "title": title,
-                 "series_ticker": series or series_guess(m.get("event_ticker")),
-                 "category": e.get("category") if e else None}
-        tid, why = classify(probe, topics)
-        if not tid and not e:
-            # settled events are absent from the open-events list; fall back to
-            # series-prefix / title-keyword matching only (logged reason)
-            for t in topics:
-                if t["series_prefix"] and re.search(t["series_prefix"], series, re.I):
-                    tid, why = t["id"], "series-prefix"
-                    break
-                if t["title_keywords"] and re.search(t["title_keywords"], title, re.I):
-                    tid, why = t["id"], "title-keyword"
-                    break
+        tid, why = classify_settled(m, e, topics)
         if tid:
             row = trim(m, MARKET_FIELDS)
             row["_topic"] = tid
@@ -489,7 +554,8 @@ def main():
             "markets_open_count": len(markets),
             "settled_count_recent": len(settled),
             "event_metadata_and_market_fetches": ev_fetch_count,
-            "series_discovered_per_topic": {t["id"]: sum(1 for k in series_stats if k) for t in topics},
+            "series_discovered_per_topic": series_per_topic,
+            "series_matched_total": len(series_stats),
             "series_market_counts_top": dict(sorted(series_stats.items(), key=lambda kv: -kv[1])[:25]),
             "orderbook_ok": os.path.exists(os.path.join(OUT, "samples/orderbook-sample.json")),
             "candlesticks_ok": os.path.exists(os.path.join(OUT, "samples/candlesticks-sample.json")),

@@ -84,6 +84,24 @@ window.KalshiModel = (function () {
       exclCats: ['Politics', 'Elections'] } // mirrors scripts/topics.json golf.exclude_categories (PR #20 finding)
   ];
 
+  /* Word-bounded compile of a '|'-separated keyword pattern. Mirrors
+   * bounded_re() in scripts/collect.py: 'petrol' must not match 'Petrolul',
+   * 'gas price' must not match 'natural gas price'. Exclusion patterns
+   * (exclRe) are deliberately NOT bounded, so a ticker fragment such as
+   * 'natgas' inside 'KXNATGAS15M' is caught as well as the phrase
+   * 'natural gas' in a title. Flagged item 9d-1. */
+  var RE_CACHE = {};
+  function boundedRe(pattern) {
+    if (!pattern) return null;
+    if (RE_CACHE[pattern]) return RE_CACHE[pattern];
+    var parts = String(pattern).split('|').map(function (s) { return s.trim(); })
+      .filter(function (s) { return s.length; })
+      .map(function (s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); });
+    var rx = new RegExp('\\b(?:' + parts.join('|') + ')\\b', 'i');
+    RE_CACHE[pattern] = rx;
+    return rx;
+  }
+
   function classify(category, title, series) {
     var hay = (title || '') + ' ' + (series || '');
     for (var i = 0; i < TOPICS.length; i++) {
@@ -91,7 +109,8 @@ window.KalshiModel = (function () {
       if (t.exclCats && category && t.exclCats.indexOf(category) !== -1) continue; // e.g. Trump golf-club markets sit in Politics (PR #20)
       if (t.exclRe && new RegExp(t.exclRe, 'i').test(hay)) continue;
       if (category && t.categories.indexOf(category) !== -1) {
-        if (!t.titleRe || new RegExp(t.titleRe, 'i').test(title || '')) return t.id;
+        var tr = boundedRe(t.titleRe);
+        if (!tr || tr.test(title || '')) return t.id;
       }
       if (t.seriesRe && new RegExp(t.seriesRe, 'i').test(series || '')) return t.id;
     }
@@ -249,12 +268,8 @@ window.KalshiModel = (function () {
   function openPositions() { return state.trades.filter(function (t) { return t.status === 'open'; }); }
 
   /* Series prefix of a market ticker: "KXAAAGASM-26NOV30-3.90" -> "KXAAAGASM".
-   * Used only as a fallback when the app has not attached m._series. */
-  function seriesOfTicker(ticker) {
-    var s = String(ticker || '');
-    var i = s.indexOf('-');
-    return i === -1 ? s.toUpperCase() : s.slice(0, i).toUpperCase();
-  }
+   * seriesOfTicker() above does the same job and is also used as the
+   * fallback when the app has not attached m._series. */
 
   function tryEnter(m, side, strategy, qtyOverride, note) {
     var bot = state.bot;

@@ -53,6 +53,10 @@ jobs:
         run: node scripts/test_model.mjs
       - name: Live-dashboard regressions (alert topic, full watchlist polling, determined/amended results)
         run: node tests/live_fixes.test.mjs
+      - name: Topic-classification regressions (collector + browser mirror, flagged item 9d-1)
+        run: |
+          node tests/collector.test.mjs
+          python3 tests/test_collect.py
       - name: Render every published page in jsdom (empty-render / JS-error gate)
         # jsdom ships no canvas backend, so the canvas guard in assets/app.js keeps the
         # page alive there; every other JS error still fails the run. This is what
