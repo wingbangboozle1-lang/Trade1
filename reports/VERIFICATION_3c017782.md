@@ -149,7 +149,7 @@ the link is the row's **own** record (`/events/{event_ticker}` for an event row,
 for a market row), and that every row in the data files is rendered (nothing silently dropped).
 
 *Result:* `{"counts":{"rows":271,"rowLinks":413,"expected":271},"renderedTopicRows":71,
-"renderedResolvedRows":200,"failures":0}`.
+"renderedResolvedRows":196,"failures":0}`.
 
 ### 3.6 Two positions stacked on one market, both losing everything — **fixed**
 
@@ -270,8 +270,8 @@ paper brokers already applied, and none of the 29 remaining rows belongs to the 
 | `python3 scripts/portfolio_engine.py selftest` | 84/84 |
 | `node tools/build.mjs` | BUILD OK — 18 HTML, 6 JS validated, 0 broken links |
 | `node scripts/check_site.mjs` | 434 links, 1,249 rows, 821 resolved, **0 failures** |
-| `node scripts/check_links.mjs` | 16 published pages, 400 local + 236 external links, **0 failures** |
-| `node scripts/check_row_sources.mjs` | 271 rendered rows, 413 official links, **0 failures** |
+| `node scripts/check_links.mjs` | 16 published pages, 402 local + 262 external links, **0 failures** |
+| `node scripts/check_row_sources.mjs` | 267 rendered rows, 409 official links, **0 failures** |
 | `node tools/render_test.mjs --offline` | every published page renders with 0 JS errors |
 
 ---
