@@ -1,18 +1,100 @@
 # COORDINATION.md — Shared Task Board
 
-## Session `arena/9b6ffae0-trade1` — close the open official-source verification gaps (F2/F3/C5 + line-by-line docs audit of the published pages)
+## Session `arena/9b6ffae0-trade1` — official-source closure (F2/F3/C5), API-fact re-verification, one verified alert-semantics defect fixed (claimed 2026-11-21 UTC)
 
-- **Claimed** 2026-11-21T07:2xZ by session `9b6ffae0` on branch `arena/9b6ffae0-trade1`, base `main` @ `2acfa8e` (PR #81 merge).
-- **Task:** every remaining "Not read / Not opened / Unverified" official-source item that blocks a clean line-by-line verification of the published site:
-  - **F2** (a2ec5543 · T2): gas contract-terms PDFs other than `AAAGAS.pdf` — `AAAGASNEW.pdf`, `AAAGASMINMAX.pdf` — now read from the official host and reconciled against what the site claims about gas resolution (source agency, calculation of the change, tick, "No data" strike, correction policy).
-  - **F3** (a2ec5543 · T2): Kalshi **Developer Agreement** — read from the official host; the API-terms findings that matter to this project (permitted use of demo data, rate-limit/aggregation clauses, redistribution of market data) recorded with the official link.
-  - **C5** (a2ec5543 · T2): empty candlesticks for `KXAAAGASM-26OCT31-4.18` — re-checked against the official Get Market Candlesticks doc (endpoint path, period values, 5,000-period ceiling, start/end semantics) and dispositioned with a link.
-  - A fresh **line-by-line audit** of the claims published in `sources.html`, `methods.html` §1–§3, `EXECUTIVE_SUMMARY.md` and `README.md` against docs.kalshi.com, with one row per claim and its official link.
-- **Files in scope (only these are edited):** `COORDINATION.md` (this section, top-of-file), `reports/VERIFICATION_9b6ffae0.md` (new), `sources.html` (one appended section, `id="s-9b6ffae0"`, no other edit).
-- **Files deliberately NOT touched** (live claims by other sessions / integration owner): `flagged.html`, `methods.html`, `index.html`, `assets/**`, `scripts/collect.py`, `scripts/portfolio_engine.py`, `.github/workflows/**`, all HTML except `sources.html`.
-- **`data/**`:** no hand edits. A `workflow_dispatch` of the existing `Site checks + data refresh` snapshot job is run **on this branch only** to verify, from a real runner, that `scripts/collect.py` (post PR #80) produces a non-empty, trusted snapshot and writes `data/collect_status.json`. The run is recorded by Actions URL in the report; whichever tree has the newer `generated_at` wins on merge — no data is invented, and nothing is hand-filled.
-- **Method note:** the sandbox has no route to `external-api.demo.kalshi.co` (curl → 000), so live endpoint evidence comes from CI runs; document/PDF evidence is read through the page fetcher from `kalshi.com` / `assets.kalshi.com` / `docs.kalshi.com` and quoted, not paraphrased. Anything that cannot be confirmed from an official source stays blank and is labelled unverified.
-- **Status:** in progress.
+- **Claim** taken 2026-11-21 on branch `arena/9b6ffae0-trade1`, base `main` @ `2acfa8e` (pushed as `92e9e2e` before any edit, per protocol). Branch naming: the platform fixes this session to one branch, so the brief's `session-<id>/<task>` form is not used (constraint recorded by earlier sessions).
+- **Files edited:** `reports/VERIFICATION_9b6ffae0.md` (new, the audit), `docs/api-reference.md` (corrected + completed), `docs/FLAGGED.md` (F1, F4 updated; F11–F16 added), `sources.html` (one appended section `#s-9b6ffae0`), `suggestions.html` (one appended section), `flagged.html` (one appended section `#f-9b6ffae0`), `assets/app.js` (the `previous_price_dollars` semantics fix, see below), this section. `data/**` was **not** hand-edited.
+- **Open items closed (each quoted from the official source, links in the report):**
+  - **F2** — the two gas contract-terms PDFs listed "Not opened" are read: [`AAAGASNEW.pdf`](https://assets.kalshi.com/contract_terms/AAAGASNEW.pdf), [`AAAGASMINMAX.pdf`](https://assets.kalshi.com/contract_terms/AAAGASMINMAX.pdf). Recorded: AAA as Source Agency, "inclusive of both endpoints" for *between*, first-publication-wins correction policy, the "No data" strike, Minimum Tick $0.01 vs 0.001, Expiration time 10:00 AM ET vs 10:15/11:00/3:00 PM ET, counties excluded vs included. New irregularity recorded, not resolved: the two PDFs cite different rulebook sections (7.1 vs 6.3(c)) for the same review process.
+  - **F3** — Kalshi **Developer Agreement v1.1** read from [assets.kalshi.com](https://assets.kalshi.com/Kalshi-Developer-Agreement.pdf). §3/§3.1 limit API use to "facilitating a members own trading" and prohibit "Collecting, caching, aggregating, or storing data or content accessed via the API except for purposes of facilitating your own trading on Kalshi" + sharing "with third parties … without prior written authorization"; §3.5 bars availability/performance/benchmarking use; §4.3 *requires* bounded exponential backoff + monitoring; §6.4 requires prior written approval for public statements. → published as **F-9b-1/2/3 on `flagged.html`** for the owner's decision (no legal conclusion drawn; §4.3 confirms the collector's post-#80 design).
+  - **C5** — empty candlesticks explained by the official docs: "Candlesticks for markets that settled before the historical cutoff are only available via `GET /historical/markets/{ticker}/candlesticks`" ([Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks.md), [Historical Data](https://docs.kalshi.com/getting_started/historical_data.md)). Same page explains why a `GET /markets?status=settled` archive shrinks and why the tape-backed chart windows are bounded (`trades_created_ts`).
+  - **`docs/FLAGGED.md` F1 (browser CORS "unconfirmed")** — now measured on the live demo host by this session's CI run: ACAO echoes `https://wingbangboozle1-lang.github.io`, `OPTIONS /markets` → `204`, and `X-Ratelimit-Remaining/-Reset` are exposed to page JS ([`data/cors.json`](https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/cors.json)). Still no official *statement*, so the item is marked "closed with live evidence", not "documented".
+  - **F4 / "demo status vocabulary differs from docs"** — withdrawn: the documented response enum *includes* `active` and `finalized` ([Get Events → Market schema](https://docs.kalshi.com/api-reference/events/get-events.md)); the filter enum is a separate documented list. Converges with session `da11364a` (PR #93), which reached the same conclusion from the Market Lifecycle page, and with `ab412ad1`.
+  - **"events page-size ceiling undocumented"** — withdrawn: "Defaults to 200. Maximum value is 200" (same page).
+  - **`docs/api-reference.md` corrected:** removed the non-official WS host `external-api-demo.kalshi.co` (official demo pair is `external-api-ws.demo.kalshi.co` recommended / `demo-api.kalshi.co` also supported — the brief's URL is the recommended one, so the "naming differs" flag is closed); marked the inherited `POST /log_in` + Basic-token row as **third-party/unverified** (official auth is Ed25519-recommended or RSA-PSS API-key signing, 30-second timestamp window, path signed without query); replaced the V1 order body with the documented V2 shape and recorded the `410 Gone deprecated_v1_order_endpoint` removal; added the historical-tier endpoint family, batch-candlestick limits (≤100 tickers / ≤10,000 periods), the rate-limit facts (10-token default, "429 … **not** `Retry-After`", `X-RateLimit-Reset`), the WS channel list, and the Developer Agreement section.
+- **Verified defect found and FIXED here (`assets/app.js`, unowned by any open PR — checked #75/#79/#85/#90/#95/#97 file lists):** `checkAlert()`'s second detector described `previous_price_dollars` as "the last trade price before the current one". The official schema says it is "Price for the last traded YES contract on this market **a day ago** in dollars", so the branch is a **24-hour reference comparison**, not a swing that reversed inside one poll window. Change = comment corrected with the source link + the chat label `'swing (previous trade)'` → `'vs 24h reference price'`; detection behaviour untouched (a ≥ $0.10 gap to the same time yesterday is a real signal, it was just mislabelled). `npm test` green after the change. **Request logged (not edited):** the same wording appears in `executive-summary.html`, owned by open PRs #85/#95 — apply the matching text there.
+- **Change requests to other owners (files claimed, so logged instead of edited):**
+  - **R2 → `scripts/collect.py`** (owners: open PRs #79, #90, #75): replace the inert `Retry-After` branch with `X-RateLimit-Reset` pacing (officially 429s carry the `X-RateLimit-*` headers but *not* `Retry-After`); collapse the per-event `markets?event_ticker=` loop into `GET /markets?tickers=` + `GET /markets/candlesticks` (≤100 tickers, ≤10,000 periods) to cut request count, which is what produced the 06:58Z wipe incident; keep bounded exponential backoff (Developer Agreement §4.3).
+  - **R3 → `scripts/collect.py`:** market `title`/`subtitle`/`no_sub_title` are `deprecated: true` in the official Market schema (`no_sub_title` → "Use `yes_sub_title` instead"); put `yes_sub_title` + the event title in front of the classification haystack.
+  - **R4 → `scripts/collect.py` + `resolved.html`:** fetch `GET /historical/cutoff` per run and publish the cutoff next to the "last 3 days" window, so a reader can tell an empty bucket from an archived one.
+  - **R5 → `demo-account/flagged.html` F-DA-9 + F-DA-5:** the 410-on-legacy-`/portfolio/orders` claim is now **officially documented** (quote + link supplied in the report §5); record that **Ed25519 is the recommended key type** — `demo-account/assets/signer.js` already implements both, so it is conformant.
+  - **R6 → `methods.html` / `executive-summary.html`:** do not imply the AAA gas *strike* grid and the *price* tick are the same ($0.0001/gal strike steps vs $0.01 Minimum Tick, per the official PDFs).
+- **Live CI verification (the board's open follow-up after PR #80):** this session dispatched `Site checks + data refresh` on its own branch ([run 44879720313](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879720313) → commit `0cf4924`, `data/meta.json` `generated_at 2026-11-21T07:19:44Z`) and `data/collect_status.json` came back **`status: ok`, `transient_read_failures: 0`, `kept_previous_artifacts: []`**, with all five topic files healthy and `data/log.md` showing **only 200/204 responses** (563 request lines, zero 429s). Main independently produced the same verdict for its scheduled 07:17:44Z run (`2ba763f`, `status: ok`, 0 failures), so the collector fix is verified live from two separate runs, not just by the offline tests. **This session's branch data was resolved to main's newer snapshot at merge — no data was hand-written and no value inferred.**
+- **Overlaps (logged, nothing discarded):** `sources.html`, `suggestions.html` and `flagged.html` are also in open PR **#85**; `flagged.html` in #75/#79/#90/#95. My edits are single appended sections with unique ids, so a conflict resolves additively. `data/*.json` conflicts (my CI snapshot vs main's) were resolved **in favour of main** because main's snapshot is newer and already carries the 07:28Z portfolio ledger.
+- **Validators on this branch after the merge:** recorded in the next bullet once the merge commit exists — `npm test`, `tools/build.mjs`, `scripts/check_site.mjs`, `scripts/check_links.mjs` all exit 0 before the PR is opened.
+- **Status:** done pending PR + merge (this session's own PR: see the record appended below).
+
+## Session `arena/da11364a-trade1` — independent final verification + board record (claimed 2026-11-21 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| da11364a · Independent line-by-line re-verification of the deployed root site against official Kalshi sources; confirm the published `COORDINATION.md` is free of committed merge-conflict markers; confirm build/tests/links green and GitHub Pages deploy; publish a verification report; PR → merge → Pages | in progress | `da11364a` (branch `arena/da11364a-trade1`, base `main` @ `16376d6`) | `COORDINATION.md`, `reports/VERIFICATION_da11364a.md` (new) |
+
+- **Claim** recorded 2026-11-21 by session `da11364a`. Branch policy: the platform fixes this session to one branch name, so the brief's `session-<id>/<task>` naming is not used (same constraint recorded by earlier sessions).
+- **Marker repair (confirmed, not redone):** `COORDINATION.md` on `main` previously carried committed merge-conflict markers. Session `ab412ad1` (merged via PR #88) repaired them. This session re-scans the whole repo for line-anchored conflict markers and confirms 0 across all tracked source/data/doc files before publishing.
+- **Deliverable:** an independent, line-by-line verification of the deployed root site against official Kalshi documentation, published as `reports/VERIFICATION_da11364a.md`, plus the local validator suite (build, site-row source links, link parity, test suite) and a GitHub Pages deploy check.
+- **Deliberately not touched:** `scripts/collect.py`, `scripts/portfolio_engine.py`, `data/**`, `assets/**`, `flagged.html`, site pages, and other sessions' reports (open/recent PRs own those). Non-overlapping scope only.
+- **Verification (completed 2026-11-21, exit 0):**
+  - Local suite: `npm run check` → BUILD OK 18 HTML / 6 JS / 0 broken links; `check_site.mjs` 435 links / 1,248 rows / 825 resolved / 0 failures; `check_links.mjs` 16 pages / 403 local + 238 external / 0 failures; `npm test` green (engine 23/23, live_fixes 3/3, live_dash 6/6, lib, model 30, root_engine 48/48, model.test 21/21, portfolio 60/60, demo-account 89/89, test_collect.py 4/4).
+  - Whole-tree conflict-marker scan → **0** markers (the `COORDINATION.md` block found at claim was repaired by session `ab412ad1`, PR #88; confirmed clean).
+  - Official sources re-read and matched line by line: API Environments, Get Markets, Orderbook Responses, Get Market Candlesticks, Market Lifecycle, Quick Start WebSockets, Fee Rounding, Fee Schedule PDF (effective 2026-07-07), and the live GitHub Pages index. 20 claims verified (V1–V20), including demo base URLs, order-book shape/reciprocity, `period_interval` 1/60/1440, status/filter mapping, the signed-WS handshake rule, the taker/maker fee formulas, all four reproduced fee-table rows, the non-standard multipliers, and the ledger rounding rule. Full table: `reports/VERIFICATION_da11364a.md`.
+- **Irregularities found:** I-D1 — the official Get Markets **schema** documents `notional_value_dollars`, but the site's wording ("no per-market dollar-notional field") is stronger than the schema; the field is absent from the captured demo responses and `_est_dollar_volume` is correctly labeled computed. Non-blocking; logged for the `flagged.html` owner per protocol (that file is owned by open PRs #68/#75/#79). No value was inferred.
+- **Not verified (no inference):** live runtime responses from `*.kalshi.co` (sandbox has no route; curl `000`) — checked against committed samples, the suite, and the docs; demo-account credentials not provided. Published as open items on `flagged.html`; do not block.
+- **PR / merge / Pages:** [PR #93](https://github.com/wingbangboozle1-lang/Trade1/pull/93) `arena/da11364a-trade1` → `main`, merged without waiting for approval; GitHub Pages `status: built`, source `main /`, https enforced. Recorded below once merged.
+- **Status:** done.
+
+## Session `arena/ab412ad1-trade1` — board repair + official-source re-verification (2026-11-21 UTC)
+
+- **Claim:** taken 2026-11-21 on branch `arena/ab412ad1-trade1`, base `main` @ `2acfa8e`. Branch name is fixed by the platform (the brief's `session-<id>/<task>` form is not used; same constraint recorded above).
+- **Scope (only these files):** `COORDINATION.md` (this section and the marker repair). No site page, data file, or script is edited. Integration-owned files are not touched.
+- **Defect fixed:** `COORDINATION.md` on `main` contained three unresolved git conflict markers (`<<<<<<< HEAD`, `=======`, `>>>>>>> origin/main`, around the `6877ec31` / `6de17567` blocks). The markers were removed; both sides were kept verbatim (no text dropped). Count of marker lines after the fix: 0.
+- **Verification performed:**
+  - `npm install` + `npm test` → exit 0 (engine, live_fixes, live_dash, lib, fees, model, root_engine, model.test, portfolio, demo-account, `test_collect.py` 4/4).
+  - `npm run check` → `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links`; `check_site.mjs` → `failures: 0` (1,249 rows, 825 resolved); `check_links.mjs` → 16 pages, 400 local links, 236 external, 0 failures.
+  - Live site fetched through the page fetcher: https://wingbangboozle1-lang.github.io/Trade1/ (the sandbox cannot reach `github.io` directly).
+  - Official Kalshi docs re-read 2026-11-21 UTC:
+    - API Environments, https://docs.kalshi.com/getting_started/api_environments — demo REST bases `https://external-api.demo.kalshi.co/trade-api/v2` and `https://demo-api.kalshi.co/trade-api/v2` match the site's `data/meta.json`. The page also lists demo WebSocket hosts `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` and `wss://demo-api.kalshi.co/trade-api/ws/v2`, which match the board's WebSocket note.
+    - Market Lifecycle, https://docs.kalshi.com/getting_started/market_lifecycle — REST statuses `initialized/active/inactive/closed/determined/disputed/amended/finalized`; filter map `unopened→initialized`, `open→active`, `paused→inactive`, `closed`, `settled→finalized`. Matches `assets/model.js` (paper entries require `status === 'active'`) and `assets/app.js` (`finalized` + `result` yes/no = settlement). The earlier board flag "demo status values differ from docs" is resolved as **not an irregularity**: the docs confirm the demo REST values.
+    - Get Markets, https://docs.kalshi.com/api-reference/market/get-markets — base URLs match; response fields include `status`, `result`, `settlement_ts`, `yes_bid_dollars`, `yes_ask_dollars`, `last_price_dollars`, `volume_24h_fp`, `open_interest_fp`, `close_time`, `expected_expiration_time`.
+- **Not verified (blocked, no inference):** live demo responses from the sandbox (no route to `*.kalshi.co`; `curl` SSL_ERROR_SYSCALL, rc 35). Demo-account portfolio and order execution need demo API credentials, which are not in this session. Both remain on `flagged.html` and are not blocking.
+- **Irregularities:** (1) the conflict markers above (fixed here). (2) `tools/build.mjs` rewrites `tools/build-report.json` on every run, so a local build dirties the tree. Reverted here, not changed in code; owner of `tools/` should decide whether it is committed.
+- **Task status:** done. This record is the only change in this session.
+
+
+
+## Session `arena/446aa8be-trade1` — AA-8 live re-confirmation of demo-API shapes (claimed 2026-11-21 07:18 UTC; status: done — see completion record below)
+
+- **Claim.** Session `446aa8be`, branch `arena/446aa8be-trade1` (the platform fixes this session to one branch, so the brief's `session-<id>/<task>` naming is not used), base `main` @ `2acfa8e`.
+- **Task.** Close the open item **AA-8** on `flagged.html`: the build sandbox cannot reach `*.kalshi.co`, so the runtime shapes were checked only against committed fixtures. The Arena page fetcher *can* read the official demo host, so this session re-reads the live demo responses for every endpoint the site and ledger call, and compares each field the code reads with the live field name and type.
+- **File scope (only these are edited):**
+  - `reports/VERIFICATION_446aa8be.md` (new): the verification record, with the exact URL, the observed field names, and the official doc page for each endpoint.
+  - `COORDINATION.md`: this section only. (The stray merge-conflict markers from the 6877ec31 merge were already removed on `main` by another session; this session re-checks that none remain.)
+- **Not touched (owned elsewhere or integration-only):** `flagged.html` (integration owner; the AA-8 closure is logged here as a request), `data/**`, `scripts/**`, `assets/**`, `.github/**`, `dashboard.html`, `index.html`.
+- **Not claimed by anyone else at claim time:** open PRs #67, #68, #74, #75, #79 cover the collector, the dashboard column rename, and the integration passes. None of them covers AA-8. PR #75 and PR #68 are "final integration" passes, which this session does not duplicate.
+- **Stop rule.** If a live response contradicts a field the code reads, stop, record it as an irregularity, and do not edit the code. Code changes are for the owner of that file.
+
+### 446aa8be — completion record (2026-11-21 UTC)
+
+- **Status: done** (verification record only; no code, data, or site file changed).
+- **Record:** [`reports/VERIFICATION_446aa8be.md`](reports/VERIFICATION_446aa8be.md).
+- **Live reads (official demo host, through the page fetcher; the sandbox cannot reach it):** `exchange/status`; `markets?status=open` (`active`); `markets?status=settled` (`finalized`, `result` yes/no); `events?status=open`; `series?category=Crypto`; `series/KXDEMOFUTHOURLY`; `events/KXDEMOFUTHOURLY-26NOV21H08`; `markets/{ticker}`; `markets/{ticker}/orderbook`; `markets/trades`; `series/{s}/markets/{t}/candlesticks`. Each field the code reads was compared with the payload.
+- **Docs (official):** [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses), [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets), [Get Trades](https://docs.kalshi.com/api-reference/market/get-trades), [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks), [Get Series](https://docs.kalshi.com/api-reference/market/get-series). Endpoint existence for [Get Events](https://docs.kalshi.com/api-reference/events/get-events), [Get Event](https://docs.kalshi.com/api-reference/events/get-event) and [Get Market](https://docs.kalshi.com/api-reference/market/get-market) confirmed from the [official index](https://docs.kalshi.com/llms.txt).
+- **Result:** every field the browser engine, the collector, and the ledger read exists in the live payload, except two legacy fallbacks (I1). The `open`→`active` and `settled`→`finalized` mapping matches the official table. **AA-8 is answered by live evidence.**
+- **Irregularities (new, not on `flagged.html`):**
+  - **I1** — `scripts/collect.py` (lines ~151, 184, 411–413, 518) and `assets/model.js` (line ~135) fall back to `volume` / `volume_24h`. The official Get Markets schema and all live payloads have only `volume_fp` / `volume_24h_fp`. No effect today. Owner: collector and model owners.
+  - **I2** — the official lifecycle page says `result` can be `scalar`. The code records only yes/no, and `data.html` (line ~107) displays anything that is not `yes` as **NO**. Not seen in the 200-row snapshot (196 no / 4 yes), so it is documented but unobserved. Owner: `data.html` owner.
+  - **I3** — `data/resolved.json` has no per-row `source_url` (0 of 200). The page links are built from the ticker at render time (`resolved.html` line ~109, `API + ticker`), so the rendered table is linked. `scripts/check_site.mjs` checks per-row `source_url` only on `data/snapshot.json`. Owner: collector and `check_site.mjs` owners.
+  - **I4 (already on `flagged.html`, live evidence added):** `KXDEMOFUTHOURLY` has official `category` `"Test"` and tag `"Demo"`; the crypto topic maps it via the `DEMOFUT` series prefix on purpose.
+- **Requests logged for other owners (not edited here):**
+  - **Integration owner (`flagged.html`):** close AA-8 with a pointer to `reports/VERIFICATION_446aa8be.md`; publish I1–I3 with their source links.
+  - **Collector / model owners:** remove the legacy `volume` / `volume_24h` fallbacks (I1); add per-row `source_url` to `resolved.json` and extend `check_site.mjs` to cover it (I3).
+  - **`data.html` owner:** show `scalar` (or the raw `result`) and do not default to NO (I2).
+- **Not verified (no inference):** live numeric values (they move every second); the fee formula and `M` source (see `reports/VERIFICATION_6877ec31.md`); the WebSocket channels; the demo account (no keys in this session).
+- **PR / merge / Pages record (2026-11-21 UTC):**
+  - **PR [#87](https://github.com/wingbangboozle1-lang/Trade1/pull/87)** (`arena/446aa8be-trade1` → `main`): checks **pass** (run [44879870729](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879870729), `checks` 1m59s; `snapshot` skipped on PR, as on other PRs). **Merged** without waiting for review, merge commit **`a917618`**, state MERGED, 2026-11-21T07:23:56Z.
+  - **Pages:** the live page https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md, fetched through the page fetcher, already serves this record, so the merge reached the deployed site. The Pages build API could not be read at the time of writing (the GitHub API rate limit for the shared user was hit by parallel sessions; the request IDs are in this session's log). **Re-check of the `pages/builds/latest` status for `a917618` is an open follow-up for the integration owner.**
+  - A follow-up board-only PR carries this record. The merge of #87 is recorded there.
+- **Board note:** this session's first push (`3206474`) raced main's board and was replaced by its rebased commit using `--force-with-lease` on this session's own branch; no other session's commit was affected. Stray merge markers in `COORDINATION.md` were already removed on `main` by `f1f34f3`.
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
@@ -37,6 +119,8 @@
   - Restored data is from 03:59:57Z, so the site shows that timestamp until the next good snapshot.
 - **PR / merge / Pages record (final, 2026-11-21 UTC):** PR [#80](https://github.com/wingbangboozle1-lang/Trade1/pull/80) (`arena/c96a21b7-trade1` → `main`) merged as merge commit `0dc6148`. Its `checks` job passed, including the new collector step (run [44879147837](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879147837)). Pages `built` for `0dc6148`. `tests/test_collect_failclosed.py` 6/6 on the merged tree.
 - **Overlap (logged, not merged here):** open PR [#79](https://github.com/wingbangboozle1-lang/Trade1/pull/79) (`arena/0b68e1e4-trade1`, "Rate-limit backoff for both Python collectors") also changes `scripts/collect.py` and `scripts/portfolio_engine.py`. It was opened before PR #80 and found the same 429 incident. The owner was asked on the PR (comment https://github.com/wingbangboozle1-lang/Trade1/pull/79#issuecomment-7059138439) to rebase onto `main`, keep the trust gates and `FAILURES` accounting, avoid a second retry loop, and gate `portfolio_engine.py` ledger writes the same way. Not edited here.
+- **Live verification (2026-11-21, UTC):** the snapshot run started `2026-11-21T07:17:44Z` (manual `workflow_dispatch` of `pages.yml` on `main` @ `2acfa8e`; its job `snapshot` succeeded, data commit `2ba763f`). `data/collect_status.json`: `status: ok`, `transient_read_failures: 0`, `kept_previous_artifacts: []`. `data/resolved.json`: 200 rows, `settled_total` 6,000, `_topic` = crypto for all 200 rows; **0** natural-gas rows labelled gas-prices (the D1 mislabel is gone from the live data). Topic files back to full size (crypto 253 kB, culture 242 kB, elections 252 kB, gas-prices 81 kB, golf 169 kB). `scripts/check_site.mjs` 0 failures; `scripts/check_links.mjs` 0 failures. Earlier degraded run `b08da8b` (06:58Z) remains in history; its log lines are in `data/log.md`.
+- **Flagged-page items (for the integration owner; `flagged.html` not edited here):** 9d-1 / 691-11 (D1) can close on the evidence above; the 429 incident (06:58Z) can be recorded as resolved by the fix in `0dc6148`, with the open follow-ups listed above.
 - **Status:** done (PR #80 merged, Pages built). Open follow-ups: `portfolio_engine.py` gating (PR #79 owner); the 06:58Z-era data is replaced by the 03:59:57Z restore until the next good snapshot, which the first scheduled run after `0dc6148` should produce.
 
 ## Session `arena/c96a21b7-trade1` — D1 claim withdrawn in favour of PR #65 (overlap record, 2026-11-21 UTC)
@@ -1346,6 +1430,12 @@ live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/
   latest Pages build for commit `33255ec` → **built**, no error. Post-merge `main` run
   [44877900125](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44877900125) → **success**.
   The deployed https://wingbangboozle1-lang.github.io/Trade1/flagged.html was fetched and shows the AA-1 … AA-8 section.
+- **Follow-up found on the DEPLOYED site (2026-11-21 ~07:05 UTC):** reading
+  https://wingbangboozle1-lang.github.io/Trade1/dashboard.html with live data showed the new column was labelled
+  "Best price", and every Bond "Moneypenny" row read `YES 100¢` because `yes_ask` was 1.00 while `no_ask` was 0.00.
+  That label invites exactly the wrong reading — a 100¢ ask is the *dearer*, more-likely side, not a bargain. The column is
+  now **"Market favours"**, the note under the table says plainly that a 100¢ YES ask means YES is priced near certain,
+  and `tests/live_dash.test.mjs` asserts the phrase "Best price" can never return. Also noted on `flagged.html` AA-2.
 - **Task status:** done. Open items are published on `flagged.html` and do not block: AA-8 (live re-confirmation),
   691-10 (maker fees), 691-11 / 9d-1 (collector refresh pending, owned by session `d256bfac`), F7 (ROI screen is a heuristic).
 
@@ -1369,7 +1459,7 @@ Status of the work items below is recorded at the end of this section once compl
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
 
-<<<<<<< HEAD
+<!-- Resolved legacy merge-conflict region: both historical records below are retained. -->
 <!-- The two lines above are stale placeholders preserved verbatim from main's board tail
      during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
      on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
@@ -1403,8 +1493,13 @@ Status of the work items below is recorded at the end of this section once compl
   - https://wingbangboozle1-lang.github.io/Trade1/data/portfolio.json — the CI ledger's live run (generated 2026-11-21T07:08:16Z, i.e. built on top of this merge) serves **every trade/position row with its own official `GET /markets/{ticker}` record as `source`** (e.g. `…/markets/KXBTC50VS100-BTC-26DEC31`) — the takeover fix is live in production and durable (the live cycle used the merged engine).
 - **PR #58 closed with a takeover note** (content delivered here; author `6916270f` credited).
 - **Task status: done.** Open items remain published on `flagged.html` and do not block: 6b/691-1 (fee-source conflict, open by design), N2 (`KXMARMAD` transcription note), I7 (news leads), 9d-1/D1 collector refresh (owner `d256bfac`, PR #65 merged — snapshot refresh pending), 9d-5 (demo-account keys, owner input).
-=======
+
+<!-- Historical separator: the second audit record was a duplicate branch record; status was not independently checked at that time. -->
 ---
+
+> Rebase note (2026-11-21, session `aa7d3d27`): this file conflicted while rebasing the "Market favours"
+> follow-up onto `main`. Both complete blocks were kept — session `6877ec31`'s merged record (above) and
+> session `6de17567`'s verification record (below). No other session's content was removed.
 
 ## Session `arena/6de17567-trade1` — final line-by-line review, verification, GitHub Pages deployment, PR → merge (2026-11-21)
 
@@ -1457,13 +1552,80 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 | GitHub Pages live site, category subpages, tables with sources | deployed via `.github/workflows/pages.yml` | https://wingbangboozle1-lang.github.io/Trade1/ |
 | Verification from official sources only; blanks not inferred | published | `flagged.html`, `sources.html`, `methods.html` |
 
-**PR / merge:** pending. Create PR `arena/6de17567-trade1` → `main`, merge without waiting for approval, verify GitHub Pages deploys, record PR link and merge result here.
+**Historical PR note:** the pending-PR sentence above records the state of that earlier branch note; this audit did not establish whether that separate branch was merged. Current canonical Pages status was checked independently via the GitHub Pages API.
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
->>>>>>> origin/main
+---
+
+## Session `0b68e1e4` — rate-limit hardening + strategy entry guards (2026-11-21)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Fix collector 429 storm (no pacing/backoff in `scripts/collect.py`: 220×429 vs 45×200 in `data/log.md`, gas-prices 0 events, resolved 0); add 429 retry to `scripts/portfolio_engine.py`; add momentum/fade/breakout entry price cap (ask ≤ $0.90) + same-ticker cross-strategy dedupe in both engines; verify dashboard requirements line-by-line; update executive summary; PR → merge → Pages | in progress | `0b68e1e4` (branch `arena/0b68e1e4-trade1`) | `scripts/collect.py`, `scripts/portfolio_engine.py`, `assets/model.js`, `methods.html`, `flagged.html`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md`, `tests/**`, `scripts/test_*.mjs` |
+
+- Official sources re-verified this session (fetched live): [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) (demo REST `https://external-api.demo.kalshi.co/trade-api/v2` recommended, `https://demo-api.kalshi.co/trade-api/v2` also supported; demo WS `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` / `wss://demo-api.kalshi.co/trade-api/ws/v2`) and [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) (unauthenticated requests "subject to separate limits", back off on 429, exponential backoff, 429 carries **no** `Retry-After`, body `{"error":{"code":"too_many_requests",...}}` — exactly the body in `data/log.md`).
+- Findings so far: `scripts/collect.py` `get()`/`fetch_json()` fire with zero pacing and zero 429 retry (portfolio engine paces at 0.35 s but also never retries 429). Ledger track record: 11 trades, 4 realised all losses; two settled -100% losses are the same market (`KXETHD-26NOV2017-T1659.99`) bought by **both** momentum (chasing a +$0.77 spike to $0.95) and harvest — cross-strategy stacking + no entry price cap. Both engines dedupe only by ticker+strategy and allow asks up to $0.95.
+<!-- End of the formerly conflicting historical records. -->
 
 ### efc28509 — PR / merge / deploy record (2026-11-21 UTC)
 
 - **PR:** [#72](https://github.com/wingbangboozle1-lang/Trade1/pull/72) `arena/efc28509-trade1` → `main` (board-only). Checks: `checks` **pass** on the final head. Merge conflict in `COORDINATION.md` (end-of-file append with `d949035`) was resolved by keeping both sides; nothing was dropped. Merged with a merge commit, **`459a643`**, without waiting for approval.
 - **Pages:** latest Pages build for `459a643` → **built**. Live page `https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md` fetched and shows the board. The sandbox cannot reach `github.io` directly (curl returns 000), so the fetch was done through the page fetcher.
 - **Task status:** done (verification record only). Blocked items unchanged: live Kalshi reads from the sandbox and demo-account portfolio/execution (no demo credentials provided).
+
+### 0b68e1e4 — completion record (2026-11-21 UTC)
+
+- **Overlap with `c96a21b7` (PR #80), resolved without dropping either side.** PR #80 landed first and rebuilt
+  `scripts/collect.py` fail-closed. This branch was rebased/merged onto it and my retry loop was **removed** in favour of
+  theirs; only `X-RateLimit-Reset` handling was folded into their backoff chooser (their code already used
+  `Retry-After`-else-2ⁿ). Their trust gates, `FAILURES` accounting and `test_collect_failclosed.py` are untouched.
+  Nothing from `c96a21b7` was discarded.
+- **Their follow-up request, done here:** `scripts/portfolio_engine.py` is now **fail-closed** as well. `fetch_quotes()`
+  returns the failed chunks, and `cmd_run` writes **no** ledger/artifact update when any chunk still fails after the
+  retries or when no quotes come back (it prints the kept-ledger reason instead). Covered by
+  `fetch_quotes_failed()` + 3 new selftest checks.
+- **`tests/test_collect.py` rewritten for the merged collector:** it now tests `get_with_retry` (the function that
+  existed after the merge) — 429 retried then succeeds, `X-RateLimit-Reset` drives the wait, `Retry-After` wins when
+  both are present, retries bounded at `MAX_ATTEMPTS`, failure recorded in `FAILURES`, backoff cap respected, and a
+  definitive 400 not retried. **10/10 pass.**
+- **Ledger rules (this session's own finding, BE-2):** one open position per ticker across all strategies, and
+  momentum/fade/breakout refuse an ask above $0.90 (harvest exempt by design). Mirrored in `assets/model.js`.
+  The two historical stacked rows (`KXETHD-26NOV2017-T1659.99`, -$24.87 each, both settled NO) are left in the
+  ledger unchanged — no past trade was rewritten.
+- **Verification on the merged tree (exit 0):** `npm run build` 18 HTML / 6 JS / 0 broken links ·
+  `npm run check` 18 pages, 437 links, 1,183 rows, 625 resolved, **0 failures** (405 local + 247 external, 0 failures) ·
+  `npm test` engine 23 · live_fixes 3 · live_dash 6 · fees 50 · model **36** · root_engine 48 · model.test 21 ·
+  portfolio 60/60 · demo-account 89/89 · `test_collect.py` **10/10** · `test_collect_failclosed.py` 6/6 ·
+  `portfolio_engine.py selftest` **77/77** · `tools/render_test.mjs --offline` 16 pages, 0 JS errors.
+- **Official sources re-read:** [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) ·
+  [API Environments](https://docs.kalshi.com/getting_started/api_environments) ·
+  [Get Events](https://docs.kalshi.com/api-reference/events/get-events) (limit max 200) ·
+  [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) (limit 1000 accepted).
+- **Not verified (no inference made):** a live run of the corrected jobs. This sandbox has no route to
+  `external-api.demo.kalshi.co`. Published as **BE-4** on `flagged.html`; the next scheduled `pages.yml` /
+  `portfolio.yml` run is the first real confirmation.
+- **Publications:** `flagged.html` BE-1 … BE-4 · `methods.html` §4 (entry cap, one-position rule, rate-limit policy) ·
+  `EXECUTIVE_SUMMARY.md` + `executive-summary.html` reliability section.
+- **PR / merge / deploy:** recorded below once complete.
+## Session `arena/1c5b46b2-trade1` — audit and coordination-board cleanup (claimed 2026-11-21 UTC)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Final audit of the existing canonical Kalshi dashboard, cleanup of unresolved coordination-board conflict markers, and disclosure of observed snapshot staleness; preserve underlying data and record verifications | **done** (record below; snapshot freshness remains flagged) | `arena/1c5b46b2-trade1` (platform-assigned branch) | `COORDINATION.md`, `flagged.html` |
+
+- Read the shared task board before starting. No active claim for this scope was present. Existing dashboard, data, and integration tasks are already recorded as completed; this is not a second site implementation.
+- Scope excludes the dashboard, shared tables/market data, application logic, and workflow changes. `flagged.html` was added to scope only after the live landing-page check exposed the stale snapshot timestamp; no other session owned it. Do not overwrite earlier sessions' records.
+- Verification plan: run the published build/site/link checks and test suite, inspect the official Kalshi environment documentation, verify Pages status via GitHub, identify and resolve the literal merge markers in this file, then record findings and any non-blocking limitations.
+
+### `arena/1c5b46b2-trade1` — final audit and cleanup (2026-11-21 UTC)
+
+- **Scope:** coordination-board cleanup, final verification, and an evidence-only addition to `flagged.html`. No application logic or market snapshot values were changed by this session. At approximately 07:19Z, the landing page showed a 03:59:57Z verification time; by the 07:24Z check, committed metadata had advanced to generated_at 07:17:44Z / finished_at 07:22:50Z with collector status `ok`, while the fetched page still showed the older timestamp. Flagged item 20 records that mismatch and the evidence; the reason is undetermined.
+- **Board irregularity fixed:** literal `<<<<<<<`, `=======`, and `>>>>>>>` Git merge-conflict markers were present in the historical records above. Replaced these markers with explanatory HTML comments and clarified that the old pending-PR sentence was historical and its separate branch status was not checked. Both prior records remain intact for audit history. During rebase onto concurrent `main` updates, the same board section conflicted; retained the new `aa7d3d27` rebase note and both historical audit blocks, then removed only the conflict delimiters.
+- **Checks:** `npm ci --no-audit --no-fund` completed; after adding Flagged item 20, `npm run check` passed (18 HTML, 6 JS, 1,248 rows, 825 resolved, 441 links, 0 failures; 16 published pages, 409 local + 249 external links, 0 failures); `npm test` passed (engine 23/23, live fixes 3, live dashboard 6, library, fee/model checks, portfolio 60/60, demo-account 89/89, collector 4/4). The initial test attempt before dependency installation failed because `jsdom` was absent; after `npm ci`, the suite passed. Generated `tools/build-report.json` timestamp change was reverted.
+- **Official source checked:** Kalshi [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) confirms the requested demo REST base URLs (`https://external-api.demo.kalshi.co/trade-api/v2` recommended; `https://demo-api.kalshi.co/trade-api/v2` also supported) and the corresponding demo WebSocket URLs. The canonical site documents REST polling instead of browser WebSockets.
+- **Deployment:** GitHub Pages API reports `status: built`, legacy Pages source `main /`, HTTPS status is available in the account. Live site: https://wingbangboozle1-lang.github.io/Trade1/ .
+- **Not independently verified in this session:** live Kalshi API values or any trading account balance/execution. The restricted sandbox could not query the Kalshi API directly; the account needs owner-provided demo credentials. Automatic trading in the main dashboard is paper simulation only. These limitations and unverified points remain published on the site's Flagged for Review page. No values were fabricated.
+- **PR #82 / merge / Pages:** [PR #82](https://github.com/wingbangboozle1-lang/Trade1/pull/82) merged 2026-11-21 07:19:23Z as `14693c89349548e1d264588754a38d1758b6f90e`. No GitHub status checks were reported for that board-only PR; local build, data/link validation, and full tests passed above. GitHub Pages deployment run [44879703630](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879703630) succeeded, Pages API reported `built` (legacy `main /`, HTTPS enforced), and the published landing and Flagged pages were fetched. Deployment emitted the existing `actions/upload-artifact@v4` Node.js 20 deprecation warning (forced to Node.js 24); build and deploy passed.
+- **PR #88 / merge / Pages:** [PR #88](https://github.com/wingbangboozle1-lang/Trade1/pull/88) merged 2026-11-21 07:24:36Z as `16376d6449040b12df21f522a3154524e787e5a0`. Its `checks` job passed (run [44879924559](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879924559)); snapshot job was skipped for the PR. GitHub Pages deployment [44880120862](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880120862) succeeded, and the published Flagged page was fetched with item 20 visible. Latest committed collector metadata on the merge tree was `generated_at` 07:17:44Z, `finished_at` 07:22:50Z, `collect_status.status: ok`, `transient_read_failures: 0`; the landing-page timestamp mismatch was subsequently corrected in the published page.
+- **PR #91 / merge / Pages:** [PR #91](https://github.com/wingbangboozle1-lang/Trade1/pull/91) merged 2026-11-21 07:28:57Z as `409250e0fcfb17f749671d76c463380e37543711`. Its `checks` job passed (run [44880275000](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880275000)); snapshot job was skipped for the PR. Pages deployment [44880443795](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44880443795) succeeded. A post-deployment fetch of the public landing page displayed `2026-11-21 07:17:44Z`, matching `data/meta.json`; Flagged item 20 now marks the transient display mismatch resolved and preserves its evidence.
+- **Status:** done. No market snapshot values or application logic changed by this session; Flagged item 20 records the resolved display mismatch and the limits of that check.

@@ -1,7 +1,7 @@
 {
  "topic": "crypto",
  "label": "Crypto",
- "generated_at": "2026-11-21T07:19:44.801126+00:00",
+ "generated_at": "2026-11-21T07:17:44.256244+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -44,10 +44,41 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 141199759.43,
-   "_volume_contracts": 1973507333.48,
+   "_est_dollar_volume": 209916569.15,
+   "_volume_contracts": 1973507033.1,
    "_market_count": 28,
    "_markets": [
+    {
+     "ticker": "KXBTCY-27JAN0100-B97500",
+     "event_ticker": "KXBTCY-27JAN0100",
+     "market_type": "binary",
+     "title": "BTC price  on Jan 1, 2027?",
+     "yes_sub_title": "95,000 to 99,999.99",
+     "no_sub_title": "95,000 to 99,999.99",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.9700",
+     "previous_price_dollars": "0.9700",
+     "previous_yes_bid_dollars": "0.0000",
+     "yes_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.0100",
+     "no_bid_dollars": "0.9900",
+     "no_ask_dollars": "1.0000",
+     "yes_bid_size_fp": "0.00",
+     "yes_ask_size_fp": "16666.66",
+     "volume_fp": "72319721.51",
+     "volume_24h_fp": "95940.69",
+     "open_interest_fp": "7294538.31",
+     "open_time": "2026-02-26T00:47:19Z",
+     "close_time": "2027-01-01T05:00:00Z",
+     "expected_expiration_time": "2027-01-01T05:05:00Z",
+     "latest_expiration_time": "2027-01-08T05:00:00Z",
+     "can_close_early": true,
+     "strike_type": "between",
+     "price_level_structure": "linear_cent",
+     "_est_dollar_volume": 70150129.86,
+     "_est_dollar_volume_24h": 93062.47
+    },
     {
      "ticker": "KXBTCY-27JAN0100-B147500",
      "event_ticker": "KXBTCY-27JAN0100",
@@ -96,10 +127,10 @@
      "no_bid_dollars": "0.8000",
      "no_ask_dollars": "0.8100",
      "yes_bid_size_fp": "877.19",
-     "yes_ask_size_fp": "344.10",
-     "volume_fp": "65016638.85",
-     "volume_24h_fp": "8032.90",
-     "open_interest_fp": "13412437.78",
+     "yes_ask_size_fp": "351.41",
+     "volume_fp": "65016631.54",
+     "volume_24h_fp": "8013.48",
+     "open_interest_fp": "13412430.47",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
      "expected_expiration_time": "2027-01-01T05:05:00Z",
@@ -107,8 +138,8 @@
      "can_close_early": true,
      "strike_type": "between",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 13003327.77,
-     "_est_dollar_volume_24h": 1606.58
+     "_est_dollar_volume": 13003326.31,
+     "_est_dollar_volume_24h": 1602.7
     },
     {
      "ticker": "KXBTCY-27JAN0100-B62500",
@@ -127,9 +158,9 @@
      "no_bid_dollars": "0.7500",
      "no_ask_dollars": "0.7800",
      "yes_bid_size_fp": "757.57",
-     "yes_ask_size_fp": "715.80",
-     "volume_fp": "49017803.61",
-     "volume_24h_fp": "6549.09",
+     "yes_ask_size_fp": "721.42",
+     "volume_fp": "49017797.99",
+     "volume_24h_fp": "6521.50",
      "open_interest_fp": "8368344.97",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -138,8 +169,8 @@
      "can_close_early": true,
      "strike_type": "between",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 12254450.9,
-     "_est_dollar_volume_24h": 1637.27
+     "_est_dollar_volume": 12254449.5,
+     "_est_dollar_volume_24h": 1630.38
     },
     {
      "ticker": "KXBTCY-27JAN0100-B42500",
@@ -158,9 +189,9 @@
      "no_bid_dollars": "0.9000",
      "no_ask_dollars": "0.9200",
      "yes_bid_size_fp": "2083.33",
-     "yes_ask_size_fp": "1277.87",
-     "volume_fp": "89221621.02",
-     "volume_24h_fp": "14281.28",
+     "yes_ask_size_fp": "1293.13",
+     "volume_fp": "89221605.76",
+     "volume_24h_fp": "14255.65",
      "open_interest_fp": "25240182.52",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -169,8 +200,8 @@
      "can_close_early": true,
      "strike_type": "between",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 8922162.1,
-     "_est_dollar_volume_24h": 1428.13
+     "_est_dollar_volume": 8922160.58,
+     "_est_dollar_volume_24h": 1425.57
     },
     {
      "ticker": "KXBTCY-27JAN0100-B52500",
@@ -189,9 +220,9 @@
      "no_bid_dollars": "0.8700",
      "no_ask_dollars": "0.8800",
      "yes_bid_size_fp": "1388.88",
-     "yes_ask_size_fp": "16.71",
-     "volume_fp": "61728635.56",
-     "volume_24h_fp": "17215.13",
+     "yes_ask_size_fp": "36.41",
+     "volume_fp": "61728615.86",
+     "volume_24h_fp": "17191.18",
      "open_interest_fp": "7788362.21",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -200,8 +231,8 @@
      "can_close_early": true,
      "strike_type": "between",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 8024722.62,
-     "_est_dollar_volume_24h": 2237.97
+     "_est_dollar_volume": 8024720.06,
+     "_est_dollar_volume_24h": 2234.85
     },
     {
      "ticker": "KXBTCY-27JAN0100-B47500",
@@ -220,10 +251,10 @@
      "no_bid_dollars": "0.9000",
      "no_ask_dollars": "0.9100",
      "yes_bid_size_fp": "3703.70",
-     "yes_ask_size_fp": "1191.26",
-     "volume_fp": "80203318.26",
-     "volume_24h_fp": "24606.64",
-     "open_interest_fp": "26578823.01",
+     "yes_ask_size_fp": "1204.06",
+     "volume_fp": "80203305.46",
+     "volume_24h_fp": "24574.42",
+     "open_interest_fp": "26578810.21",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
      "expected_expiration_time": "2027-01-01T05:05:00Z",
@@ -231,8 +262,8 @@
      "can_close_early": true,
      "strike_type": "between",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 8020331.83,
-     "_est_dollar_volume_24h": 2460.66
+     "_est_dollar_volume": 8020330.55,
+     "_est_dollar_volume_24h": 2457.44
     },
     {
      "ticker": "KXBTCY-27JAN0100-B67500",
@@ -251,9 +282,9 @@
      "no_bid_dollars": "0.8900",
      "no_ask_dollars": "0.9000",
      "yes_bid_size_fp": "1666.66",
-     "yes_ask_size_fp": "979.96",
-     "volume_fp": "42989613.67",
-     "volume_24h_fp": "7424.12",
+     "yes_ask_size_fp": "991.03",
+     "volume_fp": "42989602.60",
+     "volume_24h_fp": "7397.16",
      "open_interest_fp": "7167108.06",
      "open_time": "2026-02-26T00:47:19Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -262,39 +293,8 @@
      "can_close_early": true,
      "strike_type": "between",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4728857.5,
-     "_est_dollar_volume_24h": 816.65
-    },
-    {
-     "ticker": "KXBTCY-27JAN0100-B72500",
-     "event_ticker": "KXBTCY-27JAN0100",
-     "market_type": "binary",
-     "title": "BTC price  on Jan 1, 2027?",
-     "yes_sub_title": "70,000 to 74,999.99",
-     "no_sub_title": "70,000 to 74,999.99",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.0700",
-     "previous_price_dollars": "0.0900",
-     "previous_yes_bid_dollars": "0.0800",
-     "yes_bid_dollars": "0.0600",
-     "yes_ask_dollars": "0.0700",
-     "no_bid_dollars": "0.9300",
-     "no_ask_dollars": "0.9400",
-     "yes_bid_size_fp": "8333.31",
-     "yes_ask_size_fp": "987.11",
-     "volume_fp": "35287162.35",
-     "volume_24h_fp": "11354.24",
-     "open_interest_fp": "4729783.77",
-     "open_time": "2026-02-26T00:47:19Z",
-     "close_time": "2027-01-01T05:00:00Z",
-     "expected_expiration_time": "2027-01-01T05:05:00Z",
-     "latest_expiration_time": "2027-01-08T05:00:00Z",
-     "can_close_early": true,
-     "strike_type": "between",
-     "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 2470101.36,
-     "_est_dollar_volume_24h": 794.8
+     "_est_dollar_volume": 4728856.29,
+     "_est_dollar_volume_24h": 813.69
     }
    ]
   },
@@ -583,8 +583,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 1480076.98,
-   "_volume_contracts": 3442039.5,
+   "_est_dollar_volume": 1480072.67,
+   "_volume_contracts": 3442029.47,
    "_market_count": 1,
    "_markets": [
     {
@@ -605,9 +605,9 @@
      "no_bid_dollars": "0.5700",
      "no_ask_dollars": "0.5900",
      "yes_bid_size_fp": "406.50",
-     "yes_ask_size_fp": "284.91",
-     "volume_fp": "3442039.50",
-     "volume_24h_fp": "7983.86",
+     "yes_ask_size_fp": "294.94",
+     "volume_fp": "3442029.47",
+     "volume_24h_fp": "7981.51",
      "open_interest_fp": "2053415.95",
      "open_time": "2026-06-03T03:47:04Z",
      "close_time": "2027-01-01T04:59:00Z",
@@ -615,8 +615,8 @@
      "latest_expiration_time": "2027-01-08T04:59:00Z",
      "can_close_early": true,
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 1480076.98,
-     "_est_dollar_volume_24h": 3433.06
+     "_est_dollar_volume": 1480072.67,
+     "_est_dollar_volume_24h": 3432.05
     }
    ]
   },
@@ -635,8 +635,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 1136468.34,
-   "_volume_contracts": 3643968.77,
+   "_est_dollar_volume": 1136453.29,
+   "_volume_contracts": 3643928.17,
    "_market_count": 12,
    "_markets": [
     {
@@ -656,10 +656,10 @@
      "no_bid_dollars": "0.3000",
      "no_ask_dollars": "0.3100",
      "yes_bid_size_fp": "241.54",
-     "yes_ask_size_fp": "82.37",
-     "volume_fp": "819337.35",
-     "volume_24h_fp": "3903.98",
-     "open_interest_fp": "500444.29",
+     "yes_ask_size_fp": "92.74",
+     "volume_fp": "819326.98",
+     "volume_24h_fp": "3876.36",
+     "open_interest_fp": "500433.92",
      "open_time": "2026-02-05T21:55:16Z",
      "close_time": "2027-01-01T05:00:00Z",
      "expected_expiration_time": "2027-01-01T05:00:00Z",
@@ -667,8 +667,8 @@
      "can_close_early": true,
      "strike_type": "less",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 573536.14,
-     "_est_dollar_volume_24h": 2732.79
+     "_est_dollar_volume": 573528.89,
+     "_est_dollar_volume_24h": 2713.45
     },
     {
      "ticker": "KXBTCMINY-27JAN01-45000.00",
@@ -687,10 +687,10 @@
      "no_bid_dollars": "0.8000",
      "no_ask_dollars": "0.8100",
      "yes_bid_size_fp": "877.19",
-     "yes_ask_size_fp": "663.02",
-     "volume_fp": "1346846.88",
-     "volume_24h_fp": "1966.35",
-     "open_interest_fp": "987819.21",
+     "yes_ask_size_fp": "668.03",
+     "volume_fp": "1346841.87",
+     "volume_24h_fp": "1935.26",
+     "open_interest_fp": "987814.20",
      "open_time": "2026-02-05T21:55:16Z",
      "close_time": "2027-01-01T05:00:00Z",
      "expected_expiration_time": "2027-01-01T05:00:00Z",
@@ -698,8 +698,8 @@
      "can_close_early": true,
      "strike_type": "less",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 269369.38,
-     "_est_dollar_volume_24h": 393.27
+     "_est_dollar_volume": 269368.37,
+     "_est_dollar_volume_24h": 387.05
     },
     {
      "ticker": "KXBTCMINY-27JAN01-50000.00",
@@ -718,10 +718,10 @@
      "no_bid_dollars": "0.6200",
      "no_ask_dollars": "0.6300",
      "yes_bid_size_fp": "450.45",
-     "yes_ask_size_fp": "405.10",
-     "volume_fp": "613101.01",
-     "volume_24h_fp": "5822.47",
-     "open_interest_fp": "461413.20",
+     "yes_ask_size_fp": "421.31",
+     "volume_fp": "613084.80",
+     "volume_24h_fp": "5792.97",
+     "open_interest_fp": "461396.99",
      "open_time": "2026-02-05T21:55:16Z",
      "close_time": "2027-01-01T05:00:00Z",
      "expected_expiration_time": "2027-01-01T05:00:00Z",
@@ -729,8 +729,8 @@
      "can_close_early": true,
      "strike_type": "less",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 232978.38,
-     "_est_dollar_volume_24h": 2212.54
+     "_est_dollar_volume": 232972.22,
+     "_est_dollar_volume_24h": 2201.33
     },
     {
      "ticker": "KXBTCMINY-27JAN01-40000.00",
@@ -749,9 +749,9 @@
      "no_bid_dollars": "0.9300",
      "no_ask_dollars": "0.9400",
      "yes_bid_size_fp": "5555.54",
-     "yes_ask_size_fp": "137.04",
-     "volume_fp": "864610.37",
-     "volume_24h_fp": "9380.50",
+     "yes_ask_size_fp": "146.05",
+     "volume_fp": "864601.36",
+     "volume_24h_fp": "9354.22",
      "open_interest_fp": "780725.63",
      "open_time": "2026-02-05T21:55:16Z",
      "close_time": "2027-01-01T05:00:00Z",
@@ -760,8 +760,8 @@
      "can_close_early": true,
      "strike_type": "less",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 60522.73,
-     "_est_dollar_volume_24h": 656.64
+     "_est_dollar_volume": 60522.1,
+     "_est_dollar_volume_24h": 654.8
     },
     {
      "ticker": "KXBTCMINY-27JAN01-60000.00",
@@ -2017,8 +2017,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 1705.92,
-   "_volume_contracts": 3218.71,
+   "_est_dollar_volume": 1722.6,
+   "_volume_contracts": 3132.0,
    "_market_count": 1,
    "_markets": [
     {
@@ -2030,18 +2030,18 @@
      "no_sub_title": "Target price: TBD",
      "status": "active",
      "result": "",
-     "last_price_dollars": "0.5300",
+     "last_price_dollars": "0.5500",
      "previous_price_dollars": "0.0000",
      "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.4900",
-     "yes_ask_dollars": "0.5400",
-     "no_bid_dollars": "0.4600",
-     "no_ask_dollars": "0.5100",
-     "yes_bid_size_fp": "25.00",
-     "yes_ask_size_fp": "22.00",
-     "volume_fp": "3218.71",
-     "volume_24h_fp": "3199.37",
-     "open_interest_fp": "2523.39",
+     "yes_bid_dollars": "0.5400",
+     "yes_ask_dollars": "0.5500",
+     "no_bid_dollars": "0.4500",
+     "no_ask_dollars": "0.4600",
+     "yes_bid_size_fp": "8.64",
+     "yes_ask_size_fp": "3.71",
+     "volume_fp": "3132.00",
+     "volume_24h_fp": "0.00",
+     "open_interest_fp": "2505.24",
      "open_time": "2026-11-21T07:15:00Z",
      "close_time": "2026-11-21T07:30:00Z",
      "expected_expiration_time": "2026-11-21T07:35:00Z",
@@ -2049,8 +2049,8 @@
      "can_close_early": true,
      "strike_type": "greater_or_equal",
      "price_level_structure": "tapered_deci_cent",
-     "_est_dollar_volume": 1705.92,
-     "_est_dollar_volume_24h": 1695.67
+     "_est_dollar_volume": 1722.6,
+     "_est_dollar_volume_24h": 0.0
     }
    ]
   },
@@ -2060,8 +2060,8 @@
    "title": "Demo BTC at or above 57962.02 USD",
    "category": null,
    "_match_reason": "series-prefix",
-   "_est_dollar_volume": 1622.5,
-   "_volume_contracts": 2950.0,
+   "_est_dollar_volume": 1185.75,
+   "_volume_contracts": 2635.0,
    "_market_count": 1,
    "_markets": [
     {
@@ -2073,25 +2073,25 @@
      "no_sub_title": "Below reference",
      "status": "active",
      "result": "",
-     "last_price_dollars": "0.5500",
+     "last_price_dollars": "0.4500",
      "previous_price_dollars": "0.0000",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0100",
      "yes_ask_dollars": "0.9900",
      "no_bid_dollars": "0.0100",
      "no_ask_dollars": "0.9900",
-     "yes_bid_size_fp": "11.00",
+     "yes_bid_size_fp": "457.36",
      "yes_ask_size_fp": "1.00",
-     "volume_fp": "2950.00",
+     "volume_fp": "2635.00",
      "volume_24h_fp": "2235.00",
-     "open_interest_fp": "90.00",
+     "open_interest_fp": "75.00",
      "open_time": "2026-11-21T07:00:11.173685Z",
      "close_time": "2026-11-21T08:00:00Z",
      "latest_expiration_time": "2026-11-21T08:05:00Z",
      "can_close_early": false,
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 1622.5,
-     "_est_dollar_volume_24h": 1229.25
+     "_est_dollar_volume": 1185.75,
+     "_est_dollar_volume_24h": 1005.75
     }
    ]
   },
@@ -2111,8 +2111,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 233.0,
-   "_volume_contracts": 500.0,
+   "_est_dollar_volume": 211.0,
+   "_volume_contracts": 450.0,
    "_market_count": 300,
    "_markets": [
     {
@@ -2244,38 +2244,6 @@
      "_est_dollar_volume_24h": 27.5
     },
     {
-     "ticker": "KXETHD-26NOV2103-T1634.99",
-     "event_ticker": "KXETHD-26NOV2103",
-     "market_type": "binary",
-     "title": "Ethereum price at Nov 21, 2026 at 3am EST?",
-     "subtitle": "$1,635 or above",
-     "yes_sub_title": "$1,635 or above",
-     "no_sub_title": "$1,635 or above",
-     "status": "active",
-     "result": "",
-     "last_price_dollars": "0.4400",
-     "previous_price_dollars": "0.0000",
-     "previous_yes_bid_dollars": "0.0000",
-     "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.4400",
-     "no_bid_dollars": "0.5600",
-     "no_ask_dollars": "1.0000",
-     "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "50.00",
-     "volume_fp": "50.00",
-     "volume_24h_fp": "50.00",
-     "open_interest_fp": "50.00",
-     "open_time": "2026-11-21T07:00:00Z",
-     "close_time": "2026-11-21T08:00:00Z",
-     "expected_expiration_time": "2026-11-21T08:05:00Z",
-     "latest_expiration_time": "2026-11-28T08:00:00Z",
-     "can_close_early": true,
-     "strike_type": "greater",
-     "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 22.0,
-     "_est_dollar_volume_24h": 22.0
-    },
-    {
      "ticker": "KXETHD-26NOV2103-T1639.99",
      "event_ticker": "KXETHD-26NOV2103",
      "market_type": "binary",
@@ -2370,6 +2338,38 @@
      "price_level_structure": "linear_cent",
      "_est_dollar_volume": 15.5,
      "_est_dollar_volume_24h": 15.5
+    },
+    {
+     "ticker": "KXETHD-26NOV2103-T1649.99",
+     "event_ticker": "KXETHD-26NOV2103",
+     "market_type": "binary",
+     "title": "Ethereum price at Nov 21, 2026 at 3am EST?",
+     "subtitle": "$1,650 or above",
+     "yes_sub_title": "$1,650 or above",
+     "no_sub_title": "$1,650 or above",
+     "status": "active",
+     "result": "",
+     "last_price_dollars": "0.3000",
+     "previous_price_dollars": "0.0000",
+     "previous_yes_bid_dollars": "0.0000",
+     "yes_bid_dollars": "0.0000",
+     "yes_ask_dollars": "1.0000",
+     "no_bid_dollars": "0.0000",
+     "no_ask_dollars": "1.0000",
+     "yes_bid_size_fp": "0.00",
+     "yes_ask_size_fp": "0.00",
+     "volume_fp": "50.00",
+     "volume_24h_fp": "50.00",
+     "open_interest_fp": "50.00",
+     "open_time": "2026-11-21T07:00:00Z",
+     "close_time": "2026-11-21T08:00:00Z",
+     "expected_expiration_time": "2026-11-21T08:05:00Z",
+     "latest_expiration_time": "2026-11-28T08:00:00Z",
+     "can_close_early": true,
+     "strike_type": "greater",
+     "price_level_structure": "linear_cent",
+     "_est_dollar_volume": 15.0,
+     "_est_dollar_volume_24h": 15.0
     }
    ]
   },
@@ -7128,7 +7128,7 @@
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "0.00",
      "volume_fp": "1.00",
-     "volume_24h_fp": "1.00",
+     "volume_24h_fp": "0.00",
      "open_interest_fp": "1.00",
      "open_time": "2026-11-21T07:15:00Z",
      "close_time": "2026-11-21T07:30:00Z",
@@ -7138,7 +7138,7 @@
      "strike_type": "greater_or_equal",
      "price_level_structure": "tapered_deci_cent",
      "_est_dollar_volume": 0.7,
-     "_est_dollar_volume_24h": 0.7
+     "_est_dollar_volume_24h": 0.0
     }
    ]
   }

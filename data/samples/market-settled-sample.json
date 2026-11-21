@@ -1,5 +1,5 @@
 {
- "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986684&limit=1000&mve_filter=exclude",
+ "fetched_from": "https://external-api.demo.kalshi.co/trade-api/v2/markets?status=settled&min_settled_ts=1794986563&limit=1000&mve_filter=exclude",
  "raw_market": {
   "can_close_early": true,
   "close_time": "2026-11-21T07:15:00Z",

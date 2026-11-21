@@ -1,7 +1,7 @@
 {
  "topic": "elections",
  "label": "Elections",
- "generated_at": "2026-11-21T07:19:44.801126+00:00",
+ "generated_at": "2026-11-21T07:17:44.256244+00:00",
  "source_base": "https://external-api.demo.kalshi.co/trade-api/v2",
  "source_urls": {
   "events": [
@@ -43,8 +43,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 1274998134.46,
-   "_volume_contracts": 7983688705.52,
+   "_est_dollar_volume": 1275432790.95,
+   "_volume_contracts": 7983688338.26,
    "_market_count": 67,
    "_markets": [
     {
@@ -95,8 +95,8 @@
      "no_bid_dollars": "0.1130",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "148.75",
-     "volume_fp": "418781986.96",
+     "yes_ask_size_fp": "157.02",
+     "volume_fp": "418781978.69",
      "volume_24h_fp": "64125.71",
      "open_interest_fp": "137412877.49",
      "open_time": "2025-03-24T14:14:56Z",
@@ -106,7 +106,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 371459622.43,
+     "_est_dollar_volume": 371459615.1,
      "_est_dollar_volume_24h": 56879.5
     },
     {
@@ -126,8 +126,8 @@
      "no_bid_dollars": "0.0510",
      "no_ask_dollars": "0.9900",
      "yes_bid_size_fp": "1.00",
-     "yes_ask_size_fp": "438.90",
-     "volume_fp": "186520243.79",
+     "yes_ask_size_fp": "447.03",
+     "volume_fp": "186520235.66",
      "volume_24h_fp": "8854.95",
      "open_interest_fp": "89344735.06",
      "open_time": "2025-02-07T19:24:58Z",
@@ -137,7 +137,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 177007711.36,
+     "_est_dollar_volume": 177007703.64,
      "_est_dollar_volume_24h": 8403.35
     },
     {
@@ -188,8 +188,8 @@
      "no_bid_dollars": "0.9610",
      "no_ask_dollars": "0.9620",
      "yes_bid_size_fp": "13869.69",
-     "yes_ask_size_fp": "185.90",
-     "volume_fp": "414933409.68",
+     "yes_ask_size_fp": "205.17",
+     "volume_fp": "414933390.41",
      "volume_24h_fp": "26735.62",
      "open_interest_fp": "189529515.91",
      "open_time": "2024-12-10T03:33:22Z",
@@ -199,7 +199,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 16182402.98,
+     "_est_dollar_volume": 16182402.23,
      "_est_dollar_volume_24h": 1042.69
     },
     {
@@ -219,10 +219,10 @@
      "no_bid_dollars": "0.7400",
      "no_ask_dollars": "0.7410",
      "yes_bid_size_fp": "579.20",
-     "yes_ask_size_fp": "429.73",
-     "volume_fp": "54538026.93",
+     "yes_ask_size_fp": "438.12",
+     "volume_fp": "54538018.54",
      "volume_24h_fp": "9587.88",
-     "open_interest_fp": "10491832.38",
+     "open_interest_fp": "10491823.99",
      "open_time": "2025-05-23T17:01:15Z",
      "close_time": "2028-11-07T15:00:00Z",
      "expected_expiration_time": "2028-11-07T15:00:00Z",
@@ -230,7 +230,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 14179887.0,
+     "_est_dollar_volume": 14179884.82,
      "_est_dollar_volume_24h": 2492.85
     },
     {
@@ -250,8 +250,8 @@
      "no_bid_dollars": "0.8500",
      "no_ask_dollars": "0.8600",
      "yes_bid_size_fp": "2380.94",
-     "yes_ask_size_fp": "419.08",
-     "volume_fp": "59049336.55",
+     "yes_ask_size_fp": "426.17",
+     "volume_fp": "59049329.46",
      "volume_24h_fp": "8894.49",
      "open_interest_fp": "14795886.21",
      "open_time": "2024-12-10T03:33:22Z",
@@ -261,7 +261,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 8857400.48,
+     "_est_dollar_volume": 8857399.42,
      "_est_dollar_volume_24h": 1334.17
     },
     {
@@ -281,10 +281,10 @@
      "no_bid_dollars": "0.9500",
      "no_ask_dollars": "0.9520",
      "yes_bid_size_fp": "10416.66",
-     "yes_ask_size_fp": "8906.84",
-     "volume_fp": "134227226.96",
+     "yes_ask_size_fp": "8918.39",
+     "volume_fp": "134227215.41",
      "volume_24h_fp": "8591.67",
-     "open_interest_fp": "17648730.22",
+     "open_interest_fp": "17648718.67",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
      "expected_expiration_time": "2028-11-07T15:00:00Z",
@@ -292,7 +292,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 6711361.35,
+     "_est_dollar_volume": 6711360.77,
      "_est_dollar_volume_24h": 429.58
     }
    ]
@@ -312,8 +312,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 175859101.53,
-   "_volume_contracts": 1443134443.46,
+   "_est_dollar_volume": 175874526.38,
+   "_volume_contracts": 1443134045.08,
    "_market_count": 53,
    "_markets": [
     {
@@ -334,8 +334,8 @@
      "no_bid_dollars": "0.1950",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "1822.27",
-     "volume_fp": "136147976.16",
+     "yes_ask_size_fp": "1833.26",
+     "volume_fp": "136147965.17",
      "volume_24h_fp": "8967.39",
      "open_interest_fp": "65751843.73",
      "open_time": "2025-05-19T22:39:51Z",
@@ -345,7 +345,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 109599120.81,
+     "_est_dollar_volume": 109599111.96,
      "_est_dollar_volume_24h": 7218.75
     },
     {
@@ -430,8 +430,8 @@
      "no_bid_dollars": "0.9090",
      "no_ask_dollars": "0.9100",
      "yes_bid_size_fp": "5555.55",
-     "yes_ask_size_fp": "1697.87",
-     "volume_fp": "30328641.29",
+     "yes_ask_size_fp": "1709.54",
+     "volume_fp": "30328629.62",
      "volume_24h_fp": "8896.35",
      "open_interest_fp": "6541990.54",
      "open_time": "2025-05-19T22:39:51Z",
@@ -441,7 +441,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2759906.36,
+     "_est_dollar_volume": 2759905.3,
      "_est_dollar_volume_24h": 809.57
     },
     {
@@ -462,8 +462,8 @@
      "no_bid_dollars": "0.9420",
      "no_ask_dollars": "0.9440",
      "yes_bid_size_fp": "2976.19",
-     "yes_ask_size_fp": "3027.56",
-     "volume_fp": "33949740.17",
+     "yes_ask_size_fp": "3033.60",
+     "volume_fp": "33949734.13",
      "volume_24h_fp": "8792.86",
      "open_interest_fp": "10859511.12",
      "open_time": "2025-05-19T22:39:51Z",
@@ -473,7 +473,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1969084.93,
+     "_est_dollar_volume": 1969084.58,
      "_est_dollar_volume_24h": 509.99
     },
     {
@@ -494,10 +494,10 @@
      "no_bid_dollars": "0.9110",
      "no_ask_dollars": "0.9130",
      "yes_bid_size_fp": "7662.80",
-     "yes_ask_size_fp": "1940.57",
-     "volume_fp": "21760560.50",
+     "yes_ask_size_fp": "1949.38",
+     "volume_fp": "21760551.69",
      "volume_24h_fp": "8824.43",
-     "open_interest_fp": "3498644.42",
+     "open_interest_fp": "3498635.61",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
      "expected_expiration_time": "2029-01-21T15:00:00Z",
@@ -505,7 +505,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1936689.88,
+     "_est_dollar_volume": 1936689.1,
      "_est_dollar_volume_24h": 785.37
     },
     {
@@ -526,10 +526,10 @@
      "no_bid_dollars": "0.9970",
      "no_ask_dollars": "0.9980",
      "yes_bid_size_fp": "83333.33",
-     "yes_ask_size_fp": "50745.26",
-     "volume_fp": "507702104.32",
+     "yes_ask_size_fp": "50759.47",
+     "volume_fp": "507702090.11",
      "volume_24h_fp": "8922.81",
-     "open_interest_fp": "190201264.38",
+     "open_interest_fp": "190201250.17",
      "open_time": "2025-05-19T22:39:51Z",
      "close_time": "2029-11-07T15:00:00Z",
      "expected_expiration_time": "2029-01-21T15:00:00Z",
@@ -537,7 +537,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1523106.31,
+     "_est_dollar_volume": 1523106.27,
      "_est_dollar_volume_24h": 26.77
     },
     {
@@ -558,8 +558,8 @@
      "no_bid_dollars": "0.8700",
      "no_ask_dollars": "0.8800",
      "yes_bid_size_fp": "1388.88",
-     "yes_ask_size_fp": "414.66",
-     "volume_fp": "11610320.67",
+     "yes_ask_size_fp": "420.51",
+     "volume_fp": "11610314.82",
      "volume_24h_fp": "10278.12",
      "open_interest_fp": "3057062.41",
      "open_time": "2025-05-19T22:39:51Z",
@@ -569,7 +569,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 1509341.69,
+     "_est_dollar_volume": 1509340.93,
      "_est_dollar_volume_24h": 1336.16
     }
    ]
@@ -918,8 +918,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 48731747.15,
-   "_volume_contracts": 1027917572.18,
+   "_est_dollar_volume": 48774326.42,
+   "_volume_contracts": 1027917147.84,
    "_market_count": 60,
    "_markets": [
     {
@@ -1001,8 +1001,8 @@
      "no_bid_dollars": "0.8400",
      "no_ask_dollars": "0.8500",
      "yes_bid_size_fp": "3333.33",
-     "yes_ask_size_fp": "505.38",
-     "volume_fp": "17629979.67",
+     "yes_ask_size_fp": "522.43",
+     "volume_fp": "17629962.62",
      "volume_24h_fp": "8761.78",
      "open_interest_fp": "5301038.51",
      "open_time": "2024-12-10T03:33:22Z",
@@ -1012,7 +1012,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2820796.75,
+     "_est_dollar_volume": 2820794.02,
      "_est_dollar_volume_24h": 1401.88
     },
     {
@@ -1032,10 +1032,10 @@
      "no_bid_dollars": "0.7600",
      "no_ask_dollars": "0.7700",
      "yes_bid_size_fp": "724.63",
-     "yes_ask_size_fp": "194.25",
-     "volume_fp": "11570793.89",
+     "yes_ask_size_fp": "202.90",
+     "volume_fp": "11570785.24",
      "volume_24h_fp": "9711.55",
-     "open_interest_fp": "2693741.95",
+     "open_interest_fp": "2693733.30",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
      "expected_expiration_time": "2028-11-07T15:00:00Z",
@@ -1043,7 +1043,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2776990.53,
+     "_est_dollar_volume": 2776988.46,
      "_est_dollar_volume_24h": 2330.77
     },
     {
@@ -1063,10 +1063,10 @@
      "no_bid_dollars": "0.6800",
      "no_ask_dollars": "0.6810",
      "yes_bid_size_fp": "522.46",
-     "yes_ask_size_fp": "466.07",
-     "volume_fp": "6786336.71",
+     "yes_ask_size_fp": "472.66",
+     "volume_fp": "6786330.12",
      "volume_24h_fp": "11985.54",
-     "open_interest_fp": "3092324.02",
+     "open_interest_fp": "3092317.43",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
      "expected_expiration_time": "2028-11-07T15:00:00Z",
@@ -1074,7 +1074,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2171627.75,
+     "_est_dollar_volume": 2171625.64,
      "_est_dollar_volume_24h": 3835.37
     },
     {
@@ -1094,8 +1094,8 @@
      "no_bid_dollars": "0.9710",
      "no_ask_dollars": "0.9720",
      "yes_bid_size_fp": "5952.38",
-     "yes_ask_size_fp": "1601.47",
-     "volume_fp": "68986842.20",
+     "yes_ask_size_fp": "1610.69",
+     "volume_fp": "68986832.98",
      "volume_24h_fp": "14925.58",
      "open_interest_fp": "19484042.84",
      "open_time": "2025-10-01T03:21:09Z",
@@ -1105,7 +1105,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 2000618.42,
+     "_est_dollar_volume": 2000618.16,
      "_est_dollar_volume_24h": 432.84
     },
     {
@@ -1125,10 +1125,10 @@
      "no_bid_dollars": "0.9900",
      "no_ask_dollars": "0.9920",
      "yes_bid_size_fp": "3960.41",
-     "yes_ask_size_fp": "12073.48",
-     "volume_fp": "96284989.93",
+     "yes_ask_size_fp": "12081.85",
+     "volume_fp": "96284981.56",
      "volume_24h_fp": "25671.13",
-     "open_interest_fp": "40083426.49",
+     "open_interest_fp": "40083418.12",
      "open_time": "2024-12-10T03:33:22Z",
      "close_time": "2028-11-07T15:00:00Z",
      "expected_expiration_time": "2028-11-07T15:00:00Z",
@@ -1136,7 +1136,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 962849.9,
+     "_est_dollar_volume": 962849.82,
      "_est_dollar_volume_24h": 256.71
     },
     {
@@ -1156,8 +1156,8 @@
      "no_bid_dollars": "0.9720",
      "no_ask_dollars": "0.9730",
      "yes_bid_size_fp": "12345.66",
-     "yes_ask_size_fp": "11107.91",
-     "volume_fp": "27592858.05",
+     "yes_ask_size_fp": "11117.81",
+     "volume_fp": "27592848.15",
      "volume_24h_fp": "8874.94",
      "open_interest_fp": "10688149.88",
      "open_time": "2024-12-10T03:33:22Z",
@@ -1167,7 +1167,7 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "deci_cent",
-     "_est_dollar_volume": 772600.03,
+     "_est_dollar_volume": 772599.75,
      "_est_dollar_volume_24h": 248.5
     }
    ]
@@ -3510,8 +3510,8 @@
     }
    ],
    "_match_reason": "series-discovery",
-   "_est_dollar_volume": 188363.52,
-   "_volume_contracts": 9649876.32,
+   "_est_dollar_volume": 188349.2,
+   "_volume_contracts": 9649546.38,
    "_market_count": 31,
    "_markets": [
     {
@@ -3532,10 +3532,10 @@
      "no_bid_dollars": "0.4900",
      "no_ask_dollars": "0.5000",
      "yes_bid_size_fp": "666.66",
-     "yes_ask_size_fp": "153.84",
-     "volume_fp": "74659.44",
-     "volume_24h_fp": "9051.35",
-     "open_interest_fp": "55762.95",
+     "yes_ask_size_fp": "163.62",
+     "volume_fp": "74649.66",
+     "volume_24h_fp": "9056.28",
+     "open_interest_fp": "55753.17",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3543,8 +3543,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 38076.31,
-     "_est_dollar_volume_24h": 4616.19
+     "_est_dollar_volume": 38071.33,
+     "_est_dollar_volume_24h": 4618.7
     },
     {
      "ticker": "KXFRENCHPRES-27-DLIS",
@@ -3564,9 +3564,9 @@
      "no_bid_dollars": "0.8300",
      "no_ask_dollars": "0.8400",
      "yes_bid_size_fp": "1041.66",
-     "yes_ask_size_fp": "774.08",
-     "volume_fp": "207980.04",
-     "volume_24h_fp": "11476.93",
+     "yes_ask_size_fp": "786.88",
+     "volume_fp": "207967.24",
+     "volume_24h_fp": "11474.12",
      "open_interest_fp": "188366.24",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
@@ -3575,8 +3575,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 35356.61,
-     "_est_dollar_volume_24h": 1951.08
+     "_est_dollar_volume": 35354.43,
+     "_est_dollar_volume_24h": 1950.6
     },
     {
      "ticker": "KXFRENCHPRES-27-DVIL",
@@ -3596,9 +3596,9 @@
      "no_bid_dollars": "0.9800",
      "no_ask_dollars": "0.9900",
      "yes_bid_size_fp": "16666.66",
-     "yes_ask_size_fp": "5116.23",
-     "volume_fp": "336459.71",
-     "volume_24h_fp": "34058.83",
+     "yes_ask_size_fp": "5135.13",
+     "volume_fp": "336440.81",
+     "volume_24h_fp": "34048.03",
      "open_interest_fp": "233101.94",
      "open_time": "2026-01-14T19:25:20Z",
      "close_time": "2028-05-30T14:00:00Z",
@@ -3607,8 +3607,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 6729.19,
-     "_est_dollar_volume_24h": 681.18
+     "_est_dollar_volume": 6728.82,
+     "_est_dollar_volume_24h": 680.96
     },
     {
      "ticker": "KXFRENCHPRES-27-MBOM",
@@ -3624,14 +3624,14 @@
      "previous_price_dollars": "0.0100",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "1.0000",
-     "no_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.0100",
+     "no_bid_dollars": "0.9900",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "0.00",
-     "volume_fp": "585910.85",
-     "volume_24h_fp": "66498.88",
-     "open_interest_fp": "398223.82",
+     "yes_ask_size_fp": "16666.66",
+     "volume_fp": "585905.74",
+     "volume_24h_fp": "66484.29",
+     "open_interest_fp": "398222.61",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3639,8 +3639,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5859.11,
-     "_est_dollar_volume_24h": 664.99
+     "_est_dollar_volume": 5859.06,
+     "_est_dollar_volume_24h": 664.84
     },
     {
      "ticker": "KXFRENCHPRES-27-CDEL",
@@ -3660,10 +3660,10 @@
      "no_bid_dollars": "0.9900",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "16666.27",
-     "volume_fp": "559824.28",
-     "volume_24h_fp": "34905.76",
-     "open_interest_fp": "361744.79",
+     "yes_ask_size_fp": "16666.66",
+     "volume_fp": "559816.18",
+     "volume_24h_fp": "34892.95",
+     "open_interest_fp": "361744.40",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3671,8 +3671,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5598.24,
-     "_est_dollar_volume_24h": 349.06
+     "_est_dollar_volume": 5598.16,
+     "_est_dollar_volume_24h": 348.93
     },
     {
      "ticker": "KXFRENCHPRES-27-XBER",
@@ -3692,9 +3692,9 @@
      "no_bid_dollars": "0.9900",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "16664.40",
-     "volume_fp": "548384.20",
-     "volume_24h_fp": "35218.71",
+     "yes_ask_size_fp": "16663.92",
+     "volume_fp": "548377.87",
+     "volume_24h_fp": "35224.45",
      "open_interest_fp": "346709.89",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
@@ -3703,8 +3703,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5483.84,
-     "_est_dollar_volume_24h": 352.19
+     "_est_dollar_volume": 5483.78,
+     "_est_dollar_volume_24h": 352.24
     },
     {
      "ticker": "KXFRENCHPRES-27-VPEC",
@@ -3720,13 +3720,13 @@
      "previous_price_dollars": "0.0100",
      "previous_yes_bid_dollars": "0.0000",
      "yes_bid_dollars": "0.0000",
-     "yes_ask_dollars": "0.0100",
-     "no_bid_dollars": "0.9900",
+     "yes_ask_dollars": "1.0000",
+     "no_bid_dollars": "0.0000",
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
-     "yes_ask_size_fp": "16666.54",
-     "volume_fp": "507621.16",
-     "volume_24h_fp": "64698.75",
+     "yes_ask_size_fp": "0.00",
+     "volume_fp": "507611.97",
+     "volume_24h_fp": "64711.22",
      "open_interest_fp": "357653.78",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
@@ -3735,8 +3735,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 5076.21,
-     "_est_dollar_volume_24h": 646.99
+     "_est_dollar_volume": 5076.12,
+     "_est_dollar_volume_24h": 647.11
     },
     {
      "ticker": "KXFRENCHPRES-27-OFAU",
@@ -3757,9 +3757,9 @@
      "no_ask_dollars": "1.0000",
      "yes_bid_size_fp": "0.00",
      "yes_ask_size_fp": "16666.66",
-     "volume_fp": "477760.38",
-     "volume_24h_fp": "34085.94",
-     "open_interest_fp": "296118.17",
+     "volume_fp": "477756.96",
+     "volume_24h_fp": "34084.28",
+     "open_interest_fp": "296115.10",
      "open_time": "2025-03-13T04:27:36Z",
      "close_time": "2028-05-30T14:00:00Z",
      "expected_expiration_time": "2027-05-31T14:00:00Z",
@@ -3767,8 +3767,8 @@
      "can_close_early": true,
      "strike_type": "custom",
      "price_level_structure": "linear_cent",
-     "_est_dollar_volume": 4777.6,
-     "_est_dollar_volume_24h": 340.86
+     "_est_dollar_volume": 4777.57,
+     "_est_dollar_volume_24h": 340.84
     }
    ]
   },
