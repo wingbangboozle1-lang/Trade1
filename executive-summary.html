@@ -66,7 +66,7 @@
         <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-series-list">Get Series List</a> (<code>category</code>/<code>tags</code> filters); <a href="methods.html">Methods §2</a></td></tr>
 
       <tr><td>Highest dollar amount live events</td>
-        <td>The market table is ranked by <b>estimated</b> 24-hour traded notional (contracts × last price) with open interest shown alongside. It is labelled an estimate everywhere because <b>the API publishes no per-market dollar-volume field</b>.</td>
+        <td>The market table is ranked by <b>estimated</b> lifetime traded notional (total contracts × last price), with the estimated 24-hour figure breaking ties and open interest shown alongside (<code>rowsFor()</code> in <code>assets/app.js</code>). It is labelled an estimate everywhere because <b>the API publishes no per-market dollar-volume field</b>.</td>
         <td class="src"><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets schema</a> (has <code>volume_fp</code> in contracts, not dollars); <a href="flagged.html">Flagged #5</a></td></tr>
 
       <tr><td>Alerts for moves ≥ $0.10 either direction</td>

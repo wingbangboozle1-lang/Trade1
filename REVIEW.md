@@ -50,7 +50,11 @@ their own verification notes stay in-tree for review.
 - P&L, thresholds and rounding are covered by `tests/root_engine.test.js` (40 assertions, runs in CI).
 - Earlier floating-point defects found and fixed by earlier sessions are preserved here: `0.57 − 0.42 = 0.1499…` once missed a +15¢ take-profit (all P&L deltas are now rounded to 4 dp before threshold comparisons), and an undefined reference in the alert path.
 
-### `scripts/collect.py` · `scripts/topics.json` · `.github/workflows/verify-and-collect.yml`
+### `scripts/collect.py` · `scripts/topics.json` · `.github/workflows/pages.yml`
+
+> Filename note (corrected 2026-11-21, session `155329c7`): this section used to name `.github/workflows/verify-and-collect.yml`,
+> which is not in the repository. The workflow that actually runs the collector today is `.github/workflows/pages.yml`
+> (job `snapshot`, cron `17 */3 * * *`).
 - Stdlib-only Python; every value written to `data/` is verbatim from a URL logged in `data/log.md`. Absent
   fields are omitted, never defaulted.
 - **Topic mirror defect found and fixed:** `scripts/topics.json` gives golf `exclude_categories:
@@ -63,10 +67,21 @@ their own verification notes stay in-tree for review.
   `assets/model.js`, which is where the live mirror actually lives.
 
 ### `data/` — Actions-verified snapshots
-- `cors.json` — probed from a GitHub-hosted runner on 2026-11-20: both demo hosts reflect any request `Origin`;
-  `OPTIONS` preflight returns 204. This is what makes client-side live mode possible.
-- `meta.json` — run findings: 2,400 open events, 15,206 open markets (all `status:"active"`), 6,000 recently
-  settled markets, per-topic series counts, observed market field names.
+- `cors.json` — probed from a GitHub-hosted runner. Latest probe in the committed file: **2026-11-21T06:58:35Z** —
+  both demo hosts reflect any request `Origin` (HTTP 200, `access-control-allow-origin` echoes the request origin,
+  including `https://wingbangboozle1-lang.github.io`) and `OPTIONS` preflight returns **204**. This is what makes
+  client-side live mode possible.
+  *Earlier revision of this line said "2026-11-20"; it was not re-dated when the collector rewrote the file.*
+- `meta.json` — run findings. **Committed file (2026-11-21T06:58:35Z):** 2,200 open events, 33 open markets
+  returned by the `status=open` sweep (`markets_open_statuses_observed` is `{}` because that sweep returned none and
+  the collector fell back — see the note below), 0 recently settled markets, per-topic series counts, observed market
+  field names. *Earlier revision of this line quoted 2,400 / 15,206 / 6,000 from a different run; those numbers are not
+  in the committed file and have been replaced with the values the file actually contains.*
+- **Collector caveat (found 2026-11-21, session `155329c7`):** the run that wrote the committed files was
+  rate-limited — `data/log.md` shows **220 × HTTP 429** and the settled sweep stopping on its first one, so
+  `settled_count_recent: 0` in that file is an artifact, not an exchange fact. `scripts/collect.py` now paces
+  requests and retries 429 with backoff, and `resolved.json` carries `request_complete`. Published as flagged item
+  `155329c7-1`.
 - `topics/*.json` — per-topic ranked events with `_match_reason` (`category` / `series-prefix` /
   `series-discovery`) and per-row source URLs.
 - `resolved.json` — recently settled in-scope markets with the official `result` (yes/no), settlement timestamp

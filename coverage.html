@@ -102,7 +102,7 @@ and re-reading each linked official page; the full line-by-line verification rec
 <tbody>
 <tr>
   <td>"…tracks highest dollar amount live events…"</td>
-  <td><a href="dashboard.html">dashboard.html</a> market table. <code>assets/app.js</code> → <code>rowsFor()</code> ranks by estimated traded dollars = contracts × last price, ties broken by 24h estimate. Live rows are split from closed rows (<code>isLive()</code>).</td>
+  <td><a href="dashboard.html">dashboard.html</a> market table. <code>assets/app.js</code> → <code>rowsFor()</code> ranks by estimated traded dollars = <i>total</i> contracts (<code>volume_fp</code>) × last price, ties broken by the estimated 24-hour figure. Live rows are split from closed rows (<code>isLive()</code>).</td>
   <td>Official: <a href="https://docs.kalshi.com/api-reference/market/get-markets" target="_blank" rel="noopener">Get Markets</a> publishes <code>volume_fp</code> (contracts), <code>volume_24h_fp</code>, <code>last_price_dollars</code> — <b>no traded-dollar field exists</b>, so the rank is labelled an estimate (<a href="flagged.html">Flagged #5</a>). Nothing is presented as exchange-published.</td>
   <td><span class="badge partial">Delivered with limit</span></td>
 </tr>

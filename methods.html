@@ -157,7 +157,7 @@ score = raw · damp                          (rounded to 3 dp)</pre>
 
 <section class="box" style="margin-top:14px">
   <h2>8. The always-on CI ledger (<a href="portfolio.html">portfolio.html</a>) — how it differs from the browser lab</h2>
-  <p class="small">The same four strategies run twice an hour inside GitHub Actions
+  <p class="small">The same four strategies run twice an hour inside GitHub Actions (cron <code>13,43 * * * *</code>)
     (<code>scripts/portfolio_engine.py</code>, workflow <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/actions/workflows/portfolio.yml"><code>portfolio.yml</code></a>),
     and their ledger is committed to <code>data/portfolio.json</code> instead of <code>localStorage</code>, so the record survives a reload and every visitor
     sees the same numbers. Consequences a reader should know:</p>
