@@ -206,5 +206,53 @@ class ClassifierTest(unittest.TestCase):
                          ("crypto", "series-prefix"))
 
 
+
+class SelectResolvedTest(unittest.TestCase):
+    """The Resolved page used to be 200 rows of one topic; see flagged item 78-8."""
+
+    IDS = ["gas-prices", "elections", "culture", "crypto", "golf"]
+
+    @staticmethod
+    def rows():
+        out = ([{"_topic": "crypto", "settlement_ts": "2026-11-21T%02d:00Z" % (10 + i // 60)}
+                for i in range(1000)]
+               + [{"_topic": "golf", "settlement_ts": "2026-11-20T01:00Z"}] * 5
+               + [{"_topic": "elections", "settlement_ts": "2026-11-19T01:00Z"}] * 5
+               + [{"_topic": "culture", "settlement_ts": "2026-11-18T01:00Z"}] * 3
+               + [{"_topic": "unlisted", "settlement_ts": "2026-11-17T01:00Z"}] * 2)
+        out.sort(key=lambda m: m["settlement_ts"], reverse=True)
+        return out
+
+    def test_every_topic_with_rows_appears(self):
+        picked = collect.select_resolved(self.rows(), 200, self.IDS)
+        self.assertEqual(len(picked), 200)
+        seen = {r["_topic"] for r in picked}
+        self.assertEqual(seen, {"crypto", "golf", "elections", "culture"})
+
+    def test_small_topics_are_not_squeezed_out_by_the_newest_topic(self):
+        picked = collect.select_resolved(self.rows(), 200, self.IDS)
+        counts = {t: sum(1 for r in picked if r["_topic"] == t) for t in self.IDS}
+        self.assertEqual(counts["golf"], 5)
+        self.assertEqual(counts["elections"], 5)
+        self.assertEqual(counts["culture"], 3)
+        self.assertEqual(counts["gas-prices"], 0)  # it had no settled rows to begin with
+        self.assertEqual(counts["crypto"], 200 - 13)  # its share, then the backfill
+
+    def test_order_is_still_newest_first_and_length_is_capped(self):
+        picked = collect.select_resolved(self.rows(), 200, self.IDS)
+        self.assertEqual(picked, sorted(picked, key=lambda m: m["settlement_ts"], reverse=True))
+        self.assertEqual(len(collect.select_resolved(self.rows(), 5, self.IDS)), 5)
+        self.assertEqual(len(collect.select_resolved(self.rows()[:7], 200, self.IDS)), 7)
+
+    def test_degenerate_inputs_never_crash_or_overfill(self):
+        self.assertEqual(collect.select_resolved(self.rows(), 0, self.IDS), [])
+        self.assertEqual(collect.select_resolved([], 200, self.IDS), [])
+        # No topic ids configured: plain recency slice, still exactly `limit`.
+        self.assertEqual(len(collect.select_resolved(self.rows(), 200, [])), 200)
+        # Rows only in topics that are not configured still get published, not dropped.
+        only_other = [{"_topic": "x", "settlement_ts": "2026-11-01T00:00Z"}] * 10
+        self.assertEqual(len(collect.select_resolved(only_other, 200, self.IDS)), 10)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

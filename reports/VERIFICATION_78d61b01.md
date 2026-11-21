@@ -82,6 +82,12 @@ every visitor — the alert feeds and topic rankings had no rows to rank.
    good snapshot stays published with its own honest `generated_at`.
 4. The `snapshot` job independently re-checks the counts before committing (defense in depth), so a
    future refactor of the collector cannot silently remove the gate.
+5. **Measured in CI after the change** — run
+   [`44879449386`](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879449386) on this branch,
+   data commit `f019584e`: `request stats: {'requests': 504, 'retried': 0, 'throttled_429': 0, 'failed': 0}`
+   and `PUBLISHED 13 file(s)` — 504 spaced requests with **no** 429 at all, 2,400 open events, 14,647 open
+   markets, 6,000 settled markets, 2,374 topic events, `data/resolved.json` 229 kB. The run that broke
+   (§4 opening) collected the same sweep in ~2 s and lost every request after it.
 5. `tests/test_collect_hardening.py` — 13 offline checks (spacing, back-off growth, `Retry-After`,
    give-up accounting, back-off cap, guard matrix, staging/promote/discard, label warning, and the
    two classification cases) — plus the existing `tests/test_collect.py` (4) and the whole
@@ -89,6 +95,11 @@ every visitor — the alert feeds and topic rankings had no rows to rank.
 
 ## 5. Topic-label state (the item D1 / 9d-1 / 691-11 history)
 
+* The combined Resolved view then had a different defect (**flagged 78-8**): `in_scope[:200]` over a list
+  sorted newest-first meant **200 of 200 published rows were crypto** and the other four topics had zero,
+  because continuous 15-minute/hourly crypto settlement outranks everything else in a recency cut.
+  `select_resolved()` now gives each topic an equal share of the 200 and backfills the remainder by
+  recency (4 new tests; `resolved.json` publishes `published_per_topic` so this is checkable from data).
 * `data/resolved.json` at the **03:59Z** snapshot still contained **4** rows labelled `gas-prices`
   whose titles are "Natural Gas price up in next 15 mins?" — re-checked individually against the
   official records (row #2/#4 above). Running the topic rules from `scripts/topics.json` over the
