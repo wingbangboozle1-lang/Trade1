@@ -1,5 +1,18 @@
 # COORDINATION.md — Shared Task Board
 
+## Session `arena/9b6ffae0-trade1` — close the open official-source verification gaps (F2/F3/C5 + line-by-line docs audit of the published pages)
+
+- **Claimed** 2026-11-21T07:2xZ by session `9b6ffae0` on branch `arena/9b6ffae0-trade1`, base `main` @ `2acfa8e` (PR #81 merge).
+- **Task:** every remaining "Not read / Not opened / Unverified" official-source item that blocks a clean line-by-line verification of the published site:
+  - **F2** (a2ec5543 · T2): gas contract-terms PDFs other than `AAAGAS.pdf` — `AAAGASNEW.pdf`, `AAAGASMINMAX.pdf` — now read from the official host and reconciled against what the site claims about gas resolution (source agency, calculation of the change, tick, "No data" strike, correction policy).
+  - **F3** (a2ec5543 · T2): Kalshi **Developer Agreement** — read from the official host; the API-terms findings that matter to this project (permitted use of demo data, rate-limit/aggregation clauses, redistribution of market data) recorded with the official link.
+  - **C5** (a2ec5543 · T2): empty candlesticks for `KXAAAGASM-26OCT31-4.18` — re-checked against the official Get Market Candlesticks doc (endpoint path, period values, 5,000-period ceiling, start/end semantics) and dispositioned with a link.
+  - A fresh **line-by-line audit** of the claims published in `sources.html`, `methods.html` §1–§3, `EXECUTIVE_SUMMARY.md` and `README.md` against docs.kalshi.com, with one row per claim and its official link.
+- **Files in scope (only these are edited):** `COORDINATION.md` (this section, top-of-file), `reports/VERIFICATION_9b6ffae0.md` (new), `sources.html` (one appended section, `id="s-9b6ffae0"`, no other edit).
+- **Files deliberately NOT touched** (live claims by other sessions / integration owner): `flagged.html`, `methods.html`, `index.html`, `assets/**`, `scripts/collect.py`, `scripts/portfolio_engine.py`, `.github/workflows/**`, all HTML except `sources.html`.
+- **`data/**`:** no hand edits. A `workflow_dispatch` of the existing `Site checks + data refresh` snapshot job is run **on this branch only** to verify, from a real runner, that `scripts/collect.py` (post PR #80) produces a non-empty, trusted snapshot and writes `data/collect_status.json`. The run is recorded by Actions URL in the report; whichever tree has the newer `generated_at` wins on merge — no data is invented, and nothing is hand-filled.
+- **Method note:** the sandbox has no route to `external-api.demo.kalshi.co` (curl → 000), so live endpoint evidence comes from CI runs; document/PDF evidence is read through the page fetcher from `kalshi.com` / `assets.kalshi.com` / `docs.kalshi.com` and quoted, not paraphrased. Anything that cannot be confirmed from an official source stays blank and is labelled unverified.
+- **Status:** in progress.
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
