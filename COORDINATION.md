@@ -1711,3 +1711,26 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **Files in scope:** `methods.html`, `EXECUTIVE_SUMMARY.md`, `REVIEW.md`, `tests/verify_methods.test.mjs` (new), `package.json` (append one test to the chain), `COORDINATION.md` (append-only). As the final-integration session named by the previous session's handoff ("Next session actions" in the `efc28509` record), this session may also merge/close the open PRs and then touch shared outputs (index/nav/table data) after the other claims are done or stale.
 - **Mandate for integration step:** the `efc28509` record (2026-11-21) explicitly hands "reconcile open PRs #79/#75/#74" and "final integration + PR to main + Pages check" to the next session. Claims #67–#68 are stale plan-only claims (~04:35, no implementation); #74/#79 claims are >2 h old with no commits since 04:52.
 - **Plan:** (1) reconcile open PRs — merge what is ready, close what is obsolete, resolve conflicts without discarding other sessions' work; (2) line-by-line source-link audit of `methods.html` / `EXECUTIVE_SUMMARY.md` / `REVIEW.md`: every cited URL becomes a visible clickable anchor (flagged finding #130), every verifiable claim carries an official-source link, claims that cannot be confirmed are left blank and flagged (finding #131); (3) pin the audit with a regression test; (4) full checks (`npm test`, `npm run check`) must be green, then PR `arena/86c45cd3-trade1` → `main`, merged without waiting, Pages confirmed; (5) record PR/merge/Pages here with sources and irregularities.
+
+## 2026-11-21 07:55 UTC — session `arena/86c45cd3-trade1` — scope amendment + task done (verification audit)
+
+- **Scope amendment (before any scoped file was edited):** the claim above listed `methods.html`,
+  `EXECUTIVE_SUMMARY.md`, `tests/verify_methods.test.mjs`, `package.json`. Re-checked the live board and PR
+  heads: `arena/0b68e1e4-trade1` (PR #79, last commit 07:19) and `arena/725b09a7-trade1` (PR #75) are actively
+  editing exactly those files. Per the non-overlap rule those files were dropped from this session's scope and
+  audited **read-only**; the work landed instead in files no live claim owns: `REVIEW.md`, `data.html`,
+  `scripts/check_site.mjs`. The "reconcile open PRs" step of the claim is withdrawn for the same reason
+  (claims #74/#75/#79 have commits within the hour — not stale; reconciliation stays with the final-integration
+  session `arena/725b09a7-trade1` that claimed it).
+- **Retraction:** this session's initial task notes cited flagged findings "hidden URL in methods.html" and
+  "'nine dropdowns' claim in the executive summary". Neither string exists at any commit (`git log -S`);
+  retracted as spurious. Nothing was changed for them.
+- **Task (done): line-by-line source-link verification audit.** Full record with per-file checks and per-claim
+  links: [REVIEW.md — Verification audit, session arena/86c45cd3-trade1](REVIEW.md). Highlights:
+  - Official sources re-read **live 2026-11-21** (page fetch): [API Environments](https://docs.kalshi.com/getting_started/api_environments) (demo REST/WS URLs match the repo), [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) (statuses; `result` ∈ yes/no/scalar), [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) (reciprocal ask rule, ladder shape), [Fee Schedule PDF](https://kalshi.com/docs/kalshi-fee-schedule.pdf) (taker `round up(M × 0.07 × C × P × (1−P))`, 21-row table incl. $0.50×100→$1.75, KXBTCY/KXETHY taker M=0). All match the published claims.
+  - Verified line by line against the committed artifacts: `data/topics/*.json` (131 events / 811 market rows), `data/resolved.json` (825 rows), `data/snapshot.json` (1,118 rows), `data.html` render code, `sources.html`, `index.html` claims. **No invented values found**; cross-artifact price differences fully explained by collection cadence (snapshot 19:11Z vs topics 03:59Z).
+  - **Fixed (I4):** `data.html` "top events" tables now disclose totals ("Showing 15 of N matched open events — top 30 stored…, est. ranking").
+  - **Gates added** inside `scripts/check_site.mjs` (already a CI step — no workflow/package.json edits needed): one-topic event grouping + ticker uniqueness; result enums; `definition` ≡ `scripts/topics.json`; `snapshot.topic_rules` ≡ `assets/lib.mjs` mapping; official-URL-only `source_urls`/`kalshi_url`; the I4 disclosure guard. Negative-tested (5 injected defects, all caught; restore → 0 failures).
+  - **Irregularities flagged (non-blocking, details in REVIEW.md):** I1 dual topic classifiers (lib.mjs vs scripts/topics.json) — convergence request to integrator; I2 `result` null vs "" normalization — request to collector owner; I3 topic `_markets` omit `series_ticker` (documented trim) — request to collector owner; I5 artifact cadence note; I6 scalar-result existence documented + gated; I7 retraction (above).
+  - **Validation:** `npm run check` 18 HTML / 432+400 links / 1,249 rows / 825 resolved / 0 failures; `npm test` engine 23/23, live_fixes 3, live_dash 6, lib, test_model 30, root_engine 48, model.test 21, portfolio 60/60, demo-account 89, test_collect 4/4 — all green.
+- **Status:** done. **PR / merge / deploy:** recorded below once complete.
