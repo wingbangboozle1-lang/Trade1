@@ -72,6 +72,76 @@
   - **Pages:** the live page https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md, fetched through the page fetcher, already serves this record, so the merge reached the deployed site. The Pages build API could not be read at the time of writing (the GitHub API rate limit for the shared user was hit by parallel sessions; the request IDs are in this session's log). **Re-check of the `pages/builds/latest` status for `a917618` is an open follow-up for the integration owner.**
   - A follow-up board-only PR carries this record. The merge of #87 is recorded there.
 - **Board note:** this session's first push (`3206474`) raced main's board and was replaced by its rebased commit using `--force-with-lease` on this session's own branch; no other session's commit was affected. Stray merge markers in `COORDINATION.md` were already removed on `main` by `f1f34f3`.
+## Session `arena/3193963b-trade1` — final integration pass: board repair, official-source verification, PR disposition review (claim, 2026-11-21 07:20 UTC)
+
+**Claim** taken 2026-11-21 07:20 UTC on branch `arena/3193963b-trade1`, base `main` @ `5eb88d0`
+(branch policy: Arena fixes this session to one branch name; `session-<id>/<task>` naming not used).
+
+Files in scope (nothing else is edited):
+
+- `COORDINATION.md` — **(a)** the committed merge-conflict markers seen at `main` @ `2acfa8e`
+  (`<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` around the 6877ec31 and 6de17567 session
+  blocks) were **already repaired on `main` by session `aa7d3d27` via PR #74 (`f1f34f3`)** while
+  this claim was being prepared; verified here: 0 marker lines remain and **both session blocks are
+  intact** (6877ec31 block and 6de17567 block kept verbatim). No repair needed; recorded so the
+  defect and its fix are traceable. **(b)** this claim and the session's final record only.
+- `reports/VERIFICATION_3193963b.md` (new) — line-by-line verification of published claims against
+  official Kalshi sources (docs.kalshi.com pages, official demo API responses) with per-claim links
+  for manual review; every unconfirmed claim is left blank and flagged, never inferred.
+
+Deliberately **not** touched (owned by live/open sessions at claim time): `scripts/collect.py`,
+`scripts/portfolio_engine.py`, `assets/model.js`, `assets/portfolio.js`, `flagged.html`, `methods.html`,
+`executive-summary.html`, `EXECUTIVE_SUMMARY.md`, `README.md`, `data/**`, `tests/**`, workflows —
+open PRs #67 (`d256bfac`), #68 (`6b112481`), #75 (`725b09a7`), #79 (`0b68e1e4`) all claim those files
+and were updated within the last 30 minutes (not stale; no takeover). Their disposition is **reviewed
+and logged** on this board by this session (checks status, conflicts, overlap), but their branches are
+not edited.
+
+Plan: (1) claim (this entry, committed and pushed immediately); (2) conflict-marker repair;
+(3) full local validator suite on the branch (build, check_site, check_links, npm test, render gate);
+(4) official-source + live demo-API verification pass with links → `reports/VERIFICATION_3193963b.md`;
+(5) PR → `main`, merge without waiting for approval, Pages deploy verified, board record below.
+
+**Status: done (2026-11-21 ~07:35 UTC).** Sources, verification, and irregularities:
+
+- **Sources (all fetched 2026-11-21 UTC, exact URLs in [`reports/VERIFICATION_3193963b.md`](reports/VERIFICATION_3193963b.md) §1):**
+  [API Environments](https://docs.kalshi.com/getting_started/api_environments) ·
+  [Market Lifecycle](https://docs.kalshi.com/getting_started/market_lifecycle) ·
+  [Orderbook Responses](https://docs.kalshi.com/getting_started/orderbook_responses) ·
+  [Get Market Candlesticks](https://docs.kalshi.com/api-reference/market/get-market-candlesticks) ·
+  [Fee Rounding](https://docs.kalshi.com/getting_started/fee_rounding) ·
+  [docs index](https://docs.kalshi.com/llms.txt) ·
+  live demo API reads (each URL re-checkable by hand): `/exchange/status`,
+  `/markets?event_ticker=KXAAAGASM-26NOV30`, `/markets/KXAAAGASM-26NOV30-3.90/orderbook?depth=5`,
+  `/markets?status=settled&limit=3`, `/markets/KXBTC15M-26NOV202300-00`,
+  `/markets/KXXRP15M-26NOV202300-00`, `/events/KXPGATOUR-THRC26`, `/events/KXOSCARPIC-27`.
+- **Verification performed:** 12 published claims (C1–C12) re-checked against the sources above;
+  5 committed data rows compared field-by-field with live responses (all identity/status/settlement
+  fields match; live prices legitimately differ from the 03:59:57Z snapshot). Full local suite on the
+  branch, all exit 0: `npm run check` (BUILD OK 18 HTML/6 JS/0 broken links; check_site 1,249 rows /
+  825 resolved / 0 failures; check_links 16 pages / 0 failures) · `npm test` (engine 23, live_fixes 3,
+  live_dash 6, lib, fees 50, model 30, root_engine 48, model.test 21, portfolio 60/60,
+  demo-account 89/89, test_collect.py 4/4) · `tools/render_test.mjs --offline` 16 pages / 0 JS errors.
+- **Irregularities (V-1…V-8 in the report; none block):** V-1 committed snapshot stale at
+  03:59:57Z (post-429 restore; scheduled refresh `cron 17 */3` will rewrite) · V-2 9d-1/691-11
+  still visible in committed `data/resolved.json`: 4 `KXNATGAS15M-*` rows labelled `_topic:
+  gas-prices` (natural-gas ≠ gasoline; code fix merged via PR #65, refresh pending; live link in
+  the report) · V-3 Resolved-page topic imbalance (196/200 rows crypto in the 3-day window; open
+  PR #90 addresses it — not edited here) · V-4 demo-account credentials not provided (9d-5, owner
+  input; nothing faked) · V-5 AA-8 partially re-confirmed by this pass's live reads · V-6 fee
+  disclosures unchanged (691-10, 6b/691-1, F7 open by design) · V-7 docs list newer dedicated WS
+  hosts (user-ws / external-feeds), informational · V-8 board conflict markers seen at `2acfa8e`
+  were repaired by `aa7d3d27` via PR #74 (`f1f34f3`) before this claim landed; re-checked intact.
+- **Open-PR disposition snapshot (2026-11-21 07:30 UTC — reviewed, NOT edited, no takeover):**
+  all owners had committed within the last 60 minutes, so per protocol their branches were left
+  alone: #67 `d256bfac` (board record; checks pass) · #68 `6b112481` and #75 `725b09a7`
+  (overlapping "final integration" scopes: `scripts/collect.py`, `check_row_sources.mjs`,
+  `tests/test_collect.py` — each owner should rebase on `main` and reconcile with the other) ·
+  #84 `0f2d9972`, #85 `155329c7`, #90 `78d61b01`, #91 `1c5b46b2`, #92 `e1747106` (opened during
+  this pass). #79 `0b68e1e4` merged meanwhile (`c071599`). Dispositions are for the owners or a
+  later integration pass; nothing in those PRs was merged or closed by this session.
+- **PR / merge / Pages record:** appended below as a follow-up board note after the merge (pattern
+  used by `c96a21b7`'s record via PR #89).
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
