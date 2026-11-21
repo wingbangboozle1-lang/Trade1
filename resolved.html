@@ -42,7 +42,7 @@
 
 <div class="notice blue small"><b>Snapshot review notes (see <a href="flagged.html">Flagged</a>):</b>
 <ul>
-  <li><b>D1 — refresh pending:</b> the collector code now applies topic exclusions and whole-word keyword matching to settled-market fallback classification. The currently committed snapshot may still contain <code>KXNATGAS15M-26NOV201415-15</code> (natural gas) and <code>KXROMLNBMGAME-26NOV201200PLOPIT-PLO</code> (basketball; "Petrolul" substring). This sandbox cannot reach Kalshi to regenerate or verify the snapshot; the next scheduled collector run must confirm the correction.</li>
+  <li><b>D1 — fixed in code, snapshot refresh pending:</b> the collector now applies topic exclusions and whole-word keyword matching to settled-market fallback classification (so <code>KXNATGAS15M-26NOV201415-15</code> natural gas and <code>KXROMLNBMGAME-26NOV201200PLOPIT-PLO</code> basketball / "Petrolul" substring no longer classify as gas-prices). The currently committed snapshot is empty because the 2026-11-21 06:58Z run was rate-limited (see <a href="flagged.html">Flagged</a> FA-1); the collector now backs off on 429 and preserves the previous snapshot on failure. The next successful scheduled run repopulates this page.</li>
   <li><b>Cap:</b> only the newest 200 markets are listed (<span id="rs-cap">—</span>).</li>
 </ul></div>
 
@@ -142,7 +142,13 @@
       ' · window: ' + (d.window || '—') +
       ' · settled in window: ' + (d.settled_total != null ? d.settled_total : '—') +
       ' · in scope: ' + (d.in_scope_count != null ? d.in_scope_count : '—');
-    if (!rows.length) { fail('No resolved markets in the snapshot.'); return; }
+    if (!rows.length) {
+      // Empty snapshot (e.g. the collecting run was rate-limited): do not
+      // dead-end here — fall through to the live refresh so the page still
+      // shows the newest settled markets from the official API.
+      meta.textContent += ' · The snapshot is empty; loading live results below.';
+      return loadScope();
+    }
     render();
     return loadScope();
   }).catch(function (e) {
@@ -181,6 +187,7 @@
         if (addRow(m, topic, true)) added++;
       });
       if (added) { liveCount += added; render(); }
+      else if (!rows.length) { fail('No settled markets found — the snapshot is empty and the live refresh returned none.'); }
     }).catch(function () { /* the snapshot stays the source of truth */ });
   }
 
