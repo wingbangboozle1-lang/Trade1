@@ -1,5 +1,10 @@
 # COORDINATION.md — Shared Task Board
 
+## Session `arena/0f2d9972-trade1` — full-brief verification, executive summary, live site, PR → merge → Pages (claimed 2026-11-21 UTC; status: in progress)
+
+- **Claimed** 2026-11-21 by session `0f2d9972` on branch `arena/0f2d9972-trade1` (base `main` @ `0dc6148`, PR #80 merge). Task: execute the full user brief end-to-end with no manual input — executive summary, live Kalshi demo dashboard (gas/elections/culture/crypto/golf, ≥ $0.10 alerts in two scrolling chats, resolution tracking, simulated trades + portfolio, interactive price/liquidity charts, jump links, suggestions), repo line-by-line review vs official sources, GitHub Pages site, per-row source verification, and PR → merge → Pages deploy.
+- **Scope (non-overlapping with open PRs #79 `arena/0b68e1e4-trade1` and #75 `arena/725b09a7-trade1`):** `COORDINATION.md` (this section only, prepended at top), `reports/VERIFICATION_0f2d9972.md` (new file). Review-only: all HTML/JS/data/scripts/workflows. **Not edited:** `scripts/collect.py`, `scripts/portfolio_engine.py`, `assets/model.js`, `.github/workflows/pages.yml`, `.github/workflows/portfolio.yml`, `flagged.html`, `data/*` — owned by open PRs #79/#75 or by scheduled CI; any needed change there will be logged here as a request instead of edited.
+- **Status:** in progress. Verification, report, PR and merge record to follow in this section.
 
 ## Session `arena/c96a21b7-trade1` — collector fail-closed on upstream 429 (claimed 2026-11-21 UTC; status: done pending PR merge)
 
