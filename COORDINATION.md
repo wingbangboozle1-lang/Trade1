@@ -1229,7 +1229,7 @@ static page, maker fees unmodeled, ROI screen is a heuristic shortlist not verif
 
 | Task | Status | Owner session | Files in scope |
 |---|---|---|---|
-| Repair settled-market fallback topic exclusions and keyword boundaries; add offline regression coverage; publish snapshot caveat and verification record | done (PR #65 merged; Pages built; snapshot refresh pending) | `arena/d256bfac-trade1` | `scripts/collect.py`, `tests/test_collect.py`, `package.json`, `resolved.html`, `flagged.html`, `reports/VERIFICATION_D256BFAC.md`, `COORDINATION.md` |
+| Repair settled-market fallback topic exclusions and keyword boundaries; add offline regression coverage; publish snapshot caveat and verification record | done (PR #65 merged; Pages built; refresh returned 429, D1 remains unverified) | `arena/d256bfac-trade1` | `scripts/collect.py`, `tests/test_collect.py`, `package.json`, `resolved.html`, `flagged.html`, `reports/VERIFICATION_D256BFAC.md`, `COORDINATION.md` |
 
 Claim recorded on the active branch. This is a narrow fix to the previously documented resolved-topic defect (9d-1 / 691-11); no Kalshi endpoints or snapshots will be modified because this sandbox cannot reach Kalshi. The committed snapshot remains explicitly flagged until the scheduled collector refresh confirms corrected rows.
 
