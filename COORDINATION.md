@@ -1333,6 +1333,12 @@ live-fix, lib, fees, model, root-engine, portfolio (60/60) and demo-account (89/
   latest Pages build for commit `33255ec` → **built**, no error. Post-merge `main` run
   [44877900125](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44877900125) → **success**.
   The deployed https://wingbangboozle1-lang.github.io/Trade1/flagged.html was fetched and shows the AA-1 … AA-8 section.
+- **Follow-up found on the DEPLOYED site (2026-11-21 ~07:05 UTC):** reading
+  https://wingbangboozle1-lang.github.io/Trade1/dashboard.html with live data showed the new column was labelled
+  "Best price", and every Bond "Moneypenny" row read `YES 100¢` because `yes_ask` was 1.00 while `no_ask` was 0.00.
+  That label invites exactly the wrong reading — a 100¢ ask is the *dearer*, more-likely side, not a bargain. The column is
+  now **"Market favours"**, the note under the table says plainly that a 100¢ YES ask means YES is priced near certain,
+  and `tests/live_dash.test.mjs` asserts the phrase "Best price" can never return. Also noted on `flagged.html` AA-2.
 - **Task status:** done. Open items are published on `flagged.html` and do not block: AA-8 (live re-confirmation),
   691-10 (maker fees), 691-11 / 9d-1 (collector refresh pending, owned by session `d256bfac`), F7 (ROI screen is a heuristic).
 
@@ -1356,7 +1362,6 @@ Status of the work items below is recorded at the end of this section once compl
 
 - **PR / merge / deploy:** PR #63 opened from `arena/31a8a56b-trade1` → `main`; merged without waiting for review; Pages `built` for the merge commit — result recorded below after merge.
 
-<<<<<<< HEAD
 <!-- The two lines above are stale placeholders preserved verbatim from main's board tail
      during the 6877ec31 merge (2026-11-21): 31a8a56b's final PR/merge/deploy record is earlier
      on this board (merge commit d59fb0f), and aa7d3d27's items are recorded in its own completion
@@ -1390,8 +1395,12 @@ Status of the work items below is recorded at the end of this section once compl
   - https://wingbangboozle1-lang.github.io/Trade1/data/portfolio.json — the CI ledger's live run (generated 2026-11-21T07:08:16Z, i.e. built on top of this merge) serves **every trade/position row with its own official `GET /markets/{ticker}` record as `source`** (e.g. `…/markets/KXBTC50VS100-BTC-26DEC31`) — the takeover fix is live in production and durable (the live cycle used the merged engine).
 - **PR #58 closed with a takeover note** (content delivered here; author `6916270f` credited).
 - **Task status: done.** Open items remain published on `flagged.html` and do not block: 6b/691-1 (fee-source conflict, open by design), N2 (`KXMARMAD` transcription note), I7 (news leads), 9d-1/D1 collector refresh (owner `d256bfac`, PR #65 merged — snapshot refresh pending), 9d-5 (demo-account keys, owner input).
-=======
+
 ---
+
+> Rebase note (2026-11-21, session `aa7d3d27`): this file conflicted while rebasing the "Market favours"
+> follow-up onto `main`. Both complete blocks were kept — session `6877ec31`'s merged record (above) and
+> session `6de17567`'s verification record (below). No other session's content was removed.
 
 ## Session `arena/6de17567-trade1` — final line-by-line review, verification, GitHub Pages deployment, PR → merge (2026-11-21)
 
@@ -1447,7 +1456,6 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 **PR / merge:** pending. Create PR `arena/6de17567-trade1` → `main`, merge without waiting for approval, verify GitHub Pages deploys, record PR link and merge result here.
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
->>>>>>> origin/main
 
 ### efc28509 — PR / merge / deploy record (2026-11-21 UTC)
 
