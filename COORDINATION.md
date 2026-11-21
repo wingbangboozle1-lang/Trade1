@@ -1508,6 +1508,16 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 **Historical PR note:** the pending-PR sentence above records the state of that earlier branch note; this audit did not establish whether that separate branch was merged. Current canonical Pages status was checked independently via the GitHub Pages API.
 
 **Task status:** done. All open items are published on `flagged.html` and do not block the merge.
+---
+
+## Session `0b68e1e4` — rate-limit hardening + strategy entry guards (2026-11-21)
+
+| Task | Status | Owner session | Files in scope |
+|---|---|---|---|
+| Fix collector 429 storm (no pacing/backoff in `scripts/collect.py`: 220×429 vs 45×200 in `data/log.md`, gas-prices 0 events, resolved 0); add 429 retry to `scripts/portfolio_engine.py`; add momentum/fade/breakout entry price cap (ask ≤ $0.90) + same-ticker cross-strategy dedupe in both engines; verify dashboard requirements line-by-line; update executive summary; PR → merge → Pages | in progress | `0b68e1e4` (branch `arena/0b68e1e4-trade1`) | `scripts/collect.py`, `scripts/portfolio_engine.py`, `assets/model.js`, `methods.html`, `flagged.html`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md`, `tests/**`, `scripts/test_*.mjs` |
+
+- Official sources re-verified this session (fetched live): [API Environments and Endpoints](https://docs.kalshi.com/getting_started/api_environments) (demo REST `https://external-api.demo.kalshi.co/trade-api/v2` recommended, `https://demo-api.kalshi.co/trade-api/v2` also supported; demo WS `wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2` / `wss://demo-api.kalshi.co/trade-api/ws/v2`) and [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) (unauthenticated requests "subject to separate limits", back off on 429, exponential backoff, 429 carries **no** `Retry-After`, body `{"error":{"code":"too_many_requests",...}}` — exactly the body in `data/log.md`).
+- Findings so far: `scripts/collect.py` `get()`/`fetch_json()` fire with zero pacing and zero 429 retry (portfolio engine paces at 0.35 s but also never retries 429). Ledger track record: 11 trades, 4 realised all losses; two settled -100% losses are the same market (`KXETHD-26NOV2017-T1659.99`) bought by **both** momentum (chasing a +$0.77 spike to $0.95) and harvest — cross-strategy stacking + no entry price cap. Both engines dedupe only by ticker+strategy and allow asks up to $0.95.
 <!-- End of the formerly conflicting historical records. -->
 
 ### efc28509 — PR / merge / deploy record (2026-11-21 UTC)
@@ -1516,6 +1526,40 @@ Deliberately **not** touched (owned by open sessions at claim time): `scripts/co
 - **Pages:** latest Pages build for `459a643` → **built**. Live page `https://wingbangboozle1-lang.github.io/Trade1/COORDINATION.md` fetched and shows the board. The sandbox cannot reach `github.io` directly (curl returns 000), so the fetch was done through the page fetcher.
 - **Task status:** done (verification record only). Blocked items unchanged: live Kalshi reads from the sandbox and demo-account portfolio/execution (no demo credentials provided).
 
+### 0b68e1e4 — completion record (2026-11-21 UTC)
+
+- **Overlap with `c96a21b7` (PR #80), resolved without dropping either side.** PR #80 landed first and rebuilt
+  `scripts/collect.py` fail-closed. This branch was rebased/merged onto it and my retry loop was **removed** in favour of
+  theirs; only `X-RateLimit-Reset` handling was folded into their backoff chooser (their code already used
+  `Retry-After`-else-2ⁿ). Their trust gates, `FAILURES` accounting and `test_collect_failclosed.py` are untouched.
+  Nothing from `c96a21b7` was discarded.
+- **Their follow-up request, done here:** `scripts/portfolio_engine.py` is now **fail-closed** as well. `fetch_quotes()`
+  returns the failed chunks, and `cmd_run` writes **no** ledger/artifact update when any chunk still fails after the
+  retries or when no quotes come back (it prints the kept-ledger reason instead). Covered by
+  `fetch_quotes_failed()` + 3 new selftest checks.
+- **`tests/test_collect.py` rewritten for the merged collector:** it now tests `get_with_retry` (the function that
+  existed after the merge) — 429 retried then succeeds, `X-RateLimit-Reset` drives the wait, `Retry-After` wins when
+  both are present, retries bounded at `MAX_ATTEMPTS`, failure recorded in `FAILURES`, backoff cap respected, and a
+  definitive 400 not retried. **10/10 pass.**
+- **Ledger rules (this session's own finding, BE-2):** one open position per ticker across all strategies, and
+  momentum/fade/breakout refuse an ask above $0.90 (harvest exempt by design). Mirrored in `assets/model.js`.
+  The two historical stacked rows (`KXETHD-26NOV2017-T1659.99`, -$24.87 each, both settled NO) are left in the
+  ledger unchanged — no past trade was rewritten.
+- **Verification on the merged tree (exit 0):** `npm run build` 18 HTML / 6 JS / 0 broken links ·
+  `npm run check` 18 pages, 437 links, 1,183 rows, 625 resolved, **0 failures** (405 local + 247 external, 0 failures) ·
+  `npm test` engine 23 · live_fixes 3 · live_dash 6 · fees 50 · model **36** · root_engine 48 · model.test 21 ·
+  portfolio 60/60 · demo-account 89/89 · `test_collect.py` **10/10** · `test_collect_failclosed.py` 6/6 ·
+  `portfolio_engine.py selftest` **77/77** · `tools/render_test.mjs --offline` 16 pages, 0 JS errors.
+- **Official sources re-read:** [Rate Limits and Tiers](https://docs.kalshi.com/getting_started/rate_limits) ·
+  [API Environments](https://docs.kalshi.com/getting_started/api_environments) ·
+  [Get Events](https://docs.kalshi.com/api-reference/events/get-events) (limit max 200) ·
+  [Get Markets](https://docs.kalshi.com/api-reference/market/get-markets) (limit 1000 accepted).
+- **Not verified (no inference made):** a live run of the corrected jobs. This sandbox has no route to
+  `external-api.demo.kalshi.co`. Published as **BE-4** on `flagged.html`; the next scheduled `pages.yml` /
+  `portfolio.yml` run is the first real confirmation.
+- **Publications:** `flagged.html` BE-1 … BE-4 · `methods.html` §4 (entry cap, one-position rule, rate-limit policy) ·
+  `EXECUTIVE_SUMMARY.md` + `executive-summary.html` reliability section.
+- **PR / merge / deploy:** recorded below once complete.
 ## Session `arena/1c5b46b2-trade1` — audit and coordination-board cleanup (claimed 2026-11-21 UTC)
 
 | Task | Status | Owner session | Files in scope |

@@ -36,9 +36,13 @@ UA = "Trade1-verify/1.0 (github.com/wingbangboozle1-lang/Trade1)"
 
 # Fail-closed reads (COORDINATION c96a21b7): a 429 / 5xx / network error is retried with
 # backoff; if it still fails, the run records it and does NOT overwrite the artifact it feeds.
+# Session 0b68e1e4 added X-RateLimit-Reset handling: the official
+# https://docs.kalshi.com/getting_started/rate_limits page says to back off on 429 and that
+# no Retry-After header is sent, so a reset header (seconds) is the only server hint available.
 RETRY_STATUSES = {429, 500, 502, 503, 504}
 MAX_ATTEMPTS = 5
 PACE_S = 0.25          # small pause before each API call, to stay under the demo rate limit
+BACKOFF_CAP_S = 60.0   # ceiling for one backoff, so a throttled sweep cannot stall the job
 FAILURES = []          # every transient upstream failure this run (url, status, attempts)
 KEPT = []              # artifacts deliberately NOT rewritten because their inputs failed
 
@@ -82,8 +86,14 @@ def get_with_retry(url):
             return code, body, dt, attempt
         if attempt < MAX_ATTEMPTS:
             ra = (hs.get("retry-after") or "").strip()
-            wait = float(ra) if re.fullmatch(r"\d+(\.\d+)?", ra) else 2 ** attempt
-            wait = min(float(wait), 60.0)
+            if re.fullmatch(r"\d+(\.\d+)?", ra):
+                wait = float(ra)
+            else:
+                # no Retry-After is sent on 429 (official rate-limit page); use the published
+                # X-RateLimit-Reset (seconds) when present, else exponential backoff
+                reset = (hs.get("x-ratelimit-reset") or "").strip()
+                wait = float(reset) if re.fullmatch(r"\d+(\.\d+)?", reset) else 2 ** attempt
+            wait = min(float(wait), BACKOFF_CAP_S)
             log(f"RETRY {attempt}/{MAX_ATTEMPTS - 1} in {wait:.0f}s: {code or 'NET-FAIL'} {url}")
             time.sleep(wait)
     return code, body, dt, MAX_ATTEMPTS

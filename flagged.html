@@ -266,6 +266,58 @@
   </section>
 
   <section class="box" style="margin-top:14px">
+    <h2>Added by session <code>0b68e1e4</code> — 2026-11-21 (collector rate limits, entry guards)</h2>
+    <p class="small muted">Every row was reproduced from the committed artifacts or the official docs before it was changed.
+      Official sources read for this pass:
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> ·
+      <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/api_environments">API Environments</a>.</p>
+    <div class="tablewrap"><table class="small">
+      <thead><tr><th>ID</th><th>Irregularity</th><th>Evidence and official source</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>BE-1</td><td><b>The Python collectors ignored 429 entirely.</b> The 2026-11-21T06:58Z snapshot run logged
+          <b>220 × 429 against 45 × 200</b>; <code>scripts/collect.py</code> treated a failed read as an empty result, so that run
+          overwrote good artifacts (resolved rows 200 → 0, gas-prices 90 kB → 1.1 kB). <code>scripts/portfolio_engine.py</code>
+          paced 0.35 s but never retried a 429. The official rate-limit page says to back off on 429 with exponential backoff and
+          sends <b>no</b> <code>Retry-After</code> header — only <code>X-RateLimit-Reset</code> (seconds) when available.</td>
+          <td><a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/log.md">data/log.md</a> (the 429 lines, verbatim) ·
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/getting_started/rate_limits">Rate Limits and Tiers</a></td>
+          <td><b>Fixed across two sessions, merged.</b> Session <code>c96a21b7</code> (PR #80) rebuilt the collector's reads
+            fail-closed: 5 attempts, <code>Retry-After</code> when numeric else 2ⁿ s capped at 60 s, every upstream failure recorded,
+            and a verified artifact is never overwritten by a degraded run. Session <code>0b68e1e4</code> (this one) folded in
+            <code>X-RateLimit-Reset</code> as the backoff hint when <code>Retry-After</code> is absent, gave
+            <code>scripts/portfolio_engine.py</code> the same retry/backoff, and made that ledger <b>fail closed</b> too: a chunk that
+            still fails stops the cycle instead of booking trades against a partial quote set.
+            Tests: <code>tests/test_collect.py</code> 10/10 · <code>tests/test_collect_failclosed.py</code> 6/6 ·
+            <code>portfolio_engine.py selftest</code> 77/77.</td></tr>
+        <tr><td>BE-2</td><td><b>The ledger stacked two strategies on one market and bought near-certainty at $0.95.</b>
+          Both engines deduplicated by <i>ticker + strategy</i>, so momentum and harvest could each open a position on the same ticker.
+          The same market, <code>KXETHD-26NOV2017-T1659.99</code>, was bought by momentum (chasing a +$0.77 spike to a $0.95 ask) and again by
+          harvest; both settled NO, together accounting for the ledger's whole realised loss before fees.</td>
+          <td><a href="data/portfolio.json" target="_blank"><code>data/portfolio.json → trades[]</code></a> (both rows, same ticker, both settled <code>no</code>) ·
+            <a href="portfolio.html">Portfolio ledger</a></td>
+          <td><b>Fixed.</b> One open position per ticker across all strategies, and momentum/fade/breakout now refuse an ask above
+            <b>$0.90</b> (harvest is exempt by design — it buys $0.90–$0.99 YES to settlement). The historical rows are left in the ledger
+            unchanged; no past trade was re-written. Regression: portfolio selftest (6 new checks) and
+            <code>scripts/test_model.mjs</code> (6 new checks) cover both engines.</td></tr>
+        <tr><td>BE-3</td><td><b>Confirmed, not a defect:</b> <code>/events?limit=1000</code> is rejected while <code>/markets?limit=1000</code> is accepted.
+          The Get Events schema caps <code>limit</code> at 200; Get Markets does not. The collector was checked against both and left as-is
+          (200 for events, 1000 for markets/series). This row exists so the difference is not mistaken for a bug in a later review.</td>
+          <td><a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/events/get-events">Get Events</a> ·
+            <a target="_blank" rel="noopener" href="https://docs.kalshi.com/api-reference/market/get-markets">Get Markets</a> ·
+            <a target="_blank" rel="noopener" href="https://github.com/wingbangboozle1-lang/Trade1/blob/main/data/samples/market-open-sample.json">committed official sample fetched with limit=1000</a></td>
+          <td><b>Verified — no change needed.</b></td></tr>
+        <tr><td>BE-4</td><td><b>Not verified by this session (no inference made):</b> the corrected collector has <b>not</b> been run against the live
+          demo API from this build sandbox (no route to <code>external-api.demo.kalshi.co</code>). The 429 behaviour was verified with simulated
+          HTTP responses only. The scheduled <code>pages.yml</code> data job in GitHub Actions is the first real run of the new code.</td>
+          <td><code>tests/test_collect.py</code> (simulated 429 / X-RateLimit-Reset / bounded retries / backoff cap)</td>
+          <td><b>Open for review</b> — first live confirmation arrives with the next scheduled snapshot run.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="box" style="margin-top:14px">
     <h2>Carried from the previous session (ee533bdf, published for review)</h2>
     <ul class="small">
       <li>That session’s prototype flags — authenticated demo account, order execution, settlement archive, news attribution, dollar-notional ranking, Pages deploy confirmation — are addressed or superseded by this build (CORS probed and passed; deploy is verified from this session; dollar figures stay labeled as estimates).</li>
