@@ -21,8 +21,14 @@
   - **R6 → `methods.html` / `executive-summary.html`:** do not imply the AAA gas *strike* grid and the *price* tick are the same ($0.0001/gal strike steps vs $0.01 Minimum Tick, per the official PDFs).
 - **Live CI verification (the board's open follow-up after PR #80):** this session dispatched `Site checks + data refresh` on its own branch ([run 44879720313](https://github.com/wingbangboozle1-lang/Trade1/actions/runs/44879720313) → commit `0cf4924`, `data/meta.json` `generated_at 2026-11-21T07:19:44Z`) and `data/collect_status.json` came back **`status: ok`, `transient_read_failures: 0`, `kept_previous_artifacts: []`**, with all five topic files healthy and `data/log.md` showing **only 200/204 responses** (563 request lines, zero 429s). Main independently produced the same verdict for its scheduled 07:17:44Z run (`2ba763f`, `status: ok`, 0 failures), so the collector fix is verified live from two separate runs, not just by the offline tests. **This session's branch data was resolved to main's newer snapshot at merge — no data was hand-written and no value inferred.**
 - **Overlaps (logged, nothing discarded):** `sources.html`, `suggestions.html` and `flagged.html` are also in open PR **#85**; `flagged.html` in #75/#79/#90/#95. My edits are single appended sections with unique ids, so a conflict resolves additively. `data/*.json` conflicts (my CI snapshot vs main's) were resolved **in favour of main** because main's snapshot is newer and already carries the 07:28Z portfolio ledger.
-- **Validators on this branch after the merge:** recorded in the next bullet once the merge commit exists — `npm test`, `tools/build.mjs`, `scripts/check_site.mjs`, `scripts/check_links.mjs` all exit 0 before the PR is opened.
-- **Status:** done pending PR + merge (this session's own PR: see the record appended below).
+- **Validators on this branch after the merge (all exit 0, run on `arena/9b6ffae0-trade1` @ `38d67d2`):**
+  - `npm test` — full suite green, ending `test_collect.py` **Ran 10 tests … OK** (main's expanded collector suite), `demo-account tests: 89 passed, 0 failed`.
+  - `node tools/build.mjs` — `BUILD OK — 18 HTML, 6 JS files validated, 0 broken links`.
+  - `node scripts/check_site.mjs` — `{"html":18,"links":445,"rows":1248,"resolved":825},"failures":0` (every snapshot/resolved row still carries an official source URL after the data conflict resolution).
+  - `node scripts/check_links.mjs` — `16 published pages, 413 local links, 295 external links, 0 failures` (no non-official external host added; every new link is `docs.kalshi.com`, `assets.kalshi.com`, `kalshi.com` or `github.com`).
+  - `node tools/render_test.mjs --offline` over `index/dashboard/flagged/sources/suggestions/portfolio/resolved` — 0 JS errors, Resolved page still renders 200 rows / 402 Kalshi source links, so the two appended page sections render.
+  - Whole-tree conflict-marker scan after the merge: 0 real markers (only prose mentions inside historical records).
+- **Status:** done (see the PR / merge / Pages record below).
 
 ## Session `arena/da11364a-trade1` — independent final verification + board record (claimed 2026-11-21 UTC)
 
