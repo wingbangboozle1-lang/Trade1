@@ -253,3 +253,83 @@ class RateLimitBackoffTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ThrottleAndRetryTests(unittest.TestCase):
+    """data/log.md (2026-11-21 06:58:37Z) shows 220 of ~295 requests answered 429
+    in one run and the settled sweep giving up on its first 429, so resolved.json
+    published settled_total: 0 as if the exchange had settled nothing.
+
+    Official guidance (docs.kalshi.com/getting_started/rate_limits): "Authenticate
+    requests where supported and back off on 429". These tests pin the guard."""
+
+    def setUp(self):
+        import importlib
+        import scripts.collect as collect
+        self.c = importlib.reload(collect)
+        self.c.MIN_INTERVAL_S = 0.0          # no real sleeping in tests
+        self.c.MAX_429_RETRIES = 3
+        self.c.THROTTLE.update(requests=0, throttled_429=0, retries=0, waited_s=0.0)
+        self.sleeps = []
+        self.c._sleep_logged = lambda s, why: self.sleeps.append((s, why))
+
+    def _get_with_codes(self, codes, retry_after=None):
+        """Drive get() through a scripted sequence of HTTP status codes."""
+        import io
+        import urllib.error
+        seq = list(codes)
+
+        class Resp:
+            status = 200
+            headers = {}
+            def __init__(self, body):
+                self._body = body
+            def read(self):
+                return self._body
+            def __enter__(self):
+                return self
+            def __exit__(self, *a):
+                return False
+
+        def fake_urlopen(req, timeout=None):
+            code = seq.pop(0)
+            if code == 200:
+                return Resp(b'{"ok":true}')
+            hdrs = {}
+            if retry_after is not None:
+                hdrs["Retry-After"] = retry_after
+            raise urllib.error.HTTPError(req.full_url, code, "err", hdrs, io.BytesIO(b"{}"))
+
+        self.c.urllib.request.urlopen = fake_urlopen
+        return self.c.get("https://example.invalid/trade-api/v2/markets")
+
+    def test_429_is_retried_and_eventually_succeeds(self):
+        code, _hs, body, _dt = self._get_with_codes([429, 429, 200])
+        self.assertEqual(code, 200)
+        self.assertEqual(len(self.sleeps), 2, "each 429 must back off once")
+        self.assertEqual(self.c.THROTTLE["throttled_429"], 0)
+
+    def test_retry_after_header_is_honoured(self):
+        self._get_with_codes([429, 200], retry_after="7")
+        self.assertEqual(self.sleeps[0][0], 7.0)
+
+    def test_exhausting_retries_is_recorded_not_silent(self):
+        code, _hs, _body, _dt = self._get_with_codes([429, 429, 429, 429])
+        self.assertEqual(code, 429)
+        self.assertEqual(self.c.THROTTLE["throttled_429"], 1)
+        self.assertIn("RATE-LIMITED", "\n".join(self.c.LOG))
+
+    def test_successful_sweep_is_recorded_as_complete(self):
+        # fetch_json must register every 200 URL; the settled sweep compares
+        # against that set, so a complete sweep reports request_complete=true.
+        import json
+        self.c.fetch_json = lambda url, note="": (self.c.LOG_200_URLS.add(url) or {"markets": []})
+        settled, urls = self.c.paged("/markets", {"status": "settled"}, "markets", max_pages=2)
+        self.assertTrue(urls)
+        self.assertEqual([u for u in urls if u not in self.c.LOG_200_URLS], [])
+
+    def test_failed_sweep_is_not_reported_as_complete(self):
+        self.c.fetch_json = lambda url, note="": None      # every request fails
+        settled, urls = self.c.paged("/markets", {"status": "settled"}, "markets", max_pages=1)
+        self.assertEqual(settled, [])
+        self.assertTrue([u for u in urls if u not in self.c.LOG_200_URLS])
