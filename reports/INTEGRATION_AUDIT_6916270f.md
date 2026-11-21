@@ -54,11 +54,18 @@ with the page fetcher; every request URL is recorded.
   balance to $0.01 (e.g. 100 × $0.45 → model fee $1.7325 → aligned change −$46.74 → total fee
   $1.74, matching the table). The CI ledger (`scripts/portfolio_engine.py`) implements this full
   mechanics; the browser broker implements the table's end result. They agree to the cent.
-* **Per-series multipliers** (S3 "Non-Standard Fees" + S4) are now applied: series whose published
-  taker multiplier is 0 (`KXBTCY`, `KXETHY`, `KXELECTIRAN`, `KXPAHLAVIHEAD`, `KXCITRINI`,
-  `KXDOED`, `KXGAMBLINGREPEAL`, `KXGREENLAND`, `KXIRANDEMOCRACY`, `KXLAYOFFSYINFO`) pay **no taker
-  fee**; every other series uses the default M = 1. The transcribed table is published for review at
-  `data/fee_schedule_series.json`.
+* **Per-series multipliers.** Two official sources publish them and they disagree for some
+  series. S3/S4 (the fee schedule) marks `KXBTCY`, `KXETHY`, `KXELECTIRAN`, `KXPAHLAVIHEAD`,
+  `KXCITRINI`, `KXDOED`, `KXGAMBLINGREPEAL`, `KXGREENLAND`, `KXIRANDEMOCRACY` and
+  `KXLAYOFFSYINFO` as *no fees* (M = 0); the demo API's `GET /series/{ticker}` reports
+  `fee_multiplier: 1` for them (L3, L4, L5). The official Get Series schema **does** define the
+  field (a required Series field, "a floating point multiplier applied to the fee
+  calculations"), but it does not state that the field equals the schedule's taker M.
+  **Final rule (both engines, reconciled with session `9ff00ee3`):** (1) the demo API's published
+  `fee_multiplier` when a Series record has been seen — environment-matched, since these brokers
+  paper *demo* fills; (2) else the schedule's transcribed table, published at
+  `data/fee_schedule_series.json`; (3) else the documented default M = 1. A record without a
+  numeric `fee_multiplier` is never inferred.
 
 ## 4. Defects found in this pass and fixed
 
@@ -73,16 +80,17 @@ with the page fetcher; every request URL is recorded.
 | D7 | `scripts/check_site.mjs` | The checker stripped whole `<script>` elements before scanning for links, so a `<script src=…>` pointing at a deleted file could not be detected — the published Resolved page was affected. | the page was found loading a module that is not in the repo | the opening tag is kept and checked; verified by deleting the module again and watching the check fail |
 | D8 | `assets/app.js` → chart | `getContext('2d')` was used without a null check, so a DOM without a canvas backend threw and killed the rest of the page. | `tools/render_test.mjs` reported `TypeError: Cannot read properties of null (reading 'scale')` on `trades.html` | the chart returns without drawing when no 2d context exists |
 | D9 | navigation | The Resolved page (and the Summary page) were published but reachable only by direct URL — no navigation entry, so a reviewer landing on the home page could not find them. | `scripts/check_links.mjs` warned "legacy page outside the published navigation" | the Resolved page is in the navigation of every published page and in the nav-parity check |
-| D10 | `scripts/portfolio_engine.py` | The CI ledger hard-coded the taker multiplier `M = 1` and therefore charged fees on series the published schedule lists as *no fees*. | S3/S4 | the multiplier table is loaded from `data/fee_schedule_series.json`; `selftest` pins the `M = 0` series |
+| D10 | `scripts/portfolio_engine.py` + `assets/model.js` | Both paper brokers hard-coded the taker multiplier `M = 1`, ignoring the per-series values the official sources publish. | S3/S4 + the Get Series schema | `M` now resolves in official-source order (demo-published → published schedule → documented default); the schedule table is loaded from `data/fee_schedule_series.json` and the self-test pins the `M = 0` series |
 | D11 | `assets/portfolio.js` + ledger rows | Ledger rows linked `kalshi.com/markets/{market_ticker}` (a 404) and carried no series ticker. | L11/L12 | rows carry `series_ticker` and `kalshi_url` (series page); the official API record link stays on every row |
 
 ## 5. Irregularities (published on the Flagged for Review page, non-blocking)
 
 * **I6 — official sources disagree on the per-series fee multiplier.** The published fee schedule
   (S3/S4) marks `KXBTCY`/`KXETHY` as *no fees*, but the live demo API's
-  `GET /series/{ticker}` returns `fee_multiplier: 1` for them (L3, L4). The published schedule is
-  used because it is the document that defines the formula; the API field's meaning is not
-  documented anywhere in the API reference.
+  `GET /series/{ticker}` returns `fee_multiplier: 1` for them (L3, L4). The Get Series schema
+  defines the field but does not state that it equals the schedule's taker `M`, so the linkage
+  remains an inference. Both sources are used, in the order given in §3, and the disagreement is
+  published on the Flagged page (items 6b and 691-1).
 * **I7 — part of the Non-Standard Fees table could not be read.** The PDF's middle pages are
   OCR-garbled (series names and multipliers interleaved) and the public fee-schedule page paginates
   client-side, so those rows are *not* transcribed (listed under `not_transcribed` in
